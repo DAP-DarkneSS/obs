@@ -1,0 +1,11 @@
+--- main.cpp	2010-04-22 13:53:00.000000000 +0300
++++ main.cpp	2012-01-03 23:49:03.505376824 +0300
+@@ -11,7 +11,7 @@
+     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+ 
+     QTranslator myappTranslator;
+-    myappTranslator.load(":/translations/reminder_" + QLocale::system().name());
++    myappTranslator.load("/usr/share/hzs-reminder/translations/reminder_" + QLocale::system().name());
+     // или myappTranslator.load(":/translations/reminder_ru.qm");
+     app.installTranslator(&myappTranslator);
+ 

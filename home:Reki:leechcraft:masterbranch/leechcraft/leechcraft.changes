@@ -1,0 +1,67 @@
+-------------------------------------------------------------------
+Sun Dec 11 16:50:00 UTC 2011 - nekolayer@yandex.ru
+
+- 0.4.96 release
+
+-------------------------------------------------------------------
+Tue Dec 06 01:50:00 UTC 2011 - nekolayer@yandex.ru
+- Enabled Plugins: LcFTP, Lackman, Gmail, Knowhow, Syncer
+- Added Renkoo AdiumStyle to azoth-adiumstyles
+- Set QAppStyle to Default from Plastique
+- Fix Aspell support
+- Fix AnHero plugin
+- Remove dbusmanager.patch, not needed
+
+Mon Dec 05 11:00:15 UTC 2011 - nlminhtl@gmail.com
+-------------------------------------------------------------------
+
+- Add eiskaltdcpp-fix-php5-issue.patch - fix resolving
+  /usr/bin/php5 dependence
+
+-------------------------------------------------------------------
+Tue Nov 29 21:09:22 UTC 2011 - nlminhtl@gmail.com
+
+- 0.4.95 release
+- new packages: pogooglue, delicious, readitlater, isterique
+- removing qt-multimedia from dependencies
+- optimizing the spec file by using macros
+- New features:
+- * Support for XEP-0055: Jabber Search in Azoth Xoox.
+- * AdvancedNotifications now supports enabling/disabling rules and 
+single shot rules.
+- * Azoth and Azoth Xoox now support inviting to MUCs.
+- * Azoth Acetamide now supports SSL connections.
+- * and other features 
+http://leechcraft.org/leechcraft-0.4.95-is-released
+
+-------------------------------------------------------------------
+Sat Nov 26 17:27:33 UTC 2011 - nlminhtl@gmail.com
+
+- fixing the bug with azoth style packages in openSUSE:Factory
+
+-------------------------------------------------------------------
+Fri Nov 11 06:23:33 UTC 2011 - nlminhtl@gmail.com
+
+- removing the download service for openSUSE:Factory
+- adding dependency aspell-devel for spell checking support
+
+-------------------------------------------------------------------
+Sun Oct 23 12:25:06 UTC 2011 - nlminhtl@gmail.com
+
+- 0.4.90 release 
+
+-------------------------------------------------------------------
+Fri Jul  21 21:15:59 UTC 2011 - nlminhtl@gmail.com
+
+- 0.4.85 version release 
+
+-------------------------------------------------------------------
+Mon Jul  4 11:49:59 UTC 2011 - nlminhtl@gmail.com
+
+- 0.4.80 version release 
+
+-------------------------------------------------------------------
+Thu Jun 30 11:47:27 UTC 2011 - nlminhtl@gmail.com
+
+- package name fixed 
+

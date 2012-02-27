@@ -1,0 +1,12 @@
+<services>
+  <service name="tar_scm">
+    <param name="scm">bzr</param>
+    <param name="url">lp:itmages/itmages-plasma-applet</param>
+    <param name="version">0.29</param>
+    <param name="filename">plasmoid-itmages-applet</param>
+  </service>
+  <service name="recompress">
+    <param name="file">*.tar</param>
+    <param name="compression">bz2</param>
+  </service>
+</services>

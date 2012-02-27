@@ -1,0 +1,11 @@
+--- CMakeLists.txt	2012-02-26 23:01:50.886386634 +0300
++++ CMakeLists.txt	2012-02-26 23:05:45.775898238 +0300
+@@ -20,7 +20,7 @@
+   set(CMAKE_MODULE_LINKER_FLAGS_DEBUG "-pg")
+ endif()
+ 
+-set(BINDIR  "games"             CACHE STRING "Directory from CMAKE_INSTALL_PREFIX where game executable will be installed.")
++set(BINDIR  "bin"               CACHE STRING "Directory from CMAKE_INSTALL_PREFIX where game executable will be installed.")
+ set(DATADIR "share/games/flare" CACHE STRING "Directory from CMAKE_INSTALL_PREFIX where game data files will be installed.")
+ 
+ add_definitions(-DDATA_INSTALL_DIR="${CMAKE_INSTALL_PREFIX}/${DATADIR}")

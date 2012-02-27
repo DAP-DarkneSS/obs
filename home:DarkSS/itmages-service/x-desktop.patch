@@ -1,0 +1,11 @@
+--- data/itmagesd.desktop	2012-01-08 16:31:02.000000000 +0300
++++ data/itmagesd.desktop	2012-01-08 16:34:35.375650809 +0300
+@@ -8,7 +8,7 @@
+ OnlyShowIn=
+ Terminal=false
+ Type=Application
+-AutostartCondition=GSettings org.gnome.Vino enabled
++AutostartCondition=X-GSettings org.gnome.Vino enabled
+ X-GNOME-Autostart-Phase=Applications
+ X-GNOME-AutoRestart=false
+ X-KDE-autostart-after=panel

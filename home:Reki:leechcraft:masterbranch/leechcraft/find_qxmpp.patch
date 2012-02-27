@@ -1,0 +1,29 @@
+--- src/plugins/azoth/plugins/xoox/CMakeLists.txt	2011-07-22 17:05:39.000000000 +0300
++++ src/plugins/azoth/plugins/xoox/CMakeLists.txt	2011-08-02 13:18:39.313793312 +0300
+@@ -1,14 +1,14 @@
+ SET (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+ 
+-FIND_PACKAGE (QXmpp REQUIRED)
+ FIND_PACKAGE (Speex REQUIRED)
+ 
+ INCLUDE_DIRECTORIES (${AZOTH_INCLUDE_DIR}
+ 	${CMAKE_CURRENT_BINARY_DIR}
+ 	${CMAKE_CURRENT_SOURCE_DIR}
+-	${QXMPP_INCLUDE_DIR}
++	/usr/include/qxmpp
+ 	${QCA2_INCLUDE_DIR}
+-	)
++  )
++
+ SET (XOOX_SRCS
+ 	xoox.cpp
+ 	glooxprotocol.cpp
+@@ -152,7 +152,7 @@
+ TARGET_LINK_LIBRARIES (leechcraft_azoth_xoox
+ 	${QT_LIBRARIES}
+ 	${LEECHCRAFT_LIBRARIES}
+-	${QXMPP_LIBRARIES}
++       libqxmpp.so
+ 	${SPEEX_LIBRARIES}
+ 	${QCA2_LIBRARIES}
+ 	)
