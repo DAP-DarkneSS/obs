@@ -101,6 +101,8 @@ rm -rf %{buildroot}
 %changelog
 * Mon Feb 27 2012 DA <dap.darkness@gmail.com> - 20120227-1
 - Version 0.15 alfa. Timestamp: 1330294208. Git describe: v0.14-517-g033ba9e.
+- Version format was changed.
+- Crash when going out to main menu was fixed.
 
 * Sun Feb 26 2012 DA <dap.darkness@gmail.com> - 20120226-1
 - Version 0.15 alfa. Timestamp: 1329962944. Git describe: v0.14-516-g8333245.

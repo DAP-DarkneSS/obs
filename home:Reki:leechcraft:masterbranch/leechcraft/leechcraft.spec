@@ -441,6 +441,7 @@ Summary:        LeechCraft Security manager Module
 Group:          Productivity/Networking/Other
 Provides:       %{name}-securestorage
 Requires:       %{name} = %{version}
+Requires:       %{name}-secman-simplestorage = %{version}
 
 %description secman
 Security manager for LeechCraft.
@@ -763,6 +764,7 @@ Provides notifications about new mail in your GMail inbox.
 Summary:        LeechCraft Package manager Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Requires:       %{name}-http = %{version}
 Requires:       xz
 
 %description lackman
