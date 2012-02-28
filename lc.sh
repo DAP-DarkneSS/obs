@@ -36,4 +36,9 @@ else
   read
   osc ci -m $VGIT
 
+  echo -e '\nGit will be updated...'
+  cd ../..
+  git commit -a -m 'Leechcraft '$VGIT
+  git push -u origin master
+
 fi

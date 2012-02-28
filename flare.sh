@@ -36,6 +36,11 @@ else
   read
   osc ci -m $VGIT
 
+  echo -e '\nGit will be updated...'
+  cd ../..
+  git commit -a -m 'Flare '$VGIT
+  git push -u origin master
+
 fi
 
 #echo -e '\n'`LANG=en_GB.UTF-8 date +'* '%a' '%b' '%d' '%Y' DA <dap.darkness@gmail.com> - '%Y%m%d'-1'`'\n- Version 0.15 alfa. Timestamp: 1329962944. Git describe: v0.14-516-g8333245.\n\n'
