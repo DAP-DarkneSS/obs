@@ -1,44 +1,45 @@
 #!/bin/sh
 
-DGIT=~/Documents/obs/trash/leechcraft
-DOBS=~/Documents/obs/home:Reki:leechcraft:masterbranch/leechcraft
+NOBS=leechcraft
+DGIT=~/Documents/obs/trash/$NOBS
+DOBS=~/Documents/obs/home:Reki:leechcraft:masterbranch/$NOBS
 
-echo 'Checking of github version:'
+echo -e '\e[0;4mChecking of github version:\e[0m'
 cd $DGIT
 git pull
 VGIT=`git describe`
-echo -e '\n'$VGIT
+echo -e '\e[0;33m\n'$VGIT'\e[0m'
 
-echo -e '\nChecking of OBS version:'
+echo -e '\e[0;4m\nChecking of OBS version:\e[0m'
 cd $DOBS
 osc up
-VOBS=`grep 'define LEECHCRAFT' leechcraft.spec | awk '{ print $3 }'`
-echo -e '\n'$VOBS
+VOBS=`grep 'define LEECHCRAFT' $NOBS.spec | awk '{ print $3 }'`
+echo -e '\e[0;33m\n'$VOBS'\e[0m'
 
-echo -e '\nChecking of OBS status:'
-osc pr -n leechcraft | grep openSUSE
+echo -e '\e[0;4m\nChecking of OBS status:\e[0m'
+osc pr -n $NOBS | grep openSUSE
 
 if [ $VGIT == $VOBS ]
 
 then
-  echo -e '\nNo changes.'
+  echo -e '\e[0;4m\nNo changes.\e[0m'
 
 else
 
-  echo -e '\nShould the spec be edited?'
+  echo -e '\e[0;4m\nShould the spec be edited?\e[0m'
   read
 
-  CTIME=`date +%s`
-  cp ./leechcraft.spec ./leechcraft.spec.$VOBS.$CTIME
-  sed "s/$VOBS/$VGIT/g" ./leechcraft.spec.$VOBS.$CTIME > ./leechcraft.spec
+  CTIME=`date +%g'.'%m'.'%d'-'%H.%M.%S`
+  cp ./$NOBS.spec ./$NOBS.spec.$VOBS.$CTIME
+  sed "s/$VOBS/$VGIT/g" ./$NOBS.spec.$VOBS.$CTIME > ./$NOBS.spec
 
-  echo -e '\nShould the commit be done?'
+  echo -e '\e[0;4m\nShould the commit be done?\e[0m'
   read
   osc ci -m $VGIT
 
-  echo -e '\nGit will be updated...'
+  echo -e '\e[0;4m\nGit will be updated...\e[0m'
   cd ../..
-  git commit -a -m 'Leechcraft '$VGIT
+  git commit -a -m 'Leechcraft '$VGIT'.'
   git push -u origin master
 
 fi
