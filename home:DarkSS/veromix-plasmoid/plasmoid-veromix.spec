@@ -6,10 +6,8 @@
 # Please submit bugfixes or comments via http://code.google.com/p/veromix-plasmoid/issues/list
 #
 
-%define _git 369
-
 Name:           plasmoid-veromix
-Version:        0.15.1.git%{_git}
+Version:        0.15.1.svn
 Release:        0
 Summary:        Mixer plasmoid for the Pulseaudio sound server
 
@@ -79,6 +77,9 @@ rm -rf %{buildroot}
 %{_datadir}/dbus-1/services/org.veromix.pulseaudio.service
 
 %changelog
+* Thu Mar 01 2012 DA <dap.darkness@gmail.com> - 20120301-1
+- Version 0.15.1. Revision 370.
+
 * Wed Feb 01 2012 DA <dap.darkness@gmail.com> - 20120201-1
 - Version 0.15.0. Revision 369:
 - Support for changing ports of sinks by Jonathan Challinger.
