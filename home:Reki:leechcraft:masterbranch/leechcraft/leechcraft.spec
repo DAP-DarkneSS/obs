@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.4.95-1001-g148a0ea
+%define LEECHCRAFT_VERSION 0.4.95-1010-g92e3cb6
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -766,6 +766,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-http = %{version}
 Requires:       xz
+Recommends:     %{name}-poshuku = %{version}
 
 %description lackman
 LeechCraft package manager for installing script plugins, iconsets, additional data and other similar packages.
