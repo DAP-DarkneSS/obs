@@ -9,7 +9,7 @@ cd $DGIT
 git pull
 VGIT=`git describe`
 TGIT=`git log -n 1 --date=raw | grep Date | awk '{ print $2 }'`
-echo -e '\e[0;33m\n'$VGIT'; unix timestamp: '$TGIT'\e[0m'
+echo -e '\e[0;33m\n'$VGIT'\e[0m; unix timestamp: \e[0;33m'$TGIT'\e[0m'
 
 echo -e '\e[0;4m\nChecking of OBS version:\e[0m'
 cd $DOBS
@@ -17,7 +17,7 @@ osc up
 XOBS=`grep Timestamp $NOBS.spec -m 1`
 VOBS=`echo $XOBS | awk '{ print $9 }' | sed 's/.$//'`
 TOBS=`echo $XOBS | awk '{ print $6 }' | sed 's/.$//'`
-echo -e '\e[0;33m\n'$VOBS'; unix timestamp: '$TOBS'\e[0m'
+echo -e '\e[0;33m\n'$VOBS'\e[0m; unix timestamp: \e[0;33m'$TOBS'\e[0m'
 
 if [ $VGIT == $VOBS ]
 
