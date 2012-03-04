@@ -6,8 +6,6 @@
 # Please submit bugfixes or comments via http://code.google.com/p/rexloader/issues/list
 #
 
-%define _revision 207
-
 Name:           rexloader
 Version:        0.1a.rev%{_revision}
 Release:        0
@@ -61,6 +59,21 @@ rm -rf %{buildroot}
 %attr(755,root,root) %{_bindir}/%{name}
 
 %changelog
+* Sat Mar 03 2012 DA <dap.darkness@gmail.com> - 20120303-2
+- Revision #212 with bug fixes.
+
+* Sat Mar 03 2012 DA <dap.darkness@gmail.com> - 20120303-1
+- Revision #211 with enhancements.
+
+* Tue Feb 28 2012 DA <dap.darkness@gmail.com> - 20120218-3
+- Revision #210 with bug fixes.
+
+* Tue Feb 28 2012 DA <dap.darkness@gmail.com> - 20120218-2
+- Revision #209 with critical bug fixes.
+
+* Tue Feb 28 2012 DA <dap.darkness@gmail.com> - 20120218-1
+- Revision #208 with optimization and bug fixes.
+
 * Sat Feb 18 2012 DA <dap.darkness@gmail.com> - 20120218-2
 - Revision #207 with optimization.
 
