@@ -16,7 +16,7 @@ cd $DOBS
 osc up
 XOBS=`grep Timestamp $NOBS.spec -m 1`
 VOBS=`echo $XOBS | awk '{ print $9 }' | sed 's/.$//'`
-TOBS=`echo $XOBS | awk '{ print $6 }' | sed 's/.$//'`
+TOBS=`echo $XOBS | awk '{ print $6 }' | grep -o '[0-9]*'`
 echo -e '\e[0;33m\n'$VOBS'\e[0m; unix timestamp: \e[0;33m'$TOBS'\e[0m'
 
 if [ $VGIT == $VOBS ]

@@ -1,0 +1,7 @@
+<directory name="lincoder" rev="2" srcmd5="5b862f485a0a7a64a6563f03cb94bfab" vrev="2">
+  <serviceinfo code="succeeded" xsrcmd5="9b62157485498ab9f5524b10b04d9dc0" />
+  <entry md5="a42c8de6f2fc998c1154d8552189f577" mtime="1330985958" name="_service" size="440" />
+  <entry md5="d590724a658139648847ace635f75833" mtime="1330985401" name="jardir.patch" size="234" />
+  <entry md5="7d08cc0d4c011b9585719cb29315d999" mtime="1330986101" name="lincoder.spec" size="2299" />
+  <entry md5="34973df9c1e2a3f4012d2584d887aa9d" mtime="1330985402" name="q2templates.patch" size="12072" />
+</directory>

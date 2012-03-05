@@ -1,0 +1,60 @@
+--- templates.properties.orig	2010-05-26 21:54:12.000000000 +0300
++++ templates.properties	2012-03-06 00:15:43.000000000 +0300
+@@ -1,24 +1,33 @@
+-#
+-#Wed May 26 15:54:10 GMT-03:00 2010
+-Merge\ files\ into\ avi=avi;1;-ffourcc DX50 -ovc lavc  -oac mp3lame -lameopts cbr\:br\=128
+-DVD_NTSC=mpg;1;-oac lavc -ovc lavc -of mpeg -mpegopts format\=dvd\:tsaf-vf scale\=720\:480,harddup -srate 48000 -af lavcresample\=48000-lavcopts vcodec\=mpeg2video\:vrc_buf_size\=1835\:vrc_maxrate\=9800\:vbitrate\=5000\:keyint\=18\:vstrict\=0\:acodec\=ac3\:abitrate\=192\:aspect\=16/9 -ofps 30000/1001 
+-DVD_Pal=mpg;1;-oac lavc -ovc lavc -of mpeg -mpegopts format\=dvd\:tsaf -vf scale\=720\:576,harddup -srate 48000 -af lavcresample\=48000 -lavcopts vcodec\=mpeg2video\:vrc_buf_size\=1835\:vrc_maxrate\=9800\:vbitrate\=5000\:keyint\=15\:vstrict\=0\:acodec\=ac3\:abitrate\=192\:aspect\=16/9 -ofps 25 
+-xvid\ dx50=avi;1;-ovc lavc -ffourcc DX50 -oac copy 
+-mpg2=mpg;1;-ofps 25 -of mpeg -mpegopts format\=mpeg2\:tsaf -oac lavc -lavcopts acodec\=mp2\:abitrate\=128 -ovc lavc -lavcopts vcodec\=mpeg2video\:vbitrate\=1452\:keyint\=15\:mbd\=2 
+-xvid\ quality=avi;1;-ovc xvid -xvidencopts fixed_quant\=5 -oac copy 
+-mpg1=mpg;1;-ofps 25 -of mpeg -mpegopts format\=mpeg1\:tsaf\:muxrate\=2000 -oac lavc -ovc lavc -lavcopts vcodec\=mpeg1video\:vbitrate\=1152\:keyint\=15\:mbd\=2\:acodec\=mp2\:abitrate\=128 
+-SVCD_NTSC=mpg;1;-oac lavc -ovc lavc -of mpeg -mpegopts format\=xsvcd -vf scale\=480\:480,harddup -srate 44100 -af lavcresample\=44100 -lavcopts vcodec\=mpeg2video\:mbd\=2\:keyint\=18\:vrc_buf_size\=917\:vrc_minrate\=600\:vbitrate\=2500\:vrc_maxrate\=2500\:acodec\=mp2\:abitrate\=224\:aspect\=16/9 -ofps 30000/1001 
+-SVCD_pal=mpg;1;-oac lavc -ovc lavc -of mpeg -mpegopts format\=xsvcd -vf scale\=480\:576,harddup -srate 44100 -af lavcresample\=44100 -lavcopts vcodec\=mpeg2video\:mbd\=2\:keyint\=15\:vrc_buf_size\=917\:vrc_minrate\=600\:vbitrate\=2500\:vrc_maxrate\=2500\:acodec\=mp2\:abitrate\=224\:aspect\=16/9 -ofps 25 
+-PSP\ (Force\ 16/9\ Aspect)=mp4;1;-oac lavc -ovc lavc -of lavf -lavcopts aglobal\=1\:vglobal\=1\:vcodec\=mpeg4\:vbitrate\=900\:acodec\=libfaac -af lavcresample\=24000 -vf-add scale\=368\:208 -vf-add harddup -lavfopts format\=psp -ofps 30000/1001 -info name\="LinCoderFile" 
+-SVCD=mpg;1;-ofps 25 -of mpeg -mpegopts format\=xsvcd -oac lavc -ovc lavc -lavcopts vcodec\=mpeg2video\:vrc_buf_size\=917\:vrc_maxrate\=2500\:vbitrate\=1800\:keyint\=15\:acodec\=mp2 
+-DVD=mpg;1;-ofps 25 -mpegopts format\=dvd\:tsaf -oac lavc -ovc lavc -lavcopts vcodec\=mpeg2video\:vrc_buf_size\=1835\:vrc_maxrate\=9800\:vbitrate\=5000\:keyint\=15\:vstrict\=0\:acodec\=ac3 
+-FLV\ (360x240)=flv;1;-of lavf -oac mp3lame -lameopts abr\:br\=56 -srate 22050  -ovc lavc -lavcopts vcodec\=flv\:vbitrate\=250\:mbd\=2\:mv0\:trell\:v4mv\:cbp\:last_pred\=3\:predia\=2\:dia\=2\:vmax_b_frames\=0\:vb_strategy\=1\:precmp\=2\:cmp\=2\:subcmp\=2\:preme\=2\:qns\=2 -vf-add scale\=360\:240 
+-xvid\ 2\ passes=avi;2;-oac mp3lame -lameopts vol\=2\:fast\:preset\=standard -passlogfile temp2pass.log -ovc xvid -xvidencopts bitrate\=768\:vhq\=2\:nocartoon\:pass\=1 -ofps 29.970030 -vf harddup -ffourcc DX50;-oac mp3lame -lameopts vol\=2\:fast\:preset\=standard -passlogfile temp2pass.log -ovc xvid -xvidencopts bitrate\=450\:vhq\=2\:nocartoon\:pass\=2\:turbo -ofps 29.970030 -vf harddup -ffourcc DX50
+-xvid=avi;1;-ovc xvid -xvidencopts bitrate\=980 -oac copy 
+-mpeg4=avi;1;-of avi -ovc lavc -lavcopts vcodec\=mpeg4 -oac copy 
+-FLV=flv;1;-of lavf -oac mp3lame -lameopts abr\:br\=56 -srate 22050  -ovc lavc -lavcopts vcodec\=flv\:vbitrate\=250\:mbd\=2\:mv0\:trell\:v4mv\:cbp\:last_pred\=3\:predia\=2\:dia\=2\:vmax_b_frames\=0\:vb_strategy\=1\:precmp\=2\:cmp\=2\:subcmp\=2\:preme\=2\:qns\=2 
+-PSP=mp4;1;-oac lavc -ovc lavc -of lavf -lavcopts aglobal\=1\:vglobal\=1\:vcodec\=mpeg4\:vbitrate\=900\:acodec\=libfaac -af lavcresample\=24000 -vf dsize\=368\:208\:2 -vf-add scale\=-8\:-8 -vf-add expand\=368\:208\:\:\:1 -vf-add harddup -lavfopts format\=psp -ofps 30000/1001 -info name\="LinCoderFile" 
+-VCD_PAL=mpg;1;-oac lavc -ovc lavc -of mpeg -mpegopts format\=xvcd -vf scale\=352\:288,harddup -srate 44100 -af lavcresample\=44100 -lavcopts vcodec\=mpeg1video\:keyint\=15\:vrc_buf_size\=327\:vrc_minrate\=1152\:vbitrate\=1152\:vrc_maxrate\=1152\:acodec\=mp2\:abitrate\=224\:aspect\=16/9 -ofps 25 
+-FLV\ (360x240)\ Fast=flv;1;-of lavf -oac mp3lame -lameopts abr\:br\=56 -srate 22050 -ovc lavc -lavcopts vcodec\=flv\:vbitrate\=250\:mbd\=2\:mv0\:trell\:v4mv\:cbp\:last_pred\=3 -vf-add scale\=360\:240 
+-VCD=mpg;1;-ofps 25 -of mpeg -mpegopts format\=xvcd -oac lavc -ovc lavc -lavcopts vcodec\=mpeg1video\:vrc_buf_size\=327\:vrc_minrate\=1152\:vrc_maxrate\=1152\:vbitrate\=1152\:keyint\=15\:acodec\=mp2\:abitrate\=128 
+-FLV\ Fast=flv;1;-of lavf -oac mp3lame -lameopts abr\:br\=56 -srate 22050 -ovc lavc -lavcopts vcodec\=flv\:vbitrate\=250\:mbd\=2\:mv0\:trell\:v4mv\:cbp\:last_pred\=3 
++#
++#Mon Mar 05 23:59:19 EET 2012
++Q2\ High\ Full=avi;1;-noodml -of avi -ofps 15 -vf-add scale\=160\:128 -vf-add expand\=160\:128\:-1\:-1\:1 -srate 44100 -ovc xvid -stereo 0 -xvidencopts bitrate\=400\:max_bframes\=0\:quant_type\=h263\:me_quality\=0 -oac lavc -lavcopts acodec\=mp2\:abitrate\=128
++Q2\ Normal\ Full=avi;1;-noodml -of avi -ofps 15 -vf-add scale\=160\:128 -vf-add expand\=160\:128\:-1\:-1\:1 -srate 44100 -ovc xvid -stereo 0 -xvidencopts bitrate\=300\:max_bframes\=0\:quant_type\=h263\:me_quality\=0 -oac lavc -lavcopts acodec\=mp2\:abitrate\=128
++Q2\ Low\ Full=avi;1;-noodml -of avi -ofps 15 -vf-add scale\=160\:128 -vf-add expand\=160\:128\:-1\:-1\:1 -srate 44100 -ovc xvid -stereo 0 -xvidencopts bitrate\=250\:max_bframes\=0\:quant_type\=h263\:me_quality\=0 -oac lavc -lavcopts acodec\=mp2\:abitrate\=128
++Q2\ High\ 4\:3=avi;1;-noodml -of avi -ofps 15 -vf-add scale\=160\:120 -vf-add expand\=160\:128\:-1\:-1\:1 -srate 44100 -ovc xvid -stereo 0 -xvidencopts bitrate\=400\:max_bframes\=0\:quant_type\=h263\:me_quality\=0 -oac lavc -lavcopts acodec\=mp2\:abitrate\=128
++Q2\ Normal\ 4\:3=avi;1;-noodml -of avi -ofps 15 -vf-add scale\=160\:120 -vf-add expand\=160\:128\:-1\:-1\:1 -srate 44100 -ovc xvid -stereo 0 -xvidencopts bitrate\=300\:max_bframes\=0\:quant_type\=h263\:me_quality\=0 -oac lavc -lavcopts acodec\=mp2\:abitrate\=128
++Q2\ Low\ 4\:3=avi;1;-noodml -of avi -ofps 15 -vf-add scale\=160\:120 -vf-add expand\=160\:128\:-1\:-1\:1 -srate 44100 -ovc xvid -stereo 0 -xvidencopts bitrate\=250\:max_bframes\=0\:quant_type\=h263\:me_quality\=0 -oac lavc -lavcopts acodec\=mp2\:abitrate\=128
++Q2\ High\ 16\:9=avi;1;-noodml -of avi -ofps 15 -vf-add scale\=160\:90 -vf-add expand\=160\:128\:-1\:-1\:1 -srate 44100 -ovc xvid -stereo 0 -xvidencopts bitrate\=400\:max_bframes\=0\:quant_type\=h263\:me_quality\=0 -oac lavc -lavcopts acodec\=mp2\:abitrate\=128
++Q2\ Normal\ 16\:9=avi;1;-noodml -of avi -ofps 15 -vf-add scale\=160\:90 -vf-add expand\=160\:128\:-1\:-1\:1 -srate 44100 -ovc xvid -stereo 0 -xvidencopts bitrate\=300\:max_bframes\=0\:quant_type\=h263\:me_quality\=0 -oac lavc -lavcopts acodec\=mp2\:abitrate\=128
++Q2\ Low\ 16\:9=avi;1;-noodml -of avi -ofps 15 -vf-add scale\=160\:90 -vf-add expand\=160\:128\:-1\:-1\:1 -srate 44100 -ovc xvid -stereo 0 -xvidencopts bitrate\=250\:max_bframes\=0\:quant_type\=h263\:me_quality\=0 -oac lavc -lavcopts acodec\=mp2\:abitrate\=128
++Merge\ files\ into\ avi=avi;1;-ffourcc DX50 -ovc lavc  -oac mp3lame -lameopts cbr\:br\=128
++DVD_NTSC=mpg;1;-oac lavc -ovc lavc -of mpeg -mpegopts format\=dvd\:tsaf-vf scale\=720\:480,harddup -srate 48000 -af lavcresample\=48000-lavcopts vcodec\=mpeg2video\:vrc_buf_size\=1835\:vrc_maxrate\=9800\:vbitrate\=5000\:keyint\=18\:vstrict\=0\:acodec\=ac3\:abitrate\=192\:aspect\=16/9 -ofps 30000/1001 
++DVD_Pal=mpg;1;-oac lavc -ovc lavc -of mpeg -mpegopts format\=dvd\:tsaf -vf scale\=720\:576,harddup -srate 48000 -af lavcresample\=48000 -lavcopts vcodec\=mpeg2video\:vrc_buf_size\=1835\:vrc_maxrate\=9800\:vbitrate\=5000\:keyint\=15\:vstrict\=0\:acodec\=ac3\:abitrate\=192\:aspect\=16/9 -ofps 25 
++xvid\ dx50=avi;1;-ovc lavc -ffourcc DX50 -oac copy 
++mpg2=mpg;1;-ofps 25 -of mpeg -mpegopts format\=mpeg2\:tsaf -oac lavc -lavcopts acodec\=mp2\:abitrate\=128 -ovc lavc -lavcopts vcodec\=mpeg2video\:vbitrate\=1452\:keyint\=15\:mbd\=2 
++xvid\ quality=avi;1;-ovc xvid -xvidencopts fixed_quant\=5 -oac copy 
++mpg1=mpg;1;-ofps 25 -of mpeg -mpegopts format\=mpeg1\:tsaf\:muxrate\=2000 -oac lavc -ovc lavc -lavcopts vcodec\=mpeg1video\:vbitrate\=1152\:keyint\=15\:mbd\=2\:acodec\=mp2\:abitrate\=128 
++SVCD_NTSC=mpg;1;-oac lavc -ovc lavc -of mpeg -mpegopts format\=xsvcd -vf scale\=480\:480,harddup -srate 44100 -af lavcresample\=44100 -lavcopts vcodec\=mpeg2video\:mbd\=2\:keyint\=18\:vrc_buf_size\=917\:vrc_minrate\=600\:vbitrate\=2500\:vrc_maxrate\=2500\:acodec\=mp2\:abitrate\=224\:aspect\=16/9 -ofps 30000/1001 
++SVCD_pal=mpg;1;-oac lavc -ovc lavc -of mpeg -mpegopts format\=xsvcd -vf scale\=480\:576,harddup -srate 44100 -af lavcresample\=44100 -lavcopts vcodec\=mpeg2video\:mbd\=2\:keyint\=15\:vrc_buf_size\=917\:vrc_minrate\=600\:vbitrate\=2500\:vrc_maxrate\=2500\:acodec\=mp2\:abitrate\=224\:aspect\=16/9 -ofps 25 
++PSP\ (Force\ 16/9\ Aspect)=mp4;1;-oac lavc -ovc lavc -of lavf -lavcopts aglobal\=1\:vglobal\=1\:vcodec\=mpeg4\:vbitrate\=900\:acodec\=libfaac -af lavcresample\=24000 -vf-add scale\=368\:208 -vf-add harddup -lavfopts format\=psp -ofps 30000/1001 -info name\="LinCoderFile" 
++SVCD=mpg;1;-ofps 25 -of mpeg -mpegopts format\=xsvcd -oac lavc -ovc lavc -lavcopts vcodec\=mpeg2video\:vrc_buf_size\=917\:vrc_maxrate\=2500\:vbitrate\=1800\:keyint\=15\:acodec\=mp2 
++DVD=mpg;1;-ofps 25 -mpegopts format\=dvd\:tsaf -oac lavc -ovc lavc -lavcopts vcodec\=mpeg2video\:vrc_buf_size\=1835\:vrc_maxrate\=9800\:vbitrate\=5000\:keyint\=15\:vstrict\=0\:acodec\=ac3 
++FLV\ (360x240)=flv;1;-of lavf -oac mp3lame -lameopts abr\:br\=56 -srate 22050  -ovc lavc -lavcopts vcodec\=flv\:vbitrate\=250\:mbd\=2\:mv0\:trell\:v4mv\:cbp\:last_pred\=3\:predia\=2\:dia\=2\:vmax_b_frames\=0\:vb_strategy\=1\:precmp\=2\:cmp\=2\:subcmp\=2\:preme\=2\:qns\=2 -vf-add scale\=360\:240 
++xvid\ 2\ passes=avi;2;-oac mp3lame -lameopts vol\=2\:fast\:preset\=standard -passlogfile temp2pass.log -ovc xvid -xvidencopts bitrate\=768\:vhq\=2\:nocartoon\:pass\=1 -ofps 29.970030 -vf harddup -ffourcc DX50;-oac mp3lame -lameopts vol\=2\:fast\:preset\=standard -passlogfile temp2pass.log -ovc xvid -xvidencopts bitrate\=450\:vhq\=2\:nocartoon\:pass\=2\:turbo -ofps 29.970030 -vf harddup -ffourcc DX50
++xvid=avi;1;-ovc xvid -xvidencopts bitrate\=980 -oac copy 
++mpeg4=avi;1;-of avi -ovc lavc -lavcopts vcodec\=mpeg4 -oac copy 
++FLV=flv;1;-of lavf -oac mp3lame -lameopts abr\:br\=56 -srate 22050  -ovc lavc -lavcopts vcodec\=flv\:vbitrate\=250\:mbd\=2\:mv0\:trell\:v4mv\:cbp\:last_pred\=3\:predia\=2\:dia\=2\:vmax_b_frames\=0\:vb_strategy\=1\:precmp\=2\:cmp\=2\:subcmp\=2\:preme\=2\:qns\=2 
++PSP=mp4;1;-oac lavc -ovc lavc -of lavf -lavcopts aglobal\=1\:vglobal\=1\:vcodec\=mpeg4\:vbitrate\=900\:acodec\=libfaac -af lavcresample\=24000 -vf dsize\=368\:208\:2 -vf-add scale\=-8\:-8 -vf-add expand\=368\:208\:\:\:1 -vf-add harddup -lavfopts format\=psp -ofps 30000/1001 -info name\="LinCoderFile" 
++VCD_PAL=mpg;1;-oac lavc -ovc lavc -of mpeg -mpegopts format\=xvcd -vf scale\=352\:288,harddup -srate 44100 -af lavcresample\=44100 -lavcopts vcodec\=mpeg1video\:keyint\=15\:vrc_buf_size\=327\:vrc_minrate\=1152\:vbitrate\=1152\:vrc_maxrate\=1152\:acodec\=mp2\:abitrate\=224\:aspect\=16/9 -ofps 25 
++FLV\ (360x240)\ Fast=flv;1;-of lavf -oac mp3lame -lameopts abr\:br\=56 -srate 22050 -ovc lavc -lavcopts vcodec\=flv\:vbitrate\=250\:mbd\=2\:mv0\:trell\:v4mv\:cbp\:last_pred\=3 -vf-add scale\=360\:240 
++VCD=mpg;1;-ofps 25 -of mpeg -mpegopts format\=xvcd -oac lavc -ovc lavc -lavcopts vcodec\=mpeg1video\:vrc_buf_size\=327\:vrc_minrate\=1152\:vrc_maxrate\=1152\:vbitrate\=1152\:keyint\=15\:acodec\=mp2\:abitrate\=128 
++FLV\ Fast=flv;1;-of lavf -oac mp3lame -lameopts abr\:br\=56 -srate 22050 -ovc lavc -lavcopts vcodec\=flv\:vbitrate\=250\:mbd\=2\:mv0\:trell\:v4mv\:cbp\:last_pred\=3 
