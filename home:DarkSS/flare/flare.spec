@@ -71,10 +71,6 @@ make
 cd build
 make install DESTDIR=%{buildroot}
 chmod +x %{buildroot}%{_datadir}/games/flare/mods/fantasycore/languages/xgettext.py
-mkdir -p %{buildroot}%{_datadir}/doc/flare
-%{__install} %{_builddir}/%{name}-%{version}/COPYING %{buildroot}%{_datadir}/doc/flare/
-%{__install} %{_builddir}/%{name}-%{version}/README %{buildroot}%{_datadir}/doc/flare/
-chmod -x %{buildroot}%{_datadir}/doc/flare/COPYING %{buildroot}%{_datadir}/doc/flare/README
 %suse_update_desktop_file %{name}
 %fdupes -s %{buildroot}
 
@@ -88,8 +84,6 @@ rm -rf %{buildroot}
 
 %files data
 %defattr(-,root,root)
-%{_datadir}/doc/flare
-%{_datadir}/doc/flare/*
 %{_datadir}/applications/flare.desktop
 %{_datadir}/games/flare
 %{_datadir}/games/flare/*
