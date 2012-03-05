@@ -14,7 +14,7 @@ Summary:        A Java frontend for MEncoder
 Group:          Productivity/Multimedia/Video/Editors and Convertors
 License:        GPL
 URL:            http://lincoder.sourceforge.net/
-Source0:        http://netcologne.dl.sourceforge.net/project/lincoder/Lincoder/Lincoder%20V0.70c/Lincoder0.70c_source.tar.gz
+Source0:        %{name}-%{version}.tar.bz2
 Patch1:         q2templates.patch
 Patch2:         jardir.patch
 
@@ -35,7 +35,7 @@ Features:
 - SRT subtitle hardcoding.
 
 %prep
-%setup -n Lincoder
+%setup -q
 %patch1
 %patch2
 

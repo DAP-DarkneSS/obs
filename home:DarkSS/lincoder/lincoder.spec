@@ -50,7 +50,7 @@ chmod -x %{buildroot}%{_javadir}/%{name}/templates.properties
 mkdir -p %{buildroot}%{_bindir}
 %{__install} ./dist_resources/LinCoder.sh %{buildroot}%{_bindir}/%{name}
 mkdir -p %{buildroot}%{_datadir}/pixmaps
-%{__install} ./LinCoderIcon48.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
+%{__install} ./dist_resources/LinCoderIcon48.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
 %suse_update_desktop_file -c %{name} %{name} LinCoder %{name} %{name}.png "Audiovideo;AudioVideoEditing;"
 
 %clean
