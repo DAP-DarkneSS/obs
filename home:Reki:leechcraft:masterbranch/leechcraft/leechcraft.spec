@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.4.95-1056-gf693340
+%define LEECHCRAFT_VERSION 0.4.95-1078-gbfd50b6
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -853,6 +853,14 @@ Requires:       %{name} = %{version}
 %description liznoo
 Power managment module for LeechCraft
 
+%package pintab
+Summary:        LeechCraft Pinning tabs Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description pintab
+Pintab module allows to pin important tabs in LeechCraft
+
 %prep
 %setup -q -a 2 -n %{name}-%{version}
 
@@ -901,6 +909,7 @@ cmake ../src \
         -DENABLE_AZOTH_ASTRALITY=True \
         -DENABLE_LIZNOO=True \
         -DENABLE_NETSTOREMANAGER=True \
+        -DENABLE_PINTAB=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
 %build
@@ -1386,5 +1395,9 @@ rm -rf %{buildroot}
 %{_datadir}/%{name}/settings/liznoosettings.xml
 %{_datadir}/%{name}/translations/%{name}_liznoo_en.qm
 %{_datadir}/%{name}/translations/%{name}_liznoo_ru_RU.qm
+
+%files pintab
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_pintab.so
 
 %changelog
