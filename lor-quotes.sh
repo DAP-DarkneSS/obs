@@ -26,7 +26,9 @@ else
   CTIME=`date +%H.%M.%S`
   cp ./$NOBS.spec ./$NOBS.spec.$VDAT-$CTIME
   YOBS='\n'`LANG=en_GB.UTF-8 date +'* '%a' '%b' '%d' '%Y' DA <dap.darkness@gmail.com> - '%Y%m%d'-1'`'\n- Date '$VDAT'.\n'
-  sed "s/changelog$/&$YOBS/g" ./$NOBS.spec.$VDAT-$CTIME > ./$NOBS.spec
+  sed "s/changelog$/&$YOBS/g" ./$NOBS.spec.$VDAT-$CTIME > ./$NOBS.spec.tmp
+  sed "s/date $VOBS/date $VDAT/g" ./$NOBS.spec.tmp > ./$NOBS.spec
+  rm ./$NOBS.spec.tmp
 
   cp ./_service ./_service.$VDAT-$CTIME
   sed "s/$VOBS/$VDAT/g" ./_service.$VDAT-$CTIME > ./_service
