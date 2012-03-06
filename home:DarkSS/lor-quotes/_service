@@ -1,6 +1,6 @@
 <services>
   <service name="download_url">
-    <param name="filename">lor-quotes-date.20120226</param>
+    <param name="filename">lor-quotes-date.20120306</param>
     <param name="path">/fortraw.php</param>
     <param name="host">lorquotes.ru</param>
   </service>
@@ -8,4 +8,5 @@
     <param name="file">*date*</param>
     <param name="compression">bz2</param>
   </service>
+  <service name="set_version"/>
 </services>

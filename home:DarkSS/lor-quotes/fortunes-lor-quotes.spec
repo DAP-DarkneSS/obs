@@ -1,10 +1,8 @@
 #
-# spec file for package [spectemplate]
+# spec file for package fortunes-lor-quotes
 #
 # Copyright (c) 2005-2012 lorquotes.ru (quotes), (c) 2012 Perlow Dmitriy A. (spec file)
 #
-
-%define _date 20120226
 
 Name:           fortunes-lor-quotes
 Version:        date.%{_date}
@@ -50,8 +48,11 @@ rm -rf %{buildroot}
 %{_datadir}/fortune/lor-quotes*
 
 %changelog
+* Tue Mar 06 2012 DA <dap.darkness@gmail.com> - 20120306-1
+- Date 20120306.
+
 * Sun Feb 26 2012 DA <dap.darkness@gmail.com> - 20120226-1
-- Date 20120226
+- Date 20120226.
 
 * Fri Feb 10 2012 DA <dap.darkness@gmail.com> - 20120210-1
 - Date 20120210.
