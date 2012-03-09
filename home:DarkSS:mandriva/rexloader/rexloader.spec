@@ -15,15 +15,17 @@ Group:          Productivity/Networking/Other
 License:        GPL-3.0
 URL:            http://code.google.com/p/rexloader/
 Source0:        %{name}-%{version}.tar.bz2
+Patch0:         rexloader-0.1a-linkage.patch
 
-BuildRequires:  qt make qt-devel libqt4-devel gcc-c++ gcc
-BuildRequires:  update-desktop-files
+BuildRequires:  qt4-devel
+BuildRequires:  zlib-devel
 
 %description
 An advanced Qt download manager over http with configurable multithreaded downloading.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 cd Httploader
@@ -44,7 +46,20 @@ mkdir -p %{buildroot}%{_libdir}/%{name}/plugins
 %{__install} ./NoticeWindow/NoticeWindow %{buildroot}%{_libdir}/%{name}/plugins/libNoticeWindow.so
 mkdir -p %{buildroot}%{_datadir}/pixmaps
 %{__install} ./REXLoader/images/RExLoader_64x64.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
-%suse_update_desktop_file -c rexloader rexloader REXLoader rexloader rexloader.png "Network;FileTransfer;"
+mkdir -p %{buildroot}%{_datadir}/applications/
+touch %{buildroot}%{_datadir}/applications/%{name}.desktop
+%__cat > %{buildroot}%{_datadir}/applications/%{name}.desktop << EOF
+[Desktop Entry]
+Name=REXLoader
+Comment=Download manager
+Comment[ru]=Менеджер закачек
+Exec=%{name}
+Icon=%{name}.png
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Network;FileTransfer;
+EOF
 
 %clean
 rm -rf %{buildroot}
