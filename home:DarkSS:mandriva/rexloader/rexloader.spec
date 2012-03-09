@@ -7,7 +7,7 @@
 #
 
 Name:           rexloader
-Version:        0.1a.rev%{_revision}
+Version:        0.1a.rev
 Release:        0
 Summary:        An advanced Qt download manager over http
 
@@ -74,6 +74,9 @@ rm -rf %{buildroot}
 %attr(755,root,root) %{_bindir}/%{name}
 
 %changelog
+* Fri Mar 09 2012 DA <dap.darkness@gmail.com> - 20120309-1
+- Revision #213 optimization and bug fixes.
+
 * Sat Mar 03 2012 DA <dap.darkness@gmail.com> - 20120303-2
 - Revision #212 with bug fixes.
 

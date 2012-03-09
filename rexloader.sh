@@ -3,6 +3,7 @@
 NOBS=rexloader
 DSVN=~/Documents/obs/trash/$NOBS
 DOBS=~/Documents/obs/home:DarkSS/$NOBS
+DMBS=~/Documents/obs/home:DarkSS:mandriva/$NOBS
 
 echo -e '\e[0;4mChecking of google code version:\e[0m'
 cd $DSVN
@@ -27,13 +28,25 @@ else
   read
 
   CTIME=`date +%g'.'%m'.'%d'-'%H.%M.%S`
+
+  function spec {
   cp ./$NOBS.spec ./$NOBS.spec.$VOBS.$CTIME
   YOBS='\n'`LANG=en_GB.UTF-8 date +'* '%a' '%b' '%d' '%Y' DA <dap.darkness@gmail.com> - '%Y%m%d'-1'`'\n- Revision #'$VSVN'.\n'
   sed "s/changelog$/&$YOBS/g" ./$NOBS.spec.$VOBS.$CTIME > ./$NOBS.spec
+  }
+
+  spec
+
+  cd $DMBS
+  osc up
+  spec
 
   echo -e '\e[0;4m\nShould the commit be done?\e[0m'
   read
-  osc ci -m 'Revision #$VSVN.'
+  osc ci -m 'Revision #'$VSVN'.'
+
+  cd $DOBS
+  osc ci -m 'Revision #'$VSVN'.'
 
   echo -e '\e[0;4m\nGit will be updated...\e[0m'
   cd ../..
