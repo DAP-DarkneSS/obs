@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 NOBS=rexloader
 DSVN=~/Documents/obs/trash/$NOBS
