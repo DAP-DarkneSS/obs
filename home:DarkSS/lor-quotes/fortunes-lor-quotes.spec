@@ -35,12 +35,10 @@ iconv -f koi8-r -t utf-8 lor-quotes-%{version} > lor-quotes
 
 %build
 /usr/sbin/strfile lor-quotes
-ls -n
 
 %install
 mkdir -p %{buildroot}%{_datadir}/fortune
 %{__install} lor-quotes lor-quotes.dat %{buildroot}%{_datadir}/fortune
-ls -n %{buildroot}%{_datadir}/fortune
 
 %clean
 rm -rf %{buildroot}
