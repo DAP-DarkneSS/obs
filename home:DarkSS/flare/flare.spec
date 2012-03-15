@@ -1,5 +1,5 @@
 #
-# spec file for package [spectemplate]
+# spec file for package flare
 #
 # Copyright (c) 2010-2012 Clint Bellanger except where otherwise noted
 # (source [GPL-3.0] and art [CC-BY-SA 3.0]), (c) 2012 Perlow Dmitriy A. (spec file)
@@ -23,6 +23,7 @@ BuildRequires:  update-desktop-files fdupes
 BuildRequires:  gcc gcc-c++
 BuildRequires:  libSDL-devel libSDL_image-devel libSDL_mixer-devel libSDL_ttf-devel
 Requires:       %{name}-data = %{version}
+Requires:       python
 
 %description
 Free Libre Action Roleplaying Engine: binary file.
@@ -93,6 +94,9 @@ rm -rf %{buildroot}
 %{_datadir}/icons/hicolor/scalable/apps/flare.svg
 
 %changelog
+* Thu Mar 15 2012 DA <dap.darkness@gmail.com> - 20120315-1
+- Version 0.15 alfa. Timestamp: 1331648783. Git describe: v0.14-535-g65a39b0.
+
 * Mon Feb 27 2012 DA <dap.darkness@gmail.com> - 20120227-1
 - Version 0.15 alfa. Timestamp: 1330294208. Git describe: v0.14-517-g033ba9e.
 - Version format was changed.

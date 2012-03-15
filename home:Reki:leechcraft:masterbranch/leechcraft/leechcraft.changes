@@ -1,7 +1,61 @@
+Thu Mar 15 14:15:00 UTC 2012 - nekolayer@yandex.ru
+
+- 0.5.60 release
+  New Modules:
+      * Added Azoth Zheet module (MSN support)
+      * Added Azoth Vader module (Mail Agent support)
+      * Sidebar module
+      * Session manager module (save/restore LC tabs)
+      * NetStore manager module (now support Yandex.Disk)
+      * GActs module (global hotkeys)
+  * Azoth Acetamide support CTCP and vCards
+  * Aggregator works with DB in another thread and not block main app
+  * Many Imporements in adium style support
+  * Now using system oxygen icon theme
+
+-------------------------------------------------------------------
+Thu Feb 09 10:50:00 UTC 2012 - nekolayer@yandex.ru
+
+- 0.5.0 release
+  * added magnet scheme support in Bittorent module
+  * updated icons
+  * Poshuku browser - don't notify about items already existing in Favourites.
+  * Azoth Xoox: always initialize message subtype.
+fixed summary description
+
+-------------------------------------------------------------------
+Wed Jan 25 11:04:00 UTC 2012 - nekolayer@yandex.ru
+
+- 0.4.99 release
+  * fixed memory leaks on Azoth
+  * Lackman update to new format
+  * Enabled flash support in Poshuku browser
+
+-------------------------------------------------------------------
+Fri Jan 13 17:20:00 UTC 2012 - nekolayer@yandex.ru
+
+- 0.4.98 release
+  * Aggregator storages crash fix
+  * IRC plugin fixes
+  * Azoth adiumstyles fixes
+fixed modules dependencies in spec
+
+-------------------------------------------------------------------
+Tue Dec 27 01:30:00 UTC 2011 - nekolayer@yandex.ru
+
+- 0.4.97 release
+  * Azoth messenger visual fixes
+  * bittorrent optimization
+  * fixed bookmarks sync
+
 -------------------------------------------------------------------
 Sun Dec 11 16:50:00 UTC 2011 - nekolayer@yandex.ru
 
 - 0.4.96 release
+  * Fixes in Azoth AdiumStyles
+  * Fixed handling of media players in Azoth Xtazy
+  * Authorization issues were fixed in Azoth.
+  * moderators are now able to kick participants in Azoth Xoox
 
 -------------------------------------------------------------------
 Tue Dec 06 01:50:00 UTC 2011 - nekolayer@yandex.ru

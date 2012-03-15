@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.4.95-1163-g17665e4
+%define LEECHCRAFT_VERSION 0.5.60-11-g9552c22
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -61,11 +61,17 @@ BuildRequires:  kdebase4-workspace-devel
 BuildRequires:  libbz2-devel
 BuildRequires:  libQtWebKit-devel
 BuildRequires:  libmsn-devel
+BuildRequires:  libqxt1-devel
 BuildRequires:  telepathy-qt4-devel
 BuildRequires:  qwt-devel >= 6
 BuildRequires:  file-devel
 
 Requires:       oxygen-icon-theme
+
+Obsoletes:      %{name}-iconset-oxygen
+Obsoletes:      %{name}-iconset-tango
+Obsoletes:      %{name}-tabpp
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -318,14 +324,14 @@ This package contains a plugin for the Poshuku web browser that
 replaces default flash-based video players on some sites with any
 suitable LeechCraft's media player thus avoiding the need for Flash.
 
-%package poshuku-pintab
-Summary:        LeechCraft Poshuku - Pin tabs Module
-Group:          Productivity/Networking/Other
-Requires:       %{name}-poshuku = %{version}
+#%%package poshuku-pintab
+#Summary:        LeechCraft Poshuku - Pin tabs Module
+#Group:          Productivity/Networking/Other
+#Requires:       %%{name}-poshuku = %%{version}
 
-%description poshuku-pintab
-Poshuku PinTab allows to pin selected Poshuku tabs so that they cannot be
-closed until unpinned.
+#%%description poshuku-pintab
+#Poshuku PinTab allows to pin selected Poshuku tabs so that they cannot be
+#closed until unpinned.
 
 %package poshuku-pogooglue
 Summary:        LeechCraft Poshuku - quick google search Module
@@ -857,9 +863,20 @@ Power managment module for LeechCraft
 Summary:        LeechCraft Pinning tabs Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Provides:       %{name}-poshuku-pintab = %{version}
+Obsoletes:      %{name}-poshuku-pintab < %{version}
 
 %description pintab
 Pintab module allows to pin important tabs in LeechCraft
+
+%package gacts
+Summary:        LeechCraft Global actions Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+ 
+%description gacts
+This module allow set global hotkeys for LeecrCraft
+
 
 %prep
 %setup -q -a 2 -n %{name}-%{version}
@@ -910,6 +927,7 @@ cmake ../src \
         -DENABLE_LIZNOO=True \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_PINTAB=True \
+        -DENABLE_GACTS=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
 %build
@@ -1169,6 +1187,7 @@ rm -rf %{buildroot}
 %{_includedir}/%{name}
 %{_libdir}/*lcutil.so
 %{_libdir}/*xmlsettingsdialog.so
+%{_datadir}/cmake/Modules/InitLCPlugin.cmake
 
 %files historyholder
 %defattr(-,root,root)
@@ -1208,9 +1227,9 @@ rm -rf %{buildroot}
 %{translations_dir}/%{name}_poshuku_filescheme_*.qm
 %{plugin_dir}/*%{name}_poshuku_filescheme.so
 
-%files poshuku-pintab
-%defattr(-,root,root,-)
-%{plugin_dir}/*_poshuku_pintab.so
+#%%files poshuku-pintab
+#%%defattr(-,root,root,-)
+#%%{plugin_dir}/*_poshuku_pintab.so
 
 %files poshuku-keywords
 %defattr(-,root,root,-)
@@ -1356,6 +1375,7 @@ rm -rf %{buildroot}
 %files tabsessionmanager
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_tabsessmanager.so
+%{_datadir}/%{name}/translations/%{name}_tabsessmanager_*.qm
 
 %files sidebar
 %defattr(-,root,root)
@@ -1376,14 +1396,12 @@ rm -rf %{buildroot}
 %files lhtr
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lhtr.so
-%{_datadir}/%{name}/translations/%{name}_lhtr_en.qm
-%{_datadir}/%{name}/translations/%{name}_lhtr_ru_RU.qm
+%{_datadir}/%{name}/translations/%{name}_lhtr_*.qm
 
 %files azoth-astrality
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_azoth_astrality.so
-%{_datadir}/%{name}/translations/%{name}_azoth_astrality_en.qm
-%{_datadir}/%{name}/translations/%{name}_azoth_astrality_ru_RU.qm
+%{_datadir}/%{name}/translations/%{name}_azoth_astrality_*.qm
 
 #%%files snails
 #%%defattr(-,root,root)
@@ -1393,11 +1411,15 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_liznoo.so
 %{_datadir}/%{name}/settings/liznoosettings.xml
-%{_datadir}/%{name}/translations/%{name}_liznoo_en.qm
-%{_datadir}/%{name}/translations/%{name}_liznoo_ru_RU.qm
+%{_datadir}/%{name}/translations/%{name}_liznoo_*.qm
 
 %files pintab
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_pintab.so
+%{_datadir}/%{name}/translations/%{name}_pintab_*.qm
+
+%files gacts
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_gacts.so
 
 %changelog

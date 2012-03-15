@@ -19,7 +19,7 @@ echo -e '\e[0;33m\n'$VOBS'\e[0m'
 echo -e '\e[0;4m\nChecking of OBS status:\e[0m'
 osc pr -n $NOBS | grep openSUSE
 
-if [ $VGIT == $VOBS ]
+if [ "$VGIT" == "$VOBS" ]
 
 then
   echo -e '\e[0;4m\nNo changes.\e[0m'
@@ -40,6 +40,7 @@ else
   echo -e '\e[0;4m\nGit will be updated...\e[0m'
   cd ../..
   git commit -a -m 'Leechcraft '$VGIT'.'
+  kdialog --title "SSH" --passivepopup "Enter passphrase for key!"
   git push -u origin master
 
 fi
