@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.60-43-ge9b2414
+%define LEECHCRAFT_VERSION 0.5.60-69-gc01976b
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -75,7 +75,7 @@ Obsoletes:      %{name}-tabpp
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
-Core executable of Leechcraft.
+This package provides core executable of Leechcraft.
 LeechCraft is a free modular "Internet client" application.
 
 LeechCraft allows to browse the web, read RSS/Atom feeds, download
@@ -96,10 +96,9 @@ Group:          Development/Libraries/Other
 Requires:       %{name} = %{version}
 
 %description devel
-Files required for development for LeechCraft.
+This package provides files required for development for LeechCraft.
 
-This package contains header files required to develop new modules for
-LeechCraft.
+It contains header files required to develop new modules.
 
 %package aggregator
 Summary:        LeechCraft RSS/Atom Aggregator Module
@@ -109,9 +108,9 @@ Requires:       %{name}-http = %{version}
 Recommends:     %{name}-poshuku = %{version}
 
 %description aggregator
-RSS/Atom feed reader for LeechCraft.
+This package provides a RSS/Atom feed reader plugin for LeechCraft.
 
-This package contains Aggregator, the RSS/Atom feed reader. It features:
+It features:
  * RSS 0.92/0.93/1.0/2.0, Atom 0.3/1.0;
  * extensions like GeoRSS, MediaRSS, Comment API etc;
  * OPML support;
@@ -130,9 +129,11 @@ Requires:       %{name} = %{version}
 Requires:       %{name}-aggregator
 
 %description aggregator-bodyfetch
-Aggregator BodyFetch plugin allows to automatically fetch full bodies
-of news items and replace the original teasers from RSS feeds with them,
-so that it appears like the full news stories were originally there.
+This package provides a body fetch plugin for LeechCraft Aggregator.
+
+It allows to automatically fetch full bodies of news items and replace the
+original teasers from RSS feeds with them, so that it appears like the full
+news stories were originally there.
 
 Fetching is done according to little scripts called recipes. For this to
 work, a script provider like Qrosp should be installed. Please refer to the
@@ -144,10 +145,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
 %description auscrie
-Screenshooter for LeechCraft.
+This package provides a screenshooter plugin for LeechCraft.
 
-This package contains Auscrie, an auto screenshoter for LeechCraft.
-It can make screenshots of LeechCraft and then either save them locally
+It allows to make screenshots of LeechCraft and then either save them locally
 or upload them to an imagebin.
 
 
@@ -157,9 +157,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
 %description popishu
-Text editor for LeechCraft.
+This package provides a text editor plugin for LeechCraft.
 
-Popishu is a simple QScintilla2-based text editor. It supports basic syntax
+It is a simple QScintilla2-based text editor. It supports basic syntax
 highlighting for some common file types, folding, automatic identation, and
 such. It also could be used as enhanced source view plugin for the Poshuku
 browser module, for example.
@@ -177,10 +177,10 @@ Requires:       %{name} = %{version}
 Provides:       %{name}-http
 
 %description cstp
-HTTP implementation for LeechCraft.
+This package provides HTTP implementation plugin for LeechCraft.
 
-Clean & simple HTTP implementation. Mainly used by many other plugins,
-like Aggregator or SeekThru or vGrabber.
+It is a clean and simple HTTP implementation. Mainly used by many other
+plugins, like Aggregator or SeekThru or vGrabber.
 
 Features:
  * Support for redirects.
@@ -194,11 +194,11 @@ Provides:       %{name}-visualnotifications
 Requires:       %{name} = %{version}
 
 %description dbusmanager
-D-Bus implementation for LeechCraft.
+This package provides a D-Bus implementation plugin for LeechCraft.
 
-Enables LeechCraft to use D-Bus. Currently, this only means showing
-notifications via implementations supporting FreeDesktop's notifications
-standard, like KDE 4.4 (or higher), Gnome, XFCE and others.
+It allows to use D-Bus. Currently, this only means showing notifications
+via implementations supporting FreeDesktop's notifications standard,
+like KDE 4.4 (or higher), Gnome, XFCE and others.
 
 %package deadlyrics
 Summary:        LeechCraft Lyrics finder Module
@@ -208,10 +208,10 @@ Requires:       %{name}-http = %{version}
 Requires:       %{name}-summaryrepresentation = %{version}
 
 %description deadlyrics
-Song lyrics finder for LeechCraft.
+This package provides a lyrics finder plugin for LeechCraft.
 
-This package contains a simple client for searching song lyrics on
-various sites. The search interface is available via Summary.
+It is a simple client for searching song lyrics on various sites.
+The search interface is available via LeechCraft Summary.
 
 %package historyholder
 Summary:        LeechCraft History Module
@@ -219,11 +219,10 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
 %description historyholder
-History keeper for LeechCraft.
+This package provides a history keeper plugin for LeechCraft.
 
-This package contains a history keeper that stores information
-about finished downloads and similar events and allows to search
-it by text, wildcard, regexp or tags.
+It allows to store information about finished downloads and similar events
+and allows to search it by text, wildcard, regular expressions or tags.
 
 %package kinotify
 Summary:        LeechCraft Kinetic notifications Module
@@ -232,12 +231,12 @@ Provides:       %{name}-visualnotifications
 Requires:       %{name} = %{version}
 
 %description kinotify
-Fancy notifications for LeechCraft.
+This package contains a fancy notifications plugin for LeechCraft.
 
-Kinotify provides fancy kinetic notifications LeechCraft-wide instead of
-old-style tray-based ones. It supports notifications with HTML markup,
-notification actions (for example, "Open chat" action in a notification
-about incoming IM message) and is fully themable.
+It provides fancy kinetic notifications LeechCraft-wide instead of old-style
+tray-based ones. It supports notifications with HTML markup, notification
+actions (for example, "Open chat" action in a notification about incoming IM
+message) and is fully themable.
 
 Features:
  * Supports HTML markup.
@@ -252,11 +251,11 @@ Provides:       %{name}-audioplayer
 Requires:       %{name} = %{version}
 
 %description lmp
-Media previewer for LeechCraft.
+This package provides a media preview plugin for LeechCraft.
 
-LeechCraft Media Previewer allows to preview, play audio/video files and
-stream audio/video streams. It uses either GStreamer or Xine as a backend
-thus supporting major codecs.
+It allows to preview, play audio and video files and stream audio and video
+streams. It uses either GStreamer or Xine as a backend thus supporting major
+codecs.
 
 Features
  * Support for major audio and video formats.
@@ -270,10 +269,10 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
 %description networkmonitor
-Network monitor for LeechCraft.
+This package provides a network monitor plugin for LeechCraft.
 
-This package contains a monitor that watches for HTTP requests
-and allows to inspect them and search through the list.
+It allows to watch for HTTP requests and allows to inspect them and search
+through the list.
 
 %package newlife
 Summary:        LeechCraft Importer Module
@@ -281,11 +280,11 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
 %description newlife
-Settings importer into LeechCraft.
+This package provides a settings importer plugin for LeechCraft.
 
-This package contains importer of settings, preferences etc. from
-various applications into LeechCraft. Currently it supports
+It allows to import settings, preferences etc. from various applications.
 
+Currently it supports
  * Kopete: chat history.
  * Psi+: account settings, chat history.
  * Vacuum IM: account settings, chat history.
@@ -301,12 +300,12 @@ Provides:       %{name}-webbrowser
 Requires:       %{name} = %{version}
 
 %description poshuku
-Web browser for LeechCraft.
+This package provides a web browser plugin for LeechCraft.
 
-This package contains a full-featured web browser for LeechCraft based
-on WebKit. Poshuku is fully extensible with plugins. Currently it
-features
+It is an full-featured web browser based on WebKit.
+Poshuku is fully extensible with plugins.
 
+Currently it features
  * support for all major web-standards;
  * integration with other plugins;
  * autodiscovery;
@@ -319,12 +318,12 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-poshuku = %{version}
 
 %description poshuku-fatape
-Greasemonkey scripts for LeechCraft Poshuku.
+This package provides greasemonkey scripts plugin for LeechCraft Poshuku.
 
-FatApe provides support for GreaseMonkey userscripts. These scripts
-could be used for adding new features to web pages (for example,
-embedding price comparisons within shopping sites), fixing rendering
-bugs, combining data from multiple webpages, and numerous other purposes.
+It allows to use GreaseMonkey userscripts. These scripts could be used for
+adding new features to web pages (for example, embedding price comparisons
+within shopping sites), fixing rendering bugs, combining data from multiple
+webpages, and numerous other purposes.
 
 This plugin supports almost whole API of GreaseMonkey and is compatible
 with most userscripts present "in the wild".
@@ -337,7 +336,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-poshuku
 
 %description poshuku-cleanweb
-Ads filter compatible with block lists for LeechCraft Poshuku.
+This package provides an ads filter compatibility for LeechCraft Poshuku.
+
+It allows to use ads filter compatible with block lists.
 
 Features:
  * Support for Firefox AdBlock+ block lists.
@@ -353,10 +354,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-poshuku = %{version}
 
 %description poshuku-filescheme
-file://-schemes support for LeechCraft Poshuku.
+This package provides a file://-schemes support for LeechCraft Poshuku.
 
-This package contains a plugin for the Poshuku web browser that allows
-to navigate local resource via the file:// scheme. Of course,
+It allows to navigate local resource via the file:// scheme. Of course,
 FileScheme supports "downloading" files from local resources.
 
 %package poshuku-fua
@@ -365,10 +365,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-poshuku = %{version}
 
 %description poshuku-fua
-Fake user agent plugin for LeechCraft Poshuku.
+This package provides a fake user agent plugin for LeechCraft Poshuku.
 
-This package contains a plugin for the Poshuku web browser that allows
-to set different User-Agent strings for different URLs.
+It allows to set different User-Agent strings for different URLs.
 
 Features:
  * URLs are defined either by their substring or by regular expression.
@@ -383,10 +382,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-poshuku = %{version}
 
 %description poshuku-wyfv
-Flash video replacer for LeechCraft Poshuku.
+This package provides a flash video replacer plugin for LeechCraft Poshuku.
 
-This package contains a plugin for the Poshuku web browser that
-replaces default flash-based video players on some sites with any
+It allows to replace default flash-based video players on some sites with any
 suitable LeechCraft's media player thus avoiding the exigency of Flash.
 
 #%%package poshuku-pintab
@@ -404,8 +402,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-poshuku = %{version}
 
 %description poshuku-pogooglue
-This package contains a plugin for the Poshuku web browser that
-allows to search instantly selected text in Google.
+This package provides an instant search plugin for LeechCraft Poshuku.
+
+It allows to search instantly selected text in Google.
 
 %package poshuku-keywords
 Summary:        LeechCraft Poshuku - Support of url keywords Module
@@ -413,8 +412,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-poshuku = %{version}
 
 %description poshuku-keywords
-This package contains a plugin for supporting url keywords for
-LeechCraft Poshuku
+This package provides an url keywords plugin for LeechCraft Poshuku.
 
 %package poshuku-onlinebookmarks
 Summary:        LeechCraft Poshuku - Online Bookmarks Module
@@ -423,10 +421,10 @@ Requires:       %{name}-poshuku = %{version}
 Requires:       %{name}-securestorage
 
 %description poshuku-onlinebookmarks
-Online bookmarks plugin for LeechCraft Poshuku.
+This package provides an online bookmarks plugin for LeechCraft Poshuku.
 
-This package contains a plugin for the Poshuku web browser that allows
-to synchronize bookmarks with services like Read It Later or Del.icio.us.
+It allows to synchronize bookmarks with services like Read It Later
+or Del.icio.us.
 
 %package poshuku-delicious
 Summary:        LeechCraft Poshuku - Onlinebookmarks Delicious Module
@@ -434,8 +432,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-poshuku-onlinebookmarks = %{version}
 
 %description poshuku-delicious
-This package contains a plugin for LeechCraft Poshuku Online Bookmarks
-that provides support for the Del.icio.us service.
+This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
+
+It provides support for the the Del.icio.us service.
 
 %package poshuku-readitlater
 Summary:        LeechCraft Poshuku - Onlinebookmarks ReadItLater Module
@@ -443,8 +442,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-poshuku-onlinebookmarks = %{version}
 
 %description poshuku-readitlater
-This package contains a plugin for LeechCraft Poshuku Online Bookmarks
-that provides support for the Read it Later service.
+This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
+
+It provides support for the Read it Later service.
 
 %package seekthru
 Summary:        LeechCraft OpenSearch Module
@@ -454,10 +454,9 @@ Requires:       %{name}-http = %{version}
 Requires:       %{name}-summaryrepresentation = %{version}
 
 %description seekthru
-OpenSearch-support plugin for LeechCraft.
+This package contains an OpenSearch plugin for LeechCraft.
 
-This package contains a search client for OpenSearch-enabled
-web sites and engines.
+It provides a search client for OpenSearch-enabled web sites and engines.
 
 Features:
  * Support for autodiscovery of OpenSearch-capable web sites.
@@ -475,18 +474,18 @@ Provides:       %{name}-summaryrepresentation
 Requires:       %{name} = %{version}
 
 %description summary
-Quick summary of what's going on in LeechCraft.
+This package provides a summary plugin for LeechCraft.
 
-Summary shows a quick overview of LeechCraft's state. It shows current tasks
-like leeching or seeding torrents and downloading files with context-
-dependant actions and views. It also can collect status information from
+It allows to show a quick overview of LeechCraft's state. It shows current
+tasks like leeching or seeding torrents and downloading files with context-
+dependent actions and views. It also can collect status information from
 other plugins like unread channels.
 
 Summary also allows to perform searches via the installed plugins
 like SeekThru, HistoryHolder or vGrabber.
 
 Features:
- * List of current tasks and events with context-dependant actions
+ * List of current tasks and events with context-dependent actions
 and views for selected items.
  * Support for gathering status information from other plugins.
  * Category-based search query support via other plugins.
@@ -511,10 +510,10 @@ Requires:       %{name} = %{version}
 Requires:       %{name}-summaryrepresentation = %{version}
 
 %description vgrabber
-Vkontakte.ru plugin for LeechCraft.
+This package provides a Vkontakte.ru plugin for LeechCraft.
 
-This package contains an audio/video grabber/player
-from the russian social network Vkontakte.
+It allows to grab and play audio and video from the russian
+social network Vkontakte.
 
 Features:
  * Download or stream audios and videos from Vkontakte.
@@ -526,11 +525,11 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
 %description shellopen
-Support of opening files with external apps in LeechCraft.
+This package provides an opening files with external apps for LeechCraft.
 
-This package contains module that adds an option to open files and handle
-entities with external applications. For example, you may choose to
-open a video file with your favorite media player instead of LC's one.
+It allows to open files and handle entities with external applications.
+For example, you may choose to open a video file with your favorite media
+player instead of LC's one.
 
 %package secman
 Summary:        LeechCraft Security manager Module
@@ -540,11 +539,10 @@ Requires:       %{name} = %{version}
 Requires:       %{name}-secman-simplestorage = %{version}
 
 %description secman
-Security manager for LeechCraft.
+This package provides a security manager plugin for LeechCraft.
 
-This package contains the base plugin for secure storage and such
-stuff for LeechCraft. Particular storage backends are implemented
-by plugins for this plugin.
+It is the base module for secure storage and such stuff.
+Particular storage backends are implemented by plugins for this plugin.
 
 %package secman-simplestorage
 Summary:        LeechCraft Simple storage Module
@@ -552,10 +550,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-secman = %{version}
 
 %description secman-simplestorage
-Simple storage backend for LeechCraft SecMan.
+This package provides a simple backend for LeechCraft SecMan.
 
-This package contains a simple, unencrypted storage backend for
-LeechCraft's security manager plugin.
+It is a simple, unencrypted storage backend.
 
 %package azoth
 Summary:        LeechCraft Instant messenger Module
@@ -565,7 +562,7 @@ Requires:       %{name}-azoth-chatstyler = %{version}
 Requires:       %{name}-securestorage = %{version}
 
 %description azoth
-Azoth is the modular IM client for LeechCraft.
+This package provides a modular IM client for LeechCraft.
 
 Totally in the spirit of LeechCraft, Azoth is modular itself. For example,
 protocols are provided by corresponding plugins, so Azoth is a multiprotocol
@@ -586,7 +583,7 @@ Obsoletes:      %{name}-acetamine < %{version}
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-acetamide
-This package contains a IRC support for LeechCraft Azoth.
+This package provides an IRC protocol plugin for LeechCraft Azoth.
 
 Features:
  * Secure Sockets Layer (SSL) cryptographic protocol.
@@ -600,7 +597,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-chathistory
-This package contains a chat history logging module for LeechCraft Azoth.
+This package provides a chat history plugin for LeechCraft Azoth.
 
 Azoth ChatHistory, as the name implies, stores the history of chat sessions.
 It supports storing history from normal one-to-one chats as well as from
@@ -618,8 +615,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-autopaste
-This package contains an autopaste module for LeechCraft Azoth
-that automatically pastes long messages to pastebins.
+This package provides an autopaste plugin for LeechCraft Azoth.
+
+It allows to paste long messages to pastebins automatically.
 
 %package azoth-embedmedia
 Summary:        LeechCraft Azoth - Media Objects Module
@@ -627,8 +625,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-embedmedia
-This package enables embedding different media objects in chat tabs
-for LeechCraft Azoth.
+This package provides a embedding media plugin for LeechCraft Azoth.
+
+It allows to enable embedding different media objects in chat tabs.
 
 %package azoth-hili
 Summary:        LeechCraft Azoth - Conference highlights Module
@@ -636,8 +635,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-hili
-This package contains a plugin for customizing conference highlights
-for LeechCraft Azoth.
+This package provides a highlights customizing plugin for LeechCraft Azoth.
+
+It allows to customize conference highlights.
 
 %package azoth-juick
 Summary:        LeechCraft Azoth - Juick.com service Module
@@ -645,8 +645,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-juick
-This package contains a plugin for the enhanced experience with the juick.com
-microblogging service for LeechCraft Azoth.
+This package contains a juick.com plugin for LeechCraft Azoth.
+
+It provides the enhanced experience with the juick.com microblogging service.
 
 %package azoth-nativeemoticons
 Summary:        LeechCraft Azoth - Emoticons packs
@@ -654,8 +655,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-nativeemoticons
-This package contains a plugin for supporting emoticons packs in Psi+,
-Kopete and own format for LeechCraft Azoth.
+This package provides an emoticons plugin for LeechCraft Azoth.
+
+It allows to use emoticons packs in Psi+, Kopete and own format.
 
 %package azoth-p100q
 Summary:        LeechCraft Azoth - Psto.net service Module
@@ -663,8 +665,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-p100q
-This package contains a plugin for the enhanced experience with the psto.net
-microblogging service for LeechCraft Azoth.
+This package contains a psto.net plugin for LeechCraft Azoth.
+
+It provides the enhanced experience with the psto.net microblogging service.
 
 %package azoth-standardstyles
 Summary:        LeechCraft Azoth - Standard chat styles Module
@@ -673,8 +676,9 @@ Provides:       %{name}-azoth-chatstyler
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-standardstyles
-This package provides a plugin for supporting standard styles in own format
-for LeechCraft Azoth.
+This package provides an standard styles support plugin for LeechCraft Azoth.
+
+Standard styles are ones in LeechCraft's own format.
 
 %package azoth-xoox
 Summary:        LeechCraft Azoth - XMPP Module
@@ -682,7 +686,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-xoox
-This package contains a XMPP support for LeechCraft Azoth.
+This package provides a XMPP protocol plugin for LeechCraft Azoth.
 
 Feature highlights:
  * Media calls support (Jingle).
@@ -707,8 +711,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-xtazy
-This package contains a plugin for publishing current user tune
-for LeechCraft Azoth.
+This package provides a tune publishing plugin for LeechCraft Azoth.
+
+It allows to publish current user tune.
 
 %package azoth-depester
 Summary:        LeechCraft Azoth - Ignore Module
@@ -716,8 +721,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-depester
-This package contains a plugin for ignoring unwanted participants
-for LeechCraft Azoth.
+This package provides an ignoring plugin for LeechCraft Azoth.
+
+It allows to ignore unwanted participants.
 
 %package azoth-herbicide
 Summary:        LeechCraft Azoth - Antispam Module
@@ -725,7 +731,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-herbicide
-This package contains a basic antispam plugin for LeechCraft Azoth.
+This package provides a basic antispam plugin for LeechCraft Azoth.
 
 %package azoth-keeso
 Summary:        LeechCraft Azoth - Text transform Module
@@ -733,8 +739,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-keeso
-This package contains text transform plugin for LeechCraft Azoth.
-
+This package provides a text transform plugin for LeechCraft Azoth.
 
 %package azoth-rosenthal
 Summary:        LeechCraft Azoth - Spell Checker Module
@@ -742,8 +747,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-rosenthal
-This package contains a spell checker plugin for LeechCraft Azoth.
-Spell checking is based on Hunspell or Myspell dictionaries.
+This package provides a spell checker plugin for LeechCraft Azoth.
+
+It is based on Hunspell or Myspell dictionaries.
 
 %package azoth-lastseen
 Summary:        LeechCraft Azoth - Contact last seen time Module
@@ -751,9 +757,10 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-lastseen
-This package contains a LastSeen plugin for client-side recording of
-contacts' last online and availability time for LeechCraft Azoth. It doesn't
-depend on the concrete protocol implementation.
+This package provides a LastSeen plugin for LeechCraft Azoth.
+
+It allows to record of contacts' last online and availability time at
+client's side. It doesn't depend on the concrete protocol implementation.
 
 %package azoth-adiumstyles
 Summary:        LeechCraft Azoth - Adium Styles Module
@@ -762,8 +769,9 @@ Provides:       %{name}-azoth-chatstyler
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-adiumstyles
-This package provides a plugin for supporting Adium styles
-for LeechCraft Azoth. It isn't perfect, but already usable.
+This package provides an Adium styles support plugin for LeechCraft Azoth.
+
+It isn't perfect, but is already usable.
 
 %package azoth-autoidler
 Summary:        LeechCraft Azoth - Automatic Change of Status Module
@@ -771,8 +779,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-autoidler
-This package provides a plugin for automatic change of status due to
-inactivity period for LeechCraft Azoth.
+This package provides a status changing plugin for LeechCraft Azoth.
+
+It allows to automatically change of status due to inactivity period.
 
 %package azoth-metacontacts
 Summary:        LeechCraft Azoth - Metacontacts Module
@@ -780,8 +789,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-metacontacts
-This package provides a plugin for supporting metacontacts
-for LeechCraft Azoth.
+This package provides a metacontacts support plugin for LeechCraft Azoth.
 
 %package azoth-isterique
 Summary:        LeechCraft Azoth - Isterique Module
@@ -789,8 +797,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-isterique
-This package provides a plugin for removing excessive CAPS usage
-from incoming messages for LeechCraft Azoth.
+This package provides a CAPS removing plugin for LeechCraft Azoth.
+
+It allows to remove excessive CAPS usage from incoming messages.
 
 %package azoth-modnok
 Summary:        LeechCraft Azoth - LaTeX support Module
@@ -798,8 +807,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-modnok
-This package provides a plugin for rendering and displaying LaTeX formulae
-directly in chat windows for LeechCraft Azoth.
+This package provides a LaTeX plugin for LeechCraft Azoth.
+
+It allows to render and display LaTeX formulae directly in chat windows.
 
 It doesn't depend on the underlying protocol, and if the protocol supports
 rich text formatting in outgoing messages, it is able to replace the formulas
@@ -815,8 +825,9 @@ Requires:       telepathy-mission-control
 Requires:       telepathy-haze
 
 %description azoth-astrality
-This package provides a plugin for supporting various protocols provided
-by Telepathy for LeechCraft Azoth.
+This package provides a telepathy plugin for LeechCraft Azoth.
+
+It supportes various protocols provided by telepathy framework.
 
 Features:
  * Telepathy account creation.
@@ -830,8 +841,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-zheet
-This package provides a plugin for supporting the Windows Live Messenger
-(former MSN) protocol for LeechCraft Azoth.
+This package provides a MSN protocol plugin for LeechCraft Azoth.
+
+MSN protocol is used in the Windows Live Messenger.
 
 The following protocol features are currently supported:
  * Message delivery receipts.
@@ -848,8 +860,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
 %description azoth-vader
-This package provides a plugin for supporting for the MRIM protocol used
-in the Mail.Ru Agent IM service  for LeechCraft Azoth.
+This package provides a MRIM protocol plugin for LeechCraft Azoth.
+
+MRIM protocol is used in the Mail.Ru Agent IM service.
 
 Vader is based on an own implementation of the MRIM protocol, partially based
 on available (and outdated) official specs and partly reverse-engineered.
@@ -871,8 +884,9 @@ Requires:       %{name} = %{version}
 Requires:       %{name}-summaryrepresentation = %{version}
 
 %description bittorrent
-This package provides a feature-rich, fast and efficient Bittorrent client
-for Leechcraft.
+This package provides a bittorrent client for Leechcraft.
+
+It is feature-rich, fast and efficient.
 
 Features
  * Support for DHT.
@@ -897,11 +911,11 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
 %description netstoremanager
-This package contains a network storage plugin for Leechcraft.
+This package provides a network storage plugin for Leechcraft.
 
-NetStoreManager allows one to manage network storages like Yandex.Disk.
-It is modular, so different storages can be added to it without modifying
-the plugin itself.
+It allows to manage network storages like Yandex.Disk.
+It is modular, so different storages can be added to it
+without modifying the plugin itself.
 
 Features:
  * Upload files easily from LeechCraft.
@@ -930,8 +944,9 @@ Requires:       %{name} = %{version}
 Requires:       %{name}-visualnotifications = %{version}
 
 %description advancednotifications
-Advanced Notifications module for more customizable notifications
-for Leechcraft.
+This package provides an advanced notifications plugin for Leechcraft.
+
+It allows to customize notifications better.
 
 %package glance
 Summary:        LeechCraft Opened tabs overview Module
@@ -939,8 +954,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
 %description glance
-This package provides a plugin for thumbnailed grid overview of tabs
-for Leechcraft.
+This package provides a tabs overview plugin for Leechcraft.
+
+It allows to show the thumbnailed grid overview of tabs.
 
 %package tabslist
 Summary:        LeechCraft TabsList Module
@@ -948,8 +964,10 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
 %description tabslist
-This package provides a plugin for showing the list of currently opened tabs
-and quickly navigating between them for Leechcraft.
+This package provides a tabs list plugin for Leechcraft.
+
+It allows to show the list of currently opened tabs
+and allows to quickly navigate between them.
 
 #%%package blackdash
 #Summary:        LeechCraft Dashboard Module
@@ -966,8 +984,9 @@ Requires:       %{name} = %{version}
 Requires:       %{name}-http = %{version}
 
 %description gmailnotifier
-This package provides a plugin for notifications about new mail in your GMail
-inbox for Leechcraft.
+This package provides a GMail notifications plugin for Leechcraft.
+
+It allows to get notifications about new mail in your GMail account.
 
 It has configurable frequency of the updates and the number of last unread
 messages shown.
@@ -981,9 +1000,10 @@ Requires:       xz
 Recommends:     %{name}-poshuku = %{version}
 
 %description lackman
-This package provides a plugin for package manager for installing of script
-plugins, iconsets, translations, additional data and other similar packages
-for Leechcraft.
+This package provides a package manager plugin for Leechcraft.
+
+It allows to install script plugins, iconsets, translations, additional data
+and other similar packages.
 
 It also supports dependencies between packages as well as versioning and
 automatic updates of the packages. LackMan works completely in userspace and
@@ -1010,8 +1030,10 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
 %description syncer
-This package provides a plugin for synchronizing data and settings between
-LeechCraft instances running on different machines.
+This package provides a synchronizing plugin for Leechcraft.
+
+It allows to synchronize data and settings between LeechCraft instances
+running on different machines.
 
 %package lhtr
 Summary:        LeechCraft HTML WYSIWYG editor Module
@@ -1019,8 +1041,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
 %description lhtr
-This package provides a plugin for HTML WYSIWYG editor, usable with mail and
-blog modules for Leechcraft.
+This package provides a HTML WYSIWYG editor plugin for Leechcraft.
+
+It can be usable with mail and blog modules.
 
 %package knowhow
 Summary:        LeechCraft Tips of the day Module
@@ -1028,8 +1051,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
 %description knowhow
-This package provides a plugin for displayinf tips of the day window after
-launch LeechCraft.
+This package provides a tips plugin for LeechCraft.
+
+It allows to display tips of the day window after launch LeechCraft.
 
 %package choroid
 Summary:        LeechCraft Image viewer Module
@@ -1047,8 +1071,10 @@ Requires:       %{name} = %{version}
 Requires:       kdebase4-runtime
 
 %description anhero
-This package provides a crash handler plugin which uses KDE utils to handle
-crashes, show backtraces and aid in sending bug reports for LeechCraft.
+This package provides a crash handler plugin for LeechCraft.
+
+It uses KDE utils to handle crashes, show backtraces and aid
+in sending bug reports.
 
 KDE should not be running for AnHero to work.
 
@@ -1060,7 +1086,7 @@ Requires:       %{name} = %{version}
 %description tabsessionmanager
 This package provides a Tab Session Manager plugin for Leechcraft.
 
-TabSessManager automatically restores last session and allowes
+TabSessManager allows to restore automatically last session and allows
 to create named sessions.
 
 Features:
@@ -1094,6 +1120,7 @@ Requires:       upower
 
 %description liznoo
 This package provides a power manager plugin for Leechcraft.
+
 It uses UPower on Linux.
 
 Features:
@@ -1114,7 +1141,7 @@ Provides:       %{name}-poshuku-pintab = %{version}
 Obsoletes:      %{name}-poshuku-pintab < %{version}
 
 %description pintab
-This package provides a pinning tab module for allows LeechCraft.
+This package provides a pinning tab module for LeechCraft.
 
 It allows to pin important tabs so that they occupy less space.
 
