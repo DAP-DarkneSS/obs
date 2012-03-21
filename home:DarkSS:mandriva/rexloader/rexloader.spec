@@ -15,7 +15,6 @@ Group:          Productivity/Networking/Other
 License:        GPL-3.0
 URL:            http://code.google.com/p/rexloader/
 Source0:        %{name}-%{version}.tar.bz2
-Patch0:         rexloader-0.1a-linkage.patch
 
 BuildRequires:  qt4-devel
 BuildRequires:  zlib-devel
@@ -25,7 +24,6 @@ An advanced Qt download manager over http with configurable multithreaded downlo
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 cd Httploader
@@ -74,8 +72,12 @@ rm -rf %{buildroot}
 %attr(755,root,root) %{_bindir}/%{name}
 
 %changelog
+* Wed Mar 21 2012 DA <dap.darkness@gmail.com> - 20120321-1
+- Revision #214 with bug fixes and enhancements.
+- Mandriva build doesn't require lz linking patch.
+
 * Fri Mar 09 2012 DA <dap.darkness@gmail.com> - 20120309-1
-- Revision #213 optimization and bug fixes.
+- Revision #213 with optimization and bug fixes.
 
 * Sat Mar 03 2012 DA <dap.darkness@gmail.com> - 20120303-2
 - Revision #212 with bug fixes.
