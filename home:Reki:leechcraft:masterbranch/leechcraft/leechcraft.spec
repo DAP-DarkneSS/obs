@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.60-127-gc17c164
+%define LEECHCRAFT_VERSION 0.5.60-131-g8148bc8
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1155,6 +1155,17 @@ This package provides a global shortcut manager for LeecrCraft.
 
 It allows to set and use global hotkeys.
 
+# Requires Qt 4.8!
+#
+# %%package otlozhu
+# Summary:        LeechCraft ToDo manager
+# Group:          Productivity/Networking/Other
+# Requires:       %%{name} = %%{version}
+
+# %%description otlozhu
+# This package provides a ToDo manager plugin for LeecrCraft.
+# 
+# It will be GTD-inspired ToDo manager.
 
 %prep
 %setup -q -a 2 -n %{name}-%{version}
@@ -1206,6 +1217,7 @@ cmake ../src \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_PINTAB=True \
         -DENABLE_GACTS=True \
+        -DENABLE_OTLOZHU=False \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
 %build
@@ -1699,5 +1711,9 @@ rm -rf %{buildroot}
 %files gacts
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_gacts.so
+
+# %%files otlozhu
+# %%defattr(-,root,root)
+# %%{_libdir}/%%{name}/plugins/*%%{name}_otlozhu.so
 
 %changelog
