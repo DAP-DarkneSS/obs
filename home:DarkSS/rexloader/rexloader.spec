@@ -90,20 +90,8 @@ rm -rf %{buildroot}
 * Fri Feb 17 2012 DA <dap.darkness@gmail.com> - 20120217-1
 - Revision #205 with patches for SUSE x64.
 
-* Sun Feb 12 2012 DA <dap.darkness@gmail.com> - 20120212-3
-- Revision #204 with enhancement of downloads management.
-
-* Sun Feb 12 2012 DA <dap.darkness@gmail.com> - 20120212-2
-- Revision #203 with enhancement of visual features.
-
-* Sun Feb 12 2012 DA <dap.darkness@gmail.com> - 20120212-1
-- Revision #202 with enhancement of visual style.
-
 * Fri Jan 13 2012 DA <dap.darkness@gmail.com> - 20120113-1
 - Revision #201 with proxy support.
-
-* Wed Jan 11 2012 DA <dap.darkness@gmail.com> - 20120111-1
-- Revision #200 with some fixes and improvements.
 
 * Sat Jan 07 2012 DA <dap.darkness@gmail.com> - 20120107-1
 - Revision #199 with http and notice plugins.
