@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.60-137-gd39e2db
+%define LEECHCRAFT_VERSION 0.5.60-145-g357bb1d
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1489,6 +1489,7 @@ rm -rf %{buildroot}
 %{_datadir}/%{name}/kinotify
 %{settings_dir}/kinotifysettings.xml
 %{plugin_dir}/*%{name}_kinotify.so
+%{translations_dir}/%{name}_kinotify*
 
 %files lmp
 %defattr(-,root,root)
