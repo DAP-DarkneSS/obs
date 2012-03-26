@@ -1489,7 +1489,6 @@ rm -rf %{buildroot}
 %{_datadir}/%{name}/kinotify
 %{settings_dir}/kinotifysettings.xml
 %{plugin_dir}/*%{name}_kinotify.so
-%{translations_dir}/%{name}_kinotify*
 
 %files lmp
 %defattr(-,root,root)
