@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.60-164-g26c666b
+%define LEECHCRAFT_VERSION 0.5.60-166-g7906bf4
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
