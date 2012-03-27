@@ -1,0 +1,8 @@
+<directory name="libqxmpp1" rev="15" srcmd5="79123191cbd4b1f871c6f8098a736801" vrev="15">
+  <serviceinfo code="succeeded" xsrcmd5="f073ce42752a2e90d3b51049c7af73ba" />
+  <entry md5="18137110105d6f40de1fd70d0d85dcef" mtime="1327477438" name="_service" size="332" />
+  <entry md5="e8168b7c3845b2fcbe47f28d28331add" mtime="1312176345" name="baselibs.conf" size="9" />
+  <entry md5="bfcc2f6d7523d9e844996fedf780088d" mtime="1327477491" name="libqxmpp1.changes" size="269" />
+  <entry md5="c1f97a79496556f8da8bb3dbf9606579" mtime="1327477438" name="libqxmpp1.spec" size="2787" />
+  <entry md5="f17d91c6238e1510fe2d898427af2595" mtime="1312138915" name="qxmpp-dynamiclib.patch" size="650" />
+</directory>

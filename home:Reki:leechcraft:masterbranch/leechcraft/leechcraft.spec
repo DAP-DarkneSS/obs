@@ -47,7 +47,7 @@ BuildRequires:  hicolor-icon-theme
 BuildRequires:  libcurl-devel
 BuildRequires:  libqt4-devel >= 4.6
 BuildRequires:  phonon-devel
-BuildRequires:  libqxmpp-devel >= 0.3.45.1
+BuildRequires:  libqxmpp-devel >= 0.3.47.1
 BuildRequires:  speex-devel
 BuildRequires:  fdupes
 BuildRequires:  libGeoIP-devel

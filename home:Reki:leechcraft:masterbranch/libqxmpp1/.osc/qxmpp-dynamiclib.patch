@@ -1,0 +1,22 @@
+--- qxmpp.pri	2011-07-18 03:12:56.000000000 +0300
++++ qxmpp.pri	2011-07-30 10:06:40.882149129 +0300
+@@ -32,7 +32,7 @@
+ # Path of the QXmpp library file, for expressing dependency.
+ symbian {
+ } else:unix {
+-    QXMPP_LIBRARY_FILE = $${QXMPP_LIBRARY_DIR}/lib$${QXMPP_LIBRARY_NAME}.a
++    QXMPP_LIBRARY_FILE = $${QXMPP_LIBRARY_DIR}/lib$${QXMPP_LIBRARY_NAME}.so
+ }
+ 
+ unix {
+--- src/src.pro	2011-07-18 03:12:56.000000000 +0300
++++ src/src.pro	2011-07-30 10:06:14.832474792 +0300
+@@ -4,7 +4,7 @@
+ 
+ TEMPLATE = lib
+ 
+-CONFIG += staticlib
++CONFIG += dynamiclib
+ INCLUDEPATH += $$QXMPP_INCLUDE_DIR $$QXMPP_INTERNAL_INCLUDES
+ LIBS += $$QXMPP_INTERNAL_LIBS
+ 
