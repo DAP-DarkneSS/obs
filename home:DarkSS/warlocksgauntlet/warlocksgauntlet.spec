@@ -107,6 +107,10 @@ cp -r ./tools/deb_image/usr/share/icons/ %{buildroot}%{_datadir}
 %suse_update_desktop_file -c %{name} "Warlock's Gauntlet" "Dynamic, top-down spell-caster game" "cd %{_datadir}/%{name} && %{name}" WarlocksGauntlet "Game;ActionGame;"
 %fdupes -s %{buildroot}
 
+%post -n %{name} -p /sbin/ldconfig
+
+%postun -n %{name} -p /sbin/ldconfig
+
 %clean
 rm -rf %{buildroot}
 
