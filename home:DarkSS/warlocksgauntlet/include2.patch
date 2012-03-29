@@ -1,0 +1,10 @@
+--- src/GUI/CHud.h.orig	2012-03-22 22:28:45.000000000 +0300
++++ src/GUI/CHud.h	2012-03-25 23:14:22.356108640 +0300
+@@ -2,6 +2,7 @@
+ #define HUD_H
+ 
+ #include <vector>
++#include <string.h>
+ 
+ namespace GUI
+ {

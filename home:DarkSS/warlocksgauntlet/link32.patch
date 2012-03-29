@@ -1,0 +1,19 @@
+--- Makefile.orig	2012-03-22 22:28:34.000000000 +0300
++++ Makefile	2012-03-28 23:10:30.186000010 +0300
+@@ -1,6 +1,6 @@
+ GAMENAME = WarlocksGauntlet
+ 
+-BINARY = $(GAMENAME).bin32
++BINARY = warlocksgauntlet
+ 
+ -include Makefile.sources
+ 
+@@ -11,7 +11,7 @@
+ 
+ LDFLAGS = -L"./libs32"
+ 
+-LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
++LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lopenal -lGL
+ 
+ #default:
+ CXXFLAGS = -g -Wall
