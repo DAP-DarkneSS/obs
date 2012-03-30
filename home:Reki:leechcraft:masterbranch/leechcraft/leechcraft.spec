@@ -1155,6 +1155,16 @@ This package provides a global shortcut manager for LeecrCraft.
 
 It allows to set and use global hotkeys.
 
+%package xproxy
+Summary:        LeechCraft Global actions Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+ 
+%description xproxy
+This package provides an advanced proxy manager for LeecrCraft.
+
+It allows to configure and use proxy servers.
+
 # Requires Qt 4.8!
 #
 # %%package otlozhu
@@ -1711,6 +1721,11 @@ rm -rf %{buildroot}
 %files gacts
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_gacts.so
+
+%files xproxy
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*xproxy*
+%{_datadir}/%{name}/settings/*xproxy*
 
 # %%files otlozhu
 # %%defattr(-,root,root)
