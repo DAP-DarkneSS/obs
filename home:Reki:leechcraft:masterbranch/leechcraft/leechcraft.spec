@@ -1156,7 +1156,7 @@ This package provides a global shortcut manager for LeecrCraft.
 It allows to set and use global hotkeys.
 
 %package xproxy
-Summary:        LeechCraft Global actions Module
+Summary:        LeechCraft Proxy manager Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
  
