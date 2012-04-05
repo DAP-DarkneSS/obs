@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.60-195-g3a777ac
+%define LEECHCRAFT_VERSION 0.5.60-291-g0d77b1c
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -33,7 +33,7 @@ Source1:        %{name}.desktop
 #http://www.adiumxtras.com/index.php?a=xtras&xtra_id=2160
 Source2:        renkoo_adiumstyle.tar.xz
 # Fixing a bug with finding dynamic libqxmpp1 libs
-Patch1:         find_qxmpp.patch
+#Patch1:         find_qxmpp.patch
 # Fixing path to php-cli
 Patch2:         eiskaltdcpp-fix-php5-issue.patch
 # Set AppQStyle to default from plastique
@@ -1155,6 +1155,14 @@ This package provides a global shortcut manager for LeecrCraft.
 
 It allows to set and use global hotkeys.
 
+%package keyboardcraft
+Summary:        LeechCraft keyboard switcher Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+ 
+%description keyboardcraft
+This module allow change keyboard layouts from LeecrCraft
+
 %package xproxy
 Summary:        LeechCraft Proxy manager Module
 Group:          Productivity/Networking/Other
@@ -1167,20 +1175,20 @@ It allows to configure and use proxy servers.
 
 # Requires Qt 4.8!
 #
-# %%package otlozhu
-# Summary:        LeechCraft ToDo manager
-# Group:          Productivity/Networking/Other
-# Requires:       %%{name} = %%{version}
-
-# %%description otlozhu
-# This package provides a ToDo manager plugin for LeecrCraft.
-# 
-# It will be GTD-inspired ToDo manager.
+#%%package otlozhu
+#Summary:        LeechCraft ToDo manager
+#Group:          Productivity/Networking/Other
+#Requires:       %%{name} = %%{version}
+#
+#%%description otlozhu
+#This package provides a ToDo manager plugin for LeecrCraft.
+#
+#It will be GTD-inspired ToDo manager.
 
 %prep
 %setup -q -a 2 -n %{name}-%{version}
 
-%patch1
+#%patch1
 %if 0%{suse_version} > 1140
 %patch2
 %endif
@@ -1227,6 +1235,7 @@ cmake ../src \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_PINTAB=True \
         -DENABLE_GACTS=True \
+        -DENABLE_KEYBOARDCRAFT=True \
         -DENABLE_OTLOZHU=False \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
@@ -1724,11 +1733,17 @@ rm -rf %{buildroot}
 
 %files xproxy
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*xproxy*
-%{_datadir}/%{name}/settings/*xproxy*
+%{_libdir}/%{name}/plugins/lib%{name}_xproxy.so
+%{_datadir}/%{name}/settings/xproxysettings.xml
+%{_datadir}/%{name}/translations/%{name}_xproxy_*.qm
 
-# %%files otlozhu
-# %%defattr(-,root,root)
-# %%{_libdir}/%%{name}/plugins/*%%{name}_otlozhu.so
+%files keyboardcraft
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_keyboardcraft.so
+%{_datadir}/%{name}/settings/keyboardcraftsettings.xml
+
+#%%files otlozhu
+#%%defattr(-,root,root)
+#%%{_libdir}/%%{name}/plugins/lib%%{name}_otlozhu.so
 
 %changelog
