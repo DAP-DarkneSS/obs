@@ -17,8 +17,7 @@ URL:            http://code.google.com/p/rexloader/
 Source0:        %{name}-%{version}.tar.bz2
 Source1:        %{name}.desktop
 
-BuildRequires:  qt4-devel
-BuildRequires:  zlib-devel
+BuildRequires:  qt-devel gcc-c++
 
 %description
 An advanced Qt download manager over http with configurable multithreaded downloading.

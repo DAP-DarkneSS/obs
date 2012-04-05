@@ -15,6 +15,7 @@ Group:          Productivity/Networking/Other
 License:        GPL-3.0
 URL:            http://code.google.com/p/rexloader/
 Source0:        %{name}-%{version}.tar.bz2
+Source1:        %{name}.desktop
 
 BuildRequires:  qt make qt-devel libqt4-devel gcc-c++ gcc
 BuildRequires:  update-desktop-files
@@ -44,7 +45,8 @@ mkdir -p %{buildroot}%{_libdir}/%{name}/plugins
 %{__install} ./NoticeWindow/NoticeWindow %{buildroot}%{_libdir}/%{name}/plugins/libNoticeWindow.so
 mkdir -p %{buildroot}%{_datadir}/pixmaps
 %{__install} ./REXLoader/images/RExLoader_64x64.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
-%suse_update_desktop_file -c rexloader rexloader REXLoader rexloader rexloader.png "Network;FileTransfer;"
+mkdir -p %{buildroot}%{_datadir}/applications/
+%{__install} %{SOURCE1} %{buildroot}%{_datadir}/applications
 
 %clean
 rm -rf %{buildroot}
@@ -53,9 +55,9 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/applications/%{name}.desktop
-%{_libdir}/%{name}
-%{_libdir}/%{name}/plugins
-%{_libdir}/%{name}/plugins/*
+%dir %{_libdir}/%{name}
+%dir %{_libdir}/%{name}/plugins
+%{_libdir}/%{name}/plugins/*.so
 %attr(755,root,root) %{_bindir}/%{name}
 
 %changelog
