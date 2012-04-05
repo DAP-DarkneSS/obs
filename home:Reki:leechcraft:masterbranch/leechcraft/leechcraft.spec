@@ -1237,6 +1237,7 @@ cmake ../src \
         -DENABLE_GACTS=True \
         -DENABLE_KEYBOARDCRAFT=True \
         -DENABLE_OTLOZHU=False \
+        -DENABLE_DOLOZHEE=False \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
 %build
