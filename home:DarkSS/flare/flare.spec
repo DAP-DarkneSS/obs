@@ -8,7 +8,7 @@
 #
 
 Name:           flare
-Version:        0.15.alpha.git.
+Version:        v0.14-541-gc545832
 Release:        0
 Summary:        Free Libre Action Roleplaying Engine: binary file
 
@@ -86,24 +86,11 @@ rm -rf %{buildroot}
 %files data
 %defattr(-,root,root)
 %{_datadir}/applications/flare.desktop
-%{_datadir}/games/flare
+%dir %{_datadir}/games/flare
 %{_datadir}/games/flare/*
-%{_datadir}/icons/hicolor
-%{_datadir}/icons/hicolor/scalable
-%{_datadir}/icons/hicolor/scalable/apps
+%dir %{_datadir}/icons/hicolor
+%dir %{_datadir}/icons/hicolor/scalable
+%dir %{_datadir}/icons/hicolor/scalable/apps
 %{_datadir}/icons/hicolor/scalable/apps/flare.svg
 
 %changelog
-* Thu Mar 15 2012 DA <dap.darkness@gmail.com> - 20120315-1
-- Version 0.15 alfa. Timestamp: 1331648783. Git describe: v0.14-535-g65a39b0.
-
-* Mon Feb 27 2012 DA <dap.darkness@gmail.com> - 20120227-1
-- Version 0.15 alfa. Timestamp: 1330294208. Git describe: v0.14-517-g033ba9e.
-- Version format was changed.
-- Crash when going out to main menu was fixed.
-
-* Sun Feb 26 2012 DA <dap.darkness@gmail.com> - 20120226-1
-- Version 0.15 alfa. Timestamp: 1329962944. Git describe: v0.14-516-g8333245.
-
-* Sun Jan 22 2012 DA <dap.darkness@gmail.com> - 20120122-1
-- Version 0.15 alfa. Timestamp: 1327032381.
