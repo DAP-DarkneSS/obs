@@ -27,13 +27,13 @@ An advanced Qt download manager over http with configurable multithreaded downlo
 
 %build
 cd Httploader
-qmake HttpLoader.pro
+qmake-qt4 HttpLoader.pro
 make
 cd ../NoticeWindow
-qmake NoticeWindow.pro
+qmake-qt4 NoticeWindow.pro
 make
 cd ../REXLoader
-qmake REXLoader.pro
+qmake-qt4 REXLoader.pro
 make
 
 %install
