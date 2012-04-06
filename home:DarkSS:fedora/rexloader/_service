@@ -3,7 +3,7 @@
     <param name="url">http://rexloader.googlecode.com/svn/trunk</param>
     <param name="scm">svn</param>
     <param name="filename">rexloader</param>
-    <param name="versionprefix">0.1a</param>
+    <param name="versionprefix">0.1a.svn</param>
   </service>
   <service name="recompress">
     <param name="file">*.tar</param>
