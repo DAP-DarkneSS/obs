@@ -8,17 +8,16 @@ echo -e '\e[0;4mChecking of github version:\e[0m'
 cd $DGIT
 git pull
 VGIT=`git describe`
-# TGIT=`git log -n 1 --date=raw | grep Date | awk '{ print $2 }'`
-echo -e '\e[0;33m\n'$VGIT'\e[0m'
+TGIT=`git log -n 1 --date=raw | grep Date | awk '{ print $2 }'`
+echo -e '\e[0;33m\n'$VGIT'\e[0m; unix timestamp: \e[0;33m'$TGIT'\e[0m'
 
 echo -e '\e[0;4m\nChecking of OBS version:\e[0m'
 cd $DOBS
 osc up
-# XOBS=`grep Timestamp $NOBS.spec -m 1`
-# VOBS=`echo $XOBS | awk '{ print $9 }' | sed 's/.$//'`
-# TOBS=`echo $XOBS | awk '{ print $6 }' | grep -o '[0-9]*'`
-VOBS=`grep Version $NOBS.spec  | awk '{ print $2 }'`
-echo -e '\e[0;33m\n'$VOBS'\e[0m'
+XOBS=`grep Timestamp $NOBS.spec -m 1`
+VOBS=`echo $XOBS | awk '{ print $9 }' | sed 's/.$//'`
+TOBS=`echo $XOBS | awk '{ print $6 }' | grep -o '[0-9]*'`
+echo -e '\e[0;33m\n'$VOBS'\e[0m; unix timestamp: \e[0;33m'$TOBS'\e[0m'
 
 if [ $VGIT == $VOBS ]
 
@@ -32,9 +31,8 @@ else
 
   CTIME=`date +%g'.'%m'.'%d'-'%H.%M.%S`
   cp ./$NOBS.spec ./$NOBS.spec.$VOBS.$CTIME
-#   YOBS='\n'`LANG=en_GB.UTF-8 date +'* '%a' '%b' '%d' '%Y' DA <dap.darkness@gmail.com> - '%Y%m%d'-1'`'\n- Version 0.15 alfa. Timestamp: '$TGIT'. Git describe: '$VGIT'.\n'
-#   sed "s/changelog$/&$YOBS/g" ./$NOBS.spec.$VOBS.$CTIME > ./$NOBS.spec
-  sed "s/$VOBS/$VGIT/g" ./$NOBS.spec.$VOBS.$CTIME > ./$NOBS.spec
+  YOBS='\n'`LANG=en_GB.UTF-8 date +'* '%a' '%b' '%d' '%Y' DA <dap.darkness@gmail.com> - '%Y%m%d'-1'`'\n- Version 0.15 alfa. Timestamp: '$TGIT'. Git describe: '$VGIT'.\n'
+  sed "s/changelog$/&$YOBS/g" ./$NOBS.spec.$VOBS.$CTIME > ./$NOBS.spec
 
   echo -e '\e[0;4m\nShould the commit be done?\e[0m'
   read
