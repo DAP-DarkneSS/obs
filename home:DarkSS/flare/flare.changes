@@ -1,0 +1,15 @@
+Wed Dec 25 00:00:00 UTC 2011 - dap.darkness@gmail.com
+
+- 0.15.1 release
+  * Fixes a couple issues (build flags, random enemy groups)
+
+Wed Dec 23 00:00:00 UTC 2011 - dap.darkness@gmail.com
+
+- 0.15 release
+  * Now using TTF for fonts
+  * All game data can be overwritten/added via mods
+  * Translation support for the core engine and mods
+  * New Grassland tileset
+  * New questing areas: Frontier and Living Bones
+  * Redesigned creatures are tougher and more varied
+
