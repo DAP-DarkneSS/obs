@@ -54,7 +54,7 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 %{_datadir}/pixmaps/%{name}.png
-%{_datadir}/applications/%{name}.desktop
+%attr(644,root,root) %{_datadir}/applications/%{name}.desktop
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/plugins
 %{_libdir}/%{name}/plugins/*.so

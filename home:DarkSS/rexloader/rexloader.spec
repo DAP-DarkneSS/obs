@@ -47,6 +47,7 @@ mkdir -p %{buildroot}%{_datadir}/pixmaps
 %{__install} ./REXLoader/images/RExLoader_64x64.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
 mkdir -p %{buildroot}%{_datadir}/applications/
 %{__install} %{SOURCE1} %{buildroot}%{_datadir}/applications
+%suse_update_desktop_file %{name}
 
 %clean
 rm -rf %{buildroot}
@@ -54,7 +55,7 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 %{_datadir}/pixmaps/%{name}.png
-%{_datadir}/applications/%{name}.desktop
+%attr(644,root,root) %{_datadir}/applications/%{name}.desktop
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/plugins
 %{_libdir}/%{name}/plugins/*.so
