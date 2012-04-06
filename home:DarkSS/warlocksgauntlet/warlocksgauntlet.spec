@@ -13,7 +13,7 @@
 
 Name:           warlocksgauntlet
 Version:        1.3
-Release:        0
+Release:        1
 Summary:        Warlock's Gauntlet: binary files
 
 License:        Open Source
@@ -102,9 +102,11 @@ mkdir -p %{buildroot}%{_datadir}/%{name}
 cp -r ./data/ %{buildroot}%{_datadir}/%{name}
 %{__install} ./data.vfs %{buildroot}%{_datadir}/%{name}
 mkdir -p %{buildroot}%{_bindir}
-%{__install} ./%{name} %{buildroot}%{_bindir}
+%{__install} ./%{name} %{buildroot}%{_bindir}/%{name}-bin
+echo -e '#!/bin/sh'"\n\ncd %{_datadir}/%{name}\n%{name}-bin" > %{buildroot}%{_bindir}/%{name}
+chmod +x %{buildroot}%{_bindir}/%{name}
 cp -r ./tools/deb_image/usr/share/icons/ %{buildroot}%{_datadir}
-%suse_update_desktop_file -c %{name} "Warlock's Gauntlet" "Dynamic, top-down spell-caster game" "cd %{_datadir}/%{name} && %{name}" WarlocksGauntlet "Game;ActionGame;"
+%suse_update_desktop_file -c %{name} "Warlock's Gauntlet" "Dynamic, top-down spell-caster game" %{name} WarlocksGauntlet "Game;ActionGame;"
 %fdupes -s %{buildroot}
 
 %post -n %{name} -p /sbin/ldconfig
@@ -116,7 +118,8 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%{_bindir}/%{name}
+%attr(755,root,root) %{_bindir}/%{name}-bin
+%attr(755,root,root) %{_bindir}/%{name}
 %{_libdir}/libsfml*
 
 %files data
