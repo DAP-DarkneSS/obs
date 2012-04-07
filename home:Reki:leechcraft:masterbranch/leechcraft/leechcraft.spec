@@ -1151,7 +1151,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
  
 %description gacts
-This package provides a global shortcut manager for LeecrCraft.
+This package provides a global shortcut manager for LeechCraft.
 
 It allows to set and use global hotkeys.
 
@@ -1161,7 +1161,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
  
 %description keyboardcraft
-This module allow change keyboard layouts from LeecrCraft
+This module allow change keyboard layouts from LeechCraft
 
 %package xproxy
 Summary:        LeechCraft Proxy manager Module
@@ -1169,21 +1169,32 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
  
 %description xproxy
-This package provides an advanced proxy manager for LeecrCraft.
+This package provides an advanced proxy manager for LeechCraft.
 
 It allows to configure and use proxy servers.
 
 # Requires Qt 4.8!
 #
-#%%package otlozhu
-#Summary:        LeechCraft ToDo manager
-#Group:          Productivity/Networking/Other
-#Requires:       %%{name} = %%{version}
-#
-#%%description otlozhu
-#This package provides a ToDo manager plugin for LeecrCraft.
-#
-#It will be GTD-inspired ToDo manager.
+# %%package otlozhu
+# Summary:        LeechCraft ToDo manager
+# Group:          Productivity/Networking/Other
+# Requires:       %%{name} = %%{version}
+# 
+# %%description otlozhu
+# This package provides a ToDo manager plugin for LeechCraft.
+# 
+# It will be GTD-inspired ToDo manager.
+
+%package dolozhee
+Summary:        LeechCraft Issue reporting Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description dolozhee
+This package provides a Dolozhee plugin for LeechCraft.
+
+It allows to quickly and easily submit bug reports
+and feature requests to LeechCraft issues tracker.
 
 %prep
 %setup -q -a 2 -n %{name}-%{version}
@@ -1237,7 +1248,7 @@ cmake ../src \
         -DENABLE_GACTS=True \
         -DENABLE_KEYBOARDCRAFT=True \
         -DENABLE_OTLOZHU=False \
-        -DENABLE_DOLOZHEE=False \
+        -DENABLE_DOLOZHEE=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
 %build
@@ -1743,8 +1754,12 @@ rm -rf %{buildroot}
 %{_libdir}/%{name}/plugins/lib%{name}_keyboardcraft.so
 %{_datadir}/%{name}/settings/keyboardcraftsettings.xml
 
-#%%files otlozhu
-#%%defattr(-,root,root)
-#%%{_libdir}/%%{name}/plugins/lib%%{name}_otlozhu.so
+# %%files otlozhu
+# %%defattr(-,root,root)
+# %%{_libdir}/%%{name}/plugins/lib%%{name}_otlozhu.so
+
+%files dolozhee
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_dolozhee.so
 
 %changelog
