@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.60-303-g6e7ed79
+%define LEECHCRAFT_VERSION 0.5.60-306-gcae9447
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1188,7 +1188,7 @@ It allows to configure and use proxy servers.
 %prep
 %setup -q -a 2 -n %{name}-%{version}
 
-#%patch1
+#%%patch1
 %if 0%{suse_version} > 1140
 %patch2
 %endif
