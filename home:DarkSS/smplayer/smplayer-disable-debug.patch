@@ -1,0 +1,6 @@
+--- src/smplayer.pro.orig	2008-10-25 11:05:13.000000000 +0200
++++ src/smplayer.pro	2008-10-25 11:06:15.000000000 +0200
+@@ -255 +255 @@
+-	#DEFINES += NO_DEBUG_ON_CONSOLE
++	DEFINES += NO_DEBUG_ON_CONSOLE
+

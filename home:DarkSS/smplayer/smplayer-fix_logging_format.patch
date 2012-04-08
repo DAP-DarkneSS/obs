@@ -1,0 +1,21 @@
+--- src/myprocess.cpp.orig	2009-01-02 18:57:45.000000000 +0100
++++ src/myprocess.cpp	2009-01-02 18:58:14.000000000 +0100
+@@ -155,14 +155,14 @@
+ 	qDebug("MyProcess::procFinished");
+ 
+ #if !USE_TEMP_FILE
+-	qDebug("MyProcess::procFinished: Bytes available: %ld", bytesAvailable());
++	qDebug("MyProcess::procFinished: Bytes available: %lu", bytesAvailable());
+ 	if ( bytesAvailable() > 0 ) readStdOut();
+ #else
+ 	timer.stop();
+ 
+-	qDebug("MyProcess::procFinished: Bytes available: %ld", temp_file.bytesAvailable());
++	qDebug("MyProcess::procFinished: Bytes available: %lu", temp_file.bytesAvailable());
+ 	if ( temp_file.bytesAvailable() > 0 ) readTmpFile();
+-	qDebug("MyProcess::procFinished: Bytes available: %ld", temp_file.bytesAvailable());
++	qDebug("MyProcess::procFinished: Bytes available: %lu", temp_file.bytesAvailable());
+ 
+ 	temp_file.close();
+ #endif
+

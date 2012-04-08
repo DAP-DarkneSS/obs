@@ -1,0 +1,259 @@
+-------------------------------------------------------------------
+Sun Apr  8 10:45:39 UTC 2012 - dap.darkness@gmail.com
+
+- Update to 0.8.0:
+  * A toolbar editor has been added. Now it's possible to select the buttons and controls that want to appear in the toolbars.
+  * New video filters: gradfun, blur and sharpen.
+  * Now it's possible to change the GUI (default, mini, mpc) at runtime, no restart required.
+  * sub files from opensubtitles should work again.
+  * (Youtube) Recognize short urls (like this one: http://y2u.be/F5OcZBVPwOA)
+  * Better support for chapters in video files.
+  * Bug fix: remote m3u files work from the favorites menu or command line.
+  * Internal changes in the single instance option (switch to QtSingleApplication).
+
+-------------------------------------------------------------------
+Tue Jan 31 22:49:50 UTC 2012 - fisiu@opensuse.org
+
+- Update to 0.7.0:
+  + Support for YouTube.
+  + Support for mplayer2.
+  + New favorite menu (it allows You to add favorite videos, music, streams,
+    youtube videos...).
+  + New translation: croatian.
+
+-------------------------------------------------------------------
+Sat Dec 31 02:33:50 UTC 2011 - pascal.bleser@opensuse.org
+
+- default audio codec is now pulse on >= 12.1
+- properly pass optflags, including stack protector
+
+- update to 0.6:10
+  * added a vdpau configuration dialog, now it's possible to select which vdpau
+    codecs to use
+  * removed the option "Visualize motion vectors". It caused problems to many
+    people when activated by mistake.
+  * added a submenu to select the closed caption channel; requires mplayer >=
+    r32607
+  * added webm and vp8 to the list of extensions (for video)
+  * added thd to the list of extensions (for audio)
+  * added hdmov to the list of extensions (for video)
+  * added f4v to the list of extensions (for video)
+  * (Experimental) if using mplayer svn r31030, the audio filters (karaoke,
+    extrastereo and volnorm) are changed without restarting mplayer, using the
+    new slave commands af_add and af_del
+  * for consistency, the playlist preferences have been moved to the playlist
+    section in the main preferences dialog (and the playlist own preferences
+    dialog has been deleted)
+  * added the Danish translation, by Martin Schlander <mschlander@opensuse.org>
+  * added the possibility to select the seeking method (absolute or relative)
+    in Preferences -> Interface
+  * possibility to sort the items of the playlist
+
+-------------------------------------------------------------------
+Fri Aug 26 21:39:53 UTC 2011 - pascal.bleser@opensuse.org
+
+- update to 0.6.9+r3615:
+  * updated translations: Basque, Russian, Turkish, Galician, German, 
+  * now recognizes MPlayer 1.0rc4
+  * added functionality to the telnet interface
+  * use the mplayer command "af_cmdline equalizer" (added in mplayer 32505), to
+    change the audio equalizer 
+
+-------------------------------------------------------------------
+Mon Mar 21 06:33:58 UTC 2011 - pascal.bleser@opensuse.org
+
+- update to 0.6.9+r3599:
+  * added patch smplayer-subtitle-downloader.patch (SF#3179078)
+  * applied patch notagintitle.diff by WiseLord, with a minor change to restart
+    playback after modifying the "Show tag info in window title" option
+
+-------------------------------------------------------------------
+Thu Jan 20 01:43:21 UTC 2011 - pascal.bleser@opensuse.org
+
+- fix conflict on en_US file between smplayer and smplayer-lang
+ 
+- update to 0.6.9+r3597:
+  * added a submenu to select the closed caption channel (requires
+    mplayer >= r32607)
+  * added webm and vp8 to the list of extensions (for video)
+  * added thd to the list of extensions (for audio)
+  * added hdmov to the list of extensions (for video)
+  * added f4v to the list of extensions (for video)
+  * (experimental) if using mplayer svn r31030, the audio filters
+    (karaoke, extrastereo and volnorm) are changed without
+    restarting mplayer, using the new slave commands af_add and
+    af_del
+  * for consistency, the playlist preferences have been moved to the
+    playlist section in the main preferences dialog (and the
+    playlist own preferences dialog has been deleted)
+  * added the Danish translation, by Martin Schlander
+  * added the possibility to select the seeking method (absolute or
+    relative) in Preferences -> Interface
+  * possibility to sort the items of the playlist
+
+-------------------------------------------------------------------
+Wed Mar  3 00:00:00 UTC 2010 - pascal@links2linux.de
+
+- update to 0.6.9:
+  * fixed a serious bug: sometimes smplayer failed to find
+    subtitles in opensubtitles.org
+  * implemented the possibility to mark an A-B section, to play a
+    part of the file only
+  * possibility to display the video resolution and frames per
+    second in the status bar
+  * audio: selection of left or right channel does work now
+  * improved support for vdpau
+- splitted out translations into -lang subpackage
+- added patch to make alsa default when no audio output backend is
+  specified, even though that was removed upstream because of
+  freezing issues on Ubuntu
+
+-------------------------------------------------------------------
+Sat Jul 25 00:00:00 UTC 2009 - pascal.bleser@opensuse.org
+
+- update to 0.6.8:
+  * adds support for TV (more info in Watching_TV.txt)
+  * new option to enable a global volume
+  * support for vdpau
+  * new option to take consecutive screenshots
+  * possibility to add some of the submenus to the toolbars
+  * better support for *.ts files (requires mplayer >= r29381)
+  * added the Vietnamese translation
+  * added the Estonian translation.
+
+-------------------------------------------------------------------
+Thu Mar 12 00:00:00 UTC 2009 - pascal.bleser@opensuse.org
+
+- update to 0.6.7:
+  * adds experimental (and uncomplete) support for dvd menus; requires a
+    mplayer build compiled with dvdnav support; please read
+    %%{_docdir}/%%{name}/dvdmenus.txt to know how to enable it
+  * now loading an external subtitle file doesn't require to restart the
+    mplayer process (except for idx/sub subtitles)
+  * playlist: when a file is added to the playlist, if it was already in the
+    list, it's moved to the end of the list
+  * options for mplayer: finally spaces in arguments between quotes are
+    handled properly
+  * added two options (in the audio and subtitle menus) to allow the user to
+    enter the audio and subtitle delay (in milliseconds)
+  * ASS subtitles: the outline and shadow options now accept values with
+    decimals
+  * ASS subtitles: possibility to change the color of the border and shadow
+  * now the default value for the "correct pts" option is auto
+
+-------------------------------------------------------------------
+Fri Jan  2 00:00:00 UTC 2009 - guru@unixtech.be
+
+- update to 0.6.6:
+  * added an option to generate a preview (thumbnails) of the video
+  * added a new gui (mpcgui, a media player classic clone) developed by
+    Matthias Petri
+  * added some auto zoom options, to display the video without black borders
+  * implemented a new (and optional) method to save the file settings; this
+    method uses an ini file per each played file, it's faster than the old one
+  * added a new option in Preferences->Video: add black borders on fullscreen:
+    if this option is enabled, black borders will be added to the image in
+    fullscreen mode; this allows subtitles to be displayed on the black
+    borders
+  * increased the resolution of the seekbar; allows a more accurate seeking
+  * added 3 modes for the stay on top option: always, never and while playing
+  * added a history to the open URL dialog
+  * added new action to cycle through all aspect ratios, assigned by default
+    to key "A"
+  * it's possible to run some specified actions every time a file is loaded
+  * possibility to set up a proxy for internet connections (used for subtitle
+    downloading)
+
+-------------------------------------------------------------------
+Thu Nov 13 00:00:00 UTC 2008 - guru@unixtech.be
+
+- added Authors to description
+- update to 0.6.5.1:
+  * subtitles when using the SSA/ASS library can now be further customized:
+    it's possible to select the font, size, colors, bold, italic, outline,
+    shadow...
+  * now tries to follow the XDG Base Directory Specification for the config
+    files: that means the now the configuration files will be saved under the
+    directory $XDG_CONFIG_HOME/smplayer (or $HOME/.config/smplayer if
+    $XDG_CONFIG_HOME is not defined); if you want to keep your preferences,
+    copy or move the files from $HOME/.smplayer to the new location
+  * adds some options in Preferences->Interface to configure the floating
+    control
+  * the commandline option -ini-path has been removed and replaced with
+  - config-path, which specifies the directory where smplayer will store its
+    data (not only smplayer.ini)
+
+-------------------------------------------------------------------
+Sat Oct 25 00:00:00 UTC 2008 - guru@unixtech.be
+
+- removed old %%changelog entries
+- update to 0.6.4:
+  * the dialog to find subtitles can also download the subtitle file and load it in smplayer automatically
+  * the black screen problem when using Compiz should really be fixed now
+  * added support for encoding autodetection for subtitle files (requires a mplayer compiled with enca support)
+  * now it's possible to choose the audio device to be used with alsa (needs the application "aplay")
+  * added the possibility to add consecutive files (video_01.avi, video_02.avi..) automatically to the playlist
+  * bugfix: logout is not cancelled by smplayer
+  * now the options in preferences display a tooltip with a help message
+  * now it's possible to change the video track
+  * added the Galician translation
+
+-------------------------------------------------------------------
+Fri Sep 26 00:00:00 UTC 2008 - guru@unixtech.be
+
+- update to 0.6.3:
+  * added a fix for a black screen problem when using Compiz
+  * added an option to select the number of threads that mplayer will use for
+    decoding (only works for MPEG-1/2 and some H.264 videos)
+  * added the possibility to disable the audio equalizer; seems to be
+    necessary to use the S/PDIF output
+  * added some options to increase/decrease the speed by 1%% and 4%%; this
+    allows to play 24 fps movies at 25 fps speed and vice versa
+  * fix: sometimes the playlist is not shown; added a workaround for the problem
+  * added some checks to avoid crashes when selecting subtitle tracks
+  * the settings in smplayer.ini have been reorganized in several sections
+    (this also means most of your preferences will be lost and you will have
+    to reconfigure smplayer again)
+  * added an option to mirror the video, and now it's also possible to flip
+    and rotate the subtitles along with the image
+  * added a new shortcut set (sda.keys) which can be loaded in the shortcut
+    editor in preferences
+  * added two new translations: Arabic and Kurdish
+
+-------------------------------------------------------------------
+Fri Aug 15 00:00:00 UTC 2008 - guru@unixtech.be
+
+- new upstream version:
+  * added an audio equalizer (please read Audio_equalizer.txt)
+  * added a dialog to search and download subtitles from opensubtitles.org
+    (see Finding_subtitles.txt)
+  * the toolbars can be configured: the user can remove, add or change the
+    order of the buttons; right now it can only be done by editing manually
+    the configuration file, but a graphical editor will be added in the next
+    version (see Configuring_the_toolbars.txt)
+  * the single instance port can now be chosen automatically by the
+    application
+  * added a Slovenian translation
+
+-------------------------------------------------------------------
+Fri May 30 00:00:00 UTC 2008 - guru@unixtech.be
+
+- new upstream version:
+  * now compact mode resizes the window, instead of leaving black borders
+  * added an option in Preferences->Interface which allows the user to select
+    his/her preferred GUI; this way it's easier to use the mini GUI, for those
+    who prefer a simpler interface with few buttons
+  * one more fix for Qt 4.4: the option FAQ in the Help menu didn't work
+  * added the Catalan translation
+
+-------------------------------------------------------------------
+Wed May 14 00:00:00 UTC 2008 - guru@unixtech.be
+
+- promoting smplayer-beta to smplayer
+
+-------------------------------------------------------------------
+Tue May 13 00:00:00 UTC 2008 - guru@unixtech.be
+
+- new upstream version
+
+
