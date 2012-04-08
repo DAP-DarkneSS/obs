@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.60-308-g51bd631
+%define LEECHCRAFT_VERSION 0.5.60-319-g020f7d2
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1761,5 +1761,6 @@ rm -rf %{buildroot}
 %files dolozhee
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_dolozhee.so
+%{_datadir}/%{name}/translations/%{name}_dolozhee_*.qm
 
 %changelog
