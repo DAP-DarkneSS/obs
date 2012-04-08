@@ -1189,6 +1189,7 @@ It allows to configure and use proxy servers.
 Summary:        LeechCraft Issue reporting Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Recommends:     %{name}-secman = %{version}
 
 %description dolozhee
 This package provides a Dolozhee plugin for LeechCraft.
