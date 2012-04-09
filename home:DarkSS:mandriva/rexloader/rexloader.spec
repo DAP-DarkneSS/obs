@@ -61,6 +61,9 @@ rm -rf %{buildroot}
 %attr(755,root,root) %{_bindir}/%{name}
 
 %changelog
+* Mon Apr 09 2012 DA <dap.darkness@gmail.com> - 20120409-1
+- Revision #215 with GUI enhancements and bug fixes.
+
 * Wed Mar 21 2012 DA <dap.darkness@gmail.com> - 20120321-1
 - Revision #214 with bug fixes and enhancements.
 - Mandriva build doesn't require lz linking patch.
