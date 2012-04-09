@@ -8,6 +8,7 @@ DFBS=~/Documents/obs/home:DarkSS:fedora/$NOBS
 
 echo -e '\e[0;4mChecking of google code version:\e[0m'
 cd $DSVN
+svn revert -q --recursive .
 svn up
 VSVN=`svnversion | grep -o '[0-9]*'`
 echo -e '\nrevision #\e[0;33m'$VSVN'\e[0m'
