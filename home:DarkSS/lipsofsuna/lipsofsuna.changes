@@ -1,0 +1,18 @@
+Mon Apr  9 18:35:52 UTC 2012 - dap.darkness@gmail.com
+
+- 0.5.0 release
+  * New starting area with tutorial quests.
+  * New melee combat system with multiple attack moves.
+  * New NPC dialog system.
+  * Worksafe graphics mode.
+  * More flexible character creation.
+  * Improved player model.
+  * Improved character physics.
+  * Improvements to existing quests and work on some new quests.
+  * Simple map screen and location discovery.
+  * Options for mouse inverting and disabling mouse smoothing.
+  * Better character animation when moving and attacking simultaneously.
+  * New books: Arura Research Diary, The Sealed Library.
+  * New items: halberd, spear, cure disease potion, etc.
+  * New spells: home, magic missile.
+
