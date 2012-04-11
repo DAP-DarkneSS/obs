@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.60-371-g21488d0
+%define LEECHCRAFT_VERSION 0.5.60-374-g8fe18b7
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1155,12 +1155,14 @@ This package provides a global shortcut manager for LeechCraft.
 
 It allows to set and use global hotkeys.
 
-%package keyboardcraft
+%package kbswitch
 Summary:        LeechCraft keyboard switcher Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Provides:       %{name}-keyboardcraft = %{version}
+Obsoletes:      %{name}-keyboardcraft < %{version}
  
-%description keyboardcraft
+%description kbswitch
 This module allow change keyboard layouts from LeechCraft
 
 %package xproxy
@@ -1247,7 +1249,7 @@ cmake ../src \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_PINTAB=True \
         -DENABLE_GACTS=True \
-        -DENABLE_KEYBOARDCRAFT=True \
+        -DENABLE_KBSWITCH=True \
         -DENABLE_OTLOZHU=False \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_Y7=False \
@@ -1751,10 +1753,10 @@ rm -rf %{buildroot}
 %{_datadir}/%{name}/settings/xproxysettings.xml
 %{_datadir}/%{name}/translations/%{name}_xproxy_*.qm
 
-%files keyboardcraft
+%files kbswitch
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_keyboardcraft.so
-%{_datadir}/%{name}/settings/keyboardcraftsettings.xml
+%{_libdir}/%{name}/plugins/lib%{name}_kbswitch.so
+%{_datadir}/%{name}/settings/kbswitchsettings.xml
 
 # %%files otlozhu
 # %%defattr(-,root,root)
