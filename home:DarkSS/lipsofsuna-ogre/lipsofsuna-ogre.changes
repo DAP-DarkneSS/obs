@@ -1,0 +1,192 @@
+Wed Apr 11 16:16:25 UTC 2012
+
+- git
+  * Fixed a rare bug that could truncate formatted strings by one character.
+  * Fixed a crash when using a non-relative data directory.
+  * Added more configure checks for libpng.
+  * Reduced the health and combat skills of smaller monsters.
+  * Monsters near the supply camp are generally weaker.
+  * Made it slightly easier to hit small objects by tweaking attack ray casting.
+  * Players can build voxels on the heightmap.
+  * Speedline effects fade out correctly when the parent object disappears.
+  * Server prevents clients from using locked skills/spells.
+  * Added a cheat for unlocking all skills and spells.
+  * Made some quests unlock skills/spells as a reward for completing them.
+  * Added support for random skill/spell unlock rewards.
+  * Client only shows unlocked spells and skills.
+  * Added a system for syncing spell/skill unlocks.
+  * The editor can manipulate static objects.
+  * Added a chat command for printing the world position of the player.
+  * Dialogs can be attached to static objects.
+  * Map patterns can specify static objects.
+  * Fixed a crash when quiting the game while a model is being background loaded.
+  * Static objects are created by the map generator.
+  * Replaced the old database with the new format.
+  * Use a cleaner database format for saving objects.
+  * Added a new spell: regeneration.
+  * Added a new spell: frost vortex.
+  * The player is informed of spell casting failures.
+  * Cleaned up spells, feats and modifiers.
+  * Made a new spell type out of the magic missile effect.
+  * Renamed the Action class to Binding.
+  * Added support for proper static objects.
+  * Made the camera rotation key configurable.
+  * Fixed character rotation/moving in the character creation screen.
+  * Animations work better with background loaded entities.
+  * Implemented background loading for entities.
+  * Abstracted timing code.
+  * Informed the user about the map loading delay. Various small initialization cleanups.
+  * Better HUD visibility management.
+  * Number chooser widgets allow normal back key behavior.
+  * Editor controls have separate key bindings.
+  * One key can be bound to multiple actions.
+  * Fixed focus issues of the back button.
+  * The pointer is not grabbed in the main menu.
+  * Improved the behavior of the scrollbar.
+  * Mouse wheel can scroll the UI when the pointer is not on the scrollbar.
+  * Fixed mouse focus not working correctly for config option widgets.
+  * Implemented the rest of the character creator features.
+  * The UI remembers which widget was focused in each state.
+  * Separated UI and logic code in a few places.
+  * Increased the map version number due to skill system changes making save files incompatible.
+  * The new skill system is used for calculating weapon damage bonuses.
+  * Moved skill management to a separate class.
+  * The new skill system is used by NPCs.
+  * Esc closes the menu when the pointer is not grabbed.
+  * The pointer is auto-grabbed when the menu is closed.
+  * The client remembers the pointer grab status over multiple sessions.
+  * Added support for grabbing the input immediately when the input extension is loaded.
+  * Fixed a potential error condition when quitting the game.
+  * Fixed stat caps not updating correctly after adding/removing skills.
+  * Reimplemented trading for the new UI.
+  * Removed the old quest view.
+  * Removed the old skill UI code.
+  * Fixed the size of player's inventory.
+  * Reimplemented book reading for the new UI.
+  * Quickslot storage doesn't allocate useless widgets.
+  * Fixed an error when trying to craft something without having enough materials.
+  * Better error checking for feat loading.
+  * Removed old spell customization UI code.
+  * Removed the old map view.
+  * Reimplemented the map view for the new UI.
+  * Removed the old help view and moved help specs to a separate module.
+  * Reimplemented the help system for the new UI.
+  * Updated README to include the Ogre dependencies and apt-get instructions for Ubuntu.
+  * Fixed an error when the GUI control actions are not bound to any key.
+  * Worked around potentially incorrect include order in core/misc/init.lua
+  * Made it possible to toggle the visibility of the editor menu.
+  * Cleaned up editor UI code.
+  * Fixed loading of controls, and removed old code.
+  * The UI shows the name of the current state.
+  * Print master server connection errors to the terminal.
+  * Reimplemented the server list.
+  * Reimplemented the quest list.
+  * New user interface system, new inventory system, refactoring of code.
+  * Fixed the aspect ratio of the camera not being updated at window resize.
+  * Worked around terrain momentarily disappearing when being loaded in the background.
+  * Work on background building Ogre meshes.
+  * Implemented Ogre::ManualResourceLoader for models.
+  * Fixed speech bubbles not being positioned correctly.
+  * Quick and dirty fix for troglodyte and aermale: disabled hand meshes.
+  * Added support for client side chat commands.
+  * Exposed memory stats dumping to scripts.
+  * Fixed issues in the memory debug mode, added total memory usage stats.
+  * Added support for $XDG_DATA_DIRS.
+  * Fixed the loading order of overridden Ogre script files.
+  * Config files are now saved under $HOME/.config/ in Linux.
+  * Minor graphics and resource management fixes.
+  * Admin stats show the number of loaded materials and textures.
+  * Unified the way how names are allocated for Ogre resources.
+  * Deleted the old, now unused shaders.
+  * Moved the videomode selection widget to its own file.
+  * Fixed the window size reported to scripts sometimes being incorrect.
+  * Cleaned up options management and the options screen.
+  * Added outline rendering.
+  * Added support for material scheme selection.
+  * Removed duplicate faces from the tree model.
+  * Adjusted the player skin to be more suitable for cel-shading.
+  * Fixed particle effects being leaked.
+  * Replaced broken spell effects with placeholders.
+  * Fixed editor selection and area bounds not rendering correctly.
+  * Objects other than the player character can cast shadows too.
+  * Better shadow casting for foliage.
+  * Fixed bugged shadow casting.
+  * Batch more voxels together to reduce rendering overhead.
+  * Admin stats report various Ogre stats.
+  * Updated and cleaned up asset information.
+  * Fixed hidden objects becoming visible if their models are changed.
+  * Fixed speedlines not disappearing when starting a new attack before the old speedline has disappeared.
+  * Reduced the view distance in dungeons to improve performance.
+  * Improved performance a bit by reusing terrain materials.
+  * When in dungeons, global lighting is weaker and the skybox isn't visible.
+  * Fixed hiding the skybox not working.
+  * Scripts can hide heightmaps.
+  * Admin stats show the FPS and some server memory statistics.
+  * Scripts can query the FPS without initializing graphics.
+  * Heightmap collisions are reported to scripts so that arrows stop when they hit it.
+  * Don't render meshes that have too many bones since it's less disturbing than rendering a mess of exploding vertices.
+  * Monsters spawn on the heightmap.
+  * Scripts can query the heightmap height by 2D position.
+  * Fixed shader compatibility issues with Nvidia cards and adjusted some lighting parameters.
+  * modified starting area a bit using the heightmap-linked editor
+  * added basic heightmap-linked editing
+  * Fixed terrain rendering when using Ogre 1.8
+  * Resolved a conflict between Ogre::uint and ::uint.
+  * Use pkg-config to detect zlib.
+  * Worked around weird configure issues when using MinGW 4.6.
+  * Got rid of the Cg dependency and fixed terrain rendering for open source AMD drivers.
+  * Changed normal mapping a bit.
+  * Rewrote shaders in GLSL 1.20 so that they work with the open source AMD driver.
+  * Fixed compilation with sound disabled.
+  * Fixed build issues in Windows.
+  * Fixed speed lines of melee weapons.
+  * Fixed speed lines of arrows.
+  * Fixed non-overridden materials not being used correctly.
+  * Directional lights cast shadows.
+  * Cleaned up graphics engine code.
+  * The UI doesn't create wastefully big vertex buffers.
+  * Fixed combo box popups using too many polygons.
+  * Fixes to time scaling of walking/running animations.
+  * Changed the scale and position of the heightmap to fit the engine limits.
+  * Fixed some region specs.
+  * Player spawn points are read from region specs instead of being hardcoded.
+  * Added a dummy supply camp region.
+  * Mouse motion updates scrollbars and skill widgets when LMB is pressed.
+  * Exposed the mouse button state mask to scripts.
+  * Fixed the account name and admin setting not being saved when hosting a game.
+  * The play now menu uses settings from the host view.
+  * Added some subdirectories to the data directory.
+  * Fixed fire imp explosions not working.
+  * Fixed a bad error message when trying to load a model that doesn't exist.
+  * Fixed sound playback breakage.
+  * Don't abort when creating a particle effect that doesn't exist.
+  * Fixed characters losing some of their horizontal momentum when jumping.
+  * Fixed the orientation of the bottom face of the skybox.
+  * The cursor of the chat text entry is visible.
+  * Widgets support PNG textures.
+  * The client runs properly with object/voxel/heightmap rendering disabled.
+  * Removed the useless client module.
+  * Moved graphics code to the graphics extension.
+  * Removed unused code.
+  * Faster local server startup and detection for failed startup.
+  * Added quit and done attributes for threads.
+  * Fixed some minor memory leaks.
+  * Worked around the wrong ambient color of distant heightmap areas.
+  * Fixed blend map sizes for heightmap.
+  * Some more modifications
+  * Merge branch 'master' of ssh://lipsofsuna.git.sourceforge.net/gitroot/lipsofsuna/lipsofsuna
+  * playing around with the heightmap
+  * Added support for distant map objects.
+  * Fixed map saving in the editor.
+  * Reduced the time it takes to create an Ogre mesh from a LoS model by 85%.
+  * Removed the jumping delay.
+  * Text entry widgets support left, right and delete keys and don't break when the text contains unicode characters.
+  * Text measurement fixes.
+  * Explicitly link against Xlib since some Linux distros require it.
+  * Got rid of gl_FragColor in fragment shaders.
+  * Fixed mods.lua not including Lips.
+  * Added missing version instructions to shaders.
+  * Fixed a crash caused by incorrect deletion of certain kind of widget hierarchies.
+  * Fixed the respawn button.
+  * Added an omitted quest to mods.lua
+  * Merge branch 'ogre'
