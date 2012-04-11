@@ -9,7 +9,7 @@
 
 Summary:        Lips of Suna (Ogre): binary files
 Name:           lipsofsuna-ogre
-Version:        git
+Version:        git.1334156600
 Release:        0
 Source0:        lipsofsuna-git.tar.bz2
 URL:            http://lipsofsuna.org/
