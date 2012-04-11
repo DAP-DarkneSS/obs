@@ -20,6 +20,7 @@ BuildRequires:  openal-soft-devel flac-devel libvorbis-devel libenet-devel
 BuildRequires:  lua-devel libinotifytools-devel libbullet-devel MesaGLw-devel
 BuildRequires:  libcurl-devel curl glibc-devel gcc-c++
 BuildRequires:  update-desktop-files
+Requires:       python
 Requires:       %{name}-data = %{version}
 
 %description
