@@ -63,8 +63,8 @@ have to fight creatures of different varieties, solve quests, explore new
 places, and craft custom items. Luckily you don't need to do all this alone
 since you can crawl the dungeons with your friends.
 
-%prep 
-%setup -q -n lipsofsuna-git
+%prep
+%setup -q
 
 %build
 ./waf configure --prefix=%{_prefix} \
