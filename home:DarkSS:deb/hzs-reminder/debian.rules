@@ -46,12 +46,12 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/gentoo.
-	mkdir -p $(CURDIR)/debian/build/usr/bin
-	cp -R reminder $(CURDIR)/debian/build/usr/bin
-	mkdir -p $(CURDIR)/debian/build/usr/share/pixmaps
-	cp -R ./deb/usr/share/pixmaps/reminderico.png $(CURDIR)/debian/build/usr/share/pixmaps
-	mkdir -p $(CURDIR)/debian/build/usr/share/applications
-	cp -R ./deb/usr/share/applications/reminder.desktop $(CURDIR)/debian/build/usr/share/applications/hzs-reminder.desktop
+	mkdir -p $(CURDIR)/debian/hzs-reminder/usr/bin
+	cp -R reminder $(CURDIR)/debian/hzs-reminder/usr/bin
+	mkdir -p $(CURDIR)/debian/hzs-reminder/usr/share/pixmaps
+	cp -R ./deb/usr/share/pixmaps/reminderico.png $(CURDIR)/debian/hzs-reminder/usr/share/pixmaps
+	mkdir -p $(CURDIR)/debian/hzs-reminder/usr/share/applications
+	cp -R ./deb/usr/share/applications/reminder.desktop $(CURDIR)/debian/hzs-reminder/usr/share/applications/hzs-reminder.desktop
 
 # Build architecture-independent files here.
 binary-indep: build install

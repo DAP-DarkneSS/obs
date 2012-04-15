@@ -47,15 +47,15 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/gentoo.
-	mkdir -p $(CURDIR)/debian/build/usr/bin
-	cp -R ./usr/bin/REXLoader $(CURDIR)/debian/build/usr/bin/rexloader
-	mkdir -p $(CURDIR)/debian/build/usr/lib/rexloader/plugins
-	cp -R ./usr/lib/rexloader/plugins/* $(CURDIR)/debian/build/usr/lib/rexloader/plugins
-	cp -R ./NoticeWindow/NoticeWindow $(CURDIR)/debian/build/usr/lib/rexloader/plugins/libNoticeWindow.so
-	mkdir -p $(CURDIR)/debian/build/usr/share/pixmaps
-	cp -R ./REXLoader/images/RExLoader_64x64.png $(CURDIR)/debian/build/usr/share/pixmaps/rexloader.png
-	mkdir -p $(CURDIR)/debian/build/usr/share/applications/
-	cp -R ./rexloader.desktop $(CURDIR)/debian/build/usr/share/applications
+	mkdir -p $(CURDIR)/debian/rexloader/usr/bin
+	cp -R ./usr/bin/REXLoader $(CURDIR)/debian/rexloader/usr/bin/rexloader
+	mkdir -p $(CURDIR)/debian/rexloader/usr/lib/rexloader/plugins
+	cp -R ./usr/lib/rexloader/plugins/* $(CURDIR)/debian/rexloader/usr/lib/rexloader/plugins
+	cp -R ./NoticeWindow/NoticeWindow $(CURDIR)/debian/rexloader/usr/lib/rexloader/plugins/libNoticeWindow.so
+	mkdir -p $(CURDIR)/debian/rexloader/usr/share/pixmaps
+	cp -R ./REXLoader/images/RExLoader_64x64.png $(CURDIR)/debian/rexloader/usr/share/pixmaps/rexloader.png
+	mkdir -p $(CURDIR)/debian/rexloader/usr/share/applications/
+	cp -R ./rexloader.desktop $(CURDIR)/debian/rexloader/usr/share/applications
 
 # Build architecture-independent files here.
 binary-indep: build install
