@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.60-417-gf6f6213
+%define LEECHCRAFT_VERSION 0.5.60-427-g3f4b0a3
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -65,6 +65,7 @@ BuildRequires:  libqxt1-devel
 BuildRequires:  telepathy-qt4-devel
 BuildRequires:  qwt-devel >= 6
 BuildRequires:  file-devel
+BuildRequires:  doxygen
 
 Requires:       oxygen-icon-theme
 
@@ -1259,11 +1260,17 @@ cmake ../src \
 cd build
 make %{?_smp_mflags}
 
+doxygen ../doc/doxygen/core/Doxyfile
+
 %install
 cd build
 %makeinstall
 cd ../renkoo_adiumstyle
 cp -r ./*.AdiumMessageStyle/ %{buildroot}/%{azoth_dir}/styles/adium/
+
+cd ../build/out/html
+mkdir -p %{buildroot}%{_docdir}/%{name}
+cp -r * %{buildroot}%{_docdir}/%{name}
 
 %suse_update_desktop_file -i %{name}
 #%%fdupes -s %%{buildroot}%%{_datadir}/%%{name}/eiskaltdcpp
