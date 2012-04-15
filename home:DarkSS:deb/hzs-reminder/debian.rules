@@ -24,8 +24,8 @@ build-stamp:
 	pwd
 	if cd build_dir ; then echo "Changed"; else echo "Some Errors"; fi
 	pwd
-	cmake -D CMAKE_BUILD_TYPE="Release" -D NNFW_CONFIG="" -D CMAKE_INSTALL_PREFIX=/usr .
-	make all
+	qmake reminder.pro
+	make
 
 	touch build-stamp
 
@@ -46,7 +46,12 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/gentoo.
-	make install DESTDIR=$(CURDIR)/debian/soundkonverter
+	mkdir -p $(CURDIR)/debian/build/usr/bin
+	cp -R reminder $(CURDIR)/debian/build/usr/bin
+	mkdir -p $(CURDIR)/debian/build/usr/share/pixmaps
+	cp -R ./deb/usr/share/pixmaps/reminderico.png $(CURDIR)/debian/build/usr/share/pixmaps
+	mkdir -p $(CURDIR)/debian/build/usr/share/applications
+	cp -R ./deb/usr/share/applications/reminder.desktop $(CURDIR)/debian/build/usr/share/applications/hzs-reminder.desktop
 
 # Build architecture-independent files here.
 binary-indep: build install

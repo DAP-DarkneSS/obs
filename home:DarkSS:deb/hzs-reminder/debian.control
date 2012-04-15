@@ -1,11 +1,18 @@
-Source: soundkonverter
+Source: hzs-reminder
 Section: unknown
 Priority: optional
-Maintainer: Daniel Faust <hessijames@gmail.com>
-Build-Depends: kdelibs5-dev, libtag1-dev, libkcddb-dev, libcdparanoia0-dev, debhelper (>= 4.1.16), g++, cmake
+Maintainer: Dmitriy Perlow <dap.darkness@gmail.com>
+Build-Depends: cdbs, qt4-qmake, build-essential, libqt4-dev, debhelper (>= 4.1.16), g++
 
-Package: soundkonverter
+Package: hzs-reminder
 Architecture: any
 Depends: ${shlibs:Depends}
-Description: An audio converter
- soundKonverter is a frontend to various audio converters, replaygain tools and cd rippers;
+Description: The program of reminders of events
+ The program starts in tray, informing on forthcoming events.
+ Possibilities:
+ Informing on forthcoming events for 1-4 days;
+ Informing about come events;
+ Informing on age of event, at instructions of year of the beginning of event;
+ Start of the editor of events;
+ Sorting according to date of events from journal;
+ Support Russian & English languages;
