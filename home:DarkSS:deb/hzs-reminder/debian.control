@@ -1,0 +1,11 @@
+Source: soundkonverter
+Section: unknown
+Priority: optional
+Maintainer: Daniel Faust <hessijames@gmail.com>
+Build-Depends: kdelibs5-dev, libtag1-dev, libkcddb-dev, libcdparanoia0-dev, debhelper (>= 4.1.16), g++, cmake
+
+Package: soundkonverter
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: An audio converter
+ soundKonverter is a frontend to various audio converters, replaygain tools and cd rippers;
