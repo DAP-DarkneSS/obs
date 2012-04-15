@@ -1,62 +1,6 @@
-soundkonverter (1.4.0) stable; urgency=low
-  * Add: Show progress bar when loading file lists
- -- Daniel Faust <hessijames@gmail.com>  Sun, 18 Mar 2012 12:00:00 +0100
-
-soundkonverter (1.3.90) stable; urgency=low
-  * Add: TTA Enc plugin
-  * Add: sad (Black & White audio file) support
-  * Add: Improved saving of the last used conversion profile
-  * Change: Reduce amount of alerts when dropping unsupported file types (like images) on the file list
-  * Fix: Files added with "add directory" could fail
- -- Daniel Faust <hessijames@gmail.com>  Thu, 13 Mar 2012 16:05:00 +0100
-
-soundkonverter (1.3.3) stable; urgency=low
-  * Change: Piping is disabled by default, it can be activated in the config dialog though
-  * Fix: Some piping bugs with vorbistools and ffmpeg
-  * Fix: Crash when adding a directory
- -- Daniel Faust <hessijames@gmail.com>  Wed, 22 Feb 2012 20:00:00 +0100
-
-soundkonverter (1.3.2) stable; urgency=low
-  * Fix: Crash when trying to write covers (attempt #2)
- -- Daniel Faust <hessijames@gmail.com>  Mon, 13 Feb 2012 21:45:00 +0100
-
-soundkonverter (1.3.1) stable; urgency=low
-  * Add: Update translations
-  * Fix: Crash when trying to write covers
- -- Daniel Faust <hessijames@gmail.com>  Sat, 11 Feb 2012 9:50:00 +0100
-
-soundkonverter (1.3.0) stable; urgency=low
-  * Add: Update translations
- -- Daniel Faust <hessijames@gmail.com>  Sat, 4 Feb 2012 10:15:00 +0100
-
-soundkonverter (1.2.90) stable; urgency=low
-  * Add: Copy embedded covers for ogg (only reading), mp3, mp4 and flac files
-  * Add: Option to copy embedded covers to the output directory
-  * Add: Honor total disc numbers
-  * Add: Session management
-  * Change: By default log files won't be written to the hard drive anymore, it can be activated in the config dialog though
-  * Fix: Conversion problems when using pipes with newer KDE/Qt versions
-  * Fix: Don't write empty tags
-  * Fix: Fix initial loading of conversion profiles
- -- Daniel Faust <hessijames@gmail.com>  Thu, 26 Jan 2012 15:40:00 +0100
-
-soundkonverter (1.2.1) stable; urgency=low
-  * Add: French translation
-  * Fix: Make mplayer log less when decoding videos
-  * Fix: Remove old log files on start up
- -- Daniel Faust <hessijames@gmail.com>  Wed, 7 Dec 2011 21:21:00 +0100
-
-soundkonverter (1.2.0) stable; urgency=low
-  * Add: Update translations
-  * Remove: French, Serbian, Russian and Brazilian Portuguese translations since they are less than 80% complete
- -- Daniel Faust <hessijames@gmail.com>  Sun, 23 Oct 2011 12:03:00 +0100
-
-soundkonverter (1.1.90) unstable; urgency=low
-  * Add: Aften plugin
-  * Add: Speex plugin
-  * Add: Plugin info dialog
-  * Add: Make it possible to use experimental codecs with ffmpeg
-  * Add: Make it possible to use user defined arguments with ffmpeg
-  * Add: Re-add aac/m4a encoding to the ffmpeg plugin
-  * Change: Query ffmpeg for supported codecs
- -- Daniel Faust <hessijames@gmail.com>  Mon, 3 Oct 2011 13:03:00 +0100
+rexloader (0.1a.rev.217) unstable; urgency=low
+  * Add: downloading over http
+  * Add: configurable multithreaded downloading
+  * Add: proxy support
+  * Add: notifications
+ -- Dmitriy Perlow <dap.darkness@gmail.com>  Sun, 15 Apr 2012 13:52:30 +0200

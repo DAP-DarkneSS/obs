@@ -1,11 +1,10 @@
 Format: 1.0
-Source: soundkonverter
-Version: 1.4.0-1
-Binary: soundkonverter
-Maintainer: Daniel Faust <hessijames@gmail.com>
-Homepage: http://kde-apps.org/content/show.php?content=29024
+Source: rexloader
+Version: 0.1a.rev.217
+Binary: rexloader
+Maintainer: Dmitriy Perlow <dap.darkness@gmail.com>
+Homepage: http://rexloader.googlecode.com/
 Architecture: any
-Build-Depends: kdelibs5-dev, libtag1-dev, libkcddb-dev, libcdparanoia0-dev, debhelper (>= 4.1.16), g++, cmake
+Build-Depends: cdbs, qt4-qmake, build-essential, libqt4-dev, debhelper (>= 4.1.16), g++
 Files:
- d57283ebb8157ae919762c58419353c8 133282 soundkonverter_1.4.0.orig.tar.gz
- 2fecf324a32123b08cefc0f047bca5ee 63176 soundkonverter_1.4.0-1.diff.tar.gz
+ d1d731e47940ccd1ccafc4733f907aa5 732729 rexloader-0.1a.rev.217.tar.gz

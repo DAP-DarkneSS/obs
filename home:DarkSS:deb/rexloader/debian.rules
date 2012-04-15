@@ -24,8 +24,15 @@ build-stamp:
 	pwd
 	if cd build_dir ; then echo "Changed"; else echo "Some Errors"; fi
 	pwd
-	cmake -D CMAKE_BUILD_TYPE="Release" -D NNFW_CONFIG="" -D CMAKE_INSTALL_PREFIX=/usr .
-	make all
+	cd Httploader
+	qmake HttpLoader.pro
+	make
+	cd ../NoticeWindow
+	qmake NoticeWindow.pro
+	make
+	cd ../REXLoader
+	qmake REXLoader.pro
+	make
 
 	touch build-stamp
 
@@ -46,7 +53,15 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/gentoo.
-	make install DESTDIR=$(CURDIR)/debian/soundkonverter
+	mkdir -p $(CURDIR)/debian/build/usr/bin
+	cp -R ./usr/bin/REXLoader $(CURDIR)/debian/build/usr/bin/rexloader
+	mkdir -p $(CURDIR)/debian/build/usr/lib/rexloader/plugins
+	cp -R ./usr/lib/rexloader/plugins/* $(CURDIR)/debian/build/usr/lib/rexloader/plugins
+	cp -R ./NoticeWindow/NoticeWindow $(CURDIR)/debian/build/usr/lib/rexloader/plugins/libNoticeWindow.so
+	mkdir -p $(CURDIR)/debian/build/usr/share/pixmaps
+	cp -R ./REXLoader/images/RExLoader_64x64.png $(CURDIR)/debian/build/usr/share/pixmaps/rexloader.png
+	mkdir -p $(CURDIR)/debian/build/usr/share/applications/
+	cp -R ./rexloader.desktop $(CURDIR)/debian/build/usr/share/applications
 
 # Build architecture-independent files here.
 binary-indep: build install

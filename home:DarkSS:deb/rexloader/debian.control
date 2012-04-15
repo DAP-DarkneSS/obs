@@ -1,11 +1,13 @@
-Source: soundkonverter
+Source: rexloader
 Section: unknown
 Priority: optional
-Maintainer: Daniel Faust <hessijames@gmail.com>
-Build-Depends: kdelibs5-dev, libtag1-dev, libkcddb-dev, libcdparanoia0-dev, debhelper (>= 4.1.16), g++, cmake
+Maintainer: Dmitriy Perlow <dap.darkness@gmail.com>
+Build-Depends: cdbs, qt4-qmake, build-essential, libqt4-dev, debhelper (>= 4.1.16), g++
 
-Package: soundkonverter
+Package: rexloader
 Architecture: any
 Depends: ${shlibs:Depends}
-Description: An audio converter
- soundKonverter is a frontend to various audio converters, replaygain tools and cd rippers;
+Description: A download manager
+ An advanced Qt download manager over http
+ with configurable multithreaded downloading,
+ proxy support and notifications;
