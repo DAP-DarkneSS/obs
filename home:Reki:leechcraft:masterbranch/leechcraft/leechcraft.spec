@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.60-428-gacb5df1
+%define LEECHCRAFT_VERSION 0.5.60-433-gc85973c
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -97,7 +97,7 @@ Group:          Development/Libraries/Other
 Requires:       %{name} = %{version}
 
 %description devel
-This package provides files required for LeechCraft development.
+This package provides files required for development for LeechCraft.
 
 It contains header files required to develop new modules.
 
