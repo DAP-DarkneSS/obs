@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.60-433-gc85973c
+%define LEECHCRAFT_VERSION 0.5.60-435-ga31196b
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1287,11 +1287,17 @@ cd build
 make %{?_smp_mflags}
 
 cd ../doc/doxygen/core
+touch footer.html
+sed -i Doxyfile \
+-e "s/HTML_FOOTER .*/HTML_FOOTER            = footer.html/"
 sed -i Doxyfile \
 -e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
 doxygen Doxyfile
 
 cd ../azoth
+touch footer.html
+sed -i Doxyfile \
+-e "s/HTML_FOOTER .*/HTML_FOOTER            = footer.html/"
 sed -i Doxyfile \
 -e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
 doxygen Doxyfile
