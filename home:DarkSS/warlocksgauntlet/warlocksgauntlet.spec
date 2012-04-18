@@ -13,24 +13,34 @@
 
 Name:           warlocksgauntlet
 Version:        1.3
-Release:        1
+Release:        2
 Summary:        Warlock's Gauntlet: binary files
 
 License:        Open Source
 URL:            http://www.assembla.com/wiki/show/gdpl
 Source0:        https://bitbucket.org/toxic/wg/get/%{version}.tar.bz2
 Group:          Amusements/Games/Action/Other
+# PATCH-FIX-UPSTREAM Error while building bleeding edge version is fixed.
 # Patch1:         tomat.patch
+# PATCH-FIX-UPSTREAM Error while building bleeding edge version is fixed.
 # Patch2:         include.patch
+# PATCH-FIX-UPSTREAM Building error is fixed.
 Patch3:         include2.patch
+# PATCH-FIX-OPENSUSE Makefile for x32 is fixed in order to unify the binary
+# file name, exclude built-in libraries and resolve linking error.
 Patch4:         link64.patch
+# PATCH-FIX-OPENSUSE Makefile for x64 is fixed in order to unify the binary
+# file name, exclude built-in libraries and resolve linking error.
 Patch5:         link32.patch
+# PATCH-FIX-UPSTREAM Crash on startup is fixed.
 Patch6:         toxic.patch
+# See patch discussion with the game developer at
+# http://www.assembla.com/spaces/gdpl/tickets/1282-make--***-%5Bwarlocksgauntlet-bin64%5D-error-1-in-opensuse-12-1
 
 BuildRequires:  make
 BuildRequires:  update-desktop-files fdupes
 BuildRequires:  gcc-c++
-BuildRequires:  Mesa-devel libglue-devel openal-soft-devel libsndfile-devel
+BuildRequires:  Mesa-devel libglue-devel openal-soft-devel libsndfile-devel sfml-devel
 Requires:       %{name}-data = %{version}
 
 %description
@@ -75,10 +85,10 @@ cd toxic-wg-%{rev}
 %patch4
 %patch5
 %patch6
-rm ./libs32/libopenal*
-rm ./libs64/libopenal*
-rm ./libs32/libsndfile*
-rm ./libs64/libsndfile*
+# rm ./libs32/libopenal*
+# rm ./libs64/libopenal*
+# rm ./libs32/libsndfile*
+# rm ./libs64/libsndfile*
 
 %build
 cd toxic-wg-%{rev}
@@ -91,27 +101,28 @@ make -f Makefile.x86_64
 
 %install
 cd toxic-wg-%{rev}
-mkdir -p %{buildroot}%{_libdir}
-%ifarch %{ix86}
-%{__install} ./libs32/libsfml* %{buildroot}%{_libdir}
-%endif
-%ifarch x86_64
-%{__install} ./libs64/libsfml* %{buildroot}%{_libdir}
-%endif
+# mkdir -p %%{buildroot}%%{_libdir}
+# %%ifarch %%{ix86}
+# %%{__install} ./libs32/libsfml* %%{buildroot}%%{_libdir}
+# %%endif
+# %%ifarch x86_64
+# %%{__install} ./libs64/libsfml* %%{buildroot}%%{_libdir}
+# %%endif
 mkdir -p %{buildroot}%{_datadir}/%{name}
 cp -r ./data/ %{buildroot}%{_datadir}/%{name}
 %{__install} ./data.vfs %{buildroot}%{_datadir}/%{name}
 mkdir -p %{buildroot}%{_bindir}
 %{__install} ./%{name} %{buildroot}%{_bindir}/%{name}-bin
 echo -e '#!/bin/sh'"\n\ncd %{_datadir}/%{name}\n%{name}-bin" > %{buildroot}%{_bindir}/%{name}
+# The binary file must be run from the game data directory.
 chmod +x %{buildroot}%{_bindir}/%{name}
 cp -r ./tools/deb_image/usr/share/icons/ %{buildroot}%{_datadir}
 %suse_update_desktop_file -c %{name} "Warlock's Gauntlet" "Dynamic, top-down spell-caster game" %{name} WarlocksGauntlet "Game;ActionGame;"
-%fdupes -s %{buildroot}
+%fdupes -s %{buildroot}%{_datadir}/%{name}/data/
 
-%post -n %{name} -p /sbin/ldconfig
-
-%postun -n %{name} -p /sbin/ldconfig
+# %%post -n %%{name} -p /sbin/ldconfig
+# 
+# %%postun -n %%{name} -p /sbin/ldconfig
 
 %clean
 rm -rf %{buildroot}
@@ -120,7 +131,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %attr(755,root,root) %{_bindir}/%{name}-bin
 %attr(755,root,root) %{_bindir}/%{name}
-%{_libdir}/libsfml*
+# %%{_libdir}/libsfml*
 
 %files data
 %defattr(-,root,root)

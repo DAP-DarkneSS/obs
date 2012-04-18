@@ -1,5 +1,5 @@
 --- Makefile.orig	2012-03-22 22:28:34.000000000 +0300
-+++ Makefile	2012-03-28 23:10:30.186000010 +0300
++++ Makefile	2012-04-18 19:21:30.968000026 +0300
 @@ -1,6 +1,6 @@
  GAMENAME = WarlocksGauntlet
  
@@ -8,9 +8,12 @@
  
  -include Makefile.sources
  
-@@ -11,7 +11,7 @@
+@@ -9,9 +9,9 @@
+     CPPFLAGS += -DSCM_REVISION="$(SCM_REVISION)"
+ endif
  
- LDFLAGS = -L"./libs32"
+-LDFLAGS = -L"./libs32"
++# LDFLAGS = -L"./libs32"
  
 -LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 +LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lopenal -lGL

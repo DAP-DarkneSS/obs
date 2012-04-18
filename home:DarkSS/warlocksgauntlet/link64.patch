@@ -1,5 +1,5 @@
 --- Makefile.x86_64.orig	2012-03-22 22:28:34.000000000 +0300
-+++ Makefile.x86_64	2012-03-26 19:29:19.725000034 +0300
++++ Makefile.x86_64	2012-04-18 19:20:52.912000024 +0300
 @@ -2,7 +2,7 @@
  
  ARCH = "x86_64"
@@ -9,9 +9,12 @@
  
  -include Makefile.sources
  
-@@ -13,7 +13,7 @@
+@@ -11,9 +11,9 @@
+     CPPFLAGS += -DSCM_REVISION="$(SCM_REVISION)"
+ endif
  
- LDFLAGS = -L"./libs64"
+-LDFLAGS = -L"./libs64"
++# LDFLAGS = -L"./libs64"
  
 -LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lopenal
 +LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lopenal -lGL
