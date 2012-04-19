@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.60-447-g0f3f5ae
+%define LEECHCRAFT_VERSION 0.5.60-452-g34b84f8
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -47,7 +47,7 @@ BuildRequires:  hicolor-icon-theme
 BuildRequires:  libcurl-devel
 BuildRequires:  libqt4-devel >= 4.6
 BuildRequires:  phonon-devel
-BuildRequires:  libqxmpp-devel >= 0.3.47.1
+BuildRequires:  libqxmpp-lc-devel >= 0.3.47.1
 BuildRequires:  speex-devel
 BuildRequires:  fdupes
 BuildRequires:  libGeoIP-devel
