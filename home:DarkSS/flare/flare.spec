@@ -8,7 +8,7 @@
 #
 
 Name:           flare
-Version:        v0.14-549-g0b72bb6
+Version:        v0.14-564-gba2037f
 Release:        0
 Summary:        Free Libre Action Roleplaying Engine: binary file
 
@@ -73,7 +73,7 @@ cd build
 make install DESTDIR=%{buildroot}
 chmod +x %{buildroot}%{_datadir}/games/%{name}/mods/fantasycore/languages/xgettext.py
 %suse_update_desktop_file %{name}
-%fdupes -s %{buildroot}
+%fdupes -s %{buildroot}%{_datadir}/games/%{name}/mods/fantasycore/soundfx/
 
 %clean
 rm -rf %{buildroot}
