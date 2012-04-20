@@ -30,6 +30,9 @@ Group:          System/Libraries
 Summary:        Qt XMPP Library
 Url:            https://github.com/0xd34df00d/qxmpp-dev
 
+Provides:       libqxmpp1 = %{version}
+Obsoletes:      libqxmpp1 < %{version}
+
 BuildRequires:  libqt4-devel
 BuildRequires:  speex-devel
 
@@ -51,6 +54,9 @@ always recommended to the advanced users to read and enjoy the low level details
 Summary:        Qxmpp Development Files
 Group:          Development/Libraries/C and C++
 Requires:       libqxmpp-lc1 = %{version}
+
+Provides:       libqxmpp-devel = %{version}
+Obsoletes:      libqxmpp-devel < %{version}
 
 %description -n libqxmpp-lc-devel
 It's a development package for qxmpp.
