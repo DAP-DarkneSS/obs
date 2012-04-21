@@ -1,5 +1,5 @@
 --- Makefile.orig	2012-03-22 22:28:34.000000000 +0300
-+++ Makefile	2012-04-18 19:21:30.968000026 +0300
++++ Makefile	2012-04-21 23:55:14.027000076 +0300
 @@ -1,6 +1,6 @@
  GAMENAME = WarlocksGauntlet
  
@@ -16,7 +16,7 @@
 +# LDFLAGS = -L"./libs32"
  
 -LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
-+LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lopenal -lGL
++LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lopenal -lGL -lGLEW -lz
  
  #default:
  CXXFLAGS = -g -Wall

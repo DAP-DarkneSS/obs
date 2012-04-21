@@ -13,7 +13,7 @@
 
 Name:           warlocksgauntlet
 Version:        1.3
-Release:        2
+Release:        3
 Summary:        Warlock's Gauntlet: binary files
 
 License:        Open Source
@@ -41,6 +41,7 @@ BuildRequires:  make
 BuildRequires:  update-desktop-files fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  Mesa-devel libglue-devel openal-soft-devel libsndfile-devel sfml-devel
+BuildRequires:  glew-devel zlib-devel
 Requires:       %{name}-data = %{version}
 
 %description
