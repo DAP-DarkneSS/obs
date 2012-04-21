@@ -19,6 +19,7 @@ Source1:        %{name}.desktop
 
 BuildRequires:  qt4-devel
 BuildRequires:  zlib-devel
+BuildConflicts: libpulseaudio0 lib64pulseaudio0 libalsa-plugins-pulseaudio lib64alsa-plugins-pulseaudio
 
 %description
 An advanced Qt download manager over http with configurable multithreaded downloading.
