@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.60-466-g351788a
+%define LEECHCRAFT_VERSION 0.5.60-470-g4c1afc3
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1320,9 +1320,9 @@ cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
 #%%fdupes -s %%{buildroot}%%{_datadir}/%%{name}/eiskaltdcpp
 %fdupes -s %{buildroot}%{_datadir}/%{name}/translations
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth
+%fdupes -s %{buildroot}%{_docdir}/%{name}-doc/
+%fdupes -s %{buildroot}%{_docdir}/%{name}-azoth-doc/
 #%%fdupes -s %%{buildroot}%%{_datadir}/icons/oxygen
-# %%fdupes -s %%{buildroot}%%{_docdir}/%%{name}-doc/
-# %%fdupes -s %%{buildroot}%%{_docdir}/%%{name}-azoth-doc/
 
 %post -p /sbin/ldconfig
 
@@ -1361,7 +1361,8 @@ rm -rf %{buildroot}
 %files doc
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}-doc
-%{_docdir}/%{name}-doc/*
+%doc %{_docdir}/%{name}-doc/*
+%exclude %{_docdir}/%{name}-doc/installdox
 
 %files advancednotifications
 %defattr(-,root,root)
@@ -1426,7 +1427,8 @@ rm -rf %{buildroot}
 %files azoth-doc
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}-azoth-doc
-%{_docdir}/%{name}-azoth-doc/*
+%doc %{_docdir}/%{name}-azoth-doc/*
+%exclude %{_docdir}/%{name}-azoth-doc/installdox
 
 %files azoth-acetamide
 %defattr(-,root,root)
