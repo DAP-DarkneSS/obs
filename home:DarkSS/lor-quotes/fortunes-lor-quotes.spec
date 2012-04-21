@@ -4,7 +4,7 @@
 # Copyright (c) 2005-2012 lorquotes.ru (quotes), (c) 2012 Perlow Dmitriy A. (spec file)
 #
 
-%define _date 20120408
+%define _date 20120421
 
 Name:           fortunes-lor-quotes
 Version:        date.%{_date}
@@ -16,6 +16,7 @@ URL:            http://lorquotes.ru/fortunes.php
 Source0:        lor-quotes-%{version}.bz2
 Group:          Amusements/Games/Other
 Patch1:         gtk.patch
+Patch2:         my.patch
 
 BuildRequires:  glibc bzip2
 BuildRequires:  fortune
@@ -32,6 +33,7 @@ feature just uncomment the respective lines in the user's .profile.
 bunzip2 -c -k %{SOURCE0} > lor-quotes-%{version}
 iconv -f koi8-r -t utf-8 lor-quotes-%{version} > lor-quotes
 %patch1
+%patch2
 
 %build
 /usr/sbin/strfile lor-quotes
@@ -48,6 +50,10 @@ rm -rf %{buildroot}
 %{_datadir}/fortune/lor-quotes*
 
 %changelog
+* Sat Apr 21 2012 DA <dap.darkness@gmail.com> - 20120421-1
+- Date 20120421.
+- Two my favorite quotes were added.
+
 * Sun Apr 08 2012 DA <dap.darkness@gmail.com> - 20120408-1
 - Date 20120408.
 
