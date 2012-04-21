@@ -1,0 +1,35 @@
+--- ruwin_alt_sh-UTF-8.map.orig	2012-04-21 14:06:25.345000020 +0300
++++ ruwin_alt_sh-UTF-8.map	2012-04-20 23:22:46.000000000 +0300
+@@ -13,6 +13,8 @@
+ #  
+ #  Right+Shift is used to change rus/lat 
+ #  
++# Changed by Dmitriy A. Perlow <dap.darkness at gmail.com>
++# in order to use Alt+Shift to switch languages.
+ 
+ include "qwerty-layout"
+ 
+@@ -200,8 +202,8 @@
+ 	alt	keycode  41 =	Meta_grave
+ altgr	alt     keycode  41 = 	Meta_grave
+ 		keycode  42 =	Shift	
+-	control	keycode  42 =	AltGr_Lock
+-altgr	control	keycode  42 =	AltGr_Lock
++	alt	keycode  42 =	AltGr_Lock
++altgr	alt	keycode  42 =	AltGr_Lock
+ 		keycode  43 =	backslash bar		slash bar	
+ 	control	keycode  43 =	Control_backslash
+ altgr	control keycode  43 = 	Control_backslash
+@@ -255,10 +257,10 @@
+ 	shift alt keycode  53 = 	Meta_question
+ altgr	shift alt keycode  53 = 	Meta_question
+ 		keycode  54 =	Shift
+-	control	keycode  54 =	AltGr_Lock
+-altgr	control	keycode  54 =	AltGr_Lock
+ 		keycode  55 =	KP_Multiply
+ 		keycode  56 =	Alt	
++	shift	keycode  56 =	AltGr_Lock
++altgr	shift	keycode  56 =	AltGr_Lock
+ 		keycode  57 =	space	space		space	space	
+ 	control	keycode  57 =	nul	
+ altgr	control keycode  57 = 	nul

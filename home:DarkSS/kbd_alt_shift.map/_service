@@ -1,0 +1,11 @@
+<services>
+  <service name="download_url">
+    <param name="filename">ruwin_ct_sh-UTF-8.map</param>
+    <param name="path">/people/legion/packages/kbd.git?p=kbd.git;a=blob_plain;f=data/keymaps/i386/qwerty/ruwin_ct_sh-UTF-8.map;h=c15454979a08dcfa6b4749dc49d992db61a18692;hb=master</param>
+    <param name="host">git.altlinux.org</param>
+  </service>
+  <service name="recompress">
+    <param name="file">*ruwin*</param>
+    <param name="compression">bz2</param>
+  </service>
+</services>
