@@ -47,6 +47,9 @@ make install DESTDIR=%{buildroot}
 %defattr(-,root,root)
 %{_libdir}/kde4/plasma_applet_itmages.so
 %{_datadir}/icons/oxygen/scalable/apps/itmages.svg
+%dir %{_datadir}/kde4/apps/desktoptheme
+%dir %{_datadir}/kde4/apps/desktoptheme/default
+%dir %{_datadir}/kde4/apps/desktoptheme/default/widgets
 %{_datadir}/kde4/apps/desktoptheme/default/widgets/itmages.svg
 %{_datadir}/kde4/services/plasma-applet-itmages.desktop
 %dir %{_datadir}/itmages

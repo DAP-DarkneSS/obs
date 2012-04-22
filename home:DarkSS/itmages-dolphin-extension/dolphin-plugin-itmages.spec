@@ -57,6 +57,7 @@ echo "MimeType=image/png;image/jpeg;image/gif;" | tee -a %{buildroot}%{_datadir}
 %dir %{_datadir}/itmages
 %dir %{_datadir}/icons/hicolor
 %dir %{_datadir}/icons/hicolor/scalable
+%dir %{_datadir}/icons/hicolor/scalable/apps
 %dir %{_datadir}/kde4
 %dir %{_datadir}/kde4/services
 %dir %{_datadir}/kde4/services/ServiceMenus
