@@ -20,9 +20,9 @@ Provides:       itmages-dolphin-extension
 Requires:       python-itmages-service
 Requires:       dbus-1-python
 Requires:       kdelibs4-core
-BuildRequires:  update-desktop-files
 BuildRequires:  make
 BuildRequires:  libqt4-devel
+BuildRequires:  update-desktop-files
 
 %description
 This extension for the file manager Dolphin, which allows you to quickly
