@@ -20,12 +20,10 @@ Group:          System/GUI/KDE
 Provides:       itmages-plasma-applet
 BuildRequires:  update-desktop-files fdupes
 BuildRequires:  make cmake
-BuildRequires:  gcc gcc-c++
-BuildRequires:  kdebase4 libkde4-devel kdebase4-workspace kdebase4-runtime
-BuildRequires:  qt qt-devel libqt4-devel
+BuildRequires:  libkde4-devel
+BuildRequires:  libqt4-devel
 Requires:       itmages-dolphin-extension
 Requires:       python-itmages-service dbus-1-python
-Requires:       kdelibs4-core
 
 %description
 Plasma extension to upload pictures to service ITmages.ru
@@ -45,9 +43,6 @@ make install DESTDIR=%{buildroot}
 %fdupes -s %{buildroot}%{_datadir}
 %suse_update_desktop_file %{buildroot}%{_datadir}/kde4/services/plasma-applet-itmages.desktop
 
-%clean
-rm -rf %{buildroot}
-
 %files
 %defattr(-,root,root)
 %{_libdir}/kde4/plasma_applet_itmages.so
@@ -58,5 +53,3 @@ rm -rf %{buildroot}
 %{_datadir}/itmages/itmages-plasma-applet-ru.qm
 
 %changelog
-* Mon Jan 09 2012 DA <dap.darkness@gmail.com> - 20120109-1
-- Revision #29.
