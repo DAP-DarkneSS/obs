@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.65-41-this-world-is-following-to-the-dark
+%define LEECHCRAFT_VERSION 0.5.65-41-ge0139ed
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1608,7 +1608,7 @@ rm -rf %{buildroot}
 %files lmp
 %defattr(-,root,root)
 %{settings_dir}/lmpsettings.xml
-%{translations_dir}/%{name}_lmp*
+# %%{translations_dir}/%%{name}_lmp*
 %{plugin_dir}/*%{name}_lmp.so
 
 %files networkmonitor
