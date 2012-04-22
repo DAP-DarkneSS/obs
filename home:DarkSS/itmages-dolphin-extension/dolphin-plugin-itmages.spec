@@ -8,18 +8,18 @@
 
 Name:           dolphin-plugin-itmages
 Version:        1.07.bzr
-Release:        0
-Summary:        ITmages Dolphin extension
+Release:        1
+Summary:        ITmages Dolphin extension to upload pictures to ITmages.ru
 
 License:        GPL-3.0
 URL:            https://launchpad.net/itmages/itmages-dolphin-extension
 Source0:        %{name}-%{version}.tar.bz2
 Group:          Productivity/Networking/Other
 
-Provides:       itmages-dolphin-extension = %{version}
-Obsoletes:      itmages-dolphin-extension < %{version}
-
-Requires:       python-itmages-service dbus-1-python kdelibs4-core
+Provides:       itmages-dolphin-extension
+Requires:       python-itmages-service
+Requires:       dbus-1-python
+Requires:       kdelibs4-core
 BuildRequires:  update-desktop-files
 BuildRequires:  make
 BuildRequires:  gcc gcc-c++
@@ -71,4 +71,4 @@ rm -rf %{buildroot}
 - Added desktop file with "Type=Application".
 
 * Mon Jan 09 2012 DA <dap.darkness@gmail.com> - 20120109-1
-- Revision #42.
+- Version 1.07. Revision #42.

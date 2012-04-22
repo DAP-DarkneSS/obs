@@ -6,22 +6,20 @@
 # Please submit bugfixes or comments via https://bugs.launchpad.net/itmages
 #
 
-%define _revision 38
-
 Name:           python-itmages-service
-Version:        0.%{_revision}
-Release:        5
+Version:        0.38
+Release:        6
 Summary:        ITmages service requests on DBus, offers to work with image hosting ITmages
 
 License:        GPL-3.0
 Group:          Development/Languages/Python
-BuildRoot:      %{_tmppath}/itmages-service-0.38
 URL:            https://launchpad.net/itmages/itmages-service
 Source0:        %{name}-%{version}.tar.bz2
 Patch1:         x-desktop.patch
 
 Provides:       itmages-service python-itmages
-BuildRequires:  python-base python update-desktop-files fdupes
+BuildRequires:  python-base python
+BuildRequires:  update-desktop-files fdupes
 %if 0%{?suse_version} >= 1210
 BuildRequires:  python-distribute
 %else
@@ -46,10 +44,7 @@ and deal with a hosting API. Just use DBus.
 %install
 export PYTHONDONTWRITEBYTECODE=
 %{__python} setup.py install -O1 --root=%{buildroot}
-%fdupes -s %{buildroot}%{python_sitelib}
 %fdupes -s %{buildroot}%{python_sitelib}/itmagesd
-mkdir -p %{buildroot}%{_datadir}/doc/itmages/service
-%{__install} README %{buildroot}%{_datadir}/doc/itmages/service/
 %suse_update_desktop_file itmagesd
 
 %clean
@@ -58,8 +53,6 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 %doc README
-%{_datadir}/doc/itmages/service
-%{_datadir}/doc/itmages/service/*
 %{_bindir}/itmagesd
 %{python_sitelib}/*
 %{_datadir}/itmages/testwindow.ui

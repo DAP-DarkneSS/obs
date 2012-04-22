@@ -1,17 +1,15 @@
 #
-# spec file for package [spectemplate]
+# spec file for package plasmoid-itmages-applet
 #
 # Copyright (c) 2009-2012 ITmages: https://launchpad.net/itmages
 #
 # Please submit bugfixes or comments via https://bugs.launchpad.net/itmages
 #
 
-%define _revision 29
-
 Name:           plasmoid-itmages-applet
-Version:        0.%{_revision}
-Release:        2
-Summary:        Plasma extension for upload pictures to service ITmages.ru
+Version:        0.29
+Release:        3
+Summary:        Plasma extension to upload pictures to service ITmages.ru
 
 License:        GNU GPL v3
 URL:            https://launchpad.net/itmages/itmages-plasma-applet
@@ -19,18 +17,18 @@ Source0:        %{name}-%{version}.tar.bz2
 Group:          System/GUI/KDE
 
 %kde4_runtime_requires
-BuildRequires:  qt fdupes
-BuildRequires:  make cmake libkde4-devel update-desktop-files
-BuildRequires:  gcc
-BuildRequires:  gcc-c++
-BuildRequires:  kdebase4
-BuildRequires:  qt-devel
-BuildRequires:  libqt4-devel
-BuildRequires:  kdebase4-workspace kdebase4-runtime
-Requires:       itmages-dolphin-extension python-itmages-service dbus-1-python kdelibs4-core
+Provides:       itmages-plasma-applet
+BuildRequires:  update-desktop-files fdupes
+BuildRequires:  make cmake
+BuildRequires:  gcc gcc-c++
+BuildRequires:  kdebase4 libkde4-devel kdebase4-workspace kdebase4-runtime
+BuildRequires:  qt qt-devel libqt4-devel
+Requires:       itmages-dolphin-extension
+Requires:       python-itmages-service dbus-1-python
+Requires:       kdelibs4-core
 
 %description
-Plasma extension for upload pictures to service ITmages.ru
+Plasma extension to upload pictures to service ITmages.ru
 This extension allows you to upload your favorite images, photos, 
 screenshots of image hosting ITmages.ru
 
@@ -56,7 +54,7 @@ rm -rf %{buildroot}
 %{_datadir}/icons/oxygen/scalable/apps/itmages.svg
 %{_datadir}/kde4/apps/desktoptheme/default/widgets/itmages.svg
 %{_datadir}/kde4/services/plasma-applet-itmages.desktop
-%{_datadir}/itmages
+%dir %{_datadir}/itmages
 %{_datadir}/itmages/itmages-plasma-applet-ru.qm
 
 %changelog

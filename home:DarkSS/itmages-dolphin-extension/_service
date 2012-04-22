@@ -2,12 +2,13 @@
   <service name="tar_scm">
     <param name="scm">bzr</param>
     <param name="url">lp:itmages/itmages-dolphin-extension</param>
-    <param name="versionprefix">1.07.rev</param>
+    <param name="versionprefix">1.07</param>
     <param name="filename">dolphin-plugin-itmages</param>
   </service>
   <service name="recompress">
     <param name="file">*.tar</param>
     <param name="compression">bz2</param>
   </service>
+  <service name="source_validator"/>
   <service name="set_version"/>
 </services>
