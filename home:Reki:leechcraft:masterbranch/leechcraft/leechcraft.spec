@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.65-6-g07c6160
+%define LEECHCRAFT_VERSION 0.5.65-39-g6f29ee1
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -66,12 +66,16 @@ BuildRequires:  telepathy-qt4-devel
 BuildRequires:  qwt-devel >= 6
 BuildRequires:  file-devel
 BuildRequires:  doxygen
+# For lmp:
+# BuildRequires:  libtag-devel
 
 Requires:       oxygen-icon-theme
 
 Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
 Obsoletes:      %{name}-tabpp
+# Because of http://paste.ubuntu.com/941488/
+Obsoletes:      %{name}-lmp
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -258,24 +262,26 @@ Features:
  * Themable.
  * Platform-independent.
 
-%package lmp
-Summary:        LeechCraft Media player Module
-Group:          Productivity/Networking/Other
-Provides:       %{name}-audioplayer
-Requires:       %{name} = %{version}
-
-%description lmp
-This package provides a media preview plugin for LeechCraft.
-
-It allows to preview, play audio and video files and stream audio and video
-streams. It uses either GStreamer or Xine as a backend thus supporting major
-codecs.
-
-Features
- * Support for major audio and video formats.
- * Streaming media over Internet.
- * Play queue.
- * Support for automatic podcast playing (with a plugin like Aggregator).
+# Because of http://paste.ubuntu.com/941488/
+# 
+# %%package lmp
+# Summary:        LeechCraft Media player Module
+# Group:          Productivity/Networking/Other
+# Provides:       %%{name}-audioplayer
+# Requires:       %%{name} = %%{version}
+# 
+# %%description lmp
+# This package provides a media preview plugin for LeechCraft.
+# 
+# It allows to preview, play audio and video files and stream audio and video
+# streams. It uses either GStreamer or Xine as a backend thus supporting major
+# codecs.
+# 
+# Features
+#  * Support for major audio and video formats.
+#  * Streaming media over Internet.
+#  * Play queue.
+#  * Support for automatic podcast playing (with a plugin like Aggregator).
 
 %package networkmonitor
 Summary:        LeechCraft Network Monitor Module
@@ -1291,6 +1297,7 @@ cmake ../src \
         -DENABLE_OTLOZHU=False \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_Y7=False \
+        -DENABLE_LMP=False \
         -DENABLE_NACHEKU=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
@@ -1602,11 +1609,11 @@ rm -rf %{buildroot}
 %{settings_dir}/kinotifysettings.xml
 %{plugin_dir}/*%{name}_kinotify.so
 
-%files lmp
-%defattr(-,root,root)
-%{settings_dir}/lmpsettings.xml
-%{translations_dir}/%{name}_lmp*
-%{plugin_dir}/*%{name}_lmp.so
+# %%files lmp
+# %%defattr(-,root,root)
+# %%{settings_dir}/lmpsettings.xml
+# %%{translations_dir}/%%{name}_lmp*
+# %%{plugin_dir}/*%%{name}_lmp.so
 
 %files networkmonitor
 %defattr(-,root,root)
