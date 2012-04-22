@@ -47,9 +47,6 @@ export PYTHONDONTWRITEBYTECODE=
 %fdupes -s %{buildroot}%{python_sitelib}/itmagesd
 %suse_update_desktop_file itmagesd
 
-%clean
-rm -rf %{buildroot}
-
 %files
 %defattr(-,root,root)
 %doc README
@@ -67,5 +64,3 @@ rm -rf %{buildroot}
 %dir %{_datadir}/doc/itmages/example/
 
 %changelog
-* Sun Jan 08 2012 DA <dap.darkness@gmail.com> - 20120108-1
-- Revision #38.
