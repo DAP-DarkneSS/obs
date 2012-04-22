@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.65-1-g3afa167
+%define LEECHCRAFT_VERSION 0.5.65-6-g07c6160
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1226,6 +1226,17 @@ This package provides a Dolozhee plugin for LeechCraft.
 It allows to quickly and easily submit bug reports
 and feature requests to LeechCraft issues tracker.
 
+%package nacheku
+Summary:        LeechCraft Link watcher Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description nacheku
+This package provides a Nacheku plugin for LeechCraft.
+
+It allows to watch clipboard and directory in order to
+get links and download files.
+
 %prep
 %setup -q -a 2 -n %{name}-%{version}
 
@@ -1280,6 +1291,7 @@ cmake ../src \
         -DENABLE_OTLOZHU=False \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_Y7=False \
+        -DENABLE_NACHEKU=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
 %build
@@ -1831,5 +1843,10 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_dolozhee.so
 %{_datadir}/%{name}/translations/%{name}_dolozhee_*.qm
+
+%files nacheku
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_nacheku.so
+%{_datadir}/%{name}/settings/nachekusettings.xml
 
 %changelog

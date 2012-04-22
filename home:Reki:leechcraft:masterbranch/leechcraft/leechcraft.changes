@@ -1,3 +1,21 @@
+Sun Apr 22 10:20:39 UTC 2012 - dap.darkness@gmail.com
+
+- 0.5.65 release
+  New Modules:
+      * Dolozhee module (bug reporting and feature requesting tool)
+      * KBCraft module (keyboard layout manager)
+      * Otlozhu module (simple GTD-inspired TODO manager)
+      * XProxy module (advanced proxy configurator)
+  * LackMan got a major UI update and general overhaul
+  * TabSessManager supports global tab unclosing
+  * Azoth Xoox properly caches entity capabilities and vCards
+  * Lots of fixes and improvements in Azoth Acetamide
+  * Choosing chat window style and its variant became much more handy
+  * Azoth Xoox got full support for XEP-0232
+  * Azoth got configurable minimal message editor height
+  * Auscrie was improved and fixed.
+
+-------------------------------------------------------------------
 Thu Mar 15 14:15:00 UTC 2012 - nekolayer@yandex.ru
 
 - 0.5.60 release
@@ -8,7 +26,7 @@ Thu Mar 15 14:15:00 UTC 2012 - nekolayer@yandex.ru
       * Session manager module (save/restore LC tabs)
       * NetStore manager module (now support Yandex.Disk)
       * GActs module (global hotkeys)
-  * Azoth Acetamide support CTCP and vCards
+  * Azoth Acetamide supports CTCP and vCards
   * Aggregator works with DB in another thread and not block main app
   * Many Imporements in adium style support
   * Now using system oxygen icon theme
