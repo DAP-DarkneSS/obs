@@ -18,8 +18,8 @@
 
 
 Name:           libqxmpp-lc1
-Version:        0.3.47.1
-Release:        3
+Version:        0.3.61
+Release:        0
 License:        LGPL-2.0+
 Source0:        qxmpp-dev-%{version}.tar.bz2
 #Source0:        https://github.com/downloads/0xd34df00d/qxmpp-dev/qxmpp-0.3.45.1-extras.tar.bz2 
@@ -48,7 +48,7 @@ and the XMPP RFCs (RFC3920 and RFC3921) have been encapsulated into classes and
 functions. Therefore the user would not be bothered with these details. But it is
 always recommended to the advanced users to read and enjoy the low level details.
 
-%package -n libqxmpp-lc-devel
+%package devel
 
 
 Summary:        Qxmpp Development Files
@@ -58,7 +58,7 @@ Requires:       libqxmpp-lc1 = %{version}
 Provides:       libqxmpp-devel = %{version}
 Obsoletes:      libqxmpp-devel < %{version}
 
-%description -n libqxmpp-lc-devel
+%description devel
 It's a development package for qxmpp.
 
 QXmpp is a cross-platform C++ XMPP client library. It is based on Qt and C++.
@@ -89,7 +89,7 @@ qmake PREFIX=%{_prefix} QMAKE_STRIP="" QMAKE_CXXFLAGS+="%{optflags}"
 %doc AUTHORS CHANGELOG LICENSE.LGPL README
 %{_libdir}/libqxmpp-lc.so.*
 
-%files -n libqxmpp-lc-devel
+%files devel
 %defattr(-,root,root,-)
 %{_includedir}/qxmpp-lc
 %{_libdir}/libqxmpp-lc.so
