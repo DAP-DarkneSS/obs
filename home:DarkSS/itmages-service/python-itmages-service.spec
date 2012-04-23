@@ -11,7 +11,7 @@ Version:        0.38
 Release:        6
 Summary:        ITmages service requests on DBus, offers to work with image hosting ITmages
 
-License:        GPL-3.0
+License:        GPL-2.0+
 Group:          Development/Languages/Python
 URL:            https://launchpad.net/itmages/itmages-service
 Source0:        %{name}-%{version}.tar.bz2

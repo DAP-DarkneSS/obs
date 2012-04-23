@@ -18,9 +18,8 @@ Group:          Productivity/Networking/Other
 
 Provides:       itmages-dolphin-extension
 Requires:       python-itmages-service
-Requires:       dbus-1-python
 Requires:       kdelibs4-core
-BuildRequires:  make
+Recommends:     dolphin
 BuildRequires:  libqt4-devel
 BuildRequires:  update-desktop-files
 
