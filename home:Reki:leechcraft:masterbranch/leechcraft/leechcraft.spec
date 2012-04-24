@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.65-42-g7540233
+%define LEECHCRAFT_VERSION 0.5.65-88-gda55130
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -47,7 +47,7 @@ BuildRequires:  hicolor-icon-theme
 BuildRequires:  libcurl-devel
 BuildRequires:  libqt4-devel >= 4.6
 BuildRequires:  phonon-devel
-BuildRequires:  libqxmpp-lc-devel >= 0.3.47.1
+BuildRequires:  libqxmpp-lc1-devel >= 0.3.61
 BuildRequires:  speex-devel
 BuildRequires:  fdupes
 BuildRequires:  libGeoIP-devel
@@ -66,9 +66,9 @@ BuildRequires:  telepathy-qt4-devel
 BuildRequires:  qwt-devel >= 6
 BuildRequires:  file-devel
 BuildRequires:  doxygen
-# For lmp:
+%if 0%{suse_version} > 1140
 BuildRequires:  libtag-devel
-
+%endif
 Requires:       oxygen-icon-theme
 
 Obsoletes:      %{name}-iconset-oxygen
@@ -259,7 +259,8 @@ Features:
  * Supports notification actions.
  * Themable.
  * Platform-independent.
-
+ 
+%if 0%{suse_version} > 1140
 %package lmp
 Summary:        LeechCraft Media player Module
 Group:          Productivity/Networking/Other
@@ -278,6 +279,7 @@ Features
  * Streaming media over Internet.
  * Play queue.
  * Support for automatic podcast playing (with a plugin like Aggregator).
+%endif
 
 %package networkmonitor
 Summary:        LeechCraft Network Monitor Module
@@ -1293,7 +1295,11 @@ cmake ../src \
         -DENABLE_OTLOZHU=False \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_Y7=False \
+%if 0%{suse_version} > 1140
         -DENABLE_LMP=True \
+%else
+        -DENABLE_LMP=False \
+%endif
         -DENABLE_NACHEKU=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
@@ -1605,11 +1611,13 @@ rm -rf %{buildroot}
 %{settings_dir}/kinotifysettings.xml
 %{plugin_dir}/*%{name}_kinotify.so
 
+%if 0%{suse_version} > 1140
 %files lmp
 %defattr(-,root,root)
 %{settings_dir}/lmpsettings.xml
 # %%{translations_dir}/%%{name}_lmp*
 %{plugin_dir}/*%{name}_lmp.so
+%endif
 
 %files networkmonitor
 %defattr(-,root,root)
