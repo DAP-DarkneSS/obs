@@ -593,19 +593,6 @@ features that are present in all the protocols, Azoth is modelled after the
 XMPP protocol, aiming to provide extensive and full support for XMPP while
 remaining usable for other protocols.
 
-%package azoth-doc
-Summary:        LeechCraft Azoth Documentation
-Group:          Development/Libraries/Other
-BuildArch:      noarch
-
-%description azoth-doc
-This packages provides documentation of LeechCraft Azoth API.
-
-It contains description of Azoth API used for developing LeechCraft
-Azoth sub-plugins. For developing first-lexel plugins, please refer
-to corresponding packages (like leechcraft-doc). This documentation
-is also available online at http://doc.leechcraft.org/azoth/
-
 %package azoth-acetamide
 Summary:        LeechCraft Azoth - IRC Module
 Group:          Productivity/Networking/Other
@@ -1307,42 +1294,16 @@ cmake ../src \
 cd build
 make %{?_smp_mflags}
 
-cd ../doc/doxygen/core
-# touch footer.html
-# sed -i Doxyfile \
-# -e "s/HTML_FOOTER .*/HTML_FOOTER            = footer.html/"
-sed -i Doxyfile \
--e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
-doxygen Doxyfile
-
-cd ../azoth
-# touch footer.html
-# sed -i Doxyfile \
-# -e "s/HTML_FOOTER .*/HTML_FOOTER            = footer.html/"
-sed -i Doxyfile \
--e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
-doxygen Doxyfile
-
 %install
 cd build
 %makeinstall
 cd ../renkoo_adiumstyle
 cp -r ./*.AdiumMessageStyle/ %{buildroot}/%{azoth_dir}/styles/adium/
 
-cd ../doc/doxygen/core/out/html
-mkdir -p %{buildroot}%{_docdir}/%{name}-doc
-cp -r * %{buildroot}%{_docdir}/%{name}-doc
-
-cd ../../../azoth/out/html
-mkdir -p %{buildroot}%{_docdir}/%{name}-azoth-doc
-cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
-
 %suse_update_desktop_file -i %{name}
 #%%fdupes -s %%{buildroot}%%{_datadir}/%%{name}/eiskaltdcpp
 %fdupes -s %{buildroot}%{_datadir}/%{name}/translations
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth
-%fdupes -s %{buildroot}%{_docdir}/%{name}-doc/
-%fdupes -s %{buildroot}%{_docdir}/%{name}-azoth-doc/
 #%%fdupes -s %%{buildroot}%%{_datadir}/icons/oxygen
 
 %post -p /sbin/ldconfig
@@ -1378,12 +1339,6 @@ rm -rf %{buildroot}
 %doc %{_mandir}/man1/%{name}.1.gz
 %{_datadir}/%{name}/sounds
 %exclude %{_datadir}/cmake/Modules/InitLCPlugin.cmake
-
-%files doc
-%defattr(-,root,root)
-%dir %{_docdir}/%{name}-doc
-%doc %{_docdir}/%{name}-doc/*
-%exclude %{_docdir}/%{name}-doc/installdox
 
 %files advancednotifications
 %defattr(-,root,root)
@@ -1444,12 +1399,6 @@ rm -rf %{buildroot}
 %{translations_dir}/%{name}_azoth_??.qm
 %{translations_dir}/%{name}_azoth_??_??.qm
 %{plugin_dir}/*%{name}_azoth.so
-
-%files azoth-doc
-%defattr(-,root,root)
-%dir %{_docdir}/%{name}-azoth-doc
-%doc %{_docdir}/%{name}-azoth-doc/*
-%exclude %{_docdir}/%{name}-azoth-doc/installdox
 
 %files azoth-acetamide
 %defattr(-,root,root)
