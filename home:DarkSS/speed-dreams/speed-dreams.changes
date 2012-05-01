@@ -1,0 +1,107 @@
+Tue May  1 17:14:57 UTC 2012 - dap.darkness@gmail.com
+
+- 2.0.0 release
+ Menus
+ * New "shinning" menu style with blurry backgrounds and button animations
+ * More user-friendly menu system, through improved labels, tips and control behavior
+ * Improved options menus (mostly graphics and display)
+ * New Garage menu to get preview and technical data about the chosen car
+ * Reworked / enhanced Driver Select menu with preview image for all cars / liveries
+ * Many fixes / improvements to the various race results menus
+
+ Graphics :
+ * Realistic dynamic sky dome (with background landscape) and rain rendering
+ * Improved world reflexions on car bodies
+ * New skinning system for all car components (body, driver, wheels, ...) and pit door
+ * Added glance left / right commands / views
+ * Added support for ultra-wide screen configurations (dual/triple panel)
+ * Reworked graphics and Open GL capability detection, with crash recovery
+ * Added support for JPEG textures (when relevant, for reducing package size)
+
+ Input control
+ * Improved throttle and clutch management when shifting
+ * WIP optimum auto-shift engine speeds
+ * Allow gear shifts to override auto-gearbox
+ * Fixed speed-correction so that is does not alter when car is spinning (easier recovery)
+ * Added e-brake command (might get useful for RS cars ;-)
+ * Fixed non-symetrical joystick calibration
+ * Added support for button/pad grid shifting
+ * Added support for gamepads with pressure sensitive buttons
+ * Added support for Mouse Wheel and extra buttons
+ * Fixed Mouse calibration lost in Ready-Set-Go stage
+
+ Robots
+ * USR, Simplix : Reworked setups for LS1 and 36GP cars
+ * Kilo2008 : New robot driving TRB1 Taipan and Cavallo
+ * USR : Improved avoidance, Situation-aware headlights
+ * Simplix : Better skilling and faster opponents for the Career mode
+ * Simplix : Optimized loading time
+ * Simplix : Added support for wet track (but no change supported during the race)
+
+ Physics
+ * Simu V2.1 : a better Simu V2
+   * added emergency brake
+   * added gyroscopic forces
+   * added bump and rebound limit velocities to dampers
+   * improved engine brake calculation
+   * fix the downforce calculation for the rear wing
+   * fix the handling of gear and differential efficiencies
+   * fix the cars roll on highly banked tracks
+
+ Sounds
+ * Reworked sounds by Audio Berlin profesionals
+   (but all LS1, 36GP and half of Supercars engine sounds left untouched :-)
+ * Pause sound when pausing a race, however
+ * Open AL back-end : Simulate low-pass filter for engine sound by
+   simply lowering the gain when releasing the throttle
+
+ Race engine
+ * New career racing mode (limided contents for the moment)
+ * New TRB1, LS1, 36GP and MP5 championship, and LS1, 36GP and MP5 single-event race modes,
+ * Added support for real life championship race session layouts
+ * Dual-threading support for improved frame rates when many opponents
+ * Added support for saving, loading and resuming a race / race mode to / from a file
+ * On-screen "wrong way" notification
+ * Not released : network racing mode (does not work correctly)
+
+ Cars
+ * From scratch rework of LS1 and 36GP car physics, for more realism
+ * Slightly Updated physics for TRB1 (Simu V2.1 compatibility)
+ * Supercars physics left untouched (Simu V2.1 compatible)
+ * New MP5 car set (kind of Formula Ford) with 3 models and realistic physics
+ * Many new / reworked HQ liveries for LS1, Supercars and MP5 cars
+ * Improved 3D models for LS1
+ * New WIP LS-GT2 car set (WIP physics and USR robot setups) 
+ * New WIP RS car set (Rally Series, WIP physics and Simplix robot setups)
+ * New WIP TRB1 Vieringe 5 RB (WIP physics, copy of Silber RBLK)
+
+ Tracks
+ * New tracks : 
+   * Road     : Salty,
+   * Circuit  : Brondehach, Goldstone Sand
+   * Speedway : Arizona Mile Speedway, Long Pond Superspeedway, Caddo Speedway, 
+                Sunshine State Superspeedway
+ * HQ texture rework for most tracks (a huge work !)
+ * Gave better and fictive names and locations to many tracks
+ * Reworked preview images for all HQ tracks
+ * Added support for no-building / low-wall pit "building"
+ * Fixed too high friction coefficients in many tracks (towards realism)
+
+ Build system / Packaging
+ * Moved to CMake-based build system
+ * Multi-package deployement scheme, contents based
+ * New Windows binary multi-package system :
+   * the small base package is enough for trying the game (kind of demo)
+   * it can download and installation the other packages, for much more contents
+ * Fixed non GPL 2+ compatible bundled code 
+   + other steps towards official packaging by 100%-OSS Linux distros.
+
+ Other
+ * New command line options for straight starting of a given race, with or without a GUI
+   (suitable for headless computers, for robots tuning, as an ex.).
+ * Improved overall code modularity (separating the race engine and the user interface,
+   making the user interface a loadable module)
+ * New C++ API for loadable module system (only robots left untouched)
+ * New tgfdata library for isolating the menu code from the XML files
+ * Replaced GLUT library by SDL
+ * Moved Windows build to modern DLL interface (no more .def files)
