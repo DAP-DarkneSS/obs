@@ -12,8 +12,6 @@ Summary:        Speed Dreams: binary files
 Name:           speed-dreams
 Version:        2.0.0
 Release:        1
-Source0:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-base-%{version}-r4687.tar.xz
-Source1:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-wip-cars-and-tracks-%{version}-r4687.tar.xz
 Source2:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-base-%{version}-r4687.tar.xz
 Source3:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-hq-cars-and-tracks-%{version}-r4687.tar.xz
 Source4:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-more-hq-cars-and-tracks-%{version}-r4687.tar.xz
@@ -75,8 +73,6 @@ Summary:        Speed Dreams Development files
 Includes files for development robots for Speed Dreams.
 
 %prep 
-tar -xf %{SOURCE0} -C ./
-tar -xf %{SOURCE1} -C ./
 tar -xf %{SOURCE2} -C ./
 tar -xf %{SOURCE3} -C ./
 tar -xf %{SOURCE4} -C ./
@@ -87,7 +83,7 @@ tar -xf %{SOURCE6} -C ./
 %build
 mkdir -p build
 cd build
-cmake -D CMAKE_INSTALL_PREFIX:PATH=/usr ..
+cmake -DOPTION_OFFICIAL_ONLY:BOOL=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
 make
 
 %install
