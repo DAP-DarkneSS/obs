@@ -92,8 +92,8 @@ make install DESTDIR=%{buildroot}
 
 %suse_update_desktop_file -c %{name} "Speed Dreams" "Racing car simulator" "%{name}-2" %{name} "Game;ArcadeGame;"
 
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
-%{__install} ../data/data/icons/icon.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+mkdir -p %{buildroot}%{_datadir}/pixmaps
+%{__install} ../data/data/icons/icon.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
 
 mkdir -p %{buildroot}%{_mandir}/man6
 install -m644 ../doc/man/sd2-accc.6 %{buildroot}%{_mandir}/man6/sd2-accc.6
@@ -114,10 +114,7 @@ rm -rf %{buildroot}
 %attr(755,root,root) %{_bindir}/sd2*
 %attr(755,root,root) %{_bindir}/%{name}*
 %{_datadir}/applications/%{name}.desktop
-%dir %{_datadir}/icons/hicolor
-%dir %{_datadir}/icons/hicolor/scalable
-%dir %{_datadir}/icons/hicolor/scalable/apps
-%attr(644,root,root) %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%attr(644,root,root) %{_datadir}/pixmaps/%{name}.png
 %dir %{_libdir}/games
 %dir %{_libdir}/games/%{name}-2
 %{_libdir}/games/%{name}-2/*
