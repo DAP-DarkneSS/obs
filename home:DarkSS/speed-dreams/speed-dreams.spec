@@ -20,7 +20,6 @@ Source6:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}
 URL:            http://speed-dreams.org/
 Group:          Amusements/Games/3D/Race
 License:        GPL-2.0+
-Patch1:         bin.patch
 
 BuildRequires:  update-desktop-files xz fdupes
 BuildRequires:  gcc gcc-c++
@@ -78,13 +77,13 @@ tar -xf %{SOURCE3} -C ./
 tar -xf %{SOURCE4} -C ./
 tar -xf %{SOURCE5} -C ./
 tar -xf %{SOURCE6} -C ./
-%patch1
+chmod -x *.txt
 
 %build
 mkdir -p build
 cd build
 cmake -DOPTION_OFFICIAL_ONLY:BOOL=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
-make
+make %{?_smp_mflags} BINDIR=%{_bindir}
 
 %install
 cd build
