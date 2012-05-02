@@ -36,7 +36,7 @@ BuildRequires:  plib-devel
 BuildRequires:  freeglut-devel
 BuildRequires:  libXi6-devel
 BuildRequires:  xorg-x11-libXmu-devel
-BuildRequires:  libjpeg8-devel
+BuildRequires:  libjpeg62-devel
 Requires:       libSDL >= 1.2.13
 Requires:       %{name}-data = %{version}
 
@@ -82,7 +82,7 @@ chmod -x *.txt
 %build
 mkdir -p build
 cd build
-cmake -DOPTION_OFFICIAL_ONLY:BOOL=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+cmake -DOPTION_OFFICIAL_ONLY:BOOL=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr -DSD_BINDIR=/usr/bin ..
 make %{?_smp_mflags} BINDIR=%{_bindir}
 
 %install
