@@ -8,7 +8,7 @@
 #
 
 Name:           flare
-Version:        v0.14-564-gba2037f
+Version:        v0.14-571-gf6d96f6
 Release:        0
 Summary:        Free Libre Action Roleplaying Engine: binary file
 
