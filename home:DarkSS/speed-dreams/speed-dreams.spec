@@ -20,6 +20,7 @@ Source6:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}
 URL:            http://speed-dreams.org/
 Group:          Amusements/Games/3D/Race
 License:        GPL-2.0+
+Patch1:         bin.patch
 
 BuildRequires:  update-desktop-files xz fdupes
 BuildRequires:  gcc gcc-c++
@@ -36,8 +37,7 @@ BuildRequires:  plib-devel
 BuildRequires:  freeglut-devel
 BuildRequires:  libXi6-devel
 BuildRequires:  xorg-x11-libXmu-devel
-BuildRequires:  libjpeg62-devel
-Requires:       libSDL >= 1.2.13
+BuildRequires:  libjpeg-devel
 Requires:       %{name}-data = %{version}
 
 %description
@@ -77,19 +77,25 @@ tar -xf %{SOURCE3} -C ./
 tar -xf %{SOURCE4} -C ./
 tar -xf %{SOURCE5} -C ./
 tar -xf %{SOURCE6} -C ./
+%patch1
 chmod -x *.txt
 
 %build
 mkdir -p build
 cd build
-cmake -DOPTION_OFFICIAL_ONLY:BOOL=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr -DSD_BINDIR=/usr/bin ..
+cmake .. \
+       -DOPTION_OFFICIAL_ONLY:BOOL=ON \
+       -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
+       -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+       -DCMAKE_BUILD_WITH_INSTALL_RPATH:BOOL=FALSE \
+       -DCMAKE_INSTALL_PREFIX:PATH=/usr
 make %{?_smp_mflags} BINDIR=%{_bindir}
 
 %install
 cd build
 make install DESTDIR=%{buildroot}
 
-%suse_update_desktop_file -c %{name} "Speed Dreams" "Racing car simulator" "%{name}-2" %{name} "Game;ArcadeGame;"
+%suse_update_desktop_file -c %{name} "Speed Dreams" "Racing car simulator" "%{name}-2" %{name} "Game;Simulation;"
 
 mkdir -p %{buildroot}%{_datadir}/pixmaps
 %{__install} ../data/data/icons/icon.png %{buildroot}%{_datadir}/pixmaps/%{name}.png

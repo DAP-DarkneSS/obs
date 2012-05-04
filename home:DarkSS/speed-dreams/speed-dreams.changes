@@ -1,3 +1,15 @@
+Fri May  4 19:10:43 UTC 2012 - dap.darkness@gmail.com
+
+- Build improvements
+ * Requires libjpeg-devel instead of libjpeg62-devel or libjpeg8-devel.
+ * Cmake makes verbose makefile.
+ * Cmake build gets type "RelWithDebInfo" in order to save the debug information.
+ * Cmake builds without rpath.
+ * Desktop file category is "Simulation".
+ * Direct "libSDL >= 1.2.13" requirement was removed.
+ * Binary directory is set by a patch because of error.
+
+-------------------------------------------------------------------
 Tue May  1 17:14:57 UTC 2012 - dap.darkness@gmail.com
 
 - 2.0.0 release
