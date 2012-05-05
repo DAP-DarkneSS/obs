@@ -88,7 +88,9 @@ cmake .. \
        -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_BUILD_WITH_INSTALL_RPATH:BOOL=FALSE \
+       -DSD_BINDIR:PATH=bin \
        -DCMAKE_INSTALL_PREFIX:PATH=/usr
+
 make %{?_smp_mflags} BINDIR=%{_bindir}
 
 %install
