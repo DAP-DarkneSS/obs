@@ -1,14 +1,15 @@
 #
 # spec file for package rexloader
 #
-# Copyright (c) 2011-2012 Sarvaritdinov Ravil (source), (c) 2012 Perlow Dmitriy A. (spec file)
+# Copyright (c) 2011-2012 Sarvaritdinov Ravil (source),
+# (c) 2012 Perlow Dmitriy A. (spec file)
 #
 # Please submit bugfixes or comments via http://code.google.com/p/rexloader/issues/list
 #
 
 Name:           rexloader
 Version:        0.1a.rev
-Release:        0
+Release:        1
 Summary:        An advanced Qt download manager over http
 
 Group:          Productivity/Networking/Other
@@ -17,11 +18,12 @@ URL:            http://code.google.com/p/rexloader/
 Source0:        %{name}-%{version}.tar.bz2
 Source1:        %{name}.desktop
 
-BuildRequires:  qt make qt-devel libqt4-devel gcc-c++ gcc
+BuildRequires:  libqt4-devel
 BuildRequires:  update-desktop-files
 
 %description
-An advanced Qt download manager over http with configurable multithreaded downloading.
+An advanced Qt download manager over http with configurable multithreaded
+downloading and nice notifications.
 
 %prep
 %setup -q
@@ -29,13 +31,13 @@ An advanced Qt download manager over http with configurable multithreaded downlo
 %build
 cd Httploader
 qmake HttpLoader.pro
-make
+make %{?_smp_mflags}
 cd ../NoticeWindow
 qmake NoticeWindow.pro
-make
+make %{?_smp_mflags}
 cd ../REXLoader
 qmake REXLoader.pro
-make
+make %{?_smp_mflags}
 
 %install
 mkdir -p %{buildroot}%{_bindir}
@@ -68,42 +70,11 @@ rm -rf %{buildroot}
 * Sat Apr 28 2012 DA <dap.darkness@gmail.com> - 20120428-1
 - Revision #219.
 
-* Wed Apr 11 2012 DA <dap.darkness@gmail.com> - 20120411-1
-- Revision #217.
-
-* Mon Apr 09 2012 DA <dap.darkness@gmail.com> - 20120409-1
-- Revision #215 with GUI enhancements and bug fixes.
-
 * Wed Mar 21 2012 DA <dap.darkness@gmail.com> - 20120321-1
-- Revision #214 with bug fixes and enhancements.
-- Mandriva build doesn't require lz linking patch.
-
-* Fri Mar 09 2012 DA <dap.darkness@gmail.com> - 20120309-1
-- Revision #213 with optimization and bug fixes.
-
-* Sat Mar 03 2012 DA <dap.darkness@gmail.com> - 20120303-2
-- Revision #212 with bug fixes.
-
-* Sat Mar 03 2012 DA <dap.darkness@gmail.com> - 20120303-1
-- Revision #211 with enhancements.
-
-* Tue Feb 28 2012 DA <dap.darkness@gmail.com> - 20120218-3
-- Revision #210 with bug fixes.
-
-* Tue Feb 28 2012 DA <dap.darkness@gmail.com> - 20120218-2
-- Revision #209 with critical bug fixes.
-
-* Tue Feb 28 2012 DA <dap.darkness@gmail.com> - 20120218-1
-- Revision #208 with optimization and bug fixes.
-
-* Sat Feb 18 2012 DA <dap.darkness@gmail.com> - 20120218-2
-- Revision #207 with optimization.
-
-* Sat Feb 18 2012 DA <dap.darkness@gmail.com> - 20120218-1
-- Revision #206 with enhancements and bug fixes.
+- Revision #214 with with Mandriva patch.
 
 * Fri Feb 17 2012 DA <dap.darkness@gmail.com> - 20120217-1
-- Revision #205 with patches for SUSE x64.
+- Revision #205 with patches for rpm and x64.
 
 * Fri Jan 13 2012 DA <dap.darkness@gmail.com> - 20120113-1
 - Revision #201 with proxy support.
