@@ -65,8 +65,13 @@ to easily modify game contents. Open formats are preferred (png, ogg). The game 
 %build
 mkdir -p build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX:STRING="/usr" ..
-make
+cmake .. \
+       -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
+       -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+       -DCMAKE_BUILD_WITH_INSTALL_RPATH:BOOL=FALSE \
+       -DSD_BINDIR:PATH=bin \
+       -DCMAKE_INSTALL_PREFIX:PATH=/usr
+make %{?_smp_mflags}
 
 %install
 cd build
