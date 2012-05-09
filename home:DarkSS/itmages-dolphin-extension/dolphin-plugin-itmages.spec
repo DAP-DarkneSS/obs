@@ -7,7 +7,7 @@
 #
 
 Name:           dolphin-plugin-itmages
-Version:        1.07.1336594798
+Version:        1.07
 Release:        1
 Summary:        ITmages Dolphin extension to upload pictures to ITmages.ru
 
@@ -50,10 +50,10 @@ echo "MimeType=image/png;image/jpeg;image/gif;" | tee -a %{buildroot}%{_datadir}
 %doc README COPYING COPYING.LESSER
 %{_bindir}/itmages-dolphin-extension
 %{_datadir}/icons/hicolor/scalable/apps/itmages.svg
-# %%{_datadir}/itmages/itmages-dolphin-extension_ru.qm
+%{_datadir}/itmages/itmages-dolphin-extension_ru.qm
 %{_datadir}/applications/itmages-uploader.desktop
 %{_datadir}/kde4/services/ServiceMenus/itmages-dolphin-extension.desktop
-# %%dir %%{_datadir}/itmages
+%dir %{_datadir}/itmages
 %dir %{_datadir}/icons/hicolor
 %dir %{_datadir}/icons/hicolor/scalable
 %dir %{_datadir}/icons/hicolor/scalable/apps

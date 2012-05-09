@@ -1,6 +1,6 @@
 <services>
   <service name="tar_scm">
-    <param name="url">git://github.com/DAP-DarkneSS/itmages-dolphin-extension.git</param>
+    <param name="url">git://github.com/itmages/itmages-dolphin-extension.git</param>
     <param name="scm">git</param>
     <param name="versionprefix">1.07</param>
     <param name="filename">dolphin-plugin-itmages</param>
