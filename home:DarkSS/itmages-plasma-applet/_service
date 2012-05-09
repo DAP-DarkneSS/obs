@@ -1,8 +1,8 @@
 <services>
   <service name="tar_scm">
-    <param name="scm">bzr</param>
-    <param name="url">lp:itmages/itmages-plasma-applet</param>
-    <param name="versionprefix">0</param>
+    <param name="url">git://github.com/DAP-DarkneSS/itmages-plasma-applet.git</param>
+    <param name="scm">git</param>
+    <param name="versionprefix">0.29</param>
     <param name="filename">plasmoid-itmages-applet</param>
   </service>
   <service name="recompress">

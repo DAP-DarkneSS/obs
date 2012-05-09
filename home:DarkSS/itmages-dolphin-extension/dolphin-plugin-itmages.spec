@@ -7,11 +7,11 @@
 #
 
 Name:           dolphin-plugin-itmages
-Version:        1.07.bzr
+Version:        1.07.1336594798
 Release:        1
 Summary:        ITmages Dolphin extension to upload pictures to ITmages.ru
 
-License:        GPL-3.0
+License:        LGPL-3.0
 URL:            https://launchpad.net/itmages/itmages-dolphin-extension
 Source0:        %{name}-%{version}.tar.bz2
 Group:          Productivity/Networking/Other
@@ -36,8 +36,8 @@ chmod -x itmages-dolphin-extension.desktop
 
 %build
 export PATH="$PATH:/usr/lib/qt4/bin/:/usr/lib64/qt4/bin"
-qmake -config release
-make
+qmake
+make %{?_smp_mflags}
 
 %install
 make INSTALL_ROOT=${RPM_BUILD_ROOT} install
@@ -47,13 +47,13 @@ echo "MimeType=image/png;image/jpeg;image/gif;" | tee -a %{buildroot}%{_datadir}
 
 %files
 %defattr(-,root,root,-)
-%doc README COPYING
+%doc README COPYING COPYING.LESSER
 %{_bindir}/itmages-dolphin-extension
 %{_datadir}/icons/hicolor/scalable/apps/itmages.svg
-%{_datadir}/itmages/itmages-dolphin-extension_ru.qm
+# %%{_datadir}/itmages/itmages-dolphin-extension_ru.qm
 %{_datadir}/applications/itmages-uploader.desktop
 %{_datadir}/kde4/services/ServiceMenus/itmages-dolphin-extension.desktop
-%dir %{_datadir}/itmages
+# %%dir %%{_datadir}/itmages
 %dir %{_datadir}/icons/hicolor
 %dir %{_datadir}/icons/hicolor/scalable
 %dir %{_datadir}/icons/hicolor/scalable/apps

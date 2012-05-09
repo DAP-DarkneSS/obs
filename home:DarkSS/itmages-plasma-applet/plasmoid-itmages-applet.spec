@@ -11,7 +11,7 @@ Version:        0.29
 Release:        3
 Summary:        Plasma extension to upload pictures to service ITmages.ru
 
-License:        GPL-2.0+
+License:        LGPL-3.0
 URL:            https://launchpad.net/itmages/itmages-plasma-applet
 Source0:        %{name}-%{version}.tar.bz2
 Group:          System/GUI/KDE
@@ -34,7 +34,7 @@ screenshots of image hosting ITmages.ru
 %build
 cmake .
 lrelease itmages-plasma-applet-ru.ts
-make
+make %{?_smp_mflags}
 
 %install
 make install DESTDIR=%{buildroot}
@@ -43,7 +43,7 @@ make install DESTDIR=%{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc debian/copyright
+%doc README COPYING COPYING.LESSER
 %{_libdir}/kde4/plasma_applet_itmages.so
 %{_datadir}/icons/oxygen/scalable/apps/itmages.svg
 %dir %{_datadir}/kde4/apps/desktoptheme
