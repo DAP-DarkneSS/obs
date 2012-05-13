@@ -1,4 +1,116 @@
-Wed Apr 11 16:16:25 UTC 2012
+Sun May 13 13:12:36 UTC 2012 - dap.darkness@gmail.com
+
+- git
+  * Reduced memory consumption of the character model builder.
+  * Cleaned up code in the voxel mesh builder.
+  * Reorganized the workflow of the spell UI.
+  * Fixed layouting problems in book and inventory UIs.
+  * Added a placeholderish labyrinth that is connected to dungeon entrances.
+  * Silenced various sounds and messages when joining the game.
+  * Fixed stats not being set correctly after loading.
+  * Made health and willpower bars have different colors.
+  * Improved outline rendering slightly.
+  * Minor text and icon drawing improvements.
+  * Removed old, unused UI code.
+  * Fixed the game not compiling when Lua 5.2 is used. (#23, patch by worldcitizen)
+  * Added a new, scalable UI theme.
+  * Added support for drawing scaled subimage overlays.
+  * Fixed image overlays not being able to hold enough vertices for larger widgets.
+  * Added random voxel rock above ground.
+  * Fixed some boomerang usage regressions.
+  * Fixed an error when breaking terrain with grenades.
+  * Made the view distance of static objects configurable.
+  * Prevented random static objects from overlapping with the supply camp region.
+  * Added random dungeon entrances.
+  * Minor improvement to keyboard focus handling of the inventory.
+  * Added support for splitting item stacks.
+  * Added support for organizing inventory items.
+  * Fixed quests attached to books not starting anymore.
+  * The server closes inventories when they become unreachable to the player.
+  * Fixed containers not working correctly when looted multiple times.
+  * Added support for storing items to containers.
+  * Less monsters spawn near the supply camp.
+  * Fixed troglodyte rag graphics not being shown correctly.
+  * Fixed item stack splitting and improved its usability.
+  * Fixed options sometimes not being updated correctly.
+  * Fixed detached widgets being leaked in some cases.
+  * Fixed video mode saving not working.
+  * Restored the hint text shown when targeting a usable object.
+  * Orphaned player corpses are removed from the database.
+  * Added various server admin commands.
+  * Orphaned objects are deleted from the database.
+  * Unimportant corpses and items are deleted after 15 minutes of inactivity.
+  * Cleaned up some naming conventions.
+  * Positioning of speech bubbles takes the bounding box of the object into account.
+  * Fixed an offset error in the collision shape of the obelisk.
+  * The reachability test takes the bounding box of the target object into account.
+  * The spec browser can show long text fields without truncating them.
+  * Added key repeat support for text entries.
+  * Fixed key repeat sometimes interfering with typing.
+  * Text entries support multiline strings.
+  * Added obelisks that unlock skills/spells when examined.
+  * Allowed static objects to have dialog variables.
+  * Fixed spells not unlocking correctly.
+  * Fixed the UI not using the correct inventory size when showing loot.
+  * Enabled spawning of the slime and made its AI more appropriate.
+  * Added a "fire elemental" summoning spell. Extended the AI to support summons and work better for ranged spell casters.
+  * Fixed character models not being updated correctly when unequipping items.
+  * Added feat types and effects to the spec browser.
+  * Renamed Featanimspec to Feattypespec.
+  * Fixed speedline effects not rendering correctly.
+  * Added introspection for feat animations and effects.
+  * Removed unused item handling code.
+  * Looting uses action specs. Potions cast spells on the target.
+  * Made it easier to specify what use actions are applicable to objects.
+  * Added new spells: bless, curse.
+  * Fixed Lips being incorrectly positioned in the world map.
+  * Cleaned up client side quest management. Restored the compass HUD.
+  * Added new skills: giant leap and soft landing.
+  * Cleaned up management of spell modifiers.
+  * Fixed a crafting regression.
+  * Fixed the quirky slot selector in the spell editor.
+  * Fixed power attacks not working correctly.
+  * Increased the reliability of climbing by aligning the character to tiles in the beginning.
+  * Jumping can be stopped mid-air.
+  * Added a UI for browsing specs.
+  * Added a function that can save specs even when they are in complex Lua files.
+  * Cleaned up specs and added unified introspection, serialization and validation for them.
+  * Fixed file reading not working.
+  * Added more personalities for NPCs.
+  * Improved text bubbles slightly.
+  * Fixed various control bugs occurring when the player object dies.
+  * Added combat speech support for NPCs.
+  * Enabled better AI for tutorial NPCs.
+  * Added various protective measures against infinite and NaN values.
+  * Modularized AI states. Fixed the AI not stopping combat after the target being killed.
+  * Cleaned up and modularized the combat AI.
+  * Increased the view distance of monsters.
+  * Added a new attack for stone and fire imps: tackle.
+  * Fixed bloodworm not using animated materials.
+  * Fixed NPCs not getting angry when attacked. Cleaned up damage calculation a bit.
+  * Added special AI types for NPCs supposed to stay in a certain place.
+  * Fixed transparency of dewspring leaves.
+  * Added random placeholder houses.
+  * Increased the view distance above ground by 50%.
+  * Slightly fewer monsters spawn above ground.
+  * Skeletal animations are only updated for visible objects.
+  * Prevented Ogre from calculating useless edge list for meshes. This fixes the game stalling for about 0.5 seconds every time a new NPC is added to the scene.
+  * Fixed random plants not being correctly aligned to the heightmap.
+  * Moved the quest spec class to core/specs/.
+  * NPC appearance can be specified with character presets.
+  * Added support for crude NPC murdering missions.
+  * Fixed a Lua stack overflow when reading very long network packets.
+  * Fixed a potential out of array bounds read.
+  * Fixed skill/spell unlocks not being cleared properly after a restart.
+  * Added support for simple random quests.
+  * Fixed several combat regressions and did some balancing.
+  * Particle effects of ranged spells fade out properly after the spell has hit something.
+  * Improved the heightmap and made random plants spawn in overworld sectors.
+  * Improved the chat log widget.
+  * Merged patterns and region specs.
+
+-------------------------------------------------------------------
+Wed Apr 11 16:16:25 UTC 2012 - dap.darkness@gmail.com
 
 - git
   * Fixed a rare bug that could truncate formatted strings by one character.
