@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.65-252-gbe23619
+%define LEECHCRAFT_VERSION 0.5.65-421-g013ed4d
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -35,7 +35,7 @@ Source2:        renkoo_adiumstyle.tar.xz
 # Fixing a bug with finding dynamic libqxmpp1 libs
 #Patch1:         find_qxmpp.patch
 # Fixing path to php-cli
-Patch2:         eiskaltdcpp-fix-php5-issue.patch
+# Patch2:         eiskaltdcpp-fix-php5-issue.patch
 # Set AppQStyle to default from plastique
 Patch3:         defaultstyle.patch
 
@@ -66,9 +66,7 @@ BuildRequires:  telepathy-qt4-devel
 BuildRequires:  qwt-devel >= 6
 BuildRequires:  file-devel
 BuildRequires:  doxygen
-%if 0%{suse_version} > 1140
-BuildRequires:  libtag-devel
-%endif
+BuildRequires:  taglib-devel
 Requires:       oxygen-icon-theme
 
 Obsoletes:      %{name}-iconset-oxygen
@@ -260,7 +258,6 @@ Features:
  * Themable.
  * Platform-independent.
  
-%if 0%{suse_version} > 1140
 %package lmp
 Summary:        LeechCraft Media player Module
 Group:          Productivity/Networking/Other
@@ -279,7 +276,6 @@ Features
  * Streaming media over Internet.
  * Play queue.
  * Support for automatic podcast playing (with a plugin like Aggregator).
-%endif
 
 %package networkmonitor
 Summary:        LeechCraft Network Monitor Module
@@ -1245,9 +1241,9 @@ get links and download files.
 %setup -q -a 2 -n %{name}-%{version}
 
 #%%patch1
-%if 0%{suse_version} > 1140
-%patch2
-%endif
+#%%if 0%%{suse_version} > 1140
+#%%patch2
+#%%endif
 %patch3
 
 #removing non-free icons
@@ -1295,14 +1291,10 @@ cmake ../src \
         -DENABLE_OTLOZHU=False \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_Y7=False \
-%if 0%{suse_version} > 1140
         -DENABLE_LMP=True \
-%else
-        -DENABLE_LMP=False \
-%endif
         -DENABLE_NACHEKU=True \
+        -DENABLE_BLOGIQUE=False \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
-
 %build
 cd build
 make %{?_smp_mflags}
@@ -1611,13 +1603,11 @@ rm -rf %{buildroot}
 %{settings_dir}/kinotifysettings.xml
 %{plugin_dir}/*%{name}_kinotify.so
 
-%if 0%{suse_version} > 1140
 %files lmp
 %defattr(-,root,root)
 %{settings_dir}/lmpsettings.xml
-# %%{translations_dir}/%%{name}_lmp*
+#%%{translations_dir}/%%{name}_lmp*
 %{plugin_dir}/*%{name}_lmp.so
-%endif
 
 %files networkmonitor
 %defattr(-,root,root)
