@@ -24,12 +24,9 @@ build-stamp:
 	pwd
 	if cd build_dir ; then echo "Changed"; else echo "Some Errors"; fi
 	pwd
-	rm -rf Httploader/*.o
-	cd Httploader && qmake HttpLoader.pro && make
-	rm -rf NoticeWindow/*.o
-	cd NoticeWindow && qmake NoticeWindow.pro && make
-	rm -rf REXLoader/*.o
-	cd REXLoader && qmake REXLoader.pro && make
+	cd Httploader && qmake HttpLoader.pro && make -j4
+	cd NoticeWindow && qmake NoticeWindow.pro && make -j4
+	cd REXLoader && qmake REXLoader.pro && make -j4
 
 	touch build-stamp
 

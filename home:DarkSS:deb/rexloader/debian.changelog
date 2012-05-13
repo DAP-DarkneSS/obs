@@ -1,4 +1,4 @@
-rexloader (0.1a.rev.217) unstable; urgency=low
+rexloader (0.1a.rev.222) unstable; urgency=low
   * Add: downloading over http
   * Add: configurable multithreaded downloading
   * Add: proxy support
