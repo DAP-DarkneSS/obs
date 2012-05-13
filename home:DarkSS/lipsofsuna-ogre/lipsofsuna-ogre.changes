@@ -1,3 +1,14 @@
+Sun May 13 19:32:59 UTC 2012
+
+- git
+  * Dialog packets contain hints about whether the client should show the dialog UI.
+  * Fixed some portals not working.
+  * Improved the dialog UI.
+  * Improved Guy's dialog a bit.
+  * Don't use the debug library name when reporting a failure to load an Ogre plugin.
+  * Added --ogre-plugindir option to configure.
+
+-------------------------------------------------------------------
 Sun May 13 13:12:36 UTC 2012 - dap.darkness@gmail.com
 
 - git

@@ -9,7 +9,7 @@
 
 Summary:        Lips of Suna (Ogre): binary files
 Name:           lipsofsuna-ogre
-Version:        git.1336899327
+Version:        git.1336937247
 Release:        0
 Source0:        %{name}-%{version}.tar.bz2
 URL:            http://lipsofsuna.org/
@@ -20,8 +20,8 @@ BuildRequires:  automake desktop-file-utils ImageMagick sqlite3-devel
 BuildRequires:  libSDL-devel libSDL_mixer-devel libSDL_ttf-devel glew-devel
 BuildRequires:  openal-soft-devel flac-devel libvorbis-devel libenet-devel
 BuildRequires:  lua-devel libinotifytools-devel libbullet-devel MesaGLw-devel
-BuildRequires:  libcurl-devel curl glibc-devel gcc-c++
-BuildRequires:  libOIS-devel libOgreMain-devel libOgreTerrain-devel libpng14-devel
+BuildRequires:  libcurl-devel curl glibc-devel gcc-c++ python
+BuildRequires:  libOIS-devel libOgreMain-devel libOgreTerrain-devel libpng-devel
 BuildRequires:  update-desktop-files fdupes
 Requires:       python libOgreMain1_7_4-plugins
 Requires:       %{name}-data = %{version}
@@ -69,6 +69,7 @@ since you can crawl the dungeons with your friends.
 ./waf configure --prefix=%{_prefix} \
 		--libdir=%{_libdir} \
 		--bindir=%{_bindir} \
+		--ogre-plugindir=%{_libdir}/OGRE-1.7.4/ \
 		--relpath=false \
 		--optimize=true
 
