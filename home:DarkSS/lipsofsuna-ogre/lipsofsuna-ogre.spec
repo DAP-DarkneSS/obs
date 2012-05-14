@@ -9,8 +9,8 @@
 
 Summary:        Lips of Suna (Ogre): binary files
 Name:           lipsofsuna-ogre
-Version:        git.1336937247
-Release:        0
+Version:        git.1336940445
+Release:        1
 Source0:        %{name}-%{version}.tar.bz2
 URL:            http://lipsofsuna.org/
 Group:          Amusements/Games/3D/Other
@@ -47,8 +47,7 @@ Group:          Amusements/Games/3D/Other
 Requires:       %{name} = %{version}
 BuildArch:      noarch
 
-Provides:       %{truename}-data = %{version}
-Obsoletes:      %{truename}-data < %{version}
+Conflicts:      %{truename}-data
 
 %description data
 Lips of Suna (Ogre): architecture independent data.
@@ -69,7 +68,6 @@ since you can crawl the dungeons with your friends.
 ./waf configure --prefix=%{_prefix} \
 		--libdir=%{_libdir} \
 		--bindir=%{_bindir} \
-		--ogre-plugindir=%{_libdir}/OGRE-1.7.4/ \
 		--relpath=false \
 		--optimize=true
 
