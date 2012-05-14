@@ -21,7 +21,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.65-434-g1f3b3d6
+%define LEECHCRAFT_VERSION 0.5.65-443-g61e5a9e
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1294,6 +1294,7 @@ cmake ../src \
         -DENABLE_LMP=True \
         -DENABLE_NACHEKU=True \
         -DENABLE_BLOGIQUE=False \
+        -DENABLE_MONOCLE=False \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 %build
 cd build
