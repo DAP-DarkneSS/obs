@@ -67,6 +67,7 @@ BuildRequires:  qwt-devel >= 6
 BuildRequires:  file-devel
 BuildRequires:  doxygen
 BuildRequires:  taglib-devel
+# BuildRequires:  libpoppler-qt4-devel
 Requires:       oxygen-icon-theme
 
 Obsoletes:      %{name}-iconset-oxygen
