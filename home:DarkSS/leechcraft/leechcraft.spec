@@ -69,6 +69,8 @@ Requires:       oxygen-icon-theme
 %if %qtversion >= 40800
 BuildRequires:  libpoppler-qt4-devel
 %endif
+# For snails:
+# BuildRequires:  libvmime-devel
 
 Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
@@ -1151,15 +1153,15 @@ This package provides an advanced proxy manager for LeechCraft.
 It allows to configure and use proxy servers.
 
 %if %qtversion >= 40800
-%package snails
-Summary:        LeechCraft Email client Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description snails
-This package contains a Email client plugin for LeechCraft.
-
-It provides basic Email client functionality and supports SMTP and IMAP4.
+# %%package snails
+# Summary:        LeechCraft Email client Module
+# Group:          Productivity/Networking/Other
+# Requires:      %%{name} = %%{version}
+# 
+# %%description snails
+# This package contains a Email client plugin for LeechCraft.
+# 
+# It provides basic Email client functionality and supports SMTP and IMAP4.
 
 %package otlozhu
 Summary:        LeechCraft ToDo manager Module
@@ -1297,7 +1299,7 @@ cmake ../src \
         -DENABLE_OTLOZHU=True \
         -DENABLE_BLOGIQUE=True \
         -DENABLE_MONOCLE=True \
-        -DENABLE_SNAILS=True \
+        -DENABLE_SNAILS=False \
 %else
         -DENABLE_OTLOZHU=False \
         -DENABLE_BLOGIQUE=False \
@@ -1795,11 +1797,11 @@ rm -rf %{buildroot}
 %{_datadir}/%{name}/settings/kbswitchsettings.xml
 
 %if %qtversion >= 40800
-%files snails
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_snails.so
-%{_datadir}/%{name}/translations/%{name}_snails_*.qm
-%{_datadir}/%{name}/settings/snailssettings.xml
+# %%files snails
+# %%defattr(-,root,root)
+# %%{_libdir}/%%{name}/plugins/lib%%{name}_snails.so
+# %%{_datadir}/%%{name}/translations/%%{name}_snails_*.qm
+# %%{_datadir}/%%{name}/settings/snailssettings.xml
 
 %files otlozhu
 %defattr(-,root,root)
