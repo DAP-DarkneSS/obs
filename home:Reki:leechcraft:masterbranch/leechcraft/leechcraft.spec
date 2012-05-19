@@ -15,13 +15,14 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
+%define qtversion %(rpm -q libqt4 --qf='%{VERSION}\n'|awk -F. '{print $1 * 10000 + $2 * 100 + $3}')
 %define plugin_dir %{_libdir}/%{name}/plugins
 %define translations_dir %{_datadir}/%{name}/translations
 %define settings_dir %{_datadir}/%{name}/settings
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.65-443-g61e5a9e
+%define LEECHCRAFT_VERSION 0.5.65-513-g7c53364
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -67,8 +68,10 @@ BuildRequires:  qwt-devel >= 6
 BuildRequires:  file-devel
 BuildRequires:  doxygen
 BuildRequires:  taglib-devel
-# BuildRequires:  libpoppler-qt4-devel
 Requires:       oxygen-icon-theme
+%if %qtversion >= 40800
+BuildRequires:  libpoppler-qt4-devel
+%endif
 
 Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
@@ -1131,15 +1134,6 @@ This package provides a side bar plugin for Leechcraft.
 
 It is a nice side bar with quick launch, tabs and tray areas.
 
-#%%package snails
-#Summary:        LeechCraft Email client module
-#Group:          Productivity/Networking/Other
-#Requires:       %%{name} = %%{version}
-
-#%%description snails
-#Email (IMAP) client module for LeechCraft
-
-
 %package liznoo
 Summary:        LeechCraft Power managment module
 Group:          Productivity/Networking/Other
@@ -1203,17 +1197,71 @@ This package provides an advanced proxy manager for LeechCraft.
 
 It allows to configure and use proxy servers.
 
-# Requires Qt 4.8!
-#
-# %%package otlozhu
-# Summary:        LeechCraft ToDo manager
-# Group:          Productivity/Networking/Other
-# Requires:       %%{name} = %%{version}
-# 
-# %%description otlozhu
-# This package provides a ToDo manager plugin for LeechCraft.
-# 
-# It will be GTD-inspired ToDo manager.
+%if %qtversion >= 40800
+%package snails
+Summary:        LeechCraft Email client Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description snails
+This package contains a Email client plugin for LeechCraft.
+
+It provides basic Email client functionality and supports SMTP and IMAP4.
+
+%package otlozhu
+Summary:        LeechCraft ToDo manager Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description otlozhu
+This package provides a ToDo manager plugin for LeechCraft.
+
+It is a GTD-inspired ToDo manager.
+
+%package blogique
+Summary:        LeechCraft Blogging client Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description blogique
+This package provides a modular Blogging client plugin for LeechCraft.
+
+It will support different blogging platforms via different submodules.
+
+%package blogique-metida
+Summary:        LeechCraft Blogique - LiveJournal Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-blogique = %{version}
+
+%description blogique-metida
+This package provides a LiveJournal subplugin for LeechCraft Blogique.
+
+It will provide LiveJournal support.
+
+%package monocle
+Summary:        LeechCraft Document viewer Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Recommends:     %{name}-monocle-pdf = %{version}
+
+%description monocle
+This package provides a modular Document viewer plugin for LeechCraft.
+
+It will support different formats via different backends.
+
+%package monocle-pdf
+Summary:        LeechCraft Monocle - PDF Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-monocle = %{version}
+
+%description monocle-pdf
+This package contains a pdf subplugin for LeechCraft Monocle.
+
+This package provides PDF documents support for Document viewer Module
+via the Poppler backend.
+%endif
 
 %package dolozhee
 Summary:        LeechCraft Issue reporting Module
@@ -1260,7 +1308,7 @@ cmake ../src \
 	-DLIB_SUFFIX=64 \
 %endif
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DCMAKE_BUILD_TYPE=Release \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AZOTH=True \
         -DENABLE_EISKALTDCPP=False \
@@ -1280,7 +1328,6 @@ cmake ../src \
         -DENABLE_FTP=False \
         -DENABLE_CHOROID=True \
         -DENABLE_SIDEBAR=True \
-        -DENABLE_SNAILS=False \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_AZOTH_ZHEET=True \
         -DENABLE_AZOTH_ASTRALITY=True \
@@ -1289,13 +1336,21 @@ cmake ../src \
         -DENABLE_PINTAB=True \
         -DENABLE_GACTS=True \
         -DENABLE_KBSWITCH=True \
-        -DENABLE_OTLOZHU=False \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_Y7=False \
         -DENABLE_LMP=True \
         -DENABLE_NACHEKU=True \
+%if %qtversion >= 40800
+        -DENABLE_OTLOZHU=True \
+        -DENABLE_BLOGIQUE=True \
+        -DENABLE_MONOCLE=True \
+        -DENABLE_SNAILS=True \
+%else
+        -DENABLE_OTLOZHU=False \
         -DENABLE_BLOGIQUE=False \
         -DENABLE_MONOCLE=False \
+        -DENABLE_SNAILS=False \
+%endif
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 %build
 cd build
@@ -1808,10 +1863,6 @@ rm -rf %{buildroot}
 %{_libdir}/%{name}/plugins/lib%{name}_azoth_astrality.so
 %{_datadir}/%{name}/translations/%{name}_azoth_astrality_*.qm
 
-#%%files snails
-#%%defattr(-,root,root)
-#%%{_libdir}/%%{name}/plugins/lib%%{name}_snails.so
-
 %files liznoo
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_liznoo.so
@@ -1838,9 +1889,36 @@ rm -rf %{buildroot}
 %{_libdir}/%{name}/plugins/lib%{name}_kbswitch.so
 %{_datadir}/%{name}/settings/kbswitchsettings.xml
 
-# %%files otlozhu
-# %%defattr(-,root,root)
-# %%{_libdir}/%%{name}/plugins/lib%%{name}_otlozhu.so
+%if %qtversion >= 40800
+%files snails
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_snails.so
+%{_datadir}/%{name}/translations/%{name}_snails_*.qm
+%{_datadir}/%{name}/settings/snailssettings.xml
+
+%files otlozhu
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_otlozhu.so
+%{_datadir}/%{name}/translations/%{name}_otlozhu_*.qm
+
+%files blogique
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_blogique.so
+%{_datadir}/%{name}/settings/blogiquesettings.xml
+
+%files blogique-metida
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_blogique_metida.so
+%{_datadir}/%{name}/settings/blogiquemetidasettings.xml
+
+%files monocle
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_monocle.so
+
+%files monocle-pdf
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_monocle_pdf.so
+%endif
 
 %files dolozhee
 %defattr(-,root,root)
