@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.65-513-g7c53364
+%define LEECHCRAFT_VERSION 0.5.65-525-g7ce280d
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -63,7 +63,9 @@ BuildRequires:  libbz2-devel
 BuildRequires:  libQtWebKit-devel
 BuildRequires:  libmsn-devel
 BuildRequires:  libqxt1-devel
+%if 0%{suse_version} > 1140
 BuildRequires:  telepathy-qt4-devel
+%endif
 BuildRequires:  qwt-devel >= 6
 BuildRequires:  file-devel
 BuildRequires:  doxygen
@@ -850,6 +852,7 @@ with corresponding images in outgoing messages as well, so your buddies would
 see nice rendered formulas instead of raw LaTeX code, even if their client
 doesn't have a LaTeX formatter.
 
+%if 0%{suse_version} > 1140
 %package azoth-astrality
 Summary:        LeechCraft Azoth - Telepathy Module
 Group:          Productivity/Networking/Other
@@ -867,6 +870,7 @@ Features:
  * In-band account registration.
  * Standard one-to-one chats.
  * Nick resolution.
+%endif
 
 %package azoth-zheet
 Summary:        LeechCraft Azoth - MSN Module
@@ -1332,7 +1336,11 @@ cmake ../src \
         -DENABLE_SIDEBAR=True \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_AZOTH_ZHEET=True \
+%if 0%{suse_version} > 1140
         -DENABLE_AZOTH_ASTRALITY=True \
+%else
+        -DENABLE_AZOTH_ASTRALITY=False \
+%endif
         -DENABLE_LIZNOO=True \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_PINTAB=True \
@@ -1860,10 +1868,12 @@ rm -rf %{buildroot}
 %{_libdir}/%{name}/plugins/lib%{name}_lhtr.so
 %{_datadir}/%{name}/translations/%{name}_lhtr_*.qm
 
+%if 0%{suse_version} > 1140
 %files azoth-astrality
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_azoth_astrality.so
 %{_datadir}/%{name}/translations/%{name}_azoth_astrality_*.qm
+%endif
 
 %files liznoo
 %defattr(-,root,root)
