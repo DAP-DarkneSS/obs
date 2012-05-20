@@ -64,6 +64,9 @@ rm -rf %{buildroot}
 %attr(755,root,root) %{_bindir}/%{name}
 
 %changelog
+* Sun May 20 2012 DA <dap.darkness@gmail.com> - 20120520-1
+- Revision #225.
+
 * Sat May 19 2012 DA <dap.darkness@gmail.com> - 20120519-1
 - Revision #224.
 
