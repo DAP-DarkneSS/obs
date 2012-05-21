@@ -1,9 +1,10 @@
 #
 # spec file for package python-itmages-service
 #
-# Copyright (c) 2009-2012 ITmages: https://launchpad.net/itmages
+# Copyright (c) 2009-2012 ITmages: http://itmages.com/
 #
-# Please submit bugfixes or comments via https://bugs.launchpad.net/itmages
+# Please submit bugfixes or comments via
+# https://github.com/itmages/itmages-service/issues
 #
 
 Name:           python-itmages-service
@@ -13,19 +14,19 @@ Summary:        ITmages service requests on DBus, offers to work with image host
 
 License:        GPL-2.0+
 Group:          Development/Languages/Python
-URL:            https://launchpad.net/itmages/itmages-service
-Source0:        %{name}-%{version}.tar.bz2
+URL:            https://github.com/itmages/itmages-service
+Source0:        https://github.com/itmages/itmages-service/tarball/v%{version}
 Patch1:         x-desktop.patch
 
-Provides:       itmages-service python-itmages
-BuildRequires:  python-base python
+Provides:       itmages-service
+BuildRequires:  python-base
 BuildRequires:  update-desktop-files fdupes
 %if 0%{?suse_version} >= 1210
 BuildRequires:  python-distribute
 %else
 BuildRequires:  python-setuptools
 %endif
-Requires:       python-base python-pycurl dbus-1-python python-gobject python-lxml python
+Requires:       python-base python-pycurl dbus-1-python python-gobject python-lxml
 BuildArch:      noarch
 
 %description
@@ -35,7 +36,7 @@ Using ITmages service you no longer need to write a uploader,
 and deal with a hosting API. Just use DBus.
 
 %prep
-%setup -q
+%setup -q -n itmages-itmages-service-cb7c526
 %patch1
 
 %build
@@ -49,7 +50,7 @@ export PYTHONDONTWRITEBYTECODE=
 
 %files
 %defattr(-,root,root)
-%doc README
+%doc README COPYING
 %{_bindir}/itmagesd
 %{python_sitelib}/*
 %{_datadir}/itmages/testwindow.ui

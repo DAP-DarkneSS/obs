@@ -1,19 +1,20 @@
 #
 # spec file for package dolphin-plugin-itmages
 #
-# Copyright (c) 2009-2012 ITmages team. See more at https://launchpad.net/itmages
+# Copyright (c) 2009-2012 ITmages: http://itmages.com/
 #
-# Please submit bugfixes or comments via https://bugs.launchpad.net/itmages
+# Please submit bugfixes or comments via
+# https://github.com/itmages/itmages-dolphin-extension/issues
 #
 
 Name:           dolphin-plugin-itmages
-Version:        1.07
+Version:        1.08
 Release:        1
 Summary:        ITmages Dolphin extension to upload pictures to ITmages.ru
 
-License:        LGPL-3.0
-URL:            https://launchpad.net/itmages/itmages-dolphin-extension
-Source0:        %{name}-%{version}.tar.bz2
+License:        LGPL-3.0+
+URL:            https://github.com/itmages/itmages-dolphin-extension
+Source0:        https://github.com/itmages/itmages-dolphin-extension/tarball/v%{version}
 Group:          Productivity/Networking/Other
 
 Provides:       itmages-dolphin-extension
@@ -25,13 +26,10 @@ BuildRequires:  update-desktop-files
 
 %description
 This extension for the file manager Dolphin, which allows you to quickly
-download your images to free image hosting ITmages.ru, in "two clicks". Your
-suggestions for improving the script and bug reports can be left on the pages:
-https://blueprints.launchpad.net/itmages (requests);
-https://bugs.launchpad.net/itmages (bug tracker).
+download your images to free image hosting ITmages.ru, in "two clicks".
 
 %prep
-%setup -q
+%setup -q -n itmages-itmages-dolphin-extension-62e1e36
 chmod -x itmages-dolphin-extension.desktop
 
 %build
