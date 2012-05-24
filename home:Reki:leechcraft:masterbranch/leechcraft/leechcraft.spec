@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.65-538-g1e6cb69
+%define LEECHCRAFT_VERSION 0.5.65-539-g1ff81b2
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -41,7 +41,8 @@ Source2:        renkoo_adiumstyle.tar.xz
 Patch3:         defaultstyle.patch
 
 BuildRequires:  xz
-BuildRequires:  aspell-devel aspell
+# BuildRequires:  aspell-devel aspell
+BuildRequires:  hunspell-devel
 BuildRequires:  boost-devel
 BuildRequires:  cmake > 2.8
 BuildRequires:  hicolor-icon-theme
