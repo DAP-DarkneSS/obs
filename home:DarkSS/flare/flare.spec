@@ -8,7 +8,7 @@
 #
 
 Name:           flare
-Version:        v0.14-571-gf6d96f6
+Version:        v0.14-692-g855d5e1
 Release:        0
 Summary:        Free Libre Action Roleplaying Engine: binary file
 
@@ -69,7 +69,6 @@ cmake .. \
        -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_BUILD_WITH_INSTALL_RPATH:BOOL=FALSE \
-       -DSD_BINDIR:PATH=bin \
        -DCMAKE_INSTALL_PREFIX:PATH=/usr
 make %{?_smp_mflags}
 
