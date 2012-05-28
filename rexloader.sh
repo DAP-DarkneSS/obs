@@ -3,8 +3,8 @@
 NOBS=rexloader
 DSVN=~/Documents/obs/trash/$NOBS
 DOBS=~/Documents/obs/home:DarkSS/$NOBS
-# DMBS=~/Documents/obs/home:DarkSS:mandriva/$NOBS
-# DFBS=~/Documents/obs/home:DarkSS:fedora/$NOBS
+DMBS=~/Documents/obs/home:DarkSS:mandriva/$NOBS
+DFBS=~/Documents/obs/home:DarkSS:fedora/$NOBS
 
 echo -e '\e[0;4mChecking of google code version:\e[0m'
 cd $DSVN
@@ -39,23 +39,23 @@ else
 
   spec
 
-#   cd $DMBS
-#   osc up
-#   spec
-# 
-#   cd $DFBS
-#   osc up
-#   spec
+  cd $DMBS
+  osc up
+  spec
+
+  cd $DFBS
+  osc up
+  spec
 
   echo -e '\e[0;4m\nShould the commit be done?\e[0m'
   read
   osc ci -m 'Revision #'$VSVN'.'
 
-#   cd $DMBS
-#   osc ci -m 'Revision #'$VSVN'.'
-# 
-#   cd $DOBS
-#   osc ci -m 'Revision #'$VSVN'.'
+  cd $DMBS
+  osc ci -m 'Revision #'$VSVN'.'
+
+  cd $DOBS
+  osc ci -m 'Revision #'$VSVN'.'
 
   echo -e '\e[0;4m\nGit will be updated...\e[0m'
   cd ../..
