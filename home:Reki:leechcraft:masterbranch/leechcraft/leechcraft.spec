@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.70-5-gd360300
+%define LEECHCRAFT_VERSION 0.5.70-8-ga682d4d
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1315,7 +1315,7 @@ cmake ../src \
 	-DLIB_SUFFIX=64 \
 %endif
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AZOTH=True \
         -DENABLE_EISKALTDCPP=False \
