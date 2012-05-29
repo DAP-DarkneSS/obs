@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 NOBS=flare
 DGIT=~/Documents/obs/trash/$NOBS

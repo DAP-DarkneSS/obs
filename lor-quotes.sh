@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 NOBS=fortunes-lor-quotes
 DOBS=~/Documents/obs/home:DarkSS/lor-quotes

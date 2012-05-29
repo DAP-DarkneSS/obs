@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 NOBS=leechcraft
 DGIT=~/Documents/obs/trash/$NOBS
