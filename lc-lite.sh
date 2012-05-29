@@ -1,8 +1,10 @@
-#!/bin/zsh
+#!/bin/bash
 
 NOBS=leechcraft
-DGIT=~/Documents/obs/trash/$NOBS
-DOBS=~/Documents/obs/home:Reki:leechcraft:masterbranch/$NOBS
+DGIT=~/lc/$NOBS
+NPRJ=home:Reki:leechcraft:masterbranch
+SPEC='https://api.opensuse.org:443/public/source/'$NPRJ'/'$NOBS'/'$NOBS'.spec'
+MONI='https://api.opensuse.org:443/public/build/'$NPRJ'/_result'
 
 echo -e '\e[0;4mChecking of github version:\e[0m'
 cd $DGIT
@@ -11,13 +13,12 @@ VGIT=`git describe`
 echo -e '\e[0;33m\n'$VGIT'\e[0m'
 
 echo -e '\e[0;4m\nChecking of OBS version:\e[0m'
-cd $DOBS
-osc up
-VOBS=`grep 'define LEECHCRAFT' $NOBS.spec | awk '{ print $3 }'`
+
+VOBS=`curl -s $SPEC | grep 'define LEECHCRAFT' | awk '{print $3}'`
 echo -e '\e[0;33m\n'$VOBS'\e[0m'
 
-echo -e '\e[0;4m\nChecking of OBS status:\e[0m'
-osc pr -n $NOBS | grep openSUSE
+echo -e '\e[0;4m\nChecking of OBS status:\n\e[0m'
+curl -s curl -s $MONI | tr '"' ' ' | grep $NOBS | awk '{print $5 "\t" $7}'
 
 if [ "$VGIT" == "$VOBS" ]
 
@@ -25,22 +26,6 @@ then
   echo -e '\e[0;4m\nNo changes.\e[0m'
 
 else
-
-  echo -e '\e[0;4m\nShould the spec be edited?\e[0m'
-  read
-
-  CTIME=`date +%g'.'%m'.'%d'-'%H.%M.%S`
-  cp ./$NOBS.spec ./$NOBS.spec.$VOBS.$CTIME
-  sed "s/$VOBS/$VGIT/g" ./$NOBS.spec.$VOBS.$CTIME > ./$NOBS.spec
-
-  echo -e '\e[0;4m\nShould the commit be done?\e[0m'
-  read
-  osc ci -m $VGIT
-
-  echo -e '\e[0;4m\nGit will be updated...\e[0m'
-  cd ../..
-  git commit -a -m 'Leechcraft '$VGIT'.'
-  kdialog --title "SSH" --passivepopup "Enter passphrase for key!"
-  git push -u origin master
+  echo -e '\e[0;35m\nThe spec could be edited!\e[0m'
 
 fi
