@@ -3,7 +3,7 @@
     <param name="url">https://github.com/clintbellanger/flare.git</param>
     <param name="scm">git</param>
     <param name="filename">flare</param>
-    <param name="versionprefix">0.15.alpha.git</param>
+    <param name="versionprefix">0.15.1.git</param>
   </service>
   <service name="recompress">
     <param name="file">*.tar</param>

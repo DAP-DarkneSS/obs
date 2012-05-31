@@ -8,14 +8,13 @@
 #
 
 Name:           flare
-Version:        v0.14-692-g855d5e1
+Version:        v0.14-725-gfff4b66
 Release:        0
 Summary:        Free Libre Action Roleplaying Engine: binary file
 
 License:        GPL-3.0
 URL:            http://clintbellanger.net/rpg/
 Source0:        %{name}-%{version}.tar.bz2
-Patch1:         bin.patch
 Group:          Amusements/Games/RPG
 
 BuildRequires:  make cmake
@@ -60,7 +59,6 @@ to easily modify game contents. Open formats are preferred (png, ogg). The game 
 
 %prep
 %setup -q
-%patch1
 
 %build
 mkdir -p build
@@ -69,7 +67,8 @@ cmake .. \
        -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_BUILD_WITH_INSTALL_RPATH:BOOL=FALSE \
-       -DCMAKE_INSTALL_PREFIX:PATH=/usr
+       -DCMAKE_INSTALL_PREFIX:PATH=/usr \
+       -DBINDIR="bin"
 make %{?_smp_mflags}
 
 %install
