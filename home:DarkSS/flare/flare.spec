@@ -8,7 +8,7 @@
 #
 
 Name:           flare
-Version:        v0.14-725-gfff4b66
+Version:        v0.14-733-g7d701c7
 Release:        0
 Summary:        Free Libre Action Roleplaying Engine: binary file
 
@@ -63,10 +63,11 @@ to easily modify game contents. Open formats are preferred (png, ogg). The game 
 %build
 mkdir -p build
 cd build
+export CFLAGS=$RPM_OPT_FLAGS
+export CXXFLAGS=$RPM_OPT_FLAGS
 cmake .. \
        -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-       -DCMAKE_BUILD_WITH_INSTALL_RPATH:BOOL=FALSE \
        -DCMAKE_INSTALL_PREFIX:PATH=/usr \
        -DBINDIR="bin"
 make %{?_smp_mflags}

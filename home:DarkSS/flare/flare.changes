@@ -2,6 +2,11 @@ Thu May 31 20:09:48 UTC 2012 - dap.darkness@gmail.com
 
 - git
   * Configuration menu was implemented
+- Build improvements
+  * Cmake build type became "RelWithDebInfo"
+  * Cmake verbose makefile became "True"
+  * Binary path fixing patch was replaced by cmake option.
+  * Rpm optimisation flags were enabled.
 
 Wed Dec 25 00:00:00 UTC 2011 - dap.darkness@gmail.com
 
