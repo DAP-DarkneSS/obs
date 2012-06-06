@@ -39,7 +39,7 @@ else
 
   echo -e '\e[0;4m\nGit will be updated...\e[0m'
   cd ../..
-  git commit -a -m 'Leechcraft '$VGIT'.'
+  git commit $DOBS -m 'Leechcraft '$VGIT'.'
   kdialog --title "SSH" --passivepopup "Enter passphrase for key!"
   git push -u origin master
 
