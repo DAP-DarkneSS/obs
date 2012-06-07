@@ -42,19 +42,19 @@ qmake
 make %{?_smp_mflags} 
 
 %install
-# make DESTDIR=%%{buildroot} install
+make install INSTALL_ROOT=%{buildroot}
 
-mkdir -p %{buildroot}%{_datadir}/pixmaps
-%{__install} resource/main.png %{buildroot}%{_datadir}/pixmaps/security-high.png
-
-mkdir -p %{buildroot}%{_datadir}/kde4/services
-%{__install} usr/share/kde4/services/checksum.desktop %{buildroot}%{_datadir}/kde4/services
-
-mkdir -p %{buildroot}%{_datadir}/applications/kde4
-%{__install} usr/share/applications/kde4/kcheckhash.desktop %{buildroot}%{_datadir}/applications/kde4
-
-mkdir -p %{buildroot}%{_bindir}
-%{__install} usr/bin/kcheckhash %{buildroot}%{_bindir}
+# # mkdir -p %{buildroot}%{_datadir}/pixmaps
+# # %{__install} resource/main.png %{buildroot}%{_datadir}/pixmaps/security-high.png
+# # 
+# # mkdir -p %{buildroot}%{_datadir}/kde4/services
+# # %{__install} usr/share/kde4/services/checksum.desktop %{buildroot}%{_datadir}/kde4/services
+# # 
+# # mkdir -p %{buildroot}%{_datadir}/applications/kde4
+# # %{__install} usr/share/applications/kde4/kcheckhash.desktop %{buildroot}%{_datadir}/applications/kde4
+# # 
+# # mkdir -p %{buildroot}%{_bindir}
+# # %{__install} usr/bin/kcheckhash %{buildroot}%{_bindir}
 
 echo "MimeType=all/allfiles;" | tee -a %{buildroot}%{_datadir}/applications/kde4/%{name}.desktop
 %suse_update_desktop_file %{buildroot}%{_datadir}/applications/kde4/kcheckhash.desktop -r 'Utility;DesktopUtility;'

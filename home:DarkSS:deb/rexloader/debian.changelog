@@ -1,6 +1,7 @@
-rexloader (0.1a.rev.222) unstable; urgency=low
+rexloader (0.1a.rev.234) unstable; urgency=low
   * Add: downloading over http
   * Add: configurable multithreaded downloading
   * Add: proxy support
   * Add: notifications
- -- Dmitriy Perlow <dap.darkness@gmail.com>  Sun, 15 Apr 2012 13:52:30 +0200
+  * Add: logging
+ -- Dmitriy Perlow <dap.darkness@gmail.com>  Thu,  7 Jun 2012 23:36:31 +0200

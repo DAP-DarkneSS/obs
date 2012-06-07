@@ -16,13 +16,12 @@ Group:          Productivity/Networking/Other
 License:        GPL-3.0
 URL:            http://code.google.com/p/rexloader/
 Source0:        %{name}-%{version}.tar.bz2
-Source1:        %{name}.desktop
 
 BuildRequires:  qt-devel gcc-c++
 
 %description
 An advanced Qt download manager over http with configurable multithreaded
-downloading and nice notifications.
+downloading, proxy support, logging and nice notifications.
 
 %prep
 %setup -q
@@ -47,7 +46,7 @@ mkdir -p %{buildroot}%{_libdir}/%{name}/plugins
 mkdir -p %{buildroot}%{_datadir}/pixmaps
 %{__install} ./REXLoader/images/RExLoader_64x64.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
 mkdir -p %{buildroot}%{_datadir}/applications/
-%{__install} %{SOURCE1} %{buildroot}%{_datadir}/applications
+%{__install} ./REXLoader/%{name}.desktop %{buildroot}%{_datadir}/applications
 
 %clean
 rm -rf %{buildroot}
@@ -62,41 +61,14 @@ rm -rf %{buildroot}
 %attr(755,root,root) %{_bindir}/%{name}
 
 %changelog
+* Thu Jun 07 2012 DA <dap.darkness@gmail.com> - 20120607-1
+- Revision #234 with desktop file.
+
 * Sun Jun 03 2012 DA <dap.darkness@gmail.com> - 20120603-1
-- Revision #233.
-
-* Sun May 27 2012 DA <dap.darkness@gmail.com> - 20120527-1
-- Revision #232.
-
-* Sat May 26 2012 DA <dap.darkness@gmail.com> - 20120526-1
-- Revision #230.
-
-* Fri May 25 2012 DA <dap.darkness@gmail.com> - 20120525-1
-- Revision #227.
-
-* Sun May 20 2012 DA <dap.darkness@gmail.com> - 20120520-1
-- Revision #225.
-
-* Sat May 19 2012 DA <dap.darkness@gmail.com> - 20120519-1
-- Revision #224.
-
-* Fri May 18 2012 DA <dap.darkness@gmail.com> - 20120518-1
-- Revision #223.
-
-* Sat May 12 2012 DA <dap.darkness@gmail.com> - 20120512-1
-- Revision #222.
-
-* Wed May 09 2012 DA <dap.darkness@gmail.com> - 20120509-1
-- Revision #221.
-
-* Sun Apr 29 2012 DA <dap.darkness@gmail.com> - 20120429-1
-- Revision #220.
-
-* Sat Apr 28 2012 DA <dap.darkness@gmail.com> - 20120428-1
-- Revision #219.
+- Revision #233 with logging.
 
 * Wed Mar 21 2012 DA <dap.darkness@gmail.com> - 20120321-1
-- Revision #214 with with Mandriva patch.
+- Revision #214 with Mandriva patch.
 
 * Fri Feb 17 2012 DA <dap.darkness@gmail.com> - 20120217-1
 - Revision #205 with patches for rpm and x64.
