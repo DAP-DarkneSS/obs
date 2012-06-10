@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.70-98-g9b0ffba
+%define LEECHCRAFT_VERSION 0.5.70-128-g78ef38c
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -45,7 +45,6 @@ BuildRequires:  cmake > 2.8
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libcurl-devel
 BuildRequires:  libqt4-devel >= 4.6
-BuildRequires:  phonon-devel
 BuildRequires:  libqxmpp-lc1-devel >= 0.3.61
 BuildRequires:  speex-devel
 BuildRequires:  fdupes
@@ -62,7 +61,9 @@ BuildRequires:  libQtWebKit-devel
 BuildRequires:  libmsn-devel
 BuildRequires:  libqxt1-devel
 %if 0%{suse_version} > 1140
+BuildRequires:  phonon-devel
 BuildRequires:  telepathy-qt4-devel
+BuildRequires:  taglib-devel
 %endif
 BuildRequires:  qwt-devel >= 6
 BuildRequires:  file-devel
@@ -78,6 +79,9 @@ BuildRequires:  libpoppler-qt4-devel
 Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
 Obsoletes:      %{name}-tabpp
+%if 0%{suse_version} < 1210
+Obsoletes:      %{name}-lmp
+%endif
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -274,25 +278,6 @@ Features:
  * Themable.
  * Platform-independent.
 
-
-%package lmp
-Summary:        LeechCraft Media player Module
-Group:          Productivity/Networking/Other
-Provides:       %{name}-audioplayer
-Requires:       %{name} = %{version}
-
-%description lmp
-This package provides a audio player plugin for LeechCraft.
-
-It allows to play audio and stream audio.
-It uses Phonon as a backend thus supporting major codecs.
-Features:
- * Support for major audio formats.
- * Streaming media over Internet.
- * Play queue.
- * Support for automatic podcast playing (with a plugin like Aggregator).
-
-
 %package networkmonitor
 Summary:        LeechCraft Network Monitor Module
 Group:          Productivity/Networking/Other
@@ -423,17 +408,6 @@ This package provides a flash video replacer plugin for LeechCraft Poshuku.
 
 It allows to replace default flash-based video players on some sites with any
 suitable LeechCraft's media player thus avoiding the exigency of Flash.
-
-
-#%%package poshuku-pintab
-#Summary:        LeechCraft Poshuku - Pin tabs Module
-#Group:          Productivity/Networking/Other
-#Requires:       %%{name}-poshuku = %%{version}
-
-#%%description poshuku-pintab
-#Poshuku PinTab allows to pin selected Poshuku tabs so that they cannot be
-#closed until unpinned.
-
 
 %package poshuku-pogooglue
 Summary:        LeechCraft Poshuku - quick google search Module
@@ -900,8 +874,24 @@ with corresponding images in outgoing messages as well, so your buddies would
 see nice rendered formulas instead of raw LaTeX code, even if their client
 doesn't have a LaTeX formatter.
 
-
 %if 0%{suse_version} > 1140
+%package lmp
+Summary:        LeechCraft Media player Module
+Group:          Productivity/Networking/Other
+Provides:       %{name}-audioplayer
+Requires:       %{name} = %{version}
+
+%description lmp
+This package provides a audio player plugin for LeechCraft.
+
+It allows to play audio and stream audio.
+It uses Phonon as a backend thus supporting major codecs.
+Features:
+ * Support for major audio formats.
+ * Streaming media over Internet.
+ * Play queue.
+ * Support for automatic podcast playing (with a plugin like Aggregator).
+
 %package azoth-astrality
 Summary:        LeechCraft Azoth - Telepathy Module
 Group:          Productivity/Networking/Other
@@ -1418,8 +1408,10 @@ cmake ../src \
         -DENABLE_AZOTH_ZHEET=True \
 %if 0%{suse_version} > 1140
         -DENABLE_AZOTH_ASTRALITY=True \
+        -DENABLE_LMP=True \
 %else
         -DENABLE_AZOTH_ASTRALITY=False \
+        -DENABLE_LMP=False \
 %endif
         -DENABLE_LIZNOO=True \
         -DENABLE_NETSTOREMANAGER=True \
@@ -1428,7 +1420,6 @@ cmake ../src \
         -DENABLE_KBSWITCH=True \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_Y7=False \
-        -DENABLE_LMP=True \
         -DENABLE_NACHEKU=True \
         -DENABLE_LADS=False \
 %if %qtversion >= 40800
@@ -1448,17 +1439,11 @@ cd build
 make %{?_smp_mflags}
 
 cd ../doc/doxygen/core
-# touch footer.html
-# sed -i Doxyfile \
-# -e "s/HTML_FOOTER .*/HTML_FOOTER            = footer.html/"
 sed -i Doxyfile \
 -e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
 doxygen Doxyfile
 
 cd ../azoth
-# touch footer.html
-# sed -i Doxyfile \
-# -e "s/HTML_FOOTER .*/HTML_FOOTER            = footer.html/"
 sed -i Doxyfile \
 -e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
 doxygen Doxyfile
@@ -1751,12 +1736,6 @@ rm -rf %{buildroot}
 %{settings_dir}/kinotifysettings.xml
 %{plugin_dir}/*%{name}_kinotify.so
 
-%files lmp
-%defattr(-,root,root)
-%{settings_dir}/lmpsettings.xml
-%{translations_dir}/%{name}_lmp*.qm
-%{plugin_dir}/*%{name}_lmp.so
-
 %files networkmonitor
 %defattr(-,root,root)
 %{translations_dir}/%{name}_networkmonitor*.qm
@@ -1950,6 +1929,12 @@ rm -rf %{buildroot}
 %{_datadir}/%{name}/translations/%{name}_lhtr_*.qm
 
 %if 0%{suse_version} > 1140
+%files lmp
+%defattr(-,root,root)
+%{settings_dir}/lmpsettings.xml
+%{translations_dir}/%{name}_lmp*.qm
+%{plugin_dir}/*%{name}_lmp.so
+
 %files azoth-astrality
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_azoth_astrality.so
