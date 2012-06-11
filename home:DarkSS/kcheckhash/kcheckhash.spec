@@ -14,10 +14,11 @@ Summary:        Qt/C++ tool to calculate hashes
 
 License:        LGPL-3.0+
 URL:            https://github.com/PetrovSE/kcheckhash
-Source0:        %{name}.tar.gz
+Source0:        https://github.com/PetrovSE/kcheckhash/tarball/v%{version}
 Group:          Productivity/Other
 
 Recommends:     dolphin-plugin-checksum
+Requires:       oxygen-icon-theme
 BuildRequires:  libqt4-devel
 BuildRequires:  mhash-devel
 BuildRequires:  update-desktop-files
@@ -35,35 +36,26 @@ BuildArch:      noarch
 Dolphin extension to calculate crc32, md5, sha1 and sha256 via libmhash2.
 
 %prep
-%setup -q -n %{name}
+%setup -q -n PetrovSE-%{name}-470465e
 
 %build
-qmake
+qmake QMAKE_CXXFLAGS+="%{optflags}"
 make %{?_smp_mflags} 
 
 %install
 make install INSTALL_ROOT=%{buildroot}
 
-# # mkdir -p %{buildroot}%{_datadir}/pixmaps
-# # %{__install} resource/main.png %{buildroot}%{_datadir}/pixmaps/security-high.png
-# # 
-# # mkdir -p %{buildroot}%{_datadir}/kde4/services
-# # %{__install} usr/share/kde4/services/checksum.desktop %{buildroot}%{_datadir}/kde4/services
-# # 
-# # mkdir -p %{buildroot}%{_datadir}/applications/kde4
-# # %{__install} usr/share/applications/kde4/kcheckhash.desktop %{buildroot}%{_datadir}/applications/kde4
-# # 
-# # mkdir -p %{buildroot}%{_bindir}
-# # %{__install} usr/bin/kcheckhash %{buildroot}%{_bindir}
+# A hack against https://bugzilla.novell.com/show_bug.cgi?id=766385
+mkdir -p %{buildroot}%{_datadir}/pixmaps
+%{__install} resource/main.png %{buildroot}%{_datadir}/pixmaps/security-high.png
 
-echo "MimeType=all/allfiles;" | tee -a %{buildroot}%{_datadir}/applications/kde4/%{name}.desktop
-%suse_update_desktop_file %{buildroot}%{_datadir}/applications/kde4/kcheckhash.desktop -r 'Utility;DesktopUtility;'
-%suse_update_desktop_file %{buildroot}%{_datadir}/kde4/services/checksum.desktop -r 'Utility;DesktopUtility;'
+%suse_update_desktop_file -r %{buildroot}%{_datadir}/applications/kde4/kcheckhash.desktop 'Utility;DesktopUtility;'
+%suse_update_desktop_file -r %{buildroot}%{_datadir}/kde4/services/checksum.desktop 'Utility;DesktopUtility;'
 
 %files
 %defattr(-,root,root,-)
 %attr(755,root,root) %{_bindir}/%{name}
-%attr(644,root,root) %{_datadir}/pixmaps/security-high.png
+%exclude %attr(644,root,root) %{_datadir}/pixmaps/security-high.png
 %dir %{_datadir}/applications/kde4
 %attr(644,root,root) %{_datadir}/applications/kde4/%{name}.desktop
 
