@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.70-156-gb2b915f
+%define LEECHCRAFT_VERSION 0.5.70-158-g650b517
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1316,7 +1316,6 @@ It will provide LiveJournal support.
 Summary:        LeechCraft Document viewer Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Recommends:     %{name}-monocle-pdf = %{version}
 
 %description monocle
 This package provides a modular Document viewer plugin for LeechCraft.
@@ -1335,6 +1334,17 @@ This package contains a pdf subplugin for LeechCraft Monocle.
 
 This package provides PDF documents support for Document viewer Module
 via the Poppler backend.
+
+%package monocle-fxb
+Summary:        LeechCraft Monocle - FictionBook Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-monocle = %{version}
+
+%description monocle-pdf
+This package contains a FictionBook subplugin for LeechCraft Monocle.
+
+This package provides FB2 documents support for Document viewer Module.
 %endif
 
 
@@ -1996,6 +2006,10 @@ rm -rf %{buildroot}
 %files monocle-pdf
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_pdf.so
+
+%files monocle-fxb
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_monocle_fxb.so
 %endif
 
 %files dolozhee
