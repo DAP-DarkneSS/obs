@@ -8,13 +8,14 @@
 #
 
 Name:           kcheckhash
-Version:        0.2
+Version:        0.3
 Release:        1
 Summary:        Qt/C++ tool to calculate hashes
 
 License:        LGPL-3.0+
 URL:            https://github.com/PetrovSE/kcheckhash
-Source0:        https://github.com/PetrovSE/kcheckhash/tarball/v%{version}
+# Source0:        https://github.com/PetrovSE/kcheckhash/tarball/v%{version}
+Source0:        %{name}.tar.gz
 Group:          Productivity/Other
 
 Recommends:     dolphin-plugin-checksum
@@ -36,7 +37,8 @@ BuildArch:      noarch
 Dolphin extension to calculate crc32, md5, sha1 and sha256 via libmhash2.
 
 %prep
-%setup -q -n PetrovSE-%{name}-470465e
+# %setup -q -n PetrovSE-%{name}-470465e
+%setup -q -n %{name}
 
 %build
 qmake QMAKE_CXXFLAGS+="%{optflags}"
