@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.70-158-g650b517
+%define LEECHCRAFT_VERSION 0.5.70-169-g572ac4a
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -68,7 +68,6 @@ BuildRequires:  taglib-devel
 BuildRequires:  qwt-devel >= 6
 BuildRequires:  file-devel
 BuildRequires:  doxygen
-BuildRequires:  taglib-devel
 Requires:       oxygen-icon-theme
 %if %qtversion >= 40800
 BuildRequires:  libpoppler-qt4-devel
@@ -1341,7 +1340,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-monocle = %{version}
 
-%description monocle-pdf
+%description monocle-fxb
 This package contains a FictionBook subplugin for LeechCraft Monocle.
 
 This package provides FB2 documents support for Document viewer Module.
@@ -1766,10 +1765,6 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{translations_dir}/%{name}_poshuku_filescheme_*.qm
 %{plugin_dir}/*%{name}_poshuku_filescheme.so
-
-#%%files poshuku-pintab
-#%%defattr(-,root,root,-)
-#%%{plugin_dir}/*_poshuku_pintab.so
 
 %files poshuku-keywords
 %defattr(-,root,root,-)
