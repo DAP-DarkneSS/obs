@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.70-182-ga3727a6
+%define LEECHCRAFT_VERSION 0.5.70-191-g32d4df6
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -61,10 +61,10 @@ BuildRequires:  libQtWebKit-devel
 BuildRequires:  libmsn-devel
 BuildRequires:  libqxt1-devel
 %if 0%{suse_version} > 1140
-BuildRequires:  phonon-devel
 BuildRequires:  telepathy-qt4-devel
-BuildRequires:  taglib-devel
 %endif
+BuildRequires:  phonon-devel
+BuildRequires:  taglib-devel
 BuildRequires:  qwt-devel >= 6
 BuildRequires:  file-devel
 BuildRequires:  doxygen
@@ -78,9 +78,9 @@ BuildRequires:  libpoppler-qt4-devel
 Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
 Obsoletes:      %{name}-tabpp
-%if 0%{suse_version} < 1210
-Obsoletes:      %{name}-lmp
-%endif
+# %%if 0%%{suse_version} < 1210
+# Obsoletes:      %%{name}-lmp
+# %%endif
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -873,7 +873,6 @@ with corresponding images in outgoing messages as well, so your buddies would
 see nice rendered formulas instead of raw LaTeX code, even if their client
 doesn't have a LaTeX formatter.
 
-%if 0%{suse_version} > 1140
 %package lmp
 Summary:        LeechCraft Media player Module
 Group:          Productivity/Networking/Other
@@ -891,6 +890,7 @@ Features:
  * Play queue.
  * Support for automatic podcast playing (with a plugin like Aggregator).
 
+%if 0%{suse_version} > 1140
 %package azoth-astrality
 Summary:        LeechCraft Azoth - Telepathy Module
 Group:          Productivity/Networking/Other
@@ -1415,12 +1415,12 @@ cmake ../src \
         -DENABLE_SIDEBAR=True \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_AZOTH_ZHEET=True \
+        -DENABLE_LMP=True \
 %if 0%{suse_version} > 1140
         -DENABLE_AZOTH_ASTRALITY=True \
-        -DENABLE_LMP=True \
 %else
         -DENABLE_AZOTH_ASTRALITY=False \
-        -DENABLE_LMP=False \
+#         -DENABLE_LMP=False \
 %endif
         -DENABLE_LIZNOO=True \
         -DENABLE_NETSTOREMANAGER=True \
@@ -1933,13 +1933,13 @@ rm -rf %{buildroot}
 %{_libdir}/%{name}/plugins/lib%{name}_lhtr.so
 %{_datadir}/%{name}/translations/%{name}_lhtr_*.qm
 
-%if 0%{suse_version} > 1140
 %files lmp
 %defattr(-,root,root)
 %{settings_dir}/lmpsettings.xml
 %{translations_dir}/%{name}_lmp*.qm
 %{plugin_dir}/*%{name}_lmp.so
 
+%if 0%{suse_version} > 1140
 %files azoth-astrality
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_azoth_astrality.so
