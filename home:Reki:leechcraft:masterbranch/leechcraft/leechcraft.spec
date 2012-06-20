@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.70-216-g202328f
+%define LEECHCRAFT_VERSION 0.5.70-233-ga3f693e
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -873,6 +873,7 @@ with corresponding images in outgoing messages as well, so your buddies would
 see nice rendered formulas instead of raw LaTeX code, even if their client
 doesn't have a LaTeX formatter.
 
+
 %package lmp
 Summary:        LeechCraft Media player Module
 Group:          Productivity/Networking/Other
@@ -908,6 +909,18 @@ Features:
  * In-band account registration.
  * Standard one-to-one chats.
  * Nick resolution.
+
+
+%package vrooby
+Summary:        LeechCraft Removable storage devices Manager
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       udisks
+
+%description vrooby
+This package provides a Vrooby plugin for LeechCraft.
+
+It allows to watch removable storage devices via d-bus and udisks.
 %endif
 
 
@@ -1418,8 +1431,10 @@ cmake ../src \
         -DENABLE_LMP=True \
 %if 0%{suse_version} > 1140
         -DENABLE_AZOTH_ASTRALITY=True \
+        -DENABLE_VROOBY=True \
 %else
         -DENABLE_AZOTH_ASTRALITY=False \
+        -DENABLE_VROOBY=False \
 %endif
         -DENABLE_LIZNOO=True \
         -DENABLE_NETSTOREMANAGER=True \
@@ -1943,6 +1958,10 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_azoth_astrality.so
 %{_datadir}/%{name}/translations/%{name}_azoth_astrality_*.qm
+
+%files vrooby
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_vrooby.so
 %endif
 
 %files liznoo
