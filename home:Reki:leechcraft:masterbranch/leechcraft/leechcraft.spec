@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.70-233-ga3f693e
+%define LEECHCRAFT_VERSION 0.5.70-372-ge3eab87
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -879,6 +879,10 @@ Summary:        LeechCraft Media player Module
 Group:          Productivity/Networking/Other
 Provides:       %{name}-audioplayer
 Requires:       %{name} = %{version}
+Recommends:     ffmpeg
+%if 0%{suse_version} > 1140
+Recommends:     %{name}-vrooby = %{version}
+%endif
 
 %description lmp
 This package provides a audio player plugin for LeechCraft.
