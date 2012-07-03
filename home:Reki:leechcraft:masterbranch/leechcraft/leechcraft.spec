@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.70-392-ga1f56f0
+%define LEECHCRAFT_VERSION 0.5.70-407-geb0dcf6
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1440,13 +1440,6 @@ cmake ../src \
         -DENABLE_AZOTH_ASTRALITY=False \
         -DENABLE_VROOBY=False \
 %endif
-%if 0%{suse_version} > 1210
-%if %qtversion >= 40800
-        -DENABLE_LMP_DUMBSYNC=True \
-%else
-        -DENABLE_LMP_DUMBSYNC=False \
-%endif
-%endif
         -DENABLE_LIZNOO=True \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_PINTAB=True \
@@ -1963,11 +1956,7 @@ rm -rf %{buildroot}
 %{settings_dir}/lmpsettings.xml
 %{translations_dir}/%{name}_lmp*.qm
 %{plugin_dir}/*%{name}_lmp.so
-%if 0%{suse_version} > 1210
-%if %qtversion >= 40800
 %{plugin_dir}/*%{name}_lmp_dumbsync.so
-%endif
-%endif
 
 %if 0%{suse_version} > 1140
 %files azoth-astrality
