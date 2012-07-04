@@ -1,9 +1,12 @@
-Sat Jun 16 20:14:09 UTC 2012 - dap.darkness@gmail.com
+Tue Jul  3 15:20:41 UTC 2012 - dap.darkness@gmail.com
 
 - Version 0.3:
  * Menu (File, Settings, Help) was implemented;
- * Preferences to chose checksums to calculate.
+ * Preferences to chose checksums to calculate;
+ * User interface was improved;
+ * Configuration file using was implemented.
 
+-------------------------------------------------------------------
 Fri Jun  1 19:34:06 UTC 2012 - dap.darkness@gmail.com
 
 - Version 0.2.

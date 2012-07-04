@@ -1,6 +1,6 @@
 Format: 1.0
 Source: kcheckhash
-Version: 0.2
+Version: 0.3
 Binary: kcheckhash
 Maintainer: Dmitriy Perlow <dap.darkness@gmail.com>
 Homepage: https://github.com/PetrovSE/kcheckhash

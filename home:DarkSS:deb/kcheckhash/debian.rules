@@ -25,6 +25,7 @@ build-stamp:
 	if cd build_dir ; then echo "Changed"; else echo "Some Errors"; fi
 	pwd
 	qmake
+	make -j 2
 
 	touch build-stamp
 
@@ -45,8 +46,9 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/gentoo.
-	$(MAKE) DESTDIR=$(CURDIR)/debian/rexloader
-	dh_install
+	make install INSTALL_ROOT=$(CURDIR)/debian/kcheckhash
+	mkdir -p $(CURDIR)/debian/kcheckhash/usr/bin
+	cp -R ./bin/kcheckhash $(CURDIR)/debian/kcheckhash/usr/bin/kcheckhash
 
 # Build architecture-independent files here.
 binary-indep: build install
