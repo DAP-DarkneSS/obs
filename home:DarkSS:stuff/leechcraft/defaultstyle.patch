@@ -1,0 +1,13 @@
+--- src/coresettings.xml.orig	2011-11-27 17:47:50.000000000 +0400
++++ src/coresettings.xml	2011-12-05 20:29:26.627129245 +0400
+@@ -30,8 +30,8 @@
+ 			</item>
+ 			<item type="combobox" property="AppQStyle" mayHaveDataSource="true">
+ 				<label lang="en" value="Style:" />
+-				<option name="Plastique" default="true">
+-					<label lang="en" value="Plastique" />
++				<option name="Default" default="true">
++					<label lang="en" value="Default" />
+ 				</option>
+ 			</item>
+ 			<item type="combobox" property="Language" mayHaveDataSource="true">
