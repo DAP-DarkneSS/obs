@@ -15,28 +15,27 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
-
+%define qtversion %(rpm -q libqt4 --qf='%{VERSION}\n'|awk -F. '{print $1 * 10000 + $2 * 100 + $3}')
 %define plugin_dir %{_libdir}/%{name}/plugins
 %define translations_dir %{_datadir}/%{name}/translations
 %define settings_dir %{_datadir}/%{name}/settings
 %define azoth_dir %{_datadir}/%{name}/azoth
 
 Name:           leechcraft
-Version:        0.5.65
-Release:        0
+Version:        0.5.70
+Release:        1
 Summary:        Modular Internet Client
 License:        GPL-3.0+
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
-Source0:        http://netcologne.dl.sourceforge.net/project/%{name}/LeechCraft/0.5.65/%{name}-%{version}.tar.xz
+Source0:        http://netcologne.dl.sourceforge.net/project/%{name}/LeechCraft/%{version}/%{name}-%{version}.tar.xz
 Source1:        %{name}.desktop
 # Fixing path to php-cli
 Patch2:         eiskaltdcpp-fix-php5-issue.patch
 # Set AppQStyle to default from plastique
 Patch3:         defaultstyle.patch
 
-BuildRequires:  aspell
-BuildRequires:  aspell-devel
+BuildRequires:  hunspell-devel
 BuildRequires:  boost-devel
 BuildRequires:  cmake > 2.8
 BuildRequires:  doxygen
@@ -61,12 +60,18 @@ BuildRequires:  phonon-devel
 BuildRequires:  speex-devel
 BuildRequires:  update-desktop-files
 BuildRequires:  xz
+BuildRequires:  file-devel
+BuildRequires:  taglib-devel
+%if %qtversion >= 40800
+BuildRequires:  libpoppler-qt4-devel
+%endif
 
 Requires:       oxygen-icon-theme
 
 Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
 Obsoletes:      %{name}-tabpp
+Obsoletes:      %{name}-eiskaltdcpp
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -93,11 +98,9 @@ Group:          Development/Libraries/Other
 Requires:       %{name} = %{version}
 
 %description devel
-Files required for development for LeechCraft.
+This package provides files required for development for LeechCraft.
 
-This package contains header files required to develop new modules for
-LeechCraft.
-
+It contains header files required to develop new modules.
 
 %package doc
 Summary:        LeechCraft Core Documentation
@@ -162,7 +165,8 @@ Requires:       %{name} = %{version}
 %description auscrie
 This package provides a screenshooter plugin for LeechCraft.
 
-It allows to make screenshots of LeechCraft and then either save them locally or upload them to an imagebin.
+It allows to make screenshots of LeechCraft and then either save them locally
+or upload them to an imagebin.
 
 
 %package popishu
@@ -264,7 +268,6 @@ Features:
  * Platform-independent.
 
 
-%if 0%{suse_version} > 1140
 %package lmp
 Summary:        LeechCraft Media player Module
 Group:          Productivity/Networking/Other
@@ -282,7 +285,7 @@ Features
  * Streaming media over Internet.
  * Play queue.
  * Support for automatic podcast playing (with a plugin like Aggregator).
-%endif
+
 
 %package networkmonitor
 Summary:        LeechCraft Network Monitor Module
@@ -295,7 +298,6 @@ This package provides a network monitor plugin for LeechCraft.
 It allows to watch for HTTP requests and allows to inspect them and search
 through the list.
 
-%if 0%{suse_version} <= 1210
 %package newlife
 Summary:        LeechCraft Importer Module
 Group:          Productivity/Networking/Other
@@ -314,7 +316,6 @@ Currently it supports
 update interval and custom storage parameters, Akregator's settings.
  * Firefox: history, bookmarks, RSS feeds (aka Live bookmarks).
  * Liferea: feeds list.
-%endif
 
 %package poshuku
 Summary:        LeechCraft Web Browser Module
@@ -488,7 +489,8 @@ Features:
  * Support for autodiscovery of OpenSearch-capable web sites.
  * Tagging of search engines.
  * Support for queries to several search engines at once.
- * Support search results in RSS/Atom format and subscribe to them with a suitable plugin like Aggregator.
+ * Support search results in RSS/Atom format and subscribe to them
+with a suitable plugin like Aggregator.
  * Show results in HTML format with a suitable plugin like Poshuku.
 
 
@@ -510,7 +512,8 @@ Summary also allows to perform searches via the installed plugins
 like SeekThru, HistoryHolder or vGrabber.
 
 Features:
- * List of current tasks and events with context-dependent actions and views for selected items.
+ * List of current tasks and events with context-dependent actions
+and views for selected items.
  * Support for gathering status information from other plugins.
  * Category-based search query support via other plugins.
 
@@ -939,18 +942,6 @@ Features
  * Support for extension protocol
 etc.
 
-%if 0%{suse_version} <= 1210
-%package eiskaltdcpp
-Summary:        LeechCraft DC++ Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description eiskaltdcpp
-DC++ client for LeechCraft.
-
-This package contains EiskaltDC++ DirectConnect client ported to
-LeechCraft.
-%endif
 
 %package advancednotifications
 Summary:        LeechCraft Notifications framework Module
@@ -1075,6 +1066,7 @@ This package provides an image viewer plugin for LeechCraft.
 Summary:        LeechCraft Crash handler Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Requires:       kdebase4-runtime
 
 %description anhero
 This package provides a crash handler plugin for LeechCraft.
@@ -1082,6 +1074,7 @@ This package provides a crash handler plugin for LeechCraft.
 It uses KDE utils to handle crashes, show backtraces and aid
 in sending bug reports.
 
+KDE should not be running for AnHero to work.
 
 %package netstoremanager
 Summary:        LeechCraft Network file storages Module
@@ -1189,6 +1182,56 @@ This package provides a side bar plugin for Leechcraft.
 It is a nice side bar with quick launch, tabs and tray areas.
 
 
+%if %qtversion >= 40800
+%package otlozhu
+Summary:        LeechCraft ToDo manager Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description otlozhu
+This package provides a ToDo manager plugin for LeechCraft.
+
+It is a GTD-inspired ToDo manager.
+
+
+%package monocle
+Summary:        LeechCraft Document viewer Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Recommends:     %{name}-monocle-pdf = %{version}
+
+%description monocle
+This package provides a modular Document viewer plugin for LeechCraft.
+
+It will support different formats via different backends.
+
+
+%package monocle-pdf
+Summary:        LeechCraft Monocle - PDF Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-monocle = %{version}
+
+%description monocle-pdf
+This package contains a pdf subplugin for LeechCraft Monocle.
+
+This package provides PDF documents support for Document viewer Module
+via the Poppler backend.
+%endif
+
+
+%package nacheku
+Summary:        LeechCraft Link watcher Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description nacheku
+This package provides a Nacheku plugin for LeechCraft.
+
+It allows to watch clipboard and directory in order to
+get links and download files.
+
+
 %prep
 %setup -q -n %{name}-%{version}
 
@@ -1214,11 +1257,7 @@ cmake ../src \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AZOTH=True \
-%if 0%{suse_version} <= 1210
-        -DENABLE_EISKALTDCPP=True \
-%else
         -DENABLE_EISKALTDCPP=False \
-%endif
         -DENABLE_GLANCE=True \
         -DENABLE_GMAILNOTIFIER=True \
         -DENABLE_LACKMAN=True \
@@ -1244,17 +1283,18 @@ cmake ../src \
         -DENABLE_PINTAB=True \
         -DENABLE_GACTS=True \
         -DENABLE_KBSWITCH=True \
-        -DENABLE_OTLOZHU=False \
+        -DENABLE_BLOGIQUE=False \
         -DENABLE_DOLOZHEE=True \
-%if 0%{suse_version} > 1140
         -DENABLE_LMP=True \
-%else
-        -DENABLE_LMP=False \
-%endif
-%if 0%{suse_version} > 1210
-        -DENABLE_NEWLIFE=False \
-%endif
+        -DENABLE_NEWLIFE=True \
         -DENABLE_NACHEKU=True \
+%if %qtversion >= 40800
+        -DENABLE_OTLOZHU=True \
+        -DENABLE_MONOCLE=True \
+%else
+        -DENABLE_OTLOZHU=False \
+        -DENABLE_MONOCLE=False \
+%endif
         -DLEECHCRAFT_VERSION=%{version}
 
 %build
@@ -1262,17 +1302,11 @@ cd build
 make %{?_smp_mflags}
 
 cd ../doc/doxygen/core
-# touch footer.html
-# sed -i Doxyfile \
-# -e "s/HTML_FOOTER .*/HTML_FOOTER            = footer.html/"
 sed -i Doxyfile \
 -e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
 doxygen Doxyfile
 
 cd ../azoth
-# touch footer.html
-# sed -i Doxyfile \
-# -e "s/HTML_FOOTER .*/HTML_FOOTER            = footer.html/"
 sed -i Doxyfile \
 -e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
 doxygen Doxyfile
@@ -1290,9 +1324,7 @@ mkdir -p %{buildroot}%{_docdir}/%{name}-azoth-doc
 cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
 
 %suse_update_desktop_file -i %{name}
-%if 0%{suse_version} <= 1210
-%fdupes -s %{buildroot}%{_datadir}/%{name}/eiskaltdcpp
-%endif
+
 %fdupes -s %{buildroot}%{_datadir}/%{name}/translations
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth
 %fdupes -s %{buildroot}%{_docdir}/%{name}-doc/
@@ -1361,28 +1393,6 @@ rm -rf %{buildroot}
 %{settings_dir}/torrentsettings.xml
 %{translations_dir}/%{name}_bittorrent_*.qm
 %{plugin_dir}/*%{name}_bittorrent.so
-
-%if 0%{suse_version} <= 1210
-%files  eiskaltdcpp
-%defattr(-,root,root)
-%{_datadir}/%{name}/eiskaltdcpp
-%dir %{translations_dir}/??
-%dir %{translations_dir}/??/LC_MESSAGES
-%lang(be) %{translations_dir}/be/LC_MESSAGES/libeiskaltdcpp.mo
-%lang(bg) %{translations_dir}/bg/LC_MESSAGES/libeiskaltdcpp.mo
-%lang(cs) %{translations_dir}/cs/LC_MESSAGES/libeiskaltdcpp.mo
-%lang(en) %{translations_dir}/en/LC_MESSAGES/libeiskaltdcpp.mo
-%lang(es) %{translations_dir}/es/LC_MESSAGES/libeiskaltdcpp.mo
-%lang(fr) %{translations_dir}/fr/LC_MESSAGES/libeiskaltdcpp.mo
-%lang(hu) %{translations_dir}/hu/LC_MESSAGES/libeiskaltdcpp.mo
-%lang(pl) %{translations_dir}/pl/LC_MESSAGES/libeiskaltdcpp.mo
-%lang(ru) %{translations_dir}/ru/LC_MESSAGES/libeiskaltdcpp.mo
-%lang(sk) %{translations_dir}/sk/LC_MESSAGES/libeiskaltdcpp.mo
-%lang(sr) %{translations_dir}/sr/LC_MESSAGES/libeiskaltdcpp.mo
-%lang(uk) %{translations_dir}/uk/LC_MESSAGES/libeiskaltdcpp.mo
-%{plugin_dir}/*%{name}_eiskaltdcpp.so
-%doc %{_mandir}/man1/eiskaltdcpp-qt.1.gz
-%endif
 
 %files aggregator
 %defattr(-,root,root)
@@ -1571,25 +1581,21 @@ rm -rf %{buildroot}
 %{settings_dir}/kinotifysettings.xml
 %{plugin_dir}/*%{name}_kinotify.so
 
-%if 0%{suse_version} > 1140
 %files lmp
 %defattr(-,root,root)
 %{settings_dir}/lmpsettings.xml
 %{translations_dir}/%{name}_lmp*
 %{plugin_dir}/*%{name}_lmp.so
-%endif
 
 %files networkmonitor
 %defattr(-,root,root)
 %{translations_dir}/%{name}_networkmonitor*.qm
 %{plugin_dir}/*%{name}_networkmonitor.so
 
-%if 0%{suse_version} <= 1210
 %files newlife
 %defattr(-,root,root)
 %{translations_dir}/%{name}_newlife*.qm
 %{plugin_dir}/*%{name}_newlife.so
-%endif
 
 %files poshuku-cleanweb
 %defattr(-,root,root)
@@ -1783,5 +1789,25 @@ rm -rf %{buildroot}
 %{_libdir}/%{name}/plugins/lib%{name}_xproxy.so
 %{_datadir}/%{name}/settings/xproxysettings.xml
 %{_datadir}/%{name}/translations/%{name}_xproxy_*.qm
+
+%if %qtversion >= 40800
+%files otlozhu
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_otlozhu.so
+%{_datadir}/%{name}/translations/%{name}_otlozhu_*.qm
+
+%files monocle
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_monocle.so
+
+%files monocle-pdf
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_monocle_pdf.so
+%endif
+
+%files nacheku
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_nacheku.so
+%{_datadir}/%{name}/settings/nachekusettings.xml
 
 %changelog

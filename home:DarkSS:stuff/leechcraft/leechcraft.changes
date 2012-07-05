@@ -1,3 +1,29 @@
+Sun May 27 17:54:51 UTC 2012 - dap.darkness@gmail.com
+
+- 0.5.70 release
+  Media player LMP was all-new rewritten and got such features:
+      * Specialization on audio
+      * Local collection
+      * Static and dynamic playlists
+      * Support for external playlists in pls, xspf and m3u8 formats
+      * Playback modes: sequential, shuffled and track/album/playlist repeat
+      * Scrobbling listened tracks to Last.FM via LastFMScrobble
+      * Fetching missing album covers via LastFMScrobble
+      * Requests for similar artists via LastFMScrobble
+      * Tray icon
+  * Core: "back"/"forward" mouse buttons make tabs switching
+  * Fixes in AdvancedNotifications module
+  In modular IM client Azoth:
+      * Added support for /kick and /ban commands
+      * Smiles aren't replaced anymore in the middle of the words
+      * Added support for hiding and disabling accounts
+      * Autopaste module was migrated to the codepad.org
+      * Azoth p100q is now more compatible with Adium themes
+      * Azoth Xoox now supports adding, editing and removing phones and emails
+      * Some MUC reconnection issues were fixed in Azoth Xoox.
+      * Azoth Vader module now supports assigning phone numbers to contacts
+      * Some problems with authorization handling were fixed in Azoth Vader
+
 -------------------------------------------------------------------
 Thu May 24 08:29:26 UTC 2012 - cfarrell@suse.com
 
@@ -5,6 +31,7 @@ Thu May 24 08:29:26 UTC 2012 - cfarrell@suse.com
   COPYING and the majority of source code files now state that leechcraft
   is GPL-3.0 licensed
 
+-------------------------------------------------------------------
 Sun Apr 29 17:10:00 UTC 2012 - nekolayer@yandex.ru
 
 - 0.5.65 release
