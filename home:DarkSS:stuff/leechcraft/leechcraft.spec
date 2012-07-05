@@ -25,14 +25,11 @@ Name:           leechcraft
 Version:        0.5.65
 Release:        0
 Summary:        Modular Internet Client
-License:        GPL-2.0+
+License:        GPL-3.0+
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 Source0:        http://netcologne.dl.sourceforge.net/project/%{name}/LeechCraft/0.5.65/%{name}-%{version}.tar.xz
 Source1:        %{name}.desktop
-#another AdiumStyle for Azoth, modified for compatiblity with AzothAdium
-#http://www.adiumxtras.com/index.php?a=xtras&xtra_id=2160
-Source2:        renkoo_adiumstyle.tar.xz
 # Fixing path to php-cli
 Patch2:         eiskaltdcpp-fix-php5-issue.patch
 # Set AppQStyle to default from plastique
@@ -1220,7 +1217,7 @@ cmake ../src \
 %if 0%{suse_version} <= 1210
         -DENABLE_EISKALTDCPP=True \
 %else
-	-DENABLE_EISKALTDCPP=False \
+        -DENABLE_EISKALTDCPP=False \
 %endif
         -DENABLE_GLANCE=True \
         -DENABLE_GMAILNOTIFIER=True \
@@ -1283,8 +1280,6 @@ doxygen Doxyfile
 %install
 cd build
 %makeinstall
-#cd ../renkoo_adiumstyle
-#cp -r ./*.AdiumMessageStyle/ %%{buildroot}/%%{azoth_dir}/styles/adium/
 
 cd ../doc/doxygen/core/out/html
 mkdir -p %{buildroot}%{_docdir}/%{name}-doc
