@@ -1192,31 +1192,6 @@ Requires:       %{name} = %{version}
 This package provides a ToDo manager plugin for LeechCraft.
 
 It is a GTD-inspired ToDo manager.
-
-
-%package monocle
-Summary:        LeechCraft Document viewer Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-Recommends:     %{name}-monocle-pdf = %{version}
-
-%description monocle
-This package provides a modular Document viewer plugin for LeechCraft.
-
-It will support different formats via different backends.
-
-
-%package monocle-pdf
-Summary:        LeechCraft Monocle - PDF Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-Requires:       %{name}-monocle = %{version}
-
-%description monocle-pdf
-This package contains a pdf subplugin for LeechCraft Monocle.
-
-This package provides PDF documents support for Document viewer Module
-via the Poppler backend.
 %endif
 
 
@@ -1288,12 +1263,11 @@ cmake ../src \
         -DENABLE_LMP=True \
         -DENABLE_NEWLIFE=True \
         -DENABLE_NACHEKU=True \
+        -DENABLE_MONOCLE=False \
 %if %qtversion >= 40800
         -DENABLE_OTLOZHU=True \
-        -DENABLE_MONOCLE=True \
 %else
         -DENABLE_OTLOZHU=False \
-        -DENABLE_MONOCLE=False \
 %endif
         -DLEECHCRAFT_VERSION=%{version}
 
@@ -1795,14 +1769,6 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_otlozhu.so
 %{_datadir}/%{name}/translations/%{name}_otlozhu_*.qm
-
-%files monocle
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_monocle.so
-
-%files monocle-pdf
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_monocle_pdf.so
 %endif
 
 %files nacheku
