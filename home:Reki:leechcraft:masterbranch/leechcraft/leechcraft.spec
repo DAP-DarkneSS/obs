@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.70-407-geb0dcf6
+%define LEECHCRAFT_VERSION 0.5.70-452-g0416528
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1967,6 +1967,7 @@ rm -rf %{buildroot}
 %files vrooby
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_vrooby.so
+%{_datadir}/%{name}/translations/%{name}_vrooby_*.qm
 %endif
 
 %files liznoo
@@ -2021,6 +2022,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle.so
 %{_datadir}/%{name}/translations/%{name}_monocle_*.qm
+%{_datadir}/%{name}/settings/monoclesettings.xml
 
 %files monocle-pdf
 %defattr(-,root,root)
