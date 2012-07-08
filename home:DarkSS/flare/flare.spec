@@ -8,13 +8,13 @@
 #
 
 Name:           flare
-Version:        v0.14-733-g7d701c7
-Release:        0
+Version:        0.16
+Release:        1
 Summary:        Free Libre Action Roleplaying Engine: binary file
 
 License:        GPL-3.0
 URL:            http://clintbellanger.net/rpg/
-Source0:        %{name}-%{version}.tar.bz2
+Source0:        https://github.com/clintbellanger/%{name}/tarball/v%{version}
 Group:          Amusements/Games/RPG
 
 BuildRequires:  make cmake
@@ -58,7 +58,7 @@ Flare uses simple file formats (INI style config files) for most of the game dat
 to easily modify game contents. Open formats are preferred (png, ogg). The game code is C++.
 
 %prep
-%setup -q
+%setup -q -n clintbellanger-%{name}-347ecb6
 
 %build
 mkdir -p build
