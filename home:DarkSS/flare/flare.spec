@@ -39,7 +39,7 @@ to easily modify game contents. Open formats are preferred (png, ogg). The game 
 
 %package data
 Summary:        Flare: art and other architecture independent data
-License:        CC-BY-SA 3.0
+License:        CC-BY-SA-3
 Group:          Amusements/Games/RPG
 Requires:       %{name} = %{version}
 BuildArch:      noarch
