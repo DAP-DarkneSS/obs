@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.70-468-g5e6fa25
+%define LEECHCRAFT_VERSION 0.5.75-2-g5364ab7
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -314,6 +314,7 @@ Summary:        LeechCraft Web Browser Module
 Group:          Productivity/Networking/Other
 Provides:       %{name}-webbrowser
 Requires:       %{name} = %{version}
+Obsoletes:      poshuku-wyfv
 
 %description poshuku
 This package provides a web browser plugin for LeechCraft.
@@ -397,16 +398,16 @@ Features:
 version etc. into the User-Agent string in arbitrary places.
 
 
-%package poshuku-wyfv
-Summary:        LeechCraft Poshuku - Flash Video Replacer Module
-Group:          Productivity/Networking/Other
-Requires:       %{name}-poshuku = %{version}
-
-%description poshuku-wyfv
-This package provides a flash video replacer plugin for LeechCraft Poshuku.
-
-It allows to replace default flash-based video players on some sites with any
-suitable LeechCraft's media player thus avoiding the exigency of Flash.
+# %package poshuku-wyfv
+# Summary:        LeechCraft Poshuku - Flash Video Replacer Module
+# Group:          Productivity/Networking/Other
+# Requires:       %{name}-poshuku = %{version}
+# 
+# %description poshuku-wyfv
+# This package provides a flash video replacer plugin for LeechCraft Poshuku.
+# 
+# It allows to replace default flash-based video players on some sites with any
+# suitable LeechCraft's media player thus avoiding the exigency of Flash.
 
 %package poshuku-pogooglue
 Summary:        LeechCraft Poshuku - quick google search Module
@@ -1448,6 +1449,7 @@ cmake ../src \
         -DENABLE_NACHEKU=True \
         -DENABLE_LADS=False \
         -DENABLE_LEMON=False \
+        -DENABLE_TWIFEE=False \
 %if %qtversion >= 40800
         -DENABLE_OTLOZHU=True \
         -DENABLE_BLOGIQUE=True \
@@ -1816,11 +1818,11 @@ rm -rf %{buildroot}
 %{plugin_dir}/*%{name}_poshuku_fatape.so
 %{translations_dir}/leechcraft_poshuku_fatape_*.qm
 
-%files poshuku-wyfv
-%defattr(-,root,root)
-%{settings_dir}/poshukuwyfvsettings.xml
-%{translations_dir}/%{name}_poshuku_wyfv*.qm
-%{plugin_dir}/*%{name}_poshuku_wyfv.so
+# %files poshuku-wyfv
+# %defattr(-,root,root)
+# %{settings_dir}/poshukuwyfvsettings.xml
+# %{translations_dir}/%{name}_poshuku_wyfv*.qm
+# %{plugin_dir}/*%{name}_poshuku_wyfv.so
 
 %files poshuku-pogooglue
 %defattr(-,root,root)
