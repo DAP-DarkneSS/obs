@@ -1,7 +1,5 @@
-diff --git a/src/plugins/monocle/plugins/pdf/links.h b/src/plugins/monocle/plugins/pdf/links.h
-index 1ca7ee3..b7f6c1d 100644
---- src/plugins/monocle/plugins/pdf/links.h
-+++ src/plugins/monocle/plugins/pdf/links.h
+--- src/plugins/monocle/plugins/pdf/links.h.orig	2012-07-12 21:48:06.697000025 +0300
++++ src/plugins/monocle/plugins/pdf/links.h	2012-07-12 21:48:14.516000025 +0300
 @@ -19,7 +19,7 @@
  #pragma once
  
