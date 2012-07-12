@@ -1,3 +1,21 @@
+Wed Jul 11 21:12:20 UTC 2012 - dap.darkness@gmail.com
+- 0.5.75 release
+  Media player LMP got the following features:
+      * Uploading files from local collection to portable media players
+      * Optional transcoding of uploaded files
+      * Support for social radio stations like Last.FM radio
+      * Obtaining personalized recommendations, recent releases etc
+      * Support for MPRIS
+  New Modules:
+      * Vrooby is a removable storage devices manager
+      * Monocle is a modular document viewer
+  * Several things were optimized a lot
+  * A bunch of minor fixes and enhancements in other plugins
+  * A nickname can be inserted by Ctrl+activate it in the roster
+  * Azoth ChatHistory module finally got a small calendar widget
+  * Links in chat logs are now clickable
+
+-------------------------------------------------------------------
 Sun May 27 17:54:51 UTC 2012 - dap.darkness@gmail.com
 
 - 0.5.70 release
