@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 
 Name:           leechcraft
-Version:        0.5.70
+Version:        0.5.75
 Release:        1
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -34,6 +34,10 @@ Source1:        %{name}.desktop
 Patch2:         eiskaltdcpp-fix-php5-issue.patch
 # Set AppQStyle to default from plastique
 Patch3:         defaultstyle.patch
+# Fixing compilation with the latest poppler version
+%if 0%{suse_version} > 1210
+Patch4:         monocle-factory.patch
+%endif
 
 BuildRequires:  hunspell-devel
 BuildRequires:  boost-devel
@@ -64,6 +68,9 @@ BuildRequires:  update-desktop-files
 BuildRequires:  xz
 BuildRequires:  file-devel
 BuildRequires:  taglib-devel
+%if %qtversion >= 40800
+BuildRequires:  libpoppler-qt4-devel
+%endif
 
 Requires:       oxygen-icon-theme
 
@@ -275,6 +282,10 @@ Summary:        LeechCraft Media player Module
 Group:          Productivity/Networking/Other
 Provides:       %{name}-audioplayer
 Requires:       %{name} = %{version}
+Recommends:     ffmpeg
+%if %qtversion >= 40800
+Recommends:     %{name}-vrooby = %{version}
+%endif
 
 %description lmp
 This package provides a audio player plugin for LeechCraft.
@@ -324,6 +335,7 @@ Summary:        LeechCraft Web Browser Module
 Group:          Productivity/Networking/Other
 Provides:       %{name}-webbrowser
 Requires:       %{name} = %{version}
+Obsoletes:      poshuku-wyfv
 
 %description poshuku
 This package provides a web browser plugin for LeechCraft.
@@ -405,18 +417,6 @@ Features:
  * Support for custom user-defined strings.
  * Support automatic insertion of current platform, language, WebKit's
 version etc. into the User-Agent string in arbitrary places.
-
-
-%package poshuku-wyfv
-Summary:        LeechCraft Poshuku - Flash Video Replacer Module
-Group:          Productivity/Networking/Other
-Requires:       %{name}-poshuku = %{version}
-
-%description poshuku-wyfv
-This package provides a flash video replacer plugin for LeechCraft Poshuku.
-
-It allows to replace default flash-based video players on some sites with any
-suitable LeechCraft's media player thus avoiding the exigency of Flash.
 
 
 %package poshuku-pogooglue
@@ -1195,6 +1195,53 @@ Requires:       %{name} = %{version}
 This package provides a ToDo manager plugin for LeechCraft.
 
 It is a GTD-inspired ToDo manager.
+
+
+%package monocle
+Summary:        LeechCraft Document viewer Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description monocle
+This package provides a modular Document viewer plugin for LeechCraft.
+
+It will support different formats via different backends.
+
+
+%package monocle-pdf
+Summary:        LeechCraft Monocle - PDF Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-monocle = %{version}
+
+%description monocle-pdf
+This package contains a pdf subplugin for LeechCraft Monocle.
+
+This package provides PDF documents support for Document viewer Module
+via the Poppler backend.
+
+%package monocle-fxb
+Summary:        LeechCraft Monocle - FictionBook Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-monocle = %{version}
+
+%description monocle-fxb
+This package contains a FictionBook subplugin for LeechCraft Monocle.
+
+This package provides FB2 documents support for Document viewer Module.
+
+
+%package vrooby
+Summary:        LeechCraft Removable storage devices Manager
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       udisks
+
+%description vrooby
+This package provides a Vrooby plugin for LeechCraft.
+
+It allows to watch removable storage devices via d-bus and udisks.
 %endif
 
 
@@ -1218,6 +1265,9 @@ get links and download files.
 %patch2
 %endif
 %patch3
+%if 0%{suse_version} > 1210
+%patch4
+%endif
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -1266,11 +1316,17 @@ cmake ../src \
         -DENABLE_LMP=True \
         -DENABLE_NEWLIFE=True \
         -DENABLE_NACHEKU=True \
-        -DENABLE_MONOCLE=False \
+        -DENABLE_LADS=False \
+        -DENABLE_LEMON=False \
+        -DENABLE_TWIFEE=False \
 %if %qtversion >= 40800
         -DENABLE_OTLOZHU=True \
+        -DENABLE_MONOCLE=True \
+        -DENABLE_VROOBY=True \
 %else
         -DENABLE_OTLOZHU=False \
+        -DENABLE_MONOCLE=False \
+        -DENABLE_VROOBY=False \
 %endif
         -DLEECHCRAFT_VERSION=%{version}
 
@@ -1567,6 +1623,7 @@ rm -rf %{buildroot}
 %{settings_dir}/lmpsettings.xml
 %{translations_dir}/%{name}_lmp*
 %{plugin_dir}/*%{name}_lmp.so
+%{plugin_dir}/*%{name}_lmp_dumbsync.so
 
 %files networkmonitor
 %defattr(-,root,root)
@@ -1619,12 +1676,6 @@ rm -rf %{buildroot}
 %{settings_dir}/poshukufatapesettings.xml
 %{plugin_dir}/*%{name}_poshuku_fatape.so
 %{translations_dir}/leechcraft_poshuku_fatape_*.qm
-
-%files poshuku-wyfv
-%defattr(-,root,root)
-%{settings_dir}/poshukuwyfvsettings.xml
-%{translations_dir}/%{name}_poshuku_wyfv*.qm
-%{plugin_dir}/*%{name}_poshuku_wyfv.so
 
 %files poshuku-pogooglue
 %defattr(-,root,root)
@@ -1776,6 +1827,25 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_otlozhu.so
 %{_datadir}/%{name}/translations/%{name}_otlozhu_*.qm
+
+%files monocle
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_monocle.so
+%{_datadir}/%{name}/translations/%{name}_monocle_*.qm
+%{_datadir}/%{name}/settings/monoclesettings.xml
+
+%files monocle-pdf
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_monocle_pdf.so
+
+%files monocle-fxb
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_monocle_fxb.so
+
+%files vrooby
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_vrooby.so
+%{_datadir}/%{name}/translations/%{name}_vrooby_*.qm
 %endif
 
 %files nacheku
