@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.75-3-g510ae00
+%define LEECHCRAFT_VERSION 0.5.75-18-g357b03b
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -71,6 +71,7 @@ BuildRequires:  doxygen
 Requires:       oxygen-icon-theme
 %if %qtversion >= 40800
 BuildRequires:  libpoppler-qt4-devel
+BuildRequires:  mupdf-devel
 %endif
 # For snails:
 # BuildRequires:  libvmime-devel
@@ -398,12 +399,12 @@ Features:
 version etc. into the User-Agent string in arbitrary places.
 
 
-# %package poshuku-wyfv
+# %%package poshuku-wyfv
 # Summary:        LeechCraft Poshuku - Flash Video Replacer Module
 # Group:          Productivity/Networking/Other
-# Requires:       %{name}-poshuku = %{version}
+# Requires:       %%{name}-poshuku = %%{version}
 # 
-# %description poshuku-wyfv
+# %%description poshuku-wyfv
 # This package provides a flash video replacer plugin for LeechCraft Poshuku.
 # 
 # It allows to replace default flash-based video players on some sites with any
@@ -1340,6 +1341,20 @@ This package contains a pdf subplugin for LeechCraft Monocle.
 This package provides PDF documents support for Document viewer Module
 via the Poppler backend.
 
+
+%package monocle-mu
+Summary:        LeechCraft Monocle - Another PDF Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-monocle = %{version}
+
+%description monocle-mu
+This package contains a pdf subplugin for LeechCraft Monocle.
+
+This package provides PDF documents support for Document viewer Module
+via the mupdf backend.
+
+
 %package monocle-fxb
 Summary:        LeechCraft Monocle - FictionBook Module
 Group:          Productivity/Networking/Other
@@ -1456,12 +1471,14 @@ cmake ../src \
         -DENABLE_MONOCLE=True \
         -DENABLE_VROOBY=True \
         -DENABLE_SNAILS=False \
+        -DENABLE_MONOCLE_MU=True \
 %else
         -DENABLE_OTLOZHU=False \
         -DENABLE_BLOGIQUE=False \
         -DENABLE_MONOCLE=False \
         -DENABLE_VROOBY=False \
         -DENABLE_SNAILS=False \
+        -DENABLE_MONOCLE_MU=False \
 %endif
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 %build
@@ -1818,11 +1835,11 @@ rm -rf %{buildroot}
 %{plugin_dir}/*%{name}_poshuku_fatape.so
 %{translations_dir}/leechcraft_poshuku_fatape_*.qm
 
-# %files poshuku-wyfv
-# %defattr(-,root,root)
-# %{settings_dir}/poshukuwyfvsettings.xml
-# %{translations_dir}/%{name}_poshuku_wyfv*.qm
-# %{plugin_dir}/*%{name}_poshuku_wyfv.so
+# %%files poshuku-wyfv
+# %%defattr(-,root,root)
+# %%{settings_dir}/poshukuwyfvsettings.xml
+# %%{translations_dir}/%%{name}_poshuku_wyfv*.qm
+# %%{plugin_dir}/*%%{name}_poshuku_wyfv.so
 
 %files poshuku-pogooglue
 %defattr(-,root,root)
@@ -2025,6 +2042,10 @@ rm -rf %{buildroot}
 %files monocle-pdf
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_pdf.so
+
+%files monocle-mu
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_monocle_mu.so
 
 %files monocle-fxb
 %defattr(-,root,root)
