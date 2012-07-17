@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.75-39-ge014505
+%define LEECHCRAFT_VERSION 0.5.75-53-g8bcad07
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -64,13 +64,13 @@ BuildRequires:  libqxt1-devel
 BuildRequires:  telepathy-qt4-devel
 BuildRequires:  libpoppler-qt4-devel
 BuildRequires:  mupdf-devel
+BuildRequires:  liblastfm-devel
 %endif
 BuildRequires:  phonon-devel
 BuildRequires:  taglib-devel
 BuildRequires:  qwt-devel >= 6
 BuildRequires:  file-devel
 BuildRequires:  doxygen
-BuildRequires:  liblastfm-devel
 Requires:       oxygen-icon-theme
 # For snails:
 # BuildRequires:  libvmime-devel
@@ -881,7 +881,9 @@ Group:          Productivity/Networking/Other
 Provides:       %{name}-audioplayer
 Requires:       %{name} = %{version}
 Recommends:     ffmpeg
+%if 0%{suse_version} > 1140
 Recommends:     %{name}-lastfmscrobble = %{version}
+%endif
 %if %qtversion >= 40800
 Recommends:     %{name}-vrooby = %{version}
 %endif
@@ -915,6 +917,30 @@ Features:
  * In-band account registration.
  * Standard one-to-one chats.
  * Nick resolution.
+
+
+%package lastfmscrobble
+Summary:        LeechCraft Last.FM Scrobble Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description lastfmscrobble
+This package contains a LastFMScrobble plugin for LeechCraft.
+
+It provides support for the Last.FM service. For example, it scrobble tracks
+from other players, requests similar artists (on demand by other players as
+well), supports fetching album art, etc.
+
+Features:
+ * Scrobbling listened tracks from other players like LMP to Last.FM.
+ * "Loving" listened tracks.
+ * Support for requesting artists that are similar to a given artist.
+ * Automatic fetching of album art.
+ * Support for Last.FM radio.
+ * Fetching personalized recommendations.
+ * Fetching recent releases of artists that are in the user's collection.
+ * Fetching artists biography.
+ * Configurable language of the fetched information.
 %endif
 
 
@@ -1403,30 +1429,6 @@ This package provides a Nacheku plugin for LeechCraft.
 
 It allows to watch clipboard and directory in order to
 get links and download files.
-
-
-%package lastfmscrobble
-Summary:        LeechCraft Last.FM Scrobble Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description lastfmscrobble
-This package contains a LastFMScrobble plugin for LeechCraft.
-
-It provides support for the Last.FM service. For example, it scrobble tracks
-from other players, requests similar artists (on demand by other players as
-well), supports fetching album art, etc.
-
-Features:
- * Scrobbling listened tracks from other players like LMP to Last.FM.
- * "Loving" listened tracks.
- * Support for requesting artists that are similar to a given artist.
- * Automatic fetching of album art.
- * Support for Last.FM radio.
- * Fetching personalized recommendations.
- * Fetching recent releases of artists that are in the user's collection.
- * Fetching artists biography.
- * Configurable language of the fetched information.
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -2008,6 +2010,12 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_azoth_astrality.so
 %{_datadir}/%{name}/translations/%{name}_azoth_astrality_*.qm
+
+%files lastfmscrobble
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_lastfmscrobble.so
+%{_datadir}/%{name}/settings/lastfmscrobblesettings.xml
+%{_datadir}/%{name}/translations/%{name}_lastfmscrobble_*.qm
 %endif
 
 %files liznoo
@@ -2091,11 +2099,5 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_nacheku.so
 %{_datadir}/%{name}/settings/nachekusettings.xml
-
-%files lastfmscrobble
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_lastfmscrobble.so
-%{_datadir}/%{name}/settings/lastfmscrobblesettings.xml
-%{_datadir}/%{name}/translations/%{name}_lastfmscrobble_*.qm
 
 %changelog
