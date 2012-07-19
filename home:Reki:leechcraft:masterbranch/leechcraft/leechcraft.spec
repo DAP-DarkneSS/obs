@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.75-53-g8bcad07
+%define LEECHCRAFT_VERSION 0.5.75-90-gbed0791
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1037,6 +1037,7 @@ Features:
 
 Supported services:
  * Yandex.Disk
+ * Google Drive
 
 
 #%%package eiskaltdcpp
@@ -1477,8 +1478,10 @@ cmake ../src \
         -DENABLE_LMP=True \
 %if 0%{suse_version} > 1140
         -DENABLE_AZOTH_ASTRALITY=True \
+        -DENABLE_LASTFMSCROBBLE=True \
 %else
         -DENABLE_AZOTH_ASTRALITY=False \
+        -DENABLE_LASTFMSCROBBLE=False \
 %endif
         -DENABLE_LIZNOO=True \
         -DENABLE_NETSTOREMANAGER=True \
@@ -1491,7 +1494,7 @@ cmake ../src \
         -DENABLE_LADS=False \
         -DENABLE_LEMON=False \
         -DENABLE_TWIFEE=False \
-        -DENABLE_LASTFMSCROBBLE=True \
+        -DENABLE_NETSTOREMANAGER_GOOGLEDRIVE=False \
 %if %qtversion >= 40800
         -DENABLE_OTLOZHU=True \
         -DENABLE_BLOGIQUE=True \
