@@ -1,6 +1,6 @@
 <services>
   <service name="download_url">
-    <param name="filename">lor-quotes-date.20120613</param>
+    <param name="filename">lor-quotes-date.20120720</param>
     <param name="path">/fortraw.php</param>
     <param name="host">lorquotes.ru</param>
   </service>
