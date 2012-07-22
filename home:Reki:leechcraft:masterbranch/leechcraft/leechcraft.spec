@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.75-90-gbed0791
+%define LEECHCRAFT_VERSION 0.5.75-103-gb46895b
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -70,7 +70,9 @@ BuildRequires:  phonon-devel
 BuildRequires:  taglib-devel
 BuildRequires:  qwt-devel >= 6
 BuildRequires:  file-devel
+%if 0%{suse_version} <= 1210
 BuildRequires:  doxygen
+%endif
 Requires:       oxygen-icon-theme
 # For snails:
 # BuildRequires:  libvmime-devel
@@ -112,6 +114,7 @@ This package provides files required for development for LeechCraft.
 It contains header files required to develop new modules.
 
 
+%if 0%{suse_version} <= 1210
 %package doc
 Summary:        LeechCraft Core Documentation
 Group:          Development/Libraries/Other
@@ -124,6 +127,21 @@ It contains description of core API used for developing first-level
 LeechCraft plugins. For developing sub-plugins, please refer to
 corresponding packages (like leechcraft-azoth-doc). This documentation
 is also available online at http://doc.leechcraft.org/core/
+
+
+%package azoth-doc
+Summary:        LeechCraft Azoth Documentation
+Group:          Development/Libraries/Other
+BuildArch:      noarch
+
+%description azoth-doc
+This packages provides documentation of LeechCraft Azoth API.
+
+It contains description of Azoth API used for developing LeechCraft
+Azoth sub-plugins. For developing first-lexel plugins, please refer
+to corresponding packages (like leechcraft-doc). This documentation
+is also available online at http://doc.leechcraft.org/azoth/
+%endif
 
 
 %package aggregator
@@ -598,20 +616,6 @@ Unlike other multiprotocol clients which tend to implement only those
 features that are present in all the protocols, Azoth is modelled after the
 XMPP protocol, aiming to provide extensive and full support for XMPP while
 remaining usable for other protocols.
-
-
-%package azoth-doc
-Summary:        LeechCraft Azoth Documentation
-Group:          Development/Libraries/Other
-BuildArch:      noarch
-
-%description azoth-doc
-This packages provides documentation of LeechCraft Azoth API.
-
-It contains description of Azoth API used for developing LeechCraft
-Azoth sub-plugins. For developing first-lexel plugins, please refer
-to corresponding packages (like leechcraft-doc). This documentation
-is also available online at http://doc.leechcraft.org/azoth/
 
 
 %package azoth-acetamide
@@ -1515,6 +1519,7 @@ cmake ../src \
 cd build
 make %{?_smp_mflags}
 
+%if 0%{suse_version} <= 1210
 cd ../doc/doxygen/core
 sed -i Doxyfile \
 -e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
@@ -1524,6 +1529,7 @@ cd ../azoth
 sed -i Doxyfile \
 -e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
 doxygen Doxyfile
+%endif
 
 %install
 cd build
@@ -1531,6 +1537,7 @@ cd build
 #cd ../renkoo_adiumstyle
 #cp -r ./*.AdiumMessageStyle/ %%{buildroot}/%%{azoth_dir}/styles/adium/
 
+%if 0%{suse_version} <= 1210
 cd ../doc/doxygen/core/out/html
 mkdir -p %{buildroot}%{_docdir}/%{name}-doc
 cp -r * %{buildroot}%{_docdir}/%{name}-doc
@@ -1538,13 +1545,16 @@ cp -r * %{buildroot}%{_docdir}/%{name}-doc
 cd ../../../azoth/out/html
 mkdir -p %{buildroot}%{_docdir}/%{name}-azoth-doc
 cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
+%endif
 
 %suse_update_desktop_file -i %{name}
 #%%fdupes -s %%{buildroot}%%{_datadir}/%%{name}/eiskaltdcpp
 %fdupes -s %{buildroot}%{_datadir}/%{name}/translations
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth
+%if 0%{suse_version} <= 1210
 %fdupes -s %{buildroot}%{_docdir}/%{name}-doc/
 %fdupes -s %{buildroot}%{_docdir}/%{name}-azoth-doc/
+%endif
 #%%fdupes -s %%{buildroot}%%{_datadir}/icons/oxygen
 
 %post -p /sbin/ldconfig
@@ -1581,11 +1591,19 @@ rm -rf %{buildroot}
 %{_datadir}/%{name}/sounds
 %exclude %{_datadir}/cmake/Modules/InitLCPlugin.cmake
 
+%if 0%{suse_version} <= 1210
 %files doc
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}-doc
 %doc %{_docdir}/%{name}-doc/*
 %exclude %{_docdir}/%{name}-doc/installdox
+
+%files azoth-doc
+%defattr(-,root,root)
+%dir %{_docdir}/%{name}-azoth-doc
+%doc %{_docdir}/%{name}-azoth-doc/*
+%exclude %{_docdir}/%{name}-azoth-doc/installdox
+%endif
 
 %files advancednotifications
 %defattr(-,root,root)
@@ -1646,12 +1664,6 @@ rm -rf %{buildroot}
 %{translations_dir}/%{name}_azoth_??.qm
 %{translations_dir}/%{name}_azoth_??_??.qm
 %{plugin_dir}/*%{name}_azoth.so
-
-%files azoth-doc
-%defattr(-,root,root)
-%dir %{_docdir}/%{name}-azoth-doc
-%doc %{_docdir}/%{name}-azoth-doc/*
-%exclude %{_docdir}/%{name}-azoth-doc/installdox
 
 %files azoth-acetamide
 %defattr(-,root,root)
