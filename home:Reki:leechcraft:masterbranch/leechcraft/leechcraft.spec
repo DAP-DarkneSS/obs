@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.75-159-g1518ade
+%define LEECHCRAFT_VERSION 0.5.75-163-g25cf458
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -915,6 +915,7 @@ This package provides a audio syncing plugin for LeechCraft.
 It allows to sync with Flash-like media players.
 
 
+%if %qtversion >= 40800
 %package lmp-mp3tunes
 Summary:        LeechCraft mp3tunes.com Module
 Group:          Productivity/Networking/Other
@@ -928,6 +929,7 @@ It allows to sync and use the mp3tunes.com service.
 Features:
  * Using many accounts.
  * Getting playlists.
+%endif
 
 
 %if 0%{suse_version} > 1140
@@ -1533,6 +1535,7 @@ cmake ../src \
         -DENABLE_VROOBY=True \
         -DENABLE_SNAILS=False \
         -DENABLE_MONOCLE_MU=True \
+        -DENABLE_LMP_MP3TUNES=True \
 %else
         -DENABLE_OTLOZHU=False \
         -DENABLE_BLOGIQUE=False \
@@ -1540,6 +1543,7 @@ cmake ../src \
         -DENABLE_VROOBY=False \
         -DENABLE_SNAILS=False \
         -DENABLE_MONOCLE_MU=False \
+        -DENABLE_LMP_MP3TUNES=False \
 %endif
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 %build
@@ -2050,10 +2054,12 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_lmp_dumbsync.so
 
+%if %qtversion >= 40800
 %files lmp-mp3tunes
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_lmp_mp3tunes.so
 %{_datadir}/%{name}/settings/lmpmp3tunessettings.xml
+%endif
 
 %if 0%{suse_version} > 1140
 %files azoth-astrality
