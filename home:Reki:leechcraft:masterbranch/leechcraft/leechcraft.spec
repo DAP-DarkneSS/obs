@@ -80,6 +80,9 @@ Requires:       oxygen-icon-theme
 Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
 Obsoletes:      %{name}-tabpp
+%if 0%{suse_version} < 1210
+Obsoletes:      %{name}-lhtr
+%endif
 # %%if 0%%{suse_version} < 1210
 # Obsoletes:      %%{name}-lmp
 # %%endif
@@ -1191,6 +1194,7 @@ It allows to synchronize data and settings between LeechCraft instances
 running on different machines.
 
 
+%if 0%{suse_version} > 1140
 %package lhtr
 Summary:        LeechCraft HTML WYSIWYG editor Module
 Group:          Productivity/Networking/Other
@@ -1200,6 +1204,7 @@ Requires:       %{name} = %{version}
 This package provides a HTML WYSIWYG editor plugin for Leechcraft.
 
 It can be usable with mail and blog modules.
+%endif
 
 
 %package knowhow
@@ -1359,6 +1364,7 @@ It is a GTD-inspired ToDo manager.
 Summary:        LeechCraft Blogging client Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Requires:       %{name}-lhtr = %{version}
 
 %description blogique
 This package provides a modular Blogging client plugin for LeechCraft.
@@ -1512,9 +1518,11 @@ cmake ../src \
 %if 0%{suse_version} > 1140
         -DENABLE_AZOTH_ASTRALITY=True \
         -DENABLE_LASTFMSCROBBLE=True \
+        -DENABLE_LHTR=True \
 %else
         -DENABLE_AZOTH_ASTRALITY=False \
         -DENABLE_LASTFMSCROBBLE=False \
+        -DENABLE_LHTR=False \
 %endif
         -DENABLE_LIZNOO=True \
         -DENABLE_NETSTOREMANAGER=True \
@@ -2039,10 +2047,12 @@ rm -rf %{buildroot}
 %{_datadir}/%{name}/settings/netstoremanagersettings.xml
 %{_datadir}/%{name}/translations/%{name}_netstoremanager_*.qm
 
+%if 0%{suse_version} > 1140
 %files lhtr
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lhtr.so
 %{_datadir}/%{name}/translations/%{name}_lhtr_*.qm
+%endif
 
 %files lmp
 %defattr(-,root,root)
