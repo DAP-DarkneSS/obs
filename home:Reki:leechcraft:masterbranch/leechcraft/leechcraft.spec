@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.75-105-g453aec4
+%define LEECHCRAFT_VERSION 0.5.75-159-g1518ade
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -888,9 +888,6 @@ Recommends:     ffmpeg
 %if 0%{suse_version} > 1140
 Recommends:     %{name}-lastfmscrobble = %{version}
 %endif
-%if %qtversion >= 40800
-Recommends:     %{name}-vrooby = %{version}
-%endif
 
 %description lmp
 This package provides a audio player plugin for LeechCraft.
@@ -902,6 +899,36 @@ Features:
  * Streaming media over Internet.
  * Play queue.
  * Support for automatic podcast playing (with a plugin like Aggregator).
+
+
+%package lmp-dumbsync
+Summary:        LeechCraft Media syncing Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+%if %qtversion >= 40800
+Recommends:     %{name}-vrooby = %{version}
+%endif
+
+%description lmp-dumbsync
+This package provides a audio syncing plugin for LeechCraft.
+
+It allows to sync with Flash-like media players.
+
+
+%package lmp-mp3tunes
+Summary:        LeechCraft mp3tunes.com Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+
+%description lmp-mp3tunes
+This package provides a mp3tunes.com plugin for LeechCraft.
+
+It allows to sync and use the mp3tunes.com service.
+
+Features:
+ * Using many accounts.
+ * Getting playlists.
+
 
 %if 0%{suse_version} > 1140
 %package azoth-astrality
@@ -2018,7 +2045,15 @@ rm -rf %{buildroot}
 %{settings_dir}/lmpsettings.xml
 %{translations_dir}/%{name}_lmp*.qm
 %{plugin_dir}/*%{name}_lmp.so
+
+%files lmp-dumbsync
+%defattr(-,root,root)
 %{plugin_dir}/*%{name}_lmp_dumbsync.so
+
+%files lmp-mp3tunes
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_lmp_mp3tunes.so
+%{_datadir}/%{name}/settings/lmpmp3tunessettings.xml
 
 %if 0%{suse_version} > 1140
 %files azoth-astrality
