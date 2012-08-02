@@ -17,7 +17,7 @@
 
 
 
-Name:           libqxmpp-lc1
+Name:           libqxmpp0
 Version:        0.3.61
 Release:        0
 License:        LGPL-2.0+
@@ -25,13 +25,13 @@ Source0:        qxmpp-dev-%{version}.tar.bz2
 #Source0:        https://github.com/downloads/0xd34df00d/qxmpp-dev/qxmpp-0.3.45.1-extras.tar.bz2 
 Source1:        baselibs.conf
 #Patch0:    qxmpp.patch
-Patch0:         qxmpp-dynamiclib.patch
+# Patch0:         qxmpp-dynamiclib.patch
 Group:          System/Libraries
 Summary:        Qt XMPP Library
 Url:            https://github.com/0xd34df00d/qxmpp-dev
 
-Provides:       libqxmpp1 = %{version}
-Obsoletes:      libqxmpp1 < %{version}
+Provides:       libqxmpp-lc1 = %{version}
+Obsoletes:      libqxmpp-lc1 < %{version}
 
 BuildRequires:  libqt4-devel
 BuildRequires:  speex-devel
@@ -53,10 +53,10 @@ always recommended to the advanced users to read and enjoy the low level details
 
 Summary:        Qxmpp Development Files
 Group:          Development/Libraries/C and C++
-Requires:       libqxmpp-lc1 = %{version}
+Requires:       libqxmpp0 = %{version}
 
-Provides:       libqxmpp-devel = %{version}
-Obsoletes:      libqxmpp-devel < %{version}
+Provides:       libqxmpp-lc-devel = %{version}
+Obsoletes:      libqxmpp-lc-devel < %{version}
 
 %description devel
 It's a development package for qxmpp.
@@ -65,7 +65,7 @@ QXmpp is a cross-platform C++ XMPP client library. It is based on Qt and C++.
 
 %prep
 %setup -q -n qxmpp-dev-%{version}
-%patch0
+# %%patch0
 
 %build
 qmake PREFIX=%{_prefix} QMAKE_STRIP="" QMAKE_CXXFLAGS+="%{optflags}"
@@ -87,12 +87,12 @@ qmake PREFIX=%{_prefix} QMAKE_STRIP="" QMAKE_CXXFLAGS+="%{optflags}"
 %files
 %defattr(-,root,root,-)
 %doc AUTHORS CHANGELOG LICENSE.LGPL README
-%{_libdir}/libqxmpp-lc.so.*
+%{_libdir}/libqxmpp.so.*
 
 %files devel
 %defattr(-,root,root,-)
-%{_includedir}/qxmpp-lc
-%{_libdir}/libqxmpp-lc.so
-%{_libdir}/pkgconfig/qxmpp-lc.pc
+%{_includedir}/qxmpp
+%{_libdir}/libqxmpp.so
+%{_libdir}/pkgconfig/qxmpp.pc
 
 %changelog
