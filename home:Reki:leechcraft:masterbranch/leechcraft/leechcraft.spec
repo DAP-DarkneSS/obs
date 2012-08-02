@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.75-187-g15eff6e
+%define LEECHCRAFT_VERSION 0.5.75-190-g55be3fd
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1553,12 +1553,17 @@ cmake ../src \
         -DENABLE_MONOCLE_MU=False \
         -DENABLE_LMP_MP3TUNES=False \
 %endif
-%if 0%{suse_version} > 1210
-        -DCMAKE_CXX_FLAGS="-flto" \
-        -DCMAKE_SHARED_LINKER_FLAGS="-flto" \
-        -DCMAKE_EXE_LINKER_FLAGS="-flto" \
-%endif
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
+
+# gcc 4.7 optimization.
+# Disabled because of https://bugzilla.novell.com/show_bug.cgi?id=774180
+#
+# %%if %%{suse_version} > 1210
+#         -DCMAKE_CXX_FLAGS="-flto" \
+#         -DCMAKE_SHARED_LINKER_FLAGS="-flto" \
+#         -DCMAKE_EXE_LINKER_FLAGS="-flto" \
+# %%endif
+
 %build
 cd build
 make %{?_smp_mflags}
