@@ -55,8 +55,8 @@ Summary:        Qxmpp Development Files
 Group:          Development/Libraries/C and C++
 Requires:       libqxmpp0 = %{version}
 
-Provides:       libqxmpp-lc-devel = %{version}
-Obsoletes:      libqxmpp-lc-devel < %{version}
+Provides:       libqxmpp-lc1-devel = %{version}
+Obsoletes:      libqxmpp-lc1-devel < %{version}
 
 %description devel
 It's a development package for qxmpp.
