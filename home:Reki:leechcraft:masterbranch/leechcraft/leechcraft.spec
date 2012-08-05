@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.75-194-g31f5105
+%define LEECHCRAFT_VERSION 0.5.75-209-g7c26b0c
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1638,6 +1638,8 @@ rm -rf %{buildroot}
 %{_libdir}/*xmlsettingsdialog.so.*
 %doc %{_mandir}/man1/%{name}.1.gz
 %{_datadir}/%{name}/sounds
+%dir %{_datadir}/%{name}/global_icons
+%{_datadir}/%{name}/global_icons/*
 %exclude %{_datadir}/cmake/Modules/InitLCPlugin.cmake
 
 %if 0%{suse_version} <= 1210
