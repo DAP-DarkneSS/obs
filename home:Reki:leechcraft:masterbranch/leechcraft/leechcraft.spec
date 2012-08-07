@@ -1024,6 +1024,17 @@ The following protocol features are supported:
  * Grouping contacts.
 
 
+%package azoth-birthdaynotifier
+Summary:        LeechCraft Azoth - Birthday Notifier Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-azoth = %{version}
+
+%description azoth-birthdaynotifier
+This package provides a Birthday Notifier plugin for LeechCraft Azoth.
+
+So you will not miss your contacts' birthdays if there are ones in vCards.
+
+
 %package bittorrent
 Summary:        LeechCraft BitTorrent client Module
 Group:          Productivity/Networking/Other
@@ -1061,7 +1072,7 @@ Requires:       %{name} = %{version}
 %description netstoremanager
 This package provides a network storage plugin for Leechcraft.
 
-It allows to manage network storages like Yandex.Disk.
+It allows to manage network storages like Google Drive.
 It is modular, so different storages can be added to it
 without modifying the plugin itself.
 
@@ -1074,6 +1085,24 @@ Features:
 Supported services:
  * Yandex.Disk
  * Google Drive
+
+
+%package netstoremanager-yandexdisk
+Summary:        LeechCraft Network file storages Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-netstoremanager = %{version}
+
+%description netstoremanager-yandexdisk
+This package provides a Yandex.Disk subplugin for Leechcraft NetStoreManager.
+
+
+%package netstoremanager-googledrive
+Summary:        LeechCraft Network file storages Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-netstoremanager = %{version}
+
+%description netstoremanager-googledrive
+This package provides a Google Drive sunplugin for Leechcraft NetStoreManager.
 
 
 #%%package eiskaltdcpp
@@ -1535,7 +1564,7 @@ cmake ../src \
         -DENABLE_LADS=False \
         -DENABLE_LEMON=False \
         -DENABLE_TWIFEE=False \
-        -DENABLE_NETSTOREMANAGER_GOOGLEDRIVE=False \
+        -DENABLE_NETSTOREMANAGER_GOOGLEDRIVE=True \
 %if %qtversion >= 40800
         -DENABLE_OTLOZHU=True \
         -DENABLE_BLOGIQUE=True \
@@ -1777,6 +1806,10 @@ rm -rf %{buildroot}
 %{translations_dir}/%{name}_azoth_vader*
 %{_datadir}/%{name}/settings/azothvadersettings.xml
 %{plugin_dir}/*%{name}_azoth_vader.so
+
+%files azoth-birthdaynotifier
+%defattr(-,root,root)
+%{plugin_dir}/*%{name}_azoth_birthdaynotifier.so
 
 %files azoth-keeso
 %defattr(-,root,root)
@@ -2055,9 +2088,15 @@ rm -rf %{buildroot}
 %files netstoremanager
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_netstoremanager.so
-%{_libdir}/%{name}/plugins/lib%{name}_netstoremanager_yandexdisk.so
 %{_datadir}/%{name}/settings/netstoremanagersettings.xml
 %{_datadir}/%{name}/translations/%{name}_netstoremanager_*.qm
+
+%files netstoremanager-yandexdisk
+%{_libdir}/%{name}/plugins/*%{name}_netstoremanager_yandexdisk.so
+
+%files netstoremanager-googledrive
+%{_libdir}/%{name}/plugins/*%{name}_netstoremanager_googledrive.so
+%{_datadir}/%{name}/settings/nsmgoogledrivesettings.xml
 
 %if 0%{suse_version} > 1140
 %files lhtr
