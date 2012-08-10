@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.75-287-g722e780
+%define LEECHCRAFT_VERSION 0.5.75-292-g0e026a3
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -2095,16 +2095,20 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_netstoremanager.so
 %{_datadir}/%{name}/settings/netstoremanagersettings.xml
-%{_datadir}/%{name}/translations/%{name}_netstoremanager_*.qm
+%{_datadir}/%{name}/translations/%{name}_netstoremanager_??.qm
+%{_datadir}/%{name}/translations/%{name}_netstoremanager_??_??.qm
 
 %files netstoremanager-yandexdisk
+%defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_netstoremanager_yandexdisk.so
+%{_datadir}/%{name}/translations/%{name}_netstoremanager_yandexdisk_*.qm
 
 %if %qtversion >= 40800
 %files netstoremanager-googledrive
+%defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_netstoremanager_googledrive.so
 %{_datadir}/%{name}/settings/nsmgoogledrivesettings.xml
-%{_datadir}/%{name}/translations/%{name}_googledrive_*.qm
+%{_datadir}/%{name}/translations/%{name}_netstoremanager_googledrive_*.qm
 %endif
 
 %if 0%{suse_version} > 1140
