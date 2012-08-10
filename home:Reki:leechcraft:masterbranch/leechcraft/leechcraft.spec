@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.75-270-gcaf3381
+%define LEECHCRAFT_VERSION 0.5.75-287-g722e780
 Release:        1
 License:        GPL-2.0+
 Summary:        Modular Internet Client
@@ -1096,6 +1096,7 @@ Requires:       %{name}-netstoremanager = %{version}
 This package provides a Yandex.Disk subplugin for Leechcraft NetStoreManager.
 
 
+%if %qtversion >= 40800
 %package netstoremanager-googledrive
 Summary:        LeechCraft Network file storages Module
 Group:          Productivity/Networking/Other
@@ -1103,6 +1104,7 @@ Requires:       %{name}-netstoremanager = %{version}
 
 %description netstoremanager-googledrive
 This package provides a Google Drive sunplugin for Leechcraft NetStoreManager.
+%endif
 
 
 #%%package eiskaltdcpp
@@ -1564,7 +1566,6 @@ cmake ../src \
         -DENABLE_LADS=False \
         -DENABLE_LEMON=False \
         -DENABLE_TWIFEE=False \
-        -DENABLE_NETSTOREMANAGER_GOOGLEDRIVE=True \
 %if %qtversion >= 40800
         -DENABLE_OTLOZHU=True \
         -DENABLE_BLOGIQUE=True \
@@ -1573,6 +1574,7 @@ cmake ../src \
         -DENABLE_SNAILS=False \
         -DENABLE_MONOCLE_MU=True \
         -DENABLE_LMP_MP3TUNES=True \
+        -DENABLE_NETSTOREMANAGER_GOOGLEDRIVE=True \
 %else
         -DENABLE_OTLOZHU=False \
         -DENABLE_BLOGIQUE=False \
@@ -1581,6 +1583,7 @@ cmake ../src \
         -DENABLE_SNAILS=False \
         -DENABLE_MONOCLE_MU=False \
         -DENABLE_LMP_MP3TUNES=False \
+        -DENABLE_NETSTOREMANAGER_GOOGLEDRIVE=False \
 %endif
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
@@ -1761,6 +1764,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{translations_dir}/%{name}_azoth_chathistory*
 %{plugin_dir}/*%{name}_azoth_chathistory.so
+%{settings_dir}/azothchathistorysettings.xml
 
 %files azoth-embedmedia
 %defattr(-,root,root)
@@ -1810,6 +1814,8 @@ rm -rf %{buildroot}
 %files azoth-birthdaynotifier
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_birthdaynotifier.so
+%{_datadir}/%{name}/settings/azothbirthdaynotifiersettings.xml
+%{translations_dir}/%{name}_azoth_birthdaynotifier*
 
 %files azoth-keeso
 %defattr(-,root,root)
@@ -2094,9 +2100,12 @@ rm -rf %{buildroot}
 %files netstoremanager-yandexdisk
 %{_libdir}/%{name}/plugins/*%{name}_netstoremanager_yandexdisk.so
 
+%if %qtversion >= 40800
 %files netstoremanager-googledrive
 %{_libdir}/%{name}/plugins/*%{name}_netstoremanager_googledrive.so
 %{_datadir}/%{name}/settings/nsmgoogledrivesettings.xml
+%{_datadir}/%{name}/translations/%{name}_googledrive_*.qm
+%endif
 
 %if 0%{suse_version} > 1140
 %files lhtr
