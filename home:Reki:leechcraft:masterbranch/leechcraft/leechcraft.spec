@@ -22,9 +22,9 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.75-292-g0e026a3
+%define LEECHCRAFT_VERSION 0.5.75-293-gf4eeef5
 Release:        1
-License:        GPL-2.0+
+License:        GPL-3.0+
 Summary:        Modular Internet Client
 Url:            http://leechcraft.org
 Group:          Productivity/Networking/Other
@@ -45,7 +45,7 @@ BuildRequires:  cmake > 2.8
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libcurl-devel
 BuildRequires:  libqt4-devel >= 4.6
-BuildRequires:  libqxmpp-lc1-devel >= 0.3.61
+BuildRequires:  libqxmpp-lc1-devel > 0.6
 BuildRequires:  speex-devel
 BuildRequires:  fdupes
 BuildRequires:  libGeoIP-devel
@@ -80,12 +80,10 @@ Requires:       oxygen-icon-theme
 Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
 Obsoletes:      %{name}-tabpp
+Obsoletes:      %{name}-eiskaltdcpp
 %if 0%{suse_version} < 1210
 Obsoletes:      %{name}-lhtr
 %endif
-# %%if 0%%{suse_version} < 1210
-# Obsoletes:      %%{name}-lmp
-# %%endif
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
