@@ -1,0 +1,17 @@
+-------------------------------------------------------------------
+Tue Jul  3 19:48:35 UTC 2012 - dvaleev@suse.com
+
+- fix ppc64 libdir 
+
+-------------------------------------------------------------------
+Thu Mar 06 18:00:00 UTC 2012 - nekolayer@yandex.ru
+
+- update to 0.3.47
+  * Support for phones and emails in vCards.
+  * XEP-0033 implementation.
+
+-------------------------------------------------------------------
+Sun Jul 31 18:58:49 UTC 2011 - nlminhtl@gmail.com
+
+- first package 
+
