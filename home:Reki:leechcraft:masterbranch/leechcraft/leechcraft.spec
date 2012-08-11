@@ -1630,6 +1630,7 @@ cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
 #%%fdupes -s %%{buildroot}%%{_datadir}/%%{name}/eiskaltdcpp
 %fdupes -s %{buildroot}%{_datadir}/%{name}/translations
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth
+%fdupes -s %{buildroot}%{_datadir}/%{name}/global_icons/flags
 %if 0%{suse_version} <= 1210
 %fdupes -s %{buildroot}%{_docdir}/%{name}-doc/
 %fdupes -s %{buildroot}%{_docdir}/%{name}-azoth-doc/

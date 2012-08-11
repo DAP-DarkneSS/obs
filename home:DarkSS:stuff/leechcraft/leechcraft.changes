@@ -1,3 +1,37 @@
+Fri Aug 10 20:44:22 UTC 2012 - dap.darkness@gmail.com
+- 0.5.80 release
+  Media player LMP:
+      * All proper logic for uploading songs to cloud services
+      * Fetching playlists from such services
+      * A new plugin has been added - LMP MP3tunes
+      * There is now a nice stats label below the playlist
+      * There are now different sort modes
+      * Among cosmetic changes are fixed background colors in QML elements
+      * Support for ignoring "The " when sorting artists in collection
+      * And shortcuts for different actions are configurable now, too
+  NetStoreManager:
+      * A new plugin has been added - NetStoreManager GoogleDrive
+      * For now only uploading and fetching the list of uploaded files works
+  Document viewer Monocle supports:
+      * Displaying one page or double-page spread
+      * Copying selection to image or text
+      * Scaling
+      * Width-fitting
+      * Tables of contents
+      * Links
+      * Paginated navigation
+      * Printing
+      * Monocle also integrates with the rest of LeechCraft
+      * For now only PDF and fb2 file formats are supported
+      * PDF is supported via Poppler library
+  IM client Azoth:
+      * A new plugin has been added - Azoth BirthdayNotifier
+      * Azoth now finally displays user's avatar in tooltips
+      * Tabs of conferences with unread highlight messages are now marked
+  * RSS-reader Aggregator now supports exporting feeds to PDF
+  * The issue reporter Dolozhee now supports fetching issue categories
+
+-------------------------------------------------------------------
 Wed Jul 11 21:12:20 UTC 2012 - dap.darkness@gmail.com
 - 0.5.75 release
   Media player LMP got the following features:

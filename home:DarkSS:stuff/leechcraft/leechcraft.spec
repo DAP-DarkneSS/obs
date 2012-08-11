@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 
 Name:           leechcraft
-Version:        0.5.75
+Version:        0.5.80
 Release:        1
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -34,10 +34,6 @@ Source1:        %{name}.desktop
 Patch2:         eiskaltdcpp-fix-php5-issue.patch
 # Set AppQStyle to default from plastique
 Patch3:         defaultstyle.patch
-# Fixing compilation with the latest poppler version
-%if 0%{suse_version} > 1210
-Patch4:         monocle-factory.patch
-%endif
 
 BuildRequires:  hunspell-devel
 BuildRequires:  boost-devel
@@ -58,7 +54,7 @@ BuildRequires:  libqjson-devel
 BuildRequires:  libqscintilla-devel
 BuildRequires:  libqt4-devel >= 4.6
 BuildRequires:  libqt4-sql
-BuildRequires:  libqxmpp-lc-devel >= 0.3.61
+BuildRequires:  libqxmpp-lc-devel > 0.6
 BuildRequires:  libqxt1-devel
 BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
 BuildRequires:  oxygen-icon-theme
@@ -68,8 +64,9 @@ BuildRequires:  update-desktop-files
 BuildRequires:  xz
 BuildRequires:  file-devel
 BuildRequires:  taglib-devel
-%if %qtversion >= 40800
+%if 0%{suse_version} > 1140
 BuildRequires:  libpoppler-qt4-devel
+BuildRequires:  liblastfm-devel
 %endif
 
 Requires:       oxygen-icon-theme
@@ -78,6 +75,9 @@ Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
 Obsoletes:      %{name}-tabpp
 Obsoletes:      %{name}-eiskaltdcpp
+%if 0%{suse_version} < 1210
+Obsoletes:      %{name}-lhtr
+%endif
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -283,8 +283,8 @@ Group:          Productivity/Networking/Other
 Provides:       %{name}-audioplayer
 Requires:       %{name} = %{version}
 Recommends:     ffmpeg
-%if %qtversion >= 40800
-Recommends:     %{name}-vrooby = %{version}
+%if 0%{suse_version} > 1140
+Recommends:     %{name}-lastfmscrobble = %{version}
 %endif
 
 %description lmp
@@ -292,12 +292,68 @@ This package provides a audio player plugin for LeechCraft.
 
 It allows to play audio and stream audio.
 It uses Phonon as a backend thus supporting major codecs.
-
-Features
+Features:
  * Support for major audio formats.
  * Streaming media over Internet.
  * Play queue.
  * Support for automatic podcast playing (with a plugin like Aggregator).
+
+
+%package lmp-dumbsync
+Summary:        LeechCraft Media syncing Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+%if %qtversion >= 40800
+Recommends:     %{name}-vrooby = %{version}
+%endif
+
+%description lmp-dumbsync
+This package provides a audio syncing plugin for LeechCraft.
+
+It allows to sync with Flash-like media players.
+
+
+%if %qtversion >= 40800
+%package lmp-mp3tunes
+Summary:        LeechCraft mp3tunes.com Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+
+%description lmp-mp3tunes
+This package provides a mp3tunes.com plugin for LeechCraft.
+
+It allows to sync and use the mp3tunes.com service.
+
+Features:
+ * Using many accounts.
+ * Getting playlists.
+%endif
+
+
+%if 0%{suse_version} > 1140
+%package lastfmscrobble
+Summary:        LeechCraft Last.FM Scrobble Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description lastfmscrobble
+This package contains a LastFMScrobble plugin for LeechCraft.
+
+It provides support for the Last.FM service. For example, it scrobble tracks
+from other players, requests similar artists (on demand by other players as
+well), supports fetching album art, etc.
+
+Features:
+ * Scrobbling listened tracks from other players like LMP to Last.FM.
+ * "Loving" listened tracks.
+ * Support for requesting artists that are similar to a given artist.
+ * Automatic fetching of album art.
+ * Support for Last.FM radio.
+ * Fetching personalized recommendations.
+ * Fetching recent releases of artists that are in the user's collection.
+ * Fetching artists biography.
+ * Configurable language of the fetched information.
+%endif
 
 
 %package networkmonitor
@@ -805,6 +861,17 @@ The following protocol features are supported:
  * Grouping contacts.
 
 
+%package azoth-birthdaynotifier
+Summary:        LeechCraft Azoth - Birthday Notifier Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-azoth = %{version}
+
+%description azoth-birthdaynotifier
+This package provides a Birthday Notifier plugin for LeechCraft Azoth.
+
+So you will not miss your contacts' birthdays if there are ones in vCards.
+
+
 %package azoth-xtazy
 Summary:        LeechCraft Azoth - Publishing current user tune Module
 Group:          Productivity/Networking/Other
@@ -1034,6 +1101,7 @@ It allows to synchronize data and settings between LeechCraft instances
 running on different machines.
 
 
+%if 0%{suse_version} > 1140
 %package lhtr
 Summary:        LeechCraft HTML WYSIWYG editor Module
 Group:          Productivity/Networking/Other
@@ -1043,6 +1111,7 @@ Requires:       %{name} = %{version}
 This package provides a HTML WYSIWYG editor plugin for Leechcraft.
 
 It can be usable with mail and blog modules.
+%endif
 
 
 %package knowhow
@@ -1079,6 +1148,7 @@ in sending bug reports.
 
 KDE should not be running for AnHero to work.
 
+
 %package netstoremanager
 Summary:        LeechCraft Network file storages Module
 Group:          Productivity/Networking/Other
@@ -1087,7 +1157,7 @@ Requires:       %{name} = %{version}
 %description netstoremanager
 This package provides a network storage plugin for Leechcraft.
 
-It allows to manage network storages like Yandex.Disk.
+It allows to manage network storages like Google Drive.
 It is modular, so different storages can be added to it
 without modifying the plugin itself.
 
@@ -1099,6 +1169,27 @@ Features:
 
 Supported services:
  * Yandex.Disk
+ * Google Drive
+
+
+%package netstoremanager-yandexdisk
+Summary:        LeechCraft Network file storages Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-netstoremanager = %{version}
+
+%description netstoremanager-yandexdisk
+This package provides a Yandex.Disk subplugin for Leechcraft NetStoreManager.
+
+
+%if %qtversion >= 40800
+%package netstoremanager-googledrive
+Summary:        LeechCraft Network file storages Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-netstoremanager = %{version}
+
+%description netstoremanager-googledrive
+This package provides a Google Drive sunplugin for Leechcraft NetStoreManager.
+%endif
 
 
 %package dolozhee
@@ -1265,9 +1356,6 @@ get links and download files.
 %patch2
 %endif
 %patch3
-%if 0%{suse_version} > 1210
-%patch4
-%endif
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -1315,18 +1403,31 @@ cmake ../src \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_LMP=True \
         -DENABLE_NEWLIFE=True \
+        -DENABLE_Y7=False \
         -DENABLE_NACHEKU=True \
         -DENABLE_LADS=False \
         -DENABLE_LEMON=False \
         -DENABLE_TWIFEE=False \
+        -DENABLE_MONOCLE_MU=False \
+%if 0%{suse_version} > 1140
+        -DENABLE_LASTFMSCROBBLE=True \
+        -DENABLE_LHTR=True \
+%else
+        -DENABLE_LASTFMSCROBBLE=False \
+        -DENABLE_LHTR=False \
+%endif
 %if %qtversion >= 40800
         -DENABLE_OTLOZHU=True \
         -DENABLE_MONOCLE=True \
         -DENABLE_VROOBY=True \
+        -DENABLE_LMP_MP3TUNES=True \
+        -DENABLE_NETSTOREMANAGER_GOOGLEDRIVE=True \
 %else
         -DENABLE_OTLOZHU=False \
         -DENABLE_MONOCLE=False \
         -DENABLE_VROOBY=False \
+        -DENABLE_LMP_MP3TUNES=False \
+        -DENABLE_NETSTOREMANAGER_GOOGLEDRIVE=False \
 %endif
         -DLEECHCRAFT_VERSION=%{version}
 
@@ -1364,6 +1465,7 @@ cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
 
 %fdupes -s %{buildroot}%{_datadir}/%{name}/translations
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth
+%fdupes -s %{buildroot}%{_datadir}/%{name}/global_icons/flags
 %if 0%{suse_version} <= 1210
 %fdupes -s %{buildroot}%{_docdir}/%{name}-doc/
 %fdupes -s %{buildroot}%{_docdir}/%{name}-azoth-doc/
@@ -1402,6 +1504,8 @@ rm -rf %{buildroot}
 %{_libdir}/*xmlsettingsdialog.so.*
 %doc %{_mandir}/man1/%{name}.1.gz
 %{_datadir}/%{name}/sounds
+%dir %{_datadir}/%{name}/global_icons
+%{_datadir}/%{name}/global_icons/*
 %exclude %{_datadir}/cmake/Modules/InitLCPlugin.cmake
 
 %if 0%{suse_version} <= 1210
@@ -1474,6 +1578,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{translations_dir}/%{name}_azoth_chathistory*
 %{plugin_dir}/*%{name}_azoth_chathistory.so
+%{settings_dir}/azothchathistorysettings.xml
 
 %files azoth-embedmedia
 %defattr(-,root,root)
@@ -1577,6 +1682,12 @@ rm -rf %{buildroot}
 %{_datadir}/%{name}/settings/azothvadersettings.xml
 %{plugin_dir}/*%{name}_azoth_vader.so
 
+%files azoth-birthdaynotifier
+%defattr(-,root,root)
+%{plugin_dir}/*%{name}_azoth_birthdaynotifier.so
+%{_datadir}/%{name}/settings/azothbirthdaynotifiersettings.xml
+%{translations_dir}/%{name}_azoth_birthdaynotifier*
+
 %files azoth-keeso
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_keeso.so
@@ -1621,9 +1732,27 @@ rm -rf %{buildroot}
 %files lmp
 %defattr(-,root,root)
 %{settings_dir}/lmpsettings.xml
-%{translations_dir}/%{name}_lmp*
+%{translations_dir}/%{name}_lmp*.qm
 %{plugin_dir}/*%{name}_lmp.so
+
+%files lmp-dumbsync
+%defattr(-,root,root)
 %{plugin_dir}/*%{name}_lmp_dumbsync.so
+
+%if %qtversion >= 40800
+%files lmp-mp3tunes
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_lmp_mp3tunes.so
+%{_datadir}/%{name}/settings/lmpmp3tunessettings.xml
+%endif
+
+%if 0%{suse_version} > 1140
+%files lastfmscrobble
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_lastfmscrobble.so
+%{_datadir}/%{name}/settings/lastfmscrobblesettings.xml
+%{_datadir}/%{name}/translations/%{name}_lastfmscrobble_*.qm
+%endif
 
 %files networkmonitor
 %defattr(-,root,root)
@@ -1788,14 +1917,29 @@ rm -rf %{buildroot}
 %files netstoremanager
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_netstoremanager.so
-%{_libdir}/%{name}/plugins/lib%{name}_netstoremanager_yandexdisk.so
 %{_datadir}/%{name}/settings/netstoremanagersettings.xml
-%{_datadir}/%{name}/translations/%{name}_netstoremanager_*.qm
+%{_datadir}/%{name}/translations/%{name}_netstoremanager_??.qm
+%{_datadir}/%{name}/translations/%{name}_netstoremanager_??_??.qm
 
+%files netstoremanager-yandexdisk
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_netstoremanager_yandexdisk.so
+%{_datadir}/%{name}/translations/%{name}_netstoremanager_yandexdisk_*.qm
+
+%if %qtversion >= 40800
+%files netstoremanager-googledrive
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_netstoremanager_googledrive.so
+%{_datadir}/%{name}/settings/nsmgoogledrivesettings.xml
+%{_datadir}/%{name}/translations/%{name}_netstoremanager_googledrive_*.qm
+%endif
+
+%if 0%{suse_version} > 1140
 %files lhtr
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lhtr.so
 %{_datadir}/%{name}/translations/%{name}_lhtr_*.qm
+%endif
 
 %files pintab
 %defattr(-,root,root)
