@@ -17,16 +17,16 @@
 
 
 Name:           openarena
-Version:        0.8.1
+Version:        0.8.8
 Release:        0
 Summary:        Open Arena game engine
-License:        GNU General Public License (GPL) - all versions
+License:        GPL-2+
 Group:          Amusements/Games/Action/Shoot
 Url:            http://openarena.ws/
-Source0:        http://openarena.ws/svn/source/081/%{name}-engine-%{version}-1.tar.bz2
+Source0:        http://files.poulsander.com/~poul19/public_files/oa/dev088/%{name}-engine-source-%{version}.tar.bz2
 Source1:        %{name}.desktop
 Source2:        %{name}.svg
-Patch0:         strcpy-overlap-fix.patch
+Patch0:         openarena-0.8.8-stack.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  SDL-devel
 BuildRequires:  openal-devel
@@ -77,7 +77,7 @@ Tyrann          - Map (Aggressor)
 Ed              - Map (Conversion of ce1m7)
 
 %prep
-%setup -q -n %{name}-engine-%{version}
+%setup -q -n %{name}-engine-source-%{version}
 %patch0 -p1
 
 %build
