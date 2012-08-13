@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.75-293-gf4eeef5
+%define LEECHCRAFT_VERSION 0.5.80-39-g819253b
 Release:        1
 License:        GPL-3.0+
 Summary:        Modular Internet Client
@@ -1062,10 +1062,12 @@ Features
 etc.
 
 
+%if %qtversion >= 40800
 %package netstoremanager
 Summary:        LeechCraft Network file storages Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Obsoletes:      %{name}-netstoremanager-yandexdisk
 
 %description netstoremanager
 This package provides a network storage plugin for Leechcraft.
@@ -1081,20 +1083,19 @@ Features:
  * Support for prolongating uploaded files (if supported by service).
 
 Supported services:
- * Yandex.Disk
+#  * Yandex.Disk
  * Google Drive
 
 
-%package netstoremanager-yandexdisk
-Summary:        LeechCraft Network file storages Module
-Group:          Productivity/Networking/Other
-Requires:       %{name}-netstoremanager = %{version}
+# %%package netstoremanager-yandexdisk
+# Summary:        LeechCraft Network file storages Module
+# Group:          Productivity/Networking/Other
+# Requires:       %%{name}-netstoremanager = %%{version}
+# 
+# %%description netstoremanager-yandexdisk
+# This package provides a Yandex.Disk subplugin for Leechcraft NetStoreManager.
 
-%description netstoremanager-yandexdisk
-This package provides a Yandex.Disk subplugin for Leechcraft NetStoreManager.
 
-
-%if %qtversion >= 40800
 %package netstoremanager-googledrive
 Summary:        LeechCraft Network file storages Module
 Group:          Productivity/Networking/Other
@@ -1572,7 +1573,7 @@ cmake ../src \
         -DENABLE_SNAILS=False \
         -DENABLE_MONOCLE_MU=True \
         -DENABLE_LMP_MP3TUNES=True \
-        -DENABLE_NETSTOREMANAGER_GOOGLEDRIVE=True \
+        -DENABLE_NETSTOREMANAGER=True \
 %else
         -DENABLE_OTLOZHU=False \
         -DENABLE_BLOGIQUE=False \
@@ -1581,7 +1582,7 @@ cmake ../src \
         -DENABLE_SNAILS=False \
         -DENABLE_MONOCLE_MU=False \
         -DENABLE_LMP_MP3TUNES=False \
-        -DENABLE_NETSTOREMANAGER_GOOGLEDRIVE=False \
+        -DENABLE_NETSTOREMANAGER=False \
 %endif
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
@@ -2090,6 +2091,7 @@ rm -rf %{buildroot}
 %{plugin_dir}/*%{name}_choroid.so
 %{_datadir}/%{name}/qml/choroid
 
+%if %qtversion >= 40800
 %files netstoremanager
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_netstoremanager.so
@@ -2097,12 +2099,11 @@ rm -rf %{buildroot}
 %{_datadir}/%{name}/translations/%{name}_netstoremanager_??.qm
 %{_datadir}/%{name}/translations/%{name}_netstoremanager_??_??.qm
 
-%files netstoremanager-yandexdisk
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_netstoremanager_yandexdisk.so
-%{_datadir}/%{name}/translations/%{name}_netstoremanager_yandexdisk_*.qm
+# %%files netstoremanager-yandexdisk
+# %%defattr(-,root,root)
+# %%{_libdir}/%%{name}/plugins/*%%{name}_netstoremanager_yandexdisk.so
+# %%{_datadir}/%%{name}/translations/%%{name}_netstoremanager_yandexdisk_*.qm
 
-%if %qtversion >= 40800
 %files netstoremanager-googledrive
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_netstoremanager_googledrive.so
