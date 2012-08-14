@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.80-39-g819253b
+%define LEECHCRAFT_VERSION 0.5.80-62-gac3da16
 Release:        1
 License:        GPL-3.0+
 Summary:        Modular Internet Client
@@ -603,6 +603,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-azoth-chatstyler = %{version}
 Requires:       %{name}-securestorage = %{version}
+Requires:       %{name}-azoth-protocolplugin
 
 %description azoth
 This package provides a modular IM client for LeechCraft.
@@ -625,6 +626,7 @@ Group:          Productivity/Networking/Other
 Provides:       %{name}-acetamine = %{version}
 Obsoletes:      %{name}-acetamine < %{version}
 Requires:       %{name}-azoth = %{version}
+Provides:       %{name}-azoth-protocolplugin
 
 %description azoth-acetamide
 This package provides an IRC protocol plugin for LeechCraft Azoth.
@@ -737,6 +739,7 @@ Standard styles are ones in LeechCraft's own format.
 Summary:        LeechCraft Azoth - XMPP Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
+Provides:       %{name}-azoth-protocolplugin
 
 %description azoth-xoox
 This package provides a XMPP protocol plugin for LeechCraft Azoth.
@@ -921,6 +924,7 @@ It allows to sync with Flash-like media players.
 Summary:        LeechCraft mp3tunes.com Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-lmp = %{version}
+Requires:       libqt4 >= 4.8
 
 %description lmp-mp3tunes
 This package provides a mp3tunes.com plugin for LeechCraft.
@@ -940,6 +944,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 Requires:       telepathy-mission-control
 Requires:       telepathy-haze
+Provides:       %{name}-azoth-protocolplugin
 
 %description azoth-astrality
 This package provides a telepathy plugin for LeechCraft Azoth.
@@ -982,6 +987,7 @@ Features:
 Summary:        LeechCraft Azoth - MSN Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
+Provides:       %{name}-azoth-protocolplugin
 
 %description azoth-zheet
 This package provides a MSN protocol plugin for LeechCraft Azoth.
@@ -1002,6 +1008,7 @@ The following protocol features are currently supported:
 Summary:        LeechCraft Azoth - MrIM Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
+Provides:       %{name}-azoth-protocolplugin
 
 %description azoth-vader
 This package provides a MRIM protocol plugin for LeechCraft Azoth.
@@ -1068,6 +1075,8 @@ Summary:        LeechCraft Network file storages Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Obsoletes:      %{name}-netstoremanager-yandexdisk
+Requires:       libqt4 >= 4.8
+Requires:       %{name}-netstoremanager-subplugin
 
 %description netstoremanager
 This package provides a network storage plugin for Leechcraft.
@@ -1100,6 +1109,7 @@ Supported services:
 Summary:        LeechCraft Network file storages Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-netstoremanager = %{version}
+Provides:       %{name}-netstoremanager-subplugin
 
 %description netstoremanager-googledrive
 This package provides a Google Drive sunplugin for Leechcraft NetStoreManager.
@@ -1383,6 +1393,7 @@ It allows to configure and use proxy servers.
 Summary:        LeechCraft ToDo manager Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Requires:       libqt4 >= 4.8
 
 %description otlozhu
 This package provides a ToDo manager plugin for LeechCraft.
@@ -1395,6 +1406,7 @@ Summary:        LeechCraft Blogging client Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-lhtr = %{version}
+Requires:       libqt4 >= 4.8
 
 %description blogique
 This package provides a modular Blogging client plugin for LeechCraft.
@@ -1418,6 +1430,8 @@ It will provide LiveJournal support.
 Summary:        LeechCraft Document viewer Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Requires:       libqt4 >= 4.8
+Requires:       %{name}-monocle-subplugin
 
 %description monocle
 This package provides a modular Document viewer plugin for LeechCraft.
@@ -1430,6 +1444,7 @@ Summary:        LeechCraft Monocle - PDF Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-monocle = %{version}
+Provides:       %{name}-monocle-subplugin
 
 %description monocle-pdf
 This package contains a pdf subplugin for LeechCraft Monocle.
@@ -1443,6 +1458,7 @@ Summary:        LeechCraft Monocle - Another PDF Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-monocle = %{version}
+Provides:       %{name}-monocle-subplugin
 
 %description monocle-mu
 This package contains a pdf subplugin for LeechCraft Monocle.
@@ -1456,6 +1472,7 @@ Summary:        LeechCraft Monocle - FictionBook Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-monocle = %{version}
+Provides:       %{name}-monocle-subplugin
 
 %description monocle-fxb
 This package contains a FictionBook subplugin for LeechCraft Monocle.
@@ -1468,6 +1485,7 @@ Summary:        LeechCraft Removable storage devices Manager
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       udisks
+Requires:       libqt4 >= 4.8
 
 %description vrooby
 This package provides a Vrooby plugin for LeechCraft.
@@ -1555,7 +1573,6 @@ cmake ../src \
         -DENABLE_LHTR=False \
 %endif
         -DENABLE_LIZNOO=True \
-        -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_PINTAB=True \
         -DENABLE_GACTS=True \
         -DENABLE_KBSWITCH=True \
