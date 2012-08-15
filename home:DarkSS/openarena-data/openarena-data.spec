@@ -17,18 +17,16 @@
 
 
 Name:           openarena-data
-Version:        0.8.1
+Version:        0.8.8
 Release:        0
 Summary:        Data files for Open Arena
 License:        GPL-2.0+
 Group:          Amusements/Games/Action/Shoot
 Url:            http://openarena.ws/
-Source:         %{name}-%{version}.tar.lzma
+Source:         http://openarena.ws/request.php?4
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-BuildRequires:  lzma
-%if 0%{?suse_version} > 1000
-Recommends:     openarena
-%endif
+BuildRequires:  unzip
+Requires:       openarena = %{version}
 BuildArch:      noarch
 NoSource:       0
 
@@ -79,30 +77,30 @@ Recommends:     openarena
 This package contains documentation and license for Open Arena.
 
 %prep
+%setup -q -n openarena-%{version}
 
 %build
 
 %install
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/games/openarena
-pushd    $RPM_BUILD_ROOT/%{_datadir}/games/openarena
-lzma -cd %{S:0} | tar -xv
-mkdir -p $RPM_BUILD_ROOT/%{_docdir}/games/openarena
-mv LINUX* $RPM_BUILD_ROOT/%{_docdir}/games/openarena
-mv C* $RPM_BUILD_ROOT/%{_docdir}/games/openarena
-mv README $RPM_BUILD_ROOT/%{_docdir}/games/openarena
+mkdir -p %{buildroot}/%{_datadir}/games/openarena/baseoa
+%{__install} baseoa/* %{buildroot}%{_datadir}/games/openarena/baseoa
+mkdir -p %{buildroot}/%{_datadir}/games/openarena/missionpack
+%{__install} missionpack/* %{buildroot}%{_datadir}/games/openarena/missionpack
+mkdir -p %{buildroot}/%{_docdir}/games/openarena
+%{__install} LINUX* C* README readme* WENEED %{buildroot}/%{_docdir}/games/openarena
 
 %files
 %defattr(-,root,root)
 %dir %{_datadir}/games/openarena
 %dir %{_datadir}/games/openarena/baseoa
-%{_datadir}/games/openarena/baseoa/*
+%attr(644,root,root) %{_datadir}/games/openarena/baseoa/*
 %dir %{_datadir}/games/openarena/missionpack
-%{_datadir}/games/openarena/missionpack/*
+%attr(644,root,root) %{_datadir}/games/openarena/missionpack/*
 
 %files -n openarena-doc
 %defattr(-,root,root)
 %dir %{_docdir}/games
 %dir %{_docdir}/games/openarena
-%{_docdir}/games/openarena/*
+%attr(644,root,root) %{_docdir}/games/openarena/*
 
 %changelog
