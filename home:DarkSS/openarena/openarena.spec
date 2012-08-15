@@ -41,7 +41,7 @@ BuildRequires:  libvorbis-devel
 BuildRequires:  update-desktop-files
 %endif
 Requires:       openarena-data = %{version}
-Requires:       openarena-doc = %{version}
+Recommends:     openarena-doc = %{version}
 %define gamelibdir	%{_libdir}/games/%{name}
 
 %description
