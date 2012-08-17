@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.80-62-gac3da16
+%define LEECHCRAFT_VERSION 0.5.80-104-g7dbf9d5
 Release:        1
 License:        GPL-3.0+
 Summary:        Modular Internet Client
@@ -65,6 +65,7 @@ BuildRequires:  telepathy-qt4-devel
 BuildRequires:  libpoppler-qt4-devel
 BuildRequires:  mupdf-devel
 BuildRequires:  liblastfm-devel
+BuildRequires:  libqjson-devel
 %endif
 BuildRequires:  phonon-devel
 BuildRequires:  taglib-devel
@@ -911,6 +912,10 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-lmp = %{version}
 %if %qtversion >= 40800
 Recommends:     %{name}-vrooby = %{version}
+Recommends:     %{name}-hotstreams = %{version}
+%endif
+%if 0%{suse_version} > 1140
+Recommends:     %{name}-lastfmscrobble = %{version}
 %endif
 
 %description lmp-dumbsync
@@ -934,6 +939,15 @@ It allows to sync and use the mp3tunes.com service.
 Features:
  * Using many accounts.
  * Getting playlists.
+
+
+%package hotstreams
+Summary:        LeechCraft Radio streams Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+
+%description hotstreams
+This package provides a radio streams provider plugin for LeechCraft.
 %endif
 
 
@@ -961,7 +975,7 @@ Features:
 %package lastfmscrobble
 Summary:        LeechCraft Last.FM Scrobble Module
 Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
+Requires:       %{name}-lmp = %{version}
 
 %description lastfmscrobble
 This package contains a LastFMScrobble plugin for LeechCraft.
@@ -1483,7 +1497,7 @@ This package provides FB2 documents support for Document viewer Module.
 %package vrooby
 Summary:        LeechCraft Removable storage devices Manager
 Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
+Requires:       %{name}-sidebar = %{version}
 Requires:       udisks
 Requires:       libqt4 >= 4.8
 
@@ -1591,6 +1605,7 @@ cmake ../src \
         -DENABLE_MONOCLE_MU=True \
         -DENABLE_LMP_MP3TUNES=True \
         -DENABLE_NETSTOREMANAGER=True \
+        -DENABLE_HOTSTREAMS=True \
 %else
         -DENABLE_OTLOZHU=False \
         -DENABLE_BLOGIQUE=False \
@@ -1600,6 +1615,7 @@ cmake ../src \
         -DENABLE_MONOCLE_MU=False \
         -DENABLE_LMP_MP3TUNES=False \
         -DENABLE_NETSTOREMANAGER=False \
+        -DENABLE_HOTSTREAMS=False \
 %endif
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
@@ -2150,6 +2166,10 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_lmp_mp3tunes.so
 %{_datadir}/%{name}/settings/lmpmp3tunessettings.xml
+
+%files hotstreams
+%defattr(-,root,root)
+%{plugin_dir}/*%{name}_hotstreams.so
 %endif
 
 %if 0%{suse_version} > 1140
