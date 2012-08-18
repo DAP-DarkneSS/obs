@@ -27,7 +27,7 @@ then
 else
 
   cd $DGIT
-  git log
+  git log --date=raw
   cd $DOBS
 
   echo -e '\e[0;4m\nShould the spec be edited?\e[0m'

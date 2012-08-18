@@ -26,7 +26,7 @@ then
   echo -e "\n"'\e[0;4mNo changes.\e[0m'
 
 else
-  git log
+  git log --date=raw
   echo -e '\e[0;35m\nThe spec could be edited!\e[0m'
 
 fi
