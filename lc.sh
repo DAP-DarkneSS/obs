@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NOBS=leechcraft
-DGIT=~/Documents/obs/trash/$NOBS
+DGIT=~/Documents/obs/trash/$NOBS-git
 DOBS=~/Documents/obs/home:Reki:leechcraft:masterbranch/$NOBS
 
 echo -e '\e[0;4mChecking of github version:\e[0m'
