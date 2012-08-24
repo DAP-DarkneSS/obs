@@ -26,7 +26,15 @@ BuildRequires:  python-distribute
 %else
 BuildRequires:  python-setuptools
 %endif
-Requires:       python-base python-pycurl dbus-1-python python-gobject python-lxml
+Requires:       dbus-1-python
+Requires:       python-base
+%if 0%{?suse_version} < 1210
+Requires:       python-gobject < 3.0
+%else
+Requires:       python-gobject2
+%endif
+Requires:       python-lxml
+Requires:       python-pycurl
 BuildArch:      noarch
 
 %description
