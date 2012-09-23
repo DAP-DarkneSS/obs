@@ -7,25 +7,29 @@
 #
 
 Name:           smplayer
-Version:        0.8.0
+Version:        0.8.1
 Release:        0
+License:        GPL-2.0+
 Summary:        Complete Frontend for MPlayer
+Url:            http://smplayer.sourceforge.net/
+Group:          Productivity/Multimedia/Video/Players
 Source:         http://downloads.sourceforge.net/project/smplayer/SMPlayer/%{version}/smplayer-%{version}.tar.bz2
 Patch1:         smplayer-makeflags.patch
 Patch2:         smplayer-disable-debug.patch
 Patch3:         smplayer-fix_logging_format.patch
 Patch4:         smplayer-default_ao.patch
 Patch8:         smplayer-simple-resize.patch
-URL:            http://smplayer.sourceforge.net/
-Group:          Productivity/Multimedia/Video/Players
-License:        GNU General Public License version 2 or later (GPL v2 or later)
-BuildRoot:      %{_tmppath}/build-%{name}-%{version}
-BuildRequires:  libqt4-devel >= 4.2.0 libkde4-devel
-BuildRequires:  gcc-c++ libstdc++-devel make update-desktop-files
+BuildRequires:  gcc-c++
 BuildRequires:  hicolor-icon-theme
+BuildRequires:  libkde4-devel
+BuildRequires:  libqt4-devel >= 4.2.0
+BuildRequires:  libstdc++-devel
+BuildRequires:  make
+BuildRequires:  update-desktop-files
 # requires at least this version for closed caption channel support:
 Requires:       MPlayer >= 1.0rc4_r32607
 Suggests:       smplayer-themes
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 SMPlayer intends to be a complete front-end for MPlayer, from basic features
@@ -62,6 +66,7 @@ popd
 find . -type f -name '*.pro' | while read f; do
 cat <<EOF >>"$f"
 
+QMAKE_CFLAGS = %{optflags}
 QMAKE_CXXFLAGS = %{optflags}
 
 EOF
@@ -144,4 +149,3 @@ popd #docs
 %defattr(-,root,root)
 
 %changelog
-

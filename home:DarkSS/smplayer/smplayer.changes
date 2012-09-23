@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sun Sep 23 15:07:39 UTC 2012 - dap.darkness@gmail.com
+
+- Update to 0.8.1:
+  * Youtube playback was fixed.
+- QMAKE_CFLAGS = %{optflags} was added.
+- License tag was fixed in order to refer to http://license.opensuse.org/
+  
+-------------------------------------------------------------------
 Sun Apr  8 10:45:39 UTC 2012 - dap.darkness@gmail.com
 
 - Update to 0.8.0:
