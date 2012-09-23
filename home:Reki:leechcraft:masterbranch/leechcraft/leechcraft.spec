@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.80-181-ge1aa8af
+%define LEECHCRAFT_VERSION 0.5.80-648-gcbbd9c8
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -31,9 +31,6 @@ Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 Source0:        %{name}-%{version}.tar.bz2
 Source1:        %{name}.desktop
-# Set AppQStyle to default from plastique
-Patch3:         defaultstyle.patch
-
 BuildRequires:  hunspell-devel
 BuildRequires:  boost-devel
 BuildRequires:  cmake > 2.8
@@ -53,7 +50,7 @@ BuildRequires:  libqjson-devel
 BuildRequires:  libqscintilla-devel
 BuildRequires:  libqt4-devel >= 4.6
 BuildRequires:  libqt4-sql
-BuildRequires:  libqxmpp-lc1-devel > 0.6
+BuildRequires:  libqxmpp-devel > 0.6
 BuildRequires:  libqxt1-devel
 BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
 BuildRequires:  phonon-devel
@@ -68,6 +65,7 @@ BuildRequires:  liblastfm-devel
 BuildRequires:  libpoppler-qt4-devel
 BuildRequires:  libqjson-devel
 BuildRequires:  mupdf-devel
+BuildRequires:  pcre-devel
 BuildRequires:  telepathy-qt4-devel
 %endif
 %if 0%{suse_version} >= 1220
@@ -85,6 +83,9 @@ Obsoletes:      %{name}-tabpp
 Obsoletes:      %{name}-eiskaltdcpp
 %if 0%{suse_version} < 1210
 Obsoletes:      %{name}-lhtr
+%endif
+%if 0%{suse_version} < 1220
+Obsoletes:      %{name}-tabsessionmanager
 %endif
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -105,6 +106,211 @@ This package contains the main LeechCraft executable, which connects
 all the plugins with each other, routes requests between them, tracks
 dependencies and performs several other housekeeping tasks.
 
+#-------------------------patterns----------------------------#
+%package meta_full
+Group:          Metapackages
+Summary:        Meta package for pattern leechcraft_full
+Requires:       patterns-openSUSE-leechcraft_browser
+Requires:       patterns-openSUSE-leechcraft_messenger
+%if 0%{suse_version} > 1140
+Requires:       patterns-openSUSE-leechcraft_media
+%endif
+Requires:       patterns-openSUSE-leechcraft_websurf
+Requires:       patterns-openSUSE-leechcraft_tools
+
+%description meta_full
+This package is installed if a pattern is selected to have a working update path
+
+%package meta_browser
+Group:          Metapackages
+Summary:        Meta package for pattern leechcraft_browser
+Requires:       %{name}-advancednotifications
+Requires:       %{name}-historyholder
+Requires:       %{name}-kinotify
+Requires:       %{name}-lackman
+Requires:       %{name}-newlife
+Requires:       %{name}-pintab
+Requires:       %{name}-poshuku
+Requires:       %{name}-poshuku-cleanweb
+Requires:       %{name}-poshuku-delicious
+Requires:       %{name}-poshuku-fua
+Requires:       %{name}-poshuku-keywords
+Requires:       %{name}-poshuku-onlinebookmarks
+Requires:       %{name}-poshuku-pogooglue
+Requires:       %{name}-poshuku-readitlater
+Requires:       %{name}-secman
+Requires:       %{name}-secman-simplestorage
+Requires:       %{name}-seekthru
+Requires:       %{name}-shellopen
+Requires:       %{name}-summary
+Requires:       %{name}-syncer
+%if 0%{suse_version} > 1210
+Requires:       %{name}-tabsessionmanager
+%endif
+Requires:       %{name}-vgrabber
+Requires:       %{name}-xproxy
+Recommends:%{name}-poshuku-fatape
+Recommends:%{name}-poshuku-filescheme
+
+%description meta_browser
+This package is installed if a pattern is selected to have a working update path
+
+%package meta_messenger
+Group:          Metapackages
+Summary:        Meta package for pattern leechcraft_messenger
+Requires:       %{name}-advancednotifications
+Requires:       %{name}-azoth
+Requires:       %{name}-azoth-acetamide
+Requires:       %{name}-azoth-adiumstyles
+%if 0%{suse_version} > 1140
+Requires:       %{name}-azoth-astrality
+%endif
+Requires:       %{name}-azoth-autoidler
+Requires:       %{name}-azoth-autopaste
+Requires:       %{name}-azoth-chathistory
+Requires:       %{name}-azoth-depester
+Requires:       %{name}-azoth-birthdaynotifier
+Requires:       %{name}-azoth-herbicide
+Requires:       %{name}-azoth-hili
+Requires:       %{name}-azoth-isterique
+Requires:       %{name}-azoth-lastseen
+Requires:       %{name}-azoth-nativeemoticons
+Requires:       %{name}-azoth-standardstyles
+%if 0%{suse_version} > 1210
+Requires:       %{name}-tabsessionmanager
+%endif
+Requires:       %{name}-azoth-vader
+Requires:       %{name}-azoth-xoox
+Requires:       %{name}-azoth-xtazy
+Requires:       %{name}-azoth-zheet
+Requires:       %{name}-historyholder
+Requires:       %{name}-kinotify
+Requires:       %{name}-lackman
+Requires:       %{name}-newlife
+Requires:       %{name}-secman
+Requires:       %{name}-secman-simplestorage
+Requires:       %{name}-shellopen
+Requires:       %{name}-syncer
+Requires:       %{name}-xproxy
+Recommends:%{name}-azoth-embedmedia
+Recommends:%{name}-azoth-juick
+Recommends:%{name}-azoth-keeso
+Recommends:%{name}-azoth-metacontacts
+Recommends:%{name}-azoth-modnok
+Recommends:%{name}-azoth-p100q
+Recommends:%{name}-azoth-rosenthal
+
+%description meta_messenger
+This package is installed if a pattern is selected to have a working update path
+
+%if 0%{suse_version} > 1140
+%package meta_media
+Group:          Metapackages
+Summary:        Meta package for pattern leechcraft_media
+Requires:       %{name}-advancednotifications
+Requires:       %{name}-deadlyrics
+Requires:       %{name}-gacts
+%if 0%{suse_version} > 1210
+Requires:       %{name}-hotstreams
+%endif
+Requires:       %{name}-kinotify
+Requires:       %{name}-lastfmscrobble
+Requires:       %{name}-lmp
+Requires:       %{name}-lmp-dumbsync
+%if 0%{suse_version} > 1210
+Requires:       %{name}-lmp-mp3tunes
+%endif
+Requires:       %{name}-secman
+Requires:       %{name}-secman-simplestorage
+Requires:       %{name}-vgrabber
+
+%description meta_media
+This package is installed if a pattern is selected to have a working update path
+%endif
+
+%package meta_websurf
+Group:          Metapackages
+Summary:        Meta package for pattern leechcraft_websurf
+Requires:       %{name}-advancednotifications
+Requires:       %{name}-aggregator
+Requires:       %{name}-aggregator-bodyfetch
+%if 0%{suse_version} > 1140
+Requires:       %{name}-auscrie
+%endif
+Requires:       %{name}-bittorrent
+%if 0%{suse_version} > 1210
+Requires:       %{name}-blogique
+Requires:       %{name}-blogique-metida
+%endif
+Requires:       %{name}-choroid
+Requires:       %{name}-gmailnotifier
+Requires:       %{name}-historyholder
+Requires:       %{name}-kinotify
+Requires:       %{name}-lhtr
+%if 0%{suse_version} > 1210
+Requires:       %{name}-monocle
+Requires:       %{name}-monocle-fxb
+Requires:       %{name}-monocle-mu
+Requires:       %{name}-monocle-pdf
+Requires:       %{name}-monocle-seen
+%endif
+Requires:       %{name}-netstoremanager
+Requires:       %{name}-netstoremanager-googledrive
+Requires:       %{name}-newlife
+Requires:       %{name}-pintab
+Requires:       %{name}-secman
+Requires:       %{name}-secman-simplestorage
+Requires:       %{name}-sidebar
+Requires:       %{name}-summary
+Requires:       %{name}-syncer
+%if 0%{suse_version} > 1210
+Requires:       %{name}-tabsessionmanager
+%endif
+Requires:       %{name}-xproxy
+Recommends:%{name}-shellopen
+
+%description meta_websurf
+This package is installed if a pattern is selected to have a working update path
+
+%package meta_tools
+Group:          Metapackages
+Summary:        Meta package for pattern leechcraft_websurf
+Requires:       %{name}-advancednotifications
+%if 0%{suse_version} > 1140
+Requires:       %{name}-dolozhee
+%endif
+Requires:       %{name}-gacts
+Requires:       %{name}-glance
+Requires:       %{name}-kbswitch
+Requires:       %{name}-kinotify
+Requires:       %{name}-knowhow
+Requires:       %{name}-lackman
+%if 0%{suse_version} > 1210
+Requires:       %{name}-monocle
+Requires:       %{name}-monocle-fxb
+Requires:       %{name}-monocle-mu
+Requires:       %{name}-monocle-pdf
+Requires:       %{name}-monocle-seen
+%endif
+Requires:       %{name}-nacheku
+%if 0%{suse_version} > 1210
+Requires:       %{name}-netstoremanager
+Requires:       %{name}-netstoremanager-googledrive
+%endif
+Requires:       %{name}-networkmonitor
+%if 0%{suse_version} > 1210
+Requires:       %{name}-otlozhu
+%endif
+Requires:       %{name}-popishu
+Requires:       %{name}-sidebar
+%if 0%{suse_version} > 1210
+Requires:       %{name}-vrooby
+%endif
+Requires:       %{name}-xproxy
+
+%description meta_tools
+This package is installed if a pattern is selected to have a working update path
+#-----------------------end-patterns--------------------------#
 
 %package advancednotifications
 Summary:        LeechCraft Notifications framework Module
@@ -956,6 +1162,7 @@ Group:          Productivity/Networking/Other
 Provides:       %{name}-audioplayer
 Requires:       %{name} = %{version}
 Recommends:     ffmpeg
+Recommends:     %{name}-deadlyrics
 Recommends:     %{name}-lastfmscrobble = %{version}
 
 %description lmp
@@ -1088,7 +1295,7 @@ Requires:       %{name} = %{version}
 Requires:       %{name}-monocle = %{version}
 Provides:       %{name}-monocle-subplugin
 
-%description monocle-pdf
+%description monocle-seen
 This package contains a Djvu subplugin for LeechCraft Monocle.
 
 This package provides Djvu documents support for Document viewer Module
@@ -1529,7 +1736,7 @@ running on different machines.
 #will be grouped, and subdomains of the same parent domain will become
 #its children as well.
 
-
+%if 0%{suse_version} > 1210
 %package tabsessionmanager
 Summary:        LeechCraft Tab Session Manager Module
 Group:          Productivity/Networking/Other
@@ -1544,7 +1751,7 @@ to create named sessions.
 Features:
  * Automatically restores last session on LeechCraft startup.
  * Allows one to save named sessions for restoring them later.
-
+%endif
 
 %package tabslist
 Summary:        LeechCraft TabsList Module
@@ -1606,8 +1813,6 @@ It allows to configure and use proxy servers.
 %prep
 %setup -q -n %{name}-%{version}
 
-%patch3
-
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
 
@@ -1642,7 +1847,11 @@ cmake ../src \
         -DENABLE_CHOROID=True \
         -DENABLE_SIDEBAR=True \
         -DENABLE_SNAILS=False \
+%if 0%{suse_version} > 1210
         -DENABLE_TABSESSMANAGER=True \
+%else
+        -DENABLE_TABSESSMANAGER=False \
+%endif
         -DENABLE_AZOTH_ZHEET=True \
 %if 0%{suse_version} > 1140
         -DENABLE_AZOTH_ASTRALITY=True \
@@ -1658,6 +1867,7 @@ cmake ../src \
         -DENABLE_LADS=False \
         -DENABLE_LEMON=False \
         -DENABLE_TWIFEE=False \
+        -DENABLE_LAUNCHY=False \
         -DENABLE_Y7=False \
 %if %qtversion >= 40800
         -DENABLE_BLOGIQUE=True \
@@ -1667,6 +1877,7 @@ cmake ../src \
         -DENABLE_MONOCLE_MU=True \
         -DENABLE_VROOBY=True \
         -DENABLE_LMP_MP3TUNES=True \
+        -DENABLE_LMP_MPRIS=True \
         -DENABLE_HOTSTREAMS=True \
 %else
         -DENABLE_NETSTOREMANAGER=False \
@@ -1676,6 +1887,7 @@ cmake ../src \
         -DENABLE_MONOCLE_MU=False \
         -DENABLE_VROOBY=False \
         -DENABLE_LMP_MP3TUNES=False \
+        -DENABLE_LMP_MPRIS=False \
         -DENABLE_HOTSTREAMS=False \
 %endif
 %if 0%{suse_version} > 1140
@@ -1691,6 +1903,7 @@ cmake ../src \
         -DENABLE_DOLOZHEE=False \
         -DENABLE_LMP=False \
 %endif
+        -DUSE_POSHUKU_CLEANWEB_PCRE=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
 # gcc 4.7 optimization.
@@ -1734,6 +1947,37 @@ cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
 
 %suse_update_desktop_file -i %{name}
 
+#-------------------------patterns----------------------------#
+%__install -d %{buildroot}%{_docdir}/%{name}
+
+cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_browser
+This file marks the pattern meta_browser to be installed.
+EOF
+
+%if 0%{suse_version} > 1140
+cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_media
+This file marks the pattern meta_browser to be installed.
+EOF
+%endif
+
+cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_messenger
+This file marks the pattern meta_messenger to be installed.
+EOF
+
+cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_tools
+This file marks the pattern meta_tools to be installed.
+EOF
+
+cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_websurf
+This file marks the pattern meta_websurf to be installed.
+EOF
+
+cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_full
+This file marks the pattern meta_full to be installed.
+EOF
+#-----------------------end-patterns--------------------------#
+
+
 %fdupes -s %{buildroot}%{_datadir}/%{name}/translations
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth
 %fdupes -s %{buildroot}%{_datadir}/%{name}/global_icons/flags
@@ -1745,12 +1989,11 @@ cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
 
 %postun -p /sbin/ldconfig
 
-%clean
-rm -rf %{buildroot}
-
 %files
 %defattr(-,root,root)
+%if 0%{suse_version} > 1140
 %doc README COPYING
+%endif
 %{_bindir}/%{name}
 %{_bindir}/%{name}-add-file
 %{settings_dir}/coresettings.xml
@@ -1776,6 +2019,7 @@ rm -rf %{buildroot}
 %dir %{_datadir}/%{name}/global_icons
 %{_datadir}/%{name}/global_icons/*
 %exclude %{_datadir}/cmake/Modules/InitLCPlugin.cmake
+%exclude %{_docdir}/%{name}/meta_*
 
 %files advancednotifications
 %defattr(-,root,root)
@@ -2095,6 +2339,7 @@ rm -rf %{buildroot}
 %{_datadir}/%{name}/kinotify
 %{settings_dir}/kinotifysettings.xml
 %{plugin_dir}/*%{name}_kinotify.so
+%{_datadir}/%{name}/translations/%{name}_kinotify_*.qm
 
 %files knowhow
 %defattr(-,root,root)
@@ -2372,10 +2617,12 @@ rm -rf %{buildroot}
 #%%{translations_dir}/%%{name}_tabpp_*.qm
 #%%{plugin_dir}/*%%{name}_tabpp.so
 
+%if 0%{suse_version} > 1210
 %files tabsessionmanager
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_tabsessmanager.so
 %{_datadir}/%{name}/translations/%{name}_tabsessmanager_*.qm
+%endif
 
 %files tabslist
 %defattr(-,root,root)
@@ -2403,5 +2650,38 @@ rm -rf %{buildroot}
 %{_datadir}/%{name}/settings/xproxysettings.xml
 %{_datadir}/%{name}/translations/%{name}_xproxy_*.qm
 
+#-------------------------patterns----------------------------#
+%files meta_browser
+%defattr(-,root,root)
+%dir %{_docdir}/%{name}/
+%{_docdir}/%{name}/meta_browser
+
+%if 0%{suse_version} > 1140
+%files meta_media
+%defattr(-,root,root)
+%dir %{_docdir}/%{name}/
+%{_docdir}/%{name}/meta_media
+%endif
+
+%files meta_messenger
+%defattr(-,root,root)
+%dir %{_docdir}/%{name}/
+%{_docdir}/%{name}/meta_messenger
+
+%files meta_tools
+%defattr(-,root,root)
+%dir %{_docdir}/%{name}/
+%{_docdir}/%{name}/meta_tools
+
+%files meta_websurf
+%defattr(-,root,root)
+%dir %{_docdir}/%{name}/
+%{_docdir}/%{name}/meta_websurf
+
+%files meta_full
+%defattr(-,root,root)
+%dir %{_docdir}/%{name}/
+%{_docdir}/%{name}/meta_full
+#-----------------------end-patterns--------------------------#
 
 %changelog
