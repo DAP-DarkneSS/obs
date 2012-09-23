@@ -9,7 +9,7 @@
 #
 
 Name:           kcheckhash
-Version:        0.3
+Version:        0.4
 Release:        1
 Summary:        Qt/C++ tool to calculate hashes
 
@@ -37,9 +37,13 @@ BuildArch:      noarch
 Dolphin extension to calculate crc32, md5, sha1 and sha256 via libmhash2.
 
 %prep
-%setup -q -n PetrovSE-%{name}-d8e8cc1
+%setup -q -n PetrovSE-%{name}-08ee940
 
 %build
+mkdir -p bin
+lrelease qmake.pro
+%{__install} src/ts/*.qm bin
+
 qmake QMAKE_CXXFLAGS+="%{optflags}"
 make %{?_smp_mflags} 
 
@@ -59,6 +63,7 @@ mkdir -p %{buildroot}%{_datadir}/pixmaps
 %exclude %attr(644,root,root) %{_datadir}/pixmaps/security-high.png
 %dir %{_datadir}/applications/kde4
 %attr(644,root,root) %{_datadir}/applications/kde4/%{name}.desktop
+%{_datadir}/qt4/translations/%{name}_*.qm
 
 %files -n dolphin-plugin-checksum
 %defattr(-,root,root,-)

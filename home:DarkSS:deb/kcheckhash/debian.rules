@@ -24,6 +24,9 @@ build-stamp:
 	pwd
 	if cd build_dir ; then echo "Changed"; else echo "Some Errors"; fi
 	pwd
+	mkdir -p bin
+	lrelease qmake.pro
+	mv src/ts/*.qm bin
 	qmake
 	make -j 2
 
