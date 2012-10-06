@@ -1,3 +1,14 @@
+Sun Sep 30 20:57:49 UTC 2012 - dap.darkness@gmail.com
+
+- 0.17 release
+  * All menus now easy to mod/reskin
+  * New Powers tree with traditional tabs and spendable points
+  * Shared Stash! Collect epics, hoard resist gear, or buff your new characters
+  * Warp Zone - fast-travel map to get around the alpha demo campaign
+- fix-opensuse-12_1-flto.patch was added to resolve a linker error.
+- Clean section was removed.
+- Url was updated.
+
 Sun Jul  8 11:56:39 UTC 2012 - dap.darkness@gmail.com
 
 - 0.16 release
