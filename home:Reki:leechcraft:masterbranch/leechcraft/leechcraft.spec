@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.80-648-gcbbd9c8
+%define LEECHCRAFT_VERSION 0.5.85
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -2384,7 +2384,8 @@ EOF
 %files lmp
 %defattr(-,root,root)
 %{settings_dir}/lmpsettings.xml
-%{translations_dir}/%{name}_lmp*.qm
+%{_datadir}/%{name}/translations/%{name}_lmp_??.qm
+%{_datadir}/%{name}/translations/%{name}_lmp_??_??.qm
 %{plugin_dir}/*%{name}_lmp.so
 %endif
 
@@ -2392,6 +2393,9 @@ EOF
 %files lmp-dumbsync
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_lmp_dumbsync.so
+%{_datadir}/%{name}/settings/lmpdumbsyncsettings.xml
+%{_datadir}/%{name}/translations/%{name}_lmp_dumbsync_??.qm
+%{_datadir}/%{name}/translations/%{name}_lmp_dumbsync_??_??.qm
 %endif
 
 %if 0%{suse_version} >= 1210
