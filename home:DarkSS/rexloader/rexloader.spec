@@ -29,13 +29,13 @@ downloading, proxy support, logging and nice notifications.
 
 %build
 cd Httploader
-qmake HttpLoader.pro
+qmake HttpLoader.pro QMAKE_CXXFLAGS+="%{optflags}"
 make %{?_smp_mflags}
 cd ../NoticeWindow
-qmake NoticeWindow.pro
+qmake NoticeWindow.pro QMAKE_CXXFLAGS+="%{optflags}"
 make %{?_smp_mflags}
 cd ../REXLoader
-qmake REXLoader.pro
+qmake REXLoader.pro QMAKE_CXXFLAGS+="%{optflags}"
 make %{?_smp_mflags}
 
 %install
@@ -48,6 +48,8 @@ mkdir -p %{buildroot}%{_datadir}/pixmaps
 %{__install} ./REXLoader/images/RExLoader_64x64.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
 mkdir -p %{buildroot}%{_datadir}/applications/
 %{__install} ./REXLoader/%{name}.desktop %{buildroot}%{_datadir}/applications
+mkdir -p %{buildroot}%{_datadir}/%{name}/locales
+%{__install} ./usr/share/%{name}/locales/* %{buildroot}%{_datadir}/%{name}/locales
 %suse_update_desktop_file %{name}
 
 %clean
@@ -56,6 +58,9 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 %{_datadir}/pixmaps/%{name}.png
+%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/locales
+%{_datadir}/%{name}/locales/*.qm
 %attr(644,root,root) %{_datadir}/applications/%{name}.desktop
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/plugins
@@ -63,6 +68,9 @@ rm -rf %{buildroot}
 %attr(755,root,root) %{_bindir}/%{name}
 
 %changelog
+* Thu Oct 07 2012 DA <dap.darkness@gmail.com> - 20121007-1
+- Revision #249 with rpm optflags, locales and actions after downloading.
+
 * Thu Jun 07 2012 DA <dap.darkness@gmail.com> - 20120607-1
 - Revision #234 with desktop file.
 

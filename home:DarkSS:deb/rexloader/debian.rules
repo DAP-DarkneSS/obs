@@ -56,6 +56,8 @@ install: build
 	cp -R ./REXLoader/images/RExLoader_64x64.png $(CURDIR)/debian/rexloader/usr/share/pixmaps/rexloader.png
 	mkdir -p $(CURDIR)/debian/rexloader/usr/share/applications/
 	cp -R ./REXLoader/rexloader.desktop $(CURDIR)/debian/rexloader/usr/share/applications
+	mkdir -p $(CURDIR)/debian/rexloader/usr/share/rexloader/locales
+	cp ./usr/share/rexloader/locales/* $(CURDIR)/debian/rexloader/usr/share/rexloader/locales
 
 # Build architecture-independent files here.
 binary-indep: build install

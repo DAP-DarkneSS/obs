@@ -1,3 +1,8 @@
+rexloader (0.1a.rev.249) unstable; urgency=low
+  * Add: locales 
+  * Add: shutting down or hibernation after downloading
+ -- Dmitriy Perlow <dap.darkness@gmail.com>  Sat, 06 Oct 2012 13:16:18 +0300
+
 rexloader (0.1a.rev.234) unstable; urgency=low
   * Add: downloading over http
   * Add: configurable multithreaded downloading
