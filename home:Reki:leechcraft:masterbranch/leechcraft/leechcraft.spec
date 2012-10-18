@@ -1436,6 +1436,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Obsoletes:      %{name}-poshuku-pogooglue < %{version}
 Provides:       %{name}-poshuku-pogooglue = %{version}
+Recommends:     %{name}-poshuku = %{version}
 
 %description pogooglue
 This package provides an instant search plugin for LeechCraft.
