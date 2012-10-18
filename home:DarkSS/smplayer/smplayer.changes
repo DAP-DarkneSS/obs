@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Wed Oct 17 20:26:04 UTC 2012 - fisiu@opensuse.org  
+ 
+- Fix #PM-48: remote file need to be cached before playback.  
+
+-------------------------------------------------------------------
+Sat Oct  6 13:09:08 UTC 2012 - i@margueirte.su
+
+- fix the bug that it goes into audio player section in kickoff menu.
+
+-------------------------------------------------------------------
 Sun Sep 23 15:07:39 UTC 2012 - dap.darkness@gmail.com
 
 - Update to 0.8.1:

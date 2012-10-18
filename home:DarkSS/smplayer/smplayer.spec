@@ -97,8 +97,9 @@ done
 
 %__rm -rf "%{buildroot}%{_docdir}/%{name}"
 
+# Append Qt;KDE; categories in desktop files - fix for #PM-48
 for desktop in smplayer smplayer_enqueue; do
-    %suse_update_desktop_file -r "$desktop" AudioVideo Player
+    %suse_update_desktop_file -r "$desktop" Qt KDE AudioVideo Video Player
 done
 
 LANGFILE="$PWD/smplayer.lang"
