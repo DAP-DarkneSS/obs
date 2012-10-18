@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85
+%define LEECHCRAFT_VERSION 0.5.85-141-g78801b4
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -130,13 +130,13 @@ Requires:       %{name}-kinotify
 Requires:       %{name}-lackman
 Requires:       %{name}-newlife
 Requires:       %{name}-pintab
+Requires:       %{name}-pogooglue
 Requires:       %{name}-poshuku
 Requires:       %{name}-poshuku-cleanweb
 Requires:       %{name}-poshuku-delicious
 Requires:       %{name}-poshuku-fua
 Requires:       %{name}-poshuku-keywords
 Requires:       %{name}-poshuku-onlinebookmarks
-Requires:       %{name}-poshuku-pogooglue
 Requires:       %{name}-poshuku-readitlater
 Requires:       %{name}-secman
 Requires:       %{name}-secman-simplestorage
@@ -1430,6 +1430,19 @@ This package provides a pinning tab module for LeechCraft.
 It allows to pin important tabs so that they occupy less space.
 
 
+%package pogooglue
+Summary:        LeechCraft Poshuku - quick google search Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Obsoletes:      %{name}-poshuku-pogooglue < %{version}
+Provides:       %{name}-poshuku-pogooglue = %{version}
+
+%description pogooglue
+This package provides an instant search plugin for LeechCraft.
+
+It allows to search instantly selected text in Google.
+
+
 %package popishu
 Summary:        LeechCraft Text editor Module
 Group:          Productivity/Networking/Other
@@ -1570,17 +1583,6 @@ This package provides an online bookmarks plugin for LeechCraft Poshuku.
 
 It allows to synchronize bookmarks with services like Read It Later
 or Del.icio.us.
-
-
-%package poshuku-pogooglue
-Summary:        LeechCraft Poshuku - quick google search Module
-Group:          Productivity/Networking/Other
-Requires:       %{name}-poshuku = %{version}
-
-%description poshuku-pogooglue
-This package provides an instant search plugin for LeechCraft Poshuku.
-
-It allows to search instantly selected text in Google.
 
 
 %package poshuku-readitlater
@@ -2506,6 +2508,11 @@ EOF
 %{_libdir}/%{name}/plugins/*%{name}_pintab.so
 %{_datadir}/%{name}/translations/%{name}_pintab_*.qm
 
+%files pogooglue
+%defattr(-,root,root)
+%{plugin_dir}/*%{name}_pogooglue*
+%{translations_dir}/leechcraft_pogooglue*
+
 %files popishu
 %defattr(-,root,root)
 %{settings_dir}/popishusettings.xml
@@ -2557,11 +2564,6 @@ EOF
 %{settings_dir}/poshukuonlinebookmarkssettings.xml
 %{translations_dir}/%{name}_poshuku_onlinebookmarks*.qm
 %{plugin_dir}/*%{name}_poshuku_onlinebookmarks.so
-
-%files poshuku-pogooglue
-%defattr(-,root,root)
-%{plugin_dir}/*%{name}_poshuku_pogooglue*
-%{translations_dir}/leechcraft_poshuku_pogooglue*
 
 %files poshuku-readitlater
 %defattr(-,root,root)
