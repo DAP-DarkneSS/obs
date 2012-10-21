@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-157-g502a1d7
+%define LEECHCRAFT_VERSION 0.5.85-198-ga5123f9
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -52,7 +52,6 @@ BuildRequires:  libqt4-devel >= 4.6
 BuildRequires:  libqt4-sql
 BuildRequires:  libqxmpp-devel > 0.6
 BuildRequires:  libqxt1-devel
-BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
 BuildRequires:  phonon-devel
 BuildRequires:  speex-devel
 BuildRequires:  update-desktop-files
@@ -63,6 +62,7 @@ BuildRequires:  taglib-devel
 BuildRequires:  libdjvulibre-devel
 BuildRequires:  liblastfm-devel
 BuildRequires:  libpoppler-qt4-devel
+BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
 BuildRequires:  libqjson-devel
 BuildRequires:  mupdf-devel
 BuildRequires:  pcre-devel
@@ -236,8 +236,8 @@ Requires:       %{name}-aggregator
 Requires:       %{name}-aggregator-bodyfetch
 %if 0%{suse_version} > 1140
 Requires:       %{name}-auscrie
-%endif
 Requires:       %{name}-bittorrent
+%endif
 %if 0%{suse_version} > 1210
 Requires:       %{name}-blogique
 Requires:       %{name}-blogique-metida
@@ -776,11 +776,14 @@ The following protocol features are currently supported:
  * Blacklist management.
 
 
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
 %package bittorrent
 Summary:        LeechCraft BitTorrent client Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-summaryrepresentation = %{version}
+Requires:       libqt4 >= 4.8
 
 %description bittorrent
 This package provides a bittorrent client for Leechcraft.
@@ -803,6 +806,8 @@ Features
  * IP filter to block/unblock unwanted peers.
  * Support for extension protocol
 etc.
+%endif
+%endif
 
 
 #%%package blackdash
@@ -1873,6 +1878,7 @@ cmake ../src \
         -DENABLE_LAUNCHY=False \
         -DENABLE_Y7=False \
 %if %qtversion >= 40800
+        -DENABLE_TORRENT=True \
         -DENABLE_BLOGIQUE=True \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_OTLOZHU=True \
@@ -1883,6 +1889,7 @@ cmake ../src \
         -DENABLE_LMP_MPRIS=True \
         -DENABLE_HOTSTREAMS=True \
 %else
+        -DENABLE_TORRENT=True \
         -DENABLE_NETSTOREMANAGER=False \
         -DENABLE_OTLOZHU=False \
         -DENABLE_BLOGIQUE=False \
@@ -2210,11 +2217,15 @@ EOF
 %{translations_dir}/%{name}_azoth_zheet*
 %{plugin_dir}/*%{name}_azoth_zheet.so
 
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
 %files bittorrent
 %defattr(-,root,root)
 %{settings_dir}/torrentsettings.xml
 %{translations_dir}/%{name}_bittorrent_*.qm
 %{plugin_dir}/*%{name}_bittorrent.so
+%endif
+%endif
 
 #%%files blackdash
 #%%defattr(-,root,root)
