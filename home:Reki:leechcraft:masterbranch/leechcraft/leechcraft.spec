@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-198-ga5123f9
+%define LEECHCRAFT_VERSION 0.5.85-219-g3441fdc
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -58,7 +58,6 @@ BuildRequires:  update-desktop-files
 BuildRequires:  xz
 BuildRequires:  file-devel
 BuildRequires:  taglib-devel
-%if 0%{suse_version} > 1140
 BuildRequires:  libdjvulibre-devel
 BuildRequires:  liblastfm-devel
 BuildRequires:  libpoppler-qt4-devel
@@ -67,7 +66,6 @@ BuildRequires:  libqjson-devel
 BuildRequires:  mupdf-devel
 BuildRequires:  pcre-devel
 BuildRequires:  telepathy-qt4-devel
-%endif
 %if 0%{suse_version} >= 1220
 BuildRequires:  qwt6-devel
 %else
@@ -112,9 +110,7 @@ Group:          Metapackages
 Summary:        Meta package for pattern leechcraft_full
 Requires:       patterns-openSUSE-leechcraft_browser
 Requires:       patterns-openSUSE-leechcraft_messenger
-%if 0%{suse_version} > 1140
 Requires:       patterns-openSUSE-leechcraft_media
-%endif
 Requires:       patterns-openSUSE-leechcraft_websurf
 Requires:       patterns-openSUSE-leechcraft_tools
 
@@ -162,9 +158,7 @@ Requires:       %{name}-advancednotifications
 Requires:       %{name}-azoth
 Requires:       %{name}-azoth-acetamide
 Requires:       %{name}-azoth-adiumstyles
-%if 0%{suse_version} > 1140
 Requires:       %{name}-azoth-astrality
-%endif
 Requires:       %{name}-azoth-autoidler
 Requires:       %{name}-azoth-autopaste
 Requires:       %{name}-azoth-chathistory
@@ -203,7 +197,6 @@ Recommends:%{name}-azoth-rosenthal
 %description meta_messenger
 This package is installed if a pattern is selected to have a working update path
 
-%if 0%{suse_version} > 1140
 %package meta_media
 Group:          Metapackages
 Summary:        Meta package for pattern leechcraft_media
@@ -215,9 +208,9 @@ Requires:       %{name}-hotstreams
 %endif
 Requires:       %{name}-kinotify
 Requires:       %{name}-lastfmscrobble
+%if 0%{suse_version} > 1210
 Requires:       %{name}-lmp
 Requires:       %{name}-lmp-dumbsync
-%if 0%{suse_version} > 1210
 Requires:       %{name}-lmp-mp3tunes
 %endif
 Requires:       %{name}-secman
@@ -226,7 +219,6 @@ Requires:       %{name}-vgrabber
 
 %description meta_media
 This package is installed if a pattern is selected to have a working update path
-%endif
 
 %package meta_websurf
 Group:          Metapackages
@@ -234,11 +226,9 @@ Summary:        Meta package for pattern leechcraft_websurf
 Requires:       %{name}-advancednotifications
 Requires:       %{name}-aggregator
 Requires:       %{name}-aggregator-bodyfetch
-%if 0%{suse_version} > 1140
 Requires:       %{name}-auscrie
-Requires:       %{name}-bittorrent
-%endif
 %if 0%{suse_version} > 1210
+Requires:       %{name}-bittorrent
 Requires:       %{name}-blogique
 Requires:       %{name}-blogique-metida
 %endif
@@ -276,9 +266,7 @@ This package is installed if a pattern is selected to have a working update path
 Group:          Metapackages
 Summary:        Meta package for pattern leechcraft_websurf
 Requires:       %{name}-advancednotifications
-%if 0%{suse_version} > 1140
 Requires:       %{name}-dolozhee
-%endif
 Requires:       %{name}-gacts
 Requires:       %{name}-glance
 Requires:       %{name}-kbswitch
@@ -381,7 +369,6 @@ in sending bug reports.
 KDE should not be running for AnHero to work.
 
 
-%if 0%{suse_version} > 1140
 %package auscrie
 Summary:        LeechCraft Screenshoter Module
 Group:          Productivity/Networking/Other
@@ -392,7 +379,6 @@ This package provides a screenshooter plugin for LeechCraft.
 
 It allows to make screenshots of LeechCraft and then either save them locally
 or upload them to an imagebin.
-%endif
 
 
 %package azoth
@@ -446,7 +432,6 @@ Requires:       %{name}-azoth = %{version}
 This package provides an Adium styles support plugin for LeechCraft Azoth.
 
 
-%if 0%{suse_version} > 1140
 %package azoth-astrality
 Summary:        LeechCraft Azoth - Telepathy Module
 Group:          Productivity/Networking/Other
@@ -465,7 +450,6 @@ Features:
  * In-band account registration.
  * Standard one-to-one chats.
  * Nick resolution.
-%endif
 
 
 %package azoth-autoidler
@@ -934,7 +918,6 @@ is also available online at http://doc.leechcraft.org/core/
 %endif
 
 
-%if 0%{suse_version} > 1140
 %package dolozhee
 Summary:        LeechCraft Issue reporting Module
 Group:          Productivity/Networking/Other
@@ -946,7 +929,7 @@ This package provides a Dolozhee plugin for LeechCraft.
 
 It allows to quickly and easily submit bug reports
 and feature requests to LeechCraft issues tracker.
-%endif
+
 
 #%%package eiskaltdcpp
 #Summary:        LeechCraft DC++ Module
@@ -1091,7 +1074,8 @@ Features:
  * Is a crossplatform package manager.
 
 
-%if 0%{suse_version} > 1140
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
 %package lastfmscrobble
 Summary:        LeechCraft Last.FM Scrobble Module
 Group:          Productivity/Networking/Other
@@ -1115,6 +1099,7 @@ Features:
  * Fetching recent releases of artists that are in the user's collection.
  * Fetching artists biography.
  * Configurable language of the fetched information.
+%endif
 %endif
 
 
@@ -1160,7 +1145,8 @@ reconnect properly on startup.
  * Notifies user on low power level.
 
 
-%if 0%{suse_version} > 1140
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
 %package lmp
 Summary:        LeechCraft Media player Module
 Group:          Productivity/Networking/Other
@@ -1169,6 +1155,7 @@ Requires:       %{name} = %{version}
 Recommends:     ffmpeg
 Recommends:     %{name}-deadlyrics
 Recommends:     %{name}-lastfmscrobble = %{version}
+Requires:       libqt4 >= 4.8
 
 %description lmp
 This package provides a audio player plugin for LeechCraft.
@@ -1182,23 +1169,24 @@ Features:
  * Play queue.
  * Support for automatic podcast playing (with a plugin like Aggregator).
 %endif
+%endif
 
 
-%if 0%{suse_version} > 1140
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
 %package lmp-dumbsync
 Summary:        LeechCraft Media syncing Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-lmp = %{version}
 Recommends:     %{name}-lastfmscrobble = %{version}
-%if %qtversion >= 40800
 Recommends:     %{name}-vrooby = %{version}
 Recommends:     %{name}-hotstreams = %{version}
-%endif
 
 %description lmp-dumbsync
 This package provides a audio syncing plugin for LeechCraft.
 
 It allows to sync with Flash-like media players.
+%endif
 %endif
 
 
@@ -1208,7 +1196,6 @@ It allows to sync with Flash-like media players.
 Summary:        LeechCraft mp3tunes.com Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-lmp = %{version}
-Requires:       libqt4 >= 4.8
 
 %description lmp-mp3tunes
 This package provides a mp3tunes.com plugin for LeechCraft.
@@ -1861,11 +1848,7 @@ cmake ../src \
         -DENABLE_TABSESSMANAGER=False \
 %endif
         -DENABLE_AZOTH_ZHEET=True \
-%if 0%{suse_version} > 1140
         -DENABLE_AZOTH_ASTRALITY=True \
-%else
-        -DENABLE_AZOTH_ASTRALITY=False \
-%endif
         -DENABLE_LIZNOO=True \
         -DENABLE_PINTAB=True \
         -DENABLE_GACTS=True \
@@ -1885,34 +1868,24 @@ cmake ../src \
         -DENABLE_MONOCLE=True \
         -DENABLE_MONOCLE_MU=True \
         -DENABLE_VROOBY=True \
-        -DENABLE_LMP_MP3TUNES=True \
-        -DENABLE_LMP_MPRIS=True \
+        -DENABLE_LASTFMSCROBBLE=True \
+        -DENABLE_LMP=True \
         -DENABLE_HOTSTREAMS=True \
 %else
-        -DENABLE_TORRENT=True \
+        -DENABLE_TORRENT=False \
         -DENABLE_NETSTOREMANAGER=False \
         -DENABLE_OTLOZHU=False \
         -DENABLE_BLOGIQUE=False \
         -DENABLE_MONOCLE=False \
         -DENABLE_MONOCLE_MU=False \
         -DENABLE_VROOBY=False \
-        -DENABLE_LMP_MP3TUNES=False \
-        -DENABLE_LMP_MPRIS=False \
+        -DENABLE_LASTFMSCROBBLE=False \
+        -DENABLE_LMP=False \
         -DENABLE_HOTSTREAMS=False \
 %endif
-%if 0%{suse_version} > 1140
-        -DENABLE_LASTFMSCROBBLE=True \
         -DENABLE_LHTR=True \
         -DENABLE_AUSCRIE=True \
         -DENABLE_DOLOZHEE=True \
-        -DENABLE_LMP=True \
-%else
-        -DENABLE_LASTFMSCROBBLE=False \
-        -DENABLE_LHTR=False \
-        -DENABLE_AUSCRIE=False \
-        -DENABLE_DOLOZHEE=False \
-        -DENABLE_LMP=False \
-%endif
         -DUSE_POSHUKU_CLEANWEB_PCRE=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
@@ -1964,11 +1937,9 @@ cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_browser
 This file marks the pattern meta_browser to be installed.
 EOF
 
-%if 0%{suse_version} > 1140
 cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_media
 This file marks the pattern meta_browser to be installed.
 EOF
-%endif
 
 cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_messenger
 This file marks the pattern meta_messenger to be installed.
@@ -2001,9 +1972,7 @@ EOF
 
 %files
 %defattr(-,root,root)
-%if 0%{suse_version} > 1140
 %doc README COPYING
-%endif
 %{_bindir}/%{name}
 %{_bindir}/%{name}-add-file
 %{settings_dir}/coresettings.xml
@@ -2054,12 +2023,10 @@ EOF
 %{plugin_dir}/*%{name}_anhero.so
 %{translations_dir}/leechcraft_anhero*
 
-%if 0%{suse_version} > 1140
 %files auscrie
 %defattr(-,root,root)
 %{translations_dir}/%{name}_auscrie_*.qm
 %{plugin_dir}/lib%{name}_auscrie.so
-%endif
 
 %files azoth
 %defattr(-,root,root)
@@ -2083,12 +2050,10 @@ EOF
 %{plugin_dir}/*%{name}_azoth_adiumstyles*
 %{_datadir}/%{name}/azoth/styles/adium
 
-%if 0%{suse_version} > 1140
 %files azoth-astrality
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_azoth_astrality.so
 %{_datadir}/%{name}/translations/%{name}_azoth_astrality_*.qm
-%endif
 
 %files azoth-autoidler
 %defattr(-,root,root)
@@ -2288,12 +2253,10 @@ EOF
 %exclude %{_docdir}/%{name}-doc/installdox
 %endif
 
-%if 0%{suse_version} > 1140
 %files dolozhee
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_dolozhee.so
 %{_datadir}/%{name}/translations/%{name}_dolozhee_*.qm
-%endif
 
 #%%files eiskaltdcpp
 #%%defattr(-,root,root)
@@ -2367,12 +2330,14 @@ EOF
 %{settings_dir}/lackmansettings.xml
 %{translations_dir}/leechcraft_lackman*
 
-%if 0%{suse_version} > 1140
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
 %files lastfmscrobble
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lastfmscrobble.so
 %{_datadir}/%{name}/settings/lastfmscrobblesettings.xml
 %{_datadir}/%{name}/translations/%{name}_lastfmscrobble_*.qm
+%endif
 %endif
 
 #%%files lcftp
@@ -2381,12 +2346,10 @@ EOF
 #%%{settings_dir}/lcftpsettings.xml
 #%%{translations_dir}/leechcraft_lcftp*
 
-%if 0%{suse_version} > 1140
 %files lhtr
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lhtr.so
 %{_datadir}/%{name}/translations/%{name}_lhtr_*.qm
-%endif
 
 %files liznoo
 %defattr(-,root,root)
@@ -2394,7 +2357,8 @@ EOF
 %{_datadir}/%{name}/settings/liznoosettings.xml
 %{_datadir}/%{name}/translations/%{name}_liznoo_*.qm
 
-%if 0%{suse_version} > 1140
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
 %files lmp
 %defattr(-,root,root)
 %{settings_dir}/lmpsettings.xml
@@ -2402,14 +2366,17 @@ EOF
 %{_datadir}/%{name}/translations/%{name}_lmp_??_??.qm
 %{plugin_dir}/*%{name}_lmp.so
 %endif
+%endif
 
-%if 0%{suse_version} > 1140
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
 %files lmp-dumbsync
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_lmp_dumbsync.so
 %{_datadir}/%{name}/settings/lmpdumbsyncsettings.xml
 %{_datadir}/%{name}/translations/%{name}_lmp_dumbsync_??.qm
 %{_datadir}/%{name}/translations/%{name}_lmp_dumbsync_??_??.qm
+%endif
 %endif
 
 %if 0%{suse_version} >= 1210
@@ -2674,12 +2641,10 @@ EOF
 %dir %{_docdir}/%{name}/
 %{_docdir}/%{name}/meta_browser
 
-%if 0%{suse_version} > 1140
 %files meta_media
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}/
 %{_docdir}/%{name}/meta_media
-%endif
 
 %files meta_messenger
 %defattr(-,root,root)
