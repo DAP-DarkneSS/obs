@@ -8,13 +8,13 @@
 #
 
 Name:           flare
-Version:        0.16
+Version:        0.17.1
 Release:        1
 Summary:        Free Libre Action Roleplaying Engine: binary file
 
 License:        GPL-3.0
-URL:            http://clintbellanger.net/rpg/
-Source0:        https://github.com/clintbellanger/%{name}/tarball/v%{version}
+URL:            http://flarerpg.org/
+Source0:        https://github.com/clintbellanger/%{name}-game/tarball/v%{version}
 Group:          Amusements/Games/RPG
 
 BuildRequires:  make cmake
@@ -39,7 +39,7 @@ to easily modify game contents. Open formats are preferred (png, ogg). The game 
 
 %package data
 Summary:        Flare: art and other architecture independent data
-License:        CC-BY-SA-3
+License:        CC-BY-SA-3.0
 Group:          Amusements/Games/RPG
 Requires:       %{name} = %{version}
 BuildArch:      noarch
@@ -58,7 +58,7 @@ Flare uses simple file formats (INI style config files) for most of the game dat
 to easily modify game contents. Open formats are preferred (png, ogg). The game code is C++.
 
 %prep
-%setup -q -n clintbellanger-%{name}-347ecb6
+%setup -q -n clintbellanger-%{name}-game-638bdb0
 
 %build
 mkdir -p build
@@ -77,10 +77,7 @@ cd build
 make install DESTDIR=%{buildroot}
 chmod +x %{buildroot}%{_datadir}/games/%{name}/mods/fantasycore/languages/xgettext.py
 %suse_update_desktop_file %{name}
-%fdupes -s %{buildroot}%{_datadir}/games/%{name}/mods/fantasycore/soundfx/
-
-%clean
-rm -rf %{buildroot}
+%fdupes -s %{buildroot}%{_datadir}/games/%{name}/mods/
 
 %files
 %defattr(-,root,root)

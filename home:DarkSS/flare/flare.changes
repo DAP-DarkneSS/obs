@@ -1,3 +1,23 @@
+Tue Oct  2 23:25:40 UTC 2012 - dap.darkness@gmail.com
+
+- 0.17.1 release
+  * Instant-sell items now go to the vendor Buyback tab
+  * Disable New/Load buttons if there is no story mod loaded
+  * Prevent crash when binding higher number mouse buttons
+  * Prevent crash when loading a map with missing layers
+  * Add helpful tooltips when play buttons are disabled
+  * Removed -flto compiler flag from default build script
+
+Sun Sep 30 20:57:49 UTC 2012 - dap.darkness@gmail.com
+
+- 0.17 release
+  * All menus now easy to mod/reskin
+  * New Powers tree with traditional tabs and spendable points
+  * Shared Stash! Collect epics, hoard resist gear, or buff your new characters
+  * Warp Zone - fast-travel map to get around the alpha demo campaign
+- Clean section was removed.
+- Url was updated.
+
 Sun Jul  8 11:56:39 UTC 2012 - dap.darkness@gmail.com
 
 - 0.16 release
