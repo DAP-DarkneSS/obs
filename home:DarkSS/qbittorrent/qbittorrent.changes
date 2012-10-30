@@ -1,8 +1,82 @@
 
 -------------------------------------------------------------------
-Fri Sep 29 09:29:13 UTC 2012 - friseer@submilla.de
+Tue Oct 30 15:30:19 UTC 2012 - dap.darkness@gmail.com
 
-- Upstream update to 3.0.4, bugfix release.
+- Upstream update to 3.0.6:
+  + FEATURE: Add command line option to daemonize qbittorrent-nox
+  + FEATURE: Add "Shutdown qBittorrent" button to Web UI
+  + FEATURE: Add setting to copy .torrent files for finished downloads
+  + FEATURE: Add option to start qBittorrent on Windows startup
+  + BUGFIX: Add confirmation dialog for "Force recheck" action
+  + BUGFIX: Greatly improve RSS manager performance
+  + FEATURE: Brand new torrent addition dialog
+  + FEATURE: Add the ability to choose the save path when using magnet links
+  + FEATURE: Add support for adding multiple local torrents at once
+  + COSMETIC: Improve style of left panel
+  + BUGFIX: Lower panels no longer gets disabled
+  + BUGFIX: Major code refactoring and various optimizations.
+  + BUGFIX: No longer strip root folder from torrent files
+  + OTHER: Drop support for libtorrent v0.14.x
+  + OTHER: Drop support for Qt 4.5
+- Duplicate files warning was resolved.
+
+-------------------------------------------------------------------
+Tue Jul  3 19:55:33 UTC 2012 - fisiu@opensuse.org
+
+- Upstream update to 2.9.11, bugfix release:
+  + Bring window to front after restoring from systray
+  + Fix keyboard focus problems on main window
+  + Fix ThePirateBay search plugin
+
+-------------------------------------------------------------------
+Mon Jun 25 22:00:33 UTC 2012 - fisiu@opensuse.org
+
+- Upstream update to 2.9.10, bugfix release:
+  + Various webui fixes
+  + Fix ratio limiting bug
+  + Fix possible crash when showing torrent content
+  + Add support for RSS feeds using magnet links
+
+-------------------------------------------------------------------
+Sun May 20 21:35:37 UTC 2012 - fisiu@opensuse.org
+
+- Upstream update to 2.9.9, bugfix release:
+  + Improved RSS reader performance
+  + Various UI fixes
+
+-------------------------------------------------------------------
+Sat May  5 11:28:30 UTC 2012 - fisiu@opensuse.org
+
+- Upstream update to 2.9.8, bugfix release:
+  + UI style fixes
+  + Update Italian translation
+- Drop qbittorrent-gcc47.patch: fixed upstream.
+
+-------------------------------------------------------------------
+Sun Mar 25 12:35:32 UTC 2012 - dimstar@opensuse.org
+
+- Add qbittorrent-gcc47.patch: Fix build with gcc 4.7.
+
+-------------------------------------------------------------------
+Mon Mar 19 12:06:29 UTC 2012 - fisiu@opensuse.org
+
+- Upstream update to 2.9.7, bugfix release.
+
+-------------------------------------------------------------------
+Mon Feb 20 15:17:07 UTC 2012 - fisiu@opensuse.org
+
+- Upstream update to 2.9.5, bugfix release.
+
+-------------------------------------------------------------------
+Thu Dec 29 21:06:39 UTC 2011 - fisiu@opensuse.org
+
+- Upstream update to 2.9.3, bufix release.
+- Change license to spdx.org format.
+
+-------------------------------------------------------------------
+Sun Oct 30 15:04:55 UTC 2011 - fisiu@opensuse.org
+
+- Upstream update to 2.9.2, bugfix release.
 
 -------------------------------------------------------------------
 Sun Oct 23 17:29:13 UTC 2011 - fisiu@opensuse.org

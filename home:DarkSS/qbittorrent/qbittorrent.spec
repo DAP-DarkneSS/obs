@@ -1,7 +1,8 @@
 #
 # spec file for package qbittorrent
 #
-# Copyright (c) 2011 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2012 Mariusz Fik <fisiu@opensuse.org>.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,23 +17,24 @@
 #
 
 
-
 Name:           qbittorrent
-Version:        3.0.5
+Version:        3.0.6
 Release:        1
-License:        GPLv2+
 Summary:        A Bittorrent Client built with C++ / Qt4
-Url:            http://sourceforge.net/projects/qbittorrent
+License:        GPL-2.0+
 Group:          Productivity/Networking/File-Sharing
-Source:         http://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
+Url:            http://sourceforge.net/projects/qbittorrent
+Source:         http://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.xz
 BuildRequires:  boost-devel >= 1.35
+BuildRequires:  fdupes
+BuildRequires:  update-desktop-files
+BuildRequires:  xz
 BuildRequires:  pkgconfig(QtCore) >= 4.6
 BuildRequires:  pkgconfig(QtDBus) >= 4.6
 BuildRequires:  pkgconfig(QtGui) >= 4.6
 BuildRequires:  pkgconfig(QtNetwork) >= 4.6
 BuildRequires:  pkgconfig(QtXml) >= 4.6
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.14.4
-BuildRequires:  update-desktop-files
 Requires:       GeoIP
 Requires:       python
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -83,12 +85,12 @@ make INSTALL_ROOT=%{buildroot} install
 # update .desktop file
 %suse_update_desktop_file -r qBittorrent Network P2P
 
-%clean
-%{?buildroot:rm -rf %{buildroot}}
+# duplicate files warning resolving
+%fdupes -s %{buildroot}%{_datadir}
 
 %files
 %defattr(-,root,root)
-%doc AUTHORS Changelog COPYING INSTALL NEWS README TODO
+%doc AUTHORS Changelog COPYING NEWS README TODO
 %doc %{_mandir}/man1/qbittorrent.1.gz
 %{_bindir}/qbittorrent
 %dir %{_datadir}/icons/hicolor
@@ -100,7 +102,7 @@ make INSTALL_ROOT=%{buildroot} install
 
 %files nox
 %defattr(-,root,root)
-%doc AUTHORS Changelog COPYING INSTALL NEWS README TODO
+%doc AUTHORS Changelog COPYING NEWS README TODO
 %doc %{_mandir}/man1/qbittorrent-nox.1.gz
 %{_bindir}/qbittorrent-nox
 
