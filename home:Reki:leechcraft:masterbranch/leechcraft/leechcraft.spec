@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-219-g3441fdc
+%define LEECHCRAFT_VERSION 0.5.85-289-gbf727e3
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -126,7 +126,9 @@ Requires:       %{name}-kinotify
 Requires:       %{name}-lackman
 Requires:       %{name}-newlife
 Requires:       %{name}-pintab
+%if 0%{suse_version} > 1210
 Requires:       %{name}-pogooglue
+%endif
 Requires:       %{name}-poshuku
 Requires:       %{name}-poshuku-cleanweb
 Requires:       %{name}-poshuku-delicious
@@ -231,9 +233,9 @@ Requires:       %{name}-auscrie
 Requires:       %{name}-bittorrent
 Requires:       %{name}-blogique
 Requires:       %{name}-blogique-metida
+Requires:       %{name}-gmailnotifier
 %endif
 Requires:       %{name}-choroid
-Requires:       %{name}-gmailnotifier
 Requires:       %{name}-historyholder
 Requires:       %{name}-kinotify
 Requires:       %{name}-lhtr
@@ -965,6 +967,8 @@ This package provides a tabs overview plugin for Leechcraft.
 It allows to show the thumbnailed grid overview of tabs.
 
 
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
 %package gmailnotifier
 Summary:        LeechCraft GMail notifier Module
 Group:          Productivity/Networking/Other
@@ -978,6 +982,8 @@ It allows to get notifications about new mail in your GMail account.
 
 It has configurable frequency of the updates and the number of last unread
 messages shown.
+%endif
+%endif
 
 
 %package historyholder
@@ -1422,6 +1428,8 @@ This package provides a pinning tab module for LeechCraft.
 It allows to pin important tabs so that they occupy less space.
 
 
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
 %package pogooglue
 Summary:        LeechCraft Poshuku - quick google search Module
 Group:          Productivity/Networking/Other
@@ -1429,11 +1437,14 @@ Requires:       %{name} = %{version}
 Obsoletes:      %{name}-poshuku-pogooglue < %{version}
 Provides:       %{name}-poshuku-pogooglue = %{version}
 Recommends:     %{name}-poshuku = %{version}
+Requires:       libqt4 >= 4.8
 
 %description pogooglue
 This package provides an instant search plugin for LeechCraft.
 
 It allows to search instantly selected text in Google.
+%endif
+%endif
 
 
 %package popishu
@@ -1647,6 +1658,21 @@ with a suitable plugin like Aggregator.
  * Show results in HTML format with a suitable plugin like Poshuku.
 
 
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
+%package shaitan
+Summary:        LeechCraft Shaitan Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       xterm
+Requires:       libqt4 >= 4.8
+
+%description shaitan
+This package provides a terminal plugin for Leechcraft.
+%endif
+%endif
+
+
 %package shellopen
 Summary:        LeechCraft Shellopen Module
 Group:          Productivity/Networking/Other
@@ -1823,69 +1849,76 @@ cmake ../src \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
+        -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
+        -DENABLE_AZOTH_ASTRALITY=True \
+        -DENABLE_AZOTH_ZHEET=True \
+        -DENABLE_BLACKDASH=False \
+        -DENABLE_CHOROID=True \
+        -DENABLE_DOLOZHEE=True \
         -DENABLE_EISKALTDCPP=False \
+        -DENABLE_FTP=False \
+        -DENABLE_GACTS=True \
         -DENABLE_GLANCE=True \
-        -DENABLE_GMAILNOTIFIER=True \
+        -DENABLE_KBSWITCH=True \
+        -DENABLE_KNOWHOW=True \
         -DENABLE_LACKMAN=True \
+        -DENABLE_LADS=False \
+        -DENABLE_LAUNCHY=False \
+        -DENABLE_LEMON=False \
+        -DENABLE_LHTR=True \
+        -DENABLE_LIZNOO=True \
+        -DENABLE_MEDIACALLS=False \
+        -DENABLE_NACHEKU=True \
+        -DENABLE_NEWLIFE=True \
+        -DENABLE_PINTAB=True \
         -DENABLE_POPISHU=True \
+        -DENABLE_QROSP=False \
         -DENABLE_SECMAN=True \
+        -DENABLE_SB2=False \
+        -DENABLE_SIDEBAR=True \
         -DENABLE_SHELLOPEN=True \
+        -DENABLE_SNAILS=False \
         -DENABLE_SYNCER=True \
         -DENABLE_TABSLIST=True \
+        -DENABLE_TPI=False \
+        -DENABLE_TWIFEE=False \
         -DENABLE_VFSCORE=False \
-        -DENABLE_QROSP=False \
-        -DENABLE_KNOWHOW=True \
-        -DENABLE_MEDIACALLS=False \
-        -DENABLE_BLACKDASH=False \
-        -DENABLE_FTP=False \
-        -DENABLE_CHOROID=True \
-        -DENABLE_SIDEBAR=True \
-        -DENABLE_SNAILS=False \
+        -DENABLE_Y7=False \
 %if 0%{suse_version} > 1210
         -DENABLE_TABSESSMANAGER=True \
 %else
         -DENABLE_TABSESSMANAGER=False \
 %endif
-        -DENABLE_AZOTH_ZHEET=True \
-        -DENABLE_AZOTH_ASTRALITY=True \
-        -DENABLE_LIZNOO=True \
-        -DENABLE_PINTAB=True \
-        -DENABLE_GACTS=True \
-        -DENABLE_KBSWITCH=True \
-        -DENABLE_NEWLIFE=True \
-        -DENABLE_NACHEKU=True \
-        -DENABLE_LADS=False \
-        -DENABLE_LEMON=False \
-        -DENABLE_TWIFEE=False \
-        -DENABLE_LAUNCHY=False \
-        -DENABLE_Y7=False \
 %if %qtversion >= 40800
-        -DENABLE_TORRENT=True \
         -DENABLE_BLOGIQUE=True \
-        -DENABLE_NETSTOREMANAGER=True \
-        -DENABLE_OTLOZHU=True \
-        -DENABLE_MONOCLE=True \
-        -DENABLE_MONOCLE_MU=True \
-        -DENABLE_VROOBY=True \
+        -DENABLE_GMAILNOTIFIER=True \
+        -DENABLE_HOTSTREAMS=True \
         -DENABLE_LASTFMSCROBBLE=True \
         -DENABLE_LMP=True \
-        -DENABLE_HOTSTREAMS=True \
+        -DENABLE_MONOCLE=True \
+        -DENABLE_MONOCLE_MU=True \
+        -DENABLE_NETSTOREMANAGER=True \
+        -DENABLE_OTLOZHU=True \
+        -DENABLE_POGOOGLUE=True \
+        -DENABLE_SHAITAN=True \
+        -DENABLE_TORRENT=True \
+        -DENABLE_VROOBY=True \
 %else
-        -DENABLE_TORRENT=False \
-        -DENABLE_NETSTOREMANAGER=False \
-        -DENABLE_OTLOZHU=False \
         -DENABLE_BLOGIQUE=False \
-        -DENABLE_MONOCLE=False \
-        -DENABLE_MONOCLE_MU=False \
-        -DENABLE_VROOBY=False \
+        -DENABLE_GMAILNOTIFIER=False \
+        -DENABLE_HOTSTREAMS=False \
         -DENABLE_LASTFMSCROBBLE=False \
         -DENABLE_LMP=False \
-        -DENABLE_HOTSTREAMS=False \
+        -DENABLE_MONOCLE=False \
+        -DENABLE_MONOCLE_MU=False \
+        -DENABLE_NETSTOREMANAGER=False \
+        -DENABLE_OTLOZHU=False \
+        -DENABLE_POGOOGLUE=False \
+        -DENABLE_SHAITAN=False \
+        -DENABLE_TORRENT=False \
+        -DENABLE_VROOBY=False \
 %endif
-        -DENABLE_LHTR=True \
-        -DENABLE_AUSCRIE=True \
-        -DENABLE_DOLOZHEE=True \
         -DUSE_POSHUKU_CLEANWEB_PCRE=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
@@ -2287,11 +2320,15 @@ EOF
 %{plugin_dir}/*%{name}_glance.so
 %{translations_dir}/leechcraft_glance*
 
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
 %files gmailnotifier
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_gmailnotifier.so
 %{settings_dir}/gmailnotifiersettings.xml
 %{translations_dir}/leechcraft_gmailnotifier*
+%endif
+%endif
 
 %files historyholder
 %defattr(-,root,root)
@@ -2487,10 +2524,14 @@ EOF
 %{_libdir}/%{name}/plugins/*%{name}_pintab.so
 %{_datadir}/%{name}/translations/%{name}_pintab_*.qm
 
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
 %files pogooglue
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_pogooglue*
 %{translations_dir}/leechcraft_pogooglue*
+%endif
+%endif
 
 %files popishu
 %defattr(-,root,root)
@@ -2567,6 +2608,14 @@ EOF
 %{settings_dir}/seekthrusettings.xml
 %{translations_dir}/%{name}_seekthru*.qm
 %{plugin_dir}/*%{name}_seekthru.so
+
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
+%files shaitan
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_shaitan.so
+%endif
+%endif
 
 %files shellopen
 %defattr(-,root,root)
