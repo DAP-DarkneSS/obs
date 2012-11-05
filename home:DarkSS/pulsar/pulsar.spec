@@ -33,6 +33,7 @@ Russian social network vkontakte (vk.com) audio player.
 
 %prep
 %setup -q -n %{name}
+chmod -x src/%{name}.desktop
 mkdir build
 
 %build
@@ -44,6 +45,7 @@ make %{?_smp_mflags}
 mkdir -p %{buildroot}
 cd build
 make INSTALL_ROOT=%{buildroot} install
+%suse_update_desktop_file -r %{name} 'AudioVideo;Player;Qt;'
 
 %files
 %defattr(-,root,root)
