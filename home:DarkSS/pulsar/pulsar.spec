@@ -20,6 +20,7 @@ Group:          Productivity/Other
 URL:            http://forum.ubuntu.ru/index.php?topic=203220
 Source0:        https://launchpad.net/~yuberion/+archive/pulsar/+files/%{name}_%{version}-%{subver}.tar.gz
 
+BuildRequires:  -post-build-checks
 BuildRequires:  gstreamer-0_10-plugins-qt-devel libQtGStreamer-0_10-devel
 BuildRequires:  gstreamer-0_10-devel
 BuildRequires:  gstreamer-0_10-plugins-base-devel
