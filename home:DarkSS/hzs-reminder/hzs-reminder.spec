@@ -8,19 +8,20 @@
 #
 
 Name:           hzs-reminder
-Version:        2012.01.03
+Version:        2012.09.30
 Release:        1
 Summary:        Informs about upcoming events from the system tray
 
 License:        GPL-3.0
 Group:          Productivity/Other
 URL:            http://software.nisel.net/reminder.html
-Source0:        %{name}-%{version}.tar.lzma
+Source0:        http://software.nisel.net/programs/hzs_reminder_source.tar.gz
+Source1:        reminder.desktop
 Patch1:         translation.patch
 
 Provides:       reminder
 BuildRequires:  libqt4-devel
-BuildRequires:  update-desktop-files xz
+BuildRequires:  update-desktop-files
 Recommends:     kdialog
 Conflicts:      hzs-reminder-4darkness reminder-4darkness
 
@@ -29,20 +30,20 @@ This program informs from the system tray about upcoming events,
 for example about the birthdays. It is not an organizer.
 
 %prep
-%setup -q
+%setup -q -n hzs_reminder_source
 %patch1
 
 %build
-qmake reminder.pro
+qmake QMAKE_CXXFLAGS+="%{optflags}" reminder.pro
 make %{?_smp_mflags}
 
 %install
 mkdir -p %{buildroot}%{_bindir}
 %{__install} reminder %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_datadir}/pixmaps
-%{__install} ./deb/usr/share/pixmaps/reminderico.png %{buildroot}%{_datadir}/pixmaps
+%{__install} ./ico/normal.png %{buildroot}%{_datadir}/pixmaps/reminderico.png
 mkdir -p %{buildroot}%{_datadir}/applications
-%{__install} ./deb/usr/share/applications/reminder.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
+%{__install} %{SOURCE1} %{buildroot}%{_datadir}/applications/%{name}.desktop
 mkdir -p %{buildroot}%{_datadir}/%{name}/translations
 %{__install} ./translations/reminder_ru.qm %{buildroot}%{_datadir}/%{name}/translations/hzs-reminder_ru_RU.qm
 %suse_update_desktop_file -r %{name} Office Calendar

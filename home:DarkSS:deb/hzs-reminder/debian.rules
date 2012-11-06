@@ -52,6 +52,8 @@ install: build
 	cp -R ./deb/usr/share/pixmaps/reminderico.png $(CURDIR)/debian/hzs-reminder/usr/share/pixmaps
 	mkdir -p $(CURDIR)/debian/hzs-reminder/usr/share/applications
 	cp -R ./deb/usr/share/applications/reminder.desktop $(CURDIR)/debian/hzs-reminder/usr/share/applications/hzs-reminder.desktop
+	mkdir -p $(CURDIR)/debian/hzs-reminder/usr/share/hzs-reminder/translations/
+	cp -R ./translations/*.qm $(CURDIR)/debian/hzs-reminder/usr/share/hzs-reminder/translations/
 
 # Build architecture-independent files here.
 binary-indep: build install
