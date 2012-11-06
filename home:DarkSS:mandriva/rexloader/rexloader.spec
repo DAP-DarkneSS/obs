@@ -67,6 +67,9 @@ rm -rf %{buildroot}
 %attr(755,root,root) %{_bindir}/%{name}
 
 %changelog
+* Wed Nov 06 2012 DA <dap.darkness@gmail.com> - 20121106-1
+- Revision 252 with url import from files.
+
 * Thu Oct 07 2012 DA <dap.darkness@gmail.com> - 20121007-1
 - Revision #249 with rpm optflags, locales and actions after downloading.
 
