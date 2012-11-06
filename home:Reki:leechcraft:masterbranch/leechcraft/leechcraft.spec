@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-289-gbf727e3
+%define LEECHCRAFT_VERSION 0.5.85-307-ga00d635
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -664,6 +664,19 @@ Requires:       %{name}-azoth = %{version}
 This package provides a spell checker plugin for LeechCraft Azoth.
 
 It is based on Hunspell or Myspell dictionaries.
+
+
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
+%package azoth-shx
+Summary:        LeechCraft Azoth - ShX Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-azoth = %{version}
+
+%description azoth-shx
+This package provides a shell command runner plugin for LeechCraft Azoth.
+%endif
+%endif
 
 
 %package azoth-standardstyles
@@ -1891,6 +1904,7 @@ cmake ../src \
         -DENABLE_TABSESSMANAGER=False \
 %endif
 %if %qtversion >= 40800
+        -DENABLE_AZOTH_SHX=True \
         -DENABLE_BLOGIQUE=True \
         -DENABLE_GMAILNOTIFIER=True \
         -DENABLE_HOTSTREAMS=True \
@@ -1905,6 +1919,7 @@ cmake ../src \
         -DENABLE_TORRENT=True \
         -DENABLE_VROOBY=True \
 %else
+        -DENABLE_AZOTH_FALSE=True \
         -DENABLE_BLOGIQUE=False \
         -DENABLE_GMAILNOTIFIER=False \
         -DENABLE_HOTSTREAMS=False \
@@ -2187,6 +2202,15 @@ EOF
 %{plugin_dir}/*%{name}_azoth_rosenthal.so
 %{translations_dir}/%{name}_azoth_rosenthal*
 %{settings_dir}/azothrosenthalsettings.xml
+
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
+%files azoth-shx
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_azoth_shx.so
+%{_datadir}/%{name}/settings/azothshxsettings.xml
+%endif
+%endif
 
 %files azoth-standardstyles
 %defattr(-,root,root)
