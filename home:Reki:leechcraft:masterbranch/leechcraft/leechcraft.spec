@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-307-ga00d635
+%define LEECHCRAFT_VERSION 0.5.85-317-gb5a47cb
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -1268,6 +1268,7 @@ Summary:        LeechCraft Monocle - Another PDF Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-monocle = %{version}
+Requires:       mupdf
 Provides:       %{name}-monocle-subplugin
 
 %description monocle-mu
