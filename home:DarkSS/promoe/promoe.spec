@@ -36,7 +36,7 @@ make %{?_smp_mflags}
 
 %install
 make INSTALL_ROOT=%{buildroot} install
-%suse_update_desktop_file %{name}
+%suse_update_desktop_file -r %{name} 'AudioVideo;Player;Qt;'
 
 %files
 %defattr(-,root,root)
