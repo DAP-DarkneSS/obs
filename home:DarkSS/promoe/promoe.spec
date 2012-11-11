@@ -22,7 +22,12 @@ BuildRequires:  libqt4-devel
 BuildRequires:  update-desktop-files
 BuildRequires:  xmms2-devel
 Requires:       xmms2
+Requires:       xmms2-plugin-curl
+Requires:       xmms2-plugin-id3v2
+Requires:       xmms2-plugin-m3u
+Requires:       xmms2-plugin-mad
 Requires:       xmms2-plugin-pulse
+Requires:       xmms2-plugin-wave
 
 %description
 Promoe is a client for the XMMS2 music daemon. Promoe’s interface
