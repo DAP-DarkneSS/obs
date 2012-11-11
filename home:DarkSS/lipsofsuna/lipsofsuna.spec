@@ -55,7 +55,11 @@ BuildRequires:  libenet-devel
 BuildRequires:  libinotifytools-devel
 BuildRequires:  libpng14-devel
 BuildRequires:  libvorbis-devel
+%if 0%{?suse_version} >= 1220
+BuildRequires:  lua51-devel
+%else
 BuildRequires:  lua-devel
+%endif
 BuildRequires:  openal-soft-devel
 BuildRequires:  sqlite3-devel
 BuildRequires:  update-desktop-files
