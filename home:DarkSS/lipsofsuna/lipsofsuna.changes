@@ -1,6 +1,7 @@
 Sun Nov 11 14:59:40 UTC 2012 - dap.darkness@gmail.com
 - 0.6.0 doesn't work with lua > 5.1
   * https://bugzilla.novell.com/show_bug.cgi?id=789164 was fixed.
+- Might require libOgreMain-plugins to work.
 
 -------------------------------------------------------------------
 Sun Jul 15 20:42:46 UTC 2012 - devel.openSUSE.org@gmail.com

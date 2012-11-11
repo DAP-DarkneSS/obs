@@ -64,6 +64,7 @@ BuildRequires:  openal-soft-devel
 BuildRequires:  sqlite3-devel
 BuildRequires:  update-desktop-files
 Requires:       %{name}-data = %{version}
+Requires:       libOgreMain-plugins
 
 %description
 Lips of Suna: binary files.
