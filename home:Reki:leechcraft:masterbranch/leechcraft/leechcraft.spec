@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-317-gb5a47cb
+%define LEECHCRAFT_VERSION 0.5.85-335-g59204ac
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -669,7 +669,7 @@ It is based on Hunspell or Myspell dictionaries.
 %if 0%{suse_version} >= 1210
 %if %qtversion >= 40800
 %package azoth-shx
-Summary:        LeechCraft Azoth - ShX Module
+Summary:        LeechCraft Azoth - Shell command runner Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 
@@ -1174,6 +1174,7 @@ Requires:       %{name} = %{version}
 Recommends:     ffmpeg
 Recommends:     %{name}-deadlyrics
 Recommends:     %{name}-lastfmscrobble = %{version}
+Recommends:     %{name}-musiczombie = %{version}
 Requires:       libqt4 >= 4.8
 
 %description lmp
@@ -1312,6 +1313,21 @@ This package contains a Djvu subplugin for LeechCraft Monocle.
 
 This package provides Djvu documents support for Document viewer Module
 via the DjvuLibre backend.
+%endif
+%endif
+
+
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
+%package musiczombie
+Summary:        LeechCraft Azoth - MusicBrainz.org client Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-lmp = %{version}
+Requires:       libqt4 >= 4.8
+
+%description musiczombie
+This package provides a MusicBrainz.org client plugin for LeechCraft.
 %endif
 %endif
 
@@ -1913,6 +1929,7 @@ cmake ../src \
         -DENABLE_LMP=True \
         -DENABLE_MONOCLE=True \
         -DENABLE_MONOCLE_MU=True \
+        -DENABLE_MUSICZOMBIE=True \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_OTLOZHU=True \
         -DENABLE_POGOOGLUE=True \
@@ -1920,7 +1937,7 @@ cmake ../src \
         -DENABLE_TORRENT=True \
         -DENABLE_VROOBY=True \
 %else
-        -DENABLE_AZOTH_FALSE=True \
+        -DENABLE_AZOTH_SHX=False \
         -DENABLE_BLOGIQUE=False \
         -DENABLE_GMAILNOTIFIER=False \
         -DENABLE_HOTSTREAMS=False \
@@ -1928,6 +1945,7 @@ cmake ../src \
         -DENABLE_LMP=False \
         -DENABLE_MONOCLE=False \
         -DENABLE_MONOCLE_MU=False \
+        -DENABLE_MUSICZOMBIE=False \
         -DENABLE_NETSTOREMANAGER=False \
         -DENABLE_OTLOZHU=False \
         -DENABLE_POGOOGLUE=False \
@@ -2489,6 +2507,14 @@ EOF
 %files monocle-seen
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_seen.so
+%endif
+%endif
+
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
+%files musiczombie
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_musiczombie.so
 %endif
 %endif
 
