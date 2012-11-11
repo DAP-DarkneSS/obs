@@ -4,7 +4,7 @@
 # Copyright (c) 2005-2012 lorquotes.ru (quotes), (c) 2012 Perlow Dmitriy A. (spec file)
 #
 
-%define _date 20120802
+%define _date 20121111
 
 Name:           fortunes-lor-quotes
 Version:        date.%{_date}
@@ -54,6 +54,9 @@ rm -rf %{buildroot}
 %{_datadir}/fortune/lor-quotes*
 
 %changelog
+* Sun Nov 11 2012 DA <dap.darkness@gmail.com> - 20121111-1
+- Date 20121111.
+
 * Thu Aug 02 2012 DA <dap.darkness@gmail.com> - 20120802-1
 - Date 20120802.
 
