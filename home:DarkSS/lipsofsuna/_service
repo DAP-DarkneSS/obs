@@ -1,13 +1,3 @@
 <services>
-  <service name="tar_scm">
-    <param name="scm">git</param>
-    <param name="url">git://lipsofsuna.git.sourceforge.net/gitroot/lipsofsuna/lipsofsuna</param>
-    <param name="versionprefix">git</param>
-    <param name="filename">lipsofsuna-ogre</param>
-  </service>
-  <service name="recompress">
-    <param name="file">*.tar</param>
-    <param name="compression">bz2</param>
-  </service>
-  
+  <service name="download_files"/>
 </services>

@@ -1,0 +1,15 @@
+--- src/lipsofsuna/extension/vision/ext-vision-listener.c.orig	2012-07-16 12:42:28.416712671 +0300
++++ src/lipsofsuna/extension/vision/ext-vision-listener.c	2012-07-16 12:45:28.060712758 +0300
+@@ -311,7 +311,12 @@
+ 				continue;
+ 
+ 			/* Create an event. */
++
++#if LUA_VERSION_NUM > 501
++                       lua_pushnumber (lua, lua_rawlen (lua, -1) + 1);
++#else
+ 			lua_pushnumber (lua, lua_objlen (lua, -1) + 1);
++#endif
+ 			lua_newtable (lua);
+ 			lua_pushnumber (lua, index);
+ 			lua_setfield (lua, -2, "index");
