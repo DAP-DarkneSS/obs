@@ -1,0 +1,10 @@
+--- main.cpp.orig	2012-10-28 12:49:18.000000000 +0300
++++ main.cpp	2012-11-13 22:15:45.029000027 +0300
+@@ -9,6 +9,7 @@
+ #include <kconfig.h>
+ #include <kconfiggroup.h>
+ #include <kstandarddirs.h>
++#include <unistd.h>
+ 
+ //Qt header files
+ #include <QDebug>
