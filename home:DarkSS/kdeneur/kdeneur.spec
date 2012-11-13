@@ -34,7 +34,7 @@ It also allows to configure XNeur via GUI dialog.
 %patch1
 
 %build
-qmake QMAKE_CXXFLAGS+="%{optflags}" PREFIX=/usr
+qmake QMAKE_CFLAGS+="%{optflags}" QMAKE_CXXFLAGS+="%{optflags}" PREFIX=/usr
 make %{?_smp_mflags}
 
 %install
