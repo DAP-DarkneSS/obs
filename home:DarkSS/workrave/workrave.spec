@@ -10,6 +10,10 @@ Summary:        Recovery and prevention of Repetitive Strain Injury program
 Url:            http://www.workrave.org
 Group:          Productivity/Other
 Source:         %{name}-%{version}.tar.bz2
+%if 0%{?suse_version} >= 1220
+BuildRequires:  autoconf
+BuildRequires:  automake
+%endif
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  gdome2-devel
@@ -21,6 +25,9 @@ BuildRequires:  libgmodule-2_0-0
 BuildRequires:  libgthread-2_0-0
 BuildRequires:  libpulse-devel
 BuildRequires:  libsigc++2-devel
+%if 0%{?suse_version} >= 1220
+BuildRequires:  libtool
+%endif
 BuildRequires:  glibmm2-devel
 BuildRequires:  pkg-config
 BuildRequires:  pkgconfig(glib-2.0)
