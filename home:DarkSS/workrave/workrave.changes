@@ -1,0 +1,117 @@
+-------------------------------------------------------------------
+Mon Nov  7 13:16:57 UTC 2011 - lijewski.stefan@gmail.com
+
+- update to version 1.9.901 (git branch):
+  * correctly build on Factory (gnome3) 
+  *split packages for Factory 
+
+-------------------------------------------------------------------
+Mon Apr 11 11:31:46 UTC 2011 - lijewski.stefan@gmail.com
+
+- update to version 1.9.4
+- merge to only one package (without gnome and kde version)
+- kde build is broken according to configure options
+
+-------------------------------------------------------------------
+Wed Feb 11 17:22:28 CET 2009 - sbrabec@suse.cz
+
+- Use correct gstreamer package name.
+
+-------------------------------------------------------------------
+Thu Oct 16 14:51:33 CEST 2008 - sbrabec@suse.cz
+
+- Call intltoolize as last action to prevent build failures.
+
+-------------------------------------------------------------------
+Tue Sep 16 23:41:47 CEST 2008 - ro@suse.de
+
+- fix build regardless of libtool version 
+
+-------------------------------------------------------------------
+Mon Sep  1 16:42:25 CEST 2008 - sbrabec@suse.cz
+
+- Updated to version 1.9.0:
+  * Fixed transparency of tray icon
+  * improved 64 bit support
+  * exercises are now randomized
+  * extended DBUS support
+  * networking support can now be enabled without accepting
+    incoming connections from other Workraves
+  * sound has been added
+
+-------------------------------------------------------------------
+Tue Apr 29 13:45:08 CEST 2008 - sbrabec@suse.cz
+
+- Added Fedora patches:
+  * fix locking/unlocking with gnome-screensaver (redhat#207058)
+  * build with gcc-4.3
+  * build GNOME applet with the latest libsigc++2
+- Fixed build of KDE applet with the latest libsigc++2.
+- Added desktop file.
+
+-------------------------------------------------------------------
+Mon Oct 29 14:31:59 CET 2007 - sbrabec@suse.cz
+
+- Updated to version 1.8.5:
+  * Task manager is never blocked by Workrave
+  * Many bug fixes, the most visible ones:
+    * Fixed breaks that have 'suspend timer when inactive' disabled
+    * Mode menu fixed.
+    * Gnome applet no longer 'hangs'.
+    * Gnome applet no longer crashes Workrave.
+    * Fixed 'end-of-microbreak' sound.
+    * Fixed bug in multi-head support where Workrave showed multiple
+      windows on a single screen.
+    * Fixed locking on Gnome with xscreensaver installed
+  * Polish on the applets
+  * Translations updated
+- Fixed gcc 4.3 errors.
+
+-------------------------------------------------------------------
+Thu Oct 11 16:39:38 CEST 2007 - sbrabec@suse.cz
+
+- Removed bogus dependency on mDNSResponder.
+
+-------------------------------------------------------------------
+Sun Aug 12 00:48:40 CEST 2007 - mrueckert@suse.de
+
+- switch to %lang_package -n
+- fixed typo in requires of workrave-kde
+
+-------------------------------------------------------------------
+Tue Aug  7 18:20:05 CEST 2007 - maw@suse.de
+
+- Use %fdupes
+- Split off -lang subpackages.
+
+-------------------------------------------------------------------
+Sun Jan 28 22:53:12 CET 2007 - ro@suse.de
+
+- make it build after GNOME moved to /usr 
+
+-------------------------------------------------------------------
+Mon Oct 23 12:33:27 CEST 2006 - sbrabec@suse.cz
+
+- Updated to version 1.8.3:
+  * 100% CPU load fix.
+  * GNOME screen saver support added.
+  * The applet popup menu is now accessible when all timers hidden.
+  * Translations updated.
+  * Bug fixes.
+
+-------------------------------------------------------------------
+Wed Jan 25 21:32:42 CET 2006 - mls@suse.de
+
+- converted neededforbuild to BuildRequires
+
+-------------------------------------------------------------------
+Fri Dec 23 01:11:16 CET 2005 - ro@suse.de
+
+- provide main package name in one subpackage
+  (needed for debuginfo since we do not have a main package here) 
+
+-------------------------------------------------------------------
+Thu Dec 15 17:42:20 CET 2005 - sbrabec@suse.cz
+
+- New SuSE package, version 1.8.1.
+
