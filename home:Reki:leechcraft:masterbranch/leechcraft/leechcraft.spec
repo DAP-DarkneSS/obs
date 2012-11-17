@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-353-gbf29f53
+%define LEECHCRAFT_VERSION 0.5.85-398-g56fda0f
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -2052,7 +2052,6 @@ EOF
 %dir %{_datadir}/%{name}/installed
 %dir %{settings_dir}
 %dir %{translations_dir}
-%dir %{_datadir}/%{name}/scripts
 %dir %{_datadir}/%{name}/qml
 %{translations_dir}/leechcraft_??.qm
 %{translations_dir}/leechcraft_??_??.qm
@@ -2079,11 +2078,12 @@ EOF
 %{settings_dir}/aggregatorsettings.xml
 %{translations_dir}/%{name}_aggregator*.qm
 %{plugin_dir}/*%{name}_aggregator.so
-%{_datadir}/%{name}/scripts/aggregator/
 
 %files aggregator-bodyfetch
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_aggregator_bodyfetch.so
+%dir %{_datadir}/%{name}/scripts
+%{_datadir}/%{name}/scripts/aggregator/
 
 %files anhero
 %defattr(-,root,root)
