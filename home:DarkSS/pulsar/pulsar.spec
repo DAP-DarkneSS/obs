@@ -21,7 +21,6 @@ URL:            http://forum.ubuntu.ru/index.php?topic=203220
 #Source0:        https://launchpad.net/~yuberion/+archive/pulsar/+files/%{name}_%{version}-%{subver}.tar.gz
 Source0:        http://dl.dropbox.com/u/74553863/pulsar/pulsar_0.91-13.tar.gz
 
-#BuildRequires:  -post-build-checks
 %if 0%{suse_version} > 1210
 BuildRequires:  gstreamer-0_10-plugins-qt-devel
 %endif
@@ -30,6 +29,7 @@ BuildRequires:  gstreamer-0_10-plugins-base-devel
 BuildRequires:  libqt4-devel
 BuildRequires:  libQtGStreamer-0_10-devel
 BuildRequires:  update-desktop-files
+Requires:       gstreamer-0_10-plugins-fluendo_mp3
 Recommends:     gstreamer-0_10-plugins-ugly
 
 %description
