@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-398-g56fda0f
+%define LEECHCRAFT_VERSION 0.5.85-437-g806d815
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -2042,6 +2042,7 @@ EOF
 %doc README COPYING
 %{_bindir}/%{name}
 %{_bindir}/%{name}-add-file
+%{_bindir}/%{name}-handle-file
 %{settings_dir}/coresettings.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/*/*
