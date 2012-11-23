@@ -23,14 +23,13 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-437-g806d815
+%define LEECHCRAFT_VERSION 0.5.85-448-g902e56a
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 Source0:        %{name}-%{version}.tar.bz2
-Source1:        %{name}.desktop
 BuildRequires:  hunspell-devel
 BuildRequires:  boost-devel
 BuildRequires:  cmake > 2.8
