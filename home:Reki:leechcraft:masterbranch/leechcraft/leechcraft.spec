@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-461-g75977e5
+%define LEECHCRAFT_VERSION 0.5.85-474-g8a8b0c6
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -60,6 +60,7 @@ BuildRequires:  taglib-devel
 BuildRequires:  libdjvulibre-devel
 BuildRequires:  liblastfm-devel
 BuildRequires:  libpoppler-qt4-devel
+BuildRequires:  libspectre-devel
 BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
 BuildRequires:  libqjson-devel
 BuildRequires:  mupdf-devel
@@ -1300,6 +1301,24 @@ via the Poppler backend.
 
 %if 0%{suse_version} >= 1210
 %if %qtversion >= 40800
+%package monocle-postrus
+Summary:        LeechCraft Monocle - PostScript Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-monocle = %{version}
+Provides:       %{name}-monocle-subplugin
+
+%description monocle-postrus
+This package contains a PostRus subplugin for LeechCraft Monocle.
+
+This package provides PostScript documents support for Document viewer Module
+via the libSpectre backend.
+%endif
+%endif
+
+
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
 %package monocle-seen
 Summary:        LeechCraft Monocle - Djvu Module
 Group:          Productivity/Networking/Other
@@ -1995,6 +2014,15 @@ cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
 %endif
 
 %suse_update_desktop_file -i %{name}
+%suse_update_desktop_file -i %{name}-bittorrent
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
+%suse_update_desktop_file -i %{name}-monocle-fxb
+%suse_update_desktop_file -i %{name}-monocle-pdf
+%suse_update_desktop_file -i %{name}-monocle-postrus
+%suse_update_desktop_file -i %{name}-monocle-seen
+%endif
+%endif
 
 #-------------------------patterns----------------------------#
 %__install -d %{buildroot}%{_docdir}/%{name}
@@ -2265,6 +2293,7 @@ EOF
 %{settings_dir}/torrentsettings.xml
 %{translations_dir}/%{name}_bittorrent_*.qm
 %{plugin_dir}/*%{name}_bittorrent.so
+%{_datadir}/applications/%{name}-bittorrent.desktop
 %endif
 %endif
 
@@ -2483,6 +2512,7 @@ EOF
 %files monocle-fxb
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_fxb.so
+%{_datadir}/applications/%{name}-monocle-fxb.desktop
 %endif
 %endif
 
@@ -2499,6 +2529,16 @@ EOF
 %files monocle-pdf
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_pdf.so
+%{_datadir}/applications/%{name}-monocle-pdf.desktop
+%endif
+%endif
+
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
+%files monocle-postrus
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_monocle_postrus.so
+%{_datadir}/applications/%{name}-monocle-postrus.desktop
 %endif
 %endif
 
@@ -2507,6 +2547,7 @@ EOF
 %files monocle-seen
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_seen.so
+%{_datadir}/applications/%{name}-monocle-seen.desktop
 %endif
 %endif
 
