@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-474-g8a8b0c6
+%define LEECHCRAFT_VERSION 0.5.85-491-g1e181cc
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -2014,9 +2014,11 @@ cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
 %endif
 
 %suse_update_desktop_file -i %{name}
-%suse_update_desktop_file -i %{name}-bittorrent
+%suse_update_desktop_file -i %{name}-azoth-acetamide
+%suse_update_desktop_file -i %{name}-azoth-xoox
 %if 0%{suse_version} >= 1210
 %if %qtversion >= 40800
+%suse_update_desktop_file -i %{name}-bittorrent
 %suse_update_desktop_file -i %{name}-monocle-fxb
 %suse_update_desktop_file -i %{name}-monocle-pdf
 %suse_update_desktop_file -i %{name}-monocle-postrus
@@ -2139,6 +2141,7 @@ EOF
 %{settings_dir}/azothacetamidesettings.xml
 %{translations_dir}/%{name}_azoth_acetamide*
 %{plugin_dir}/*%{name}_azoth_acetamide.so
+%{_datadir}/applications/%{name}-azoth-acetamide.desktop
 
 %files azoth-adiumstyles
 %defattr(644,root,root,755)
@@ -2274,6 +2277,7 @@ EOF
 %defattr(-,root,root)
 %{translations_dir}/%{name}_azoth_xoox*
 %{plugin_dir}/*%{name}_azoth_xoox.so
+%{_datadir}/applications/%{name}-azoth-xoox.desktop
 
 %files azoth-xtazy
 %defattr(-,root,root)
