@@ -67,6 +67,9 @@ rm -rf %{buildroot}
 %attr(755,root,root) %{_bindir}/%{name}
 
 %changelog
+* Sun Nov 25 2012 DA <dap.darkness@gmail.com> - 20121125-1
+- Revision 257 with floating window.
+
 * Wed Nov 06 2012 DA <dap.darkness@gmail.com> - 20121106-1
 - Revision 252 with url import from files.
 
