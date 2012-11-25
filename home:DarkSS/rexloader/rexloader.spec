@@ -12,9 +12,9 @@ Version:        0.1a.rev
 Release:        1
 Summary:        An advanced Qt download manager over http
 
-Group:          Productivity/Networking/Other
 License:        GPL-3.0
-URL:            http://code.google.com/p/rexloader/
+Url:            http://code.google.com/p/rexloader/
+Group:          Productivity/Networking/Other
 Source0:        %{name}-%{version}.tar.bz2
 
 BuildRequires:  libqt4-devel
