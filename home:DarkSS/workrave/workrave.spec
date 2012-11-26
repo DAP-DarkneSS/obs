@@ -3,13 +3,13 @@
 #
 
 Name:           workrave
-Version:        1.9.901
+Version:        1.9.4
 Release:        1
 License:        LGPL, GPL, BSD-like
 Summary:        Recovery and prevention of Repetitive Strain Injury program
 Url:            http://www.workrave.org
 Group:          Productivity/Other
-Source:         %{name}-%{version}.tar.bz2
+Source:         %{name}-%{version}.tar.gz
 %if 0%{?suse_version} >= 1220
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -32,24 +32,12 @@ BuildRequires:  glibmm2-devel
 BuildRequires:  pkg-config
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gstreamer-0.10)
-%if 0%{?suse_version} > 1140
-BuildRequires:  gobject-introspection-devel
-BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  pkgconfig(gdk-3.0)
-BuildRequires:  pkgconfig(gtkmm-3.0)
-BuildRequires:  gconfmm-devel
-Requires:       libworkrave-1_0-0
-%else
 BuildRequires:  pkgconfig(gtk+-2.0)
 BuildRequires:  gtkmm2-devel
-%endif
 BuildRequires:  python-cheetah
 BuildRequires:  update-desktop-files
 BuildRequires:  xorg-x11-Xvfb
 BuildRequires:  xorg-x11-devel
-
-#makefile for gnome3 panel is missing gio-unix cflags
-Patch0:        workrave-1.9.901-gnome3-panel-makefile.patch
 
 %description
 Workrave is a program that assists in the recovery and prevention of Repetitive Strain Injury (RSI). The program frequently alerts you to take micro-pauses, rest breaks and restricts you to your daily limit.
@@ -74,7 +62,6 @@ Group:          Productivity/Other
 
 %prep
 %setup -q
-%patch0
 
 %build
 ./autogen.sh
