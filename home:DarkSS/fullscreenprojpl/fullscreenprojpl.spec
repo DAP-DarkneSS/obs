@@ -33,7 +33,7 @@ during the full-screen viewing of the video.
 %setup -q -n FullScreenProj.pl-%{version}
 
 %build
-gzip ./man/man1/fsproj.1
+# gzip ./man/man1/fsproj.1
 
 %install
 mkdir -p %{buildroot}%{_bindir}

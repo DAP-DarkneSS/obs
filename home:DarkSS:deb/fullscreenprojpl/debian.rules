@@ -24,7 +24,6 @@ build-stamp:
 	pwd
 	if cd build_dir ; then echo "Changed"; else echo "Some Errors"; fi
 	pwd
-	gzip ./man/man1/fsproj.1
 
 	touch build-stamp
 
