@@ -10,9 +10,9 @@ Version:        0.7.4
 Release:        1
 Summary:        System Profiler and Benchmark
 
-Group:          System/Benchmark
 License:        MIT
-URL:            http://betatester.bir.ru/sysinfolinux.html
+Url:            http://betatester.bir.ru/sysinfolinux.html
+Group:          System/Benchmark
 Source0:        http://betatester.bir.ru/Downloads/%{name}4linux074.tar.bz2
 Source1:        %{name}.png
 
@@ -38,8 +38,8 @@ It's a library for sysinfo.
 mkdir -p %{buildroot}%{_bindir}
 %{__install} ./%{name} %{buildroot}%{_bindir}/%{name}-bin
 
-mkdir -p %{buildroot}/usr/lib
-cp -P ./libcpubench.s* %{buildroot}/usr/lib
+mkdir -p %{buildroot}%{_prefix}/lib
+cp -P ./libcpubench.s* %{buildroot}%{_prefix}/lib
 
 echo -e '#!/bin/sh'"\n\ncd /usr/lib\n%{name}-bin" > %{buildroot}%{_bindir}/%{name}4linux
 # The binary file should be run from the libs directory.
@@ -64,6 +64,6 @@ rm -rf %{buildroot}
 
 %files -n libcpubench1
 %defattr(-,root,root)
-/usr/lib/libcpubench.s*
+%{_prefix}/lib/libcpubench.s*
 
 %changelog
