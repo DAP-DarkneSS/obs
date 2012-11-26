@@ -6,14 +6,14 @@
 #
 
 Name:           sysinfo
-Version:        0.7.4
+Version:        0.7.5
 Release:        1
 Summary:        System Profiler and Benchmark
 
 License:        MIT
 Url:            http://betatester.bir.ru/sysinfolinux.html
 Group:          System/Benchmark
-Source0:        http://betatester.bir.ru/Downloads/%{name}4linux074.tar.bz2
+Source0:        http://betatester.bir.ru/Downloads/%{name}4linux075.tar.bz2
 Source1:        %{name}.png
 
 BuildRequires:  update-desktop-files
@@ -51,9 +51,6 @@ mkdir -p %{buildroot}%{_datadir}/pixmaps
 %post -n libcpubench1 -p /sbin/ldconfig
 
 %postun -n libcpubench1 -p /sbin/ldconfig
-
-%clean
-rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
