@@ -1,0 +1,17 @@
+<aggregatelist>
+  <aggregate project="devel:languages:perl">
+    <package>perl-Wx</package>
+    <package>perl-IO-CaptureOutput</package>
+    <package>perl-XML-Filter-BufferText</package>
+    <package>perl-XML-Handler-YAWriter</package>
+    <package>perl-XML-SAX-Writer</package>
+    <package>perl-XML-Simple</package>
+    <package>perl-Test-Pod</package>
+    <package>perl-HTML-Tidy</package>
+    <package>perl-Text-Wrapper</package>
+    <package>perl-Encode</package>
+  </aggregate>
+  <aggregate project="devel:languages:perl:CPAN-T">
+    <package>perl-Test</package>
+  </aggregate>
+</aggregatelist>
