@@ -1,7 +1,7 @@
 #
 # spec file for package perl-XML-Twig
 #
-# Copyright (c) 2011 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,19 +16,41 @@
 #
 
 
-
 Name:           perl-XML-Twig
-Version:        3.39
-Release:        1
-License:        GPL-1.0+ or Artistic-1.0
+Version:        3.42
+Release:        0
 Summary:        Tree interface to XML documents
-Url:            http://search.cpan.org/dist/XML::Twig
+License:        GPL-1.0+ or Artistic-1.0
 Group:          Development/Libraries/Perl
+Url:            http://search.cpan.org/dist/XML::Twig
 # http://search.cpan.org/CPAN/authors/id/M/MI/MIROD/XML-Twig-%{version}.tar.gz
 Source:         XML-Twig-%{version}.tar.gz
+
+BuildRequires:  expat
+BuildRequires:  perl-HTML-Tidy
+BuildRequires:  perl-IO-CaptureOutput
+BuildRequires:  perl-Test-Pod
+BuildRequires:  perl-Text-Wrapper
+BuildRequires:  perl-Tie-IxHash
+BuildRequires:  perl-XML-Filter-BufferText
+BuildRequires:  perl-XML-Handler-YAWriter
 BuildRequires:  perl-XML-Parser
+BuildRequires:  perl-XML-SAX-Writer
+BuildRequires:  perl-XML-Simple
+BuildRequires:  perl-XML-XPath
+BuildRequires:  perl-XML-XPathEngine
 BuildRequires:  perl-macros
+
+Requires:       expat
+Requires:       perl-Encode
 Requires:       perl-XML-Parser
+
+Recommends:     perl-HTML-Tidy
+Recommends:     perl-Text-Wrapper
+Recommends:     perl-Tie-IxHash
+Recommends:     perl-XML-XPath
+Recommends:     perl-XML-XPathEngine
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %{perl_requires}
 
