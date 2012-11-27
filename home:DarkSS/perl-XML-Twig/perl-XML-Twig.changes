@@ -1,0 +1,79 @@
+-------------------------------------------------------------------
+Fri Sep 23 16:33:24 UTC 2011 - vcizek@suse.com
+
+- update to 3.39
+  - no upstream changelog,
+    see https://github.com/mirod/xmltwig/commits/master
+    for individual commits
+- licence correction
+
+-------------------------------------------------------------------
+Sun Feb 27 23:43:46 UTC 2011 - pascal.bleser@opensuse.org
+
+- update to 3.38:
+  * fixed: RT#65865: _ should be allowed at the start on an XML name
+  * removed: making att and class lvalues created problems: in certain context
+    they made regular calls to the method create empty        attributes. I
+    could find no satisfactory fix,they were either incompletes, or to complex
+    for often used methods. So att and class are back to being regular, non
+    l-value methods.  latt and lclass are the l-value versions.
+  * added: documented the -html option for xml_grep, that allows processing
+    HTML input
+  * added: the -Tidy option to xml_grep, that uses HTML::Tidy to convert HTML
+    to XML
+
+-------------------------------------------------------------------
+Thu Dec 16 13:39:34 CET 2010 - anicka@suse.cz
+
+- update to 3.37
+ *fixed: more tests fixed for HTML::TreeBuilder, hopefully 
+  will pass now
+
+-------------------------------------------------------------------
+Wed Dec  1 13:36:22 UTC 2010 - coolo@novell.com
+
+- switch to perl_requires macro
+
+-------------------------------------------------------------------
+Mon Nov 29 18:32:30 UTC 2010 - coolo@novell.com
+
+- remove /var/adm/perl-modules
+
+-------------------------------------------------------------------
+Thu Oct  7 18:13:15 CEST 2010 - anicka@suse.cz
+
+- update to 3.36
+ * bugfixes
+
+-------------------------------------------------------------------
+Fri Jul 16 15:13:02 CEST 2010 - anicka@suse.cz
+
+- update to 3.35
+ * bugfixes
+
+-------------------------------------------------------------------
+Mon Jan 25 13:41:30 CET 2010 - anicka@suse.cz
+
+- update to 3.34
+ * bugfixes, test suite fixes
+
+-------------------------------------------------------------------
+Wed Nov 21 10:57:58 CET 2007 - anicka@suse.cz
+
+- update to 3.32
+ * bugfixes, test fixes
+ * fixed a couple of bugs in namespace handling
+ * added the XML::Twig::Elt fields method which returns a list of
+   fields 
+ * added the normalize method in XML::Twig and XML::Twig::Elt
+ * added the indented_a / cvs format for pretty_print,
+ * Added the XML::Twig method finish_now that terminates parsing
+   immediately, without checking the rest of the XML. 
+ * HTML parsing improved: XML::Twig now tries to find the proper
+   encoding for the document 
+
+-------------------------------------------------------------------
+Thu Oct 18 16:55:24 CEST 2007 - anicka@suse.cz
+
+- package created (version 3.29) [#297511] 
+
