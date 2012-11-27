@@ -86,9 +86,6 @@ make test
 %perl_make_install
 %perl_process_packlist
 
-%clean
-%{?buildroot:rm -rf %{buildroot}}
-
 %files
 %defattr(-,root,root)
 %doc Changes README
