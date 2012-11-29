@@ -1,6 +1,6 @@
 Format: 1.0
 Source: fullscreenprojpl
-Version: 0.6.git
+Version: 0.7.git
 Binary: fullscreenprojpl
 Maintainer: Dmitriy Perlow <dap.darkness@gmail.com>
 Homepage: https://github.com/drone-pl/FullScreenProj.pl

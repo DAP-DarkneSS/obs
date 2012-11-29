@@ -49,7 +49,11 @@ install: build
 	mkdir -p $(CURDIR)/debian/fullscreenprojpl/usr/share/doc/fullscreenprojpl
 	cp -R ./README* $(CURDIR)/debian/fullscreenprojpl/usr/share/doc/fullscreenprojpl
 	mkdir -p $(CURDIR)/debian/fullscreenprojpl/usr/share/man/man1
-	cp -R ./man/man1/fsproj.1.gz $(CURDIR)/debian/fullscreenprojpl/usr/share/man/man1
+	cp -R ./share/man/man1/fsproj.1.gz $(CURDIR)/debian/fullscreenprojpl/usr/share/man/man1
+	mkdir -p $(CURDIR)/debian/fullscreenprojpl/usr/share/icons/fsproj
+	cp -R ./share/icons/fsproj/*.xpm $(CURDIR)/debian/fullscreenprojpl/usr/share/icons/fsproj
+	mkdir -p $(CURDIR)/debian/fullscreenprojpl/usr/share/applications
+	cp -R ./share/applications/fsproj.desktop $(CURDIR)/debian/fullscreenprojpl/usr/share/applications
 
 
 # Build architecture-independent files here.

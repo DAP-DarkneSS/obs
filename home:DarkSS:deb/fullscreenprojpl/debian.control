@@ -6,7 +6,7 @@ Build-Depends: gzip, cdbs, build-essential, debhelper (>= 4.1.16)
 
 Package: fullscreenprojpl
 Architecture: all
-Depends: libfile-homedir-perl, libproc-processtable-perl, libnet-dbus-perl, x11-utils, x11-xserver-utils, ${shlibs:Depends}
+Depends: libfile-homedir-perl, libproc-processtable-perl, libnet-dbus-perl, libwx-perl, x11-utils, x11-xserver-utils, ${shlibs:Depends}
 Description: A screen saver suppresser
  A perl daemon to suppress the screen saver
  during the full-screen viewing of the video;

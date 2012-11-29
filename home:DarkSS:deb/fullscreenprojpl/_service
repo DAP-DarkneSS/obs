@@ -2,7 +2,7 @@
   <service name="tar_scm">
     <param name="url">git://github.com/drone-pl/FullScreenProj.pl.git</param>
     <param name="scm">git</param>
-    <param name="versionprefix">0.6.git</param>
+    <param name="versionprefix">0.7.git</param>
   </service>
   <service name="recompress">
     <param name="file">*.tar</param>

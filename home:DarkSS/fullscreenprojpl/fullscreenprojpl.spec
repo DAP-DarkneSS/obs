@@ -38,7 +38,6 @@ during the full-screen viewing of the video.
 %setup -q -n %{gitname}-%{version}
 
 %build
-# gzip ./man/man1/fsproj.1
 
 %install
 mkdir -p %{buildroot}%{_bindir}
