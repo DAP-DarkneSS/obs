@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-507-g60a6166
+%define LEECHCRAFT_VERSION 0.5.85-600-gcde610a
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -2058,6 +2058,7 @@ EOF
 %fdupes -s %{buildroot}%{_datadir}/%{name}/translations
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth
 %fdupes -s %{buildroot}%{_datadir}/%{name}/global_icons/flags
+%fdupes -s %{buildroot}%{_datadir}/%{name}/themes
 %fdupes -s %{buildroot}%{_docdir}/%{name}-doc/
 %fdupes -s %{buildroot}%{_docdir}/%{name}-azoth-doc/
 #%%fdupes -s %%{buildroot}%%{_datadir}/icons/oxygen
@@ -2093,6 +2094,9 @@ EOF
 %{_datadir}/%{name}/sounds
 %dir %{_datadir}/%{name}/global_icons
 %{_datadir}/%{name}/global_icons/*
+%dir %{_datadir}/%{name}/themes
+%dir %{_datadir}/%{name}/themes/*
+%{_datadir}/%{name}/themes/*/*.rc
 %exclude %{_datadir}/cmake/Modules/InitLCPlugin.cmake
 %exclude %{_docdir}/%{name}/meta_*
 
