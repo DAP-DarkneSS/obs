@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-600-gcde610a
+%define LEECHCRAFT_VERSION 0.5.85-605-g6ca470a
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -1122,6 +1122,20 @@ Features:
 %endif
 
 
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
+%package launchy
+Summary:        LeechCraft Launcher Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-sb = %{version}
+
+%description launchy
+This package provides a third-party application launcher plugin for Leechcraft.
+%endif
+%endif
+
+
 #%%package lcftp
 #Summary:        LeechCraft FTP Client Module
 #Group:          Productivity/Networking/Other
@@ -1660,6 +1674,22 @@ It provides support for the Read it Later service.
 #suitable LeechCraft's media player thus avoiding the exigency of Flash.
 
 
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
+%package sb2
+Summary:        LeechCraft SideBar2 Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Provides:       %{name}-sb = %{version}
+
+%description sb2
+This package provides another side bar plugin for Leechcraft.
+
+It is a next-gen fluid sidebar with quick launch, tabs and tray areas.
+%endif
+%endif
+
+
 %package secman
 Summary:        LeechCraft Security manager Module
 Group:          Productivity/Networking/Other
@@ -1738,6 +1768,7 @@ player instead of LC's one.
 Summary:        LeechCraft Sidebar Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Provides:       %{name}-sb = %{version}
 
 %description sidebar
 This package provides a side bar plugin for Leechcraft.
@@ -1833,6 +1864,19 @@ This package provides a tabs list plugin for Leechcraft.
 It allows to show the list of currently opened tabs
 and allows to quickly navigate between them.
 
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
+%package tpi
+Summary:        LeechCraft Task Progress Indicator Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-sb2 = %{version}
+
+%description tpi
+This package provides a Task Progress Indicator quark plugin for Leechcraft.
+%endif
+%endif
+
 
 %package vgrabber
 Summary:        LeechCraft Vkontakte grabber Module
@@ -1857,7 +1901,7 @@ Features:
 Summary:        LeechCraft Removable storage devices Manager
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Requires:       %{name}-sidebar = %{version}
+Requires:       %{name}-sb = %{version}
 Requires:       udisks
 Requires:       libqt4 >= 4.8
 
@@ -1912,7 +1956,6 @@ cmake ../src \
         -DENABLE_KNOWHOW=True \
         -DENABLE_LACKMAN=True \
         -DENABLE_LADS=False \
-        -DENABLE_LAUNCHY=False \
         -DENABLE_LEMON=False \
         -DENABLE_LHTR=True \
         -DENABLE_LIZNOO=True \
@@ -1923,13 +1966,11 @@ cmake ../src \
         -DENABLE_POPISHU=True \
         -DENABLE_QROSP=False \
         -DENABLE_SECMAN=True \
-        -DENABLE_SB2=False \
         -DENABLE_SIDEBAR=True \
         -DENABLE_SHELLOPEN=True \
         -DENABLE_SNAILS=False \
         -DENABLE_SYNCER=True \
         -DENABLE_TABSLIST=True \
-        -DENABLE_TPI=False \
         -DENABLE_TWIFEE=False \
         -DENABLE_VFSCORE=False \
         -DENABLE_Y7=False \
@@ -1944,6 +1985,7 @@ cmake ../src \
         -DENABLE_GMAILNOTIFIER=True \
         -DENABLE_HOTSTREAMS=True \
         -DENABLE_LASTFMSCROBBLE=True \
+        -DENABLE_LAUNCHY=True \
         -DENABLE_LMP=True \
         -DENABLE_MONOCLE=True \
         -DENABLE_MONOCLE_MU=True \
@@ -1951,8 +1993,10 @@ cmake ../src \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_OTLOZHU=True \
         -DENABLE_POGOOGLUE=True \
+        -DENABLE_SB2=True \
         -DENABLE_SHAITAN=True \
         -DENABLE_TORRENT=True \
+        -DENABLE_TPI=True \
         -DENABLE_VROOBY=True \
 %else
         -DENABLE_AZOTH_SHX=False \
@@ -1960,6 +2004,7 @@ cmake ../src \
         -DENABLE_GMAILNOTIFIER=False \
         -DENABLE_HOTSTREAMS=False \
         -DENABLE_LASTFMSCROBBLE=False \
+        -DENABLE_LAUNCHY=False \
         -DENABLE_LMP=False \
         -DENABLE_MONOCLE=False \
         -DENABLE_MONOCLE_MU=False \
@@ -1967,8 +2012,10 @@ cmake ../src \
         -DENABLE_NETSTOREMANAGER=False \
         -DENABLE_OTLOZHU=False \
         -DENABLE_POGOOGLUE=False \
+        -DENABLE_SB2=False \
         -DENABLE_SHAITAN=False \
         -DENABLE_TORRENT=False \
+        -DENABLE_TPI=False \
         -DENABLE_VROOBY=False \
 %endif
         -DUSE_POSHUKU_CLEANWEB_PCRE=True \
@@ -2457,6 +2504,15 @@ EOF
 %endif
 %endif
 
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
+%files launchy
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_launchy.so
+%{_datadir}/%{name}/translations/%{name}_launchy_*.qm
+%endif
+%endif
+
 #%%files lcftp
 #%%defattr(-,root,root)
 #%%{plugin_dir}/*%%{name}_lcftp.so
@@ -2695,6 +2751,16 @@ EOF
 #%%{translations_dir}/%%{name}_poshuku_wyfv*.qm
 #%%{plugin_dir}/*%%{name}_poshuku_wyfv.so
 
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
+%files sb2
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_sb2.so
+%dir %{_datadir}/%{name}/qml/sb2
+%{_datadir}/%{name}/qml/sb2/*
+%endif
+%endif
+
 %files secman
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_secman.so
@@ -2762,6 +2828,16 @@ EOF
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_tabslist.so
 %{translations_dir}/leechcraft_tabslist*
+
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
+%files tpi
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_tpi.so
+%dir %{_datadir}/%{name}/qml/tpi
+%{_datadir}/%{name}/qml/tpi/*.qml
+%endif
+%endif
 
 %files vgrabber
 %defattr(-,root,root)
