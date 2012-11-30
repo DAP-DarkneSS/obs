@@ -47,7 +47,7 @@ install: build
 	mkdir -p $(CURDIR)/debian/fullscreenprojpl/usr/bin
 	cp -R ./bin/fsproj $(CURDIR)/debian/fullscreenprojpl/usr/bin
 	mkdir -p $(CURDIR)/debian/fullscreenprojpl/usr/share/doc/fullscreenprojpl
-	cp -R ./README* $(CURDIR)/debian/fullscreenprojpl/usr/share/doc/fullscreenprojpl
+	cp -R ./share/doc/fullscreenprojpl/* $(CURDIR)/debian/fullscreenprojpl/usr/share/doc/fullscreenprojpl
 	mkdir -p $(CURDIR)/debian/fullscreenprojpl/usr/share/man/man1
 	cp -R ./share/man/man1/fsproj.1.gz $(CURDIR)/debian/fullscreenprojpl/usr/share/man/man1
 	mkdir -p $(CURDIR)/debian/fullscreenprojpl/usr/share/icons/fsproj

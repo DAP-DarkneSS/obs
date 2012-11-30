@@ -12,7 +12,7 @@
 %define gitname FullScreenProj.pl
 
 Name:           fullscreenprojpl
-Version:        0.6.git
+Version:        0.7.git
 Release:        1
 Summary:        A screen saver suppresser
 
@@ -52,7 +52,7 @@ mkdir -p %{buildroot}%{_datadir}/applications
 
 %files
 %defattr(-,root,root)
-%doc README*
+%doc ./share/doc/%{name}/*
 %attr(644,root,root) %doc %{_mandir}/man1/%{binname}.1.gz
 %attr(755,root,root) %{_bindir}/%{binname}
 %dir %{_datadir}/icons/%{binname}
