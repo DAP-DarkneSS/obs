@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-605-g6ca470a
+%define LEECHCRAFT_VERSION 0.5.85-622-gb0e96f0
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -1973,7 +1973,6 @@ cmake ../src \
         -DENABLE_TABSLIST=True \
         -DENABLE_TWIFEE=False \
         -DENABLE_VFSCORE=False \
-        -DENABLE_Y7=False \
 %if 0%{suse_version} > 1210
         -DENABLE_TABSESSMANAGER=True \
 %else
