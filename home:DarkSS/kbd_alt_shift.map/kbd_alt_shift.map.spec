@@ -6,16 +6,19 @@
 #
 
 Name:           kbd_alt_shift.map
-Summary:        Keyboard and Font Utilities: keymap with switching by left Alt+Shift
-URL:            http://kbd-project.org/
-Source0:        ruwin_ct_sh-UTF-8.map.bz2
 Version:        0.1
-Release:        0
-Patch1:         alt.patch
+Release:        1
 License:        GPLv2
+Summary:        Keyboard and Font Utilities: keymap with switching by left Alt+Shift
+Url:            http://kbd-project.org/
 Group:          System/Console
+Source0:        ruwin_ct_sh-UTF-8.map.bz2
+Patch1:         alt.patch
+
 BuildArch:      noarch
-Requires:       kbd
+
+Requires:       kbd < 0.15.4
+Conflicts:      kbd >= 0.15.4
 
 %description
 Load and save keyboard mapping. This is needed if you are not using
@@ -33,9 +36,6 @@ gzip -9 'ruwin_alt_sh-UTF-8.map'
 %install
 mkdir -p %{buildroot}%{_datadir}/kbd/keymaps/i386/qwerty
 %{__install} ruwin_alt_sh-UTF-8.map.gz %{buildroot}%{_datadir}/kbd/keymaps/i386/qwerty
-
-%clean
-rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
