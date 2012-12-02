@@ -1,0 +1,22 @@
+Revert commit 743cbc3ca11301598ad7da503b2238041082bb75
+---
+ src/paths.h |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+Index: kbd-1.15.2/src/paths.h
+===================================================================
+--- kbd-1.15.2.orig/src/paths.h
++++ kbd-1.15.2/src/paths.h
+@@ -18,10 +18,10 @@
+  * Default keymap, and where the kernel copy of it lives.
+  */
+ #ifdef __sparc__
+-# define DEFMAP "sunkeymap.kmap"
++# define DEFMAP "sunkeymap.map"
+ # define KERNDIR "/usr/src/linux/drivers/sbus/char"
+ #else
+-# define DEFMAP "defkeymap.kmap"
++# define DEFMAP "defkeymap.map"
+ # define KERNDIR "/usr/src/linux/drivers/char"
+ #endif
+ 

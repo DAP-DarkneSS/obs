@@ -1,0 +1,82 @@
+Index: man/man1/dumpkeys.1.in
+===================================================================
+--- man/man1/dumpkeys.1.in.orig
++++ man/man1/dumpkeys.1.in
+@@ -4,6 +4,7 @@
+ dumpkeys \- dump keyboard translation tables
+ .SH SYNOPSIS
+ .B dumpkeys
++.RI [ \-C\ '<vc>' | \-\-console='<vc>' ]
+ [
+ .B \-hilfn
+ .BI \-c charset
+@@ -197,6 +198,12 @@ This option produces an output line `cha
+ loadkeys how to interpret the keymap. (For example, "division" is
+ 0xf7 in iso-8859-1 but 0xba in iso-8859-8.)
+ .LP
++The affected console device can be specified using the 
++.I -C 
++(or
++.I --console
++) option. This option supports exactly one device name.
++.LP
+ .SH FILES
+ .PD 0
+ .TP 20
+Index: src/dumpkeys.c
+===================================================================
+--- src/dumpkeys.c.orig
++++ src/dumpkeys.c
+@@ -31,6 +31,7 @@
+ static int fd;
+ static int verbose;
+ static int nr_keys = 0;			/* probably 112, 128, 256 or 512 */
++static char * console;
+ 
+ int keymap_index[MAX_NR_KEYMAPS];	/* inverse of good_keymap */
+ int good_keymap[MAX_NR_KEYMAPS], keymapnr, allocct;
+@@ -582,6 +583,8 @@ valid options are:\n\
+ 	   --funcs-only	    display only the function key strings\n\
+ 	   --keys-only	    display only key bindings\n\
+ 	   --compose-only   display only compose key combinations\n\
++	-C <vc>\n\
++	   --console=<vc>   Indicate the virtual console device to be used.\n\
+ 	-c --charset="));
+ 	list_charsets(stderr);
+ 	fprintf(stderr, _("\
+@@ -593,7 +596,7 @@ valid options are:\n\
+ 
+ int
+ main (int argc, char *argv[]) {
+-	const char *short_opts = "hilvsnf1S:c:V";
++	const char *short_opts = "hilvsnf1S:c:C:V";
+ 	const struct option long_opts[] = {
+ 		{ "help",	no_argument,		NULL, 'h' },
+ 		{ "short-info",	no_argument,		NULL, 'i' },
+@@ -606,6 +609,7 @@ main (int argc, char *argv[]) {
+ 		{ "keys-only",	no_argument,		NULL, 'k' },
+ 		{ "compose-only",no_argument,		NULL, 'd' },
+ 		{ "charset",	required_argument,	NULL, 'c' },
++		{ "console",	required_argument,	NULL, 'C' },
+ 		{ "verbose",	no_argument,		NULL, 'v' },
+ 		{ "version",	no_argument,		NULL, 'V' },
+ 		{ NULL,	0, NULL, 0 }
+@@ -665,6 +669,9 @@ main (int argc, char *argv[]) {
+ 					usage();
+ 				printf("charset \"%s\"\n", optarg);
+ 				break;
++			case 'C':
++				console = optarg;
++				break;
+ 			case 'V':
+ 				print_version_and_exit();
+ 			case 'h':
+@@ -676,7 +683,7 @@ main (int argc, char *argv[]) {
+ 	if (optind < argc)
+ 		usage();
+ 
+-	fd = getfd(NULL);
++	fd = getfd(console);
+ 
+ 	find_nr_keys();
+ 
