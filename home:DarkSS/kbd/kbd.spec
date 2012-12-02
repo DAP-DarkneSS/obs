@@ -17,18 +17,17 @@
 
 
 Name:           kbd
-# git: git://git.altlinux.org/people/legion/packages/kbd.git
-Url:            ftp://ftp.altlinux.org/pub/people/legion/kbd/
-BuildRequires:  automake
-Version:        1.15.3
+Version:        1.15.4
 Release:        0
 Summary:        Keyboard and Font Utilities
 License:        GPL-2.0+
 Group:          System/Console
+# git: git://git.altlinux.org/people/legion/packages/kbd.git
+Url:            ftp://ftp.altlinux.org/pub/people/legion/kbd/
 %if 0
-Source:         kbd-%{version}.tar.bz2
+Source:         %{name}-%{version}.tar.gz
 %else
-Source:         kbd-%{version}-repack.tar.bz2
+Source:         %{name}-%{version}-repack.tar.bz2
 %endif
 Source1:        kbd_fonts.tar.bz2
 Source2:        suse-add.tar.bz2
@@ -51,16 +50,23 @@ Patch3:         kbd-1.15.2-docu-X11R6-xorg.patch
 Patch4:         kbd-1.15.2-sv-latin1-keycode10.patch
 Patch5:         kbd-1.15.2-setfont-no-cruft.patch
 Patch6:         kbd-1.15.2-dumpkeys-C-opt.patch
-Patch7:         kbd-1.15.2-defkeymap.patch
+# Patch7:         kbd-1.15.2-defkeymap.patch
 Patch8:         kbd-1.15.2-chvt-userwait.patch
-Patch9:         kbd-%{version}-po-es.patch
-Patch10:        kbd-1.15.3-loadkeys.diff
-Patch11:        kbd-1.15.3-resizecons-enable-x86_64.patch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-PreReq:         %fillup_prereq %insserv_prereq
+Patch9:         kbd-1.15.3-po-es.patch
+# Patch10:        kbd-1.15.3-loadkeys.diff
+# Patch11:        kbd-1.15.3-resizecons-enable-x86_64.patch
+
+BuildRequires:  automake
 BuildRequires:  bison
 BuildRequires:  flex
+BuildRequires:  pam-devel
+
+Requires(pre):  %fillup_prereq
+Requires(pre):  %insserv_prereq
+
 Recommends:     fbset
+
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 Load and save keyboard mappings. This is needed if you are not using
@@ -88,15 +94,15 @@ Authors:
 %patch4 -p1
 %patch5 -p1
 %patch6
-%patch7 -p1
+# %%patch7 -p1
 %patch8 -p1
 %patch9 -p1
-%patch10 -p1
-%patch11 -p1
+# %%patch10 -p1
+# %%patch11 -p1
 
 %build
 for i in `find data/keymaps/mac -type f` ; do
-sed -i -f %{S:42} $i
+sed -i -f %{SOURCE42} $i
 done
 # workaround ambiguous keymap names
 pushd data/keymaps/i386
@@ -110,8 +116,8 @@ popd
 	--enable-nls \
 	--localedir=/usr/share/locale \
 	--enable-optional-progs
-make CFLAGS="$RPM_OPT_FLAGS -Os"
-%{__cc} $RPM_OPT_FLAGS -o fbtest   $RPM_SOURCE_DIR/fbtest.c
+make CFLAGS="%{optflags} -Os"
+gcc %{optflags} -o fbtest   $RPM_SOURCE_DIR/fbtest.c
 # fix lat2-16.psfu (bnc#340579)
 font=data/consolefonts/lat2a-16.psfu
 ./src/psfxtable -i $font -it  data/unimaps/lat2u.uni \
@@ -120,11 +126,11 @@ mv t.psfu $font
 make
 
 %install
-mkdir -p $RPM_BUILD_ROOT%{_sbindir}
-mkdir -p $RPM_BUILD_ROOT/etc/init.d
-DOC=${RPM_BUILD_ROOT}%{_defaultdocdir}/kbd
+mkdir -p %{buildroot}%{_sbindir}
+mkdir -p %{buildroot}%{_sysconfdir}/init.d
+DOC=%{buildroot}%{_defaultdocdir}/kbd
 KBD=%{kbd}
-K=$RPM_BUILD_ROOT$KBD
+K=%{buildroot}$KBD
 mkdir -p $K/consolefonts
 # First install the fonts from the vfont package 
 # (allowing kbd to overwrite some of them)
@@ -136,8 +142,8 @@ install -m 644 fonts/vfont-5.10/SCRIPT $DOC/fonts/SCRIPT.vfont-5.10
 rm -f fonts/vfont-5.10/SCRIPT fonts/*/README
 install -m 644 fonts/*/* $K/consolefonts/
 # Now call kbd install
-echo "# Now call kbd install DESTDIR=$RPM_BUILD_ROOT DATA_DIR=%{kbd} MAN_DIR=%{_mandir}"
-make DESTDIR=$RPM_BUILD_ROOT DATA_DIR=%{kbd} MAN_DIR=%{_mandir} install
+echo "# Now call kbd install DESTDIR=%{buildroot} DATA_DIR=%{kbd} MAN_DIR=%{_mandir}"
+make DESTDIR=%{buildroot} DATA_DIR=%{kbd} MAN_DIR=%{_mandir} install
 # ln -s iso01-12x22.psfu $K/consolefonts/suse12x22.psfu
 install -m 644 data/consolefonts/README* $DOC/fonts/
 mkdir -p $DOC/doc/
@@ -145,7 +151,7 @@ install -m 644 doc/keysyms.h.info doc/kbd.FAQ.txt doc/kbd.FAQ*.html doc/README* 
 install -m 644 doc/as400.kbd doc/console.docs doc/repeat/set_kbd_repeat-2 $DOC/doc/
 echo "See /usr/share/i18/charmaps for a description of char maps" >$DOC/doc/README.charmaps
 install -m 644 COPYING ChangeLog CREDITS README $DOC/
-install -m 644 %SOURCE3 $DOC/
+install -m 644 %{SOURCE3} $DOC/
 rm -f $K/consolefonts/README* $K/consolefonts/ERRORS.gz
 if ls $K/consolefonts/Agafari-* > /dev/null 2>&1; then
   echo "";
@@ -154,8 +160,8 @@ if ls $K/consolefonts/Agafari-* > /dev/null 2>&1; then
   echo "";
   exit 1
 fi
-install -m 755 %SOURCE4 $RPM_BUILD_ROOT/etc/init.d/kbd
-ln -s /etc/init.d/kbd $RPM_BUILD_ROOT%{_sbindir}/rckbd
+install -m 755 %{SOURCE4} %{buildroot}%{_initddir}/kbd
+ln -s /etc/init.d/kbd %{buildroot}%{_sbindir}/rckbd
 ln -sf us.map.gz $K/keymaps/i386/qwerty/khmer.map.gz
 ln -sf us.map.gz $K/keymaps/i386/qwerty/korean.map.gz
 ln -sf us.map.gz $K/keymaps/i386/qwerty/arabic.map.gz
@@ -212,78 +218,78 @@ for i in \
 do test -f $i || ln -sv mac-us.map.gz $i
 done
 )
-FILLUP_DIR=$RPM_BUILD_ROOT/var/adm/fillup-templates
+FILLUP_DIR=%{buildroot}%{_localstatedir}/adm/fillup-templates
 mkdir -p $FILLUP_DIR
-install -m 644 %SOURCE8 $FILLUP_DIR/sysconfig.console
-install -m 644 %SOURCE9 $FILLUP_DIR/sysconfig.keyboard
+install -m 644 %{SOURCE8} $FILLUP_DIR/sysconfig.console
+install -m 644 %{SOURCE9} $FILLUP_DIR/sysconfig.keyboard
 %ifarch %ix86 alpha ia64 x86_64
-cat %SOURCE5 >> $FILLUP_DIR/sysconfig.keyboard
+cat %{SOURCE5} >> $FILLUP_DIR/sysconfig.keyboard
 %else
-cat %SOURCE6 >> $FILLUP_DIR/sysconfig.keyboard
+cat %{SOURCE6} >> $FILLUP_DIR/sysconfig.keyboard
 %endif
 #mkdir -p $RPM_BUILD_ROOT/etc/sysconfig
 #touch $RPM_BUILD_ROOT/etc/sysconfig/console
 %ifnarch %ix86
 %ifnarch x86_64
-   rm -f $RPM_BUILD_ROOT/%{_mandir}/man8/resizecons.8*
+   rm -f %{buildroot}/%{_mandir}/man8/resizecons.8*
 %endif
 %endif
 %ifarch %sparc m68k
-rm -f $RPM_BUILD_ROOT/%{_mandir}/man8/getkeycodes.8*
-rm -f $RPM_BUILD_ROOT/%{_mandir}/man8/setkeycodes.8*
+rm -f %{buildroot}/%{_mandir}/man8/getkeycodes.8*
+rm -f %{buildroot}/%{_mandir}/man8/setkeycodes.8*
 %endif
-install -m 755 %_sourcedir/testutf8  $RPM_BUILD_ROOT/%{_bindir}
-install -m 755 fbtest    $RPM_BUILD_ROOT/%{_sbindir}
-install -m 644 %SOURCE12 $RPM_BUILD_ROOT/%{_mandir}/man8/
-install -m 755 %SOURCE13 $RPM_BUILD_ROOT/%{_bindir}/guess_encoding
+install -m 755 %_sourcedir/testutf8  %{buildroot}/%{_bindir}
+install -m 755 fbtest    %{buildroot}/%{_sbindir}
+install -m 644 %{SOURCE12} %{buildroot}/%{_mandir}/man8/
+install -m 755 %{SOURCE13} %{buildroot}/%{_bindir}/guess_encoding
 #UsrMerge
-mkdir -p $RPM_BUILD_ROOT/bin
-mkdir -p $RPM_BUILD_ROOT/sbin
-ln -s %{_bindir}/chvt $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/clrunimap $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/deallocvt $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/dumpkeys $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/fgconsole $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/getunimap $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/guess_encoding $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/kbd_mode $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/kbdinfo $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/kbdrate $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/loadkeys $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/loadunimap $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/mapscrn $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/openvt $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/outpsfheader $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/psfaddtable $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/psfgettable $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/psfstriptable $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/psfxtable $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/screendump $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/setfont $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/setleds $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/setlogcons $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/setmetamode $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/setpalette $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/setvesablank $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/setvtrgb $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/showconsolefont $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/showkey $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/spawn_console $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/spawn_login $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/testutf8 $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/unicode_start $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/unicode_stop $RPM_BUILD_ROOT/bin
-ln -s %{_sbindir}/fbtest $RPM_BUILD_ROOT/sbin
-ln -s %{_sbindir}/rckbd $RPM_BUILD_ROOT/sbin
+mkdir -p %{buildroot}/bin
+mkdir -p %{buildroot}/sbin
+ln -s %{_bindir}/chvt %{buildroot}/bin
+ln -s %{_bindir}/clrunimap %{buildroot}/bin
+ln -s %{_bindir}/deallocvt %{buildroot}/bin
+ln -s %{_bindir}/dumpkeys %{buildroot}/bin
+ln -s %{_bindir}/fgconsole %{buildroot}/bin
+ln -s %{_bindir}/getunimap %{buildroot}/bin
+ln -s %{_bindir}/guess_encoding %{buildroot}/bin
+ln -s %{_bindir}/kbd_mode %{buildroot}/bin
+ln -s %{_bindir}/kbdinfo %{buildroot}/bin
+ln -s %{_bindir}/kbdrate %{buildroot}/bin
+ln -s %{_bindir}/loadkeys %{buildroot}/bin
+ln -s %{_bindir}/loadunimap %{buildroot}/bin
+ln -s %{_bindir}/mapscrn %{buildroot}/bin
+ln -s %{_bindir}/openvt %{buildroot}/bin
+ln -s %{_bindir}/outpsfheader %{buildroot}/bin
+ln -s %{_bindir}/psfaddtable %{buildroot}/bin
+ln -s %{_bindir}/psfgettable %{buildroot}/bin
+ln -s %{_bindir}/psfstriptable %{buildroot}/bin
+ln -s %{_bindir}/psfxtable %{buildroot}/bin
+ln -s %{_bindir}/screendump %{buildroot}/bin
+ln -s %{_bindir}/setfont %{buildroot}/bin
+ln -s %{_bindir}/setleds %{buildroot}/bin
+ln -s %{_bindir}/setlogcons %{buildroot}/bin
+ln -s %{_bindir}/setmetamode %{buildroot}/bin
+ln -s %{_bindir}/setpalette %{buildroot}/bin
+ln -s %{_bindir}/setvesablank %{buildroot}/bin
+ln -s %{_bindir}/setvtrgb %{buildroot}/bin
+ln -s %{_bindir}/showconsolefont %{buildroot}/bin
+ln -s %{_bindir}/showkey %{buildroot}/bin
+ln -s %{_bindir}/spawn_console %{buildroot}/bin
+ln -s %{_bindir}/spawn_login %{buildroot}/bin
+ln -s %{_bindir}/testutf8 %{buildroot}/bin
+ln -s %{_bindir}/unicode_start %{buildroot}/bin
+ln -s %{_bindir}/unicode_stop %{buildroot}/bin
+ln -s %{_sbindir}/fbtest %{buildroot}/sbin
+ln -s %{_sbindir}/rckbd %{buildroot}/sbin
 %ifnarch %sparc m68k
-ln -s %{_bindir}/getkeycodes $RPM_BUILD_ROOT/bin
-ln -s %{_bindir}/setkeycodes $RPM_BUILD_ROOT/bin
+ln -s %{_bindir}/getkeycodes %{buildroot}/bin
+ln -s %{_bindir}/setkeycodes %{buildroot}/bin
 %endif
 %ifarch %ix86
-ln -s %{_bindir}/resizecons $RPM_BUILD_ROOT/bin
+ln -s %{_bindir}/resizecons %{buildroot}/bin
 %endif
 %ifarch x86_64
-ln -s %{_bindir}/resizecons $RPM_BUILD_ROOT/bin
+ln -s %{_bindir}/resizecons %{buildroot}/bin
 %endif
 #EndUsrMerge
 %find_lang %{name}
@@ -293,19 +299,19 @@ ln -s %{_bindir}/resizecons $RPM_BUILD_ROOT/bin
 %{fillup_only -n keyboard}
 #echo "Please read the docu about the new COMPOSETABLE rc.config variable."
 #echo "See /etc/sysconfig/console, /etc/sysconfig/keyboard"
-#echo "and %{_docdir}/kbd/README.SuSE."
+#echo "and %%{_docdir}/kbd/README.SuSE."
 
 %postun
 %{insserv_cleanup}
 
 %files -f %{name}.lang
 %defattr(-,root,root)
-#%config(noreplace) /etc/sysconfig/console
+#%%config(noreplace) /etc/sysconfig/console
 %doc %{_defaultdocdir}/kbd
-#%doc COPYING CHANGES README CREDITS
-%config /etc/init.d/kbd
-/var/adm/fillup-templates/sysconfig.console
-/var/adm/fillup-templates/sysconfig.keyboard
+#%%doc COPYING CHANGES README CREDITS
+%config %{_sysconfdir}/init.d/kbd
+%{_localstatedir}/adm/fillup-templates/sysconfig.console
+%{_localstatedir}/adm/fillup-templates/sysconfig.keyboard
 %{kbd}
 #UsrMerge
 /sbin/rckbd
@@ -401,6 +407,7 @@ ln -s %{_bindir}/resizecons $RPM_BUILD_ROOT/bin
 %{_bindir}/setvesablank
 %{_bindir}/spawn_console
 %{_bindir}/spawn_login
+%{_bindir}/vlock
 %doc %{_mandir}/man1/*
 %doc %{_mandir}/man5/keymaps.5.gz
 %ifnarch %sparc m68k
@@ -426,8 +433,5 @@ ln -s %{_bindir}/resizecons $RPM_BUILD_ROOT/bin
 %doc %{_mandir}/man8/setvesablank.8.gz
 %doc %{_mandir}/man8/setvtrgb.8.gz
 %doc %{_mandir}/man8/vcstime.8.gz
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %changelog

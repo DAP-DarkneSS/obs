@@ -1,4 +1,21 @@
 -------------------------------------------------------------------
+Sun Dec  2 12:47:55 UTC 2012 - dap.darkness@gmail.com
+
+- Update to version 1.15.4:
+  * vlock: New utility which locks one or more virtual consoles.
+  * loadkeys: Change the handling of -C option.
+  * loadkeys: Fix -d option.
+  * Add dvorak-es keymap.
+  * Add dvorak-uk keymap (Joe MacMahon).
+  * Add dvorak-sv-a1 and dvorak-sv-a5 keymaps .
+  * Add ruwin_alt_sh-UTF-8 keymap (Dmitriy Perlow).
+- kbd-1.15.3-po-es.patch was fixed.
+- Old patches were disabled.
+- Fixed up via spec-cleaner.
+- Clean-section was removed.
+- Some warnings were fixed.
+
+-------------------------------------------------------------------
 Fri Apr 20 15:40:30 UTC 2012 - rschweikert@suse.com
 
 - Place binaries into /usr tree (UsrMerge project)

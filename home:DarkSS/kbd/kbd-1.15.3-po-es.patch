@@ -8,5 +8,5 @@ Index: kbd-1.15.3/po/es.po
  #: src/setfont.c:682
 -#, c-format
  msgid "Saved %d-char %dx%d font file on %s\n"
- msgstr "Se ha guardado el fichero de tipos %2$dx%3$d de %1$d caracteres en %s\n"
- 
+ msgstr ""
+ "Se ha guardado el fichero de tipos %2$dx%3$d de %1$d caracteres en %s\n"
