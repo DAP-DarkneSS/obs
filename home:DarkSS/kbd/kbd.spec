@@ -50,11 +50,8 @@ Patch3:         kbd-1.15.2-docu-X11R6-xorg.patch
 Patch4:         kbd-1.15.2-sv-latin1-keycode10.patch
 Patch5:         kbd-1.15.2-setfont-no-cruft.patch
 Patch6:         kbd-1.15.2-dumpkeys-C-opt.patch
-# Patch7:         kbd-1.15.2-defkeymap.patch
 Patch8:         kbd-1.15.2-chvt-userwait.patch
 Patch9:         kbd-1.15.3-po-es.patch
-# Patch10:        kbd-1.15.3-loadkeys.diff
-# Patch11:        kbd-1.15.3-resizecons-enable-x86_64.patch
 
 BuildRequires:  automake
 BuildRequires:  bison
@@ -94,11 +91,8 @@ Authors:
 %patch4 -p1
 %patch5 -p1
 %patch6
-# %%patch7 -p1
 %patch8 -p1
 %patch9 -p1
-# %%patch10 -p1
-# %%patch11 -p1
 
 %build
 for i in `find data/keymaps/mac -type f` ; do
@@ -299,16 +293,16 @@ ln -s %{_bindir}/resizecons %{buildroot}/bin
 %{fillup_only -n keyboard}
 #echo "Please read the docu about the new COMPOSETABLE rc.config variable."
 #echo "See /etc/sysconfig/console, /etc/sysconfig/keyboard"
-#echo "and %%{_docdir}/kbd/README.SuSE."
+#echo "and {_docdir}/kbd/README.SuSE."
 
 %postun
 %{insserv_cleanup}
 
 %files -f %{name}.lang
 %defattr(-,root,root)
-#%%config(noreplace) /etc/sysconfig/console
+#config(noreplace) /etc/sysconfig/console
 %doc %{_defaultdocdir}/kbd
-#%%doc COPYING CHANGES README CREDITS
+#doc COPYING CHANGES README CREDITS
 %config %{_sysconfdir}/init.d/kbd
 %{_localstatedir}/adm/fillup-templates/sysconfig.console
 %{_localstatedir}/adm/fillup-templates/sysconfig.keyboard
