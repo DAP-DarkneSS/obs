@@ -1,0 +1,8 @@
+Mon Dec  3 21:01:37 UTC 2012 - dap.darkness@gmail.com
+
+- Improvements:
+  * filename became shown in the caption bar;
+  * some checks were added.
+- Changelog was moved to changes file.
+- Service file was fixed.
+- Spec file was fixed up.
