@@ -8,7 +8,7 @@
 #
 
 Name:           kwin-effect-snow
-Version:        0.2
+Version:        0.4
 Release:        1
 Summary:        A kwin effect Snow
 
@@ -25,7 +25,7 @@ BuildRequires:  update-desktop-files
 A kwin effect "Snow" revived!
 
 %prep
-%setup -q -n %{name}-precies
+%setup -q -n %{name}-%{version}~precise~ppa1
 
 %build
 mkdir build && cd build
