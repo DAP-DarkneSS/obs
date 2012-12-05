@@ -17,7 +17,7 @@
 
 
 Name:           kbd
-Version:        1.15.4
+Version:        1.15.5
 Release:        0
 Summary:        Keyboard and Font Utilities
 License:        GPL-2.0+
@@ -51,7 +51,6 @@ Patch4:         kbd-1.15.2-sv-latin1-keycode10.patch
 Patch5:         kbd-1.15.2-setfont-no-cruft.patch
 Patch6:         kbd-1.15.2-dumpkeys-C-opt.patch
 Patch8:         kbd-1.15.2-chvt-userwait.patch
-Patch9:         kbd-1.15.3-po-es.patch
 
 BuildRequires:  automake
 BuildRequires:  bison
@@ -92,7 +91,6 @@ Authors:
 %patch5 -p1
 %patch6
 %patch8 -p1
-%patch9 -p1
 
 %build
 for i in `find data/keymaps/mac -type f` ; do

@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Wed Dec  5 20:45:40 UTC 2012 - dap.darkness@gmail.com
+
+- Update to version 1.15.5:
+  * Fix msgstr in es.po and update translations.
+  * Update changelog and increase version (1.15.5wip).
+  * po: Update vi.po from translationproject.org.
+  * Fix various vlock build errors.
+  * Fix loadkeys.analyze lex handling.
+  * Ignore config.cache files.
+- Applied into upstream kbd-1.15.3-po-es.patch was deleted.
+
+-------------------------------------------------------------------
 Mon Dec  3 18:58:13 UTC 2012 - dap.darkness@gmail.com
 
 - Update to version 1.15.4:
@@ -7,10 +19,10 @@ Mon Dec  3 18:58:13 UTC 2012 - dap.darkness@gmail.com
   * loadkeys: Fix -d option.
   * Add dvorak-es keymap.
   * Add dvorak-uk keymap (Joe MacMahon).
-  * Add dvorak-sv-a1 and dvorak-sv-a5 keymaps .
+  * Add dvorak-sv-a1 and dvorak-sv-a5 keymaps.
   * Add ruwin_alt_sh-UTF-8 keymap (Dmitriy Perlow).
 - kbd-1.15.3-po-es.patch was fixed.
-- Applied into upstream patches were disabled.
+- Applied into upstream patches were deleted.
 - Fixed up via spec-cleaner.
 - Clean-section was removed.
 - Macro warnings were fixed via '%' deleting.
