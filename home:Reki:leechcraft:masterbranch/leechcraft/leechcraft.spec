@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-644-ga560870
+%define LEECHCRAFT_VERSION 0.5.85-663-gd2b722a
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -944,6 +944,17 @@ This package provides a Dolozhee plugin for LeechCraft.
 
 It allows to quickly and easily submit bug reports
 and feature requests to LeechCraft issues tracker.
+
+
+%package dumbeep
+Summary:        LeechCraft DumBeep Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description dumbeep
+This package provides a dumb sound notifier plugin for LeechCraft.
+
+It also uses Phonon as a backend or something like aplay/mplayer.
 
 
 #%%package eiskaltdcpp
@@ -1948,6 +1959,7 @@ cmake ../src \
         -DENABLE_BLACKDASH=False \
         -DENABLE_CHOROID=True \
         -DENABLE_DOLOZHEE=True \
+        -DENABLE_DUMBEEP=True \
         -DENABLE_EISKALTDCPP=False \
         -DENABLE_FTP=False \
         -DENABLE_GACTS=True \
@@ -2416,6 +2428,11 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_dolozhee.so
 %{_datadir}/%{name}/translations/%{name}_dolozhee_*.qm
+
+%files dumbeep
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_dumbeep.so
+%{_datadir}/%{name}/settings/dumbeepsettings.xml
 
 #%%files eiskaltdcpp
 #%%defattr(-,root,root)
