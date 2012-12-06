@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-663-gd2b722a
+%define LEECHCRAFT_VERSION 0.5.85-669-gf0f30f8
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -307,6 +307,7 @@ Summary:        LeechCraft Notifications framework Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-visualnotifications = %{version}
+Recommends:     %{name}-soundnotifications = %{version}
 
 %description advancednotifications
 This package provides an advanced notifications plugin for Leechcraft.
@@ -946,15 +947,20 @@ It allows to quickly and easily submit bug reports
 and feature requests to LeechCraft issues tracker.
 
 
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
 %package dumbeep
 Summary:        LeechCraft DumBeep Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Provides:       %{name}-soundnotifications = %{version}
 
 %description dumbeep
 This package provides a dumb sound notifier plugin for LeechCraft.
 
 It also uses Phonon as a backend or something like aplay/mplayer.
+%endif
+%endif
 
 
 #%%package eiskaltdcpp
@@ -1195,6 +1201,7 @@ reconnect properly on startup.
 Summary:        LeechCraft Media player Module
 Group:          Productivity/Networking/Other
 Provides:       %{name}-audioplayer
+Provides:       %{name}-soundnotifications = %{version}
 Requires:       %{name} = %{version}
 Recommends:     ffmpeg
 Recommends:     %{name}-deadlyrics
@@ -1959,7 +1966,6 @@ cmake ../src \
         -DENABLE_BLACKDASH=False \
         -DENABLE_CHOROID=True \
         -DENABLE_DOLOZHEE=True \
-        -DENABLE_DUMBEEP=True \
         -DENABLE_EISKALTDCPP=False \
         -DENABLE_FTP=False \
         -DENABLE_GACTS=True \
@@ -1993,6 +1999,8 @@ cmake ../src \
 %if %qtversion >= 40800
         -DENABLE_AZOTH_SHX=True \
         -DENABLE_BLOGIQUE=True \
+        -DENABLE_DUMBEEP=True \
+        -DDUMBEEP_WITH_PHONON=True \
         -DENABLE_GMAILNOTIFIER=True \
         -DENABLE_HOTSTREAMS=True \
         -DENABLE_LASTFMSCROBBLE=True \
@@ -2012,6 +2020,7 @@ cmake ../src \
 %else
         -DENABLE_AZOTH_SHX=False \
         -DENABLE_BLOGIQUE=False \
+        -DENABLE_DUMBEEP=False \
         -DENABLE_GMAILNOTIFIER=False \
         -DENABLE_HOTSTREAMS=False \
         -DENABLE_LASTFMSCROBBLE=False \
@@ -2429,10 +2438,14 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_dolozhee.so
 %{_datadir}/%{name}/translations/%{name}_dolozhee_*.qm
 
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
 %files dumbeep
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_dumbeep.so
 %{_datadir}/%{name}/settings/dumbeepsettings.xml
+%endif
+%endif
 
 #%%files eiskaltdcpp
 #%%defattr(-,root,root)
