@@ -19,7 +19,7 @@ echo -e '\nrevision #\e[0;33m'$VSVN'\e[0m'
 
 echo -e '\e[0;4m\nChecking of OBS version:\e[0m'
 
-VOBS=`osc ls -b $OPRJ $NOBS | grep -m 1 svn | awk 'BEGIN {FS="[.,-]"} {print $5}'`
+VOBS=`osc ls -b $OPRJ $NOBS | tac | grep -m 1 svn | awk 'BEGIN {FS="[.,-]"} {print $5}'`
 echo -e '\nrevision #\e[0;33m'$VOBS'\e[0m'
 
 if [ $VSVN == $VOBS ]
