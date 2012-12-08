@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-669-gf0f30f8
+%define LEECHCRAFT_VERSION 0.5.85-686-gb908de0
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -954,6 +954,7 @@ Summary:        LeechCraft DumBeep Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-soundnotifications = %{version}
+Recommends:     mplayer
 
 %description dumbeep
 This package provides a dumb sound notifier plugin for LeechCraft.
@@ -2787,6 +2788,8 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_sb2.so
 %dir %{_datadir}/%{name}/qml/sb2
 %{_datadir}/%{name}/qml/sb2/*
+%dir %{_datadir}/%{name}/qml/common
+%{_datadir}/%{name}/qml/common/*
 %endif
 %endif
 
