@@ -52,6 +52,8 @@ install: build
 	cp -R ./share/man/man1/fsproj.1.gz $(CURDIR)/debian/fullscreenprojpl/usr/share/man/man1
 	mkdir -p $(CURDIR)/debian/fullscreenprojpl/usr/share/icons/fsproj
 	cp -R ./share/icons/fsproj/*.xpm $(CURDIR)/debian/fullscreenprojpl/usr/share/icons/fsproj
+	mkdir -p $(CURDIR)/debian/fullscreenprojpl/usr/lib/FSProj
+	cp -R ./lib/FSProj/*.pm $(CURDIR)/debian/fullscreenprojpl/usr/lib/FSProj
 	mkdir -p $(CURDIR)/debian/fullscreenprojpl/usr/share/applications
 	cp -R ./share/applications/fsproj.desktop $(CURDIR)/debian/fullscreenprojpl/usr/share/applications
 

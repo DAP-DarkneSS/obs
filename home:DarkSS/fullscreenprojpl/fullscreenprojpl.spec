@@ -12,7 +12,7 @@
 %define gitname FullScreenProj.pl
 
 Name:           fullscreenprojpl
-Version:        0.7.git
+Version:        0.8.git
 Release:        1
 Summary:        A screen saver suppresser
 
@@ -22,12 +22,16 @@ Group:          System/X11/Utilities
 Source0:        %{gitname}-%{version}.tar.bz2
 
 BuildRequires:  update-desktop-files
+
 Requires:       perl-File-HomeDir
 Requires:       perl-Net-DBus
 Requires:       perl-Proc-ProcessTable
 Requires:       perl-Wx
 Requires:       xprop
 Requires:       xset
+
+%{perl_requires}
+
 BuildArch:      noarch
 
 %description
@@ -48,6 +52,8 @@ mkdir -p %{buildroot}%{_datadir}/icons/%{binname}
 %{__install} ./share/icons/%{binname}/*.xpm %{buildroot}%{_datadir}/icons/%{binname}
 mkdir -p %{buildroot}%{_datadir}/applications
 %{__install} ./share/applications/%{binname}.desktop %{buildroot}%{_datadir}/applications
+mkdir -p %{buildroot}%{perl_vendorlib}/FSProj
+%{__install} ./lib/FSProj/*.pm %{buildroot}%{perl_vendorlib}/FSProj
 %suse_update_desktop_file -r %{binname} 'Utility;Accessibility;'
 
 %files
@@ -57,6 +63,8 @@ mkdir -p %{buildroot}%{_datadir}/applications
 %attr(755,root,root) %{_bindir}/%{binname}
 %dir %{_datadir}/icons/%{binname}
 %attr(644,root,root) %{_datadir}/icons/%{binname}/*.xpm
+%dir %{perl_vendorlib}/FSProj
+%attr(644,root,root) %{perl_vendorlib}/FSProj/*.pm
 %{_datadir}/applications/%{binname}.desktop
 
 %changelog
