@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-686-gb908de0
+%define LEECHCRAFT_VERSION 0.5.85-752-gf2599a0
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -62,7 +62,6 @@ BuildRequires:  liblastfm-devel
 BuildRequires:  libpoppler-qt4-devel
 BuildRequires:  libspectre-devel
 BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
-BuildRequires:  libqjson-devel
 BuildRequires:  mupdf-devel
 BuildRequires:  pcre-devel
 BuildRequires:  telepathy-qt4-devel
@@ -1179,6 +1178,7 @@ Summary:        LeechCraft Power managment module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       upower
+Recommends:     %{name}-sb = %{version}
 
 %description liznoo
 This package provides a power manager plugin for Leechcraft.
