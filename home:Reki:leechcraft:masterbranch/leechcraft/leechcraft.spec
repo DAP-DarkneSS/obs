@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-752-gf2599a0
+%define LEECHCRAFT_VERSION 0.5.85-810-g05c053c
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -66,6 +66,7 @@ BuildRequires:  mupdf-devel
 BuildRequires:  pcre-devel
 BuildRequires:  telepathy-qt4-devel
 %if 0%{suse_version} >= 1220
+BuildRequires:  libnl3-devel
 BuildRequires:  qwt6-devel
 %else
 BuildRequires:  qwt-devel >= 6
@@ -1162,6 +1163,20 @@ This package provides a third-party application launcher plugin for Leechcraft.
 #FTP client with recursive downloads, uploads and two-panel interface.
 
 
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
+%package lemon
+Summary:        LeechCraft Network Monitor Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-sb = %{version}
+
+%description lemon
+This package provides another Network Monitor plugin for Leechcraft.
+%endif
+%endif
+
+
 %package lhtr
 Summary:        LeechCraft HTML WYSIWYG editor Module
 Group:          Productivity/Networking/Other
@@ -1883,6 +1898,20 @@ This package provides a tabs list plugin for Leechcraft.
 It allows to show the list of currently opened tabs
 and allows to quickly navigate between them.
 
+# %%if 0%%{suse_version} >= 1210
+# %%if %%qtversion >= 40800
+# %%package touchstreams
+# Summary:        LeechCraft VK.com Streaming Module
+# Group:          Productivity/Networking/Other
+# Requires:       %%{name} = %%{version}
+# Requires:       %%{name}-sb2 = %%{version}
+# # BuildRequires:  boost >= 1.50
+# 
+# %%description touchstreams
+# This package provides a VK.com music streaming plugin for Leechcraft.
+# %%endif
+# %%endif
+
 %if 0%{suse_version} >= 1210
 %if %qtversion >= 40800
 %package tpi
@@ -1975,7 +2004,6 @@ cmake ../src \
         -DENABLE_KNOWHOW=True \
         -DENABLE_LACKMAN=True \
         -DENABLE_LADS=False \
-        -DENABLE_LEMON=False \
         -DENABLE_LHTR=True \
         -DENABLE_LIZNOO=True \
         -DENABLE_MEDIACALLS=False \
@@ -2006,6 +2034,7 @@ cmake ../src \
         -DENABLE_HOTSTREAMS=True \
         -DENABLE_LASTFMSCROBBLE=True \
         -DENABLE_LAUNCHY=True \
+        -DENABLE_LEMON=True \
         -DENABLE_LMP=True \
         -DENABLE_MONOCLE=True \
         -DENABLE_MONOCLE_MU=True \
@@ -2016,6 +2045,7 @@ cmake ../src \
         -DENABLE_SB2=True \
         -DENABLE_SHAITAN=True \
         -DENABLE_TORRENT=True \
+        -DENABLE_TOUCHSTREAMS=False \
         -DENABLE_TPI=True \
         -DENABLE_VROOBY=True \
 %else
@@ -2026,6 +2056,7 @@ cmake ../src \
         -DENABLE_HOTSTREAMS=False \
         -DENABLE_LASTFMSCROBBLE=False \
         -DENABLE_LAUNCHY=False \
+        -DENABLE_LEMON=False \
         -DENABLE_LMP=False \
         -DENABLE_MONOCLE=False \
         -DENABLE_MONOCLE_MU=False \
@@ -2549,6 +2580,16 @@ EOF
 #%%{settings_dir}/lcftpsettings.xml
 #%%{translations_dir}/leechcraft_lcftp*
 
+%if 0%{suse_version} >= 1210
+%if %qtversion >= 40800
+%files lemon
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_lemon.so
+%dir %{_datadir}/%{name}/qml/lemon
+%{_datadir}/%{name}/qml/lemon/*
+%endif
+%endif
+
 %files lhtr
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lhtr.so
@@ -2860,6 +2901,14 @@ EOF
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_tabslist.so
 %{translations_dir}/leechcraft_tabslist*
+
+# %%if 0%%{suse_version} >= 1210
+# %%if %%qtversion >= 40800
+# %%files touchstreams
+# %%defattr(-,root,root)
+# %%{_libdir}/%%{name}/plugins/lib%%{name}_touchstreams.so
+# %%endif
+# %%endif
 
 %if 0%{suse_version} >= 1210
 %if %qtversion >= 40800
