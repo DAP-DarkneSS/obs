@@ -8,6 +8,8 @@
 # This is the debhelper compatibility version to use.
 export DH_COMPAT=4
 
+APPNAME := rexloader
+
 CFLAGS = -g
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
 CFLAGS += -O0
@@ -24,9 +26,8 @@ build-stamp:
 	pwd
 	if cd build_dir ; then echo "Changed"; else echo "Some Errors"; fi
 	pwd
-	cd Httploader && qmake HttpLoader.pro && make -j4
-	cd NoticeWindow && qmake NoticeWindow.pro && make -j4
-	cd REXLoader && qmake REXLoader.pro && make -j4
+	mkdir builddir
+	cd builddir && qmake PREFIX=/usr ../REXLoader.pro && make -j4
 
 	touch build-stamp
 
@@ -47,17 +48,15 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/gentoo.
-	mkdir -p $(CURDIR)/debian/rexloader/usr/bin
-	cp -R ./usr/bin/REXLoader $(CURDIR)/debian/rexloader/usr/bin/rexloader
-	mkdir -p $(CURDIR)/debian/rexloader/usr/lib/rexloader/plugins
-	cp -R ./usr/lib/rexloader/plugins/* $(CURDIR)/debian/rexloader/usr/lib/rexloader/plugins
-	cp -R ./NoticeWindow/NoticeWindow $(CURDIR)/debian/rexloader/usr/lib/rexloader/plugins/libNoticeWindow.so
-	mkdir -p $(CURDIR)/debian/rexloader/usr/share/pixmaps
-	cp -R ./REXLoader/images/RExLoader_64x64.png $(CURDIR)/debian/rexloader/usr/share/pixmaps/rexloader.png
-	mkdir -p $(CURDIR)/debian/rexloader/usr/share/applications/
-	cp -R ./REXLoader/rexloader.desktop $(CURDIR)/debian/rexloader/usr/share/applications
-	mkdir -p $(CURDIR)/debian/rexloader/usr/share/rexloader/locales
-	cp ./usr/share/rexloader/locales/* $(CURDIR)/debian/rexloader/usr/share/rexloader/locales
+	cd builddir && cp -R usr/ $(CURDIR)/debian/$(APPNAME)
+	mkdir -p $(CURDIR)/debian/$(APPNAME)/usr/share/app-install/desktop
+	mkdir -p $(CURDIR)/debian/$(APPNAME)/usr/share/app-install/icons
+	mkdir -p $(CURDIR)/debian/$(APPNAME)/usr/share/applications
+	mkdir -p $(CURDIR)/debian/$(APPNAME)/usr/share/icons/hicolor/64x64/apps
+	cd REXLoader && cp rexloader.desktop $(CURDIR)/debian/$(APPNAME)/usr/share/app-install/desktop/rexloader.desktop 
+	cd REXLoader && cp rexloader.png $(CURDIR)/debian/$(APPNAME)/usr/share/app-install/icons/rexloader.png
+	cd REXLoader && cp rexloader.png $(CURDIR)/debian/$(APPNAME)/usr/share/icons/hicolor/64x64/apps/rexloader.png
+	cd REXLoader && cp rexloader.desktop $(CURDIR)/debian/$(APPNAME)/usr/share/applications/rexloader.desktop
 
 # Build architecture-independent files here.
 binary-indep: build install

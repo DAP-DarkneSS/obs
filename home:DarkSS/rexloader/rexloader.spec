@@ -4,11 +4,12 @@
 # Copyright (c) 2011-2012 Sarvaritdinov Ravil (source),
 # (c) 2012 Perlow Dmitriy A. (spec file)
 #
-# Please submit bugfixes or comments via http://code.google.com/p/rexloader/issues/list
+# Please submit bugfixes or comments via
+# http://code.google.com/p/rexloader/issues/list
 #
 
 Name:           rexloader
-Version:        0.1a.rev
+Version:        0.1a.svn
 Release:        1
 Summary:        An advanced Qt download manager over http
 
@@ -20,36 +21,60 @@ Source0:        %{name}-%{version}.tar.bz2
 BuildRequires:  libqt4-devel
 BuildRequires:  update-desktop-files
 
+Recommends:     %{name}-notifications
+
 %description
 An advanced Qt download manager over http with configurable multithreaded
 downloading, proxy support, logging and nice notifications.
 
+%package nixnotify
+Summary:        Rexloader D-Bus Notifications
+Requires:       %{name} = %{version}
+Provides:       %{name}-notifications
+
+%description nixnotify
+This package provides a D-Bus implementation plugin for Rexloader.
+
+It allows to show notifications via implementations supporting FreeDesktop's
+notifications standard, like KDE 4.4 (or higher), Gnome, XFCE and others.
+
+%package noticewindow
+Summary:        Rexloader Qt Notifications
+Requires:       %{name} = %{version}
+Provides:       %{name}-notifications
+
+%description noticewindow
+This package provides a simple Qt Notifications plugin for Rexloader.
+
 %prep
 %setup -q
+mkdir build
 
 %build
-cd Httploader
-qmake HttpLoader.pro QMAKE_CXXFLAGS+="%{optflags}"
+cd build
+qmake PREFIX=/usr ../REXLoader.pro QMAKE_CXXFLAGS+="%{optflags}"
 make %{?_smp_mflags}
-cd ../NoticeWindow
+
+cd ../plugins/NoticeWindow
 qmake NoticeWindow.pro QMAKE_CXXFLAGS+="%{optflags}"
-make %{?_smp_mflags}
-cd ../REXLoader
-qmake REXLoader.pro QMAKE_CXXFLAGS+="%{optflags}"
 make %{?_smp_mflags}
 
 %install
+cd build
 mkdir -p %{buildroot}%{_bindir}
-%{__install} ./usr/bin/REXLoader %{buildroot}%{_bindir}/%{name}
-mkdir -p %{buildroot}%{_libdir}/%{name}/plugins
-%{__install} ./usr/lib/%{name}/plugins/* %{buildroot}%{_libdir}/%{name}/plugins
-%{__install} ./NoticeWindow/NoticeWindow %{buildroot}%{_libdir}/%{name}/plugins/libNoticeWindow.so
+%{__install} ./usr/bin/%{name} %{buildroot}%{_bindir}
+cp -R ./usr/share %{buildroot}/usr
+
+mkdir -p %{buildroot}%{_libdir}
+cp -R ./usr/lib/%{name} %{buildroot}%{_libdir}
+
+%{__install} ../plugins/NoticeWindow/NoticeWindow %{buildroot}%{_libdir}/%{name}/plugins/libNoticeWindow.so
+
 mkdir -p %{buildroot}%{_datadir}/pixmaps
-%{__install} ./REXLoader/images/RExLoader_64x64.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
+%{__install} ../REXLoader/images/RExLoader_64x64.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
+
 mkdir -p %{buildroot}%{_datadir}/applications/
-%{__install} ./REXLoader/%{name}.desktop %{buildroot}%{_datadir}/applications
-mkdir -p %{buildroot}%{_datadir}/%{name}/locales
-%{__install} ./usr/share/%{name}/locales/* %{buildroot}%{_datadir}/%{name}/locales
+%{__install} ../REXLoader/%{name}.desktop %{buildroot}%{_datadir}/applications
 %suse_update_desktop_file %{name}
 
 %clean
@@ -64,33 +89,19 @@ rm -rf %{buildroot}
 %attr(644,root,root) %{_datadir}/applications/%{name}.desktop
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/plugins
-%{_libdir}/%{name}/plugins/*.so
+%{_libdir}/%{name}/plugins/libHttpLoader.so
 %attr(755,root,root) %{_bindir}/%{name}
 
+%files nixnotify
+%defattr(-,root,root)
+%dir %{_libdir}/%{name}
+%dir %{_libdir}/%{name}/plugins
+%{_libdir}/%{name}/plugins/libNixNotifyPlugin.so
+
+%files noticewindow
+%defattr(-,root,root)
+%dir %{_libdir}/%{name}
+%dir %{_libdir}/%{name}/plugins
+%{_libdir}/%{name}/plugins/libNoticeWindow.so
+
 %changelog
-* Sun Nov 25 2012 DA <dap.darkness@gmail.com> - 20121125-1
-- Revision 257 with floating window.
-
-* Wed Nov 06 2012 DA <dap.darkness@gmail.com> - 20121106-1
-- Revision 252 with url import from files.
-
-* Thu Oct 07 2012 DA <dap.darkness@gmail.com> - 20121007-1
-- Revision #249 with rpm optflags, locales and actions after downloading.
-
-* Thu Jun 07 2012 DA <dap.darkness@gmail.com> - 20120607-1
-- Revision #234 with desktop file.
-
-* Sun Jun 03 2012 DA <dap.darkness@gmail.com> - 20120603-1
-- Revision #233 with logging.
-
-* Wed Mar 21 2012 DA <dap.darkness@gmail.com> - 20120321-1
-- Revision #214 with Mandriva patch.
-
-* Fri Feb 17 2012 DA <dap.darkness@gmail.com> - 20120217-1
-- Revision #205 with patches for rpm and x64.
-
-* Fri Jan 13 2012 DA <dap.darkness@gmail.com> - 20120113-1
-- Revision #201 with proxy support.
-
-* Sat Jan 07 2012 DA <dap.darkness@gmail.com> - 20120107-1
-- Revision #199 with http and notice plugins.

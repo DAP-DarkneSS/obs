@@ -1,3 +1,8 @@
+rexloader (0.1a.rev.265) unstable; urgency=low
+  * Completely reworked
+  * New notifications plugin
+ -- Dmitriy Perlow <dap.darkness@gmail.com>  Sun, 16 Dec 2012 23:52:07 +0300
+
 rexloader (0.1a.rev.249) unstable; urgency=low
   * Add: locales 
   * Add: shutting down or hibernation after downloading
