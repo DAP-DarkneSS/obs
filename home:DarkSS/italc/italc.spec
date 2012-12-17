@@ -1,65 +1,81 @@
 #
-# spec file for package italc 
+# spec file for package italc
 #
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 #
 
-# norootforbuild
 
 Name:           italc
 Version:        2.0.0
 Release:        5.1
-Summary:        Didactical monitoring software for Linux-networks
 License:        GPL
+Summary:        Didactical monitoring software for Linux-networks
 Url:            http://italc.sourceforge.net/
 Group:          Productivity/Networking/Other
-BuildRequires:  libjpeg-devel openssl-devel pkgconfig zlib-devel
-BuildRequires:  gcc-c++ libstdc++-devel automake make openssl 
-BuildRequires:  cmake pam-devel
-BuildRequires:  java-devel 
+BuildRequires:  automake
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
+BuildRequires:  java-devel
+BuildRequires:  libjpeg-devel
+BuildRequires:  libstdc++-devel
+BuildRequires:  make
+BuildRequires:  openssl
+BuildRequires:  openssl-devel
+BuildRequires:  pam-devel
+BuildRequires:  pkgconfig
+BuildRequires:  zlib-devel
 #
 # CentOS
 #
 %if 0%{?centos_version}
-BuildRequires:  qt4-devel libXtst-devel
+BuildRequires:  libXtst-devel
+BuildRequires:  qt4-devel
 %endif
 #
 # Mandriva
 #
 %if 0%{?mandriva_version}
-BuildRequires:  qt4-devel libxtst6-devel
+BuildRequires:  libxtst6-devel
+BuildRequires:  qt4-devel
 %endif
 #
 # Fedora
 #
-%if 0%{?fedora_version} 
-BuildRequires:  qt4-devel libXtst-devel 
+%if 0%{?fedora_version}
+BuildRequires:  libXtst-devel
+BuildRequires:  qt4-devel
 %endif
 #
 # openSUSE
 #
 %if 0%{?suse_version}
-Requires:       gpg2 
+Requires:       gpg2
 %if 0%{?suse_version} <= 1110
 Requires:       avahi
 %else
-Requires:       avahi-utils 
+Requires:       avahi-utils
 %endif
-PreReq:         pwdutils
-BuildRequires:  update-desktop-files 
+BuildRequires:  update-desktop-files
+Requires(pre):  pwdutils
 %if 0%{?suse_version} > 1010
-BuildRequires:  libqt4-sql libqt4-devel libqt4-qt3support 
-BuildRequires:  libqt4-x11 wvstreams-devel
+BuildRequires:  libqt4-devel
+BuildRequires:  libqt4-qt3support
+BuildRequires:  libqt4-sql
+BuildRequires:  libqt4-x11
+BuildRequires:  wvstreams-devel
 %else
-BuildRequires:  qt-x11 libqt4-qt3support libqt4-sql
+BuildRequires:  libqt4-qt3support
+BuildRequires:  libqt4-sql
 BuildRequires:  qt-devel
+BuildRequires:  qt-x11
 %endif
 %if 0%{?suse_version} > 1100
-BuildRequires:  glib2-devel
+BuildRequires:  pkgconfig(glib-2.0)
 %endif
 %if 0%{?suse_version} > 1120
-BuildRequires:  gcc43-c++ gcc43
+BuildRequires:  gcc43
+BuildRequires:  gcc43-c++
 %endif
 %if 0%{?suse_version} > 1020
 Source4:        italc.firewall2
@@ -123,18 +139,19 @@ Author:
 %package        client
 Summary:        Software for iTALC-clients
 Group:          Productivity/Networking/Other
+Requires(pre):  perl
+Requires(pre):  xorg-x11
 Requires:       italc = %{version}
-PreReq:         perl xorg-x11 
 %if 0%{?suse_version}
-PreReq:         %insserv_prereq 
-PreReq:         %fillup_prereq
-PreReq:         permissions
+Requires(pre):  %fillup_prereq
+Requires(pre):  %insserv_prereq
+Requires(pre):  permissions
 %endif
 
 %description    client
 This package contains the software, needed by iTALC-clients.
 
-See /usr/share/doc/packages/italc/README.SuSE for details on how to install 
+See /usr/share/doc/packages/italc/README.SuSE for details on how to install
 and setup iTALC in your network.
 
 
@@ -146,9 +163,9 @@ Author:
 %package        master
 Summary:        Software for iTALC-masters
 Group:          Productivity/Networking/Other
-PreReq:         italc = %version
-PreReq:         italc-client = %version
-PreReq:         coreutils
+Requires(pre):  coreutils
+Requires(pre):  italc = %{version}
+Requires(pre):  italc-client = %{version}
 
 %description    master
 This package contains the software, needed by iTALC-master-computers.
@@ -173,22 +190,22 @@ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="%{_prefix}" -DCMAKE_CXX
 
 %install
 cd build
-make DESTDIR=$RPM_BUILD_ROOT install
+%make_install
 cd ..
 # create the directories containing the auth-keys
-mkdir -p %buildroot%_sysconfdir/italc/keys/{private,public}/{teacher,admin,supporter,other}
+mkdir -p %{buildroot}%{_sysconfdir}/italc/keys/{private,public}/{teacher,admin,supporter,other}
 # create pseudo key files so RPM can own them (ghost files)
 for role in admin supporter teacher; do
-	touch %buildroot%_sysconfdir/italc/keys/{private,public}/$role/key
+	touch %{buildroot}%{_sysconfdir}/italc/keys/{private,public}/$role/key
 done
 # create the initial config
-mkdir -p "%buildroot/%_sysconfdir/settings/iTALC Solutions"
-cat > "%buildroot/%_sysconfdir/settings/iTALC Solutions/iTALC.conf" << EOF
+mkdir -p "%{buildroot}/%{_sysconfdir}/settings/iTALC Solutions"
+cat > "%{buildroot}/%{_sysconfdir}/settings/iTALC Solutions/iTALC.conf" << EOF
 [Authentication]
 LogonAuthenticationEnabled=0
 KeyAuthenticationEnabled=1
-PublicKeyBaseDir=%_sysconfdir/italc/keys/public
-PrivateKeyBaseDir=%_sysconfdir/italc/keys/private
+PublicKeyBaseDir=%{_sysconfdir}/italc/keys/public
+PrivateKeyBaseDir=%{_sysconfdir}/italc/keys/private
 LogonGroups=
 PermissionRequiredWithKeyAuthentication=0
 PermissionRequiredWithLogonAuthentication=0
@@ -235,31 +252,31 @@ install -m644 ./ica/ica.1 %{buildroot}%{_mandir}/man1/
 install -m644 ./ima/italc.1 %{buildroot}%{_mandir}/man1/
 install -m644 %{SOURCE10} %{buildroot}%{_mandir}/man1/imc.1.gz
 # install start script for ica client
-install -D -m755 %{SOURCE2} %buildroot/%_bindir/start-ica
-install -D -m644 %{SOURCE5} %buildroot/%_sysconfdir/xdg/autostart/ica-autostart.desktop
-install -D -m755 %{SOURCE6} %buildroot/%_bindir/italc-launcher
+install -D -m755 %{SOURCE2} %{buildroot}/%{_bindir}/start-ica
+install -D -m644 %{SOURCE5} %{buildroot}/%{_sysconfdir}/xdg/autostart/ica-autostart.desktop
+install -D -m755 %{SOURCE6} %{buildroot}/%{_bindir}/italc-launcher
 # icon for the desktop file
-install -Dm644 ima/data/italc.png %buildroot/%{_datadir}/pixmaps/italc.png
+install -Dm644 ima/data/italc.png %{buildroot}/%{_datadir}/pixmaps/italc.png
 #
 # Distribution specific
 #
 # configuration for ica
 %if 0%{?suse_version}
-install -D -m644 %{SOURCE3} %buildroot/var/adm/fillup-templates/sysconfig.ica
+install -D -m644 %{SOURCE3} %{buildroot}%{_localstatedir}/adm/fillup-templates/sysconfig.ica
 %else
-install -D -m644 %{SOURCE3} %buildroot/%_sysconfdir/sysconfig/ica
+install -D -m644 %{SOURCE3} %{buildroot}/%{_sysconfdir}/sysconfig/ica
 %endif
-%if 0%{?suse_version} 
+%if 0%{?suse_version}
 %if 0%{?suse_version} > 1020
 # install firewall definitions
-# see http://en.opensuse.org/SuSEfirewall2/Service_Definitions_Added_via_Packages 
+# see http://en.opensuse.org/SuSEfirewall2/Service_Definitions_Added_via_Packages
 # for details
-install -D -m644 %{SOURCE4} %buildroot/%_sysconfdir/sysconfig/SuSEfirewall2.d/services/italc
+install -D -m644 %{SOURCE4} %{buildroot}/%{_sysconfdir}/sysconfig/SuSEfirewall2.d/services/italc
 %endif
 #
 # install desktop file
 #
-install -Dm644 %{SOURCE8} %{buildroot}/%{_datadir}/applications/%{name}.desktop 
+install -Dm644 %{SOURCE8} %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %suse_update_desktop_file %{name}
 #
 # install README.SuSE
@@ -295,10 +312,10 @@ fi
 # dont run scripts on update
 if [ ${1:-0} -lt 2 ]; then
   for role in admin supporter teacher; do
-	if [ ! -f "%_sysconfdir/italc/keys/private/$role/key" ]; then
-		/usr/bin/imc -role $role -createkeypair "%_sysconfdir/italc/keys" >/dev/null
-		chgrp %italcgrp "%_sysconfdir/italc/keys/private/$role/key"
-		chmod 0440 "%_sysconfdir/italc/keys/private/$role/key"
+	if [ ! -f "%{_sysconfdir}/italc/keys/private/$role/key" ]; then
+		/usr/bin/imc -role $role -createkeypair "%{_sysconfdir}/italc/keys" >/dev/null
+		chgrp %italcgrp "%{_sysconfdir}/italc/keys/private/$role/key"
+		chmod 0440 "%{_sysconfdir}/italc/keys/private/$role/key"
 	fi
   done
 fi
@@ -308,42 +325,42 @@ fi
 %defattr(-,root,root)
 %doc contrib doc/* AUTHORS ChangeLog COPYING README* TODO
 %{_datadir}/italc/
-%dir %_sysconfdir/italc
-%dir %_sysconfdir/italc/keys
-%dir %_sysconfdir/italc/keys/public
-%dir %_sysconfdir/italc/keys/public/teacher
-%dir %_sysconfdir/italc/keys/public/admin
-%dir %_sysconfdir/italc/keys/public/supporter
-%dir %_sysconfdir/italc/keys/public/other
-%dir %_sysconfdir/settings
-%dir "%_sysconfdir/settings/iTALC Solutions"
-%ghost %config(missingok,noreplace) %_sysconfdir/italc/keys/public/*/key
-%config(missingok,noreplace) "%_sysconfdir/settings/iTALC Solutions/iTALC.conf"
+%dir %{_sysconfdir}/italc
+%dir %{_sysconfdir}/italc/keys
+%dir %{_sysconfdir}/italc/keys/public
+%dir %{_sysconfdir}/italc/keys/public/teacher
+%dir %{_sysconfdir}/italc/keys/public/admin
+%dir %{_sysconfdir}/italc/keys/public/supporter
+%dir %{_sysconfdir}/italc/keys/public/other
+%dir %{_sysconfdir}/settings
+%dir "%{_sysconfdir}/settings/iTALC Solutions"
+%ghost %config(missingok,noreplace) %{_sysconfdir}/italc/keys/public/*/key
+%config(missingok,noreplace) "%{_sysconfdir}/settings/iTALC Solutions/iTALC.conf"
 %if 0%{?suse_version} > 1020
-%config %_sysconfdir/sysconfig/SuSEfirewall2.d/services/italc
+%config %{_sysconfdir}/sysconfig/SuSEfirewall2.d/services/italc
 %endif
 
-%files 	client
+%files client
 %defattr(-,root,root)
 %doc %{_mandir}/man1/ica.1*
 %doc %{_mandir}/man1/imc.1*
 %{_bindir}/ica
-%_bindir/start-ica
+%{_bindir}/start-ica
 %{_bindir}/imc
 %{_bindir}/italc_auth_helper
 %{_libdir}/libItalcCore.so
 %if 0%{?suse_version} <= 1010
-%dir %_sysconfdir/xdg/autostart
+%dir %{_sysconfdir}/xdg/autostart
 %endif
-%config %_sysconfdir/xdg/autostart/ica-autostart.desktop
+%config %{_sysconfdir}/xdg/autostart/ica-autostart.desktop
 %if 0%{?suse_version}
 %doc README.SuSE
-/var/adm/fillup-templates/sysconfig.ica
+%{_localstatedir}/adm/fillup-templates/sysconfig.ica
 %else
-%config(noreplace) %_sysconfdir/sysconfig/ica
+%config(noreplace) %{_sysconfdir}/sysconfig/ica
 %endif
 
-%files 	master
+%files master
 %defattr(-,root,root)
 %{_bindir}/italc
 %{_bindir}/italc-launcher
@@ -351,13 +368,13 @@ fi
 %{_datadir}/applications/italc.desktop
 #{_datadir}/icons/italc.*
 %{_datadir}/pixmaps/italc.*
-%dir %_sysconfdir/italc/keys/private
+%dir %{_sysconfdir}/italc/keys/private
 %defattr(0440,root,%italcgrp,0750)
-%dir %_sysconfdir/italc/keys/private/teacher
-%dir %_sysconfdir/italc/keys/private/admin
-%dir %_sysconfdir/italc/keys/private/supporter
-%dir %_sysconfdir/italc/keys/private/other
-%ghost %config(missingok,noreplace) %_sysconfdir/italc/keys/private/*/key
+%dir %{_sysconfdir}/italc/keys/private/teacher
+%dir %{_sysconfdir}/italc/keys/private/admin
+%dir %{_sysconfdir}/italc/keys/private/supporter
+%dir %{_sysconfdir}/italc/keys/private/other
+%ghost %config(missingok,noreplace) %{_sysconfdir}/italc/keys/private/*/key
 
 %changelog
 * Fri Dec 16 2011 fschuett@gymnasium-himmelsthuer.de
