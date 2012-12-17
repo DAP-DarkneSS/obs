@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Mon Dec 17 19:03:10 UTC 2012 - dap.darkness@gmail.com
+
+- italc-gcc47.patch was added to build via gcc >= 4.7.
+- fpie flag was replaced by fpic to build under x32.
+- Build type was switched to RelWithDebInfo to get debug info.
+- Fixed up via spec-cleaner.
+- Clean-section was removed.
+- Licence was replaced by GPL-2.0+ to fix an invalid-license warning.
+- italc_auth_helper attributes were set to 755 to fix another warning.
+
+-------------------------------------------------------------------
 Tue Aug 30 22:04:34 UTC 2011 - lars@linux-schulserver.de
 
 - update to 2.0.0

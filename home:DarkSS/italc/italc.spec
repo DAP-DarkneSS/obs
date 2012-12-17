@@ -9,7 +9,7 @@
 Name:           italc
 Version:        2.0.0
 Release:        5.1
-License:        GPL
+License:        GPL-2.0+
 Summary:        Didactical monitoring software for Linux-networks
 Url:            http://italc.sourceforge.net/
 Group:          Productivity/Networking/Other
@@ -93,6 +93,10 @@ Source6:        italc-launcher
 Source8:        italc.desktop
 Source9:        italc-rpmlintrc
 Source10:       italc-imc.1.gz
+
+# PATCH-FIX-UPSTREAM Building error with gcc >= 4.7 is fixed.
+Patch0:         %{name}-gcc47.patch
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %define         italcgrp italc
 
@@ -181,12 +185,17 @@ Author:
 
 %prep
 %setup -q
+%patch0
 
 %build
 ##export SUSE_ASNEEDED=0
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="%{_prefix}" -DCMAKE_CXX_FLAGS="%{optflags} -fpie -fPIC" ../
+cmake ../ \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
+        -DCMAKE_C_FLAGS="%{optflags} -fpic -fPIC" \
+        -DCMAKE_CXX_FLAGS="%{optflags} -fpic -fPIC"
 
 %install
 cd build
@@ -284,9 +293,6 @@ install -Dm644 %{SOURCE8} %{buildroot}/%{_datadir}/applications/%{name}.desktop
 install -m644 %{SOURCE7} README.SuSE
 %endif
 
-%clean
-rm -rf %{buildroot}
-
 %post
 if
     getent group %italcgrp >/dev/null
@@ -347,7 +353,7 @@ fi
 %{_bindir}/ica
 %{_bindir}/start-ica
 %{_bindir}/imc
-%{_bindir}/italc_auth_helper
+%attr(755,root,root) %{_bindir}/italc_auth_helper
 %{_libdir}/libItalcCore.so
 %if 0%{?suse_version} <= 1010
 %dir %{_sysconfdir}/xdg/autostart
@@ -377,6 +383,14 @@ fi
 %ghost %config(missingok,noreplace) %{_sysconfdir}/italc/keys/private/*/key
 
 %changelog
+* Mon Dec 17 2012 dap.darkness@gmail.com
+- italc-gcc47.patch was added to build via gcc >= 4.7.
+- fpie flag was replaced by fpic to build under x32.
+- Build type was switched to RelWithDebInfo to get debug info.
+- Fixed up via spec-cleaner.
+- Clean-section was removed.
+- Licence was replaced by GPL-2.0+ to fix an invalid-license warning.
+- italc_auth_helper attributes were set to 755 to fix another warning.
 * Fri Dec 16 2011 fschuett@gymnasium-himmelsthuer.de
 - reverted qt4 -> settings because of openSUSE qt4 defaults (see libqt4)
 - changed ports to 11100,11400
