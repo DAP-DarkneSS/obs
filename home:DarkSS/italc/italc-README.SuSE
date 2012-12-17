@@ -1,0 +1,37 @@
+Hi iTALC user!
+
+iTALC (ica) should be started automatically after login if you 
+installed italc-client for the first time.
+
+If you want to disable ica - but don't want to uninstall the 
+italc-client, please set the variable ENABLE_ICA to "no" in:
+
+            /etc/sysconfig/ica
+
+and re-login.
+
+Remember to adapt the firewall settings if you also want to 
+change the portnumber for ICA_PORT. You can do 
+this by adding your port to 
+
+             /etc/sysconfig/SuSEfirewall2
+
+(FW_SERVICES_EXT_TCP and FW_SERVICES_EXT_UDP) or by adapting 
+
+   /etc/sysconfig/SuSEfirewall2.d/services/italc
+
+Remember that you have to restart the Firewall if you change 
+anything there.
+
+An up to date manual for using iTalc on openSUSE can be found 
+here:
+
+           http://en.opensuse.org/Italc
+
+The settings file is found in 
+
+    /etc/settings/iTALC Solutions/iTALC.conf
+
+
+Have a lot of fun!
+

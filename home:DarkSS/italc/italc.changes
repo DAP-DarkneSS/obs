@@ -1,0 +1,366 @@
+-------------------------------------------------------------------
+Tue Aug 30 22:04:34 UTC 2011 - lars@linux-schulserver.de
+
+- update to 2.0.0
+- removed unneeded patches
+- moved generic iTALC.conf from '/etc/settings/iTALC Solutions'
+  to '/etc/qt4/iTALC Solutions' according to the wiki documentation 
+  for version 2
+
+-------------------------------------------------------------------
+Mon Aug  1 20:01:01 UTC 2011 - lars@linux-schulserver.de
+
+- just require avahi on SLED 11 (fix bnc #709338)
+
+-------------------------------------------------------------------
+Wed Mar 30 15:48:12 UTC 2011 - lars@linux-schulserver.de
+
+- update to 1.0.13:
+  + fixes serious memory leak when running iTALC master
+
+-------------------------------------------------------------------
+Sat Jul 31 20:54:01 UTC 2010 - lars@linux-schulserver.de
+
+- update to 1.0.10:
+  * Added NSIS script for building an iTALC installer
+  * Added support for languages written right-to-left
+  * IMA: rewrote top level UI and added new toolbar style
+  * IMA: updated and improved splash screen
+  * IMA: Implemented Toggle Autoview
+  * IMA/ClassroomManager: sort items numerically where appropriate
+  * ICA/Linux/x11vnc: synced with libvncserver Git repository
+  * Updated localization files:
+    - Czech
+    - French
+    - German
+    - Norwegian
+    - Slovakian
+    - Ukrainian
+    - Spanish
+  * Added localization files
+    - Catalan
+    - Hebrew
+    - Turkish
+  * Localization files: merged all translations of each language 
+    into one file
+  + Bugfixes:
+  * Allow remote login without password
+  * Include stdint.h for compiling with GCC >= 4.4
+  * Setup/Makefile.am: do not fail linking when using 
+    --as-needed linker flag
+  * IsdServer: fixed running multiple program
+  * IMA/Client: do not paint screen if window is too small
+- added patch from Frank Schuett to italc-launcher, so the keys 
+  mentioned in /etc/settings/iTALC Solutions/iTALC.conf are 
+  honored
+- fixed deprecated md5 module usage in italc-launcher 
+
+-------------------------------------------------------------------
+Sat Jun 26 06:28:50 UTC 2010 - cyberorg@opensuse.org
+
+- use gcc43 to enable building on 11.3 
+
+-------------------------------------------------------------------
+Fri Nov 20 11:54:47 UTC 2009 - cyberorg@opensuse.org
+
+- add export SUSE_ASNEEDED=0 to enable building on 11.2 
+
+-------------------------------------------------------------------
+Thu Oct  1 06:18:17 UTC 2009 - cyberorg@opensuse.org
+
+- Fix source6 defined twice
+- add italc-add-missing-include-gcc4.4.patch to fix build on new gcc 
+
+-------------------------------------------------------------------
+Mon Mar 30 11:30:21 CEST 2009 - lars@linux-schulserver.de
+
+- fix italc-launcher again to save/re-use system lang for ifconfig
+  (thanks again to Ciro Iriarte for the patch)
+
+-------------------------------------------------------------------
+Tue Mar 24 09:10:56 CET 2009 - lars@linux-schulserver.de
+
+- fix italc-launcher not finding ifconfig
+  (thanks to Ciro Iriarte for the patch)
+
+-------------------------------------------------------------------
+Thu Sep 25 13:16:35 CEST 2008 - lars@linux-schulserver.de
+
+- moved to Education base repository
+
+-------------------------------------------------------------------
+Thu Sep 18 15:14:54 CEST 2008 - lrupp@suse.de
+
+- write logfiles to /var/tmp as files in this directory are stored
+  longer than in /tmp
+
+-------------------------------------------------------------------
+Mon Sep  1 21:06:44 CEST 2008 - lars@linux-schulserver.de
+
+- fix ica launch script
+
+-------------------------------------------------------------------
+Fri Aug 15 18:56:34 CEST 2008 - lars@linux-schulserver.de
+
+- added wvstreams-devel to BuildRequires
+
+-------------------------------------------------------------------
+Mon Aug 11 19:56:35 IST 2008 - cyberorg@opensuse.org
+
+- Add italc-launcher and new ica launch scripts from stgraber@ubuntu.com
+  +Autodetection of all the clients using avahi
+
+-------------------------------------------------------------------
+Thu Jul 24 10:24:48 CEST 2008 - lars@linux-schulserver.de
+
+- update to 1.0.9:
+  + switched back to Qt 4.3.5 - finally "fixes" demo-crash
+  + fixed endless loop when initializing keys
+  + add date and time to logfiles
+  + updated miniLZO-library to version 2.03
+  + increased timeouts in socket-read-function in order to minimize 
+    lost connections
+  + made Linux-version compile with libc 2.8
+  + Linux: integrated latest x11vnc-version which fixes 
+    ICA-crashes when isconnecting during internal speed-estimations
+  + added option for making toolbar buttons only display icon
+  + fixed tooltip flicker issue
+  + made visibility of individual sidebar-buttons configurable 
+    via context-menu
+  + when selecting multiple clients (<ctrl>+left click) perform 
+    context-menu action on all selected clients
+  + added support for controlling master-application via 
+    system-tray-icon
+
+-------------------------------------------------------------------
+Mon Jul  7 16:22:38 CEST 2008 - lars@linux-schulserver.de
+
+- update to 1.0.9-rc4: 
+  + integrated latest x11vnc-version which fixes ICA-crahes when 
+    disconnecting in certain situations
+  + do not update GUI outside GUI-thread - fixes crashes of master
+
+-------------------------------------------------------------------
+Fri Jun 13 14:08:34 CEST 2008 - lars@linux-schulserver.de
+
+- update to 1.0.9-rc3:
+  + made visibility of individual sidebar-buttons configurable 
+    via context-menu
+  + when selecting multiple clients (<ctrl>+left click) process 
+    selected action in context menu on all clients
+  + fixed possibility to escape locked mode
+  + finally fixed huge-logfile problem under win32
+  + made Linux-version compile on latest systems
+  + in case of failed connections, sleep longer for not immediately 
+    hitting WinXP SP2 connection limit
+
+-------------------------------------------------------------------
+Thu Jun 12 12:30:26 CEST 2008 - lars@linux-schulserver.de
+
+- prefix ICA variables to aviod name clashes
+- package the script and desktop file in other distributions, too
+- enable post script for italc and italc-master on other dists
+- new pathname: Applications/iTALC in sysconfig
+
+-------------------------------------------------------------------
+Wed Jun 11 17:12:39 CEST 2008 - lars@linux-schulserver.de
+
+- allow additional options in /etc/sysconfig/ica for ica 
+- allow really to disable ica in /etc/sysconfig/ica 
+
+-------------------------------------------------------------------
+Tue Jun 10 10:57:36 CEST 2008 - lars@linux-schulserver.de
+
+- enhanced documentation in README and sysconfig
+- firewall settings should be in the italc package
+
+-------------------------------------------------------------------
+Mon Jun  9 18:34:15 CEST 2008 - lars@linux-schulserver.de
+
+- /etc/X11/xinit/xinitrc.d/ is to early
+  use /etc/xdg/autostart now
+
+-------------------------------------------------------------------
+Thu Jun  5 13:51:58 CEST 2008 - lars@linux-schulserver.de
+
+- the sysconfig script is called italc not ica (set manually)
+- complete reconstruction of the ica start. Using an adapted script 
+  from Skolelinux now
+- start ica using /etc/X11/xinit/xinitrc.d/
+
+-------------------------------------------------------------------
+Mon May 26 18:34:48 CEST 2008 - lars@linux-schulserver.de
+
+- update to 1.0.9-rc2 (1.0.8.992):
+  + Qt 4.4-compatibility fixes 
+  + fixed mode-buttons in toolbar (demo, locked ...)
+  + fixed tray-menu-actions when main-window is minimized
+  + updated localizations
+
+-------------------------------------------------------------------
+Tue May 20 13:44:07 CEST 2008 - lars@linux-schulserver.de
+
+- the private keys and directories should belong to the
+  italc-master package
+- don't pay attention for 'other' role
+
+-------------------------------------------------------------------
+Fri May 16 17:54:12 CEST 2008 - lars@linux-schulserver.de
+
+- fix renamed italc init script in activation code
+
+-------------------------------------------------------------------
+Sun May 11 21:38:12 CEST 2008 - lars@linux-schulserver.de
+
+- update to 1.0.9-rc1 (1.0.8.99 to make updates easier):
+  + fixed demo-mode on Linux
+  + fixed endless loop when initializing keys
+  + add date and time to logfiles 
+    (italc-1.0.8-logging.patch removed)
+  + added option for making toolbar buttons only display icon
+  + fixed tooltip flicker issue
+  + updated miniLZO-library to version 2.03
+  + added support for controlling master-application via 
+    system-tray-icon
+  + increased timeouts in socket-read-function in order to minimize 
+    lost connections
+
+-------------------------------------------------------------------
+Wed Apr 23 12:28:37 CEST 2008 - lars@linux-schulserver.de
+
+- added italc-1.0.8-logging.patch
+- don't call --with-qtdir on fedora and centos
+
+-------------------------------------------------------------------
+Mon Apr 21 14:39:02 CEST 2008 - lars@linux-schulserver.de
+
+- update to 1.0.8:
+  - disabled MMX-optimized image-scaler on x86_64 as
+    it's currently buggy
+  - added zoom-feature: holding mouse-button on a client-window 
+    makes it zoom
+  - display hostname in client-windows when "show user" is 
+    not checked
+  - removed support-tab and added a button in toolbar instead
+  - improved sidebar
+  - visibility of individual toolbar-buttons can be configured 
+    via the toolbar-contextmenu
+  - fixed several issues with scaling in remote-control-window
+  - always try to run demo-server on default-port 5858 to allow 
+    easier and more secure firewall-configuration
+  - drag'n drop support in classroom manager
+  - fixed confirmation-dialog when closing setup-window 
+    via Alt+F4/close-button
+  - added timeout-recognition in isdConnection::readFromServer()-function 
+    which makes iTALC-master not hang when quitting if a connection 
+    is somehow blocked
+  - the name-field of a client is now optional - if you do not 
+    specify it, the hostname/IP is used for displaying 
+    the client's name
+  - network-interface for demo-modes doesn't need to be configured 
+    anymore - it's auto-detected by clients
+  - improved stability of demo-server
+- added Port 5858 to the SuSEfirewall2
+- removed upstreamed italc-1.0.7-fix-x64_64-compilation.patch
+- fix some duplicated buildrequires
+- prereq pwdutils
+
+-------------------------------------------------------------------
+Mon Mar 10 14:19:49 CET 2008 - lars@linux-schulserver.de
+
+- update to 1.0.7:
+  - improved overall usability by adding new icons and reworking 
+    look of overview-mode
+  - added new image-scaling algorithm with (optional) 
+    MMX-optimizations in order to use less CPU-time on master-computer 
+    when monitoring a lot of clients with short update-intervals
+  - thanks to fast image-scaler, remote-control and demo-mode now 
+    scale screen in real-time instead of having the user to scroll
+  - removed user-list and added ability to display user-name instead 
+    of IP-address in classroom-manager instead
+  - removed remote-IP-property as not used anymore
+  - fixed logon-feature from classroom-action-menu
+  - in case user accidently changed role but no keys exist for this 
+    role try teacher-role as fallback in order to make iTALC still 
+    usable in such cases (Closes #1866440)
+  - added Polish localization-files
+  - made power-down, reboot and logoff work under Linux 
+    if no user is logged in
+  - fixed various crashes
+- use the rcitalc script in /etc/X11/xdm/Xsetup (italc-setup.sh)
+- rcitalc just starts, if third parameter is given
+
+-------------------------------------------------------------------
+Fri Mar  7 11:16:00 CET 2008 - lars@linux-schulserver.de
+
+- created italc-setup.sh to be able to stop and start italc even 
+  if the package is not (de-)installed
+- added README.SuSE for italc-client
+
+-------------------------------------------------------------------
+Tue Mar  4 11:24:56 CET 2008 - lars@linux-schulserver.de
+
+- added service definition for SuSEfirewall2 (> 1020)
+
+-------------------------------------------------------------------
+Fri Feb 22 11:09:08 CET 2008 - lars@linux-schulserver.de
+
+- update to 1.0.6:
+  + many 64bit fixes
+  + added possibility to set parameters such as -ivsport and -isdport 
+    using settings in /etc/settings/iTALC Solutions/iTALC.conf
+  + added setting for client-double-click-action
+  + added "-v" and "--version"-parameter
+  + added support for trapping Alt+Space (closes italc#1704091)
+  + also print log-messages to stdout
+  + correct titlebar caption (closes italc#1700553)
+  + set widget-cursor for vncView to according remote-cursor 
+    instead of drawing it - speeds thing a bit up
+  + complete redesign of toolbar and buttons
+  + made all code in common-dir a shared library which all 
+    components are linked against
+  + do not reload clients if remote-control is active
+  + do not resize to desktop-geometry in window-mode
+  + lot of cleanups
+  + use "halt" rather than "poweroff" for halting Linux-systems
+  + when copying file add absolute paths to source-file-names
+    (closes italc#1704173)
+  + display user-name in toolbar (closes italc#1711333)
+  + updated localizations
+  + implemented "lock student"-functionality in remote-control
+  + highlight current classroom in classroom-menu
+  + added "hide teacher-clients"-feature 
+  + added key for loglevel: 0 silent, 2 fatal, 4 critical, 
+    6 warning, 9 debug, default is 6
+  + changed log-directory to /tmp
+  + added fullscreen-functionality via F11
+  + stop demo on clients after student showed demo
+  + also accepting keys that were generated using ssh-keygen
+  + added "-screen"-argument which makes it possible to specify 
+    which screen the remote-control-window should be displayed on
+  + fixed host-based authentication in such a way that it works for
+    ThinClient-environments as well as when ports other than 5900 
+    are used for IVS (i.e. -ivsport has been used) - fixes 
+    non-working-demo in these scenarios
+  + make Backtab (i.e. Shift+Tab) work properly in remote-control 
+    (closes italc#1889307)
+- fix permissions of the generated keys
+- added sysconfig file and init script
+- start ica automatically via /etc/X11/xdm/Xsetup for clients
+
+-------------------------------------------------------------------
+Tue Jan 15 23:17:00 CET 2008 - lars@linux-schulserver.de
+
+- add italc group automatically
+- generate italc keys automatically
+
+-------------------------------------------------------------------
+Wed May  2 20:44:28 CEST 2007 - lars@linux-schulserver.de
+
+- update to 1.0.2
+
+-------------------------------------------------------------------
+Tue Dec 12 23:31:06 CEST 2006 - lars@linux-schulserver.de
+
+- initial package 1.0.0.0-rc2
+

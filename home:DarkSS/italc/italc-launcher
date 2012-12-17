@@ -1,0 +1,245 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+# coding=UTF-8
+
+# iTalc master launcher using avahi
+# Written by Stéphane Graber <stgraber@ubuntu.com>
+
+from xml.dom import minidom
+import subprocess, re, socket, os, sys
+# The md5 module is deprecated in Python 2.5
+try:
+    from hashlib import md5
+except ImportError:
+    from md5 import md5
+
+def getValueFromConfigFile(filename,key,default):
+	file=open(filename)
+	for line in file:
+		if line.startswith(key):
+			try:
+				param=line.split("=")[1]
+				param=param.strip()
+				if not param.isdigit():
+					param=param.strip('"')
+			except:
+				param=default
+	file.close()
+	return param
+					
+def getLocalIPs():
+	"Scan ifconfig output for local IPV4 addresses"
+	# Saving current LANG
+	SYSTEM_LANG=os.environ["LANG"]
+	# Apparently ifconfig has localizations according to the following line,
+	# but with LANG=es_ES.UTF-8 the output looks the same as LANG=C
+	os.environ["LANG"]="C" # Set environ LANG to C
+	ip=[]
+	output=subprocess.Popen("/sbin/ifconfig",stdout=subprocess.PIPE)
+	output.wait()
+	for line in output.stdout.readlines():
+		line=line.strip()
+		if line.startswith("inet addr"):
+			ip.append(line.split(" ")[1].split(":")[1])
+	# Restoring LANG
+	os.environ["LANG"]=SYSTEM_LANG
+	return ip
+
+def getHostPort():
+	isdhost="127.0.0.1"
+	isdport=getValueFromConfigFile(configfile,"ICA_PORT","11100")
+	if "LTSP_CLIENT" in os.environ:
+		xprop=subprocess.Popen(["/usr/bin/xprop","-root","ica_ltsp"],stdout=subprocess.PIPE)
+		xprop.wait()
+		if xprop.stdout.read().split(" ")[2].strip() == "1":
+			isdhost=os.environ["LTSP_CLIENT"]
+		else:
+			isdport=str(int(os.environ["LTSP_CLIENT"].split(".")[3])+11000)
+	return [isdhost,isdport]
+
+def getSettings():
+	"Find settings file and read paths"
+	global section_authentication
+	global section_paths
+	global path_base_public
+	global path_base_private
+	global path_globalconfig
+	global path_personalconfig
+	global settingsfile
+	file=open(settingsfile)
+	mode=""
+	for line in file:
+		line = line.strip()
+		if line == section_authentication:
+			mode=section_authentication
+		elif line == section_paths:
+			mode=section_paths
+		else:
+			if mode==section_authentication:
+				if line.startswith("PublicKeyBaseDir"):
+					try:
+						path_base_public=line.split("=")[1]
+						path_base_public=path_base_public.strip()
+					except:
+						path_base_public="/etc/italc/keys"
+				elif line.startswith("PrivateKeyBaseDir"):
+					try:
+						path_base_private=line.split("=")[1]
+						path_base_private=path_base_private.strip()
+					except:
+						path_base_private="/etc/italc/keys"
+			elif mode==section_paths:
+				if line.startswith("GlobalConfiguration"):
+					try:
+						path_globalconfig=line.split("=")[1]
+						path_globalconfig=path_globalconfig.strip()
+					except:
+						path_globalconfig="$APPDATA/GlobalConfig.xml"
+				elif line.startswith("PersonalConfiguration"):
+					try:
+						path_personalconfig=line.split("=")[1]
+						path_personalconfig=path_personalconfig.strip()
+					except:
+						path_personalconfig="$APPDATA/PersonalConfig.xml"
+	file.close()
+	return
+	
+# openSUSE uses /etc/sysconfig/ica to define the ports
+configfile="/etc/sysconfig/ica"
+# Empty config file to use if it doesn't already exist
+skeleton="""<?xml version="1.0"?>
+<!DOCTYPE italc-config-file>
+<globalclientconfig version="1.0.7" >
+  <body>
+  </body>
+</globalclientconfig>"""
+
+settingsfile="/etc/settings/iTALC Solutions/iTALC.conf"
+section_authentication="[Authentication]"
+section_paths="[Paths]"
+path_base_public="/etc/italc/keys/public"
+path_base_private="/etc/italc/keys/private"
+path_globalconfig="$APPDATA/GlobalConfig.xml"
+path_personalconfig="$APPDATA/PersonalConfig.xml"
+
+try:
+	getSettings()
+except:
+	print "Settings not found in "+settingsfile+", using defaults."
+
+try:
+	confdir=os.environ.get("HOME")+"/.italc/"
+except:
+	sys.exit('Invalid or undefined env variable \"HOME\"')
+
+try:
+	file=open(path_base_public+"/teacher/key","r")
+	md5_1=md5(file.read()).hexdigest()
+	file.close()
+
+	file=open(path_base_public+"/admin/key","r")
+	md5_2=md5(file.read()).hexdigest()
+	file.close()
+
+	file=open(path_base_public+"/supporter/key","r")
+	md5_3=md5(file.read()).hexdigest()
+	file.close()
+except:
+	sys.exit('iTalc keys not correctly installed ('+path_base_public+'/teacher/key)('+path_base_public+'/admin/key)('+path_base_public+'/supporter/key)')
+
+if not os.access(path_base_private+"/teacher/key",os.R_OK):
+	md5_1="0"
+	if not os.access(path_base_private+"/admin/key",os.R_OK):
+		md5_2="0"
+		if not os.access(path_base_private+"/supporter/key",os.R_OK):
+			md5_3="0"
+			access="none"
+		else:
+			access="supporter"
+	else:
+		access="admin"
+else:
+	access="teacher"
+
+try:
+	xmldoc=minidom.parse(confdir+"GlobalConfig.xml")
+	body=xmldoc.getElementsByTagName("globalclientconfig")[0].getElementsByTagName("body")[0]
+	classrooms=body.getElementsByTagName("classroom")
+except:
+	mkdir=subprocess.Popen(["/bin/mkdir","-p",confdir])
+	mkdir.wait()
+	try:
+		config=open(confdir+"GlobalConfig.xml","w+")
+		try:
+			file=open(path_globalconfig)
+			for line in file:
+				config.write(line)
+		except:
+			print("Globalconfig in "+path_globalconfig+" not found, using skeleton.")
+			config.write(skeleton)
+		config.close()
+	except:
+		sys.exit('Unable to write to config file')
+	xmldoc=minidom.parse(confdir+"GlobalConfig.xml")
+	body=xmldoc.getElementsByTagName("globalclientconfig")[0].getElementsByTagName("body")[0]
+	classrooms=body.getElementsByTagName("classroom")
+
+# Scan for an existing classroom and delete it
+for classroom in classrooms:
+	if classroom.getAttribute("name") == "Auto-detected computers":
+		body.removeChild(classroom)
+
+# Create the Auto-detected computers classroom
+avahi=xmldoc.createElement("classroom")
+avahi.setAttribute("name","Auto-detected computers")
+avahi.setAttribute("forcevisible","yes")
+body.appendChild(avahi)
+
+# Add computers to the classroom
+client_list=subprocess.Popen(["/usr/bin/avahi-browse","-trp","_italc._tcp"],stdout=subprocess.PIPE)
+client_list.wait()
+count=0
+
+local_addr=getLocalIPs()
+isdhost,isdport=getHostPort()
+if isdhost not in local_addr:
+	local_addr=[isdhost]
+
+for line in client_list.stdout.readlines():
+	if line.startswith("="):
+		try:
+			param=line.split(";")
+			comment=re.findall('"(.*)" "(.*)" "(.*)" "(.*)"\n',param[9])[0]
+			if (comment[1] == md5_1 or comment[2] == md5_2 or comment[3] == md5_3) and (param[7] not in local_addr or str(int(isdport)+100) != param[8]):
+				# Make sure we have a running VNC server
+				connection=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+				connection.connect((param[7],int(param[8])))
+				connection.close()
+
+				# Get MAC address
+				mac=subprocess.Popen(("/sbin/arp", param[7], "-n", "-a"),stdout=subprocess.PIPE)
+				mac.wait()
+				mac=mac.stdout.read().strip().split(" ")[3]
+				if not re.match("^..:..:..:..:..:..$",mac):
+					mac=""
+
+				# Generate the new node
+				client=xmldoc.createElement("client")
+				client.setAttribute("id",str(count))
+				client.setAttribute("localip",param[7]+":"+param[8])
+				client.setAttribute("mac",mac)
+				client.setAttribute("name",comment[0])
+				client.setAttribute("type","0")
+				avahi.appendChild(client)
+				count+=1
+		except:
+			print 'Ignoring a client, invalid data received'
+
+try:
+	file=open(confdir+"GlobalConfig.xml","w")
+	xmldoc.writexml(file)
+	file.close()
+except:
+	exit('Failed to save updated config')
+#print "Starting italc as "+access+" ("+isdhost+":"+isdport+")"
+subprocess.Popen(["/usr/bin/italc","-isdport",isdport,"-isdhost",isdhost,"-role",access])

@@ -1,0 +1,47 @@
+## Path:           Applications/iTALC
+## Description:    ICA remote monitoring startup parameters
+
+## Type:        yesno
+## Default:     yes
+#
+# Enable or disable ICA, the iTALC application running on 
+# a client to allow connections from iTALC
+#
+ICA_ENABLE="yes"
+
+## Type:        integer
+## Default:     0
+#
+# Set port at which ICA should listen. 
+# Please remember to adapt the firewall settings, too.
+# Default: 11100
+#
+ICA_PORT="11100"
+
+## Type:        yesno
+## Default:     no
+#
+# Use the MIT-SHM extension for the polling. 
+# Remote displays can be polled this way: be careful this 
+# can use large amounts of network bandwidth.  
+# This is of use if the local machine has a limited number of 
+# shm segments and -onetile is not sufficient.
+#
+ICA_USESHM="no"
+
+## Type:        yesno
+## Default:     no
+#
+# Use the new copy_tiles() framebuffer mechanism.
+# Disabling limits shm segments used to 3.
+#
+ICA_USEONETYLE="no"
+
+## Type:        string
+## Default:     ""
+#
+# Additional parameters for ICA like "--quiet"
+# Please refer to the iTALC wiki for details
+#
+ICA_PARAMS=""
+

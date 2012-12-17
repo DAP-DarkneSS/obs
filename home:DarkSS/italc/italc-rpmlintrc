@@ -1,0 +1,9 @@
+# TODO:
+setBadness("permissions-file-setuid-bit",0);
+addFilter("permissions-file-setuid-bit.*/usr/bin/italc_auth_helper.*");
+addFilter("permissions-missing-verifyscript.*/usr/bin/italc_auth_helper");
+addFilter("package-with-huge-docs");
+# these files are useful for windows admins, so leave them as they are...
+addFilter("wrong-file-end-of-line-encoding.*/usr/share/doc/packages/italc/contrib/italc.admx");
+addFilter("wrong-file-end-of-line-encoding.*/usr/share/doc/packages/italc/contrib/README.txt");
+addFilter("wrong-file-end-of-line-encoding.*/usr/share/doc/packages/italc/contrib/en-US/italc.adml");

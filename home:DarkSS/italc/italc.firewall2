@@ -1,0 +1,17 @@
+## Name: iTALC
+## Description: Opens ports for VNC so iTALC clients can listen to their master
+
+# space separated list of allowed TCP ports
+TCP="11100 11400"
+
+# space separated list of allowed UDP ports
+UDP="11100 11400"
+
+# space separated list of allowed RPC services
+RPC=""
+
+# space separated list of allowed IP protocols
+IP=""
+
+# space separated list of allowed UDP broadcast ports
+BROADCAST=""

@@ -1,0 +1,143 @@
+#!/bin/sh
+#
+# a perl script was written by Patrick Winnertz 11.12.05
+# and modified by Giovanni Gimelli - Osservatorio Tecnologico Italy
+# it has been re-written by Valerio Pachera (www.linuxludus.it) as
+# simple bash script
+# licensed under GPL2+
+# version 2.0 (21/12/2007)
+
+# SCOPE
+# The script scope is to start a ica session on different port for
+# each thin client and on default ports for diskless workstation 
+# and the server.
+# The port number used for the thinclient will be the last part of the
+# thinclient IP
+
+# The initial script was modified by Lars Vogdt for openSUSE-Education
+# at Fr 6. Jun 2008.
+
+ICA_LTSP=$(xprop -root ica_ltsp | sed 's/^.* //' 2> /dev/null)
+if [ "$ICA_LTSP" = "1" ]
+then
+        echo "ICA already running on the thin client."
+        exit 0
+fi
+
+PATH=/usr/bin:/bin
+ICA_CONFIG="/etc/sysconfig/ica"
+ITALC_CONFIG="/etc/settings/iTALC Solutions/iTALC.conf"
+ICA_BIN="/usr/bin/ica"
+
+# Check for existence of needed config file and read it
+if [ ! -r $ICA_CONFIG ]; then 
+    echo "$ICA_CONFIG does not exist" >&2
+    exit 6
+fi
+
+# set default values
+ICA_PORT="11100"
+ICA_USESHM="no"
+ICA_USEONETYLE="no"
+
+# Read config
+. $ICA_CONFIG
+
+ICA_OPTIONS=""
+
+if [ "$ICA_USESHM" != "yes" ]; then
+    ICA_OPTIONS="$ICA_OPTIONS -noshm"
+fi
+if [ "$ICA_USEONETYLE" != "yes" ]; then
+    ICA_OPTIONS="$ICA_OPTIONS -onetile"
+fi
+if [ -n "$ICA_PARAMS" ]; then
+    ICA_OPTIONS="$ICA_OPTIONS $ICA_PARAMS"
+fi
+#if [ -n "$DISPLAY" ]; then
+#	DISPLAYOPT="-display $DISPLAY"
+#fi
+
+function parse_ini () {
+    IFS=$'\n' && ini=( $(<"$1") ) 		# convert to line-array
+    ini=( ${ini[*]//;*/} ) 			# remove comments ‘;’
+    ini=( ${ini[*]//\#*/} ) 			# remove comments ‘#’
+    ini=( ${ini[*]/\ =\ /=} ) 			# remove anything with a space around ‘ = ‘
+    ini=( ${ini[*]/#[/\}$'\n'cfg_section_} ) 	# set section prefix
+    ini=( ${ini[*]/%]/ \(} )                 	# convert text2function (1)
+    ini=( ${ini[*]/=/=\( } ) 			# convert item to array
+    ini=( ${ini[*]/%/ \)} ) 			# close array parenthesis
+    ini=( ${ini[*]/%\( \)/\(\) \{} ) 		# convert text2function (2)
+    ini=( ${ini[*]/%\} \)/\}} ) 		# remove extra parenthesis
+    ini=( ${ini[*]/#\ */} ) 			# remove blank lines
+    ini=( ${ini[*]/#\ */} ) 			# remove blank lines with tabs
+    ini=( ${ini[*]/w \)/\}$'\n'cfg_section_Network \(\) \{} ) # correct wrong parsing
+    ini[0]='' 					# remove first element
+    ini[${#ini[*]} + 1]='}' 			# add the last brace
+#    printf "%s\n" ${ini[*]}
+    eval "$(echo "${ini[*]}")" 			# eval the result
+}
+
+function get_md5sums () {
+	md5sum $1 | awk '" " { print $1}'
+}
+
+function avahi_announce () {
+	IVSPORT=$1
+	MD5SUMS=""
+	HOST_NAME=$2
+	parse_ini "$ITALC_CONFIG"
+	cfg_section_Authentication
+	MD5SUM_1="$(get_md5sums "${PublicKeyBaseDir}/admin/key")"
+	MD5SUM_2="$(get_md5sums "${PublicKeyBaseDir}/supporter/key")"
+	MD5SUM_3="$(get_md5sums "${PublicKeyBaseDir}/teacher/key")"
+	avahi-publish-service "italc $HOST_NAME" _italc._tcp $IVSPORT $MD5SUM_1 $MD5SUM_2 $MD5SUM_3 "$HOST_NAME" >/dev/null & 
+}
+
+function avahi_stop () {
+	kill $(ps ux | grep "avahi-publish-service" | grep "italc" | grep "$IVSPORT" | grep "$HOSTNAME" | awk '" " { print $2 }')
+}
+
+
+if [ -x "$ICA_BIN" ]; then
+	if [ -f /etc/ltsp_chroot ]; then
+	        IP=$(ip addr show | grep " inet " | grep -v 127.0.0 | head -n1 | awk '{print \$2}' | sed "s/\/.*//")
+		HOST_NAME=$(hostname)
+	fi
+    # ends any previous ica session of the user that is running the script
+    # FIXME: killall --user $(whoami) ica 2>/dev/null; <<- better?
+	RUNNING_ICA=$(ps ux | awk '" " { print $2" "$11 }' | grep -E "^[0-9].*ica" | awk '" " { print $1 }')
+	if [ -n "$RUNNING_ICA" ]; then
+	    for process in $RUNNING_ICA; do
+			kill $process
+		done
+		sleep 1
+	fi
+
+    if [ x"$ICA_ENABLE" = x"yes" ]; then
+        # $LTSP_CLIENT is empty if the script is called on the server or a
+        # Diskless Workstation.
+        # That's true only if the script is executed after logged in the
+        # desktop manager.
+	if [ "$LTSP_CLIENT" ]; then
+			PORT=$(echo $LTSP_CLIENT | awk -F . '{print $4}')
+			ICA_PORT=$((10000 + $PORT))
+			IP="$LTSP_CLIENT"
+			HOST_NAME="$IP ($USER)"
+        else
+	    HOST_NAME=$(hostname)
+        fi
+	#start ICA service
+        $ICA_BIN $ICA_OPTIONS -port $ICA_PORT $DISPLAYOPT &
+
+	if [ -x /usr/bin/avahi-publish-service ]; then
+	  	if [ -f /var/run/avahi-daemon/pid ]; then
+			avahi_stop
+			avahi_announce $ICA_PORT $HOST_NAME
+		fi
+	fi
+    fi
+else
+	echo "$ICA_BIN doesn't exist or is not executable" >&2
+	exit 1
+fi
