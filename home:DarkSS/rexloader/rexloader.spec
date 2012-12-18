@@ -23,6 +23,8 @@ BuildRequires:  update-desktop-files
 
 Recommends:     %{name}-notifications
 
+Requires:       libqt4-sql-sqlite
+
 %description
 An advanced Qt download manager over http with configurable multithreaded
 downloading, proxy support, logging and nice notifications.

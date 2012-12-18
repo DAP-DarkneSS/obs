@@ -6,7 +6,7 @@ Build-Depends: libx11-dev, zlib1g-dev, cdbs, qt4-qmake, build-essential, libqt4-
 
 Package: rexloader
 Architecture: any
-Depends: ${shlibs:Depends}
+Depends: libqt4-sql-sqlite, ${shlibs:Depends}
 Description: A download manager
  An advanced Qt download manager over http
  with configurable multithreaded downloading,
