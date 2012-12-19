@@ -7,13 +7,13 @@
 #
 
 Name:           smplayer
-Version:        0.8.1
+Version:        0.8.2.1
 Release:        0
 License:        GPL-2.0+
 Summary:        Complete Frontend for MPlayer
 Url:            http://smplayer.sourceforge.net/
 Group:          Productivity/Multimedia/Video/Players
-Source:         http://downloads.sourceforge.net/project/smplayer/SMPlayer/%{version}/smplayer-%{version}.tar.bz2
+Source:         http://downloads.sourceforge.net/project/smplayer/SMPlayer/0.8.2/smplayer-%{version}.tar.bz2
 Patch1:         smplayer-makeflags.patch
 Patch2:         smplayer-disable-debug.patch
 Patch3:         smplayer-fix_logging_format.patch
@@ -124,9 +124,6 @@ done
 popd #docs
 
 %__install -m0644 Changelog *.txt "%{buildroot}%{_docdir}/%{name}"/
-
-%clean
-%{?buildroot:%__rm -rf "%{buildroot}"}
 
 %files
 %defattr(-,root,root)

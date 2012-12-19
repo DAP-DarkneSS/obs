@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Wed Dec 19 21:16:57 UTC 2012 - dap.darkness@gmail.com
+
+- Update to 0.8.2.1:
+  * A skinnable interface has been added. Several skins are included.
+  * Support for 6.1 and 7.1 audio output.
+  * A "Privacy" section in the preferences dialog has been added.
+  * The main window can be moved by dragging the video area.
+  * Fix for a freeze that may happen on Windows XP.
+- Clean-section was removed.
+
+-------------------------------------------------------------------
 Wed Oct 17 20:26:04 UTC 2012 - fisiu@opensuse.org  
  
 - Fix #PM-48: remote file need to be cached before playback.  
