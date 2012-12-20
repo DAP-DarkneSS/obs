@@ -1,0 +1,55 @@
+-------------------------------------------------------------------
+Tue Sep 04 10:22:00 UTC 2012 - nekolayer@yandex.ru
+
+ - changed to upstream url
+ - package renamed
+ - Update to version 0.7.1
+   - Fix export of QXmppVCardPhone class.
+   - New XEPs:
+     * XEP-0033: Extended Stanza Addressing
+   - Remove deprecated APIs:
+     * QXmppRosterManager::rosterChanged()
+     * QXmppConfiguration::sASLAuthMechanism()
+   - Improve vCard support:
+     * Add support for free-form descriptive text.
+     * Make it possible to have several addresses.
+     * Make it possible to have several e-mail addresses.
+     * Make it possible to have several phone numbers.
+   - Make it possible to set the client's extended information form (XEP-0128).
+   - Make sure QXmppDiscoveryManager only emits results.
+   - Fix XEP-0115 verification strings (remove duplicate features, sort form values)
+   - Fix issues:
+     * Issue 144: QXmppBookmarkConference autojoin parsing
+   - Add support for see-other-host server change.
+   - Add support for X-MESSENGER-OAUTH2 authentication for Windows Live Messenger.
+   - Make it possible to disable non-SASL authentication.
+   - Add QXmppClient::isAuthenticated() to query whether authentication has been
+     performed.
+
+-------------------------------------------------------------------
+Mon Sep  3 11:22:06 UTC 2012 - idonmez@suse.com
+
+- Fix name for devel package
+
+-------------------------------------------------------------------
+Fri Aug 10 19:51:07 UTC 2012 - dap.darkness@gmail.com
+
+- update to 0.6.3.1
+  * Source tree was sync with upstream.
+  * The library became dynamic.
+
+-------------------------------------------------------------------
+Tue Jul  3 19:48:35 UTC 2012 - dvaleev@suse.com
+
+- fix ppc64 libdir 
+
+-------------------------------------------------------------------
+Thu Mar 06 18:00:00 UTC 2012 - nekolayer@yandex.ru
+
+- update to 0.3.47
+
+-------------------------------------------------------------------
+Sun Jul 31 18:58:49 UTC 2011 - nlminhtl@gmail.com
+
+- first package 
+
