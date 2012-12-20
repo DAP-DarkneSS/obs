@@ -79,10 +79,11 @@ Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
 Obsoletes:      %{name}-tabpp
 Obsoletes:      %{name}-eiskaltdcpp
-%if 0%{suse_version} < 1210
-Obsoletes:      %{name}-lhtr
-%endif
 %if 0%{suse_version} < 1220
+Obsoletes:      %{name}-blogique
+Obsoletes:      %{name}-blogique-metida
+Obsoletes:      %{name}-lhtr
+Obsoletes:      %{name}-lmp
 Obsoletes:      %{name}-tabsessionmanager
 %endif
 
@@ -819,25 +820,21 @@ etc.
 #Dashboard
 
 
-%if 0%{suse_version} >= 1210
-%if %qtversion >= 40800
+%if 0%{suse_version} >= 1220
 %package blogique
 Summary:        LeechCraft Blogging client Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-lhtr = %{version}
-Requires:       libqt4 >= 4.8
 
 %description blogique
 This package provides a modular Blogging client plugin for LeechCraft.
 
 It will support different blogging platforms via different submodules.
 %endif
-%endif
 
 
-%if 0%{suse_version} >= 1210
-%if %qtversion >= 40800
+%if 0%{suse_version} >= 1220
 %package blogique-metida
 Summary:        LeechCraft Blogique - LiveJournal Module
 Group:          Productivity/Networking/Other
@@ -848,7 +845,6 @@ Requires:       %{name}-blogique = %{version}
 This package provides a LiveJournal subplugin for LeechCraft Blogique.
 
 It will provide LiveJournal support.
-%endif
 %endif
 
 
@@ -1177,6 +1173,7 @@ This package provides another Network Monitor plugin for Leechcraft.
 %endif
 
 
+%if 0%{suse_version} >= 1220
 %package lhtr
 Summary:        LeechCraft HTML WYSIWYG editor Module
 Group:          Productivity/Networking/Other
@@ -1186,6 +1183,7 @@ Requires:       %{name} = %{version}
 This package provides a HTML WYSIWYG editor plugin for Leechcraft.
 
 It can be usable with mail and blog modules.
+%endif
 
 
 %package liznoo
@@ -2004,7 +2002,6 @@ cmake ../src \
         -DENABLE_KNOWHOW=True \
         -DENABLE_LACKMAN=True \
         -DENABLE_LADS=False \
-        -DENABLE_LHTR=True \
         -DENABLE_LIZNOO=True \
         -DENABLE_MEDIACALLS=False \
         -DENABLE_NACHEKU=True \
@@ -2022,13 +2019,16 @@ cmake ../src \
         -DENABLE_TWIFEE=False \
         -DENABLE_VFSCORE=False \
 %if 0%{suse_version} > 1210
+        -DENABLE_BLOGIQUE=True \
+        -DENABLE_LHTR=True \
         -DENABLE_TABSESSMANAGER=True \
 %else
+        -DENABLE_BLOGIQUE=False \
+        -DENABLE_LHTR=False \
         -DENABLE_TABSESSMANAGER=False \
 %endif
 %if %qtversion >= 40800
         -DENABLE_AZOTH_SHX=True \
-        -DENABLE_BLOGIQUE=True \
         -DENABLE_DUMBEEP=True \
         -DDUMBEEP_WITH_PHONON=True \
         -DENABLE_GMAILNOTIFIER=True \
@@ -2050,7 +2050,6 @@ cmake ../src \
         -DENABLE_VROOBY=True \
 %else
         -DENABLE_AZOTH_SHX=False \
-        -DENABLE_BLOGIQUE=False \
         -DENABLE_DUMBEEP=False \
         -DENABLE_GMAILNOTIFIER=False \
         -DENABLE_HOTSTREAMS=False \
@@ -2409,22 +2408,18 @@ EOF
 #%%defattr(-,root,root)
 #%%{plugin_dir}/*%%{name}_blackdash.so
 
-%if 0%{suse_version} >= 1210
-%if %qtversion >= 40800
+%if 0%{suse_version} >= 1220
 %files blogique
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blogique.so
 %{_datadir}/%{name}/settings/blogiquesettings.xml
 %endif
-%endif
 
-%if 0%{suse_version} >= 1210
-%if %qtversion >= 40800
+%if 0%{suse_version} >= 1220
 %files blogique-metida
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blogique_metida.so
 %{_datadir}/%{name}/settings/blogiquemetidasettings.xml
-%endif
 %endif
 
 %files choroid
@@ -2591,10 +2586,12 @@ EOF
 %endif
 %endif
 
+%if 0%{suse_version} >= 1220
 %files lhtr
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lhtr.so
 %{_datadir}/%{name}/translations/%{name}_lhtr_*.qm
+%endif
 
 %files liznoo
 %defattr(-,root,root)
