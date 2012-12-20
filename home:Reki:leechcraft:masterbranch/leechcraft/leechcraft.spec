@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.85-810-g05c053c
+%define LEECHCRAFT_VERSION 0.5.85-842-g55685a8
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -2018,6 +2018,7 @@ cmake ../src \
         -DENABLE_SNAILS=False \
         -DENABLE_SYNCER=True \
         -DENABLE_TABSLIST=True \
+        -DENABLE_TOUCHSTREAMS=False \
         -DENABLE_TWIFEE=False \
         -DENABLE_VFSCORE=False \
 %if 0%{suse_version} > 1210
@@ -2045,7 +2046,6 @@ cmake ../src \
         -DENABLE_SB2=True \
         -DENABLE_SHAITAN=True \
         -DENABLE_TORRENT=True \
-        -DENABLE_TOUCHSTREAMS=False \
         -DENABLE_TPI=True \
         -DENABLE_VROOBY=True \
 %else
@@ -2381,6 +2381,7 @@ EOF
 %{translations_dir}/%{name}_azoth_xoox*
 %{plugin_dir}/*%{name}_azoth_xoox.so
 %{_datadir}/applications/%{name}-azoth-xoox.desktop
+%{_datadir}/%{name}/settings/azothxooxsettings.xml
 
 %files azoth-xtazy
 %defattr(-,root,root)
