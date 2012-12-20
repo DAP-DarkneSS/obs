@@ -2,7 +2,7 @@
   <service name="tar_scm">
     <param name="url">https://code.google.com/p/qxmpp/</param>
     <param name="scm">git</param>
-    <param name="versionprefix">0.7.3</param>
+    <param name="versionprefix">0.7.4</param>
   </service>
   <service name="recompress">
     <param name="file">*.tar</param>

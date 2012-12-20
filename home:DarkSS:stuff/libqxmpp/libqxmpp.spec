@@ -17,9 +17,9 @@
 
 
 Name:           libqxmpp
-Version:        0.7.1
+Version:        0.7.4
 Release:        0
-Source0:        https://qxmpp.googlecode.com/files/qxmpp-0.7.1.tar.gz
+Source0:        https://qxmpp.googlecode.com/files/qxmpp-0.7.4.tar.gz
 Source1:        baselibs.conf
 Summary:        Qt XMPP Library
 License:        LGPL-2.0+

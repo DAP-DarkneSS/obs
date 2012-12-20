@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Thu Dec 20 18:45:59 UTC 2012 - dap.darkness@gmail.com
+
+- update to 0.7.4
+  * Add XEP-0249: Direct MUC Invitations attributes to QXmppMessage.
+  * Add XEP-0045: Multi-User Chat attributes to QXmppPresence.
+  * Improve GuiClient, stop using deprecated APIs.
+  * Improve QXmppServer.
+  * Improve QXmppTransferManager.
+
+-------------------------------------------------------------------
 Tue Sep 04 10:22:00 UTC 2012 - nekolayer@yandex.ru
 
  - changed to upstream url
