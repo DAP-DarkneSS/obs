@@ -1,0 +1,338 @@
+diff -ru src.orig/plugins/azoth/plugins/xoox/adhoccommandserver.cpp src/plugins/azoth/plugins/xoox/adhoccommandserver.cpp
+--- src.orig/plugins/azoth/plugins/xoox/adhoccommandserver.cpp	2012-08-11 13:17:36.000000000 +0400
++++ src/plugins/azoth/plugins/xoox/adhoccommandserver.cpp	2012-09-11 09:46:14.466231154 +0400
+@@ -374,8 +374,11 @@
+ 				const QString& from = var.isEmpty () ?
+ 						base->GetHumanReadableID () :
+ 						base->GetHumanReadableID () + '/' + var;
+-				QXmppExtendedAddress address ("ofrom", from);
+-				msg.setExtendedAddresses (QXmppExtendedAddressList () << address);
++
++				QXmppExtendedAddress address;
++				address.setType ("ofrom");
++				address.setJid (from);
++				msg.setExtendedAddresses (QList<QXmppExtendedAddress> () << address);
+ 
+ 				Conn_->GetClient ()->sendPacket (msg);
+ 			}
+diff -ru src.orig/plugins/azoth/plugins/xoox/clientconnection.cpp src/plugins/azoth/plugins/xoox/clientconnection.cpp
+--- src.orig/plugins/azoth/plugins/xoox/clientconnection.cpp	2012-08-11 13:17:36.000000000 +0400
++++ src/plugins/azoth/plugins/xoox/clientconnection.cpp	2012-09-11 09:35:52.930232413 +0400
+@@ -211,7 +211,7 @@
+ 			vm.clientName (),
+ 			vm.clientVersion ()
+ 		};
+-		DiscoveryManager_->setInfoForm (XEP0232Handler::ToDataForm (si));
++		DiscoveryManager_->setClientInfoForm (XEP0232Handler::ToDataForm (si));
+ 
+ 		connect (Client_,
+ 				SIGNAL (connected ()),
+@@ -363,7 +363,6 @@
+ 				conf.setPort (port);
+ 			conf.setKeepAliveInterval (KAInterval_);
+ 			conf.setKeepAliveTimeout (KATimeout_);
+-			conf.setUseSASLAuthentication (false);
+ 			Client_->connectToServer (conf, pres);
+ 
+ 			FirstTimeConnect_ = false;
+diff -ru src.orig/plugins/azoth/plugins/xoox/entrybase.cpp src/plugins/azoth/plugins/xoox/entrybase.cpp
+--- src.orig/plugins/azoth/plugins/xoox/entrybase.cpp	2012-08-11 13:17:36.000000000 +0400
++++ src/plugins/azoth/plugins/xoox/entrybase.cpp	2012-09-11 09:34:53.623805047 +0400
+@@ -27,6 +27,7 @@
+ #include <QXmppPresence.h>
+ #include <QXmppClient.h>
+ #include <QXmppRosterManager.h>
++#include <QXmppDiscoveryManager.h>
+ #include <util/util.h>
+ #include <interfaces/azoth/iproxyobject.h>
+ #include <interfaces/azoth/azothutil.h>
+@@ -269,7 +270,10 @@
+ 			to += '/' + variant;
+ 		pres.setTo (to);
+ 
+-		conn->GetClient ()->addProperCapability (pres);
++		auto discoMgr = conn->GetClient ()->findExtension<QXmppDiscoveryManager> ();
++		pres.setCapabilityHash ("sha-1");
++		pres.setCapabilityNode (discoMgr->clientCapabilitiesNode ());
++		pres.setCapabilityVer (discoMgr->capabilities ().verificationString ());
+ 		conn->GetClient ()->sendPacket (pres);
+ 	}
+ 
+diff -ru src.orig/plugins/azoth/plugins/xoox/inbandaccountregsecondpage.cpp src/plugins/azoth/plugins/xoox/inbandaccountregsecondpage.cpp
+--- src.orig/plugins/azoth/plugins/xoox/inbandaccountregsecondpage.cpp	2012-08-11 13:17:36.000000000 +0400
++++ src/plugins/azoth/plugins/xoox/inbandaccountregsecondpage.cpp	2012-09-11 09:35:00.123742286 +0400
+@@ -153,8 +153,8 @@
+ 
+ 		QXmppConfiguration conf;
+ 		conf.setDomain (server);
+-		conf.setSASLAuthMechanism (QXmppConfiguration::SASLAnonymous);
+-		conf.setIgnoreAuth (true);
++		conf.setUseNonSASLAuthentication (false);
++		conf.setUseSASLAuthentication (false);
+ 		Client_->connectToServer (conf);
+ 
+ 		SetState (SConnecting);
+diff -ru src.orig/plugins/azoth/plugins/xoox/vcarddialog.cpp src/plugins/azoth/plugins/xoox/vcarddialog.cpp
+--- src.orig/plugins/azoth/plugins/xoox/vcarddialog.cpp	2012-08-11 13:17:36.000000000 +0400
++++ src/plugins/azoth/plugins/xoox/vcarddialog.cpp	2012-09-11 09:34:53.614805134 +0400
+@@ -115,11 +115,13 @@
+ 		else
+ 			Ui_.LabelPhoto_->setText (tr ("No photo"));
+ 
++		/* TODO wait until newer QXmpp
+ 		Ui_.OrgName_->setText (vcard.orgName ());
+ 		Ui_.OrgUnit_->setText (vcard.orgUnit ());
+ 		Ui_.Title_->setText (vcard.title ());
+ 		Ui_.Role_->setText (vcard.role ());
+ 		Ui_.About_->setPlainText (vcard.desc ());
++		*/
+ 	}
+ 
+ 	void VCardDialog::BuildPhones (const QXmppVCardPhoneList& phonesList)
+@@ -127,22 +129,22 @@
+ 		QStringList phones;
+ 		Q_FOREACH (const QXmppVCardPhone& phone, phonesList)
+ 		{
+-			if (phone.number.isEmpty ())
++			if (phone.number ().isEmpty ())
+ 				continue;
+ 
+ 			QStringList attrs;
+-			if (phone.isPref)
++			if (phone.type () & QXmppVCardPhone::Preferred)
+ 				attrs << tr ("preferred");
+-			if (phone.isHome)
++			if (phone.type () & QXmppVCardPhone::Home)
+ 				attrs << tr ("home");
+-			if (phone.isWork)
++			if (phone.type () & QXmppVCardPhone::Work)
+ 				attrs << tr ("work");
+-			if (phone.isCell)
++			if (phone.type () & QXmppVCardPhone::Cell)
+ 				attrs << tr ("cell");
+ 
+ 			phones << (attrs.isEmpty () ?
+-						phone.number :
+-						(phone.number + " (" + attrs.join (", ") + ")"));
++						phone.number () :
++						(phone.number () + " (" + attrs.join (", ") + ")"));
+ 		}
+ 		Ui_.EditPhone_->setText (phones.join ("; "));
+ 	}
+@@ -152,22 +154,22 @@
+ 		QStringList emails;
+ 		Q_FOREACH (const QXmppVCardEmail& email, emailsList)
+ 		{
+-			if (email.address.isEmpty ())
++			if (email.address ().isEmpty ())
+ 				continue;
+ 
+ 			QStringList attrs;
+-			if (email.isPref)
++			if (email.type () == QXmppVCardEmail::Preferred)
+ 				attrs << tr ("preferred");
+-			if (email.isHome)
++			if (email.type () == QXmppVCardEmail::Home)
+ 				attrs << tr ("home");
+-			if (email.isWork)
++			if (email.type () == QXmppVCardEmail::Work)
+ 				attrs << tr ("work");
+-			if (email.isX400)
++			if (email.type () == QXmppVCardEmail::X400)
+ 				attrs << "X400";
+ 
+ 			emails << (attrs.isEmpty () ?
+-						email.address :
+-						(email.address + " (" + attrs.join (", ") + ")"));
++						email.address () :
++						(email.address () + " (" + attrs.join (", ") + ")"));
+ 		}
+ 		Ui_.EditEmail_->setText (emails.join ("; "));
+ 	}
+@@ -178,17 +180,18 @@
+ 		int addrNum = 1;
+ 		Q_FOREACH (const QXmppVCardAddress& address, addressList)
+ 		{
+-			if (address.isEmpty ())
++			if ((address.country () + address.locality () + address.postcode () +
++					address.region () + address.street ()).isEmpty ())
+ 				continue;
+ 
+ 			QStringList attrs;
+-			if (address.isHome)
++			if (address.type () & QXmppVCardAddress::Home)
+ 				attrs << tr ("home");
+-			if (address.isWork)
++			if (address.type () & QXmppVCardAddress::Work)
+ 				attrs << tr ("work");
+-			if (address.isPostal)
++			if (address.type () & QXmppVCardAddress::Postal)
+ 				attrs << tr ("postal");
+-			if (address.isPref)
++			if (address.type () & QXmppVCardAddress::Preferred)
+ 				attrs << tr ("preferred");
+ 
+ 			QString str;
+@@ -207,12 +210,11 @@
+ 				if (!val.isEmpty ())
+ 					fields << label.arg (val);
+ 			};
+-			addField (tr ("Country: %1"), address.country);
+-			addField (tr ("Region: %1"), address.region);
+-			addField (tr ("Locality: %1", "User's locality"), address.locality);
+-			addField (tr ("Street: %1"), address.street);
+-			addField (tr ("Additional: %1", "Additional address in user's address"), address.extAdd);
+-			addField (tr ("Postal code: %1"), address.pCode);
++			addField (tr ("Country: %1"), address.country ());
++			addField (tr ("Region: %1"), address.region ());
++			addField (tr ("Locality: %1", "User's locality"), address.locality ());
++			addField (tr ("Street: %1"), address.street ());
++			addField (tr ("Postal code: %1"), address.postcode ());
+ 			str += "<ul><li>";
+ 			str += fields.join ("</li><li>");
+ 			str += "</li></ul>";
+@@ -292,11 +294,13 @@
+ 		VCard_.setNickName (Ui_.EditNick_->text ());
+ 		VCard_.setBirthday (Ui_.EditBirthday_->date ());
+ 		VCard_.setUrl (Ui_.EditURL_->text ());
++		/* TODO wait for newer QXmpp
+ 		VCard_.setOrgName (Ui_.OrgName_->text ());
+ 		VCard_.setOrgUnit (Ui_.OrgUnit_->text ());
+ 		VCard_.setTitle (Ui_.Title_->text ());
+ 		VCard_.setRole (Ui_.Role_->text ());
+ 		VCard_.setDesc (Ui_.About_->toPlainText ());
++		*/
+ 		VCard_.setEmail (QString ());
+ 
+ 		const QPixmap *px = Ui_.LabelPhoto_->pixmap ();
+@@ -335,23 +339,28 @@
+ 				<< tr ("work")
+ 				<< tr ("cell");
+ 
++		const std::vector<QXmppVCardPhone::Type> type2pos =
++		{
++			QXmppVCardPhone::Preferred,
++			QXmppVCardPhone::Home,
++			QXmppVCardPhone::Work,
++			QXmppVCardPhone::Cell
++		};
++
+ 		VCardListEditDialog dia (options, this);
+ 		dia.setWindowTitle (tr ("VCard phones"));
+ 		Q_FOREACH (const QXmppVCardPhone& phone, VCard_.phones ())
+ 		{
+-			if (phone.number.isEmpty ())
++			if (phone.number ().isEmpty ())
+ 				continue;
+ 
+ 			QPair<QString, QStringList> pair;
+-			pair.first = phone.number;
+-			if (phone.isPref)
+-				pair.second << options.at (0);
+-			if (phone.isHome)
+-				pair.second << options.at (1);
+-			if (phone.isWork)
+-				pair.second << options.at (2);
+-			if (phone.isCell)
+-				pair.second << options.at (3);
++			pair.first = phone.number ();
++
++			for (size_t i = 0; i < type2pos.size (); ++i)
++				if (phone.type () & type2pos [i])
++					pair.second << options.at (i);
++
+ 			dia.AddItems (QList<decltype (pair)> () << pair);
+ 		}
+ 
+@@ -362,11 +371,14 @@
+ 		Q_FOREACH (const auto& item, dia.GetItems ())
+ 		{
+ 			QXmppVCardPhone phone;
+-			phone.number = item.first;
+-			phone.isPref = item.second.contains (options.at (0));
+-			phone.isHome = item.second.contains (options.at (1));
+-			phone.isWork = item.second.contains (options.at (2));
+-			phone.isCell = item.second.contains (options.at (3));
++			phone.setNumber (item.first);
++
++			QXmppVCardPhone::Type type = QXmppVCardPhone::None;
++			for (size_t i = 0; i < type2pos.size (); ++i)
++				if (item.second.contains (options.at (i)))
++					type &= type2pos [i];
++			phone.setType (type);
++
+ 			list << phone;
+ 		}
+ 		VCard_.setPhones (list);
+@@ -381,23 +393,27 @@
+ 				<< tr ("work")
+ 				<< "X400";
+ 
++		const std::vector<QXmppVCardEmail::Type> type2pos =
++		{
++			QXmppVCardEmail::Preferred,
++			QXmppVCardEmail::Home,
++			QXmppVCardEmail::Work,
++			QXmppVCardEmail::X400
++		};
++
+ 		VCardListEditDialog dia (options, this);
+ 		dia.setWindowTitle (tr ("VCard emails"));
+ 		Q_FOREACH (const QXmppVCardEmail& email, VCard_.emails ())
+ 		{
+-			if (email.address.isEmpty ())
++			if (email.address ().isEmpty ())
+ 				continue;
+ 
+ 			QPair<QString, QStringList> pair;
+-			pair.first = email.address;
+-			if (email.isPref)
+-				pair.second << options.at (0);
+-			if (email.isHome)
+-				pair.second << options.at (1);
+-			if (email.isWork)
+-				pair.second << options.at (2);
+-			if (email.isX400)
+-				pair.second << options.at (3);
++			pair.first = email.address ();
++			for (size_t i = 0; i < type2pos.size (); ++i)
++				if (email.type () & type2pos [i])
++					pair.second << options.at (i);
++
+ 			dia.AddItems (QList<decltype (pair)> () << pair);
+ 		}
+ 
+@@ -408,11 +424,14 @@
+ 		Q_FOREACH (const auto& item, dia.GetItems ())
+ 		{
+ 			QXmppVCardEmail email;
+-			email.address = item.first;
+-			email.isPref = item.second.contains (options.at (0));
+-			email.isHome = item.second.contains (options.at (1));
+-			email.isWork = item.second.contains (options.at (2));
+-			email.isX400 = item.second.contains (options.at (3));
++			email.setAddress (item.first);
++
++			QXmppVCardEmail::Type type = QXmppVCardEmail::None;
++			for (size_t i = 0; i < type2pos.size (); ++i)
++				if (item.second.contains (options.at (i)))
++					type &= type2pos [i];
++			email.setType (type);
++
+ 			list << email;
+ 		}
+ 		VCard_.setEmails (list);
+diff -ru src.orig/plugins/azoth/plugins/xoox/vcarddialog.h src/plugins/azoth/plugins/xoox/vcarddialog.h
+--- src.orig/plugins/azoth/plugins/xoox/vcarddialog.h	2012-08-11 13:17:36.000000000 +0400
++++ src/plugins/azoth/plugins/xoox/vcarddialog.h	2012-09-11 09:34:53.622805056 +0400
+@@ -32,6 +32,10 @@
+ 	class EntryBase;
+ 	class GlooxAccount;
+ 
++	typedef QList<QXmppVCardPhone> QXmppVCardPhoneList;
++	typedef QList<QXmppVCardEmail> QXmppVCardEmailList;
++	typedef QList<QXmppVCardAddress> QXmppVCardAddressList;
++
+ 	class VCardDialog : public QDialog
+ 	{
+ 		Q_OBJECT

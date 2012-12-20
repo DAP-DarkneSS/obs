@@ -1,3 +1,14 @@
+-------------------------------------------------------------------
+Wed Oct 31 13:44:33 UTC 2012 - mvyskocil@suse.com
+
+- setup permissions correctly to avoid false duplicates reported by
+  rpmlint because of new fdupes behavior (bnc#784670)
+
+-------------------------------------------------------------------
+Tue Sep 09 06:44:00 UTC 2012 - nekolayer@yandex.ru
+- fix build with new libqxmpp (backported from git)
+
+-------------------------------------------------------------------
 Fri Aug 10 20:44:22 UTC 2012 - dap.darkness@gmail.com
 - 0.5.80 release
   Media player LMP:
