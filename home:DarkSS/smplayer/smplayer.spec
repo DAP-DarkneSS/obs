@@ -134,6 +134,8 @@ popd #docs
 %{_bindir}/smplayer
 %{_datadir}/applications/smplayer.desktop
 %{_datadir}/applications/smplayer_enqueue.desktop
+%dir %{_datadir}/icons/*/*
+%dir %{_datadir}/icons/*/*/apps
 %{_datadir}/icons/*/*/apps/smplayer.*
 %dir %{_datadir}/smplayer
 %config %{_datadir}/smplayer/input.conf
