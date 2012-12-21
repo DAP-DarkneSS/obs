@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Fri Dec 21 21:24:25 UTC 2012 - dap.darkness@gmail.com
+- 0.5.90 release:
+  * lots of improvements and bugfixes;
+  * desktop-files to open different file types;
+  * gcc 4.5 support was deprecated.
+- New plugins were enabled:
+  * azoth-shx — shell command runner;
+  * blogique & blogique-metida — blogging;
+  * dumbeep — dumb sound notifier;
+  * hotstreams — radio streams provider;
+  * launchy — third-party application launcher;
+  * lemon — another network Monitor;
+  * liznoo — power manager;
+  * monocle-postrus && monocle-seen — PostScript && Djvu documents support;
+  * musiczombie — MusicBrainz.org client;
+  * sb2 — another side bar;
+  * shaitan — terminal;
+  * tpi — quark task progress indicator.
+- Clean section was removed.
+- Applied into upstream patches were deleted.
+- Useless desktop-file was deleted.
+
+-------------------------------------------------------------------
 Wed Oct 31 13:44:33 UTC 2012 - mvyskocil@suse.com
 
 - setup permissions correctly to avoid false duplicates reported by

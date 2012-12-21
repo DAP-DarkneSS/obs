@@ -29,10 +29,6 @@ License:        GPL-3.0+
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 Source0:        http://netcologne.dl.sourceforge.net/project/%{name}/LeechCraft/%{version}/%{name}-%{version}.tar.xz
-# Fix-upstream build with merged libqxmpp
-Patch2:         fix-upstream-new-qxmpp.patch
-# Set AppQStyle to default from plastique
-Patch3:         defaultstyle.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake > 2.8
@@ -41,6 +37,7 @@ BuildRequires:  doxygen
 %endif
 BuildRequires:  fdupes
 BuildRequires:  file-devel
+BuildRequires:  gcc-c++ >= 4.6
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  hunspell-devel
 BuildRequires:  kdebase4-workspace-devel
@@ -55,15 +52,15 @@ BuildRequires:  libmsn-devel
 BuildRequires:  libnl3-devel
 %endif
 BuildRequires:  libpoppler-qt4-devel
-BuildRequires:  libspectre-devel
-BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
 BuildRequires:  libqca2-devel
 BuildRequires:  libqjson-devel
 BuildRequires:  libqscintilla-devel
-BuildRequires:  libqt4-devel >= 4.8
+BuildRequires:  libqt4-devel >= 4.7
 BuildRequires:  libqt4-sql
 BuildRequires:  libqxmpp-devel > 0.7
 BuildRequires:  libqxt1-devel
+BuildRequires:  libspectre-devel
+BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
 BuildRequires:  pcre-devel
 BuildRequires:  phonon-devel
 %if 0%{suse_version} >= 1220
@@ -81,7 +78,7 @@ Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
 Obsoletes:      %{name}-tabpp
 %if 0%{suse_version} < 1220
-Obsoletes:      %{name}-bittorrent 
+Obsoletes:      %{name}-bittorrent
 Obsoletes:      %{name}-gmailnotifier
 Obsoletes:      %{name}-lhtr
 Obsoletes:      %{name}-lmp
@@ -108,199 +105,6 @@ This package contains the main LeechCraft executable, which connects
 all the plugins with each other, routes requests between them, tracks
 dependencies and performs several other housekeeping tasks.
 
-#-------------------------patterns----------------------------#
-%package meta_full
-Group:          Metapackages
-Summary:        Meta package for pattern leechcraft_full
-Requires:       patterns-openSUSE-leechcraft_browser
-Requires:       patterns-openSUSE-leechcraft_messenger
-Requires:       patterns-openSUSE-leechcraft_media
-Requires:       patterns-openSUSE-leechcraft_websurf
-Requires:       patterns-openSUSE-leechcraft_tools
-
-%description meta_full
-This package is installed if a pattern is selected to have a working update path
-
-%package meta_browser
-Group:          Metapackages
-Summary:        Meta package for pattern leechcraft_browser
-Requires:       %{name}-advancednotifications
-Requires:       %{name}-historyholder
-Requires:       %{name}-kinotify
-Requires:       %{name}-lackman
-Requires:       %{name}-newlife
-Requires:       %{name}-pintab
-%if 0%{suse_version} >= 1220
-Requires:       %{name}-pogooglue
-%endif
-Requires:       %{name}-poshuku
-Requires:       %{name}-poshuku-cleanweb
-Requires:       %{name}-poshuku-delicious
-Requires:       %{name}-poshuku-fua
-Requires:       %{name}-poshuku-keywords
-Requires:       %{name}-poshuku-onlinebookmarks
-Requires:       %{name}-poshuku-readitlater
-Requires:       %{name}-secman
-Requires:       %{name}-secman-simplestorage
-Requires:       %{name}-seekthru
-Requires:       %{name}-shellopen
-Requires:       %{name}-summary
-Requires:       %{name}-syncer
-%if 0%{suse_version} >= 1220
-Requires:       %{name}-tabsessionmanager
-%endif
-Requires:       %{name}-vgrabber
-Requires:       %{name}-xproxy
-Recommends:     %{name}-poshuku-fatape
-Recommends:     %{name}-poshuku-filescheme
-
-%description meta_browser
-This package is installed if a pattern is selected to have a working update path
-
-%package meta_messenger
-Group:          Metapackages
-Summary:        Meta package for pattern leechcraft_messenger
-Requires:       %{name}-advancednotifications
-Requires:       %{name}-azoth
-Requires:       %{name}-azoth-acetamide
-Requires:       %{name}-azoth-adiumstyles
-Requires:       %{name}-azoth-astrality
-Requires:       %{name}-azoth-autoidler
-Requires:       %{name}-azoth-autopaste
-Requires:       %{name}-azoth-chathistory
-Requires:       %{name}-azoth-depester
-Requires:       %{name}-azoth-birthdaynotifier
-Requires:       %{name}-azoth-herbicide
-Requires:       %{name}-azoth-hili
-Requires:       %{name}-azoth-isterique
-Requires:       %{name}-azoth-lastseen
-Requires:       %{name}-azoth-nativeemoticons
-Requires:       %{name}-azoth-standardstyles
-Requires:       %{name}-azoth-vader
-Requires:       %{name}-azoth-xoox
-Requires:       %{name}-azoth-xtazy
-Requires:       %{name}-azoth-zheet
-Requires:       %{name}-historyholder
-Requires:       %{name}-kinotify
-Requires:       %{name}-lackman
-Requires:       %{name}-newlife
-Requires:       %{name}-secman
-Requires:       %{name}-secman-simplestorage
-Requires:       %{name}-shellopen
-Requires:       %{name}-syncer
-%if 0%{suse_version} >= 1220
-Requires:       %{name}-tabsessionmanager
-%endif
-Requires:       %{name}-xproxy
-Recommends:     %{name}-azoth-embedmedia
-Recommends:     %{name}-azoth-juick
-Recommends:     %{name}-azoth-keeso
-Recommends:     %{name}-azoth-metacontacts
-Recommends:     %{name}-azoth-modnok
-Recommends:     %{name}-azoth-p100q
-Recommends:     %{name}-azoth-rosenthal
-
-%description meta_messenger
-This package is installed if a pattern is selected to have a working update path
-
-%if 0%{suse_version} >= 1220
-%package meta_media
-Group:          Metapackages
-Summary:        Meta package for pattern leechcraft_media
-Requires:       %{name}-advancednotifications
-Requires:       %{name}-deadlyrics
-Requires:       %{name}-gacts
-Requires:       %{name}-hotstreams
-Requires:       %{name}-kinotify
-Requires:       %{name}-lastfmscrobble
-Requires:       %{name}-lmp
-Requires:       %{name}-lmp-dumbsync
-Requires:       %{name}-lmp-mp3tunes
-Requires:       %{name}-secman
-Requires:       %{name}-secman-simplestorage
-Requires:       %{name}-vgrabber
-
-%description meta_media
-This package is installed if a pattern is selected to have a working update path
-%endif
-
-%package meta_websurf
-Group:          Metapackages
-Summary:        Meta package for pattern leechcraft_websurf
-Requires:       %{name}-advancednotifications
-Requires:       %{name}-aggregator
-Requires:       %{name}-aggregator-bodyfetch
-Requires:       %{name}-auscrie
-%if 0%{suse_version} >= 1220
-Requires:       %{name}-bittorrent
-Requires:       %{name}-blogique
-Requires:       %{name}-blogique-metida
-Requires:       %{name}-gmailnotifier
-%endif
-Requires:       %{name}-choroid
-Requires:       %{name}-historyholder
-Requires:       %{name}-kinotify
-Requires:       %{name}-lhtr
-%if 0%{suse_version} >= 1220
-Requires:       %{name}-monocle
-Requires:       %{name}-monocle-fxb
-Requires:       %{name}-monocle-pdf
-Requires:       %{name}-monocle-seen
-%endif
-Requires:       %{name}-netstoremanager
-Requires:       %{name}-netstoremanager-googledrive
-Requires:       %{name}-newlife
-Requires:       %{name}-pintab
-Requires:       %{name}-secman
-Requires:       %{name}-secman-simplestorage
-Requires:       %{name}-sidebar
-Requires:       %{name}-summary
-Requires:       %{name}-syncer
-%if 0%{suse_version} >= 1220
-Requires:       %{name}-tabsessionmanager
-%endif
-Requires:       %{name}-xproxy
-Recommends:     %{name}-shellopen
-
-%description meta_websurf
-This package is installed if a pattern is selected to have a working update path
-
-%package meta_tools
-Group:          Metapackages
-Summary:        Meta package for pattern leechcraft_websurf
-Requires:       %{name}-advancednotifications
-Requires:       %{name}-dolozhee
-Requires:       %{name}-gacts
-Requires:       %{name}-glance
-Requires:       %{name}-kbswitch
-Requires:       %{name}-kinotify
-Requires:       %{name}-knowhow
-Requires:       %{name}-lackman
-%if 0%{suse_version} >= 1220
-Requires:       %{name}-monocle
-Requires:       %{name}-monocle-fxb
-Requires:       %{name}-monocle-pdf
-Requires:       %{name}-monocle-seen
-%endif
-Requires:       %{name}-nacheku
-%if 0%{suse_version} >= 1220
-Requires:       %{name}-netstoremanager
-Requires:       %{name}-netstoremanager-googledrive
-%endif
-Requires:       %{name}-networkmonitor
-%if 0%{suse_version} >= 1220
-Requires:       %{name}-otlozhu
-%endif
-Requires:       %{name}-popishu
-Requires:       %{name}-sidebar
-%if 0%{suse_version} >= 1220
-Requires:       %{name}-vrooby
-%endif
-Requires:       %{name}-xproxy
-
-%description meta_tools
-This package is installed if a pattern is selected to have a working update path
-#-----------------------end-patterns--------------------------#
 
 %package advancednotifications
 Summary:        LeechCraft Notifications framework Module
@@ -389,8 +193,8 @@ Summary:        LeechCraft Instant messenger Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-azoth-chatstyler = %{version}
-Requires:       %{name}-securestorage = %{version}
 Requires:       %{name}-azoth-protocolplugin
+Requires:       %{name}-securestorage = %{version}
 
 %description azoth
 This package provides a modular IM client for LeechCraft.
@@ -512,7 +316,6 @@ Azoth sub-plugins. For developing first-lexel plugins, please refer
 to corresponding packages (like leechcraft-doc). This documentation
 is also available online at http://doc.leechcraft.org/azoth/
 %endif
-
 
 %package azoth-embedmedia
 Summary:        LeechCraft Azoth - Media Objects Module
@@ -657,7 +460,6 @@ Requires:       %{name}-azoth = %{version}
 This package provides a shell command runner plugin for LeechCraft Azoth.
 %endif
 
-
 %package azoth-standardstyles
 Summary:        LeechCraft Azoth - Standard chat styles Module
 Group:          Productivity/Networking/Other
@@ -784,7 +586,6 @@ Features
 etc.
 %endif
 
-
 %if 0%{suse_version} >= 1220
 %package blogique
 Summary:        LeechCraft Blogging client Module
@@ -798,7 +599,6 @@ This package provides a modular Blogging client plugin for LeechCraft.
 It will support different blogging platforms via different submodules.
 %endif
 
-
 %if 0%{suse_version} >= 1220
 %package blogique-metida
 Summary:        LeechCraft Blogique - LiveJournal Module
@@ -811,7 +611,6 @@ This package provides a LiveJournal subplugin for LeechCraft Blogique.
 
 It will provide LiveJournal support.
 %endif
-
 
 %package choroid
 Summary:        LeechCraft Image viewer Module
@@ -894,7 +693,6 @@ corresponding packages (like leechcraft-azoth-doc). This documentation
 is also available online at http://doc.leechcraft.org/core/
 %endif
 
-
 %package dolozhee
 Summary:        LeechCraft Issue reporting Module
 Group:          Productivity/Networking/Other
@@ -960,7 +758,6 @@ It has configurable frequency of the updates and the number of last unread
 messages shown.
 %endif
 
-
 %package historyholder
 Summary:        LeechCraft History Module
 Group:          Productivity/Networking/Other
@@ -982,7 +779,6 @@ Requires:       %{name}-lmp = %{version}
 %description hotstreams
 This package provides a radio streams provider plugin for LeechCraft.
 %endif
-
 
 %package kbswitch
 Summary:        LeechCraft keyboard switcher Module
@@ -1079,7 +875,6 @@ Features:
  * Configurable language of the fetched information.
 %endif
 
-
 %if 0%{suse_version} >= 1220
 %package launchy
 Summary:        LeechCraft Launcher Module
@@ -1090,7 +885,6 @@ Requires:       %{name}-sb = %{version}
 %description launchy
 This package provides a third-party application launcher plugin for Leechcraft.
 %endif
-
 
 %if 0%{suse_version} >= 1220
 %package lemon
@@ -1103,7 +897,6 @@ Requires:       %{name}-sb = %{version}
 This package provides another Network Monitor plugin for Leechcraft.
 %endif
 
-
 %if 0%{suse_version} >= 1220
 %package lhtr
 Summary:        LeechCraft HTML WYSIWYG editor Module
@@ -1115,7 +908,6 @@ This package provides a HTML WYSIWYG editor plugin for Leechcraft.
 
 It can be usable with mail and blog modules.
 %endif
-
 
 %if 0%{suse_version} >= 1220
 %package liznoo
@@ -1140,7 +932,6 @@ reconnect properly on startup.
  * Notifies user when device starts discharging or charging.
  * Notifies user on low power level.
 %endif
-
 
 %if 0%{suse_version} >= 1220
 %package lmp
@@ -1167,7 +958,6 @@ Features:
  * Support for automatic podcast playing (with a plugin like Aggregator).
 %endif
 
-
 %if 0%{suse_version} >= 1220
 %package lmp-dumbsync
 Summary:        LeechCraft Media syncing Module
@@ -1182,7 +972,6 @@ This package provides a audio syncing plugin for LeechCraft.
 
 It allows to sync with Flash-like media players.
 %endif
-
 
 %if 0%{suse_version} >= 1220
 %package lmp-mp3tunes
@@ -1200,7 +989,6 @@ Features:
  * Getting playlists.
 %endif
 
-
 %if 0%{suse_version} >= 1220
 %package monocle
 Summary:        LeechCraft Document viewer Module
@@ -1213,7 +1001,6 @@ This package provides a modular Document viewer plugin for LeechCraft.
 
 It will support different formats via different backends.
 %endif
-
 
 %if 0%{suse_version} >= 1220
 %package monocle-fxb
@@ -1228,7 +1015,6 @@ This package contains a FictionBook subplugin for LeechCraft Monocle.
 
 This package provides FB2 documents support for Document viewer Module.
 %endif
-
 
 %if 0%{suse_version} >= 1220
 %package monocle-pdf
@@ -1245,7 +1031,6 @@ This package provides PDF documents support for Document viewer Module
 via the Poppler backend.
 %endif
 
-
 %if 0%{suse_version} >= 1220
 %package monocle-postrus
 Summary:        LeechCraft Monocle - PostScript Module
@@ -1260,7 +1045,6 @@ This package contains a PostRus subplugin for LeechCraft Monocle.
 This package provides PostScript documents support for Document viewer Module
 via the libSpectre backend.
 %endif
-
 
 %if 0%{suse_version} >= 1220
 %package monocle-seen
@@ -1277,7 +1061,6 @@ This package provides Djvu documents support for Document viewer Module
 via the DjvuLibre backend.
 %endif
 
-
 %if 0%{suse_version} >= 1220
 %package musiczombie
 Summary:        LeechCraft Azoth - MusicBrainz.org client Module
@@ -1288,7 +1071,6 @@ Requires:       %{name}-lmp = %{version}
 %description musiczombie
 This package provides a MusicBrainz.org client plugin for LeechCraft.
 %endif
-
 
 %package nacheku
 Summary:        LeechCraft Link watcher Module
@@ -1327,7 +1109,6 @@ Supported services:
  * Google Drive
 %endif
 
-
 %if 0%{suse_version} >= 1220
 %package netstoremanager-googledrive
 Summary:        LeechCraft Network file storages Module
@@ -1338,7 +1119,6 @@ Provides:       %{name}-netstoremanager-subplugin
 %description netstoremanager-googledrive
 This package provides a Google Drive sunplugin for Leechcraft NetStoreManager.
 %endif
-
 
 %package networkmonitor
 Summary:        LeechCraft Network Monitor Module
@@ -1411,7 +1191,6 @@ This package provides an instant search plugin for LeechCraft.
 
 It allows to search instantly selected text in Google.
 %endif
-
 
 %package popishu
 Summary:        LeechCraft Text editor Module
@@ -1579,7 +1358,6 @@ This package provides another side bar plugin for Leechcraft.
 It is a next-gen fluid sidebar with quick launch, tabs and tray areas.
 %endif
 
-
 %package secman
 Summary:        LeechCraft Security manager Module
 Group:          Productivity/Networking/Other
@@ -1636,7 +1414,6 @@ Requires:       xterm
 %description shaitan
 This package provides a terminal plugin for Leechcraft.
 %endif
-
 
 %package shellopen
 Summary:        LeechCraft Shellopen Module
@@ -1716,7 +1493,6 @@ Features:
  * Allows one to save named sessions for restoring them later.
 %endif
 
-
 %package tabslist
 Summary:        LeechCraft TabsList Module
 Group:          Productivity/Networking/Other
@@ -1739,7 +1515,6 @@ Requires:       %{name}-sb2 = %{version}
 %description tpi
 This package provides a Task Progress Indicator quark plugin for Leechcraft.
 %endif
-
 
 %package vgrabber
 Summary:        LeechCraft Vkontakte grabber Module
@@ -1772,7 +1547,6 @@ This package provides a Vrooby plugin for LeechCraft.
 It allows to watch removable storage devices via d-bus and udisks.
 %endif
 
-
 %package xproxy
 Summary:        LeechCraft Proxy manager Module
 Group:          Productivity/Networking/Other
@@ -1786,8 +1560,6 @@ It allows to configure and use proxy servers.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch2
-%patch3
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -1929,37 +1701,6 @@ cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
 %suse_update_desktop_file -i %{name}-monocle-seen
 %endif
 
-#-------------------------patterns----------------------------#
-%__install -d %{buildroot}%{_docdir}/%{name}
-
-cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_browser
-This file marks the pattern meta_browser to be installed.
-EOF
-
-%if 0%{suse_version} >= 1220
-cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_media
-This file marks the pattern meta_browser to be installed.
-EOF
-%endif
-
-cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_messenger
-This file marks the pattern meta_messenger to be installed.
-EOF
-
-cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_tools
-This file marks the pattern meta_tools to be installed.
-EOF
-
-cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_websurf
-This file marks the pattern meta_websurf to be installed.
-EOF
-
-cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_full
-This file marks the pattern meta_full to be installed.
-EOF
-#-----------------------end-patterns--------------------------#
-
-
 %fdupes -s %{buildroot}%{_datadir}/%{name}/translations
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth
 %fdupes -s %{buildroot}%{_datadir}/%{name}/global_icons/flags
@@ -2003,7 +1744,6 @@ EOF
 %dir %{_datadir}/%{name}/themes/*
 %{_datadir}/%{name}/themes/*/*.rc
 %exclude %{_datadir}/cmake/Modules/InitLCPlugin.cmake
-%exclude %{_docdir}/%{name}/meta_*
 
 %files advancednotifications
 %defattr(-,root,root)
@@ -2396,7 +2136,6 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_fxb.so
 %{_datadir}/applications/%{name}-monocle-fxb.desktop
 %endif
-%endif
 
 %if 0%{suse_version} >= 1220
 %files monocle-pdf
@@ -2582,7 +2321,6 @@ EOF
 %{settings_dir}/syncersettings.xml
 %{translations_dir}/leechcraft_syncer*
 
-
 %if 0%{suse_version} >= 1220
 %files tabsessionmanager
 %defattr(-,root,root)
@@ -2621,39 +2359,5 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_xproxy.so
 %{_datadir}/%{name}/settings/xproxysettings.xml
 %{_datadir}/%{name}/translations/%{name}_xproxy_*.qm
-
-#-------------------------patterns----------------------------#
-%files meta_browser
-%defattr(-,root,root)
-%dir %{_docdir}/%{name}/
-%{_docdir}/%{name}/meta_browser
-
-%if 0%{suse_version} >= 1220
-%files meta_media
-%defattr(-,root,root)
-%dir %{_docdir}/%{name}/
-%{_docdir}/%{name}/meta_media
-%endif
-
-%files meta_messenger
-%defattr(-,root,root)
-%dir %{_docdir}/%{name}/
-%{_docdir}/%{name}/meta_messenger
-
-%files meta_tools
-%defattr(-,root,root)
-%dir %{_docdir}/%{name}/
-%{_docdir}/%{name}/meta_tools
-
-%files meta_websurf
-%defattr(-,root,root)
-%dir %{_docdir}/%{name}/
-%{_docdir}/%{name}/meta_websurf
-
-%files meta_full
-%defattr(-,root,root)
-%dir %{_docdir}/%{name}/
-%{_docdir}/%{name}/meta_full
-#-----------------------end-patterns--------------------------#
 
 %changelog
