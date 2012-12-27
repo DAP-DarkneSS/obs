@@ -18,6 +18,7 @@ URL:            http://forum.ubuntu.ru/index.php?topic=165332
 Source0:        %{name}-%{version}.tar.gz
 Patch1:         unistd_h_include.patch
 
+BuildRequires:  hicolor-icon-theme
 BuildRequires:  libkde4-devel
 BuildRequires:  libxneur-devel
 BuildRequires:  update-desktop-files
@@ -34,7 +35,11 @@ It also allows to configure XNeur via GUI dialog.
 %patch1
 
 %build
-qmake QMAKE_CFLAGS+="%{optflags}" QMAKE_CXXFLAGS+="%{optflags}" PREFIX=/usr
+qmake \
+QMAKE_STRIP="" \
+QMAKE_CFLAGS+="%{optflags}" \
+QMAKE_CXXFLAGS+="%{optflags}" \
+PREFIX=%{_prefix}
 make %{?_smp_mflags}
 
 %install
@@ -45,9 +50,6 @@ make INSTALL_ROOT=%{buildroot} install
 %defattr(-,root,root)
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%dir %{_datadir}/icons/hicolor
-%dir %{_datadir}/icons/hicolor/*
-%dir %{_datadir}/icons/hicolor/*/apps
 %{_datadir}/icons/hicolor/*/apps/%{name}*
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/pixmaps

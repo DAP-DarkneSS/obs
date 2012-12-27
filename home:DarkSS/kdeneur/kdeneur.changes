@@ -1,3 +1,9 @@
+Thu Dec 27 20:07:15 UTC 2012 - dap.darkness@gmail.com
+
+- Spec refactoring by Lazy_Kent:
+  * debuginfo package became non-void;
+  * unnecessary directories became not owned.
+
 Mon Nov 12 18:29:42 UTC 2012 - dap.darkness@gmail.com
 
 - Initial build.
