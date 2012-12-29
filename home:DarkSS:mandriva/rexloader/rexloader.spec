@@ -21,7 +21,7 @@ Source0:        %{name}-%{version}.tar.bz2
 BuildRequires:  qt4-devel
 BuildRequires:  zlib-devel
 
-BuildConflicts: libpulseaudio0 lib64pulseaudio0 libalsa-plugins-pulseaudio lib64alsa-plugins-pulseaudio
+# BuildConflicts: libpulseaudio0 lib64pulseaudio0 libalsa-plugins-pulseaudio lib64alsa-plugins-pulseaudio
 
 Recommends:     %{name}-notifications
 

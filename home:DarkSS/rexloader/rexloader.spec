@@ -18,6 +18,7 @@ Url:            http://code.google.com/p/rexloader/
 Group:          Productivity/Networking/Other
 Source0:        %{name}-%{version}.tar.bz2
 
+BuildRequires:  libQtWebKit-devel
 BuildRequires:  libqt4-devel
 BuildRequires:  update-desktop-files
 
@@ -54,11 +55,22 @@ mkdir build
 
 %build
 cd build
-qmake PREFIX=/usr ../REXLoader.pro QMAKE_CXXFLAGS+="%{optflags}"
+
+qmake \
+QMAKE_STRIP="" \
+PREFIX=%{_prefix} \
+../REXLoader.pro \
+QMAKE_CXXFLAGS+="%{optflags}"
+
 make %{?_smp_mflags}
 
 cd ../plugins/NoticeWindow
-qmake NoticeWindow.pro QMAKE_CXXFLAGS+="%{optflags}"
+
+qmake \
+QMAKE_STRIP="" \
+NoticeWindow.pro \
+QMAKE_CXXFLAGS+="%{optflags}"
+
 make %{?_smp_mflags}
 
 %install

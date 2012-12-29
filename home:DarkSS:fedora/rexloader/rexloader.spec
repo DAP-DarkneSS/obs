@@ -19,6 +19,7 @@ Group:          Productivity/Networking/Other
 Source0:        %{name}-%{version}.tar.bz2
 
 BuildRequires:  gcc-c++
+BuildRequires:  pkgconfig(QtWebKit)
 BuildRequires:  qt-devel
 
 Requires:       %{name}-notifications
