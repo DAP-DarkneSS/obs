@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90
+%define LEECHCRAFT_VERSION 0.5.90-44-g4bd20ba
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -38,6 +38,7 @@ BuildRequires:  doxygen
 %endif
 BuildRequires:  fdupes
 BuildRequires:  file-devel
+BuildRequires:  gcc-c++ >= 4.6
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  hunspell-devel
 BuildRequires:  kdebase4-workspace-devel
@@ -45,22 +46,24 @@ BuildRequires:  libGeoIP-devel
 BuildRequires:  libQtWebKit-devel
 BuildRequires:  libbz2-devel
 BuildRequires:  libcurl-devel
+%if 0%{suse_version} >= 1220
 BuildRequires:  libdjvulibre-devel
 BuildRequires:  liblastfm-devel
+%endif
 BuildRequires:  libmsn-devel
 %if 0%{suse_version} >= 1220
 BuildRequires:  libnl3-devel
-%endif
 BuildRequires:  libpoppler-qt4-devel
-BuildRequires:  libspectre-devel
-BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
+%endif
 BuildRequires:  libqca2-devel
 BuildRequires:  libqjson-devel
 BuildRequires:  libqscintilla-devel
-BuildRequires:  libqt4-devel >= 4.8
+BuildRequires:  libqt4-devel >= 4.7
 BuildRequires:  libqt4-sql
-BuildRequires:  libqxmpp-devel > 0.7
+BuildRequires:  libqxmpp-devel >= 0.7.4
 BuildRequires:  libqxt1-devel
+BuildRequires:  libspectre-devel
+BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
 BuildRequires:  pcre-devel
 BuildRequires:  phonon-devel
 %if 0%{suse_version} >= 1220
@@ -84,7 +87,7 @@ Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
 Obsoletes:      %{name}-tabpp
 %if 0%{suse_version} < 1220
-Obsoletes:      %{name}-bittorrent 
+Obsoletes:      %{name}-bittorrent
 Obsoletes:      %{name}-gmailnotifier
 Obsoletes:      %{name}-lhtr
 Obsoletes:      %{name}-lmp
@@ -256,7 +259,9 @@ Requires:       %{name}-newlife
 Requires:       %{name}-pintab
 Requires:       %{name}-secman
 Requires:       %{name}-secman-simplestorage
-Requires:       %{name}-sidebar
+%if 0%{suse_version} >= 1220
+Requires:       %{name}-sb
+%endif
 Requires:       %{name}-summary
 Requires:       %{name}-syncer
 %if 0%{suse_version} >= 1220
@@ -295,8 +300,8 @@ Requires:       %{name}-networkmonitor
 Requires:       %{name}-otlozhu
 %endif
 Requires:       %{name}-popishu
-Requires:       %{name}-sidebar
 %if 0%{suse_version} >= 1220
+Requires:       %{name}-sb
 Requires:       %{name}-vrooby
 %endif
 Requires:       %{name}-xproxy
@@ -392,8 +397,8 @@ Summary:        LeechCraft Instant messenger Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-azoth-chatstyler = %{version}
-Requires:       %{name}-securestorage = %{version}
 Requires:       %{name}-azoth-protocolplugin
+Requires:       %{name}-securestorage = %{version}
 
 %description azoth
 This package provides a modular IM client for LeechCraft.
@@ -1663,6 +1668,7 @@ Summary:        LeechCraft SideBar2 Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-sb = %{version}
+Obsoletes:      %{name}-sidebar < %{version}
 
 %description sb2
 This package provides another side bar plugin for Leechcraft.
@@ -1742,16 +1748,16 @@ For example, you may choose to open a video file with your favorite media
 player instead of LC's one.
 
 
-%package sidebar
-Summary:        LeechCraft Sidebar Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-Provides:       %{name}-sb = %{version}
-
-%description sidebar
-This package provides a side bar plugin for Leechcraft.
-
-It is a nice side bar with quick launch, tabs and tray areas.
+# %%package sidebar
+# Summary:        LeechCraft Sidebar Module
+# Group:          Productivity/Networking/Other
+# Requires:       %%{name} = %%{version}
+# Provides:       %%{name}-sb = %%{version}
+# 
+# %%description sidebar
+# This package provides a side bar plugin for Leechcraft.
+# 
+# It is a nice side bar with quick launch, tabs and tray areas.
 
 
 #%%package snails
@@ -1925,6 +1931,9 @@ rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
 #removing hidden files
 find src/plugins/azoth/plugins/adiumstyles/share/azoth/styles/adium/ -name ".?*" -delete
 
+#setup permissions correctly to avoid false duplicates reported by rpmlint (bnc#784670)
+find src -name '*.png' -or -name '*.css' -or -name '*.gif' -exec chmod 0644 {} +
+
 mkdir build && cd build
 
 cmake ../src \
@@ -1957,7 +1966,7 @@ cmake ../src \
         -DENABLE_POPISHU=True \
         -DENABLE_QROSP=False \
         -DENABLE_SECMAN=True \
-        -DENABLE_SIDEBAR=True \
+        -DENABLE_SIDEBAR=False \
         -DENABLE_SHELLOPEN=True \
         -DENABLE_SNAILS=False \
         -DENABLE_SYNCER=True \
@@ -2019,7 +2028,7 @@ cmake ../src \
 # gcc 4.7 optimization.
 # Disabled because of https://bugzilla.novell.com/show_bug.cgi?id=774180
 #
-# %%if %%{suse_version} > 1210
+# %%if %%{suse_version} > 1220
 #         -DCMAKE_CXX_FLAGS="-flto" \
 #         -DCMAKE_SHARED_LINKER_FLAGS="-flto" \
 #         -DCMAKE_EXE_LINKER_FLAGS="-flto" \
@@ -2755,9 +2764,9 @@ EOF
 %{translations_dir}/%{name}_shellopen*.qm
 %{plugin_dir}/*%{name}_shellopen.so
 
-%files sidebar
-%defattr(-,root,root)
-%{plugin_dir}/*%{name}_sidebar.so
+# %%files sidebar
+# %%defattr(-,root,root)
+# %%{plugin_dir}/*%%{name}_sidebar.so
 
 #%%if %%qtversion >= 40800
 #%%files snails

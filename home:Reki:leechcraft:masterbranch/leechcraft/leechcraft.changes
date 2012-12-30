@@ -1,3 +1,37 @@
+-------------------------------------------------------------------
+Fri Dec 21 21:24:25 UTC 2012 - dap.darkness@gmail.com
+- 0.5.90 release:
+  * lots of improvements and bugfixes;
+  * desktop-files to open different file types;
+  * gcc 4.5 support was deprecated.
+- New plugins were enabled:
+  * azoth-shx — shell command runner;
+  * blogique & blogique-metida — blogging;
+  * dumbeep — dumb sound notifier;
+  * hotstreams — radio streams provider;
+  * launchy — third-party application launcher;
+  * lemon — another network Monitor;
+  * liznoo — power manager;
+  * monocle-postrus && monocle-seen — PostScript && Djvu documents support;
+  * musiczombie — MusicBrainz.org client;
+  * sb2 — another side bar;
+  * shaitan — terminal;
+  * tpi — quark task progress indicator.
+- Clean section was removed.
+- Applied into upstream patches were deleted.
+- Useless desktop-file was deleted.
+
+-------------------------------------------------------------------
+Wed Oct 31 13:44:33 UTC 2012 - mvyskocil@suse.com
+
+- setup permissions correctly to avoid false duplicates reported by
+  rpmlint because of new fdupes behavior (bnc#784670)
+
+-------------------------------------------------------------------
+Tue Sep 09 06:44:00 UTC 2012 - nekolayer@yandex.ru
+- fix build with new libqxmpp (backported from git)
+
+-------------------------------------------------------------------
 Fri Aug 10 20:44:22 UTC 2012 - dap.darkness@gmail.com
 - 0.5.80 release
   Media player LMP:
@@ -77,7 +111,14 @@ Sun May 27 17:54:51 UTC 2012 - dap.darkness@gmail.com
       * Some problems with authorization handling were fixed in Azoth Vader
 
 -------------------------------------------------------------------
-Sun Apr 22 10:20:39 UTC 2012 - dap.darkness@gmail.com
+Thu May 24 08:29:26 UTC 2012 - cfarrell@suse.com
+
+- license update: GPL-3.0+
+  COPYING and the majority of source code files now state that leechcraft
+  is GPL-3.0 licensed
+
+-------------------------------------------------------------------
+Sun Apr 29 17:10:00 UTC 2012 - nekolayer@yandex.ru
 
 - 0.5.65 release
   New Modules:
@@ -105,7 +146,7 @@ Thu Mar 15 14:15:00 UTC 2012 - nekolayer@yandex.ru
       * Session manager module (save/restore LC tabs)
       * NetStore manager module (now support Yandex.Disk)
       * GActs module (global hotkeys)
-  * Azoth Acetamide supports CTCP and vCards
+  * Azoth Acetamide support CTCP and vCards
   * Aggregator works with DB in another thread and not block main app
   * Many Imporements in adium style support
   * Now using system oxygen icon theme
