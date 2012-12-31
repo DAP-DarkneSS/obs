@@ -14,7 +14,7 @@
 Name:           fullscreenprojpl
 Version:        0.8.git
 Release:        1
-Summary:        A screen saver suppresser
+Summary:        A screen saver suppressor
 
 License:        Artistic-2.0
 Url:            https://github.com/drone-pl/FullScreenProj.pl
