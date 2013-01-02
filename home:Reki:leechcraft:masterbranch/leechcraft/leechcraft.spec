@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-47-gb224d0f
+%define LEECHCRAFT_VERSION 0.5.90-98-g47b3922
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -2819,7 +2819,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_tpi.so
 %dir %{_datadir}/%{name}/qml/tpi
-%{_datadir}/%{name}/qml/tpi/*.qml
+%{_datadir}/%{name}/qml/tpi/*
 %endif
 
 %files vgrabber
