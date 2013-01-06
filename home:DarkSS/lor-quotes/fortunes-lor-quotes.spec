@@ -4,7 +4,7 @@
 # Copyright (c) 2005-2012 lorquotes.ru (quotes), (c) 2012 Perlow Dmitriy A. (spec file)
 #
 
-%define _date 20121210
+%define _date 20130106
 
 Name:           fortunes-lor-quotes
 Version:        date.%{_date}
