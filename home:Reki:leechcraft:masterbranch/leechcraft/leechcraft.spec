@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-108-gf4050aa
+%define LEECHCRAFT_VERSION 0.5.90-155-gd1ec7a7
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -2457,6 +2457,8 @@ EOF
 %{plugin_dir}/*%{name}_gmailnotifier.so
 %{settings_dir}/gmailnotifiersettings.xml
 %{translations_dir}/leechcraft_gmailnotifier*
+%dir %{_datadir}/%{name}/qml/gmailnotifier
+%{_datadir}/%{name}/qml/gmailnotifier/*
 %endif
 
 %files historyholder
@@ -2528,6 +2530,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lhtr.so
 %{_datadir}/%{name}/translations/%{name}_lhtr_*.qm
+%{_datadir}/%{name}/settings/lhtrsettings.xml
 %endif
 
 %files liznoo
