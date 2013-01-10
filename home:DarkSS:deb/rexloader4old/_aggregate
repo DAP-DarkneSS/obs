@@ -1,0 +1,5 @@
+<aggregatelist>
+  <aggregate project="home:DarkSS:deb:old">
+    <package>rexloader</package>
+  </aggregate>
+</aggregatelist>
