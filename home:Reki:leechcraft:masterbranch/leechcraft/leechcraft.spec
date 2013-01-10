@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-155-gd1ec7a7
+%define LEECHCRAFT_VERSION 0.5.90-193-g4aa9d83
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -2149,6 +2149,10 @@ EOF
 %dir %{_datadir}/%{name}/themes/*
 %{_datadir}/%{name}/themes/*/*.rc
 %exclude %{_datadir}/cmake/Modules/InitLCPlugin.cmake
+%dir %{_datadir}/%{name}/qml/org
+%dir %{_datadir}/%{name}/qml/org/LC
+%dir %{_datadir}/%{name}/qml/org/LC/common
+%{_datadir}/%{name}/qml/org/LC/common/*
 %exclude %{_docdir}/%{name}/meta_*
 
 %files advancednotifications
@@ -2509,6 +2513,8 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_launchy.so
 %{_datadir}/%{name}/translations/%{name}_launchy_*.qm
+%dir %{_datadir}/%{name}/qml/launchy
+%{_datadir}/%{name}/qml/launchy/*
 %endif
 
 #%%files lcftp
@@ -2738,8 +2744,6 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_sb2.so
 %dir %{_datadir}/%{name}/qml/sb2
 %{_datadir}/%{name}/qml/sb2/*
-%dir %{_datadir}/%{name}/qml/common
-%{_datadir}/%{name}/qml/common/*
 %endif
 
 %files secman
