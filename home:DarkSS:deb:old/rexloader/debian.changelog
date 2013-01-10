@@ -1,0 +1,17 @@
+rexloader (0.1a.rev.265) unstable; urgency=low
+  * Completely reworked
+  * New notifications plugin
+ -- Dmitriy Perlow <dap.darkness@gmail.com>  Sun, 16 Dec 2012 23:52:07 +0300
+
+rexloader (0.1a.rev.249) unstable; urgency=low
+  * Add: locales 
+  * Add: shutting down or hibernation after downloading
+ -- Dmitriy Perlow <dap.darkness@gmail.com>  Sat, 06 Oct 2012 13:16:18 +0300
+
+rexloader (0.1a.rev.234) unstable; urgency=low
+  * Add: downloading over http
+  * Add: configurable multithreaded downloading
+  * Add: proxy support
+  * Add: notifications
+  * Add: logging
+ -- Dmitriy Perlow <dap.darkness@gmail.com>  Thu,  7 Jun 2012 23:36:31 +0200
