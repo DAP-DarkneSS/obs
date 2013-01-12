@@ -1,0 +1,16 @@
+Index: b/src/qm_mpdcom.cpp
+===================================================================
+--- a/src/qm_mpdcom.cpp
++++ b/src/qm_mpdcom.cpp
+@@ -17,10 +17,11 @@
+  *
+  *  You should have received a copy of the GNU General Public License
+  *  along with this program. If not, see http://www.gnu.org/licenses/.
+  */
+ 
++#include <unistd.h>
+ #include "qm_mpdcom.h"
+ 
+ qm_mpdCom::qm_mpdCom()
+ {
+     if (objectName().isEmpty())

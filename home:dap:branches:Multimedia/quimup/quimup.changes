@@ -1,0 +1,86 @@
+-------------------------------------------------------------------
+Sat May 19 13:09:19 UTC 2012 - seife+obs@b1-systems.com
+
+- fix build with gcc 4.7
+
+-------------------------------------------------------------------
+Thu Feb 23 00:00:00 UTC 2011 - detlef@links2linux.de
+
+- new upstream version <1.2.0>
+
+  * Settings are now saved when applied (and on exit).
+  * The volume slider is now always visible (was a pop-up).
+  * The volume slider keeps the focus after a button click.
+  * The progress bar is snappier (now based on QSlider).
+  * "Modified" mode now sorts albums (rather than folders).
+  * "Modified" now also possible when mpd runs remotely.
+  * "Modified" now puts most recent item on top of the list.
+  * "Modified" now handles missing tags correctly.
+  * New library mode: Albums sorted by year (i.e. date tag).
+  * Replaygain mode can now be set on the fly from Quimup.
+  * Library and Playlist can be toggled to use full window.
+  * Improved automatic column-width handling (i.m.h.o.).
+  * "Reload audio tags" even when mod-time has not changed.
+  * Fixed: 'Played' status was reset by "Reload audio tags".
+  * Fixed: No response to 'disconnected' when in 'idle' mode.
+  * "Collapse all" was added to the Library context menu.
+  * Row colors now alternate in the library and playlist.
+  * Tray icons were replaced (new and larger images).
+  * Windows now always open normally (and never minimized).
+  * Some minor cosmetic tweaks, as usual.
+
+-------------------------------------------------------------------
+Fri Jun 25 00:00:00 UTC 2010 - detlef@links2linux.de
+
+- new upstream version <1.1.1>
+  * Volume slider now a pops up from the "status led".
+  * Added volume control with mousewheel on "status led".
+  * Playlist can now be rearranged (by drag & drop).
+  * Added up/down keys to move through the playlist.
+  * Added option to ignore leading 'the' when sorting artists.
+  * "Start (mpd) with quimup" is now unchecked by default.
+  * Added Ctrl-Q hotkey to close the player.
+  * Fixed the "KDE logout was aborted by quimup" problem.
+  * Year-tag format xxxx-xx-xx is now shown as xxxx only.
+  * Empty year-tags are now ignored (prev. non-present only).
+  * Fixed some typos.
+  * Some cosmetic brush-ups, as usual.
+
+-------------------------------------------------------------------
+Sat May  8 00:00:00 UTC 2010 - detlef@links2linux.de
+
+- new upstream version <1.1.0>
+
+-------------------------------------------------------------------
+Sat Feb 21 00:00:00 UTC 2009 - detlef@links2linux.de
+
+- new upstream version <0.3.5>
+  * Fixed: "KDE logout was cancelled by process quimup." (thanks Tilman Vogel)
+  * Changed: Symlinks can now be used for album art (thanks Tilman Vogel)
+  * Changed: Main MPD version is now shown as x.x (was the 'API' version x.x.x)
+
+-------------------------------------------------------------------
+Sat Jun 28 00:00:00 UTC 2008 - detlef@links2linux.de
+
+- new upstream version <0.3.4>
+
+-------------------------------------------------------------------
+Tue Feb 26 00:00:00 UTC 2008 - detlef@links2linux.de
+
+- new upstream version <0.3.3>
+
+-------------------------------------------------------------------
+Sat Jan 26 00:00:00 UTC 2008 - detlef@links2linux.de
+
+- new upstream version <0.3.2>
+
+-------------------------------------------------------------------
+Fri Nov 23 00:00:00 UTC 2007 - detlef@links2linux.de
+
+- new upstream version <0.3.1>
+
+-------------------------------------------------------------------
+Thu Oct 25 00:00:00 UTC 2007 - detlef@links2linux.de
+
+- initial build for packman
+
