@@ -23,14 +23,13 @@ echo -e '\e[0;4m\nChecking of OBS version:\e[0m'
 VOBS=`osc ls -b $OPRJ $NOBS | grep -m 1 svn | awk -Fsvn. '{print $2}' | awk 'BEGIN {FS="[.,-]"} {print $1}'`
 echo -e '\nrevision #\e[0;33m'$VOBS'\e[0m'
 
-svn log | less
-
 if [ $VSVN == $VOBS ]
 
 then
   echo -e '\e[0;4m\nNo changes.\e[0m'
 
 else
+  svn log -r HEAD:$VOBS | less
 
   echo -e '\e[0;4m\nShould services be run?\e[0m'
   read

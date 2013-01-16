@@ -27,7 +27,7 @@ then
 else
 
   cd $DGIT
-  git log --date=raw --full-diff --name-only
+  git log $VOBS..HEAD --date=raw --full-diff --name-only
   cd $DOBS
 
   echo -e '\e[0;4m\nShould the spec be edited?\e[0m'
