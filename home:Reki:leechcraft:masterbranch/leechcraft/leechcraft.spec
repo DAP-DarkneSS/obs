@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-283-g23ed5df
+%define LEECHCRAFT_VERSION 0.5.90-399-g938d33e
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -1000,6 +1000,7 @@ Summary:        LeechCraft GMail notifier Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-http = %{version}
+Recommends:     %{name}-sb = %{version}
 
 %description gmailnotifier
 This package provides a GMail notifications plugin for Leechcraft.
@@ -1238,6 +1239,19 @@ Recommends:     %{name}-hotstreams = %{version}
 This package provides a audio syncing plugin for LeechCraft.
 
 It allows to sync with Flash-like media players.
+%endif
+
+
+%if 0%{suse_version} >= 1220
+%package lmp-graffiti
+Summary:        LeechCraft Tags Manipulating Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+
+%description lmp-graffiti
+This package provides a tags editor plugin for LeechCraft.
+
+It allows to manipulate audio file tags.
 %endif
 
 
@@ -1902,7 +1916,7 @@ Summary:        LeechCraft Removable storage devices Manager
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-sb = %{version}
-Requires:       udisks
+Requires:       udisks2
 
 %description vrooby
 This package provides a Vrooby plugin for LeechCraft.
@@ -1986,9 +2000,11 @@ cmake ../src \
         -DENABLE_LEMON=True \
         -DENABLE_LHTR=True \
         -DENABLE_LMP=True \
+        -DENABLE_LMP_GRAFFITI=True \
         -DENABLE_MONOCLE=True \
         -DENABLE_MONOCLE_MU=True \
         -DENABLE_MUSICZOMBIE=True \
+        -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_OTLOZHU=True \
         -DENABLE_POGOOGLUE=True \
@@ -1998,6 +2014,8 @@ cmake ../src \
         -DENABLE_TORRENT=True \
         -DENABLE_TPI=True \
         -DENABLE_VROOBY=True \
+        -DENABLE_VROOBY_UDISKS=False \
+        -DENABLE_VROOBY_UDISKS2=True \
 %else
         -DENABLE_AZOTH_SHX=False \
         -DENABLE_BLOGIQUE=False \
@@ -2009,6 +2027,7 @@ cmake ../src \
         -DENABLE_LEMON=False \
         -DENABLE_LHTR=False \
         -DENABLE_LMP=False \
+        -DENABLE_LMP_GRAFFITI=False \
         -DENABLE_MONOCLE=False \
         -DENABLE_MONOCLE_MU=False \
         -DENABLE_MUSICZOMBIE=False \
@@ -2561,6 +2580,14 @@ EOF
 %{_datadir}/%{name}/settings/lmpdumbsyncsettings.xml
 %{_datadir}/%{name}/translations/%{name}_lmp_dumbsync_??.qm
 %{_datadir}/%{name}/translations/%{name}_lmp_dumbsync_??_??.qm
+%endif
+
+%if 0%{suse_version} >= 1220
+%files lmp-graffiti
+%defattr(-,root,root)
+%{plugin_dir}/*%{name}_lmp_graffiti.so
+%{_datadir}/%{name}/translations/%{name}_lmp_graffiti_??.qm
+%{_datadir}/%{name}/translations/%{name}_lmp_graffiti_??_??.qm
 %endif
 
 %if 0%{suse_version} >= 1220
