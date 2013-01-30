@@ -1,10 +1,9 @@
 Source: gelide
 Section: games
 Priority: optional
-Maintainer: GetDeb Package Ninjas <package.ninjas@getdeb.net>
+Maintainer: Dmitriy Perlow <dap.darkness@gmail.com>
 Build-Depends: cdbs, debhelper (>= 7), autotools-dev, libgtkmm-2.4-dev, 
-  libgconfmm-2.6-dev, libxml2-dev, libglademm-2.4-dev, gnome-doc-utils, scrollkeeper
-Standards-Version: 3.9.1
+  libgconfmm-2.6-dev, libxml2-dev, libglademm-2.4-dev, gnome-doc-utils, scrollkeeper, intltool
 Homepage: http://gelide.sourceforge.net/index.php?sect=home&lang=en
 
 Package: gelide

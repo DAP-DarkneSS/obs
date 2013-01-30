@@ -1,3 +1,7 @@
+gelide (0.1.5-2) stable; urgency=low
+  * Moving to OBS.
+ -- Dmitriy Perlow <dap.darkness@gmail.com>  Wed, 29 Jan 2013 19:11:18 +0300
+
 gelide (0.1.5-1~getdeb1) lucid; urgency=low
 
   * New upstream version (LP: #743575)
