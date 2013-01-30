@@ -1,3 +1,7 @@
+gelide (0.1.5-3) stable; urgency=low
+  * Refactored a bit.
+ -- Dmitriy Perlow <dap.darkness@gmail.com>  Wed, 30 Jan 2013 19:24:20 +0300
+
 gelide (0.1.5-2) stable; urgency=low
   * Moving to OBS.
  -- Dmitriy Perlow <dap.darkness@gmail.com>  Wed, 29 Jan 2013 19:11:18 +0300
