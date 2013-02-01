@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -29,6 +29,9 @@ License:        GPL-3.0+
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 Source0:        http://netcologne.dl.sourceforge.net/project/%{name}/LeechCraft/%{version}/%{name}-%{version}.tar.xz
+# PATCH-FIX-UPSTREAM A bug with not loading torrent plugin is fixed.
+# https://github.com/0xd34df00d/leechcraft/commit/3dd406a07acb2fcb667411a88a3a6f2fe6bee7e2
+Patch0:         boost.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake > 2.8
@@ -1560,6 +1563,7 @@ It allows to configure and use proxy servers.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch0
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default

@@ -1,3 +1,7 @@
+Fri Feb  1 16:52:35 UTC 2013 - dap.darkness@gmail.com
+
+- A bug with not loading torrent plugin was fixed via boost.patch.
+
 -------------------------------------------------------------------
 Fri Dec 21 21:24:25 UTC 2012 - dap.darkness@gmail.com
 - 0.5.90 release:
