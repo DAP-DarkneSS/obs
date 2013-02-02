@@ -44,6 +44,10 @@ make %{?_smp_mflags}
 
 %install
 make INSTALL_ROOT=%{buildroot} install
+
+mkdir -p %{buildroot}%{_datadir}/%{name}/i18n/
+%{__install} i18n/%{name}*.qm %{buildroot}%{_datadir}/%{name}/i18n/
+
 %suse_update_desktop_file -r %{name} 'Utility;DesktopUtility;Qt;'
 
 %files
@@ -52,7 +56,6 @@ make INSTALL_ROOT=%{buildroot} install
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}*
 %dir %{_datadir}/%{name}
-%dir %{_datadir}/%{name}/pixmaps
-%{_datadir}/%{name}/pixmaps/??.png
+%{_datadir}/%{name}/*
 
 %changelog
