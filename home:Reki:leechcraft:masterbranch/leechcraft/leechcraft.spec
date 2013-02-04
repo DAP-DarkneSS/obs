@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-413-g97da771
+%define LEECHCRAFT_VERSION 0.5.90-425-g65cc79f
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -33,7 +33,7 @@ Source0:        %{name}-%{version}.tar.bz2
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake > 2.8
-%if 0%{suse_version} <= 1210
+%if 0%{suse_version} != 1210
 BuildRequires:  doxygen
 %endif
 BuildRequires:  fdupes
@@ -526,7 +526,7 @@ This package provides an ignoring plugin for LeechCraft Azoth.
 It allows to ignore unwanted participants.
 
 
-%if 0%{suse_version} <= 1210
+%if 0%{suse_version} != 1210
 %package azoth-doc
 Summary:        LeechCraft Azoth Documentation
 Group:          Development/Libraries/Other
@@ -916,7 +916,7 @@ This package provides files required for development for LeechCraft.
 It contains header files required to develop new modules.
 
 
-%if 0%{suse_version} <= 1210
+%if 0%{suse_version} != 1210
 %package doc
 Summary:        LeechCraft Core Documentation
 Group:          Development/Libraries/Other
@@ -1683,6 +1683,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-sb = %{version}
 Obsoletes:      %{name}-sidebar < %{version}
+Provides:       %{name}-sidebar = %{version}
 
 %description sb2
 This package provides another side bar plugin for Leechcraft.
@@ -2042,22 +2043,25 @@ cmake ../src \
         -DENABLE_VROOBY=False \
 %endif
         -DUSE_POSHUKU_CLEANWEB_PCRE=True \
+        -DCMAKE_CXX_FLAGS="%{optflags} -flto" \
+        -DCMAKE_SHARED_LINKER_FLAGS="%{optflags} -flto" \
+        -DCMAKE_EXE_LINKER_FLAGS="%{optflags} -flto" \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
 # gcc 4.7 optimization.
 # Disabled because of https://bugzilla.novell.com/show_bug.cgi?id=774180
 #
 # %%if %%{suse_version} > 1220
-#         -DCMAKE_CXX_FLAGS="-flto" \
-#         -DCMAKE_SHARED_LINKER_FLAGS="-flto" \
-#         -DCMAKE_EXE_LINKER_FLAGS="-flto" \
+#         -DCMAKE_CXX_FLAGS="%{optflags} -flto" \
+#         -DCMAKE_SHARED_LINKER_FLAGS="%{optflags} -flto" \
+#         -DCMAKE_EXE_LINKER_FLAGS="%{optflags} -flto" \
 # %%endif
 
 %build
 cd build
 make %{?_smp_mflags}
 
-%if 0%{suse_version} <= 1210
+%if 0%{suse_version} != 1210
 cd ../doc/doxygen/core
 sed -i Doxyfile \
 -e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
@@ -2073,7 +2077,7 @@ doxygen Doxyfile
 cd build
 %makeinstall
 
-%if 0%{suse_version} <= 1210
+%if 0%{suse_version} != 1210
 cd ../doc/doxygen/core/out/html
 mkdir -p %{buildroot}%{_docdir}/%{name}-doc
 cp -r * %{buildroot}%{_docdir}/%{name}-doc
@@ -2260,7 +2264,7 @@ EOF
 %{plugin_dir}/*%{name}_azoth_depester.so
 %{translations_dir}/%{name}_azoth_depester*
 
-%if 0%{suse_version} <= 1210
+%if 0%{suse_version} != 1210
 %files azoth-doc
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}-azoth-doc
@@ -2425,7 +2429,7 @@ EOF
 %{_libdir}/*xmlsettingsdialog.so
 %{_datadir}/cmake/Modules/InitLCPlugin.cmake
 
-%if 0%{suse_version} <= 1210
+%if 0%{suse_version} != 1210
 %files doc
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}-doc
