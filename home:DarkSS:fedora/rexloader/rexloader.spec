@@ -22,11 +22,21 @@ BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(QtWebKit)
 BuildRequires:  qt-devel
 
+Requires:       %{name}-hashcalculator
 Requires:       %{name}-notifications
 
 %description
 An advanced Qt download manager over http with configurable multithreaded
 downloading, proxy support, logging and nice notifications.
+
+%package hashcalculator
+Summary:        Rexloader Hash Calculator
+Requires:       %{name} = %{version}
+
+%description hashcalculator
+This package provides a Hash Calculator plugin for Rexloader.
+
+It will allow to calculate downloaded files hash sums.
 
 %package nixnotify
 Summary:        Rexloader D-Bus Notifications
@@ -53,11 +63,18 @@ mkdir build
 
 %build
 cd build
-qmake-qt4 PREFIX=/usr ../REXLoader.pro QMAKE_CXXFLAGS+="%{optflags}"
+qmake-qt4 \
+QMAKE_STRIP="" \
+PREFIX=%{_prefix} \
+../REXLoader.pro \
+QMAKE_CXXFLAGS+="%{optflags}"
 make %{?_smp_mflags}
 
 cd ../plugins/NoticeWindow
-qmake-qt4 NoticeWindow.pro QMAKE_CXXFLAGS+="%{optflags}"
+qmake-qt4 \
+QMAKE_STRIP="" \
+NoticeWindow.pro \
+QMAKE_CXXFLAGS+="%{optflags}"
 make %{?_smp_mflags}
 
 %install
@@ -92,16 +109,16 @@ rm -rf %{buildroot}
 %{_libdir}/%{name}/plugins/libHttpLoader.so
 %attr(755,root,root) %{_bindir}/%{name}
 
+%files hashcalculator
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/libhashcalculator.so
+
 %files nixnotify
 %defattr(-,root,root)
-%dir %{_libdir}/%{name}
-%dir %{_libdir}/%{name}/plugins
 %{_libdir}/%{name}/plugins/libNixNotifyPlugin.so
 
 %files noticewindow
 %defattr(-,root,root)
-%dir %{_libdir}/%{name}
-%dir %{_libdir}/%{name}/plugins
 %{_libdir}/%{name}/plugins/libNoticeWindow.so
 
 %changelog

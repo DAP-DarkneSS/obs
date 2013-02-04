@@ -22,6 +22,7 @@ BuildRequires:  libQtWebKit-devel
 BuildRequires:  libqt4-devel
 BuildRequires:  update-desktop-files
 
+Recommends:     %{name}-hashcalculator
 Recommends:     %{name}-notifications
 
 Requires:       libqt4-sql-sqlite
@@ -29,6 +30,15 @@ Requires:       libqt4-sql-sqlite
 %description
 An advanced Qt download manager over http with configurable multithreaded
 downloading, proxy support, logging and nice notifications.
+
+%package hashcalculator
+Summary:        Rexloader Hash Calculator
+Requires:       %{name} = %{version}
+
+%description hashcalculator
+This package provides a Hash Calculator plugin for Rexloader.
+
+It will allow to calculate downloaded files hash sums.
 
 %package nixnotify
 Summary:        Rexloader D-Bus Notifications
@@ -106,16 +116,16 @@ rm -rf %{buildroot}
 %{_libdir}/%{name}/plugins/libHttpLoader.so
 %attr(755,root,root) %{_bindir}/%{name}
 
+%files hashcalculator
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/libhashcalculator.so
+
 %files nixnotify
 %defattr(-,root,root)
-%dir %{_libdir}/%{name}
-%dir %{_libdir}/%{name}/plugins
 %{_libdir}/%{name}/plugins/libNixNotifyPlugin.so
 
 %files noticewindow
 %defattr(-,root,root)
-%dir %{_libdir}/%{name}
-%dir %{_libdir}/%{name}/plugins
 %{_libdir}/%{name}/plugins/libNoticeWindow.so
 
 %changelog
