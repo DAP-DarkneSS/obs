@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-455-g54aaa81
+%define LEECHCRAFT_VERSION 0.5.90-494-gf3ced62
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -149,7 +149,6 @@ Requires:       %{name}-poshuku-readitlater
 Requires:       %{name}-secman
 Requires:       %{name}-secman-simplestorage
 Requires:       %{name}-seekthru
-Requires:       %{name}-shellopen
 Requires:       %{name}-summary
 Requires:       %{name}-syncer
 %if 0%{suse_version} >= 1220
@@ -192,7 +191,6 @@ Requires:       %{name}-lackman
 Requires:       %{name}-newlife
 Requires:       %{name}-secman
 Requires:       %{name}-secman-simplestorage
-Requires:       %{name}-shellopen
 Requires:       %{name}-syncer
 %if 0%{suse_version} >= 1220
 Requires:       %{name}-tabsessionmanager
@@ -268,7 +266,6 @@ Requires:       %{name}-syncer
 Requires:       %{name}-tabsessionmanager
 %endif
 Requires:       %{name}-xproxy
-Recommends:     %{name}-shellopen
 
 %description meta_websurf
 This package is installed if a pattern is selected to have a working update path
