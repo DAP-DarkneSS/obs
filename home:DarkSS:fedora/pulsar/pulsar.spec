@@ -20,6 +20,7 @@ Url:            http://forum.ubuntu.ru/index.php?topic=203220
 Group:          Productivity/Other
 Source0:        https://launchpad.net/~yuberion/+archive/pulsar/+files/%{name}_%{version}-%{subver}.tar.gz
 
+BuildRequires:  gcc-c++
 BuildRequires:  gstreamer-plugins-base-devel
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libqxt-devel
@@ -27,7 +28,7 @@ BuildRequires:  pkgconfig(Qt)
 BuildRequires:  pkgconfig(QtGStreamer-0.10)
 BuildRequires:  pkgconfig(gstreamer-0.10)
 
-Requires:       gstreamer-0_10-plugins-ugly
+Requires:       gstreamer-plugins-ugly
 
 %description
 Russian social network vkontakte (vk.com) audio player.
