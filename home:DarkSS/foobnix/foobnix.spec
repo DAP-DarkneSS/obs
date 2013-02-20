@@ -3,17 +3,14 @@
 # package are under the same license as the package itself.
 #
 
-# neededforbuild update-desktop-files
-# norootforbuild
-#%define version_suffix 8b
 Name:           foobnix
-Version:	2.5.25
+Version:	2.6.09
 Release:	1
 Summary:	Player for any music from the internet
 Group:		Productivity/Multimedia/Sound/Players
-License:	GPLv3
+License:	GPL-3.0
 Url:		http://www.foobnix.com/
-Source:		foobnix_%{version}.tar.bz2
+Source:		https://launchpad.net/~foobnix-team/+archive/foobnix-player/+files/%{name}_%{version}q.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %if 0%{?suse_version} > 1110  
@@ -26,10 +23,13 @@ BuildArch:      noarch
 # Required way for older version of suse  
 Requires:       python = %py_ver  
 BuildRequires:  python  
-%endif  
+%endif
+
 Requires:	dbus-1-python
 Requires:	python-mutagen python-chardet python-keybinder
 Requires:	python-gtk python-gstreamer010 >= 0.10.18
+Requires:	python-simplejson
+
 BuildRequires:	python-devel
 BuildRequires:	python-gtk
 BuildRequires:	update-desktop-files
@@ -47,14 +47,17 @@ Authors:
 --------
     Name Surname 
     Ivan Ivanenko
+
 %prep
-%setup -n %{name}_%{version}
+%setup -q -n %{name}_%{version}
 
 find foobnix/ -name "*.py" -exec dos2unix {} ';'
 # remove shebangs from library files  
 find foobnix/ -name "*.py" -exec sed -i -e  '/^#!\s\?\/usr\/bin\/\(env\s\)\?python$/d' {} ';'
+
 %build
 %{__python} setup.py build 
+
 %install
 %{__python} setup.py install \
         --prefix=%{_prefix} \
@@ -71,9 +74,6 @@ sed -i -e  "/\/usr\/share\/pixmaps$/d" %{name}_filelist.txt
 sed -i -e  "/\.mo$/d" %{name}_filelist.txt
 %find_lang %{name}
 cat  %{name}_filelist.txt  %{name}.lang > all_files.list
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 
 %files -f all_files.list
 %defattr(-,root,root)
