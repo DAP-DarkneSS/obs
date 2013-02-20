@@ -1,0 +1,23 @@
+-------------------------------------------------------------------
+Fri Sep 16 22:12:08 UTC 2011 - boris@steki.net
+
+- updated to upstream 2.5.25
+  * bugfixes and translations
+
+
+-------------------------------------------------------------------
+Sat Aug 20 14:34:11 UTC 2011 - boris@steki.net
+
+- updated to upstream 2.5.23
+  * a lot of changes please look at CHANGELOG file 
+
+-------------------------------------------------------------------
+Sun Oct 24 15:28:10 UTC 2010 - boris@steki.net
+
+- fix mimetype in desktop file 
+
+-------------------------------------------------------------------
+Sat Oct 23 23:12:21 UTC 2010 - boris@steki.net
+
+- initial package creation 
+
