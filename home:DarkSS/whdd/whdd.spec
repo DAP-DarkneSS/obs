@@ -1,26 +1,35 @@
 #
 # spec file for package whdd
 #
-# Copyright (c) 2011-2013 Andrey 'Krieger' Utkin
-# <andrey.krieger.utkin@gmail.com>, (c) 2013 Perlow Dmitriy A. (spec file)
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
-# Please submit bugfixes or comments via
-# https://github.com/krieger-od/whdd/issues
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
+
 
 Name:           whdd
 Version:        1.0
-Release:        1
+Release:        0
 Summary:        Diagnostic and recovery tool for block devices (near to replace MHDD for Linux)
-
-License:        GPL
-URL:            https://github.com/krieger-od/whdd
-Source0:        %{name}-%{version}.tar.gz
-Group:          System/Benchmark
+License:        GPL-2.0+
+Group:          Hardware/Other
+Url:            https://github.com/krieger-od/whdd
+# git clone https://github.com/krieger-od/whdd.git && cd whdd
+# git archive f4ca537f80 --prefix=whdd-%{version}/ | bzip2 > ../whdd-%{version}.tar.bz2
+Source0:        %{name}-%{version}.tar.bz2
+Patch1:         whdd-link-libraries.patch
 
 BuildRequires:  cmake
 BuildRequires:  dialog-devel
-# BuildRequires:  update-desktop-files fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  ncurses-devel
@@ -39,22 +48,24 @@ and different front-ends.
 
 %prep
 %setup -q
+%patch1 -p1
 
 %build
-export CFLAGS=$RPM_OPT_FLAGS
-export CXXFLAGS=$RPM_OPT_FLAGS
-cmake . \
-       -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-       -DDIALOG_INCLUDE_DIRS:PATH=%{_includedir}/dialog/
+# export CFLAGS=$RPM_OPT_FLAGS
+# export CXXFLAGS=$RPM_OPT_FLAGS
+cmake \
+       -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
+       -DDIALOG_INCLUDE_DIR:PATH=%{_includedir}/dialog/ \
+       -DMENU_INCLUDE_DIR:PATH=%{_includedir}/ncursesw/ \
+       .
 make %{?_smp_mflags}
 
 %install
 make install DESTDIR=%{buildroot}
-# %%suse_update_desktop_file %{name}
-# %%fdupes -s %{buildroot}%{_datadir}/games/%{name}/mods/
 
 %files
 %defattr(-,root,root)
 %doc README doc/README.developer
+%{_sbindir}/whdd*
 
 %changelog

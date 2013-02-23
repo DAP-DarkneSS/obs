@@ -1,3 +1,9 @@
+-------------------------------------------------------------------
+Fri Feb 22 21:58:01 UTC 2013 - dmitry_r@opensuse.org
+
+- Fix build with libdialog
+  * whdd-link-libraries.patch
+
 Fri Feb 22 15:35:38 UTC 2013 - dap.darkness@gmail.com
 
 - Initial build.

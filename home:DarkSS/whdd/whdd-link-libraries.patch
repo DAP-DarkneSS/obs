@@ -1,0 +1,36 @@
+Index: whdd/CMakeLists.txt
+===================================================================
+--- whdd.orig/CMakeLists.txt
++++ whdd/CMakeLists.txt
+@@ -1,8 +1,6 @@
+ cmake_minimum_required(VERSION 2.8)
+ project(whdd)
+ 
+-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
+-
+ set(WHDD_VERSION "1.1")
+ 
+ set(CMAKE_C_FLAGS "-pthread -Wall -Wextra ${CFLAGS}")
+@@ -66,18 +64,14 @@ add_executable(whdd-curses
+ 	${LIBDEVCHECK_SRCS}
+ )
+ 
+-include_directories(${DIALOG_INCLUDE_DIRS})
++include_directories(${DIALOG_INCLUDE_DIR})
++include_directories(${MENU_INCLUDE_DIR})
+ target_link_libraries(whdd-cli rt pthread)
+ 
+-find_package(DIALOG REQUIRED)
+ find_library(MENUW_LIBRARY menuw)
+ find_library(NCURSESW_LIBRARY ncursesw)
+-if(DIALOG_FOUND AND MENUW_LIBRARY AND NCURSESW_LIBRARY)
+-	target_link_libraries(whdd-curses 
+-		${DIALOG_LIBRARIES} ${MENUW_LIBRARY} ${NCURSESW_LIBRARY} rt pthread)
+-else()
+-	message(FATAL_ERROR "Dialog or menuw library not found!")
+-endif(DIALOG_FOUND AND MENUW_LIBRARY AND NCURSESW_LIBRARY)
++find_library(DIALOG_LIBRARY dialog)
++target_link_libraries(whdd-curses ${DIALOG_LIBRARY} ${MENUW_LIBRARY} ${NCURSESW_LIBRARY} rt pthread)
+ install(TARGETS whdd-cli whdd-curses DESTINATION sbin)
+ 
+ # Packaging stuff
