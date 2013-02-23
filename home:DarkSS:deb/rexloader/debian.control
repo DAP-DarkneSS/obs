@@ -10,4 +10,5 @@ Depends: libqt4-sql-sqlite, ${shlibs:Depends}
 Description: A download manager
  An advanced Qt download manager over http
  with configurable multithreaded downloading,
- proxy support, logging and notifications;
+ proxy support, logging, notifications
+ and hash calculating;

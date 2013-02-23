@@ -27,7 +27,7 @@ Requires:       %{name}-notifications
 
 %description
 An advanced Qt download manager over http with configurable multithreaded
-downloading, proxy support, logging and nice notifications.
+downloading, proxy support, logging, hash calculating and nice notifications.
 
 %package hashcalculator
 Summary:        Rexloader Hash Calculator
@@ -36,7 +36,7 @@ Requires:       %{name} = %{version}
 %description hashcalculator
 This package provides a Hash Calculator plugin for Rexloader.
 
-It will allow to calculate downloaded files hash sums.
+It allows to calculate downloaded files hash sums.
 
 %package nixnotify
 Summary:        Rexloader D-Bus Notifications
