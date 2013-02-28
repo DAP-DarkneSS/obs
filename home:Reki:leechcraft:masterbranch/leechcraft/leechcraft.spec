@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-547-gfbd10d6
+%define LEECHCRAFT_VERSION 0.5.90-651-gb2f0719
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -55,6 +55,7 @@ BuildRequires:  libmsn-devel
 BuildRequires:  libnl3-devel
 BuildRequires:  libpoppler-qt4-devel
 %endif
+BuildRequires:  libpurple-devel
 BuildRequires:  libqca2-devel
 BuildRequires:  libqjson-devel
 BuildRequires:  libqscintilla-devel
@@ -238,6 +239,7 @@ Requires:       %{name}-auscrie
 %if 0%{suse_version} >= 1220
 Requires:       %{name}-bittorrent
 Requires:       %{name}-blogique
+# Requires:       %%{name}-blogique-hestia
 Requires:       %{name}-blogique-metida
 Requires:       %{name}-gmailnotifier
 %endif
@@ -720,6 +722,18 @@ The following protocol features are supported:
  * Grouping contacts.
 
 
+%package azoth-velvetbird
+Summary:        LeechCraft Azoth - LibPurple Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-azoth = %{version}
+Provides:       %{name}-azoth-protocolplugin
+
+%description azoth-velvetbird
+This package provides a LibPurple plugin for LeechCraft Azoth.
+
+It supportes various protocols provided by Purple library.
+
+
 %package azoth-xoox
 Summary:        LeechCraft Azoth - XMPP Module
 Group:          Productivity/Networking/Other
@@ -824,6 +838,7 @@ etc.
 Summary:        LeechCraft Blogging client Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Requires:       %{name}-blogique-subplugin = %{version}
 Requires:       %{name}-lhtr = %{version}
 
 %description blogique
@@ -833,17 +848,31 @@ It will support different blogging platforms via different submodules.
 %endif
 
 
+# %%if 0%%{suse_version} >= 1220
+# %%package blogique-hestia
+# Summary:        LeechCraft Blogique - Local blogging Module
+# Group:          Productivity/Networking/Other
+# Requires:       %%{name} = %%{version}
+# Requires:       %%{name}-blogique = %%{version}
+# Provides:       %%{name}-blogique-subplugin = %%{version}
+# 
+# %%description blogique-hestia
+# This package provides a local blogging subplugin for LeechCraft Blogique.
+# %%endif
+
+
 %if 0%{suse_version} >= 1220
 %package blogique-metida
 Summary:        LeechCraft Blogique - LiveJournal Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-blogique = %{version}
+Provides:       %{name}-blogique-subplugin = %{version}
 
 %description blogique-metida
 This package provides a LiveJournal subplugin for LeechCraft Blogique.
 
-It will provide LiveJournal support.
+It provides LiveJournal support.
 %endif
 
 
@@ -1958,6 +1987,7 @@ cmake ../src \
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
         -DENABLE_AZOTH_ASTRALITY=True \
+        -DENABLE_AZOTH_VELVETBIRD=True \
         -DENABLE_AZOTH_ZHEET=True \
         -DENABLE_BLACKDASH=False \
         -DENABLE_CHOROID=True \
@@ -1976,6 +2006,7 @@ cmake ../src \
         -DENABLE_NEWLIFE=True \
         -DENABLE_PINTAB=True \
         -DENABLE_POPISHU=True \
+        -DENABLE_POSHUKU_AUTOSEARCH=False \
         -DENABLE_QROSP=False \
         -DENABLE_SECMAN=True \
         -DENABLE_SIDEBAR=False \
@@ -1999,6 +2030,7 @@ cmake ../src \
         -DENABLE_LHTR=True \
         -DENABLE_LMP=True \
         -DENABLE_LMP_GRAFFITI=True \
+        -DENABLE_LMP_MPRIS=True \
         -DENABLE_MONOCLE=True \
         -DENABLE_MONOCLE_MU=True \
         -DENABLE_MUSICZOMBIE=True \
@@ -2349,6 +2381,10 @@ EOF
 %{_datadir}/%{name}/settings/azothvadersettings.xml
 %{plugin_dir}/*%{name}_azoth_vader.so
 
+%files azoth-velvetbird
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_azoth_velvetbird.so
+
 %files azoth-xoox
 %defattr(-,root,root)
 %{translations_dir}/%{name}_azoth_xoox*
@@ -2386,6 +2422,13 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_blogique.so
 %{_datadir}/%{name}/settings/blogiquesettings.xml
 %endif
+
+# %%if 0%%{suse_version} >= 1220
+# %%files blogique-hestia
+# %%defattr(-,root,root)
+# %%{_libdir}/%%{name}/plugins/lib%%{name}_blogique_hestia.so
+# %%{_datadir}/%%{name}/settings/blogiquehestiasettings.xml
+# %%endif
 
 %if 0%{suse_version} >= 1220
 %files blogique-metida
