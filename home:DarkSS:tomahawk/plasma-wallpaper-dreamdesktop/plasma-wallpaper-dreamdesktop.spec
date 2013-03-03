@@ -15,21 +15,20 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
-# norootforbuild
 
 BuildRequires:  kdebase4-workspace-devel >= 4.8.0
 BuildRequires:  update-desktop-files
 
 Name:           plasma-wallpaper-dreamdesktop
-Summary:        Animated Wallpapers for KDE
 Version:        0.2.0
 Release:        1
 License:        GPL-2.0+
+Summary:        Animated Wallpapers for KDE
+Url:            http://www.jarzebski.pl/projekty/dreamdesktop.html
 Group:          System/GUI/KDE
 Source0:        http://www.jarzebski.pl/dreamdesktop/%{name}-%{version}.tar.bz2
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-Url:            http://www.jarzebski.pl/projekty/dreamdesktop.html
 BuildRequires:  libffmpeg-devel
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %kde4_runtime_requires
 
 %description
@@ -44,9 +43,9 @@ DreamDesktop is an animated video wallpaper plugin for KDE4 plasma desktop.
 
 %install
   cd builddir
-  %makeinstall
+  %make_install
   cd ..
-  %suse_update_desktop_file -n $RPM_BUILD_ROOT/usr/share/kde4/services/dreamdesktop.desktop
+  %suse_update_desktop_file -n %{buildroot}%{_datadir}/kde4/services/dreamdesktop.desktop
   %kde_post_install
 
 
