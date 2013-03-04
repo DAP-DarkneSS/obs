@@ -7,7 +7,7 @@ DOBS=~/Documents/obs/home:Reki:leechcraft:masterbranch/$NOBS
 echo -e '\e[0;4mChecking of github version:\e[0m'
 cd $DGIT
 git pull
-VGIT=`git describe`
+VGIT=`git describe origin/master`
 echo -e '\e[0;33m\n'$VGIT'\e[0m'
 
 echo -e '\e[0;4m\nChecking of OBS version:\e[0m'
