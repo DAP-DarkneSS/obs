@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-651-gb2f0719
+%define LEECHCRAFT_VERSION 0.5.90-634-g6324366
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -54,8 +54,8 @@ BuildRequires:  libmsn-devel
 %if 0%{suse_version} >= 1220
 BuildRequires:  libnl3-devel
 BuildRequires:  libpoppler-qt4-devel
-%endif
 BuildRequires:  libpurple-devel
+%endif
 BuildRequires:  libqca2-devel
 BuildRequires:  libqjson-devel
 BuildRequires:  libqscintilla-devel
@@ -722,6 +722,7 @@ The following protocol features are supported:
  * Grouping contacts.
 
 
+%if 0%{suse_version} >= 1220
 %package azoth-velvetbird
 Summary:        LeechCraft Azoth - LibPurple Module
 Group:          Productivity/Networking/Other
@@ -732,6 +733,7 @@ Provides:       %{name}-azoth-protocolplugin
 This package provides a LibPurple plugin for LeechCraft Azoth.
 
 It supportes various protocols provided by Purple library.
+%endif
 
 
 %package azoth-xoox
@@ -1987,7 +1989,6 @@ cmake ../src \
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
         -DENABLE_AZOTH_ASTRALITY=True \
-        -DENABLE_AZOTH_VELVETBIRD=True \
         -DENABLE_AZOTH_ZHEET=True \
         -DENABLE_BLACKDASH=False \
         -DENABLE_CHOROID=True \
@@ -2019,6 +2020,7 @@ cmake ../src \
         -DENABLE_VFSCORE=False \
 %if 0%{suse_version} >= 1220
         -DENABLE_AZOTH_SHX=True \
+        -DENABLE_AZOTH_VELVETBIRD=True \
         -DENABLE_BLOGIQUE=True \
         -DENABLE_DUMBEEP=True \
         -DDUMBEEP_WITH_PHONON=True \
@@ -2048,6 +2050,7 @@ cmake ../src \
         -DENABLE_VROOBY_UDISKS2=True \
 %else
         -DENABLE_AZOTH_SHX=False \
+        -DENABLE_AZOTH_VELVETBIRD=False \
         -DENABLE_BLOGIQUE=False \
         -DENABLE_DUMBEEP=False \
         -DENABLE_GMAILNOTIFIER=False \
@@ -2381,9 +2384,11 @@ EOF
 %{_datadir}/%{name}/settings/azothvadersettings.xml
 %{plugin_dir}/*%{name}_azoth_vader.so
 
+%if 0%{suse_version} >= 1220
 %files azoth-velvetbird
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_velvetbird.so
+%endif
 
 %files azoth-xoox
 %defattr(-,root,root)
