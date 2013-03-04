@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Mar  3 10:00:21 UTC 2013 - dap.darkness@gmail.com
+
+- 0.3.0 release:
+  * Avoids paint areas that the wallpaper is not showed.
+  * Fix crashes about freeing uninitialized members.
+
+-------------------------------------------------------------------
 Fri Jan 04 13:58:00 CET 2013 - buschmann23@opensuse.org - 0.2.0
 
 - initial package
