@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-634-g6324366
+%define LEECHCRAFT_VERSION 0.5.90-702-g6c72435
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -239,7 +239,7 @@ Requires:       %{name}-auscrie
 %if 0%{suse_version} >= 1220
 Requires:       %{name}-bittorrent
 Requires:       %{name}-blogique
-# Requires:       %%{name}-blogique-hestia
+Requires:       %{name}-blogique-hestia
 Requires:       %{name}-blogique-metida
 Requires:       %{name}-gmailnotifier
 %endif
@@ -850,17 +850,17 @@ It will support different blogging platforms via different submodules.
 %endif
 
 
-# %%if 0%%{suse_version} >= 1220
-# %%package blogique-hestia
-# Summary:        LeechCraft Blogique - Local blogging Module
-# Group:          Productivity/Networking/Other
-# Requires:       %%{name} = %%{version}
-# Requires:       %%{name}-blogique = %%{version}
-# Provides:       %%{name}-blogique-subplugin = %%{version}
-# 
-# %%description blogique-hestia
-# This package provides a local blogging subplugin for LeechCraft Blogique.
-# %%endif
+%if 0%{suse_version} >= 1220
+%package blogique-hestia
+Summary:        LeechCraft Blogique - Local blogging Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-blogique = %{version}
+Provides:       %{name}-blogique-subplugin = %{version}
+
+%description blogique-hestia
+This package provides a local blogging subplugin for LeechCraft Blogique.
+%endif
 
 
 %if 0%{suse_version} >= 1220
@@ -2428,12 +2428,12 @@ EOF
 %{_datadir}/%{name}/settings/blogiquesettings.xml
 %endif
 
-# %%if 0%%{suse_version} >= 1220
-# %%files blogique-hestia
-# %%defattr(-,root,root)
-# %%{_libdir}/%%{name}/plugins/lib%%{name}_blogique_hestia.so
-# %%{_datadir}/%%{name}/settings/blogiquehestiasettings.xml
-# %%endif
+%if 0%{suse_version} >= 1220
+%files blogique-hestia
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_blogique_hestia.so
+%{_datadir}/%{name}/settings/blogiquehestiasettings.xml
+%endif
 
 %if 0%{suse_version} >= 1220
 %files blogique-metida
