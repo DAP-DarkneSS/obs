@@ -1,0 +1,9 @@
+--- pyload/module/common/pylgettext.py.orig	2012-10-13 11:31:29.000000000 +0300
++++ pyload/module/common/pylgettext.py	2013-03-08 20:57:00.436456422 +0300
+@@ -56,6 +56,3 @@
+             return results[0]
+     else:
+         return results
+-
+-#Is there a smarter/cleaner pythonic way for this?
+-translation.func_globals['find'] = find
