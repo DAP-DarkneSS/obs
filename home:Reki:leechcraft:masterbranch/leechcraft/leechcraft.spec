@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-737-g450d51a
+%define LEECHCRAFT_VERSION 0.5.90-756-gd8f1533
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -2426,6 +2426,8 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blogique.so
 %{_datadir}/%{name}/settings/blogiquesettings.xml
+%{_datadir}/%{name}/translations/%{name}_blogique_??.qm
+%{_datadir}/%{name}/translations/%{name}_blogique_??_??.qm
 %endif
 
 %if 0%{suse_version} >= 1220
