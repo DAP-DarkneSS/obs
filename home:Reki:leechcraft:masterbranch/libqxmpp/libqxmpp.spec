@@ -17,7 +17,7 @@
 
 
 Name:           libqxmpp
-Version:        0.7.3
+Version:        0.7.6
 Release:        0
 Source0:        qxmpp-%{version}.tar.bz2
 Source1:        baselibs.conf
