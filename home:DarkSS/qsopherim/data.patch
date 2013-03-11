@@ -1,0 +1,12 @@
+--- src/config/config.cpp.orig	2013-03-11 23:00:12.140000053 +0300
++++ src/config/config.cpp	2013-03-11 23:00:36.110000053 +0300
+@@ -51,8 +51,7 @@
+         QString m_setupAppDir;
+ 
+         //setup
+-        m_setupAppDir = "usr/share/QSopherim/";
+-//        m_setupAppDir = QDir::currentPath() + "/";
++        m_setupAppDir = QDir::currentPath() + "/";
+ 
+         m_pathMap["bible"] = m_setupAppDir + GL_MODULE_PATH + "bible";
+         m_pathMap["book"] = m_setupAppDir + GL_MODULE_PATH + "book";
