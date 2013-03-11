@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-756-gd8f1533
+%define LEECHCRAFT_VERSION 0.5.90-786-g0b7aeae
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -75,6 +75,10 @@ BuildRequires:  taglib-devel
 BuildRequires:  update-desktop-files
 BuildRequires:  xz
 
+%if 0%{suse_version} >= 1220
+BuildRequires:  libchromaprint-devel
+BuildRequires:  libffmpeg-devel
+%endif
 BuildRequires:  mupdf-devel
 BuildRequires:  telepathy-qt4-devel
 %if 0%{suse_version} < 1220
@@ -95,6 +99,7 @@ Obsoletes:      %{name}-lmp
 Obsoletes:      %{name}-netstoremanager
 Obsoletes:      %{name}-poshuku-pogooglue
 Obsoletes:      %{name}-tabsessionmanager
+Obsoletes:      %{name}-choroid
 %endif
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -242,8 +247,8 @@ Requires:       %{name}-blogique
 Requires:       %{name}-blogique-hestia
 Requires:       %{name}-blogique-metida
 Requires:       %{name}-gmailnotifier
-%endif
 Requires:       %{name}-choroid
+%endif
 Requires:       %{name}-historyholder
 Requires:       %{name}-kinotify
 Requires:       %{name}-lhtr
@@ -878,6 +883,7 @@ It provides LiveJournal support.
 %endif
 
 
+%if 0%{suse_version} >= 1220
 %package choroid
 Summary:        LeechCraft Image viewer Module
 Group:          Productivity/Networking/Other
@@ -885,6 +891,7 @@ Requires:       %{name} = %{version}
 
 %description choroid
 This package provides an image viewer plugin for LeechCraft.
+%endif
 
 
 %package cstp
@@ -1991,10 +1998,7 @@ cmake ../src \
         -DENABLE_AZOTH_ASTRALITY=True \
         -DENABLE_AZOTH_ZHEET=True \
         -DENABLE_BLACKDASH=False \
-        -DENABLE_CHOROID=True \
         -DENABLE_DOLOZHEE=True \
-        -DENABLE_EISKALTDCPP=False \
-        -DENABLE_FTP=False \
         -DENABLE_GACTS=True \
         -DENABLE_GLANCE=True \
         -DENABLE_KBSWITCH=True \
@@ -2010,18 +2014,17 @@ cmake ../src \
         -DENABLE_POSHUKU_AUTOSEARCH=False \
         -DENABLE_QROSP=False \
         -DENABLE_SECMAN=True \
-        -DENABLE_SIDEBAR=False \
         -DENABLE_SHELLOPEN=True \
         -DENABLE_SNAILS=False \
         -DENABLE_SYNCER=True \
         -DENABLE_TABSLIST=True \
         -DENABLE_TOUCHSTREAMS=False \
         -DENABLE_TWIFEE=False \
-        -DENABLE_VFSCORE=False \
 %if 0%{suse_version} >= 1220
         -DENABLE_AZOTH_SHX=True \
         -DENABLE_AZOTH_VELVETBIRD=True \
         -DENABLE_BLOGIQUE=True \
+        -DENABLE_CHOROID=True \
         -DENABLE_DUMBEEP=True \
         -DDUMBEEP_WITH_PHONON=True \
         -DENABLE_GMAILNOTIFIER=True \
@@ -2036,7 +2039,7 @@ cmake ../src \
         -DENABLE_MONOCLE=True \
         -DENABLE_MONOCLE_MU=True \
         -DENABLE_MUSICZOMBIE=True \
-        -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
+        -DWITH_MUSICZOMBIE_CHROMAPRINT=True \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_OTLOZHU=True \
         -DENABLE_POGOOGLUE=True \
@@ -2052,6 +2055,7 @@ cmake ../src \
         -DENABLE_AZOTH_SHX=False \
         -DENABLE_AZOTH_VELVETBIRD=False \
         -DENABLE_BLOGIQUE=False \
+        -DENABLE_CHOROID=False \
         -DENABLE_DUMBEEP=False \
         -DENABLE_GMAILNOTIFIER=False \
         -DENABLE_HOTSTREAMS=False \
@@ -2444,10 +2448,12 @@ EOF
 %{_datadir}/%{name}/settings/blogiquemetidasettings.xml
 %endif
 
+%if 0%{suse_version} >= 1220
 %files choroid
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_choroid.so
 %{_datadir}/%{name}/qml/choroid
+%endif
 
 %files cstp
 %defattr(-,root,root)
