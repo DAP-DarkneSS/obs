@@ -39,6 +39,7 @@ Architecture independent data of QSopherim package.
 
 %prep
 %setup -q
+%patch0
 
 %build
 qmake \
@@ -47,25 +48,28 @@ QMAKE_CXXFLAGS+="%{optflags}"
 make %{?_smp_mflags}
 
 %install
-mkdir -p %{buildroot}/opt/%{name}
-%{__install} build/bin/%{name} %{buildroot}/opt/%{name}
-cp -R data/* %{buildroot}/opt/%{name}
+mkdir -p %{buildroot}%{_datadir}/%{name}
+cp -R data/* %{buildroot}%{_datadir}/%{name}
+
+mkdir -p %{buildroot}%{_bindir}
+%{__install} build/bin/%{name} %{buildroot}%{_bindir}/%{name}-bin
+echo -e '#!/bin/sh'"\n\ncd %{_datadir}/%{name}\n%{name}-bin" > %{buildroot}%{_bindir}/%{name}
+# The binary file must be run from the game data directory.
 
 mkdir -p %{buildroot}%{_datadir}/pixmaps
 %{__install} resources/images/logo.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
 
-%suse_update_desktop_file -c %{name} %{name} "Holy Bible reader" "/opt/%{name}/%{name}" %{name}.png "Office;Viewer;"
+%suse_update_desktop_file -c %{name} %{name} "Holy Bible reader" %{name} %{name}.png "Office;Viewer;"
 
 %files
 %defattr(-,root,root)
 %doc *.md LICENSE.GPL
-%attr(755,root,root) /opt/%{name}/%{name}
+%attr(755,root,root) %{_bindir}/%{name}*
 
 %files data
 %defattr(-,root,root)
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
-%attr(777,root,users) /opt/%{name}
-%exclude /opt/%{name}/%{name}
+%attr(777,root,users) %{_datadir}/%{name}
 
 %changelog
