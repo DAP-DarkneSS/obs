@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-786-g0b7aeae
+%define LEECHCRAFT_VERSION 0.5.90-791-gcb480ba
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
