@@ -1,7 +1,7 @@
 #
 # spec file for package libqxmpp
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,9 +17,9 @@
 
 
 Name:           libqxmpp
-Version:        0.7.4
+Version:        0.7.6
 Release:        0
-Source0:        https://qxmpp.googlecode.com/files/qxmpp-0.7.4.tar.gz
+Source0:        https://qxmpp.googlecode.com/files/qxmpp-%{version}.tar.gz
 Source1:        baselibs.conf
 Summary:        Qt XMPP Library
 License:        LGPL-2.0+
@@ -78,7 +78,7 @@ Summary:        Qxmpp library documentation
 Group:          Documentation/HTML
 
 %description doc
-This packages provides documentation of LeechCraft Azoth API.
+This packages provides documentation of Qxmpp library API.
 
 %prep
 %setup -q -n qxmpp-%{version}

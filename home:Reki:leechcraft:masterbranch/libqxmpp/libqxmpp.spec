@@ -76,7 +76,7 @@ Summary:        Qxmpp library documentation
 Group:          Documentation/HTML
 
 %description doc
-This packages provides documentation of LeechCraft Azoth API.
+This packages provides documentation of Qxmpp library API.
 
 %prep
 %setup -q -n qxmpp-%{version}
