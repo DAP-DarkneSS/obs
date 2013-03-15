@@ -17,6 +17,7 @@ License:        GPL-3.0
 Url:            http://code.google.com/p/rexloader/
 Group:          Productivity/Networking/Other
 Source0:        %{name}-%{version}.tar.bz2
+Patch0:         QWidget.patch
 
 BuildRequires:  qt4-devel
 BuildRequires:  zlib-devel
@@ -60,6 +61,7 @@ This package provides a simple Qt Notifications plugin for Rexloader.
 
 %prep
 %setup -q
+%patch0
 mkdir build
 
 %build

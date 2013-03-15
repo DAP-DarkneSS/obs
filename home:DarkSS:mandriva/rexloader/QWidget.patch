@@ -1,0 +1,9 @@
+--- plugins/HttpLoader/HttpLoader.pro.orig	2013-03-02 21:55:05.000000000 +0300
++++ plugins/HttpLoader/HttpLoader.pro	2013-03-04 18:59:53.200000027 +0300
+@@ -1,6 +1,4 @@
+-QT -= gui
+ QT += network
+-QT += webkit
+ CONFIG += plugin
+ TARGET = HttpLoader
+ TEMPLATE = lib
