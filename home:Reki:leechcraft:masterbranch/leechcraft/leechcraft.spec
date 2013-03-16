@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-791-gcb480ba
+%define LEECHCRAFT_VERSION 0.5.90-832-g9fb2f7c
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -62,7 +62,7 @@ BuildRequires:  libqscintilla-devel
 BuildRequires:  libqt4-devel >= 4.7
 BuildRequires:  libqt4-sql
 BuildRequires:  libqxmpp-devel >= 0.7.4
-BuildRequires:  libqxt1-devel
+# BuildRequires:  libqxt1-devel
 BuildRequires:  libspectre-devel
 BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
 BuildRequires:  pcre-devel
@@ -1010,6 +1010,7 @@ It also uses Phonon as a backend or something like aplay/mplayer.
 %package gacts
 Summary:        LeechCraft Global actions Module
 Group:          Productivity/Networking/Other
+License:        GPL-3.0+ and (LGPL-2.1 or CPL-1.0)
 Requires:       %{name} = %{version}
 
 %description gacts
@@ -2000,6 +2001,7 @@ cmake ../src \
         -DENABLE_BLACKDASH=False \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_GACTS=True \
+        -DWITH_GACTS_BUNDLED_QXT=True \
         -DENABLE_GLANCE=True \
         -DENABLE_KBSWITCH=True \
         -DENABLE_KNOWHOW=True \
@@ -2523,6 +2525,7 @@ EOF
 
 %files gacts
 %defattr(-,root,root)
+%doc src/plugins/gacts/3rdparty/qxt/LICENSE
 %{_libdir}/%{name}/plugins/*%{name}_gacts.so
 
 %files glance
