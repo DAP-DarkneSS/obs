@@ -24,7 +24,7 @@ License:        GPL-2.0+
 Group:          Hardware/Other
 Url:            https://github.com/krieger-od/whdd
 # git clone https://github.com/krieger-od/whdd.git && cd whdd
-# git archive f4ca537f80 --prefix=whdd-%{version}/ | bzip2 > ../whdd-%{version}.tar.bz2
+# git archive f4ca537f80 --prefix=whdd-%%{version}/ | bzip2 > ../whdd-%%{version}.tar.bz2
 Source0:        %{name}-%{version}.tar.bz2
 Patch1:         whdd-link-libraries.patch
 
@@ -51,12 +51,13 @@ and different front-ends.
 %patch1 -p1
 
 %build
-# export CFLAGS=$RPM_OPT_FLAGS
-# export CXXFLAGS=$RPM_OPT_FLAGS
+export CFLAGS=$RPM_OPT_FLAGS
+export CXXFLAGS=$RPM_OPT_FLAGS
 cmake \
        -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
        -DDIALOG_INCLUDE_DIR:PATH=%{_includedir}/dialog/ \
        -DMENU_INCLUDE_DIR:PATH=%{_includedir}/ncursesw/ \
+       -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        .
 make %{?_smp_mflags}
 
