@@ -1,0 +1,12 @@
+Index: boost/chrono/detail/inlined/posix/process_cpu_clocks.hpp
+===================================================================
+--- boost/chrono/detail/inlined/posix/process_cpu_clocks.hpp.orig	2011-11-26 01:49:13.000000000 +0100
++++ boost/chrono/detail/inlined/posix/process_cpu_clocks.hpp	2012-03-13 19:34:38.197168044 +0100
+@@ -213,6 +213,7 @@ process_system_cpu_clock::time_point pro
+         else
+         {
+           BOOST_ASSERT(0 && "Boost::Chrono - Internal Error");
++          return time_point();
+         }
+     }
+ }
