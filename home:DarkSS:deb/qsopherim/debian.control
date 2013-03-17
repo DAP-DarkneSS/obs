@@ -1,0 +1,11 @@
+Source: qsopherim
+Section: unknown
+Priority: optional
+Maintainer: Dmitriy Perlow <dap.darkness@gmail.com>
+Build-Depends: libx11-dev, zlib1g-dev, cdbs, qt4-qmake, build-essential, libqt4-dev, debhelper (>= 4.1.16), g++
+
+Package: qsopherim
+Architecture: any
+Depends: enca, ${shlibs:Depends}
+Description: Holy Bible reader
+ A reader for various formats of Holy Bible texts;

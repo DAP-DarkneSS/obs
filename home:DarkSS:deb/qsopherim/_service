@@ -1,0 +1,14 @@
+<services>
+  <service name="tar_scm">
+    <param name="url">git://github.com/WarmongeR1/QSopherim.git</param>
+    <param name="scm">git</param>
+    <param name="filename">qsopherim</param>
+    <param name="versionprefix">0.0.0.3</param>
+  </service>
+  <service name="recompress">
+    <param name="file">*.tar</param>
+    <param name="compression">bz2</param>
+  </service>
+  <service name="source_validator"/>
+  <service name="set_version"/>
+</services>
