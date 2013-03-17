@@ -16,10 +16,10 @@
 #
 
 
-%define ver 1.49.0
-%define file_version 1_49_0
-%define short_version 1_49
-%define lib_appendix 1_49_0
+%define ver 1.53.0
+%define file_version 1_53_0
+%define short_version 1_53
+%define lib_appendix 1_53_0
 
 #Only define to 1 to generate the man pages
 %define build_docs 0
@@ -62,7 +62,7 @@
 %define debug_package_requires %{all_libs}
 
 Name:           boost
-BuildRequires:  boost-jam >= 3.1.19
+BuildRequires:  boost-jam >= 201104
 BuildRequires:  chrpath
 BuildRequires:  dos2unix
 BuildRequires:  gcc-c++
@@ -90,7 +90,7 @@ Summary:        Boost C++ Libraries
 License:        BSL-1.0
 Group:          Development/Libraries/C and C++
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-Version:        1.49.0
+Version:        1.53.0
 Release:        0
 Source0:        %{name}_%{file_version}.tar.bz2
 Source1:        boost-rpmlintrc
@@ -103,9 +103,6 @@ Patch2:         boost-no_type_punning.patch
 Patch8:         boost-no_segfault_in_Regex_filter.patch
 Patch20:        boost-strict_aliasing.patch
 Patch50:        boost-use_std_xml_catalog.patch
-Patch51:        boost-fix_documentation.patch 
-Patch52:        boost-chrono_add_function_return.patch
-Patch53:        boost-time_utc.patch
 Recommends:     %{all_libs}
 
 %define _docdir %{_datadir}/doc/packages/boost-%{version}
@@ -194,6 +191,25 @@ BuildArch:      noarch
 This package contains the documentation of the boost dynamic libraries
 in PDF format.
 %endif
+
+%package        -n libboost_atomic%{lib_appendix}
+Summary:        Run-Time component of boost atomic library
+Group:          System/Libraries
+Requires:       boost-license%{lib_appendix}
+
+%description -n libboost_atomic%{lib_appendix}
+Run-Time support for Boost.Atomic, a library that provides atomic data types
+and operations on these data types, as well as memory ordering constraints
+required for coordinating multiple threads through atomic variables.
+
+%package        -n libboost_context%{lib_appendix}
+Summary:        Run-Time component of boost context switching library
+Group:          System/Libraries
+Requires:       boost-license%{lib_appendix}
+
+%description -n libboost_context%{lib_appendix}
+Run-Time support for Boost.Context, a foundational library that
+provides a sort of cooperative multitasking on a single thread.
 
 %package        -n libboost_date_time%{lib_appendix}
 Summary:        Boost::Date.Time Runtime libraries
@@ -380,9 +396,6 @@ find -type f ! \( -name \*.sh -o -name \*.py -o -name \*.pl \) -exec chmod -x {}
 #%%patch19
 %patch20
 %patch50
-%patch51
-%patch52
-%patch53 -p1
 
 #stupid build machinery copies .orig files
 find . -name \*.orig -exec rm {} +
@@ -545,6 +558,8 @@ rm -f %{buildroot}%{_libdir}/*.a
 %fdupes %buildroot
 %endif
 
+%post -n libboost_atomic%{lib_appendix} -p /sbin/ldconfig
+%post -n libboost_context%{lib_appendix} -p /sbin/ldconfig
 %post -n libboost_date_time%{lib_appendix} -p /sbin/ldconfig
 %post -n libboost_filesystem%{lib_appendix} -p /sbin/ldconfig
 %post -n libboost_iostreams%{lib_appendix} -p /sbin/ldconfig
@@ -569,6 +584,8 @@ rm -f %{buildroot}%{_libdir}/*.a
 %post -n libboost_locale%{lib_appendix} -p /sbin/ldconfig
 %post -n libboost_timer%{lib_appendix} -p /sbin/ldconfig
 
+%postun -n libboost_atomic%{lib_appendix} -p /sbin/ldconfig
+%postun -n libboost_context%{lib_appendix} -p /sbin/ldconfig
 %postun -n libboost_date_time%{lib_appendix} -p /sbin/ldconfig
 %postun -n libboost_filesystem%{lib_appendix} -p /sbin/ldconfig
 %postun -n libboost_iostreams%{lib_appendix} -p /sbin/ldconfig
@@ -598,6 +615,14 @@ rm -f %{buildroot}%{_libdir}/*.a
 %dir %{_docdir}
 #%%doc %%{_docdir}/NEWS
 %doc %{_docdir}/LICENSE_1_0.txt
+
+%files -n libboost_atomic%{lib_appendix}
+%defattr(-, root, root, -)
+%{_libdir}/libboost_atomic*.so.*
+
+%files -n libboost_context%{lib_appendix}
+%defattr(-, root, root, -)
+%{_libdir}/libboost_context*.so.*
 
 %files -n libboost_date_time%{lib_appendix}
 %defattr(-, root, root, -)

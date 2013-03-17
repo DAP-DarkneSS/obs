@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Sat Mar 16 11:35:15 UTC 2013 - dap.darkness@gmail.com
+
+- Update to 1.53.0. Major changes since 1.49.0:
+
+  New libraries:
+  * Algorithm:  A collection of useful generic algorithms. 
+  * Context:  Context switching library.
+  * Functional/OverloadedFunction: Overload different functions. 
+  * LocalFunction: Program functions locally, within other functions. 
+  * Utility/IdentityType: Wrap types within round parenthesis.
+
+  For a detailed descriptions see
+  http://www.boost.org/users/history/version_1_50_0.html
+  http://www.boost.org/users/history/version_1_51_0.html
+  http://www.boost.org/users/history/version_1_52_0.html
+
+- Delete unneeded patches:
+  * boost-chrono_add_function_return.patch
+  * boost-fix_documentation.patch
+  * boost-time_utc.patch
+  
+-------------------------------------------------------------------
 Wed Feb 27 18:34:09 UTC 2013 - dmueller@suse.com
 
 - build without openmpi on aarch64 for now 
