@@ -49,14 +49,10 @@ install: build
 
 	# Add here commands to install the package into debian/gentoo.
 	cd builddir && cp -R usr/ $(CURDIR)/debian/$(APPNAME)
-	mkdir -p $(CURDIR)/debian/$(APPNAME)/usr/share/app-install/desktop
-	mkdir -p $(CURDIR)/debian/$(APPNAME)/usr/share/app-install/icons
 	mkdir -p $(CURDIR)/debian/$(APPNAME)/usr/share/applications
-	mkdir -p $(CURDIR)/debian/$(APPNAME)/usr/share/icons/hicolor/64x64/apps
-	cd REXLoader && cp rexloader.desktop $(CURDIR)/debian/$(APPNAME)/usr/share/app-install/desktop/rexloader.desktop 
-	cd REXLoader && cp rexloader.png $(CURDIR)/debian/$(APPNAME)/usr/share/app-install/icons/rexloader.png
-	cd REXLoader && cp rexloader.png $(CURDIR)/debian/$(APPNAME)/usr/share/icons/hicolor/64x64/apps/rexloader.png
-	cd REXLoader && cp rexloader.desktop $(CURDIR)/debian/$(APPNAME)/usr/share/applications/rexloader.desktop
+	mkdir -p $(CURDIR)/debian/$(APPNAME)/usr/share/pixmaps
+	cd REXLoader && cp rexloader.png $(CURDIR)/debian/$(APPNAME)/usr/share/pixmaps
+	cd REXLoader && cp rexloader.desktop $(CURDIR)/debian/$(APPNAME)/usr/share/applications
 
 # Build architecture-independent files here.
 binary-indep: build install
