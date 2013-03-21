@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Reminder
+Comment=hzs tray reminder
+Exec=reminder
+Icon=reminderico.png
+Terminal=false
+Type=Application
+Categories=Application;Accesories;Office;
+StartupNotify=false
+
