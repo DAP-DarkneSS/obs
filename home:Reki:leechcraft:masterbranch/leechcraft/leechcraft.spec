@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-832-g9fb2f7c
+%define LEECHCRAFT_VERSION 0.5.90-960-g06d2bdd
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -31,7 +31,11 @@ Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 Source0:        %{name}-%{version}.tar.bz2
 
+%if 0%{suse_version} >= 1220
+BuildRequires:  boost-devel >= 1.50
+%else
 BuildRequires:  boost-devel
+%endif
 BuildRequires:  cmake > 2.8
 %if 0%{suse_version} <= 1210
 BuildRequires:  doxygen
@@ -1903,19 +1907,17 @@ It allows to show the list of currently opened tabs
 and allows to quickly navigate between them.
 
 
-# %%if 0%%{suse_version} >= 1210
-# %%if %%qtversion >= 40800
-# %%package touchstreams
-# Summary:        LeechCraft VK.com Streaming Module
-# Group:          Productivity/Networking/Other
-# Requires:       %%{name} = %%{version}
-# Requires:       %%{name}-sb2 = %%{version}
-# # BuildRequires:  boost >= 1.50
-# 
-# %%description touchstreams
-# This package provides a VK.com music streaming plugin for Leechcraft.
-# %%endif
-# %%endif
+%if 0%{suse_version} >= 1210
+%package touchstreams
+Summary:        LeechCraft VK.com Streaming Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-lmp = %{version}
+Requires:       %{name}-musiczombie = %{version}
+
+%description touchstreams
+This package provides a VK.com music streaming plugin for Leechcraft.
+%endif
 
 
 %if 0%{suse_version} >= 1220
@@ -2020,7 +2022,6 @@ cmake ../src \
         -DENABLE_SNAILS=False \
         -DENABLE_SYNCER=True \
         -DENABLE_TABSLIST=True \
-        -DENABLE_TOUCHSTREAMS=False \
         -DENABLE_TWIFEE=False \
 %if 0%{suse_version} >= 1220
         -DENABLE_AZOTH_SHX=True \
@@ -2049,6 +2050,7 @@ cmake ../src \
         -DENABLE_SHAITAN=True \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TORRENT=True \
+        -DENABLE_TOUCHSTREAMS=True \
         -DENABLE_TPI=True \
         -DENABLE_VROOBY=True \
         -DENABLE_VROOBY_UDISKS=False \
@@ -2077,6 +2079,7 @@ cmake ../src \
         -DENABLE_SHAITAN=False \
         -DENABLE_TABSESSMANAGER=False \
         -DENABLE_TORRENT=False \
+        -DENABLE_TOUCHSTREAMS=False \
         -DENABLE_TPI=False \
         -DENABLE_VROOBY=False \
 %endif
@@ -2434,6 +2437,7 @@ EOF
 %{_datadir}/%{name}/settings/blogiquesettings.xml
 %{_datadir}/%{name}/translations/%{name}_blogique_??.qm
 %{_datadir}/%{name}/translations/%{name}_blogique_??_??.qm
+%dir %{_datadir}/%{name}/qml/blogique
 %endif
 
 %if 0%{suse_version} >= 1220
@@ -2448,6 +2452,8 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blogique_metida.so
 %{_datadir}/%{name}/settings/blogiquemetidasettings.xml
+%dir %{_datadir}/%{name}/qml/blogique/metida
+%{_datadir}/%{name}/qml/blogique/metida/*
 %endif
 
 %if 0%{suse_version} >= 1220
@@ -2898,14 +2904,13 @@ EOF
 %{plugin_dir}/*%{name}_tabslist.so
 %{translations_dir}/leechcraft_tabslist*
 
-# %%if 0%%{suse_version} >= 1210
-# %%if %%qtversion >= 40800
-# %%files touchstreams
-# %%defattr(-,root,root)
-# %%{_libdir}/%%{name}/plugins/lib%%{name}_touchstreams.so
-# %%{_datadir}/%%{name}/translations/%%{name}_touchstreams*.qm
-# %%endif
-# %%endif
+%if 0%{suse_version} >= 1210
+%files touchstreams
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_touchstreams.so
+%{_datadir}/%{name}/translations/%{name}_touchstreams*.qm
+%{_datadir}/%{name}/settings/touchstreamssettings.xml
+%endif
 
 %if 0%{suse_version} >= 1220
 %files tpi
