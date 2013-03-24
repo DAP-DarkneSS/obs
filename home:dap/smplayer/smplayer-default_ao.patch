@@ -1,0 +1,24 @@
+--- src/prefgeneral.cpp.orig	2011-12-31 03:22:51.393754824 +0100
++++ src/prefgeneral.cpp	2011-12-31 03:23:27.923753544 +0100
+@@ -166,6 +166,7 @@
+ 	setVO( vo );
+ 
+ 	QString ao = pref->ao;
++	if (ao.isEmpty()) ao = "@@DEFAULT@@,";
+ 
+ #ifdef Q_OS_OS2
+ 	if (ao.isEmpty()) {
+--- src/core.cpp.orig	2011-12-31 03:21:31.990757667 +0100
++++ src/core.cpp	2011-12-31 03:22:43.996755089 +0100
+@@ -1461,7 +1461,10 @@
+ 	if (!pref->ao.isEmpty()) {
+ 		proc->addArgument( "-ao");
+ 		proc->addArgument( pref->ao );
+-	}
++	} else {
++        proc->addArgument( "-ao");
++        proc->addArgument( "@@DEFAULT@@," );
++    }
+ 
+ #if !defined(Q_OS_WIN) && !defined(Q_OS_OS2)
+ 	if (pref->vo.startsWith("x11")) {
