@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Sun Mar 24 09:41:15 UTC 2013 - dap.darkness@gmail.com
+
+- Update to 0.8.4:
+  * New option to select the fps for external subtitles.
+  * The video equalizer dialog has been rewritten.
+  * Now smplayer checks for updates automatically.
+  * Support for encoding ISO-8859-16 for subtitles.
+  * New translations: Thai and Hebrew.
+  * Some bugfixes.
+- Switched to use download_files service.
+- Service source_validator was enabled.
+
+-------------------------------------------------------------------
 Sun Dec 23 22:32:00 UTC 2012 - fisiu@opensuse.org
 
 - Update to 0.8.3:

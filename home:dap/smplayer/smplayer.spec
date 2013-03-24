@@ -14,7 +14,7 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 
 Name:           smplayer
-Version:        0.8.3
+Version:        0.8.4
 Release:        0
 Summary:        Complete Frontend for MPlayer
 Source:         http://prdownloads.sourceforge.net/smplayer/smplayer-%{version}.tar.bz2

@@ -1,4 +1,22 @@
 -------------------------------------------------------------------
+Sun Mar 24 09:41:15 UTC 2013 - dap.darkness@gmail.com
+
+- Update to 0.8.4:
+  * New option to select the fps for external subtitles.
+  * The video equalizer dialog has been rewritten.
+  * Now smplayer checks for updates automatically.
+  * Support for encoding ISO-8859-16 for subtitles.
+  * New translations: Thai and Hebrew.
+  * Some bugfixes.
+- Service source_validator was enabled.
+
+-------------------------------------------------------------------
+Sat Dec 22 14:39:21 UTC 2012 - dap.darkness@gmail.com
+
+- Update to 0.8.3:
+  * Youtube playback was fixed again.
+
+-------------------------------------------------------------------
 Wed Dec 19 21:16:57 UTC 2012 - dap.darkness@gmail.com
 
 - Update to 0.8.2.1:

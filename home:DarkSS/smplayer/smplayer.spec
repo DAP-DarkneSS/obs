@@ -7,13 +7,13 @@
 #
 
 Name:           smplayer
-Version:        0.8.2.1
+Version:        0.8.4
 Release:        0
 License:        GPL-2.0+
 Summary:        Complete Frontend for MPlayer
 Url:            http://smplayer.sourceforge.net/
 Group:          Productivity/Multimedia/Video/Players
-Source:         http://downloads.sourceforge.net/project/smplayer/SMPlayer/0.8.2/smplayer-%{version}.tar.bz2
+Source:         http://downloads.sourceforge.net/project/smplayer/SMPlayer/%{version}/smplayer-%{version}.tar.bz2
 Patch1:         smplayer-makeflags.patch
 Patch2:         smplayer-disable-debug.patch
 Patch3:         smplayer-fix_logging_format.patch
@@ -27,6 +27,7 @@ BuildRequires:  libstdc++-devel
 BuildRequires:  make
 BuildRequires:  update-desktop-files
 # requires at least this version for closed caption channel support:
+Recommends:     smplayer-skins
 Requires:       MPlayer >= 1.0rc4_r32607
 Suggests:       smplayer-themes
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
