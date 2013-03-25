@@ -19,6 +19,8 @@ BuildArch:      noarch
 
 BuildRequires:  fdupes
 
+BuildRoot:      %{_tmppath}/build-%{name}-%{version}
+
 Requires:       smplayer >= 0.8.2
 
 %description
@@ -36,14 +38,11 @@ the Qt toolkit, so it's multi-platform.
 %build
 
 %install
-make %{?_smp_mflags} PREFIX=%{_prefix} DESTDIR=%{buildroot} install
+make %{?_smp_mflags} PREFIX=%{_prefix} DESTDIR=$RPM_BUILD_ROOT install
 %fdupes -s %{buildroot}%{_datadir}
 
 %files
 %defattr(-,root,root)
-%dir %{_datadir}/smplayer
-%dir %{_datadir}/smplayer/themes
-%dir %{_datadir}/smplayer/themes/*
-%{_datadir}/smplayer/themes/*/*
+%{_datadir}/smplayer
 
 %changelog
