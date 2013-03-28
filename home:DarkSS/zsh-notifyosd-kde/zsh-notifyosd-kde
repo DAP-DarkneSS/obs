@@ -9,7 +9,7 @@ function notifyosd-precmd() {
         ((cmd_time=$cmd_end - $cmd_start))
     fi
     if [ ! -z "$cmd" -a $cmd_time -gt 10 -a "$window_id_before" != "$(active-window-id)" ]; then
-            notify-send -i utilities-terminal -u low "$cmd_basename completed" "\"$cmd\" took $cmd_time seconds"
+            kdialog --title "$cmd_basename completed" --passivepopup "\"$cmd\" took $cmd_time seconds"
             unset cmd
     fi
 }
