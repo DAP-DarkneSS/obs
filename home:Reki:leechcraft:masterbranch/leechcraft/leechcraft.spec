@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-960-g06d2bdd
+%define LEECHCRAFT_VERSION 0.5.90-1075-gc04f674
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -1907,7 +1907,7 @@ It allows to show the list of currently opened tabs
 and allows to quickly navigate between them.
 
 
-%if 0%{suse_version} >= 1210
+%if 0%{suse_version} >= 1220
 %package touchstreams
 Summary:        LeechCraft VK.com Streaming Module
 Group:          Productivity/Networking/Other
@@ -2904,7 +2904,7 @@ EOF
 %{plugin_dir}/*%{name}_tabslist.so
 %{translations_dir}/leechcraft_tabslist*
 
-%if 0%{suse_version} >= 1210
+%if 0%{suse_version} >= 1220
 %files touchstreams
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_touchstreams.so
