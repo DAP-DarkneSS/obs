@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Mar 29 16:08:39 UTC 2013 - dap.darkness@gmail.com
+- Added QtBug22829.patch to revert
+  https://github.com/0xd34df00d/leechcraft/pull/170 and
+  prevent https://bugreports.qt-project.org/browse/QTBUG-22829
+
+-------------------------------------------------------------------
 Fri Dec 21 21:24:25 UTC 2012 - dap.darkness@gmail.com
 - 0.5.90 release:
   * lots of improvements and bugfixes;

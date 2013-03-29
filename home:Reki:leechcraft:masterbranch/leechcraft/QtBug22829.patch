@@ -1,0 +1,561 @@
+diff -rupN src/plugins/azoth/plugins/acetamide/channelslistdialog.cpp src/plugins/azoth/plugins/acetamide/channelslistdialog.cpp
+--- src/plugins/azoth/plugins/acetamide/channelslistdialog.cpp	2013-03-28 20:02:22.537000012 +0300
++++ src/plugins/azoth/plugins/acetamide/channelslistdialog.cpp	1970-01-01 03:00:00.000000000 +0300
+@@ -1,103 +0,0 @@
+-/**********************************************************************
+- * LeechCraft - modular cross-platform feature rich internet client.
+- * Copyright (C) 2010-2013  Oleg Linkin
+- *
+- * This program is free software: you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation, either version 3 of the License, or
+- * (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- * GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+- **********************************************************************/
+-
+-#include "channelslistdialog.h"
+-#include <QTimer>
+-#include <QStandardItemModel>
+-#include "channelslistfilterproxymodel.h"
+-#include "ircserverhandler.h"
+-
+-namespace LeechCraft
+-{
+-namespace Azoth
+-{
+-namespace Acetamide
+-{
+-	ChannelsListDialog::ChannelsListDialog (IrcServerHandler* ish, QWidget* parent)
+-	: QDialog (parent)
+-	, ISH_ (ish)
+-	, BufferTimer_ (new QTimer (this))
+-	, FilterProxyModel_ (new ChannelsListFilterProxyModel (this))
+-	, Model_ (new QStandardItemModel (this))
+-	{
+-		Ui_.setupUi (this);
+-
+-		Model_->setHorizontalHeaderLabels ({ tr ("Name"), tr ("Users count"), tr ("Topic") });
+-		FilterProxyModel_->setSourceModel (Model_);
+-		Ui_.ChannelsList_->setModel (FilterProxyModel_);
+-
+-		connect (BufferTimer_,
+-				SIGNAL (timeout ()),
+-				this,
+-				SLOT (appendRows ()));
+-	}
+-
+-	void ChannelsListDialog::handleGotChannelsBegin ()
+-	{
+-		Model_->removeRows (0, Model_->rowCount ());
+-		Ui_.ChannelsList_->setEnabled (false);
+-		Ui_.Filter_->setEnabled (false);
+-		BufferTimer_->start (1000);
+-	}
+-
+-	void ChannelsListDialog::handleGotChannels (const ChannelsDiscoverInfo& info)
+-	{
+-		QStandardItem *name = new QStandardItem (info.ChannelName_);
+-		name->setEditable (false);
+-		QStandardItem *count = new QStandardItem (QString::number (info.UsersCount_));
+-		count->setEditable (false);
+-		QStandardItem *topic = new QStandardItem (info.Topic_);
+-		topic->setEditable (false);
+-		Buffer_.append ({ name, count, topic });
+-	}
+-
+-	void ChannelsListDialog::handleGotChannelsEnd ()
+-	{
+-		Ui_.ChannelsList_->setEnabled (true);
+-		Ui_.Filter_->setEnabled (true);
+-		BufferTimer_->stop ();
+-	}
+-
+-	void ChannelsListDialog::appendRows ()
+-	{
+-		auto list = Buffer_;
+-		Buffer_.clear ();
+-
+-		for (const auto& row : list)
+-			Model_->appendRow (row);
+-	}
+-
+-	void ChannelsListDialog::on_Filter__textChanged (const QString& text)
+-	{
+-		FilterProxyModel_->setFilterRegExp (text);
+-	}
+-
+-	void ChannelsListDialog::on_ChannelsList__doubleClicked (const QModelIndex& index)
+-	{
+-		if (!index.isValid ())
+-			return;
+-
+-		QModelIndex idx = index.sibling (index.row (), 0);
+-		ChannelOptions opts;
+-		opts.ChannelName_ = idx.data ().toString ();
+-		opts.ServerName_ = ISH_->GetServerOptions ().ServerName_;
+-		ISH_->JoinChannel (opts);
+-	}
+-}
+-}
+-}
+diff -rupN src/plugins/azoth/plugins/acetamide/channelslistdialog.h src/plugins/azoth/plugins/acetamide/channelslistdialog.h
+--- src/plugins/azoth/plugins/acetamide/channelslistdialog.h	2013-03-28 20:02:22.537000012 +0300
++++ src/plugins/azoth/plugins/acetamide/channelslistdialog.h	1970-01-01 03:00:00.000000000 +0300
+@@ -1,64 +0,0 @@
+-/**********************************************************************
+- * LeechCraft - modular cross-platform feature rich internet client.
+- * Copyright (C) 2010-2013  Oleg Linkin
+- *
+- * This program is free software: you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation, either version 3 of the License, or
+- * (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- * GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+- **********************************************************************/
+-
+-#pragma once
+-
+-#include <QDialog>
+-#include "localtypes.h"
+-#include "ui_channelslistdialog.h"
+-
+-class QStandardItem;
+-class QStandardItemModel;
+-class QTimer;
+-
+-namespace LeechCraft
+-{
+-namespace Azoth
+-{
+-namespace Acetamide
+-{
+-	class ChannelsListFilterProxyModel;
+-	class IrcServerHandler;
+-
+-	class ChannelsListDialog : public QDialog
+-	{
+-		Q_OBJECT
+-
+-		Ui::ChannelsListDialog Ui_;
+-		IrcServerHandler *ISH_;
+-		QList<QList<QStandardItem*>> Buffer_;
+-		QTimer *BufferTimer_;
+-		ChannelsListFilterProxyModel *FilterProxyModel_;
+-		QStandardItemModel *Model_;
+-
+-	public:
+-		explicit ChannelsListDialog (IrcServerHandler *ish, QWidget *parent = 0);
+-
+-	public slots:
+-		void handleGotChannelsBegin ();
+-		void handleGotChannels (const ChannelsDiscoverInfo& info);
+-		void handleGotChannelsEnd ();
+-	private slots:
+-		void appendRows ();
+-		void on_Filter__textChanged (const QString& text);
+-		void on_ChannelsList__doubleClicked (const QModelIndex& index);
+-	};
+-}
+-}
+-}
+-
+diff -rupN src/plugins/azoth/plugins/acetamide/channelslistdialog.ui src/plugins/azoth/plugins/acetamide/channelslistdialog.ui
+--- src/plugins/azoth/plugins/acetamide/channelslistdialog.ui	2013-03-28 20:02:22.537000012 +0300
++++ src/plugins/azoth/plugins/acetamide/channelslistdialog.ui	1970-01-01 03:00:00.000000000 +0300
+@@ -1,39 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<ui version="4.0">
+- <class>ChannelsListDialog</class>
+- <widget class="QWidget" name="ChannelsListDialog">
+-  <property name="geometry">
+-   <rect>
+-    <x>0</x>
+-    <y>0</y>
+-    <width>552</width>
+-    <height>424</height>
+-   </rect>
+-  </property>
+-  <layout class="QGridLayout" name="gridLayout">
+-   <item row="0" column="0">
+-    <layout class="QHBoxLayout" name="horizontalLayout">
+-     <item>
+-      <widget class="QLabel" name="label">
+-       <property name="text">
+-        <string>Filter:</string>
+-       </property>
+-      </widget>
+-     </item>
+-     <item>
+-      <widget class="QLineEdit" name="Filter_"/>
+-     </item>
+-    </layout>
+-   </item>
+-   <item row="1" column="0">
+-    <widget class="QTreeView" name="ChannelsList_">
+-     <property name="sortingEnabled">
+-      <bool>true</bool>
+-     </property>
+-    </widget>
+-   </item>
+-  </layout>
+- </widget>
+- <resources/>
+- <connections/>
+-</ui>
+diff -rupN src/plugins/azoth/plugins/acetamide/channelslistfilterproxymodel.cpp src/plugins/azoth/plugins/acetamide/channelslistfilterproxymodel.cpp
+--- src/plugins/azoth/plugins/acetamide/channelslistfilterproxymodel.cpp	2013-03-28 20:02:22.537000012 +0300
++++ src/plugins/azoth/plugins/acetamide/channelslistfilterproxymodel.cpp	1970-01-01 03:00:00.000000000 +0300
+@@ -1,62 +0,0 @@
+-/**********************************************************************
+- * LeechCraft - modular cross-platform feature rich internet client.
+- * Copyright (C) 2010-2013  Oleg Linkin
+- *
+- * This program is free software: you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation, either version 3 of the License, or
+- * (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- * GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+- **********************************************************************/
+-
+-#include "channelslistfilterproxymodel.h"
+-
+-namespace LeechCraft
+-{
+-namespace Azoth
+-{
+-namespace Acetamide
+-{
+-	ChannelsListFilterProxyModel::ChannelsListFilterProxyModel (QObject *parent)
+-	: QSortFilterProxyModel (parent)
+-	{
+-		setDynamicSortFilter (true);
+-		setFilterCaseSensitivity (Qt::CaseInsensitive);
+-		setSortCaseSensitivity (Qt::CaseInsensitive);
+-		setSortLocaleAware (true);
+-	}
+-
+-	bool ChannelsListFilterProxyModel::filterAcceptsRow (int sourceRow,
+-			const QModelIndex& sourceParent)
+-	{
+-		const QModelIndex index = sourceModel()->index (sourceRow, 0, sourceParent);
+-
+-		return sourceModel ()->data (index).toString ().contains (filterRegExp ());
+-	}
+-
+-	bool ChannelsListFilterProxyModel::lessThan (const QModelIndex &left,
+-			const QModelIndex &right) const
+-	{
+-		QVariant leftData = sourceModel ()->data (left);
+-		QVariant rightData = sourceModel ()->data (right);
+-
+-		QString leftString = leftData.toString ();
+-		if (left.column () == 0)
+-			leftString = leftString.mid (1);
+-
+-		QString rightString = rightData.toString ();
+-		if (right.column () == 0)
+-			rightString = rightString.mid (1);
+-
+-		return QString::localeAwareCompare (leftString, rightString) > 0;
+-	}
+-}
+-}
+-}
+diff -rupN src/plugins/azoth/plugins/acetamide/channelslistfilterproxymodel.h src/plugins/azoth/plugins/acetamide/channelslistfilterproxymodel.h
+--- src/plugins/azoth/plugins/acetamide/channelslistfilterproxymodel.h	2013-03-28 20:02:22.537000012 +0300
++++ src/plugins/azoth/plugins/acetamide/channelslistfilterproxymodel.h	1970-01-01 03:00:00.000000000 +0300
+@@ -1,39 +0,0 @@
+-/**********************************************************************
+- * LeechCraft - modular cross-platform feature rich internet client.
+- * Copyright (C) 2010-2013  Oleg Linkin
+- *
+- * This program is free software: you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation, either version 3 of the License, or
+- * (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- * GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+- **********************************************************************/
+-
+-#pragma once
+-
+-#include <QSortFilterProxyModel>
+-
+-namespace LeechCraft
+-{
+-namespace Azoth
+-{
+-namespace Acetamide
+-{
+-	class ChannelsListFilterProxyModel : public QSortFilterProxyModel
+-	{
+-	public:
+-		ChannelsListFilterProxyModel (QObject *parent = 0);
+-	protected:
+-		bool filterAcceptsRow (int sourceRow, const QModelIndex& sourceParent);
+-		bool lessThan (const QModelIndex& left, const QModelIndex& right) const;
+-	};
+-}
+-}
+-}
+diff -rupN src/plugins/azoth/plugins/acetamide/CMakeLists.txt src/plugins/azoth/plugins/acetamide/CMakeLists.txt
+--- src/plugins/azoth/plugins/acetamide/CMakeLists.txt	2013-03-28 20:02:22.536000012 +0300
++++ src/plugins/azoth/plugins/acetamide/CMakeLists.txt	2012-11-25 17:40:55.663000067 +0300
+@@ -20,8 +20,6 @@ SET (ACETAMIDE_SRCS
+ 	channelhandler.cpp
+ 	channelparticipantentry.cpp
+ 	channelpublicmessage.cpp
+-	channelslistdialog.cpp
+-	channelslistfilterproxymodel.cpp
+ 	channelsmanager.cpp
+ 	clientconnection.cpp
+ 	core.cpp
+@@ -62,8 +60,6 @@ SET (ACETAMIDE_HEADERS
+ 	channelhandler.h
+ 	channelparticipantentry.h
+ 	channelpublicmessage.h
+-	channelslistdialog.h
+-	channelslistfilterproxymodel.cpp
+ 	channelsmanager.h
+ 	clientconnection.h
+ 	core.h
+@@ -99,7 +95,6 @@ SET (ACETAMIDE_HEADERS
+ SET (ACETAMIDE_FORMS
+ 	bookmarkeditwidget.ui
+ 	channelconfigwidget.ui
+-	channelslistdialog.ui
+ 	ircaccountconfigurationdialog.ui
+ 	ircaccountconfigurationwidget.ui
+ 	ircjoingroupchat.ui
+diff -rupN src/plugins/azoth/plugins/acetamide/ircparser.cpp src/plugins/azoth/plugins/acetamide/ircparser.cpp
+--- src/plugins/azoth/plugins/acetamide/ircparser.cpp	2013-03-28 20:02:22.538000012 +0300
++++ src/plugins/azoth/plugins/acetamide/ircparser.cpp	2012-08-09 22:21:50.256000006 +0300
+@@ -395,12 +395,6 @@ namespace Acetamide
+ 		ISH_->SendCommand (modeCmd);
+ 	}
+ 
+-	void IrcParser::ChannelsListCommand (const QStringList&)
+-	{
+-		QString chListCmd ("LIST \r\n");
+-		ISH_->SendCommand (chListCmd);
+-	}
+-
+ 	bool IrcParser::ParseMessage (const QByteArray& message)
+ 	{
+ 		QString msg;
+diff -rupN src/plugins/azoth/plugins/acetamide/ircparser.h src/plugins/azoth/plugins/acetamide/ircparser.h
+--- src/plugins/azoth/plugins/acetamide/ircparser.h	2013-03-28 20:02:22.538000012 +0300
++++ src/plugins/azoth/plugins/acetamide/ircparser.h	2012-08-09 22:21:50.257000006 +0300
+@@ -88,7 +88,6 @@ namespace Acetamide
+ 		void IsonCommand (const QStringList&);
+ 		void QuitCommand (const QStringList&);
+ 		void ChanModeCommand (const QStringList&);
+-		void ChannelsListCommand (const QStringList&);
+ 
+ 		bool ParseMessage (const QByteArray&);
+ 		IrcMessageOptions GetIrcMessageOptions () const;
+diff -rupN src/plugins/azoth/plugins/acetamide/ircserverclentry.cpp src/plugins/azoth/plugins/acetamide/ircserverclentry.cpp
+--- src/plugins/azoth/plugins/acetamide/ircserverclentry.cpp	2013-03-28 20:02:22.539000012 +0300
++++ src/plugins/azoth/plugins/acetamide/ircserverclentry.cpp	2013-01-30 21:43:36.197000053 +0300
+@@ -37,12 +37,6 @@ namespace Acetamide
+ 	, ISH_ (handler)
+ 	, Account_ (account)
+ 	{
+-		QAction *showChannels = new QAction (tr ("Channels list"), this);
+-		connect (showChannels,
+-				SIGNAL (triggered ()),
+-				ISH_,
+-				SLOT (showChannels ()));
+-		Actions_ << showChannels;
+ 	}
+ 
+ 	IrcServerHandler* IrcServerCLEntry::GetIrcServerHandler () const
+diff -rupN src/plugins/azoth/plugins/acetamide/ircserverhandler.cpp src/plugins/azoth/plugins/acetamide/ircserverhandler.cpp
+--- src/plugins/azoth/plugins/acetamide/ircserverhandler.cpp	2013-03-28 20:02:22.539000012 +0300
++++ src/plugins/azoth/plugins/acetamide/ircserverhandler.cpp	2012-08-13 22:11:38.400000002 +0300
+@@ -40,7 +40,6 @@
+ #include "serverresponsemanager.h"
+ #include "rplisupportparser.h"
+ #include "channelsmanager.h"
+-#include "channelslistdialog.h"
+ 
+ namespace LeechCraft
+ {
+@@ -1170,25 +1169,6 @@ namespace Acetamide
+ 		ServerOptions_.IrcServerVersion_ = version;
+ 	}
+ 
+-	void IrcServerHandler::GotChannelsListBegin (const IrcMessageOptions&)
+-	{
+-		emit gotChannelsBegin ();
+-	}
+-
+-	void IrcServerHandler::GotChannelsList (const IrcMessageOptions& opts)
+-	{
+-		ChannelsDiscoverInfo info;
+-		info.Topic_ = opts.Message_;
+-		info.ChannelName_ = QString::fromUtf8 (opts.Parameters_.value (1).c_str ());
+-		info.UsersCount_ = QString::fromUtf8 (opts.Parameters_.value (2).c_str ()).toInt ();
+-		emit gotChannels (info);
+-	}
+-
+-	void IrcServerHandler::GotChannelsListEnd (const IrcMessageOptions&)
+-	{
+-		emit gotChannelsEnd ();
+-	}
+-
+ 	void IrcServerHandler::connectionEstablished ()
+ 	{
+ 		ServerConnectionState_ = Connected;
+@@ -1249,29 +1229,6 @@ namespace Acetamide
+ 		emit gotSocketError (error, socket->errorString ());
+ 	}
+ 
+-	void IrcServerHandler::showChannels (const QStringList&)
+-	{
+-		IrcParser_->ChannelsListCommand (QStringList ());
+-
+-		ChannelsListDialog dlg (this);
+-		connect (this,
+-				SIGNAL (gotChannelsBegin ()),
+-				&dlg,
+-				SLOT (handleGotChannelsBegin ()),
+-				Qt::UniqueConnection);
+-		connect (this,
+-				SIGNAL (gotChannels (ChannelsDiscoverInfo)),
+-				&dlg,
+-				SLOT (handleGotChannels (ChannelsDiscoverInfo)),
+-				Qt::UniqueConnection);
+-		connect (this,
+-				SIGNAL (gotChannelsEnd ()),
+-				&dlg,
+-				SLOT (handleGotChannelsEnd ()),
+-				Qt::UniqueConnection);
+-		dlg.exec ();
+-	}
+-
+ 	void IrcServerHandler::handleSetAutoWho ()
+ 	{
+ 		if (!XmlSettingsManager::Instance ().property ("AutoWhoRequest").toBool () &&
+diff -rupN src/plugins/azoth/plugins/acetamide/ircserverhandler.h src/plugins/azoth/plugins/acetamide/ircserverhandler.h
+--- src/plugins/azoth/plugins/acetamide/ircserverhandler.h	2013-03-28 20:02:22.540000012 +0300
++++ src/plugins/azoth/plugins/acetamide/ircserverhandler.h	2012-08-13 22:11:38.401000002 +0300
+@@ -20,7 +20,6 @@
+ #define PLUGINS_AZOTH_PLUGINS_ACETAMIDE_IRCSERVERHANDLER_H
+ 
+ #include <boost/function.hpp>
+-#include <boost/graph/graph_concepts.hpp>
+ #include <QObject>
+ #include <QTcpSocket>
+ #include <interfaces/azoth/imessage.h>
+@@ -224,11 +223,6 @@ namespace Acetamide
+ 				const QString& who, quint64 time);
+ 
+ 		void SetIrcServerInfo (IrcServer server, const QString& version);
+-
+-		void GotChannelsListBegin (const IrcMessageOptions& opts);
+-		void GotChannelsList (const IrcMessageOptions& opts);
+-		void GotChannelsListEnd (const IrcMessageOptions& opts);
+-
+ 	private:
+ 		void SendToConsole (IMessage::Direction, const QString&);
+ 		void NickCmdError ();
+@@ -236,7 +230,6 @@ namespace Acetamide
+ 	public slots:
+ 		void autoWhoRequest ();
+ 		void handleSocketError (QAbstractSocket::SocketError error);
+-		void showChannels (const QStringList& = QStringList ());
+ 	private slots:
+ 		void connectionEstablished ();
+ 		void connectionClosed ();
+@@ -250,10 +243,6 @@ namespace Acetamide
+ 		void nicknameConflict (const QString&);
+ 		void gotSocketError (QAbstractSocket::SocketError error,
+ 				const QString& erorString);
+-
+-		void gotChannelsBegin ();
+-		void gotChannels (const ChannelsDiscoverInfo& info);
+-		void gotChannelsEnd ();
+ 	};
+ };
+ };
+diff -rupN src/plugins/azoth/plugins/acetamide/localtypes.h src/plugins/azoth/plugins/acetamide/localtypes.h
+--- src/plugins/azoth/plugins/acetamide/localtypes.h	2013-03-28 20:02:22.542000012 +0300
++++ src/plugins/azoth/plugins/acetamide/localtypes.h	2012-08-13 22:11:38.401000002 +0300
+@@ -56,13 +56,6 @@ namespace Acetamide
+ 		QString ChannelPassword_;
+ 	};
+ 
+-	struct ChannelsDiscoverInfo
+-	{
+-		QString ChannelName_;
+-		int UsersCount_;
+-		QString Topic_;
+-	};
+-
+ 	enum ConnectionState
+ 	{
+ 		Connected,
+diff -rupN src/plugins/azoth/plugins/acetamide/serverresponsemanager.cpp src/plugins/azoth/plugins/acetamide/serverresponsemanager.cpp
+--- src/plugins/azoth/plugins/acetamide/serverresponsemanager.cpp	2013-03-28 20:02:22.542000012 +0300
++++ src/plugins/azoth/plugins/acetamide/serverresponsemanager.cpp	2012-11-21 18:33:54.370999989 +0300
+@@ -223,12 +223,6 @@ namespace Acetamide
+ 				 this, _1);
+ 		Command2Action_ ["324"] = boost::bind (&ServerResponseManager::GotChannelModes,
+ 				 this, _1);
+-		Command2Action_ ["321"] = [this] (const IrcMessageOptions& opts)
+-				{ ISH_->GotChannelsListBegin (opts); };
+-		Command2Action_ ["322"] = [this] (const IrcMessageOptions& opts)
+-				{ ISH_->GotChannelsList (opts); };
+-		Command2Action_ ["323"] = [this] (const IrcMessageOptions& opts)
+-				{ ISH_->GotChannelsListEnd (opts); };
+ 
+ 		//not from rfc
+ 		Command2Action_ ["330"] = boost::bind (&ServerResponseManager::GotWhoIsAccount,
+@@ -250,7 +244,6 @@ namespace Acetamide
+ 		Command2Action_ ["378"] = [this] (const IrcMessageOptions& opts)
+ 			{ ISH_->ShowAnswer ("278", opts.Message_); };
+ 
+-
+ 		MatchString2Server_ ["unreal"] = IrcServer::UnrealIRCD;
+ 	}
+ 
+diff -rupN src/plugins/azoth/plugins/acetamide/usercommandmanager.cpp src/plugins/azoth/plugins/acetamide/usercommandmanager.cpp
+--- src/plugins/azoth/plugins/acetamide/usercommandmanager.cpp	2013-03-28 20:02:22.543000012 +0300
++++ src/plugins/azoth/plugins/acetamide/usercommandmanager.cpp	2012-03-09 21:18:21.413140947 +0300
+@@ -188,8 +188,6 @@ namespace Acetamide
+ 				Parser_, _1);
+ 		Command2Action_ ["say"] = boost::bind (&IrcServerHandler::SayCommand,
+ 				ISH_, _1);
+-		Command2Action_ ["list"] = boost::bind (&IrcServerHandler::showChannels,
+-				ISH_, _1);
+ 	}
+ }
+ }

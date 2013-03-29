@@ -30,6 +30,8 @@ License:        GPL-3.0+
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 Source0:        %{name}-%{version}.tar.bz2
+# PATCH-FIX-OPENSUSE to fix Qt moc error.
+Patch0:         QtBug22829.patch
 
 %if 0%{suse_version} >= 1220
 BuildRequires:  boost-devel >= 1.50
@@ -96,6 +98,7 @@ Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
 Obsoletes:      %{name}-tabpp
 %if 0%{suse_version} < 1220
+# Obsoletes:      %{name}-azoth-acetamide
 Obsoletes:      %{name}-bittorrent
 Obsoletes:      %{name}-gmailnotifier
 Obsoletes:      %{name}-lhtr
@@ -177,7 +180,9 @@ Group:          Metapackages
 Summary:        Meta package for pattern leechcraft_messenger
 Requires:       %{name}-advancednotifications
 Requires:       %{name}-azoth
+# %if 0%{suse_version} >= 1220
 Requires:       %{name}-azoth-acetamide
+# %endif
 Requires:       %{name}-azoth-adiumstyles
 Requires:       %{name}-azoth-astrality
 Requires:       %{name}-azoth-autoidler
@@ -423,6 +428,7 @@ XMPP protocol, aiming to provide extensive and full support for XMPP while
 remaining usable for other protocols.
 
 
+# %if 0%{suse_version} >= 1220
 %package azoth-acetamide
 Summary:        LeechCraft Azoth - IRC Module
 Group:          Productivity/Networking/Other
@@ -439,6 +445,7 @@ Features:
  * Channels bookmarks.
  * Automatic password entry.
  * Automatic logging on.
+# %endif
 
 
 %package azoth-adiumstyles
@@ -1977,6 +1984,7 @@ It allows to configure and use proxy servers.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch0
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -2024,6 +2032,7 @@ cmake ../src \
         -DENABLE_TABSLIST=True \
         -DENABLE_TWIFEE=False \
 %if 0%{suse_version} >= 1220
+        -DENABLE_AZOTH_ACETAMIDE=True \
         -DENABLE_AZOTH_SHX=True \
         -DENABLE_AZOTH_VELVETBIRD=True \
         -DENABLE_BLOGIQUE=True \
@@ -2056,6 +2065,7 @@ cmake ../src \
         -DENABLE_VROOBY_UDISKS=False \
         -DENABLE_VROOBY_UDISKS2=True \
 %else
+        -DENABLE_AZOTH_ACETAMIDE=True \
         -DENABLE_AZOTH_SHX=False \
         -DENABLE_AZOTH_VELVETBIRD=False \
         -DENABLE_BLOGIQUE=False \
@@ -2126,7 +2136,9 @@ cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
 %endif
 
 %suse_update_desktop_file -i %{name}
+# %if 0%{suse_version} >= 1220
 %suse_update_desktop_file -i %{name}-azoth-acetamide
+# %endif
 %suse_update_desktop_file -i %{name}-azoth-xoox
 %if 0%{suse_version} >= 1220
 %suse_update_desktop_file -i %{name}-bittorrent
@@ -2258,12 +2270,14 @@ EOF
 %{translations_dir}/%{name}_azoth_??_??.qm
 %{plugin_dir}/*%{name}_azoth.so
 
+# %if 0%{suse_version} >= 1220
 %files azoth-acetamide
 %defattr(-,root,root)
 %{settings_dir}/azothacetamidesettings.xml
 %{translations_dir}/%{name}_azoth_acetamide*
 %{plugin_dir}/*%{name}_azoth_acetamide.so
 %{_datadir}/applications/%{name}-azoth-acetamide.desktop
+# %endif
 
 %files azoth-adiumstyles
 %defattr(644,root,root,755)
