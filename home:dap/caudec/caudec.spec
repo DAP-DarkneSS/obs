@@ -22,6 +22,7 @@ BuildArch:      noarch
 
 BuildRoot:      %{_tmppath}/build-%{name}-%{version}
 
+Recommends:     alac_decoder
 Recommends:     apetag
 Recommends:     cksfv
 Recommends:     flac
@@ -29,6 +30,7 @@ Recommends:     ffmpeg
 Recommends:     gawk
 Recommends:     mac
 Recommends:     mp3gain
+Recommends:     nero-aac
 Recommends:     opus
 Recommends:     python-eyeD3
 Recommends:     sox
