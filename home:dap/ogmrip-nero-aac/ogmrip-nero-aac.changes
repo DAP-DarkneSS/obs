@@ -10,6 +10,7 @@ Fri Mar 29 21:29:22 UTC 2013 - dap.darkness@gmail.com
 - Bug tracker was added instead of mailing list.
 - License&Summary tags were fixed up to prevent warnings.
 - dos2unix was added to prevent wrong-file-end-of-line-encoding.
+- Nero AAC was updated to 1.5.1.
 
 -------------------------------------------------------------------
 Mon Oct 19 00:00:00 UTC 2009 - toni@links2linux.de

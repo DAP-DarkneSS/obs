@@ -10,7 +10,7 @@
 %else
 %define _with_nero				1
 %endif
-%define _nero_aac_ver 			1.1.34.2
+%define _nero_aac_ver 			1.5.1
 %define _ogmrip_nero_aac_ver	0.5
 
 Summary:        OGMRip plugin which adds support for Nero-AAC audio codec
@@ -19,7 +19,7 @@ Version:        %{_ogmrip_nero_aac_ver}
 Release:        0.pm.1
 Source:         http://surfnet.dl.sourceforge.net/project/ogmrip/ogmrip-nero-aac/%{version}/ogmrip-nero-aac-%{version}.tar.gz
 %if "%{_with_nero}" == "1"
-Source1:        http://ftp6.nero.com/tools/NeroDigitalAudio.zip
+Source1:        http://ftp6.nero.com/tools/NeroAACCodec-%{_nero_aac_ver}.zip
 %endif
 License:        LGPL-2.1+
 Group:          Productivity/Multimedia/Video/Editors and Convertors
