@@ -3,29 +3,29 @@
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 #
-# Please submit bugfixes or comments to packman@links2linux.de
+# Please submit bugfixes or comments to https://bugs.links2linux.org
 
 %ifnarch x86_64
-%define _with_nero				0
+%define _with_nero				1
 %else
-%define _with_nero				0
+%define _with_nero				1
 %endif
 %define _nero_aac_ver 			1.1.34.2
-%define _ogmrip_nero_aac_ver	0.4
+%define _ogmrip_nero_aac_ver	0.5
 
 Summary:        OGMRip plugin which adds support for Nero-AAC audio codec
 Name:           ogmrip-nero-aac
 Version:        %{_ogmrip_nero_aac_ver}
 Release:        0.pm.1
-# http://prdownloads.sourceforge.net/ogmrip/ogmrip-nero-aac-%{version}.tar.gz
-Source:         ogmrip-nero-aac-%{version}.tar.bz2
+Source:         http://surfnet.dl.sourceforge.net/project/ogmrip/ogmrip-nero-aac/%{version}/ogmrip-nero-aac-%{version}.tar.gz
 %if "%{_with_nero}" == "1"
 Source1:        http://ftp6.nero.com/tools/NeroDigitalAudio.zip
 %endif
-License:        GNU Lesser General Public License version 2.1 or later (LGPLv2.1 or later)
+License:        LGPL-2.1+
 Group:          Productivity/Multimedia/Video/Editors and Convertors
 Url:            http://ogmrip.sourceforge.net/
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRequires:  dos2unix
 BuildRequires:  glib2-devel
 BuildRequires:  intltool
 BuildRequires:  libdvdread-devel
@@ -35,7 +35,6 @@ BuildRequires:  unzip
 Requires:       MPlayer
 %if "%{_with_nero}" == "1"
 Requires:       nero-aac >= %{_nero_aac_ver}
-BuildRequires:  nero-aac >= %{_nero_aac_ver}
 %endif
 Requires:       ogmrip
 BuildRequires:  MPlayer
@@ -53,9 +52,10 @@ audio codec.
 
 %if "%{_with_nero}" == "1"
 %package -n nero-aac
-Summary:        nero-aac encoder/decoder
+Summary:        Nero aac encoder/decoder
 Group:          Productivity/Multimedia/Video/Editors and Convertors
 Version:        %{_nero_aac_ver}
+License:        SUSE-NonFree
 
 %description -n nero-aac
 Nero AAC reference quality MPEG-4 and 3GPP audio codec
@@ -93,6 +93,7 @@ Please contact Nero AG for licensing guidance.
 
 %if "%{_with_nero}" == "1"
 %__unzip -q %{SOURCE1}
+dos2unix -q {} ';' *.txt
 %endif
 
 %build

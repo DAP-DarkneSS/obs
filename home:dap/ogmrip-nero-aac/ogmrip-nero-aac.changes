@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Fri Mar 29 21:29:22 UTC 2013 - dap.darkness@gmail.com
+
+- Updated to 0.5:
+  * Improved plugins and profiles support.
+- Option _with_nero was set to 1.
+- External nero-aac isn't really needed to build.
+- Switched to use download_files service.
+- Service source_validator was enabled.
+- Bug tracker was added instead of mailing list.
+- License&Summary tags were fixed up to prevent warnings.
+- dos2unix was added to prevent wrong-file-end-of-line-encoding.
+
+-------------------------------------------------------------------
 Mon Oct 19 00:00:00 UTC 2009 - toni@links2linux.de
 
 - update to 0.4
