@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-1075-gc04f674
+%define LEECHCRAFT_VERSION 0.5.90-1116-g9d92f33
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -81,10 +81,10 @@ BuildRequires:  taglib-devel
 BuildRequires:  update-desktop-files
 BuildRequires:  xz
 
-%if 0%{suse_version} >= 1220
-BuildRequires:  libchromaprint-devel
-BuildRequires:  libffmpeg-devel
-%endif
+# %%if 0%%{suse_version} >= 1220
+# BuildRequires:  libchromaprint-devel
+# BuildRequires:  libffmpeg-devel
+# %%endif
 BuildRequires:  mupdf-devel
 BuildRequires:  telepathy-qt4-devel
 %if 0%{suse_version} < 1220
@@ -1984,7 +1984,7 @@ It allows to configure and use proxy servers.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0
+# %%patch0
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -2051,7 +2051,7 @@ cmake ../src \
         -DENABLE_MONOCLE=True \
         -DENABLE_MONOCLE_MU=True \
         -DENABLE_MUSICZOMBIE=True \
-        -DWITH_MUSICZOMBIE_CHROMAPRINT=True \
+        -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_OTLOZHU=True \
         -DENABLE_POGOOGLUE=True \
