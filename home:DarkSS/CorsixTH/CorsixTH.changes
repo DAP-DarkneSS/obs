@@ -1,0 +1,58 @@
+-------------------------------------------------------------------
+Mon Mar 18 10:04:54 UTC 2013 - stefan@fam-elser.de
+
+- update to version 0.11
+  - Fix: Patients were not fully diagnosed according to settings in the policy screen. 
+  - Fix: The game now handles a player trying to cheat into an earthquake on levels 1-4.
+  - Fix: It was not possible to sell equipment in rooms if you had a negative balance.
+  - Fix: Handymen could not be placed inside rooms.
+  - Fix: Handymen would get called to clean soot in blown up rooms.
+  - Fix: Machines that need to be repaired will now cancel that request if they are blown up.
+  - Fix: If a cured patient was leaving a room just as it crashed because of an earthquake the game would throw an error.
+  - Fix: Alien DNA could under some circumstances not have the "concentrate research" button clicked without triggering a crash.
+  - Fix: A crash occurring under some circumstances if the player picked up a staff member.
+  - Enchancement: Since consultants are unable to learn new skills icons for not yet fully learned skills are now removed when a doctor is promoted.
+  - Fix: Disabling background music no longer disables sound effects on Windows.
+  - Fix: Checking if a sound exists crashed the game if there was no sound archive at all.
+  - Fix: If the player paused the game from the top menu bar while an earthquake was active it would be impossible to scroll.
+  - Fix: On a few levels some sliding doors would not animate correctly.
+  - Fix: Vomiting standard males had the wrong animation.
+
+-------------------------------------------------------------------
+Fri Oct 12 02:01:22 UTC 2012 - mailaender@opensuse.org
+
+- update to version 0.10
+  - Added: Earthquakes have recently been reported!
+  - Added: Handyman priorities have been added. They can also be told to stay and respond to calls in one building (parcel) only.
+  - Added: Staff's happiness will change due to more environmental factors. 
+  - Change: The files containing dumped strings are now created alongside the config file instead of in the installation directory. 
+  - Fix: Handymen will now meander inside a room until the machine which needs repair is free for use.
+  - Fix: The URL in the config file pointing to better quality music was outdated. Note that this only affects new installations.
+  - Fix: Two identical entries were shown in the drug casebook if a new disease was discovered when it was open.
+  - Fix: Don't crash when a saved game with the town map open is loaded.
+  - Fix: Too large rooms could make them unusable.
+  - Some graphical glitches have been fixed. 
+  - Added: The Map Editor and Animation Viewer have new icons.
+  - Change: In debug mode all gamelog output is now also displayed in the command prompt.
+  - Fix: Don't initiate a window move if it happens to be below a top menu selection.
+  - Fix: Don't show the main menu under any circumstances when closing the options menu in-game. 
+  - Fix: The "Save" and "Save As" buttons now do what they should do.
+  - Fix: There were some strange log messages on opening the editor.
+  - Added: The arrow keys can now be used to scroll the map.
+  - Change: Removed a lot of tiles from the palette, since maps may not work as intended if they would be used. 
+
+-------------------------------------------------------------------
+Sun Jun  3 09:38:45 UTC 2012 - mailaender@opensuse.org
+
+- update to version 0.01b
+
+-------------------------------------------------------------------
+Wed Apr 13 17:04:47 UTC 2011 - prusnak@opensuse.org
+
+- updated to beta 6
+
+-------------------------------------------------------------------
+Sun Dec 27 01:59:54 UTC 2009 - prusnak@suse.cz
+
+- created package
+
