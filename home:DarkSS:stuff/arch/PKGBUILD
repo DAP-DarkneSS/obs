@@ -1,0 +1,41 @@
+#
+# PKGBUILD for package rexloader
+#
+# Copyright (c) 2011-2013 Sarvaritdinov Ravil (source),
+# (c) 2013 Perlow Dmitriy A. (PKGBUILD)
+#
+# Please submit bugfixes or comments via
+# http://code.google.com/p/rexloader/issues/list
+#
+
+pkgname=rexloader
+pkgver=0.1a.svn.309
+pkgrel=1
+pkgdesc="An advanced Qt download manager over http."
+arch=('i686' 'x86_64')
+url="http://code.google.com/p/rexloader/"
+license=('GPL')
+depends=('qt' 'qtwebkit')
+makedepends=('bzip2' 'make')
+provides=('rexloader')
+source=("rexloader-${pkgver}.tar.bz2")
+md5sums=('b5e334dde76c06eb7fb018f8d9001b2b')
+
+build() {
+  cd ${srcdir}/${pkgname}-${pkgver}
+  mkdir build
+  cd build
+  qmake ../REXLoader.pro
+  make -j2
+}
+
+package() {
+  cd ${srcdir}/${pkgname}-${pkgver}
+  cd build
+  cp -R usr/ ${pkgdir}
+  mkdir -p ${pkgdir}/usr/share/applications
+  mkdir -p ${pkgdir}/usr/share/pixmaps
+  cd ../REXLoader
+  cp rexloader.png ${pkgdir}/usr/share/pixmaps
+  cp rexloader.desktop ${pkgdir}/usr/share/applications
+}
