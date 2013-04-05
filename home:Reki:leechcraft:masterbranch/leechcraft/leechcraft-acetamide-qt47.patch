@@ -1,4 +1,4 @@
-diff -rupN src/plugins/azoth/plugins/acetamide/channelslistdialog.cpp src/plugins/azoth/plugins/acetamide/channelslistdialog.cpp
+Reverting https://github.com/0xd34df00d/leechcraft/commit/c04f6740304a404a94a401efd6ed22e5e754490c
 --- src/plugins/azoth/plugins/acetamide/channelslistdialog.cpp	2013-03-28 20:02:22.537000012 +0300
 +++ src/plugins/azoth/plugins/acetamide/channelslistdialog.cpp	1970-01-01 03:00:00.000000000 +0300
 @@ -1,103 +0,0 @@

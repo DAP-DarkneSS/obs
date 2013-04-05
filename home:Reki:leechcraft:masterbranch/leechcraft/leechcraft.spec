@@ -23,15 +23,19 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-1116-g9d92f33
+%define LEECHCRAFT_VERSION 0.5.90-1181-g5718d89
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 Source0:        %{name}-%{version}.tar.bz2
-# PATCH-FIX-OPENSUSE to fix Qt moc error.
-Patch0:         QtBug22829.patch
+%if 0%{suse_version} <= 1210
+# PATCH-FEATURE-OPENSUSE to provide acetamide for Qt < 4.8.
+Patch1:         leechcraft-acetamide-qt47.patch
+# PATCH-FIX-OPENSUSE not to get "W: file-contains-date-and-time" for html.
+Patch2:         leechcraft-doc-doxygen-rpmlint-w.patch
+%endif
 
 %if 0%{suse_version} >= 1220
 BuildRequires:  boost-devel >= 1.50
@@ -98,7 +102,7 @@ Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
 Obsoletes:      %{name}-tabpp
 %if 0%{suse_version} < 1220
-# Obsoletes:      %{name}-azoth-acetamide
+# Obsoletes:      %%{name}-azoth-acetamide
 Obsoletes:      %{name}-bittorrent
 Obsoletes:      %{name}-gmailnotifier
 Obsoletes:      %{name}-lhtr
@@ -1984,7 +1988,10 @@ It allows to configure and use proxy servers.
 
 %prep
 %setup -q -n %{name}-%{version}
-# %%patch0
+%if 0%{suse_version} <= 1210
+%patch1
+%patch2
+%endif
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default

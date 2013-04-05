@@ -1,8 +1,9 @@
 -------------------------------------------------------------------
 Fri Mar 29 16:08:39 UTC 2013 - dap.darkness@gmail.com
-- Added QtBug22829.patch to revert
-  https://github.com/0xd34df00d/leechcraft/pull/170 and
-  prevent https://bugreports.qt-project.org/browse/QTBUG-22829
+- Added leechcraft-acetamide-qt47.patch to revert some 0.5.95 changes
+  to provide acetamide at openSUSE 12.1.
+- Added leechcraft-doc-doxygen-rpmlint-w.patch to prevent rpmlint
+  "W: file-contains-date-and-time" for doxygen made html-files.
 
 -------------------------------------------------------------------
 Fri Dec 21 21:24:25 UTC 2012 - dap.darkness@gmail.com
