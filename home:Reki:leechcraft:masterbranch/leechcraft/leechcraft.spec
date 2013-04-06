@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-1195-gb69c7db
+%define LEECHCRAFT_VERSION 0.5.90-1205-g47b4350
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -1013,18 +1013,6 @@ It also uses Phonon as a backend or something like aplay/mplayer.
 %endif
 
 
-#%%package eiskaltdcpp
-#Summary:        LeechCraft DC++ Module
-#Group:          Productivity/Networking/Other
-#Requires:       %%{name} = %%{version}
-
-#%%description eiskaltdcpp
-#DC++ client for LeechCraft.
-#
-#This package contains EiskaltDC++ DirectConnect client ported to
-#LeechCraft.
-
-
 %package gacts
 Summary:        LeechCraft Global actions Module
 Group:          Productivity/Networking/Other
@@ -1337,6 +1325,22 @@ Requires:       %{name}-monocle-subplugin
 This package provides a modular Document viewer plugin for LeechCraft.
 
 It will support different formats via different backends.
+%endif
+
+
+%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
+%package monocle-doc
+Summary:        LeechCraft Monocle Documentation
+Group:          Development/Libraries/Other
+BuildArch:      noarch
+
+%description monocle-doc
+This packages provides documentation of LeechCraft Monocle API.
+
+It contains description of Monocle API used for developing LeechCraft
+Monocle sub-plugins. For developing first-lexel plugins, please refer
+to corresponding packages (like leechcraft-doc). This documentation
+is also available online at http://doc.leechcraft.org/monocle/
 %endif
 
 
@@ -1852,20 +1856,6 @@ It allows to synchronize data and settings between LeechCraft instances
 running on different machines.
 
 
-#%%package tabpp
-#Summary:        LeechCraft Tab++ Module
-#Group:          Productivity/Networking/Other
-#Requires:       %%{name} = %%{version}
-
-#%%description tabpp
-#Tabbing experience enhancer for LeechCraft.
-#
-#This package contains Tab++ which shows the tree of tabs in groups. For
-#example, tabs with pages in a browser that belong to the same subdomain
-#will be grouped, and subdomains of the same parent domain will become
-#its children as well.
-
-
 %if 0%{suse_version} >= 1220
 %package tabsessionmanager
 Summary:        LeechCraft Tab Session Manager Module
@@ -2106,6 +2096,11 @@ cd ../azoth
 sed -i Doxyfile \
 -e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
 doxygen Doxyfile
+
+cd ../monocle
+sed -i Doxyfile \
+-e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
+doxygen Doxyfile
 %endif
 
 %install
@@ -2120,6 +2115,10 @@ cp -r * %{buildroot}%{_docdir}/%{name}-doc
 cd ../../../azoth/out/html
 mkdir -p %{buildroot}%{_docdir}/%{name}-azoth-doc
 cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
+
+cd ../../../monocle/out/html
+mkdir -p %{buildroot}%{_docdir}/%{name}-monocle-doc
+cp -r * %{buildroot}%{_docdir}/%{name}-monocle-doc
 %endif
 
 %suse_update_desktop_file -i %{name}
@@ -2173,6 +2172,7 @@ EOF
 %if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 %fdupes -s %{buildroot}%{_docdir}/%{name}-doc/
 %fdupes -s %{buildroot}%{_docdir}/%{name}-azoth-doc/
+%fdupes -s %{buildroot}%{_docdir}/%{name}-monocle-doc/
 %endif
 
 %post -p /sbin/ldconfig
@@ -2191,7 +2191,6 @@ EOF
 %dir %{_datadir}/icons/hicolor/14x14
 %dir %{_datadir}/icons/hicolor/14x14/apps
 %dir %{_datadir}/%{name}
-#%%dir %%{_datadir}/%%{name}/icons
 %dir %{_datadir}/%{name}/installed
 %dir %{settings_dir}
 %dir %{translations_dir}
@@ -2309,7 +2308,9 @@ EOF
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}-azoth-doc
 %doc %{_docdir}/%{name}-azoth-doc/*
-# %%exclude %%{_docdir}/%%{name}-azoth-doc/installdox
+%if 0%{suse_version} <= 1210
+%exclude %{_docdir}/%{name}-azoth-doc/installdox
+%endif
 %endif
 
 %files azoth-embedmedia
@@ -2494,7 +2495,9 @@ EOF
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}-doc
 %doc %{_docdir}/%{name}-doc/*
-# %%exclude %%{_docdir}/%%{name}-doc/installdox
+%if 0%{suse_version} <= 1210
+%exclude %{_docdir}/%{name}-doc/installdox
+%endif
 %endif
 
 %files dolozhee
@@ -2508,26 +2511,6 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_dumbeep.so
 %{_datadir}/%{name}/settings/dumbeepsettings.xml
 %endif
-
-#%%files eiskaltdcpp
-#%%defattr(-,root,root)
-#%%{_datadir}/%%{name}/eiskaltdcpp
-#%%dir %%{translations_dir}/??
-#%%dir %%{translations_dir}/??/LC_MESSAGES
-#%%lang(be) %%{translations_dir}/be/LC_MESSAGES/libeiskaltdcpp.mo
-#%%lang(bg) %%{translations_dir}/bg/LC_MESSAGES/libeiskaltdcpp.mo
-#%%lang(cs) %%{translations_dir}/cs/LC_MESSAGES/libeiskaltdcpp.mo
-#%%lang(en) %%{translations_dir}/en/LC_MESSAGES/libeiskaltdcpp.mo
-#%%lang(es) %%{translations_dir}/es/LC_MESSAGES/libeiskaltdcpp.mo
-#%%lang(fr) %%{translations_dir}/fr/LC_MESSAGES/libeiskaltdcpp.mo
-#%%lang(hu) %%{translations_dir}/hu/LC_MESSAGES/libeiskaltdcpp.mo
-#%%lang(pl) %%{translations_dir}/pl/LC_MESSAGES/libeiskaltdcpp.mo
-#%%lang(ru) %%{translations_dir}/ru/LC_MESSAGES/libeiskaltdcpp.mo
-#%%lang(sk) %%{translations_dir}/sk/LC_MESSAGES/libeiskaltdcpp.mo
-#%%lang(sr) %%{translations_dir}/sr/LC_MESSAGES/libeiskaltdcpp.mo
-#%%lang(uk) %%{translations_dir}/uk/LC_MESSAGES/libeiskaltdcpp.mo
-#%%{plugin_dir}/*%%{name}_eiskaltdcpp.so
-#%%doc %%{_mandir}/man1/eiskaltdcpp-qt.1.gz
 
 %files gacts
 %defattr(-,root,root)
@@ -2668,6 +2651,16 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_monocle.so
 %{_datadir}/%{name}/translations/%{name}_monocle_*.qm
 %{_datadir}/%{name}/settings/monoclesettings.xml
+%endif
+
+%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
+%files monocle-doc
+%defattr(-,root,root)
+%dir %{_docdir}/%{name}-monocle-doc
+%doc %{_docdir}/%{name}-monocle-doc/*
+%if 0%{suse_version} <= 1210
+%exclude %{_docdir}/%{name}-monocle-doc/installdox
+%endif
 %endif
 
 %if 0%{suse_version} >= 1220
@@ -2823,12 +2816,6 @@ EOF
 %files poshuku-readitlater
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_poshuku_onlinebookmarks_readitlater.*
-
-#%%files poshuku-wyfv
-#%%defattr(-,root,root)
-#%%{settings_dir}/poshukuwyfvsettings.xml
-#%%{translations_dir}/%%{name}_poshuku_wyfv*.qm
-#%%{plugin_dir}/*%%{name}_poshuku_wyfv.so
 
 %if 0%{suse_version} >= 1220
 %files sb2
