@@ -1,3 +1,21 @@
+Sat Apr  6 09:30:24 UTC 2013 - dap.darkness@gmail.com
+
+- 0.18 release
+  * 10 Equipment Slots, up from 4 (and easily configurable)
+  * Starting "Class" choice (beginner's power/item kit)
+  * Environmental/Ambient Sounds on maps
+  * Much improved handling of Animations, Effects, and Sounds
+  * New Powers: Stealth, Traps, Thrown Weapons
+  * New Item Bonuses: XP gain, Gold Find, Item Find, and more
+  * Improved support for various input devices
+- Service source_validator was enabled.
+- Spec header was fixed up according to distro policy.
+- Sources were moved from GitHub to SourceForge.
+- Spec was fixed up via `spec-cleaner`.
+- Requires hicolor-icon-theme not to pack unnecessary dirs.
+- Python became recommended, not required.
+- xgettext.py & readme.txt might be executable.
+
 Tue Oct  2 23:25:40 UTC 2012 - dap.darkness@gmail.com
 
 - 0.17.1 release
