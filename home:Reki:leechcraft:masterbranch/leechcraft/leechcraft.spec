@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-1186-g6d3a740
+%define LEECHCRAFT_VERSION 0.5.90-1195-gb69c7db
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -33,6 +33,8 @@ Source0:        %{name}-%{version}.tar.bz2
 %if 0%{suse_version} <= 1210
 # PATCH-FEATURE-OPENSUSE to provide acetamide for Qt < 4.8.
 Patch1:         leechcraft-acetamide-qt47.patch
+%endif
+%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 # PATCH-FIX-OPENSUSE not to get "W: file-contains-date-and-time" for html.
 Patch2:         leechcraft-doc-doxygen-rpmlint-w.patch
 %endif
@@ -43,7 +45,7 @@ BuildRequires:  boost-devel >= 1.50
 BuildRequires:  boost-devel
 %endif
 BuildRequires:  cmake > 2.8
-%if 0%{suse_version} <= 1210
+%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 BuildRequires:  doxygen
 %endif
 BuildRequires:  fdupes
@@ -184,9 +186,9 @@ Group:          Metapackages
 Summary:        Meta package for pattern leechcraft_messenger
 Requires:       %{name}-advancednotifications
 Requires:       %{name}-azoth
-# %if 0%{suse_version} >= 1220
+# %%if 0%%{suse_version} >= 1220
 Requires:       %{name}-azoth-acetamide
-# %endif
+# %%endif
 Requires:       %{name}-azoth-adiumstyles
 Requires:       %{name}-azoth-astrality
 Requires:       %{name}-azoth-autoidler
@@ -432,7 +434,7 @@ XMPP protocol, aiming to provide extensive and full support for XMPP while
 remaining usable for other protocols.
 
 
-# %if 0%{suse_version} >= 1220
+# %%if 0%%{suse_version} >= 1220
 %package azoth-acetamide
 Summary:        LeechCraft Azoth - IRC Module
 Group:          Productivity/Networking/Other
@@ -449,7 +451,7 @@ Features:
  * Channels bookmarks.
  * Automatic password entry.
  * Automatic logging on.
-# %endif
+# %%endif
 
 
 %package azoth-adiumstyles
@@ -519,6 +521,7 @@ So you will not miss your contacts' birthdays if there are ones in vCards.
 Summary:        LeechCraft Azoth - Chat history Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
+Requires:       libqt4-sql-sqlite
 
 %description azoth-chathistory
 This package provides a chat history plugin for LeechCraft Azoth.
@@ -545,7 +548,7 @@ This package provides an ignoring plugin for LeechCraft Azoth.
 It allows to ignore unwanted participants.
 
 
-%if 0%{suse_version} <= 1210
+%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 %package azoth-doc
 Summary:        LeechCraft Azoth Documentation
 Group:          Development/Libraries/Other
@@ -966,7 +969,7 @@ This package provides files required for development for LeechCraft.
 It contains header files required to develop new modules.
 
 
-%if 0%{suse_version} <= 1210
+%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 %package doc
 Summary:        LeechCraft Core Documentation
 Group:          Development/Libraries/Other
@@ -1715,18 +1718,6 @@ This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
 It provides support for the Read it Later service.
 
 
-#%%package poshuku-wyfv
-#Summary:        LeechCraft Poshuku - Flash Video Replacer Module
-#Group:          Productivity/Networking/Other
-#Requires:       %%{name}-poshuku = %%{version}
-#
-#%%description poshuku-wyfv
-#This package provides a flash video replacer plugin for LeechCraft Poshuku.
-# 
-#It allows to replace default flash-based video players on some sites with any
-#suitable LeechCraft's media player thus avoiding the exigency of Flash.
-
-
 %if 0%{suse_version} >= 1220
 %package sb2
 Summary:        LeechCraft SideBar2 Module
@@ -1811,19 +1802,6 @@ This package provides an opening files with external apps for LeechCraft.
 
 It allows to open files and handle entities with external applications.
 For example, you may choose to open a video file with your favorite media
-player instead of LC's one.
-
-
-# %%package sidebar
-# Summary:        LeechCraft Sidebar Module
-# Group:          Productivity/Networking/Other
-# Requires:       %%{name} = %%{version}
-# Provides:       %%{name}-sb = %%{version}
-# 
-# %%description sidebar
-# This package provides a side bar plugin for Leechcraft.
-# 
-# It is a nice side bar with quick launch, tabs and tray areas.
 
 
 #%%package snails
@@ -1990,6 +1968,8 @@ It allows to configure and use proxy servers.
 %setup -q -n %{name}-%{version}
 %if 0%{suse_version} <= 1210
 %patch1
+%endif
+%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 %patch2
 %endif
 
@@ -2116,7 +2096,7 @@ cmake ../src \
 cd build
 make %{?_smp_mflags}
 
-%if 0%{suse_version} <= 1210
+%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 cd ../doc/doxygen/core
 sed -i Doxyfile \
 -e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
@@ -2132,7 +2112,7 @@ doxygen Doxyfile
 cd build
 %makeinstall
 
-%if 0%{suse_version} <= 1210
+%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 cd ../doc/doxygen/core/out/html
 mkdir -p %{buildroot}%{_docdir}/%{name}-doc
 cp -r * %{buildroot}%{_docdir}/%{name}-doc
@@ -2143,9 +2123,9 @@ cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
 %endif
 
 %suse_update_desktop_file -i %{name}
-# %if 0%{suse_version} >= 1220
+# %%if 0%%{suse_version} >= 1220
 %suse_update_desktop_file -i %{name}-azoth-acetamide
-# %endif
+# %%endif
 %suse_update_desktop_file -i %{name}-azoth-xoox
 %if 0%{suse_version} >= 1220
 %suse_update_desktop_file -i %{name}-bittorrent
@@ -2190,11 +2170,10 @@ EOF
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth
 %fdupes -s %{buildroot}%{_datadir}/%{name}/global_icons/flags
 %fdupes -s %{buildroot}%{_datadir}/%{name}/themes
-%if 0%{suse_version} <= 1210
+%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 %fdupes -s %{buildroot}%{_docdir}/%{name}-doc/
 %fdupes -s %{buildroot}%{_docdir}/%{name}-azoth-doc/
 %endif
-#%%fdupes -s %%{buildroot}%%{_datadir}/icons/oxygen
 
 %post -p /sbin/ldconfig
 
@@ -2277,14 +2256,14 @@ EOF
 %{translations_dir}/%{name}_azoth_??_??.qm
 %{plugin_dir}/*%{name}_azoth.so
 
-# %if 0%{suse_version} >= 1220
+# %%if 0%%{suse_version} >= 1220
 %files azoth-acetamide
 %defattr(-,root,root)
 %{settings_dir}/azothacetamidesettings.xml
 %{translations_dir}/%{name}_azoth_acetamide*
 %{plugin_dir}/*%{name}_azoth_acetamide.so
 %{_datadir}/applications/%{name}-azoth-acetamide.desktop
-# %endif
+# %%endif
 
 %files azoth-adiumstyles
 %defattr(644,root,root,755)
@@ -2325,12 +2304,12 @@ EOF
 %{plugin_dir}/*%{name}_azoth_depester.so
 %{translations_dir}/%{name}_azoth_depester*
 
-%if 0%{suse_version} <= 1210
+%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 %files azoth-doc
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}-azoth-doc
 %doc %{_docdir}/%{name}-azoth-doc/*
-%exclude %{_docdir}/%{name}-azoth-doc/installdox
+# %%exclude %%{_docdir}/%%{name}-azoth-doc/installdox
 %endif
 
 %files azoth-embedmedia
@@ -2510,12 +2489,12 @@ EOF
 %{_libdir}/*xmlsettingsdialog.so
 %{_datadir}/cmake/Modules/InitLCPlugin.cmake
 
-%if 0%{suse_version} <= 1210
+%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 %files doc
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}-doc
 %doc %{_docdir}/%{name}-doc/*
-%exclude %{_docdir}/%{name}-doc/installdox
+# %%exclude %%{_docdir}/%%{name}-doc/installdox
 %endif
 
 %files dolozhee
@@ -2884,18 +2863,6 @@ EOF
 %{translations_dir}/%{name}_shellopen*.qm
 %{plugin_dir}/*%{name}_shellopen.so
 
-# %%files sidebar
-# %%defattr(-,root,root)
-# %%{plugin_dir}/*%%{name}_sidebar.so
-
-#%%if %%qtversion >= 40800
-#%%files snails
-#%%defattr(-,root,root)
-#%%{_libdir}/%%{name}/plugins/lib%%{name}_snails.so
-#%%{_datadir}/%%{name}/translations/%%{name}_snails_*.qm
-#%%{_datadir}/%%{name}/settings/snailssettings.xml
-#%%endif
-
 %files summary
 %defattr(-,root,root)
 %{translations_dir}/%{name}_summary*.qm
@@ -2906,12 +2873,6 @@ EOF
 %{plugin_dir}/*%{name}_syncer.so
 %{settings_dir}/syncersettings.xml
 %{translations_dir}/leechcraft_syncer*
-
-#%%files tabpp
-#%%defattr(-,root,root)
-#%%{settings_dir}/tabppsettings.xml
-#%%{translations_dir}/%%{name}_tabpp_*.qm
-#%%{plugin_dir}/*%%{name}_tabpp.so
 
 %if 0%{suse_version} >= 1220
 %files tabsessionmanager
