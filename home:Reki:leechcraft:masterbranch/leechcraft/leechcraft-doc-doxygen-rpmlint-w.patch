@@ -1,6 +1,19 @@
---- doc/doxygen/core/Doxyfile.orig	2013-04-05 18:17:59.000000000 +0300
-+++ doc/doxygen/core/Doxyfile	2013-04-05 23:11:51.572000057 +0300
-@@ -947,7 +947,7 @@
+diff -rupN doc/doxygen/core/Doxyfile doc/doxygen/core/Doxyfile
+--- doc/doxygen/core/Doxyfile	2013-04-06 10:08:57.737772435 +0300
++++ doc/doxygen/core/Doxyfile	2013-04-08 22:33:00.675000050 +0300
+@@ -947,7 +947,7 @@ HTML_HEADER            =
+ # each generated HTML page. If it is left blank doxygen will generate a 
+ # standard footer.
+ 
+-HTML_FOOTER            =
++HTML_FOOTER            = footer.html
+ 
+ # The HTML_STYLESHEET tag can be used to specify a user-defined cascading 
+ # style sheet that is used by each HTML page. It can be used to 
+diff -rupN doc/doxygen/monocle/Doxyfile doc/doxygen/monocle/Doxyfile
+--- doc/doxygen/monocle/Doxyfile	2013-04-06 19:18:42.237772435 +0300
++++ doc/doxygen/monocle/Doxyfile	2013-04-08 22:29:59.463000050 +0300
+@@ -879,7 +879,7 @@ HTML_HEADER            =
  # each generated HTML page. If it is left blank doxygen will generate a 
  # standard footer.
  

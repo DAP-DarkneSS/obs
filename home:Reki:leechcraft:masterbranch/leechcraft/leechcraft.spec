@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-1205-g47b4350
+%define LEECHCRAFT_VERSION 0.5.90-1216-g28d4d78
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
@@ -2098,6 +2098,7 @@ sed -i Doxyfile \
 doxygen Doxyfile
 
 cd ../monocle
+touch footer.html
 sed -i Doxyfile \
 -e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
 doxygen Doxyfile
