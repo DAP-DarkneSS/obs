@@ -1,0 +1,11 @@
+--- bin/fingerprint-gui/fingerprint-gui.desktop.orig	2010-08-23 21:45:00.000000000 +0300
++++ bin/fingerprint-gui/fingerprint-gui.desktop	2013-04-07 17:36:45.268302868 +0300
+@@ -5,7 +5,7 @@
+ Name=Fingerprint GUI
+ GenericName=Fingerprint Tool
+ Comment=Tool for fingerprint enrollment and verification
+-Icon=gnome-user-interface.png
++Icon=fingerprint-gui
+ TryExec=fingerprint-gui
+ Exec=fingerprint-gui --debug
+ Categories=GNOME;GTK;Settings;HardwareSettings;

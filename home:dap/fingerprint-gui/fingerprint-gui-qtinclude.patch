@@ -1,0 +1,48 @@
+diff -rupN src/FingerprintPlugin.cpp src/FingerprintPlugin.cpp
+--- src/FingerprintPlugin.cpp	2013-02-08 10:51:00.000000000 +0300
++++ src/FingerprintPlugin.cpp	2013-04-07 17:00:42.758302867 +0300
+@@ -26,7 +26,7 @@
+ #include <syslog.h>
+ #include <unistd.h>
+ #include <string>
+-#include <qt4/QtGui/qwidget.h>
++#include <QtGui/qwidget.h>
+ 
+ #include "PluginDialog.h"
+ 
+diff -rupN src/MainWindowImpl.cpp src/MainWindowImpl.cpp
+--- src/MainWindowImpl.cpp	2013-02-07 23:36:00.000000000 +0300
++++ src/MainWindowImpl.cpp	2013-04-07 17:00:43.844302868 +0300
+@@ -7,7 +7,7 @@
+  * Copyright (C) 2008-2013  Wolfgang Ullrich
+  */
+ 
+-#include <qt4/QtCore/qlocale.h>
++#include <QtCore/qlocale.h>
+ 
+ 
+ /*
+diff -rupN src/PluginDialog.cpp src/PluginDialog.cpp
+--- src/PluginDialog.cpp	2013-02-23 21:11:33.000000000 +0300
++++ src/PluginDialog.cpp	2013-04-07 17:00:45.088302867 +0300
+@@ -26,7 +26,7 @@
+ #include <sys/poll.h>
+ #include <unistd.h>
+ #include <string>
+-#include <qt4/QtCore/qthread.h>
++#include <QtCore/qthread.h>
+ 
+ #include "../include/PluginDialog.h"
+ 
+diff -rupN src/PolkitListener.cpp src/PolkitListener.cpp
+--- src/PolkitListener.cpp	2012-03-08 17:45:00.000000000 +0300
++++ src/PolkitListener.cpp	2013-04-07 17:00:41.636302867 +0300
+@@ -32,7 +32,7 @@
+ #include <polkit-qt-1/PolkitQt1/Subject>
+ #include <polkit-qt-1/PolkitQt1/Identity>
+ #include <polkit-qt-1/PolkitQt1/Details>
+-#include <qt4/QtGui/qdialogbuttonbox.h>
++#include <QtGui/qdialogbuttonbox.h>
+ 
+ #include "../include/Globals.h"
+ #include "../include/PolkitListener.h"
