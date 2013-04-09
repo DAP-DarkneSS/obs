@@ -10,24 +10,33 @@
 Name:           promoe
 Version:        0.1.1
 Release:        1
-Summary:        Qt/C++ WinAMP like client for XMMS2
-
 License:        GPL-2.0
+Summary:        Qt/C++ WinAMP like client for XMMS2
+Url:            http://xmms2.org/wiki/Client:Promoe
 Group:          Productivity/Multimedia/Sound/Players
-URL:            http://xmms2.org/wiki/Client:Promoe
-Source0:        http://home.in.tum.de/~frauendo/%{name}-%{version}.tar.gz
+Source0:        http://home.in.tum.de/~frauendo/promoe-%{version}.tar.gz
 
 BuildRequires:  boost-devel
-BuildRequires:  libqt4-devel
+%if 0%{?fedora} <= 17
+BuildRequires:  gcc-c++
+%endif
+%if 0%{?fedora} == 17
+BuildRequires:  samba4-libs
+%endif
+BuildRequires:  pkgconfig(QtCore)
+%if 0%{?suse_version}
 BuildRequires:  update-desktop-files
+%endif
 BuildRequires:  xmms2-devel
+%if 0%{?suse_version}
+Recommends:     xmms2-plugin-curl
+Recommends:     xmms2-plugin-id3v2
+Recommends:     xmms2-plugin-m3u
+Recommends:     xmms2-plugin-mad
+Recommends:     xmms2-plugin-pulse
+Recommends:     xmms2-plugin-wave
+%endif
 Requires:       xmms2
-Requires:       xmms2-plugin-curl
-Requires:       xmms2-plugin-id3v2
-Requires:       xmms2-plugin-m3u
-Requires:       xmms2-plugin-mad
-Requires:       xmms2-plugin-pulse
-Requires:       xmms2-plugin-wave
 
 %description
 Promoe is a client for the XMMS2 music daemon. Promoe’s interface
@@ -38,17 +47,23 @@ It's written in C++ and uses the Qt4 toolkit.
 %setup -q
 
 %build
-qmake QMAKE_CXXFLAGS+="%{optflags}" PREFIX=/usr
+`pkg-config --variable=exec_prefix QtCore`/bin/qmake \
+QMAKE_STRIP="" \
+PREFIX=%{_prefix} \
+QMAKE_CFLAGS+="%{optflags}" \
+QMAKE_CXXFLAGS+="%{optflags}"
 make %{?_smp_mflags}
 
 %install
 make INSTALL_ROOT=%{buildroot} install
+%if 0%{?suse_version}
 %suse_update_desktop_file -r %{name} 'AudioVideo;Player;Qt;'
+%endif
 
 %files
 %defattr(-,root,root)
 %doc README COPYING TODO AUTHORS
-%doc %{_mandir}/man1/%{name}.1.gz
+%{_mandir}/man1/%{name}.1.gz
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 
