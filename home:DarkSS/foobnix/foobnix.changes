@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Wed Apr 10 10:24:28 UTC 2013 - dap.darkness@gmail.com
+
+- updated to upstream 2.6.10
+  * Keep the size of the panels when resizing the main window
+  * Remembering maximized window state
+  * Radio list updated
+  * Translations updated
+  * Many bug fixes
+- spec was refactored.
+
+-------------------------------------------------------------------
 Fri Sep 16 22:12:08 UTC 2011 - boris@steki.net
 
 - updated to upstream 2.5.25

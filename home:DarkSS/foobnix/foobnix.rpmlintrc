@@ -1,4 +1,0 @@
-addFilter("source-or-patch-not-compressed");
-addFilter("python-naming-policy-not-applied");
-addFilter("non-executable-script /usr/share/applications/foobnix.desktop");
-addFilter("source-or-patch-not-bzipped");
