@@ -23,19 +23,20 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-1216-g28d4d78
+%define LEECHCRAFT_VERSION 0.5.90-1235-g6a41760
 Release:        0
 Summary:        Modular Internet Client
 License:        GPL-3.0+
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 Source0:        %{name}-%{version}.tar.bz2
-%if 0%{suse_version} <= 1210
+
 # PATCH-FEATURE-OPENSUSE to provide acetamide for Qt < 4.8.
+%if 0%{suse_version} <= 1210
 Patch1:         leechcraft-acetamide-qt47.patch
 %endif
-%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 # PATCH-FIX-OPENSUSE not to get "W: file-contains-date-and-time" for html.
+%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 Patch2:         leechcraft-doc-doxygen-rpmlint-w.patch
 %endif
 
@@ -75,6 +76,9 @@ BuildRequires:  libqt4-devel >= 4.7
 BuildRequires:  libqt4-sql
 BuildRequires:  libqxmpp-devel >= 0.7.4
 # BuildRequires:  libqxt1-devel
+%if 0%{suse_version} >= 1220
+BuildRequires:  libsensors4-devel
+%endif
 BuildRequires:  libspectre-devel
 BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
 BuildRequires:  pcre-devel
@@ -1067,6 +1071,18 @@ and allows to search it by text, wildcard, regular expressions or tags.
 
 
 %if 0%{suse_version} >= 1220
+%package hotsensors
+Summary:        LeechCraft Temperature Sensors Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-sb = %{version}
+
+%description hotsensors
+This package provides a temperature sensors subplugin (a quark)
+for LeechCraft SideBar.
+%endif
+
+
+%if 0%{suse_version} >= 1220
 %package hotstreams
 Summary:        LeechCraft Radio streams Module
 Group:          Productivity/Networking/Other
@@ -2017,6 +2033,7 @@ cmake ../src \
         -DENABLE_DUMBEEP=True \
         -DDUMBEEP_WITH_PHONON=True \
         -DENABLE_GMAILNOTIFIER=True \
+        -DENABLE_HOTSENSORS=True \
         -DENABLE_HOTSTREAMS=True \
         -DENABLE_LASTFMSCROBBLE=True \
         -DENABLE_LAUNCHY=True \
@@ -2049,6 +2066,7 @@ cmake ../src \
         -DENABLE_CHOROID=False \
         -DENABLE_DUMBEEP=False \
         -DENABLE_GMAILNOTIFIER=False \
+        -DENABLE_HOTSENSORS=False \
         -DENABLE_HOTSTREAMS=False \
         -DENABLE_LASTFMSCROBBLE=False \
         -DENABLE_LAUNCHY=False \
@@ -2537,6 +2555,13 @@ EOF
 %defattr(-,root,root)
 %{plugin_dir}/*leechcraft_historyholder.so
 %{translations_dir}/leechcraft_historyholder*.qm
+
+%if 0%{suse_version} >= 1220
+%files hotsensors
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_hotsensors.so
+%{_datadir}/%{name}/qml/hotsensors
+%endif
 
 %if 0%{suse_version} >= 1220
 %files hotstreams
