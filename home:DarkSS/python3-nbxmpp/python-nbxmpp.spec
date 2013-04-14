@@ -1,7 +1,7 @@
 #
-# spec file for package [spectemplate]
+# spec file for package python-nbxmpp
 #
-# Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -15,48 +15,53 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
-# norootforbuild
-
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 
 Name:           python-nbxmpp
 Version:        0.1
 Release:        1
-Summary:        XMPP library by Gajim team
-Group:          Development/Libraries/Python
-
 License:        GPL-3.0
-URL:            http://python-nbxmpp.gajim.org/
+Summary:        XMPP library by Gajim team
+Url:            http://python-nbxmpp.gajim.org/
+Group:          Development/Libraries/Python
 Source0:        nbxmpp-%{version}.tar.gz
 
-BuildArch:      noarch
-BuildRequires:  python-devel
-BuildRequires:  python
 BuildRequires:  fdupes
+BuildRequires:  python
+BuildRequires:  python-devel
+BuildArch:      noarch
 
 %description
-python-nbxmpp is a Python library that provides a way for Python applications to use Jabber/XMPP networks in a non-blocking way. This library is initialy a fork of xmpppy one, but using non-blocking sockets. 
+Python-nbxmpp is a Python library that provides a way for Python
+applications to use Jabber/XMPP networks in a non-blocking way. This
+library is initialy a fork of xmpppy one, but using non-blocking sockets.
+
+%package doc
+Summary:        Nbxmpp Documentation
+
+%description doc
+This packages provides documentation of Nbxmpp API.
 
 %prep
 %setup -q -n nbxmpp-%{version}
-
 
 %build
 %{__python} setup.py build
 
 %install
 %{__python} setup.py install -O1 --skip-build --root %{buildroot} --prefix=/usr
-%fdupes %{buildroot}
+%fdupes %{buildroot}%{python_sitelib}
 
-%clean
-rm -rf %{buildroot}
-
+mkdir -p %{buildroot}%{_docdir}/%{name}-doc
+cp -r doc/* %{buildroot}%{_docdir}/%{name}-doc
+%fdupes %{buildroot}%{_docdir}
 
 %files
 %defattr(-,root,root)
+%doc ChangeLog COPYING README
 %{python_sitelib}/nbxmpp-*.egg-info
-%dir %{python_sitelib}/nbxmpp/
-%{python_sitelib}/nbxmpp/*
+%{python_sitelib}/nbxmpp/
 
-
-%changelog
+%files doc
+%defattr(-,root,root)
+%{_docdir}/%{name}-doc
