@@ -23,7 +23,7 @@
 %define soname 0
 
 Name:           qmmp
-Version:        0.6.8
+Version:        0.7.0
 Release:        0
 Summary:        XMMS-like audio player
 License:        GPL-2.0+
@@ -53,7 +53,7 @@ BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(libbs2b)
 BuildRequires:  pkgconfig(libcddb)
 BuildRequires:  pkgconfig(libcdio)
-BuildRequires:  pkgconfig(libcdio_cdda)
+BuildRequires:  pkgconfig(libcdio_cdda) >= 10.2+0.90
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libgme)
 BuildRequires:  pkgconfig(libmms)
