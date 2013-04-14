@@ -1,0 +1,13 @@
+Index: src/qmmp/output.cpp
+===================================================================
+--- src/qmmp/output.cpp.orig
++++ src/qmmp/output.cpp
+@@ -477,7 +477,7 @@ OutputFactory *Output::currentFactory()
+     checkFactories();
+     QSettings settings (Qmmp::configFile(), QSettings::IniFormat);
+ #ifdef Q_OS_LINUX
+-    QString name = settings.value("Output/current_plugin", "alsa").toString();
++    QString name = settings.value("Output/current_plugin", "pulse").toString();
+ #elif defined Q_WS_WIN
+     QString name = settings.value("Output/current_plugin", "waveout").toString();
+ #else

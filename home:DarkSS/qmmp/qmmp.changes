@@ -1,0 +1,194 @@
+-------------------------------------------------------------------
+Thu Mar 28 07:46:17 UTC 2013 - reddwarf@opensuse.org
+
+- Update to 0.6.8
+  * fixed bugs in the mpris plugin
+  * fixed segmentation fault when running without output plugins
+  * updated Japanese translation (Ryota Shimamo)
+
+-------------------------------------------------------------------
+Thu Feb 21 15:39:41 UTC 2013 - reddwarf@opensuse.org
+
+- Update to 0.6.7
+  * added lubuntu integration
+  * improved rtl locales support
+  * fixed latest paranoia support
+  * fixed libav 0.8.x support
+  * fixed 'enter' hotkey in the playlist browser
+  * fixed 24-bit mode support in the src plugin
+  * fixed compiler warnings
+
+-------------------------------------------------------------------
+Fri Jan 11 12:37:12 UTC 2013 - reddwarf@opensuse.org
+
+- Update to 0.6.6
+  * added support for http redirect to the url dialog
+  * added ffmpeg 1.1 support
+  * fixed 24/32-bit mode support in the src plugin
+  * fixed seeking when using oss4 as output
+  * fixed streaming support in the ffmpeg plugin
+  * fixed build without qt3support headers (thanks to Dmitry Smolin)
+  * fixed playlist titlebar cursor
+  * fixed mpris2 support
+  * fixed typos
+  * updated Hebrew translation (Genghis Khan)
+- Disable OSS/OSS4 output support
+
+-------------------------------------------------------------------
+Sun Dec  9 13:17:15 UTC 2012 - reddwarf@opensuse.org
+
+- Update to 0.6.5
+  * added latest psi/psi+ support
+  * added Hebrew translation (Genghis Khan)
+  * increased default mms/http buffer size
+  * fixed shortcut dialogs
+  * fixed segmentation fault caused by http transport
+  * fixed file type determination by content
+  * fixed division line position in the playlist
+  * fixed some bugs in the WaveOut plugin
+  * updated Japanese translation (Ryota Shimamoto)
+  * updated Russian translation
+  * updated flac mime-type (Christian Morales Vega)
+- Drop qmmp-0.6.4-flac_mimetype.patch. Applied upstream.
+
+-------------------------------------------------------------------
+Thu Dec  6 13:43:18 UTC 2012 - reddwarf@opensuse.org
+
+- Add qmmp-0.6.4-flac_mimetype.patch to use the correct MIME type
+  to report support for FLAC files
+
+-------------------------------------------------------------------
+Sun Nov  4 17:12:49 UTC 2012 - reddwarf@opensuse.org
+
+- Update to 0.6.4
+  * using UTF-8 encoding for shoutcast metadata by default
+  * fixed visualization menu update after changing settings
+  * fixed skinned user interface settings
+  * fixed analyzer falloff speeds
+  * fixed skinned user interface visualization switching
+  * fixed playlist titlebar resize bug
+  * fixed color selection widget
+  * fixed possible crash in the transport plugins
+  * fixed Russian translation
+  * updated Japanese translation (Ryota Shimamoto)
+
+-------------------------------------------------------------------
+Wed Aug 22 16:51:24 UTC 2012 - reddwarf@opensuse.org
+
+- Update to 0.6.3
+  * fixed typo in the about dialog
+  * fixed FSF address
+  * fixed cmake scripts
+  * fixed filters of the directory scanner
+  * fixed crash in the playlist popup message
+  * updated Lithuanian translation (Algirdas Butkus)
+- Removed qmmp-0.5.5-libcdio_mess.patch, fixed upstream
+
+-------------------------------------------------------------------
+Sat Aug  4 14:41:38 UTC 2012 - reddwarf@opensuse.org
+
+- Make qmmp require at least an input, output and ui plugin
+
+-------------------------------------------------------------------
+Mon Jul 30 14:19:32 UTC 2012 - reddwarf@opensuse.org
+
+- Update to 0.6.2
+  * fixed crash in the http plugin
+  * fixed possible crash in the cue parser
+
+-------------------------------------------------------------------
+Mon Jul 23 22:51:24 UTC 2012 - reddwarf@opensuse.org
+
+- Update to 0.6.1
+  * added icons to the file dialog buttons
+  * fixed icecast streams titles
+  * fixed build
+  * fixed default output under windows
+  * fixed api documentation
+  * fixed possible segmentation fault in the cue plugin
+  * fixed cue parsing
+  * fixed automatic charset detection
+  * fixed Ukrainian translation (Gennadi Motsyo)
+  * fixed Russian translation
+
+-------------------------------------------------------------------
+Sat Jun 30 23:41:32 UTC 2012 - reddwarf@opensuse.org
+
+- Update to 0.6.0
+  * added converter plugin
+  * added stream browser plugin
+  * added file type determination by content (experimental)
+  * added '--quit' command line option
+  * added text scroller background option
+  * added playlists separator option
+  * added multiband equalizer api
+  * added equalizer presets from Amarok (Thanks to Panagiotis Papadopoulos)
+  * added playlits access from command line
+  * added dithering to MPEG plugin
+  * added priority support to decoder api
+  * added user interface api
+  * added default destination and file name pattern to fileops plugin
+  * added additional directory filters
+  * added feature to add files from command line to specific playlist
+  * added pkg-config support
+  * added vqf support
+  * added feature to display shoutcast stream information
+  * added 'jump to track' and 'forward/rewind' global hotkeys
+  * added 'New Playlist' button
+  * added sorting by disc number (Brice Videau)
+  * added feature to use clipboard content in the URL dialog (Panagiotis Papadopoulos)
+  * added scrobbler cache synchronization after successful submission (Ferdinand Vesely)
+  * changed playlist insertion behavior
+  * disabled OSS3 plugin by default
+  * improved cue plugin
+  * moved skinned ui to separate plugin
+  * fixed 'hide on close' feature
+  * fixed moc warnings during compilation
+  * fixed IPC under windows
+  * fixed windows-specific bugs
+  * fixed problems with some asynchronous calls
+  * fixed qmmp_cue.desktop
+  * fixed saving playlists on logout
+  * updated about dialog
+  * updated Russian translation
+  * updated Ukrainian translation (Gennadi Motsyo)
+  * updated Japanese translation (Ryota Shimamoto)
+  * updated Polish translation (Grzegorz Gibas)
+  * updated German translation (Panagiotis Papadopoulos)
+  * updated Dutch translation (Ronald Uitermark)
+
+-------------------------------------------------------------------
+Thu May 31 21:08:33 UTC 2012 - reddwarf@opensuse.org
+
+- Disable HAL plugin build
+- Disable OSS plugin build
+- Use PulseAudio by default instead of ALSA
+
+-------------------------------------------------------------------
+Sun May 27 23:35:53 UTC 2012 - reddwarf@opensuse.org
+
+- Fix build with ffmpeg 0.11
+
+-------------------------------------------------------------------
+Sat May 26 10:45:52 UTC 2012 - reddwarf@opensuse.org
+
+- Update to 0.5.5
+  * added latest libcdio support
+  * fixed Russian translation
+  * fixed acc streams support
+  * fixed aac bitrate calculation
+  * fixed scrobbler failure when using Qt 4.8
+  * fixed some cuesheets parsing
+  * fixed --pause command line option behavior
+  * updated Japanese translation
+- Add missing %desktop_database_post and %icon_theme_cache_post
+  scripts
+- Remove obsoleted %suse_update_desktop_file calls
+- Add qmmp-0.5.5-libcdio_mess.patch to fix build with git version
+  of libcdio 
+
+-------------------------------------------------------------------
+Mon Sep  6 16:47:29 UTC 2010 - reddwarf@opensuse.org
+
+- New package. Version 0.4.2
+
