@@ -23,10 +23,10 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-1247-g7b3715b
+%define LEECHCRAFT_VERSION 0.5.90-1306-g8791fd8
 Release:        0
 Summary:        Modular Internet Client
-License:        GPL-3.0+
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 Source0:        %{name}-%{version}.tar.bz2
@@ -38,6 +38,10 @@ Patch1:         leechcraft-acetamide-qt47.patch
 # PATCH-FIX-OPENSUSE not to get "W: file-contains-date-and-time" for html.
 %if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 Patch2:         leechcraft-doc-doxygen-rpmlint-w.patch
+%endif
+# PATCH-FIX-USTREAM to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
+%if 0%{suse_version} >= 1220
+Patch3:         leechcraft-torrent-qtmoc-boost.patch
 %endif
 
 %if 0%{suse_version} >= 1220
@@ -1020,7 +1024,7 @@ It also uses Phonon as a backend or something like aplay/mplayer.
 %package gacts
 Summary:        LeechCraft Global actions Module
 Group:          Productivity/Networking/Other
-License:        GPL-3.0+ and (LGPL-2.1 or CPL-1.0)
+License:        BSL-1.0 and (LGPL-2.1 or CPL-1.0)
 Requires:       %{name} = %{version}
 
 %description gacts
@@ -1950,7 +1954,7 @@ Summary:        LeechCraft Removable storage devices Manager
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-sb = %{version}
-Requires:       udisks2
+Recommends:     udisks2
 
 %description vrooby
 This package provides a Vrooby plugin for LeechCraft.
@@ -1977,6 +1981,9 @@ It allows to configure and use proxy servers.
 %endif
 %if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 %patch2
+%endif
+%if 0%{suse_version} >= 1220
+%patch3
 %endif
 
 #removing non-free icons
@@ -2056,8 +2063,6 @@ cmake ../src \
         -DENABLE_TOUCHSTREAMS=True \
         -DENABLE_TPI=True \
         -DENABLE_VROOBY=True \
-        -DENABLE_VROOBY_UDISKS=False \
-        -DENABLE_VROOBY_UDISKS2=True \
 %else
         -DENABLE_AZOTH_ACETAMIDE=True \
         -DENABLE_AZOTH_SHX=False \
@@ -2200,7 +2205,7 @@ EOF
 
 %files
 %defattr(-,root,root)
-%doc README COPYING
+%doc CHANGELOG LICENSE README
 %{_bindir}/%{name}
 %{_bindir}/%{name}-add-file
 %{_bindir}/%{name}-handle-file
@@ -2220,7 +2225,7 @@ EOF
 %dir %{plugin_dir}
 %{_libdir}/*lcutil.so.*
 %{_libdir}/*xmlsettingsdialog.so.*
-%doc %{_mandir}/man1/%{name}.1.gz
+%doc %{_mandir}/man1/%{name}*.1.gz
 %{_datadir}/%{name}/sounds
 %dir %{_datadir}/%{name}/global_icons
 %{_datadir}/%{name}/global_icons/*
@@ -2228,10 +2233,8 @@ EOF
 %dir %{_datadir}/%{name}/themes/*
 %{_datadir}/%{name}/themes/*/*.rc
 %exclude %{_datadir}/cmake/Modules/InitLCPlugin.cmake
-%dir %{_datadir}/%{name}/qml/org
-%dir %{_datadir}/%{name}/qml/org/LC
-%dir %{_datadir}/%{name}/qml/org/LC/common
-%{_datadir}/%{name}/qml/org/LC/common/*
+%{_datadir}/%{name}/qml/org/
+%{_datadir}/%{name}/qml/common/
 %exclude %{_docdir}/%{name}/meta_*
 
 %files advancednotifications
