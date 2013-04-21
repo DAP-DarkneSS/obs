@@ -1,4 +1,35 @@
 -------------------------------------------------------------------
+Mon Mar 18 10:04:54 UTC 2013 - dap.darkness@gmail.com
+
+- update to version 0.20
+  - Gameplay:
+    * Added: "edge tile" objects now occupy just one edge of the tile.
+    * Added: Possibility to play movies in-game (via ffmpeg libs).
+    * Added: The atom analyzer can now be built in the research department.
+    * Added: User actions are no allowed by default when the game is paused.
+    * Added: Some background sounds, coughs, phones ringing etc. 
+    * Change: Placing a member of staff inside a room.
+  - User Interface:
+    * Added: You can see which drug company a certain drug was bought from.
+    * Added: The adviser tells you why the research screen can't be opened.
+    * Added: The Town Map functionality has been extended.
+    * Added: Available options on open faxes now gets updated.
+    * Added: Keyboard shortcuts F1 - F9 for the fullscreen windows.
+    * Added: Possibility to choose font file in the options dialog.
+    * Added: Player name is now customizable in the new game dialog.
+  - Graphics:
+    * Added: The graph dialog now displays graphs and statistics information.
+    * Added: Choosing among three colour scales for warmth level.
+    * Added: Print some info in the command prompt when taking a screenshot.
+    * Added: Screenshot functionality for OpenGL version.
+    * Change: Screenshots get saved to a dedicated screenshot folder now.
+  - Translations:
+    * Added: The beginning of Brazilian Portuguese and Hungarian.
+    * Change: The "utf8" prefix has been obsolete and has been removed.
+- Switched to use download_files service.
+- Service source_validator was enabled.
+
+-------------------------------------------------------------------
 Mon Mar 18 10:04:54 UTC 2013 - stefan@fam-elser.de
 
 - update to version 0.11

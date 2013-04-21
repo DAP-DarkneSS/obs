@@ -17,18 +17,19 @@
 
 
 Name:           CorsixTH
-Version:        0.11
+Version:        0.20
 Release:        0
 Url:            http://code.google.com/p/corsix-th/
 Summary:        Theme Hospital clone
 License:        MIT
 Group:          Amusements/Games/Strategy/Other
-Source:         %{name}-%{version}-Source.tar.gz
+Source:         http://corsix-th.googlecode.com/files/CorsixTH-%{version}-Source.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  SDL-devel
 BuildRequires:  SDL_mixer-devel
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  libffmpeg-devel
 %if 0%{?suse_version} > 1210
 BuildRequires:  lua51-devel
 %else
@@ -42,10 +43,15 @@ BuildRequires:  wxWidgets-devel
 Recommends:     timidity
 
 %description
-This project aims to reimplement the game engine of Theme Hospital, and be able to load the original game data files. This means that you will need a purchased copy of Theme Hospital, or a copy of the demo, in order to use CorsixTH. After most of the original engine has been reimplemented in open source code, the project will serve as a base from which extensions and improvements to the original game can be made.
+This project aims to reimplement the game engine of Theme Hospital, and be
+able to load the original game data files. This means that you will need a
+purchased copy of Theme Hospital, or a copy of the demo, in order to use
+CorsixTH. After most of the original engine has been reimplemented in open
+source code, the project will serve as a base from which extensions and
+improvements to the original game can be made.
 
 %prep
-%setup -q -n CorsixTH-0.11-Source/CorsixTH
+%setup -q -n CorsixTH-%{version}-Source/CorsixTH
 dos2unix changelog.txt
 dos2unix LICENSE.txt
 dos2unix README.txt
