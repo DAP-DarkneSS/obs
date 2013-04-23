@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Apr 20 15:49:09 UTC 2013 - dap.darkness@gmail.com
+ - Macro replacing "makeinstall" => "make_install"
+   via `spec-cleaner` was reverted to build at SLE_11_SP2.
+
+-------------------------------------------------------------------
 Sat Apr  6 19:52:54 UTC 2013 - dap.darkness@gmail.com
 - Spec header and changes file were added to correspond to distro policy.
 - License tag was set to GPL-2.0 to correspond to distro policy.

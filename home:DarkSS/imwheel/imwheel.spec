@@ -65,7 +65,7 @@ autoreconf -fiv
 make %{?_smp_mflags}
 
 %install
-%make_install
+%makeinstall
 
 %files
 %defattr(-,root,root)
