@@ -1,9 +1,15 @@
 -------------------------------------------------------------------
 Fri Mar 29 16:08:39 UTC 2013 - dap.darkness@gmail.com
+- New plugins were enabled for Factory:
+  * monocle-mu — mupdf backend for document viewer;
+  * touchstreams — VK.com music streaming;
 - Added leechcraft-acetamide-qt47.patch to revert some 0.5.95 changes
-  to provide acetamide at openSUSE 12.1.
+  to provide azoth-acetamide plugin at openSUSE 12.1.
 - Added leechcraft-doc-doxygen-rpmlint-w.patch to prevent rpmlint
   "W: file-contains-date-and-time" for doxygen made html-files.
+- Added leechcraft-qt-moc-boost.patch to prevent
+  'AUTOMOC: Parse error at "BOOST_JOIN"'. See more at
+  https://bugreports.qt-project.org/browse/QTBUG-22829
 
 -------------------------------------------------------------------
 Fri Dec 21 21:24:25 UTC 2012 - dap.darkness@gmail.com
