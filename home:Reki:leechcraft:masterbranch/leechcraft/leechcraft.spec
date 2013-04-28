@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-1376-g31a0be1
+%define LEECHCRAFT_VERSION 0.5.90-1402-gd869399
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
@@ -40,9 +40,9 @@ Patch1:         leechcraft-acetamide-qt47.patch
 Patch2:         leechcraft-doc-doxygen-rpmlint-w.patch
 %endif
 # PATCH-FIX-OPENSUSE to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
-# %if 0%{suse_version} > 1230
+# %%if 0%%{suse_version} > 1230
 Patch3:         leechcraft-qt-moc-boost.patch
-# %endif
+# %%endif
 
 %if 0%{suse_version} > 1230
 BuildRequires:  boost-devel >= 1.50
@@ -88,9 +88,9 @@ BuildRequires:  libsensors4-devel
 %endif
 BuildRequires:  libspectre-devel
 BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
-# %if 0%{suse_version} > 1230
-# BuildRequires:  mupdf-devel-static
-# %endif
+%if 0%{suse_version} > 1230
+BuildRequires:  mupdf-devel-static
+%endif
 BuildRequires:  pcre-devel
 BuildRequires:  phonon-devel
 %if 0%{suse_version} >= 1220
@@ -108,9 +108,9 @@ BuildRequires:  boost-devel >= 1.50
 # BuildRequires:  libchromaprint-devel
 # BuildRequires:  libffmpeg-devel
 # %%endif
-# %if 0%{suse_version} >= 1220
-# BuildRequires:  mupdf-devel-static
-# %endif
+%if 0%{suse_version} >= 1220
+BuildRequires:  mupdf-devel-static
+%endif
 BuildRequires:  telepathy-qt4-devel
 %if 0%{suse_version} < 1220
 BuildRequires:  qwt-devel >= 6
@@ -1390,21 +1390,22 @@ This package provides FB2 documents support for Document viewer Module.
 %endif
 
 
-# %if 0%{suse_version} >= 1220
-# %package monocle-mu
-# Summary:        LeechCraft Monocle - Another PDF Module
-# Group:          Productivity/Networking/Other
-# Requires:       %{name} = %{version}
-# Requires:       %{name}-monocle = %{version}
-# Requires:       mupdf
-# Provides:       %{name}-monocle-subplugin
-# 
-# %description monocle-mu
-# This package contains a pdf subplugin for LeechCraft Monocle.
-# 
-# This package provides PDF documents support for Document viewer Module
-# via the mupdf backend.
-# %endif
+# %%if 0%%{suse_version} > 1230
+%if 0%{suse_version} >= 1220
+%package monocle-mu
+Summary:        LeechCraft Monocle - Another PDF Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-monocle = %{version}
+Requires:       mupdf
+Provides:       %{name}-monocle-subplugin
+
+%description monocle-mu
+This package contains a pdf subplugin for LeechCraft Monocle.
+
+This package provides PDF documents support for Document viewer Module
+via the mupdf backend.
+%endif
 
 
 %if 0%{suse_version} >= 1220
@@ -1993,9 +1994,9 @@ It allows to configure and use proxy servers.
 %if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 %patch2
 %endif
-# %if 0%{suse_version} > 1230
+# %%if 0%%{suse_version} > 1230
 %patch3
-# %endif
+# %%endif
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -2061,7 +2062,8 @@ cmake ../src \
         -DENABLE_LMP_GRAFFITI=True \
         -DENABLE_LMP_MPRIS=True \
         -DENABLE_MONOCLE=True \
-        -DENABLE_MONOCLE_MU=False \
+        -DENABLE_MONOCLE_MU=True \
+        -DMUPDF_VERSION=0x0102 \
         -DENABLE_MUSICZOMBIE=True \
         -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
         -DENABLE_NETSTOREMANAGER=True \
@@ -2710,11 +2712,12 @@ EOF
 %{_datadir}/applications/%{name}-monocle-fxb.desktop
 %endif
 
-# %if 0%{suse_version} >= 1220
-# %files monocle-mu
-# %defattr(-,root,root)
-# %{_libdir}/%{name}/plugins/lib%{name}_monocle_mu.so
-# %endif
+# %%if 0%%{suse_version} > 1230
+%if 0%{suse_version} >= 1220
+%files monocle-mu
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_monocle_mu.so
+%endif
 
 %if 0%{suse_version} >= 1220
 %files monocle-pdf
