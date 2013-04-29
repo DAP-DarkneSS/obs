@@ -15,8 +15,6 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
-%define python3_sitelib %(python3 -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())')
-
 Name:           python3-nbxmpp
 Version:        0.1
 Release:        1
@@ -29,8 +27,8 @@ Source0:        nbxmpp-%{version}.tar.gz
 BuildRequires:  fdupes
 BuildRequires:  python3
 BuildRequires:  python3-devel
-BuildArch:      noarch
 Requires:       python3
+BuildArch:      noarch
 
 %description
 Python-nbxmpp is a Python library that provides a way for Python

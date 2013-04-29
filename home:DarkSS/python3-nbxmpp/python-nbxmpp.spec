@@ -15,7 +15,10 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
-%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
+# To buid at SLE <= 11 SP2.
+%if 0%{?suse_version} < 1140
+%{!?python_sitelib: %global python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
+%endif
 
 Name:           python-nbxmpp
 Version:        0.1
@@ -27,9 +30,13 @@ Group:          Development/Libraries/Python
 Source0:        nbxmpp-%{version}.tar.gz
 
 BuildRequires:  fdupes
-BuildRequires:  python
 BuildRequires:  python-devel
+
+# To buid at SLE <= 11 SP2.
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+%if 0%{?suse_version} >= 1140
 BuildArch:      noarch
+%endif
 
 %description
 Python-nbxmpp is a Python library that provides a way for Python
@@ -39,6 +46,9 @@ library is initialy a fork of xmpppy one, but using non-blocking sockets.
 %package doc
 Summary:        Nbxmpp Documentation
 
+# To buid at SLE <= 11 SP2.
+Group:          Development/Libraries/Python
+
 %description doc
 This packages provides documentation of Nbxmpp API.
 
@@ -46,10 +56,10 @@ This packages provides documentation of Nbxmpp API.
 %setup -q -n nbxmpp-%{version}
 
 %build
-%{__python} setup.py build
+python setup.py build
 
 %install
-%{__python} setup.py install -O1 --skip-build --root %{buildroot} --prefix=/usr
+python setup.py install -O1 --skip-build --root %{buildroot} --prefix=%{_prefix}
 %fdupes %{buildroot}%{python_sitelib}
 
 mkdir -p %{buildroot}%{_docdir}/%{name}-doc
