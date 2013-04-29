@@ -1,3 +1,52 @@
+-------------------------------------------------------------------
+Sun Apr 28 13:24:59 UTC 2013 - dap.darkness@gmail.com
+
+- 0.5.95 release:
+  * Aggregator module got a major speedup;
+  * Azoth IM client became more keyboard-friendly;
+  * Blogique, the blog client, now supports
+    - autosaving,
+    - tab unclosing,
+    - session management with the TabSessManager plugin,
+    - showing recent comments and inbox messages;
+  * Choroid plugin requires Qt >= 4.8;
+  * GActs now bundles a patched Qxt with it. It adds support for assigning
+    media keys to global shortcuts, a thing that upstream Qxt misses (and
+    seems to not accept the proposed patch for several years already);
+  * GMail Notifier module now supports showing a quark at SB2.
+  * Sidebar plugin became deprecated;
+  * Launchy module now supports favorites category;
+  * LHTR visual editor plugin now supports tables;
+  * License was switched from GPL-3.0+ to BSL-1.0;
+  * LMP audio-player got a proper album art manager;
+  * Monocle document reader now supports
+    - page thumbnails,
+    - bookmarks (with visually highlighting the currently displaying area),
+    - forms for PDF files,
+    - text searching;
+  * Multiple windows support;
+  * Poshuku history widget got support of
+    - filtering by URL,
+    - eliminating duplicates in the same section;
+  * SB2 now supports placing the panel in any window side;
+  * Vrooby now supports UDisks2 and building with several backends.
+- New plugins were enabled:
+  * azoth-velvetbird — LibPurple wrapper for IM;
+  * blogique-hestia — local blogging;
+  * hotsensors — temperature sensors for sidebar;
+  * lmp-graffiti — audio tags editor for player;
+  * monocle-doc — monocle plugin documentation;
+  * poshuku-autosearch — autosearch for browser.
+- See more at http://leechcraft.org/moving-to-bsl
+  and http://leechcraft.org/leechcraft-0.5.95-is-released
+- Added leechcraft-acetamide-qt47.patch to revert some 0.5.95 changes
+  to provide azoth-acetamide plugin at openSUSE 12.1.
+- Added leechcraft-doc-doxygen-rpmlint-w.patch to prevent rpmlint
+  "W: file-contains-date-and-time" for doxygen made html-files.
+- Removed boost.patch merged by upstream.
+
+-------------------------------------------------------------------
+
 Fri Feb  1 16:52:35 UTC 2013 - dap.darkness@gmail.com
 
 - A bug with not loading torrent plugin was fixed via boost.patch.

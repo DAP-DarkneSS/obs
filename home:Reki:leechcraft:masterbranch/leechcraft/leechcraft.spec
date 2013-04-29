@@ -125,13 +125,13 @@ Obsoletes:      %{name}-tabpp
 %if 0%{suse_version} < 1220
 # Obsoletes:      %%{name}-azoth-acetamide
 Obsoletes:      %{name}-bittorrent
+Obsoletes:      %{name}-choroid
 Obsoletes:      %{name}-gmailnotifier
 Obsoletes:      %{name}-lhtr
 Obsoletes:      %{name}-lmp
 Obsoletes:      %{name}-netstoremanager
 Obsoletes:      %{name}-poshuku-pogooglue
 Obsoletes:      %{name}-tabsessionmanager
-Obsoletes:      %{name}-choroid
 %endif
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -1642,6 +1642,15 @@ Currently it features:
  * support for SQLite or PostgreSQL storage.
 
 
+%package poshuku-autosearch
+Summary:        LeechCraft Poshuku - Autosearch Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-poshuku
+
+%description poshuku-autosearch
+This package provides an autosearch plugin for LeechCraft Poshuku.
+
+
 %package poshuku-cleanweb
 Summary:        LeechCraft Poshuku - Ad Filter Module
 Group:          Productivity/Networking/Other
@@ -1838,6 +1847,7 @@ This package provides an opening files with external apps for LeechCraft.
 
 It allows to open files and handle entities with external applications.
 For example, you may choose to open a video file with your favorite media
+player instead of LC's one.
 
 
 #%%package snails
@@ -2035,7 +2045,7 @@ cmake ../src \
         -DENABLE_NEWLIFE=True \
         -DENABLE_PINTAB=True \
         -DENABLE_POPISHU=True \
-        -DENABLE_POSHUKU_AUTOSEARCH=False \
+        -DENABLE_POSHUKU_AUTOSEARCH=True \
         -DENABLE_QROSP=False \
         -DENABLE_SECMAN=True \
         -DENABLE_SHELLOPEN=True \
@@ -2817,6 +2827,10 @@ EOF
 %{translations_dir}/%{name}_poshuku_??.qm
 %{translations_dir}/%{name}_poshuku_??_??.qm
 %{plugin_dir}/*%{name}_poshuku.so
+
+%files poshuku-autosearch
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_poshuku_autosearch.so
 
 %files poshuku-cleanweb
 %defattr(-,root,root)
