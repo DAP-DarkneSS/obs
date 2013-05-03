@@ -28,9 +28,9 @@ diff -rupN src/plugins/azoth/plugins/acetamide/CMakeLists.txt src/plugins/azoth/
  	ircaccountconfigurationwidget.ui
  	ircjoingroupchat.ui
 diff -rupN src/plugins/azoth/plugins/acetamide/ircparser.cpp src/plugins/azoth/plugins/acetamide/ircparser.cpp
---- src/plugins/azoth/plugins/acetamide/ircparser.cpp	2013-04-06 10:08:57.761772435 +0300
+--- src/plugins/azoth/plugins/acetamide/ircparser.cpp	2013-04-16 20:49:15.213000075 +0300
 +++ src/plugins/azoth/plugins/acetamide/ircparser.cpp	2013-04-06 10:08:06.000000000 +0300
-@@ -395,12 +395,6 @@ namespace Acetamide
+@@ -406,12 +395,6 @@ namespace Acetamide
  		ISH_->SendCommand (modeCmd);
  	}
  
@@ -44,9 +44,9 @@ diff -rupN src/plugins/azoth/plugins/acetamide/ircparser.cpp src/plugins/azoth/p
  	{
  		QString msg;
 diff -rupN src/plugins/azoth/plugins/acetamide/ircparser.h src/plugins/azoth/plugins/acetamide/ircparser.h
---- src/plugins/azoth/plugins/acetamide/ircparser.h	2013-04-06 10:08:57.762772435 +0300
+--- src/plugins/azoth/plugins/acetamide/ircparser.h	2013-04-16 20:49:15.219000076 +0300
 +++ src/plugins/azoth/plugins/acetamide/ircparser.h	2013-04-06 10:08:06.000000000 +0300
-@@ -88,7 +88,6 @@ namespace Acetamide
+@@ -99,7 +88,6 @@ namespace Acetamide
  		void IsonCommand (const QStringList&);
  		void QuitCommand (const QStringList&);
  		void ChanModeCommand (const QStringList&);
@@ -55,9 +55,9 @@ diff -rupN src/plugins/azoth/plugins/acetamide/ircparser.h src/plugins/azoth/plu
  		bool ParseMessage (const QByteArray&);
  		IrcMessageOptions GetIrcMessageOptions () const;
 diff -rupN src/plugins/azoth/plugins/acetamide/ircserverclentry.cpp src/plugins/azoth/plugins/acetamide/ircserverclentry.cpp
---- src/plugins/azoth/plugins/acetamide/ircserverclentry.cpp	2013-04-06 10:08:57.762772435 +0300
+--- src/plugins/azoth/plugins/acetamide/ircserverclentry.cpp	2013-04-16 20:49:15.223000077 +0300
 +++ src/plugins/azoth/plugins/acetamide/ircserverclentry.cpp	2013-04-06 10:08:06.000000000 +0300
-@@ -37,12 +37,6 @@ namespace Acetamide
+@@ -48,12 +37,6 @@ namespace Acetamide
  	, ISH_ (handler)
  	, Account_ (account)
  	{
@@ -71,9 +71,9 @@ diff -rupN src/plugins/azoth/plugins/acetamide/ircserverclentry.cpp src/plugins/
  
  	IrcServerHandler* IrcServerCLEntry::GetIrcServerHandler () const
 diff -rupN src/plugins/azoth/plugins/acetamide/ircserverhandler.cpp src/plugins/azoth/plugins/acetamide/ircserverhandler.cpp
---- src/plugins/azoth/plugins/acetamide/ircserverhandler.cpp	2013-04-06 10:08:57.762772435 +0300
+--- src/plugins/azoth/plugins/acetamide/ircserverhandler.cpp	2013-04-29 19:39:42.729000016 +0300
 +++ src/plugins/azoth/plugins/acetamide/ircserverhandler.cpp	2013-04-06 10:08:06.000000000 +0300
-@@ -40,7 +40,6 @@
+@@ -51,7 +40,6 @@
  #include "serverresponsemanager.h"
  #include "rplisupportparser.h"
  #include "channelsmanager.h"
@@ -81,7 +81,7 @@ diff -rupN src/plugins/azoth/plugins/acetamide/ircserverhandler.cpp src/plugins/
  
  namespace LeechCraft
  {
-@@ -1170,25 +1169,6 @@ namespace Acetamide
+@@ -1181,25 +1169,6 @@ namespace Acetamide
  		ServerOptions_.IrcServerVersion_ = version;
  	}
  
@@ -107,7 +107,7 @@ diff -rupN src/plugins/azoth/plugins/acetamide/ircserverhandler.cpp src/plugins/
  	void IrcServerHandler::connectionEstablished ()
  	{
  		ServerConnectionState_ = Connected;
-@@ -1249,29 +1229,6 @@ namespace Acetamide
+@@ -1260,30 +1229,6 @@ namespace Acetamide
  		emit gotSocketError (error, socket->errorString ());
  	}
  
@@ -115,40 +115,33 @@ diff -rupN src/plugins/azoth/plugins/acetamide/ircserverhandler.cpp src/plugins/
 -	{
 -		IrcParser_->ChannelsListCommand (QStringList ());
 -
--		ChannelsListDialog dlg (this);
+-		ChannelsListDialog *dlg = new ChannelsListDialog (this);
+-		dlg->setAttribute (Qt::WA_DeleteOnClose);
 -		connect (this,
 -				SIGNAL (gotChannelsBegin ()),
--				&dlg,
+-				dlg,
 -				SLOT (handleGotChannelsBegin ()),
 -				Qt::UniqueConnection);
 -		connect (this,
 -				SIGNAL (gotChannels (ChannelsDiscoverInfo)),
--				&dlg,
+-				dlg,
 -				SLOT (handleGotChannels (ChannelsDiscoverInfo)),
 -				Qt::UniqueConnection);
 -		connect (this,
 -				SIGNAL (gotChannelsEnd ()),
--				&dlg,
+-				dlg,
 -				SLOT (handleGotChannelsEnd ()),
 -				Qt::UniqueConnection);
--		dlg.exec ();
+-		dlg->show ();
 -	}
 -
  	void IrcServerHandler::handleSetAutoWho ()
  	{
  		if (!XmlSettingsManager::Instance ().property ("AutoWhoRequest").toBool () &&
 diff -rupN src/plugins/azoth/plugins/acetamide/ircserverhandler.h src/plugins/azoth/plugins/acetamide/ircserverhandler.h
---- src/plugins/azoth/plugins/acetamide/ircserverhandler.h	2013-04-06 10:08:57.762772435 +0300
+--- src/plugins/azoth/plugins/acetamide/ircserverhandler.h	2013-04-16 20:49:15.227000075 +0300
 +++ src/plugins/azoth/plugins/acetamide/ircserverhandler.h	2013-04-06 10:08:06.000000000 +0300
-@@ -19,6 +19,7 @@
- #ifndef PLUGINS_AZOTH_PLUGINS_ACETAMIDE_IRCSERVERHANDLER_H
- #define PLUGINS_AZOTH_PLUGINS_ACETAMIDE_IRCSERVERHANDLER_H
- 
-+#include <boost/function.hpp>
- #include <QObject>
- #include <QTcpSocket>
- #include <interfaces/azoth/imessage.h>
-@@ -222,11 +223,6 @@ namespace Acetamide
+@@ -233,11 +223,6 @@ namespace Acetamide
  				const QString& who, quint64 time);
  
  		void SetIrcServerInfo (IrcServer server, const QString& version);
@@ -160,7 +153,7 @@ diff -rupN src/plugins/azoth/plugins/acetamide/ircserverhandler.h src/plugins/az
  	private:
  		void SendToConsole (IMessage::Direction, const QString&);
  		void NickCmdError ();
-@@ -234,7 +230,6 @@ namespace Acetamide
+@@ -245,7 +230,6 @@ namespace Acetamide
  	public slots:
  		void autoWhoRequest ();
  		void handleSocketError (QAbstractSocket::SocketError error);
@@ -168,7 +161,7 @@ diff -rupN src/plugins/azoth/plugins/acetamide/ircserverhandler.h src/plugins/az
  	private slots:
  		void connectionEstablished ();
  		void connectionClosed ();
-@@ -248,10 +243,6 @@ namespace Acetamide
+@@ -259,10 +243,6 @@ namespace Acetamide
  		void nicknameConflict (const QString&);
  		void gotSocketError (QAbstractSocket::SocketError error,
  				const QString& erorString);
@@ -180,9 +173,9 @@ diff -rupN src/plugins/azoth/plugins/acetamide/ircserverhandler.h src/plugins/az
  };
  };
 diff -rupN src/plugins/azoth/plugins/acetamide/localtypes.h src/plugins/azoth/plugins/acetamide/localtypes.h
---- src/plugins/azoth/plugins/acetamide/localtypes.h	2013-04-06 10:08:57.763772435 +0300
+--- src/plugins/azoth/plugins/acetamide/localtypes.h	2013-04-16 20:49:15.232000077 +0300
 +++ src/plugins/azoth/plugins/acetamide/localtypes.h	2013-04-06 10:08:06.000000000 +0300
-@@ -56,13 +56,6 @@ namespace Acetamide
+@@ -67,13 +56,6 @@ namespace Acetamide
  		QString ChannelPassword_;
  	};
  
@@ -197,9 +190,9 @@ diff -rupN src/plugins/azoth/plugins/acetamide/localtypes.h src/plugins/azoth/pl
  	{
  		Connected,
 diff -rupN src/plugins/azoth/plugins/acetamide/serverresponsemanager.cpp src/plugins/azoth/plugins/acetamide/serverresponsemanager.cpp
---- src/plugins/azoth/plugins/acetamide/serverresponsemanager.cpp	2013-04-06 10:08:57.763772435 +0300
+--- src/plugins/azoth/plugins/acetamide/serverresponsemanager.cpp	2013-04-16 20:49:15.246000077 +0300
 +++ src/plugins/azoth/plugins/acetamide/serverresponsemanager.cpp	2013-04-06 10:08:06.000000000 +0300
-@@ -223,12 +223,6 @@ namespace Acetamide
+@@ -234,12 +223,6 @@ namespace Acetamide
  				 this, _1);
  		Command2Action_ ["324"] = boost::bind (&ServerResponseManager::GotChannelModes,
  				 this, _1);
@@ -212,7 +205,7 @@ diff -rupN src/plugins/azoth/plugins/acetamide/serverresponsemanager.cpp src/plu
  
  		//not from rfc
  		Command2Action_ ["330"] = boost::bind (&ServerResponseManager::GotWhoIsAccount,
-@@ -250,7 +244,6 @@ namespace Acetamide
+@@ -261,7 +244,6 @@ namespace Acetamide
  		Command2Action_ ["378"] = [this] (const IrcMessageOptions& opts)
  			{ ISH_->ShowAnswer ("278", opts.Message_); };
  
@@ -221,9 +214,9 @@ diff -rupN src/plugins/azoth/plugins/acetamide/serverresponsemanager.cpp src/plu
  	}
  
 diff -rupN src/plugins/azoth/plugins/acetamide/usercommandmanager.cpp src/plugins/azoth/plugins/acetamide/usercommandmanager.cpp
---- src/plugins/azoth/plugins/acetamide/usercommandmanager.cpp	2013-04-06 10:08:57.764772435 +0300
+--- src/plugins/azoth/plugins/acetamide/usercommandmanager.cpp	2013-04-16 20:49:15.250000077 +0300
 +++ src/plugins/azoth/plugins/acetamide/usercommandmanager.cpp	2013-04-06 10:08:06.000000000 +0300
-@@ -188,8 +188,6 @@ namespace Acetamide
+@@ -199,8 +188,6 @@ namespace Acetamide
  				Parser_, _1);
  		Command2Action_ ["say"] = boost::bind (&IrcServerHandler::SayCommand,
  				ISH_, _1);

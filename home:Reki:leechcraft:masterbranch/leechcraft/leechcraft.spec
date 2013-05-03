@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.90-1402-gd869399
+%define LEECHCRAFT_VERSION 0.5.95-71-g2e2aa6d
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
@@ -41,7 +41,7 @@ Patch2:         leechcraft-doc-doxygen-rpmlint-w.patch
 %endif
 # PATCH-FIX-OPENSUSE to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
 # %%if 0%%{suse_version} > 1230
-Patch3:         leechcraft-qt-moc-boost.patch
+# Patch3:         leechcraft-qt-moc-boost.patch
 # %%endif
 
 %if 0%{suse_version} > 1230
@@ -53,6 +53,7 @@ BuildRequires:  cmake > 2.8
 %if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
 BuildRequires:  doxygen
 %endif
+BuildRequires:  file-devel
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 BuildRequires:  gcc-c++ >= 4.6
@@ -809,6 +810,7 @@ Feature highlights:
 Summary:        LeechCraft Azoth - Publishing current user tune Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
+Requires:       %{name}-xtazy = %{version}
 
 %description azoth-xtazy
 This package provides a tune publishing plugin for LeechCraft Azoth.
@@ -909,6 +911,7 @@ This package provides a local blogging subplugin for LeechCraft Blogique.
 %package blogique-metida
 Summary:        LeechCraft Blogique - LiveJournal Module
 Group:          Productivity/Networking/Other
+Recommends:     %{name}-xtazy = %{version}
 Requires:       %{name} = %{version}
 Requires:       %{name}-blogique = %{version}
 Provides:       %{name}-blogique-subplugin = %{version}
@@ -1601,6 +1604,17 @@ It allows to search instantly selected text in Google.
 %endif
 
 
+%if 0%{suse_version} >= 1220
+%package poleemery
+Summary:        LeechCraft Poleemery - Finances manager Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description poleemery
+This package provides a personal finances manager plugin for LeechCraft.
+%endif
+
+
 %package popishu
 Summary:        LeechCraft Text editor Module
 Group:          Productivity/Networking/Other
@@ -1642,6 +1656,7 @@ Currently it features:
  * support for SQLite or PostgreSQL storage.
 
 
+%if 0%{suse_version} >= 1220
 %package poshuku-autosearch
 Summary:        LeechCraft Poshuku - Autosearch Module
 Group:          Productivity/Networking/Other
@@ -1649,6 +1664,7 @@ Requires:       %{name}-poshuku
 
 %description poshuku-autosearch
 This package provides an autosearch plugin for LeechCraft Poshuku.
+%endif
 
 
 %package poshuku-cleanweb
@@ -1996,6 +2012,18 @@ This package provides an advanced proxy manager for LeechCraft.
 It allows to configure and use proxy servers.
 
 
+%package xtazy
+Summary:        LeechCraft - Current user tune Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+
+%description xtazy
+This package provides a tune wrapper plugin for LeechCraft.
+
+It allows to get current user tune via mpris protocol.
+
+
 %prep
 %setup -q -n %{name}-%{version}
 %if 0%{suse_version} <= 1210
@@ -2005,7 +2033,7 @@ It allows to configure and use proxy servers.
 %patch2
 %endif
 # %%if 0%%{suse_version} > 1230
-%patch3
+# %%patch3
 # %%endif
 
 #removing non-free icons
@@ -2045,7 +2073,6 @@ cmake ../src \
         -DENABLE_NEWLIFE=True \
         -DENABLE_PINTAB=True \
         -DENABLE_POPISHU=True \
-        -DENABLE_POSHUKU_AUTOSEARCH=True \
         -DENABLE_QROSP=False \
         -DENABLE_SECMAN=True \
         -DENABLE_SHELLOPEN=True \
@@ -2078,7 +2105,9 @@ cmake ../src \
         -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_OTLOZHU=True \
+        -DENABLE_POLEEMERY=True \
         -DENABLE_POGOOGLUE=True \
+        -DENABLE_POSHUKU_AUTOSEARCH=True \
         -DENABLE_SB2=True \
         -DENABLE_SHAITAN=True \
         -DENABLE_TABSESSMANAGER=True \
@@ -2107,7 +2136,9 @@ cmake ../src \
         -DENABLE_MUSICZOMBIE=False \
         -DENABLE_NETSTOREMANAGER=False \
         -DENABLE_OTLOZHU=False \
+        -DENABLE_POLEEMERY=False \
         -DENABLE_POGOOGLUE=False \
+        -DENABLE_POSHUKU_AUTOSEARCH=False \
         -DENABLE_SB2=False \
         -DENABLE_SHAITAN=False \
         -DENABLE_TABSESSMANAGER=False \
@@ -2814,6 +2845,12 @@ EOF
 %{translations_dir}/leechcraft_pogooglue*
 %endif
 
+%if 0%{suse_version} >= 1220
+%files poleemery
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_poleemery*
+%endif
+
 %files popishu
 %defattr(-,root,root)
 %{settings_dir}/popishusettings.xml
@@ -2828,9 +2865,11 @@ EOF
 %{translations_dir}/%{name}_poshuku_??_??.qm
 %{plugin_dir}/*%{name}_poshuku.so
 
+%if 0%{suse_version} >= 1220
 %files poshuku-autosearch
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_poshuku_autosearch.so
+%endif
 
 %files poshuku-cleanweb
 %defattr(-,root,root)
@@ -2964,6 +3003,12 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_xproxy.so
 %{_datadir}/%{name}/settings/xproxysettings.xml
 %{_datadir}/%{name}/translations/%{name}_xproxy_*.qm
+
+%files xtazy
+%defattr(-,root,root)
+%{_datadir}/%{name}/settings/xtazysettings.xml
+%{_libdir}/%{name}/plugins/*%{name}_xtazy.so
+%{_datadir}/%{name}/translations/%{name}_xtazy*
 
 #-------------------------patterns----------------------------#
 %files meta_browser
