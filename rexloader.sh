@@ -8,7 +8,6 @@ DPRJ=$OPRJ':deb'
 DPR2=$OPRJ':deb:old'
 DSVN=~/Documents/obs/trash/$NOBS
 DOBS=~/Documents/obs/home:DarkSS/$NOBS
-DMBS=~/Documents/obs/home:DarkSS:mandriva/$NOBS
 DFBS=~/Documents/obs/home:DarkSS:fedora/$NOBS
 
 echo -e '\e[0;4mChecking of google code version:\e[0m'
@@ -34,12 +33,11 @@ else
   echo -e '\e[0;4m\nShould services be run?\e[0m'
   read
 
-  for NPRJ in $OPRJ $FPRJ $MPRJ $DPRJ $DPR2
+  for NPRJ in $OPRJ $FPRJ $DPRJ $DPR2
 
   do
     cd ~/Documents/obs/$NPRJ/$NOBS
-    osc service rr
-    osc up
+    osc service rr & osc up
   done
 
 fi
