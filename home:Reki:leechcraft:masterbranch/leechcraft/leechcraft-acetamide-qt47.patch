@@ -140,8 +140,16 @@ diff -rupN src/plugins/azoth/plugins/acetamide/ircserverhandler.cpp src/plugins/
  		if (!XmlSettingsManager::Instance ().property ("AutoWhoRequest").toBool () &&
 diff -rupN src/plugins/azoth/plugins/acetamide/ircserverhandler.h src/plugins/azoth/plugins/acetamide/ircserverhandler.h
 --- src/plugins/azoth/plugins/acetamide/ircserverhandler.h	2013-04-16 20:49:15.227000075 +0300
-+++ src/plugins/azoth/plugins/acetamide/ircserverhandler.h	2013-04-06 10:08:06.000000000 +0300
-@@ -233,11 +223,6 @@ namespace Acetamide
++++ src/plugins/azoth/plugins/acetamide/ircserverhandler.h	2013-05-08 22:47:40.328000069 +0300
+@@ -30,6 +30,7 @@
+ #ifndef PLUGINS_AZOTH_PLUGINS_ACETAMIDE_IRCSERVERHANDLER_H
+ #define PLUGINS_AZOTH_PLUGINS_ACETAMIDE_IRCSERVERHANDLER_H
+ 
++#include <boost/function.hpp>
+ #include <QObject>
+ #include <QTcpSocket>
+ #include <interfaces/azoth/imessage.h>
+@@ -233,11 +234,6 @@ namespace Acetamide
  				const QString& who, quint64 time);
  
  		void SetIrcServerInfo (IrcServer server, const QString& version);
@@ -153,7 +161,7 @@ diff -rupN src/plugins/azoth/plugins/acetamide/ircserverhandler.h src/plugins/az
  	private:
  		void SendToConsole (IMessage::Direction, const QString&);
  		void NickCmdError ();
-@@ -245,7 +230,6 @@ namespace Acetamide
+@@ -245,7 +241,6 @@ namespace Acetamide
  	public slots:
  		void autoWhoRequest ();
  		void handleSocketError (QAbstractSocket::SocketError error);
@@ -161,7 +169,7 @@ diff -rupN src/plugins/azoth/plugins/acetamide/ircserverhandler.h src/plugins/az
  	private slots:
  		void connectionEstablished ();
  		void connectionClosed ();
-@@ -259,10 +243,6 @@ namespace Acetamide
+@@ -259,10 +254,6 @@ namespace Acetamide
  		void nicknameConflict (const QString&);
  		void gotSocketError (QAbstractSocket::SocketError error,
  				const QString& erorString);

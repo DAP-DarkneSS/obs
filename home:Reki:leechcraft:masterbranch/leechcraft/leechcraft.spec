@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-71-g2e2aa6d
+%define LEECHCRAFT_VERSION 0.5.95-159-g8e886d5
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
@@ -1604,15 +1604,15 @@ It allows to search instantly selected text in Google.
 %endif
 
 
-%if 0%{suse_version} >= 1220
-%package poleemery
-Summary:        LeechCraft Poleemery - Finances manager Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description poleemery
-This package provides a personal finances manager plugin for LeechCraft.
-%endif
+# %if 0%{suse_version} >= 1220
+# %package poleemery
+# Summary:        LeechCraft Poleemery - Finances manager Module
+# Group:          Productivity/Networking/Other
+# Requires:       %{name} = %{version}
+# 
+# %description poleemery
+# This package provides a personal finances manager plugin for LeechCraft.
+# %endif
 
 
 %package popishu
@@ -2105,7 +2105,7 @@ cmake ../src \
         -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_OTLOZHU=True \
-        -DENABLE_POLEEMERY=True \
+        -DENABLE_POLEEMERY=False \
         -DENABLE_POGOOGLUE=True \
         -DENABLE_POSHUKU_AUTOSEARCH=True \
         -DENABLE_SB2=True \
@@ -2845,11 +2845,11 @@ EOF
 %{translations_dir}/leechcraft_pogooglue*
 %endif
 
-%if 0%{suse_version} >= 1220
-%files poleemery
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_poleemery*
-%endif
+# %if 0%{suse_version} >= 1220
+# %files poleemery
+# %defattr(-,root,root)
+# %{_libdir}/%{name}/plugins/*%{name}_poleemery*
+# %endif
 
 %files popishu
 %defattr(-,root,root)
