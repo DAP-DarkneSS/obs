@@ -18,10 +18,10 @@
 Name:           lxpanelx
 Version:        0.5+r672
 Release:        0
-Summary:        Lightweight X11 desktop panel, based on lxpanel
 License:        GPL-2.0
-Group:          System/GUI/LXDE
+Summary:        Lightweight X11 desktop panel, based on lxpanel
 Url:            http://code.google.com/p/lxpanelx
+Group:          System/GUI/LXDE
 
 # svn co http://lxpanelx.googlecode.com/svn/trunk/ lxpanelx-%%{version}
 Source0:        lxpanelx-%{version}.tar.bz2
@@ -37,9 +37,9 @@ BuildRequires:  pkgconfig(gtk+-2.0)
 BuildRequires:  pkgconfig(libfm)
 BuildRequires:  pkgconfig(libmenu-cache)
 BuildRequires:  pkgconfig(xcomposite)
-Recommends:     %name-lang
 Requires:       lxmenu-data
 Requires:       menu-cache
+Recommends:     %{name}-lang
 
 %description
 LXPanelx is a fork lightweight X11 desktop panel. It's consist more
@@ -47,12 +47,12 @@ flexible taskbar plugin configurations and other  many improvements,
 not in original lxpanel.
 
 %package devel
-Summary:        Devel files for %name
+Summary:        Devel files for %{name}
 Group:          Development/Libraries/C and C++
-Requires:       %name
+Requires:       %{name}
 
 %description devel
-Headers and development %name files.
+Headers and development %{name} files.
 
 %lang_package
 
@@ -70,7 +70,7 @@ make %{?_smp_mflags}
 %install
 %makeinstall
 %find_lang %{name}
-%fdupes -s %buildroot
+%fdupes -s %{buildroot}
 
 %files
 %defattr(-,root,root)
@@ -80,14 +80,14 @@ make %{?_smp_mflags}
 %{_mandir}/man1/%{name}*.1.gz
 %{_libdir}/%{name}
 %if "%{_lib}" == "lib64"
-/usr/lib/%{name}
+%{_prefix}/lib/%{name}
 %endif
 
 %files devel
 %defattr(-,root,root)
-%_includedir/%{name}
-%_libdir/pkgconfig/%{name}.pc
+%{_includedir}/%{name}
+%{_libdir}/pkgconfig/%{name}.pc
 
-%files lang -f %name.lang
+%files lang -f %{name}.lang
 
 %changelog
