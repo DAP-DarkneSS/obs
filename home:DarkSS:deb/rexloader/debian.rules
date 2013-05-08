@@ -27,7 +27,7 @@ build-stamp:
 	if cd build_dir ; then echo "Changed"; else echo "Some Errors"; fi
 	pwd
 	mkdir builddir
-	cd builddir && qmake PREFIX=/usr ../REXLoader.pro && make -j4
+	cd builddir && qmake PREFIX=/usr ../REXLoader.pro && make -j2
 
 	touch build-stamp
 

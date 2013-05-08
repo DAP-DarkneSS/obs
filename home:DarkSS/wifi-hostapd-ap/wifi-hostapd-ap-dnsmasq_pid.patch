@@ -1,0 +1,11 @@
+--- src/CheckProcess.cpp.orig	2013-03-30 17:21:15.000000000 +0300
++++ src/CheckProcess.cpp	2013-04-29 19:32:49.689000017 +0300
+@@ -68,7 +68,7 @@
+             if(debugThisClass) qDebug() << "Проверяем Hostapd";
+         }
+         else  {
+-            path = "/var/run/dnsmasq/dnsmasq.pid";
++            path = "/run/dnsmasq.pid";
+             if(debugThisClass) qDebug() << "Проверяем DNSMAQ";
+         }
+     ///////////////////////////////////////////////////

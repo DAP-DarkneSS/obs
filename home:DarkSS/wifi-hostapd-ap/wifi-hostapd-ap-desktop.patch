@@ -1,0 +1,32 @@
+--- wifi-hostapd-ap.desktop.orig	2013-03-30 17:21:15.000000000 +0300
++++ wifi-hostapd-ap.desktop	2013-04-28 15:33:15.186415028 +0300
+@@ -1,10 +1,10 @@
+ [Desktop Entry]
+ Type=Application
+ Icon=WiFi_logo_litle
+-Exec=gksudo 'wifi-hostapd-ap'
++Exec=gksu wifi-hostapd-ap
+ Comment=WiFi Hostapd AP - creat WiFi Acess Point
+ Comment[ru]=WiFi Hostapd AP - программа для создания и администратирования точки доступа WiFi
+ Name=WiFi Hostapd AP
+ Categories=Network
+ Name[ru]=WiFi Hostapd AP
+-NotShowIn=KDE
+\ В конце файла нет новой строки
++NotShowIn=KDE;
+--- wifi-hostapd-ap-KDE.desktop.orig	2013-03-30 17:21:15.000000000 +0300
++++ wifi-hostapd-ap-KDE.desktop	2013-04-28 15:33:16.373415029 +0300
+@@ -1,10 +1,10 @@
+ [Desktop Entry]
+ Type=Application
+ Icon=WiFi_logo_litle
+-Exec=kdesudo 'wifi-hostapd-ap'
++Exec=kdesu wifi-hostapd-ap
+ Comment=WiFi Hostapd AP - creat WiFi Acess Point
+ Comment[ru]=WiFi Hostapd AP - программа для создания и администратирования точки доступа WiFi
+ Name=WiFi Hostapd AP
+ Categories=Network
+ Name[ru]=WiFi Hostapd AP
+-OnlyShowIn=KDE
+\ В конце файла нет новой строки
++OnlyShowIn=KDE;

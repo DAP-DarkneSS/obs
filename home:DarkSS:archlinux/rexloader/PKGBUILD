@@ -9,23 +9,23 @@
 #
 
 pkgname=rexloader
-pkgver=0.1a.svn.309
+pkgver=0.1a.svn.310
 pkgrel=1
 pkgdesc="An advanced Qt download manager over http."
 arch=('i686' 'x86_64')
 url="http://code.google.com/p/rexloader/"
 license=('GPL')
-depends=('qt' 'qtwebkit')
-makedepends=('bzip2' 'make')
+depends=('qt4' 'qtwebkit')
+makedepends=('bzip2' 'make' 'mesa-libgl')
 provides=('rexloader')
 source=("rexloader-${pkgver}.tar.bz2")
-md5sums=('b5e334dde76c06eb7fb018f8d9001b2b')
+md5sums=('763bf69cb489893b613083f431b60022')
 
 build() {
   cd ${srcdir}/${pkgname}-${pkgver}
   mkdir build
   cd build
-  qmake ../REXLoader.pro
+  qmake-qt4 ../REXLoader.pro
   make -j2
 }
 
