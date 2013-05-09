@@ -1,0 +1,7 @@
+--- smplayer.desktop.orig	2012-10-20 13:37:56.632054279 +0200
++++ smplayer.desktop	2012-10-20 13:38:08.412085132 +0200
+@@ -29,3 +29,4 @@
+ Name=SMPlayer
+ Type=Application
+ X-KDE-StartupNotify=false
++X-KDE-Protocols=http,ftp,smb
