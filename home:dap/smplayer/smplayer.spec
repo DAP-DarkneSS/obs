@@ -11,28 +11,36 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.links2linux.org
 
 Name:           smplayer
-Version:        0.8.4
+Version:        0.8.5
 Release:        0
+License:        GPL-2.0+
 Summary:        Complete Frontend for MPlayer
+Url:            http://smplayer.sourceforge.net/
+Group:          Productivity/Multimedia/Video/Players
+
 Source:         http://prdownloads.sourceforge.net/smplayer/smplayer-%{version}.tar.bz2
 Patch1:         smplayer-makeflags.patch
 Patch2:         smplayer-disable-debug.patch
 Patch3:         smplayer-fix_logging_format.patch
 Patch4:         smplayer-default_ao.patch
 Patch8:         smplayer-simple-resize.patch
+# FIX-UPSTREAM to play network shared video correctly: #PM-48
 Patch9:         smplayer-add_kde_protocols_to_desktop_file.patch
-URL:            http://smplayer.sourceforge.net/
-Group:          Productivity/Multimedia/Video/Players
-License:        GPL-2.0+
-BuildRoot:      %{_tmppath}/build-%{name}-%{version}
-BuildRequires:  libqt4-devel >= 4.2.0 libkde4-devel
-BuildRequires:  gcc-c++ libstdc++-devel make update-desktop-files
+
+BuildRequires:  gcc-c++
 BuildRequires:  hicolor-icon-theme
+BuildRequires:  libkde4-devel
+BuildRequires:  libqt4-devel >= 4.2.0
+BuildRequires:  libstdc++-devel
+BuildRequires:  make
+BuildRequires:  update-desktop-files
+BuildRoot:      %{_tmppath}/build-%{name}-%{version}
 # requires at least this version for closed caption channel support:
 Requires:       MPlayer >= 1.0rc4_r32607
+Recommends:     smplayer-skins
 Suggests:       smplayer-themes
 
 %description
@@ -75,6 +83,7 @@ popd
 find . -type f -name '*.pro' | while read f; do
 cat <<EOF >>"$f"
 
+QMAKE_CFLAGS = %{optflags}
 QMAKE_CXXFLAGS = %{optflags}
 
 EOF
@@ -132,9 +141,6 @@ done
 popd #docs
 
 %__install -m0644 Changelog *.txt "%{buildroot}%{_docdir}/%{name}"/
-
-%clean
-%{?buildroot:%__rm -rf "%{buildroot}"}
 
 %files
 %defattr(-,root,root)

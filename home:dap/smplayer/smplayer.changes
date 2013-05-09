@@ -1,4 +1,24 @@
 -------------------------------------------------------------------
+Thu May  9 15:23:53 UTC 2013 - dap.darkness@gmail.com
+
+- Update to 0.8.5:
+  * Smplayer could find subtitles again.
+  * The interface with support for skins is now the default.
+  * An option to enter url(s) in the playlist has been added.
+  * The options to change the size of the main window work now 
+    even if the autoresize is set to never.
+  * Two new options for Audio -> Stereo mode: Mono and Reverse.
+  * The option "Move the window when the video area is dragged" is
+    now disabled by default because it has some issues.
+  * The problem with mplayer2 and the -fontconfig option has been 
+    fixed (sort of).
+  * New translation: Malay.
+  * Some configuration options are changed to new defaults after
+    installation to ease upgrade.
+- Clean-section was removed as unneeded.
+- QMAKE_CFLAGS = %{optflags} was added to prevent a warning.
+- Spec-header was fixed up.
+-------------------------------------------------------------------
 Sun Mar 24 09:41:15 UTC 2013 - dap.darkness@gmail.com
 
 - Update to 0.8.4:

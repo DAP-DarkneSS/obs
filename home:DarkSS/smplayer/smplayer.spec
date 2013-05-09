@@ -3,22 +3,27 @@
 #
 # Copyright (c) 2006-2012 Ricardo Villalba aka rvm (GPLv2)
 #
-# Please submit bugfixes or comments via http://sourceforge.net/tracker/?group_id=185512
-#
+# Please submit bugfixes or comments via
+# http://sourceforge.net/tracker/?group_id=185512
+# or http://bugs.opensuse.org/
 
 Name:           smplayer
-Version:        0.8.4
+Version:        0.8.5
 Release:        0
 License:        GPL-2.0+
 Summary:        Complete Frontend for MPlayer
 Url:            http://smplayer.sourceforge.net/
 Group:          Productivity/Multimedia/Video/Players
+
 Source:         http://downloads.sourceforge.net/project/smplayer/SMPlayer/%{version}/smplayer-%{version}.tar.bz2
 Patch1:         smplayer-makeflags.patch
 Patch2:         smplayer-disable-debug.patch
 Patch3:         smplayer-fix_logging_format.patch
 Patch4:         smplayer-default_ao.patch
 Patch8:         smplayer-simple-resize.patch
+# FIX-UPSTREAM to play network shared video correctly: #PM-48
+Patch9:         smplayer-add_kde_protocols_to_desktop_file.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libkde4-devel
@@ -27,10 +32,9 @@ BuildRequires:  libstdc++-devel
 BuildRequires:  make
 BuildRequires:  update-desktop-files
 # requires at least this version for closed caption channel support:
-Recommends:     smplayer-skins
 Requires:       MPlayer >= 1.0rc4_r32607
+Recommends:     smplayer-skins
 Suggests:       smplayer-themes
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 SMPlayer intends to be a complete front-end for MPlayer, from basic features
@@ -49,6 +53,7 @@ you left it, and with the same settings: audio track, subtitles, volume...
 %patch2
 %patch3
 %patch4
+%patch9
 %__perl -n -e 'print $1,"\n" if /^\+{3}\s+(.+?)\s+/' < "%{PATCH4}" | while read f; do
 %if 0%{?suse_version} >= 1210
     %__sed -i 's/@@DEFAULT@@/pulse/g' "$f"
