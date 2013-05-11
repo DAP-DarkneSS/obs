@@ -9,7 +9,7 @@
 #
 
 pkgname=rexloader
-pkgver=0.1a.svn.310
+pkgver=0.1a.svn.313
 pkgrel=1
 pkgdesc="An advanced Qt download manager over http."
 arch=('i686' 'x86_64')
@@ -19,7 +19,7 @@ depends=('qt4' 'qtwebkit')
 makedepends=('bzip2' 'make' 'mesa-libgl')
 provides=('rexloader')
 source=("rexloader-${pkgver}.tar.bz2")
-md5sums=('763bf69cb489893b613083f431b60022')
+md5sums=('28c3efb5634db0579c1910e5c497d4d4')
 
 build() {
   cd ${srcdir}/${pkgname}-${pkgver}

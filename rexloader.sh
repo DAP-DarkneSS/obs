@@ -37,7 +37,8 @@ else
 
   do
     cd ~/Documents/obs/$NPRJ/$NOBS
-    osc service rr & osc up
+    osc service rr
+    osc up
   done
 
 fi
