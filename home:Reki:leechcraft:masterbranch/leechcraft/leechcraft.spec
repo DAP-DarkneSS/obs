@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-159-g8e886d5
+%define LEECHCRAFT_VERSION 0.5.95-190-g4b9af20
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
@@ -180,11 +180,11 @@ Requires:       %{name}-pogooglue
 %endif
 Requires:       %{name}-poshuku
 Requires:       %{name}-poshuku-cleanweb
-Requires:       %{name}-poshuku-delicious
+Requires:       %{name}-poshuku-onlinebookmarks-delicious
 Requires:       %{name}-poshuku-fua
 Requires:       %{name}-poshuku-keywords
 Requires:       %{name}-poshuku-onlinebookmarks
-Requires:       %{name}-poshuku-readitlater
+Requires:       %{name}-poshuku-onlinebookmarks-readitlater
 Requires:       %{name}-secman
 Requires:       %{name}-secman-simplestorage
 Requires:       %{name}-seekthru
@@ -955,15 +955,10 @@ Features:
 %package dbusmanager
 Summary:        LeechCraft D-Bus Module
 Group:          Productivity/Networking/Other
-Provides:       %{name}-visualnotifications
 Requires:       %{name} = %{version}
 
 %description dbusmanager
 This package provides a D-Bus implementation plugin for LeechCraft.
-
-It allows to use D-Bus. Currently, this only means showing notifications
-via implementations supporting FreeDesktop's notifications standard,
-like KDE 4.4 (or higher), Gnome, XFCE and others.
 
 
 %package deadlyrics
@@ -1204,6 +1199,17 @@ Features:
  * Fetching recent releases of artists that are in the user's collection.
  * Fetching artists biography.
  * Configurable language of the fetched information.
+%endif
+
+
+%if 0%{suse_version} >= 1220
+%package laughty
+Summary:        LeechCraft Notifications Server Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description laughty
+This package provides a desktop notifications server plugin for Leechcraft.
 %endif
 
 
@@ -1604,15 +1610,15 @@ It allows to search instantly selected text in Google.
 %endif
 
 
-# %if 0%{suse_version} >= 1220
-# %package poleemery
-# Summary:        LeechCraft Poleemery - Finances manager Module
-# Group:          Productivity/Networking/Other
-# Requires:       %{name} = %{version}
-# 
-# %description poleemery
-# This package provides a personal finances manager plugin for LeechCraft.
-# %endif
+%if 0%{suse_version} >= 1220
+%package poleemery
+Summary:        LeechCraft Poleemery - Finances manager Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description poleemery
+This package provides a personal finances manager plugin for LeechCraft.
+%endif
 
 
 %package popishu
@@ -1686,17 +1692,6 @@ Features:
  * Whitelists for Flash blocker.
 
 
-%package poshuku-delicious
-Summary:        LeechCraft Poshuku - Onlinebookmarks Delicious Module
-Group:          Productivity/Networking/Other
-Requires:       %{name}-poshuku-onlinebookmarks = %{version}
-
-%description poshuku-delicious
-This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
-
-It provides support for the the Del.icio.us service.
-
-
 %package poshuku-fatape
 Summary:        LeechCraft Poshuku - Greasemonkey Module
 Group:          Productivity/Networking/Other
@@ -1768,12 +1763,27 @@ It allows to synchronize bookmarks with services like Read It Later
 or Del.icio.us.
 
 
-%package poshuku-readitlater
-Summary:        LeechCraft Poshuku - Onlinebookmarks ReadItLater Module
+%package poshuku-onlinebookmarks-delicious
+Summary:        LeechCraft Poshuku - Onlinebookmarks Delicious Module
 Group:          Productivity/Networking/Other
+Obsoletes:      %{name}-delicious < %{version}
+Provides:       %{name}-delicious = %{version}
 Requires:       %{name}-poshuku-onlinebookmarks = %{version}
 
-%description poshuku-readitlater
+%description poshuku-onlinebookmarks-delicious
+This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
+
+It provides support for the the Del.icio.us service.
+
+
+%package poshuku-onlinebookmarks-readitlater
+Summary:        LeechCraft Poshuku - Onlinebookmarks ReadItLater Module
+Group:          Productivity/Networking/Other
+Obsoletes:      %{name}-readitlater < %{version}
+Provides:       %{name}-readitlater = %{version}
+Requires:       %{name}-poshuku-onlinebookmarks = %{version}
+
+%description poshuku-onlinebookmarks-readitlater
 This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
 
 It provides support for the Read it Later service.
@@ -1912,6 +1922,19 @@ This package provides a synchronizing plugin for Leechcraft.
 
 It allows to synchronize data and settings between LeechCraft instances
 running on different machines.
+
+
+%package sysnotify
+Summary:        LeechCraft System notifications Module
+Group:          Productivity/Networking/Other
+Provides:       %{name}-visualnotifications
+Requires:       %{name} = %{version}
+
+%description sysnotify
+This package contains a system notifications plugin for LeechCraft.
+
+It provides notifications via implementations supporting FreeDesktop's
+notifications standard, like KDE 4.4 (or higher), Gnome, XFCE and others.
 
 
 %if 0%{suse_version} >= 1220
@@ -2092,6 +2115,7 @@ cmake ../src \
         -DENABLE_HOTSENSORS=True \
         -DENABLE_HOTSTREAMS=True \
         -DENABLE_LASTFMSCROBBLE=True \
+        -DENABLE_LAUGHTY=True \
         -DENABLE_LAUNCHY=True \
         -DENABLE_LEMON=True \
         -DENABLE_LHTR=True \
@@ -2105,7 +2129,7 @@ cmake ../src \
         -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_OTLOZHU=True \
-        -DENABLE_POLEEMERY=False \
+        -DENABLE_POLEEMERY=True \
         -DENABLE_POGOOGLUE=True \
         -DENABLE_POSHUKU_AUTOSEARCH=True \
         -DENABLE_SB2=True \
@@ -2126,6 +2150,7 @@ cmake ../src \
         -DENABLE_HOTSENSORS=False \
         -DENABLE_HOTSTREAMS=False \
         -DENABLE_LASTFMSCROBBLE=False \
+        -DENABLE_LAUGHTY=False \
         -DENABLE_LAUNCHY=False \
         -DENABLE_LEMON=False \
         -DENABLE_LHTR=False \
@@ -2659,6 +2684,12 @@ EOF
 %endif
 
 %if 0%{suse_version} >= 1220
+%files laughty
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_laughty.so
+%endif
+
+%if 0%{suse_version} >= 1220
 %files launchy
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_launchy.so
@@ -2845,11 +2876,11 @@ EOF
 %{translations_dir}/leechcraft_pogooglue*
 %endif
 
-# %if 0%{suse_version} >= 1220
-# %files poleemery
-# %defattr(-,root,root)
-# %{_libdir}/%{name}/plugins/*%{name}_poleemery*
-# %endif
+%if 0%{suse_version} >= 1220
+%files poleemery
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_poleemery*
+%endif
 
 %files popishu
 %defattr(-,root,root)
@@ -2876,10 +2907,6 @@ EOF
 %{settings_dir}/poshukucleanwebsettings.xml
 %{translations_dir}/%{name}_poshuku_cleanweb*.qm
 %{plugin_dir}/*%{name}_poshuku_cleanweb.so
-
-%files poshuku-delicious
-%defattr(-,root,root)
-%{plugin_dir}/*%{name}_poshuku_onlinebookmarks_delicious*
 
 %files poshuku-fatape
 %defattr(-,root,root)
@@ -2909,7 +2936,11 @@ EOF
 %{translations_dir}/%{name}_poshuku_onlinebookmarks*.qm
 %{plugin_dir}/*%{name}_poshuku_onlinebookmarks.so
 
-%files poshuku-readitlater
+%files poshuku-onlinebookmarks-delicious
+%defattr(-,root,root)
+%{plugin_dir}/*%{name}_poshuku_onlinebookmarks_delicious*
+
+%files poshuku-onlinebookmarks-readitlater
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_poshuku_onlinebookmarks_readitlater.*
 
@@ -2956,6 +2987,10 @@ EOF
 %{plugin_dir}/*%{name}_syncer.so
 %{settings_dir}/syncersettings.xml
 %{translations_dir}/leechcraft_syncer*
+
+%files sysnotify
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_sysnotify.so
 
 %if 0%{suse_version} >= 1220
 %files tabsessionmanager
