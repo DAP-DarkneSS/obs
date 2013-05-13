@@ -23,7 +23,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-206-gcef05f1
+%define LEECHCRAFT_VERSION 0.5.95-207-g4cc14d9
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
@@ -81,7 +81,7 @@ BuildRequires:  libpurple-devel
 BuildRequires:  libqca2-devel
 BuildRequires:  libqjson-devel
 BuildRequires:  libqscintilla-devel
-BuildRequires:  libqt4-devel >= 4.7
+BuildRequires:  libqt4-devel >= 4.8
 BuildRequires:  libqt4-sql
 BuildRequires:  libqxmpp-devel >= 0.7.4
 # BuildRequires:  libqxt1-devel
