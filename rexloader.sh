@@ -6,6 +6,7 @@ FPRJ=$OPRJ':fedora'
 MPRJ=$OPRJ':mandriva'
 DPRJ=$OPRJ':deb'
 DPR2=$OPRJ':deb:old'
+APRJ=$OPRJ':archlinux'
 DSVN=~/Documents/obs/trash/$NOBS
 DOBS=~/Documents/obs/home:DarkSS/$NOBS
 DFBS=~/Documents/obs/home:DarkSS:fedora/$NOBS
@@ -33,7 +34,7 @@ else
   echo -e '\e[0;4m\nShould services be run?\e[0m'
   read
 
-  for NPRJ in $OPRJ $FPRJ $DPRJ $DPR2
+  for NPRJ in $OPRJ $FPRJ $DPRJ $DPR2 $APRJ
 
   do
     cd ~/Documents/obs/$NPRJ/$NOBS

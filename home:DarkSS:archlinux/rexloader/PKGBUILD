@@ -9,7 +9,7 @@
 #
 
 pkgname=rexloader
-pkgver=0.1a.svn.313
+pkgver=0.1a.svn.314
 pkgrel=1
 pkgdesc="An advanced Qt download manager over http."
 arch=('i686' 'x86_64')

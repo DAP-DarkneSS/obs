@@ -106,6 +106,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
+%doc COPYING
 %{_datadir}/pixmaps/%{name}.png
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/locales
