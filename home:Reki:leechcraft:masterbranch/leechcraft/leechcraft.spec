@@ -23,13 +23,14 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-190-g4b9af20
+%define LEECHCRAFT_VERSION 0.5.95-205-g63612a8
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 Source0:        %{name}-%{version}.tar.bz2
+Source1:        %{name}.svg
 
 # PATCH-FEATURE-OPENSUSE to provide acetamide for Qt < 4.8.
 %if 0%{suse_version} <= 1210
@@ -2059,6 +2060,10 @@ It allows to get current user tune via mpris protocol.
 # %%patch3
 # %%endif
 
+# Mine ;) 
+rm src/core/resources/images/leechcraft.svg
+%{__install} %{SOURCE1} src/core/resources/images
+
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
 
@@ -2074,6 +2079,7 @@ cmake ../src \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
 %endif
+        -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
@@ -2224,6 +2230,11 @@ mkdir -p %{buildroot}%{_docdir}/%{name}-monocle-doc
 cp -r * %{buildroot}%{_docdir}/%{name}-monocle-doc
 %endif
 
+# Mine ;) 
+rm -rf %{buildroot}%{_datadir}/icons/hicolor/*/apps/*leechcraft*
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
+%{__install} %{SOURCE1} %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}_main.svg
+
 %suse_update_desktop_file -i %{name}
 # %%if 0%%{suse_version} >= 1220
 %suse_update_desktop_file -i %{name}-azoth-acetamide
@@ -2290,9 +2301,11 @@ EOF
 %{_bindir}/%{name}-handle-file
 %{settings_dir}/coresettings.xml
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/*/*/*
-%dir %{_datadir}/icons/hicolor/14x14
-%dir %{_datadir}/icons/hicolor/14x14/apps
+# Mine ;) 
+%attr(644,root,root) %{_datadir}/icons/hicolor/scalable/apps/*%{name}*
+# %%{_datadir}/icons/hicolor/*/*/*
+# %%dir %%{_datadir}/icons/hicolor/14x14
+# %%dir %%{_datadir}/icons/hicolor/14x14/apps
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/installed
 %dir %{settings_dir}
@@ -2879,6 +2892,8 @@ EOF
 %if 0%{suse_version} >= 1220
 %files poleemery
 %defattr(-,root,root)
+%{_datadir}/%{name}/settings/poleemerysettings.xml
+%{_datadir}/%{name}/translations/%{name}_poleemery_*.qm
 %{_libdir}/%{name}/plugins/*%{name}_poleemery*
 %endif
 
