@@ -4,20 +4,18 @@
 # Copyright (c) 2005-2012 lorquotes.ru (quotes), (c) 2012 Perlow Dmitriy A. (spec file)
 #
 
-%define _date 20130322
+%define _date 20130514
 
 Name:           fortunes-lor-quotes
 Version:        date.%{_date}
 Release:        0
 Summary:        Quotes for fortune from linux.org.ru
 
-License:        Unknown
+License:        SUSE-Public-Domain
 URL:            http://lorquotes.ru/fortunes.php
 Source0:        lor-quotes-%{version}.bz2
 Group:          Amusements/Games/Other
-Patch1:         gtk.patch
-Patch2:         my.patch
-Patch3:         ukus.patch
+Patch1:         bonus.patch
 
 BuildRequires:  bzip2
 BuildRequires:  fortune
@@ -35,8 +33,6 @@ feature just uncomment the respective lines in the user's .profile.
 bunzip2 -c -k %{SOURCE0} > lor-quotes-%{version}
 iconv -f koi8-r -t utf-8 lor-quotes-%{version} > lor-quotes
 %patch1
-%patch2
-%patch3
 
 %build
 %if 0%{?suse_version} < 1220
@@ -48,6 +44,9 @@ strfile lor-quotes
 %install
 mkdir -p %{buildroot}%{_datadir}/fortune
 %{__install} lor-quotes lor-quotes.dat %{buildroot}%{_datadir}/fortune
+
+%check
+fortune lor-quotes
 
 %files
 %defattr(644,root,root,755)
