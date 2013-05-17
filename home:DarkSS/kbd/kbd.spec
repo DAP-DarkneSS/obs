@@ -1,7 +1,7 @@
 #
 # spec file for package kbd
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           kbd
-Version:        1.15.5
+Version:        2.0.0wip
 Release:        0
 Summary:        Keyboard and Font Utilities
 License:        GPL-2.0+
@@ -32,7 +32,6 @@ Source:         %{name}-%{version}-repack.tar.bz2
 Source1:        kbd_fonts.tar.bz2
 Source2:        suse-add.tar.bz2
 Source3:        README.SuSE
-Source4:        kbd.init
 Source5:        kbd.fillup
 Source6:        kbd.fillup.nonpc
 Source8:        sysconfig.console
@@ -44,22 +43,24 @@ Source13:       guess_encoding.pl
 Source42:       convert-kbd-mac.sed
 Source43:       repack_kbd.sh
 Patch0:         kbd-1.15.2-prtscr_no_sigquit.patch
-Patch1:         kbd-1.15.2-dumpkeys-ppc.patch
+# Might be ported!
+# Patch1:         kbd-1.15.2-dumpkeys-ppc.patch
 Patch2:         kbd-1.15.2-unicode_scripts.patch
 Patch3:         kbd-1.15.2-docu-X11R6-xorg.patch
 Patch4:         kbd-1.15.2-sv-latin1-keycode10.patch
 Patch5:         kbd-1.15.2-setfont-no-cruft.patch
-Patch6:         kbd-1.15.2-dumpkeys-C-opt.patch
+# Might be ported!
+# Patch6:         kbd-1.15.2-dumpkeys-C-opt.patch
 Patch8:         kbd-1.15.2-chvt-userwait.patch
 
 BuildRequires:  automake
 BuildRequires:  bison
+BuildRequires:  check-devel
 BuildRequires:  flex
 BuildRequires:  pam-devel
+BuildRequires:  pkg-config
 
 Requires(pre):  %fillup_prereq
-Requires(pre):  %insserv_prereq
-
 Recommends:     fbset
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -84,12 +85,14 @@ Authors:
 %prep
 %setup -q -a 1 -a 2 -n kbd-%{version}
 %patch0 -p1
-%patch1 -p1
+# Might be ported!
+# %%patch1 -p1
 %patch2
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6
+# Might be ported!
+# %%patch6
 %patch8 -p1
 
 %build
@@ -107,8 +110,9 @@ popd
 	--datadir=%{kbd} \
 	--enable-nls \
 	--localedir=/usr/share/locale \
-	--enable-optional-progs
-make CFLAGS="%{optflags} -Os"
+	--enable-optional-progs \
+	--disable-vlock
+make CFLAGS="%{optflags}"
 gcc %{optflags} -o fbtest   $RPM_SOURCE_DIR/fbtest.c
 # fix lat2-16.psfu (bnc#340579)
 font=data/consolefonts/lat2a-16.psfu
@@ -119,7 +123,6 @@ make
 
 %install
 mkdir -p %{buildroot}%{_sbindir}
-mkdir -p %{buildroot}%{_sysconfdir}/init.d
 DOC=%{buildroot}%{_defaultdocdir}/kbd
 KBD=%{kbd}
 K=%{buildroot}$KBD
@@ -152,8 +155,6 @@ if ls $K/consolefonts/Agafari-* > /dev/null 2>&1; then
   echo "";
   exit 1
 fi
-install -m 755 %{SOURCE4} %{buildroot}%{_initddir}/kbd
-ln -s /etc/init.d/kbd %{buildroot}%{_sbindir}/rckbd
 ln -sf us.map.gz $K/keymaps/i386/qwerty/khmer.map.gz
 ln -sf us.map.gz $K/keymaps/i386/qwerty/korean.map.gz
 ln -sf us.map.gz $K/keymaps/i386/qwerty/arabic.map.gz
@@ -272,7 +273,6 @@ ln -s %{_bindir}/testutf8 %{buildroot}/bin
 ln -s %{_bindir}/unicode_start %{buildroot}/bin
 ln -s %{_bindir}/unicode_stop %{buildroot}/bin
 ln -s %{_sbindir}/fbtest %{buildroot}/sbin
-ln -s %{_sbindir}/rckbd %{buildroot}/sbin
 %ifnarch %sparc m68k
 ln -s %{_bindir}/getkeycodes %{buildroot}/bin
 ln -s %{_bindir}/setkeycodes %{buildroot}/bin
@@ -287,26 +287,21 @@ ln -s %{_bindir}/resizecons %{buildroot}/bin
 %find_lang %{name}
 
 %post
-%{fillup_and_insserv -ny console kbd}
+%{fillup_only -n console}
 %{fillup_only -n keyboard}
 #echo "Please read the docu about the new COMPOSETABLE rc.config variable."
 #echo "See /etc/sysconfig/console, /etc/sysconfig/keyboard"
 #echo "and {_docdir}/kbd/README.SuSE."
-
-%postun
-%{insserv_cleanup}
 
 %files -f %{name}.lang
 %defattr(-,root,root)
 #config(noreplace) /etc/sysconfig/console
 %doc %{_defaultdocdir}/kbd
 #doc COPYING CHANGES README CREDITS
-%config %{_sysconfdir}/init.d/kbd
 %{_localstatedir}/adm/fillup-templates/sysconfig.console
 %{_localstatedir}/adm/fillup-templates/sysconfig.keyboard
 %{kbd}
 #UsrMerge
-/sbin/rckbd
 /sbin/fbtest
 /bin/chvt
 /bin/openvt
@@ -353,7 +348,6 @@ ln -s %{_bindir}/resizecons %{buildroot}/bin
 /bin/spawn_console
 /bin/spawn_login
 #EndUsrMerge
-%{_sbindir}/rckbd
 %{_sbindir}/fbtest
 %{_bindir}/chvt
 %{_bindir}/openvt
@@ -399,7 +393,6 @@ ln -s %{_bindir}/resizecons %{buildroot}/bin
 %{_bindir}/setvesablank
 %{_bindir}/spawn_console
 %{_bindir}/spawn_login
-%{_bindir}/vlock
 %doc %{_mandir}/man1/*
 %doc %{_mandir}/man5/keymaps.5.gz
 %ifnarch %sparc m68k

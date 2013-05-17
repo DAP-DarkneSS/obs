@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Tue May 14 12:56:59 UTC 2013 - dap.darkness@gmail.com
+
+- Update to version 2.0.0:
+  * The loadkeys and dumpkeys rewritten using the new library.
+
+-------------------------------------------------------------------
+Thu Apr  4 15:57:45 UTC 2013 - meissner@suse.com
+
+- disable vlock build, which is in vlock package.
+
+-------------------------------------------------------------------
+Thu Apr  4 01:34:32 UTC 2013 - crrodriguez@opensuse.org
+
+- Remove sysvinit support, init scripts from this package 
+  are masked by systemd and only serve for confusion.
+
+-------------------------------------------------------------------
+Wed Apr  3 19:06:41 CEST 2013 - sbrabec@suse.cz
+
+- sysconfig.keyboard: Updated description of KBD_NUMLOCK
+  (bnc#746595#c74).
+
+-------------------------------------------------------------------
 Wed Dec  5 20:45:40 UTC 2012 - dap.darkness@gmail.com
 
 - Update to version 1.15.5:
