@@ -12,20 +12,21 @@ it provides the commonly-used widgets such as modeswitchers, \
 welcome screens, AppMenus, search bars, and more found in elementary apps.
 
 Name:           granite
-Version:        0.1.0
+Version:        0.1.1
 Release:        1
 Summary:        A development library for elementary development
 
-License:        GPL-2.0+
+License:        LGPL-2.0+
 Url:            https://launchpad.net/granite
 Group:          System/Libraries
-Source0:        https://launchpad.net/granite/0.1/0.1/+download/granite-%{version}.tar.gz
+Source0:        granite-%{version}.tar.bz2
 
 %if 0%{?suse_version}
 BuildRequires:  -post-build-checks
 %endif
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  hicolor-icon-theme
 %if 0%{?suse_version}
 BuildRequires:  pkg-config
 %else
@@ -36,15 +37,16 @@ BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gthread-2.0)
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.3.14
-BuildRequires:  vala >= 0.16
+BuildRequires:  python
+BuildRequires:  vala >= 0.16.1
 
 %description
 %{descr}
 
 %package devel
 Group:          Development/Libraries/GNOME
-Summary:        Development files for lib%{name}0
-Requires:       lib%{name}0 = %{version}
+Summary:        Development files for lib%{name}1
+Requires:       lib%{name}1 = %{version}
 
 %description devel
 %{descr}
@@ -57,10 +59,10 @@ BuildArch:      noarch
 %description lang
 %{descr}
 
-%package -n lib%{name}0
+%package -n lib%{name}1
 Summary:        %{summary}
 
-%description -n lib%{name}0
+%description -n lib%{name}1
 %{descr}
 
 %prep
@@ -82,22 +84,18 @@ make VERBOSE=1 %{?_smp_mflags}
 mkdir -p %{buildroot}
 cd build
 
-%if 0%{?fedora} == 18
-touch lib/Granite-0.1.gir
-touch lib/Granite-0.1.typelib
-%endif
-
 %make_install INSTALL_ROOT=%{buildroot}
 
 %ifarch x86_64 ppc64
-%__mv %{buildroot}/usr/{lib,lib64}
+mv %{buildroot}%{_prefix}/lib/* %{buildroot}%{_libdir}
+rm -rf %{buildroot}%{_prefix}/lib
 %endif
 
 %find_lang %{name}
 
-%post -n lib%{name}0 -p /sbin/ldconfig
+%post -n lib%{name}1 -p /sbin/ldconfig
 
-%postun -n lib%{name}0 -p /sbin/ldconfig
+%postun -n lib%{name}1 -p /sbin/ldconfig
 
 %files devel
 %defattr(-,root,root)
@@ -108,11 +106,12 @@ touch lib/Granite-0.1.typelib
 %{_datadir}/vala
 %{_bindir}/%{name}-demo
 %{_libdir}/girepository-1.0
+%{_datadir}/icons/hicolor/*/actions/application-menu*.svg
 
 %files lang -f build/%{name}.lang
 %defattr(-,root,root)
 
-%files -n lib%{name}0
+%files -n lib%{name}1
 %defattr(-,root,root)
 %doc AUTHORS COPYING
 %{_libdir}/lib%{name}.so.*

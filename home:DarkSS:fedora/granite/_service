@@ -1,4 +1,14 @@
 <services>
-  <service name="download_files"/>
+  <service name="tar_scm">
+    <param name="url">lp:granite</param>
+    <param name="scm">bzr</param>
+    <param name="versionprefix">0.1.1+r</param>
+    <param name="filename">granite</param>
+  </service>
+  <service name="recompress">
+    <param name="file">*.tar</param>
+    <param name="compression">bz2</param>
+  </service>
   <service name="source_validator"/>
+  <service name="set_version"/>
 </services>
