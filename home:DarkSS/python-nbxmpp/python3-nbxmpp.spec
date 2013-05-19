@@ -15,18 +15,22 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
+
 Name:           python3-nbxmpp
-Version:        0.1
-Release:        1
-License:        GPL-3.0
+Version:        0.1+r37
+Release:        0
 Summary:        XMPP library by Gajim team
-Url:            http://python-nbxmpp.gajim.org/
+License:        GPL-3.0
 Group:          Development/Libraries/Python
-Source0:        nbxmpp-%{version}.tar.gz
+Url:            http://python-nbxmpp.gajim.org/
+Source0:        python3-nbxmpp-%{version}.tar.xz
 
 BuildRequires:  fdupes
 BuildRequires:  python3
 BuildRequires:  python3-devel
+%if 0%{?suse_version} <= 1210
+BuildRequires:  xz
+%endif
 Requires:       python3
 BuildArch:      noarch
 
@@ -37,12 +41,13 @@ library is initialy a fork of xmpppy one, but using non-blocking sockets.
 
 %package doc
 Summary:        Nbxmpp Documentation
+Group:          Development/Libraries/Python
 
 %description doc
 This packages provides documentation of Nbxmpp API.
 
 %prep
-%setup -q -n nbxmpp-%{version}
+%setup -q
 
 %build
 python3 setup.py build
@@ -64,3 +69,5 @@ cp -r doc/* %{buildroot}%{_docdir}/%{name}-doc
 %files doc
 %defattr(-,root,root)
 %{_docdir}/%{name}-doc
+
+%changelog

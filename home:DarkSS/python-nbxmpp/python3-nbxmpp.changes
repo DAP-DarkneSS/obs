@@ -1,0 +1,41 @@
+-------------------------------------------------------------------
+Sun May 19 17:00:23 UTC 2013 - dap.darkness@gmail.com
+
+ - Updated to 0.1+r37 — significant for python3-version:
+   * Ask for discovery information (and archive)
+     after SM is enabled. Fixes #7299
+   * fix initilizing errnum list
+   * try write acces to repo.
+   * fix var name
+   * don't crash when cacerts is an empty string
+   * hardcode error values in protocol.py
+   * don't crash when cacerts is an empty string
+   * fix traceback
+   * fix handling traceback. Fixes #3
+   * basestring -> str
+   * fix error handling. Fixes #1
+   * add jabber:x:oob namespace
+   * add jabber:x:oob namespace
+   * fix encoding problems with DIGEST-MD5 authentication
+   * fix connecting with internal ssl implementation
+   * don't crash when we sent a partial stanza
+     that cut utf-8 chars in the middle
+   * don't call send when there is nothing to send
+   * don't crash when we get a partial stanza
+     that cut utf-8 chars in the middle
+   * dict.items() -> list(dict.items())
+   * fix encoding issues
+   * fix HMAC computation
+   * fix showing pending traceback
+   * fix encoding issues (base64, HMAC, ...)
+   * hardcode error values in protocol.py
+
+-------------------------------------------------------------------
+Sat Apr 20 14:59:16 UTC 2013 - dap.darkness@gmail.com
+
+ - Fixed up to submit.
+
+-------------------------------------------------------------------
+Sat Apr  6 19:52:54 UTC 2013 - nekolayer@yandex.ru
+
+ - Initial package.
