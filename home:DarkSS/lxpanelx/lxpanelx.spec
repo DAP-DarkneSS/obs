@@ -16,7 +16,7 @@
 #
 
 Name:           lxpanelx
-Version:        0.5+r672
+Version:        0.5+r675
 Release:        0
 License:        GPL-2.0
 Summary:        Lightweight X11 desktop panel, based on lxpanel
