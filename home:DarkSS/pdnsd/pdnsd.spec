@@ -69,6 +69,9 @@ cp %{SOURCE1} %{buildroot}%{_sysconfdir}/init.d/
 cp %{buildroot}%{_sysconfdir}/%{name}.conf.sample %{buildroot}%{_sysconfdir}/%{name}.conf
 ln -s /etc/init.d/%{name} %{buildroot}%{_sbindir}/rc%{name}
 
+%pre
+/usr/sbin/groupadd -r pdns 2> /dev/null || :
+
 %preun
 %stop_on_removal
 
@@ -83,7 +86,7 @@ ln -s /etc/init.d/%{name} %{buildroot}%{_sbindir}/rc%{name}
 %{_sysconfdir}/pdnsd.conf.sample
 %{_sbindir}/*%{name}*
 %{_mandir}/man*/%{name}*
-%config(noreplace) %attr(-,nobody,nobody) %{_localstatedir}/cache/%{name}/%{name}.cache
+%config(noreplace) %attr(-,pdns,pdns) %ghost  %{_localstatedir}/cache/%{name}/%{name}.cache
 %dir %{_localstatedir}/cache/%{name}
 
 %files doc
