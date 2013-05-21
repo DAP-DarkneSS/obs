@@ -1,11 +1,48 @@
 -------------------------------------------------------------------
-Fri May 17 15:47:11 UTC 2013 - dap.darkness@gmail.com
+Tue May 21 18:12:07 UTC 2013 - dap.darkness@gmail.com
+
 - New plugins were enabled for Factory:
-  * monocle-mu — mupdf backend for document viewer;
   * touchstreams — VK.com music streaming;
 - Added leechcraft-qt-moc-boost.patch to prevent
   'AUTOMOC: Parse error at "BOOST_JOIN"'. See more at
   https://bugreports.qt-project.org/browse/QTBUG-22829
+
+-------------------------------------------------------------------
+Tue May 21 18:03:02 UTC 2013 - dap.darkness@gmail.com
+
+- 0.5.96 bugfix release:
+  * Core: keep tab icon along tab moves between windows.
+  * Core: fixed toolbar handling on tab moves between windows.
+  * Core: fixed file locking threading issues.
+  * Core: fixed network disk cache expiration handling.
+  * Core: proper handling of forcefully closed unassociated dock widgets.
+  * Core: don't show actions with empty text in popup menus.
+  * Azoth: fixed autoscrolling.
+  * Azoth: application-wide users list shortcut.
+  * Azoth: case-insensitive users list filtering.
+  * Azoth: use proper icon for voice calls.
+  * Azoth Acetamide: made the channels list dialog non-modal.
+  * Azoth Acetamide: allow joining to channels while the list is fetched.
+  * Blogique: fixed progress indicator.
+  * Blogique Hestia: fixed autoupdating entries in local blog.
+  * Monocle Postrus: fixed FindLibSpectre.cmake for upcoming CMake.
+  * LMP: fix rare segfaults on queue clearing.
+  * LMP: clear last song data on player clearing.
+  * LMP: support drags from filesystem browser.
+  * LMP: replace queue on playlist activation.
+  * LMP: properly restore play mode check state.
+  * Popishu: fixed caret line background color.
+  * VB: don't own conversation by the buddy, fixes multiple segfaults.
+- New plugins were enabled:
+  * azoth-otroid — Off-the-Record module for IM;
+  * monocle-mu — another pdf module via the mupdf backend;
+- Renamed to correspond upstream naming policy:
+  * poshuku-delicious => poshuku-onlinebookmarks-delicious;
+  * poshuku-readitlater => poshuku-onlinebookmarks-readitlater;
+- Updated leechcraft-acetamide-qt47.patch to revert some 0.5.96 changes
+  to provide azoth-acetamide plugin at openSUSE 12.1.
+- Added "-Doverride=" CXX-flag to prevent compiler errors at openSUSE 12.1.
+- Fixed up via `spec-cleaner`.
 
 -------------------------------------------------------------------
 Sun Apr 28 13:24:59 UTC 2013 - dap.darkness@gmail.com
