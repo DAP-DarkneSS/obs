@@ -1,34 +1,63 @@
-Name:           kQOAuth
+#
+# spec file for package libkqoauth
+#
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
+#
+
+
+%define pack_summ C++/Qt OAuth 1.0 RFC 5849 library
+
+%define pack_desc kQOAuth is a OAuth 1.0 library written for Qt in C++. \
+The goals for the library have been to provide easy integration to existing \
+Qt applications utilizing Qt signals describing the OAuth process, and to provide a \
+convenient approach to OAuth authentication. \
+\
+kQOAuth has support for retrieving the user authorization from the service \
+provider's website. kQOAuth will open the user's web browser to the \
+authorization page, give a local URL as the callback URL and setup a HTTP \
+server on this address to listen for the reply from the service and then \
+process it.
+
+
+Name:           libkqoauth
 Version:        0.97
-Release:        1%{?dist}
-Summary:        Qt OAuth support library
+Release:        0
+License:        LGPL-2.1+
+Summary:        %{pack_summ}
+Group:          System/Libraries
 
-License:        LGPLv2+
-URL:            https://github.com/kypeli/kQOAuth
+Url:            https://github.com/kypeli/kQOAuth
 # https://github.com/kypeli/kQOAuth/archive/0.97.tar.gz
-Source0:        %{name}-%{version}.tar.gz
+Source0:        kQOAuth-%{version}.tar.gz
 
-BuildRequires:  qt4-devel
-
-%{?_qt4_version:Requires: qt4%{?_isa} >= %{_qt4_version}}
+BuildRequires:  pkgconfig(QtNetwork) >= 4.7
 
 %description
-kQOAuth is a OAuth 1.0 library written for Qt in C++. The goals for the
-library have been to provide easy integration to existing Qt applications
-utilizing Qt signals describing the OAuth process, and to provide a
-convenient approach to OAuth authentication.
+%{pack_desc}
 
-kQOAuth has support for retrieving the user authorization from the service
-provider's website. kQOAuth will open the user's web browser to the
-authorization page, give a local URL as the callback URL and setup a HTTP
-server on this address to listen for the reply from the service and then
-process it.
+
+%package        -n %{name}0
+Summary:        %{pack_summ}
+
+%description    -n %{name}0
+%{pack_desc}
 
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       qt4-devel%{?_isa}
+Group:          Development/Libraries/C and C++
+Requires:       %{name}0 = %{version}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -36,43 +65,37 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
+%setup -q -n kQOAuth-%{version}
 
 
 %build
-%{_qt4_qmake}
+qmake \
+PREFIX=%{_prefix} \
+QMAKE_STRIP="" \
+QMAKE_CXXFLAGS+="%{optflags}"
 make %{?_smp_mflags}
 
 
 %install
-install -m 644 -pD kqoauth.prf %{buildroot}%{_libdir}/qt4/mkspecs/features/kqoauth.prf
-install -m 644 -pD include/QtKOAuth %{buildroot}%{_includedir}/QtKOAuth/QtKOAuth
-install -m 644 -p src/kqoauthmanager.h %{buildroot}%{_includedir}/QtKOAuth/
-install -m 644 -p src/kqoauthrequest.h %{buildroot}%{_includedir}/QtKOAuth/
-install -m 644 -p src/kqoauthrequest_1.h %{buildroot}%{_includedir}/QtKOAuth/
-install -m 644 -p src/kqoauthrequest_xauth.h %{buildroot}%{_includedir}/QtKOAuth/
-install -m 644 -p src/kqoauthglobals.h %{buildroot}%{_includedir}/QtKOAuth/
-install -m 644 -D src/kqoauth.pc %{buildroot}%{_libdir}/pkgconfig/kqoauth.pc
-install -m 644 lib/libkqoauth.prl %{buildroot}%{_libdir}
-cp -P lib/libkqoauth.so* %{buildroot}%{_libdir}
+%make_install INSTALL_ROOT=%{buildroot}
 
 
-%post -p /sbin/ldconfig
+%post -n %{name}0 -p /sbin/ldconfig
 
-%postun -p /sbin/ldconfig
+%postun -n %{name}0 -p /sbin/ldconfig
 
 
-%files
-%doc COPYING CHANGELOG README
-%{_libdir}/libkqoauth.so.0*
+%files -n %{name}0
+%defattr(-,root,root)
+%doc COPYING CHANGELOG README*
+%{_libdir}/%{name}.so.*
 
 %files devel
+%defattr(-,root,root)
 %{_includedir}/QtKOAuth/
-%{_libdir}/libkqoauth.so
-%{_libdir}/libkqoauth.prl
+%{_libdir}/%{name}.so
+%{_libdir}/%{name}.prl
 %{_libdir}/pkgconfig/kqoauth.pc
-%{_libdir}/qt4/mkspecs/features/kqoauth.prf
+%{_datadir}/qt4/mkspecs/features/kqoauth.prf
 
 %changelog
-* Sun Mar 31 2013 Alexey Kurov <nucleo@fedoraproject.org> - 0.97-1
-- Initial RPM release
