@@ -20,10 +20,11 @@
 %define translations_dir %{_datadir}/%{name}/translations
 %define settings_dir %{_datadir}/%{name}/settings
 %define azoth_dir %{_datadir}/%{name}/azoth
+%define woodpecker 0
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-291-g0b6dd4f
+%define LEECHCRAFT_VERSION 0.5.95-577-g2bbc553
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -51,7 +52,6 @@ BuildRequires:  cmake > 2.8
 BuildRequires:  doxygen
 %endif
 BuildRequires:  fdupes
-BuildRequires:  file-devel
 BuildRequires:  file-devel
 BuildRequires:  gcc-c++ >= 4.6
 %if 0%{?suse_version} > 1230
@@ -86,6 +86,9 @@ BuildRequires:  mupdf-devel-static
 %endif
 BuildRequires:  pcre-devel
 BuildRequires:  phonon-devel
+%if %{woodpecker}
+BuildRequires:  pkgconfig(kqoauth)
+%endif
 BuildRequires:  qwt6-devel
 BuildRequires:  speex-devel
 BuildRequires:  taglib-devel
@@ -1909,6 +1912,17 @@ This package provides a Vrooby plugin for LeechCraft.
 It allows to watch removable storage devices via d-bus and udisks.
 
 
+%if %{woodpecker}
+%package woodpecker
+Summary:        LeechCraft Twitter Client Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description woodpecker
+This package provides a Twitter Client plugin for LeechCraft.
+%endif
+
+
 %package xproxy
 Summary:        LeechCraft Proxy manager Module
 Group:          Productivity/Networking/Other
@@ -2028,6 +2042,11 @@ cmake ../src \
         -DENABLE_TPI=True \
         -DENABLE_TWIFEE=False \
         -DENABLE_VROOBY=True \
+%if %{woodpecker}
+        -DENABLE_WOODPECKER=True \
+%else
+        -DENABLE_WOODPECKER=False \
+%endif
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
 # gcc 4.7 optimization.
@@ -2803,6 +2822,13 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_vrooby.so
 %{_datadir}/%{name}/translations/%{name}_vrooby_*.qm
+
+%if %{woodpecker}
+%files woodpecker
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_woodpecker.so
+%{_datadir}/%{name}/settings/woodpeckersettings.xml
+%endif
 
 %files xproxy
 %defattr(-,root,root)
