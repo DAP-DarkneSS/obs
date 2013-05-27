@@ -20,11 +20,13 @@
 %define translations_dir %{_datadir}/%{name}/translations
 %define settings_dir %{_datadir}/%{name}/settings
 %define azoth_dir %{_datadir}/%{name}/azoth
+
+%define mellonetray 1
 %define woodpecker 0
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-577-g2bbc553
+%define LEECHCRAFT_VERSION 0.5.95-629-g73ccf1e
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -1279,6 +1281,19 @@ Features:
  * Getting playlists.
 
 
+%if %{mellonetray}
+%package mellonetray
+Summary:        LeechCraft Tray Area Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-sb2 = %{version}
+
+%description mellonetray
+This package provides a tray area quark for third-party apps
+for LeechCraft SB2.
+%endif
+
+
 %package monocle
 Summary:        LeechCraft Document viewer Module
 Group:          Productivity/Networking/Other
@@ -2013,6 +2028,11 @@ cmake ../src \
         -DENABLE_LMP_GRAFFITI=True \
         -DENABLE_LMP_MPRIS=True \
         -DENABLE_MEDIACALLS=False \
+%if %{mellonetray}
+        -DENABLE_MELLONETRAY=True \
+%else
+        -DENABLE_MELLONETRAY=False \
+%endif
         -DENABLE_MONOCLE=True \
         -DENABLE_MONOCLE_MU=True \
         -DMUPDF_VERSION=0x0102 \
@@ -2406,6 +2426,8 @@ EOF
 %{_datadir}/%{name}/translations/%{name}_blogique_??.qm
 %{_datadir}/%{name}/translations/%{name}_blogique_??_??.qm
 %dir %{_datadir}/%{name}/qml/blogique
+%{_datadir}/%{name}/qml/blogique/*.qml
+%{_datadir}/%{name}/qml/blogique/*.js
 
 %files blogique-hestia
 %defattr(-,root,root)
@@ -2589,6 +2611,13 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_lmp_mp3tunes.so
 %{_datadir}/%{name}/settings/lmpmp3tunessettings.xml
+
+%if %{mellonetray}
+%files mellonetray
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_mellonetray.so
+%{_datadir}/%{name}/qml/mellonetray/
+%endif
 
 %files monocle
 %defattr(-,root,root)
