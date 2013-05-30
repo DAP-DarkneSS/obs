@@ -1,0 +1,13 @@
+<services>
+  <service name="tar_scm">
+    <param name="url">svn://anonsvn.kde.org/home/kde/trunk/l10n-kde4/be</param>
+    <param name="scm">svn</param>
+    <param name="filename">bundle-lang-kde-be</param>
+    <param name="versionprefix">4+r</param>
+  </service>
+  <service name="recompress">
+    <param name="file">*.tar</param>
+    <param name="compression">bz2</param>
+  </service>
+  <service name="set_version"/>
+</services>
