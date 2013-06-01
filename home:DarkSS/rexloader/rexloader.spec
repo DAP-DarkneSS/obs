@@ -33,6 +33,7 @@ downloading, proxy support, logging, hash calculating and nice notifications.
 
 %package hashcalculator
 Summary:        Rexloader Hash Calculator
+Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
 %description hashcalculator
@@ -42,6 +43,7 @@ It allows to calculate downloaded files hash sums.
 
 %package nixnotify
 Summary:        Rexloader D-Bus Notifications
+Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-notifications
 
@@ -53,6 +55,7 @@ notifications standard, like KDE 4.4 (or higher), Gnome, XFCE and others.
 
 %package noticewindow
 Summary:        Rexloader Qt Notifications
+Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-notifications
 
@@ -99,7 +102,9 @@ mkdir -p %{buildroot}%{_datadir}/pixmaps
 
 mkdir -p %{buildroot}%{_datadir}/applications/
 %{__install} ../REXLoader/%{name}.desktop %{buildroot}%{_datadir}/applications
+%if 0%{?suse_version} >= 1140
 %suse_update_desktop_file %{name}
+%endif
 
 %clean
 rm -rf %{buildroot}
