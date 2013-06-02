@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<office:document-styles xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:presentation="urn:oasis:names:tc:opendocument:xmlns:presentation:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:anim="urn:oasis:names:tc:opendocument:xmlns:animation:1.0" xmlns:smil="urn:oasis:names:tc:opendocument:xmlns:smil-compatible:1.0" xmlns:calligra="http://www.calligra.org/2005/" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:delta="http://www.deltaxml.com/ns/track-changes/delta-namespace" xmlns:split="http://www.deltaxml.com/ns/track-changes/split-namespace" xmlns:ac="http://www.deltaxml.com/ns/track-changes/attribute-change-namespace" office:version="1.2" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <office:styles>
+  <style:default-style style:family="paragraph">
+   <style:paragraph-properties fo:padding-top="0.000000000000000pt"/>
+  </style:default-style>
+  <style:style style:name="Bibliography_20custom3" style:display-name="Bibliography custom3" style:family="paragraph"/>
+  <style:style style:name="Bibliography_20custom4" style:display-name="Bibliography custom4" style:family="paragraph"/>
+  <style:style style:name="Bibliography_20custom5" style:display-name="Bibliography custom5" style:family="paragraph"/>
+  <style:style style:name="Bibliography_20conference" style:display-name="Bibliography conference" style:family="paragraph"/>
+  <style:style style:name="Contents_203" style:display-name="Contents 3" style:family="paragraph">
+   <style:paragraph-properties fo:margin-left="16.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="Contents_204" style:display-name="Contents 4" style:family="paragraph">
+   <style:paragraph-properties fo:margin-left="24.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="Contents_205" style:display-name="Contents 5" style:family="paragraph">
+   <style:paragraph-properties fo:margin-left="32.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="Contents_2010" style:display-name="Contents 10" style:family="paragraph">
+   <style:paragraph-properties fo:margin-left="72.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="Contents_206" style:display-name="Contents 6" style:family="paragraph">
+   <style:paragraph-properties fo:margin-left="40.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="Contents_207" style:display-name="Contents 7" style:family="paragraph">
+   <style:paragraph-properties fo:margin-left="48.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="Bibliography_20incollection" style:display-name="Bibliography incollection" style:family="paragraph"/>
+  <style:style style:name="Contents_208" style:display-name="Contents 8" style:family="paragraph">
+   <style:paragraph-properties fo:margin-left="56.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="Contents_209" style:display-name="Contents 9" style:family="paragraph">
+   <style:paragraph-properties fo:margin-left="64.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="Title" style:display-name="Title" style:family="paragraph">
+   <style:paragraph-properties fo:padding-top="0.000000000000000pt" fo:text-align="center"/>
+   <style:text-properties fo:color="#ffffff" fo:font-family="Arial" fo:font-size="44.000000000000000pt" fo:font-weight="bold" style:font-family-generic="roman" style:font-pitch="variable" style:letter-kerning="true" style:text-line-through-style="none" style:text-line-through-type="none" style:text-line-through-width="auto" style:text-outline="false" style:text-underline-style="none" style:text-underline-type="none" style:text-underline-width="auto"/>
+  </style:style>
+  <style:style style:name="Bibliography_20article" style:display-name="Bibliography article" style:family="paragraph"/>
+  <style:style style:name="Subtitle" style:display-name="Subtitle" style:family="paragraph">
+   <style:paragraph-properties fo:margin="0.000000000000000pt" fo:padding-top="0.000000000000000pt" fo:text-align="center" fo:text-indent="0.000000000000000pt"/>
+   <style:text-properties fo:color="#ffffff" fo:font-family="Arial" fo:font-size="32.000000000000000pt" fo:font-weight="normal" style:font-family-generic="roman" style:font-pitch="variable" style:letter-kerning="true" style:text-line-through-style="none" style:text-line-through-type="none" style:text-line-through-width="auto" style:text-outline="false" style:text-underline-style="none" style:text-underline-type="none" style:text-underline-width="auto"/>
+  </style:style>
+  <style:style style:name="Bibliography_20inproceedings" style:display-name="Bibliography inproceedings" style:family="paragraph"/>
+  <style:style style:name="Bibliography_20mastersthesis" style:display-name="Bibliography mastersthesis" style:family="paragraph"/>
+  <style:style style:name="Bibliography_20booklet" style:display-name="Bibliography booklet" style:family="paragraph"/>
+  <style:style style:name="Bibliography_20unpublished" style:display-name="Bibliography unpublished" style:family="paragraph"/>
+  <style:style style:name="Bibliography_20techreport" style:display-name="Bibliography techreport" style:family="paragraph"/>
+  <style:style style:name="Bibliography_20manual" style:display-name="Bibliography manual" style:family="paragraph"/>
+  <style:style style:name="Header" style:display-name="Header" style:family="paragraph">
+   <style:paragraph-properties fo:padding-top="0.000000000000000pt" fo:text-align="center"/>
+   <style:text-properties fo:color="#ffffff" fo:font-family="Arial" fo:font-size="40.000000000000000pt" fo:font-weight="normal" style:font-family-generic="roman" style:font-pitch="variable" style:letter-kerning="true" style:text-line-through-style="none" style:text-line-through-type="none" style:text-line-through-width="auto" style:text-outline="false" style:text-underline-style="none" style:text-underline-type="none" style:text-underline-width="auto"/>
+  </style:style>
+  <style:style style:name="Bibliography_20book" style:display-name="Bibliography book" style:family="paragraph"/>
+  <style:style style:name="Bibliography_20misc" style:display-name="Bibliography misc" style:family="paragraph"/>
+  <style:style style:name="Bibliography_20custom1" style:display-name="Bibliography custom1" style:family="paragraph"/>
+  <style:style style:name="Bibliography_20www" style:display-name="Bibliography www" style:family="paragraph"/>
+  <style:style style:name="Bibliography_20custom2" style:display-name="Bibliography custom2" style:family="paragraph"/>
+  <style:style style:name="Bibliography_20email" style:display-name="Bibliography email" style:family="paragraph"/>
+  <style:style style:name="Bibliography_20proceedings" style:display-name="Bibliography proceedings" style:family="paragraph"/>
+  <style:style style:name="Standard" style:display-name="Standard" style:family="paragraph">
+   <style:paragraph-properties fo:margin="0.000000000000000pt" fo:padding-top="0.000000000000000pt" fo:text-align="left" fo:text-indent="0.000000000000000pt"/>
+   <style:text-properties fo:color="#000000" fo:font-family="Arial" fo:font-size="32.000000000000000pt" fo:font-weight="normal" style:font-family-generic="roman" style:font-pitch="variable" style:letter-kerning="true" style:text-line-through-style="none" style:text-line-through-type="none" style:text-line-through-width="auto" style:text-outline="false" style:text-underline-style="none" style:text-underline-type="none" style:text-underline-width="auto"/>
+  </style:style>
+  <style:style style:name="Bibliography_20journal" style:display-name="Bibliography journal" style:family="paragraph"/>
+  <style:style style:name="Bibliography_20phdthesis" style:display-name="Bibliography phdthesis" style:family="paragraph"/>
+  <style:style style:name="Contents_201" style:display-name="Contents 1" style:family="paragraph">
+   <style:paragraph-properties fo:margin-left="0.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="Bibliography_20inbook" style:display-name="Bibliography inbook" style:family="paragraph"/>
+  <style:style style:name="Contents_202" style:display-name="Contents 2" style:family="paragraph">
+   <style:paragraph-properties fo:margin-left="8.000000000000000pt"/>
+  </style:style>
+  <svg:linearGradient draw:name="gradient1" svg:spreadMethod="pad" svg:x1="50.000000%" svg:x2="50.000000%" svg:y1="-20.710700%" svg:y2="120.711000%">
+   <svg:stop svg:offset="0" svg:stop-color="#ffffff"/><svg:stop svg:offset="1" svg:stop-color="#1c82b9"/>
+  </svg:linearGradient>
+  <svg:linearGradient draw:name="gradient2" svg:spreadMethod="pad" svg:x1="50.000000%" svg:x2="50.000000%" svg:y1="-20.710700%" svg:y2="120.711000%">
+   <svg:stop svg:offset="0" svg:stop-color="#1c82b9"/><svg:stop svg:offset="1" svg:stop-color="#ffffff"/>
+  </svg:linearGradient>
+  <svg:linearGradient draw:name="gradient3" svg:spreadMethod="pad" svg:x1="0.000000%" svg:x2="100.000000%" svg:y1="0.000000%" svg:y2="100.000000%">
+   <svg:stop svg:offset="0" svg:stop-color="#ffffff"/><svg:stop svg:offset="1" svg:stop-color="#00ff00"/>
+  </svg:linearGradient>
+  <style:presentation-page-layout style:name="pl1" style:display-name="AL4T19">
+   <presentation:placeholder presentation:object="title" svg:x="6%" svg:y="8%" svg:width="88%" svg:height="14%"/>
+  </style:presentation-page-layout>
+  <style:presentation-page-layout style:name="pl2" style:display-name="AL2T1">
+   <presentation:placeholder presentation:object="title" svg:x="6%" svg:y="8%" svg:width="88%" svg:height="14%"/><presentation:placeholder presentation:object="outline" svg:x="6%" svg:y="24%" svg:width="88%" svg:height="64%"/>
+  </style:presentation-page-layout>
+  <style:presentation-page-layout style:name="pl3" style:display-name="AL1T0">
+   <presentation:placeholder presentation:object="title" svg:x="6%" svg:y="8%" svg:width="88%" svg:height="14%"/><presentation:placeholder presentation:object="subtitle" svg:x="6%" svg:y="24%" svg:width="88%" svg:height="64%"/>
+  </style:presentation-page-layout>
+  <style:presentation-page-layout style:name="pl4" style:display-name="AL7T7">
+   <presentation:placeholder presentation:object="title" svg:x="6%" svg:y="8%" svg:width="88%" svg:height="14%"/><presentation:placeholder presentation:object="chart" svg:x="6%" svg:y="24%" svg:width="43%" svg:height="64%"/><presentation:placeholder presentation:object="outline" svg:x="51%" svg:y="24%" svg:width="43%" svg:height="64%"/>
+  </style:presentation-page-layout>
+  <style:presentation-page-layout style:name="pl5" style:display-name="AL8T4">
+   <presentation:placeholder presentation:object="title" svg:x="6%" svg:y="8%" svg:width="88%" svg:height="14%"/><presentation:placeholder presentation:object="outline" svg:x="6%" svg:y="24%" svg:width="43%" svg:height="64%"/><presentation:placeholder presentation:object="chart" svg:x="51%" svg:y="24%" svg:width="43%" svg:height="64%"/>
+  </style:presentation-page-layout>
+  <style:presentation-page-layout style:name="pl6" style:display-name="AL5T9">
+   <presentation:placeholder presentation:object="title" svg:x="6%" svg:y="8%" svg:width="88%" svg:height="14%"/><presentation:placeholder presentation:object="graphic" svg:x="6%" svg:y="24%" svg:width="43%" svg:height="64%"/><presentation:placeholder presentation:object="outline" svg:x="51%" svg:y="24%" svg:width="43%" svg:height="64%"/>
+  </style:presentation-page-layout>
+  <style:presentation-page-layout style:name="pl7" style:display-name="AL6T6">
+   <presentation:placeholder presentation:object="title" svg:x="6%" svg:y="8%" svg:width="88%" svg:height="14%"/><presentation:placeholder presentation:object="outline" svg:x="6%" svg:y="24%" svg:width="43%" svg:height="64%"/><presentation:placeholder presentation:object="graphic" svg:x="51%" svg:y="24%" svg:width="43%" svg:height="64%"/>
+  </style:presentation-page-layout>
+  <style:presentation-page-layout style:name="pl8" style:display-name="AL3T3">
+   <presentation:placeholder presentation:object="title" svg:x="6%" svg:y="8%" svg:width="88%" svg:height="14%"/><presentation:placeholder presentation:object="outline" svg:x="6%" svg:y="24%" svg:width="43%" svg:height="64%"/><presentation:placeholder presentation:object="outline" svg:x="51%" svg:y="24%" svg:width="43%" svg:height="64%"/>
+  </style:presentation-page-layout>
+  <text:notes-configuration text:note-class="footnote" text:start-value="1" style:num-format="1" text:start-numbering-at="document" text:footnotes-position="page"/>
+<text:notes-configuration text:note-class="endnote" text:start-value="1" style:num-format="1" text:start-numbering-at="document" text:footnotes-position="page"/>
+<text:bibliography-configuration text:prefix="[" text:suffix="]" text:numbered-entries="false" text:sort-by-position="true"/>
+ </office:styles>
+ <office:automatic-styles>
+  <style:style style:name="P1" style:parent-style-name="Header" style:family="paragraph"/>
+  <style:style style:name="P2" style:parent-style-name="Standard" style:family="paragraph">
+   <style:paragraph-properties fo:margin-left="0.000000000000000pt" fo:margin-right="0.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="P3" style:family="paragraph">
+   <style:text-properties fo:color="#000000" fo:font-family="Sans Serif" fo:font-size="14.000000000000000pt" style:letter-kerning="true"/>
+  </style:style>
+  <style:style style:name="T1" style:family="text"/>
+  <style:style style:name="P4" style:family="paragraph">
+   <style:paragraph-properties fo:text-align="center"/>
+   <style:text-properties fo:color="#000000" fo:font-family="Sans Serif" fo:font-size="14.000000000000000pt" style:letter-kerning="true"/>
+  </style:style>
+  <style:style style:name="P5" style:family="paragraph">
+   <style:paragraph-properties fo:text-align="end"/>
+   <style:text-properties fo:color="#ffffff" fo:font-family="Sans Serif" fo:font-size="14.000000000000000pt" style:letter-kerning="true"/>
+  </style:style>
+  <style:style style:name="P6" style:parent-style-name="Title" style:family="paragraph"/>
+  <style:style style:name="P7" style:family="paragraph">
+   <style:paragraph-properties fo:text-align="end"/>
+   <style:text-properties fo:color="#000000" fo:font-family="Sans Serif" fo:font-size="14.000000000000000pt" style:letter-kerning="true"/>
+  </style:style>
+  <style:style style:name="gr1" style:family="graphic">
+   <style:graphic-properties draw:fill="gradient" draw:fill-gradient-name="gradient2" draw:shadow="hidden" draw:shadow-color="#808080" draw:shadow-offset-x="8.50395pt" draw:shadow-offset-y="8.50395pt" draw:stroke="none" draw:textarea-horizontal-align="left" draw:textarea-vertical-align="top" fo:margin="0.000000000000000pt" style:protect="position size" style:wrap="biggest" style:wrap-contour="false" style:wrap-dynamic-threshold="0.000000000000000pt" svg:fill-rule="evenodd"/>
+  </style:style>
+  <style:style style:name="gr2" style:family="graphic">
+   <style:graphic-properties draw:color-mode="standard" draw:fill="none" draw:shadow="hidden" draw:shadow-color="#808080" draw:shadow-offset-x="8.50395pt" draw:shadow-offset-y="8.50395pt" draw:stroke="none" draw:textarea-horizontal-align="left" draw:textarea-vertical-align="top" fo:margin="0.000000000000000pt" style:protect="position size" style:wrap="biggest" style:wrap-contour="false" style:wrap-dynamic-threshold="0.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="gr3" style:family="graphic">
+   <style:graphic-properties draw:fill="none" draw:stroke="none" fo:margin="0.000000000000000pt" style:wrap="biggest" style:wrap-contour="false" style:wrap-dynamic-threshold="0.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="gr4" style:family="graphic">
+   <style:graphic-properties draw:auto-grow-height="false" draw:fill="none" draw:shadow="hidden" draw:shadow-color="#808080" draw:shadow-offset-x="8.50395pt" draw:shadow-offset-y="8.50395pt" draw:stroke="none" draw:textarea-vertical-align="top" fo:margin="0.000000000000000pt" fo:padding="0.000000000000000pt" style:wrap="biggest" style:wrap-contour="false" style:wrap-dynamic-threshold="0.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="dp1" style:family="drawing-page">
+   <style:drawing-page-properties draw:fill="gradient" draw:fill-gradient-name="gradient1"/>
+  </style:style>
+  <style:style style:name="dp2" style:family="drawing-page">
+   <style:drawing-page-properties draw:fill="gradient" draw:fill-gradient-name="gradient2"/>
+  </style:style>
+  <style:page-layout style:name="pm1" style:page-usage="all">
+   <style:page-layout-properties fo:border="0pt none #000000" fo:margin="0.000000000000000pt" fo:padding="0.000000000000000pt" fo:page-height="595.276621799999930pt" fo:page-width="793.702162400000020pt" style:print-orientation="landscape"/>
+  </style:page-layout>
+ </office:automatic-styles>
+ <office:master-styles>
+  <style:master-page style:name="Default1" draw:style-name="dp1" style:display-name="Curious Penguin" style:page-layout-name="pm1">
+   <draw:layer-set>
+ <draw:layer draw:name="layout"/>
+ <draw:layer draw:name="background"/>
+ <draw:layer draw:name="backgroundobjects"/>
+ <draw:layer draw:name="controls"/>
+ <draw:layer draw:name="measurelines"/>
+</draw:layer-set><draw:custom-shape draw:style-name="gr1" xml:id="shape-1" draw:id="shape-1" draw:layer="backgroundobjects" svg:x="39.68510000000pt" svg:y="36.90720000000pt" svg:width="714.30359965420pt" svg:height="495.24180283180pt">
+ <draw:enhanced-geometry svg:viewBox="0 0 21600 21600" draw:modifiers="380.379" draw:enhanced-path="M?f7 0 X0 ?f8 L0 ?f9 Y?f7 21600 L?f10 21600 X21600 ?f9 L21600 ?f8 Y?f10 0 Z N">
+  <draw:equation draw:name="f0" draw:formula="45"/>
+  <draw:equation draw:name="f1" draw:formula="$0 *sin(?f0 *(pi/180))"/>
+  <draw:equation draw:name="f10" draw:formula="right-$0 "/>
+  <draw:equation draw:name="f2" draw:formula="?f1 *3163/7636"/>
+  <draw:equation draw:name="f3" draw:formula="left+?f2 "/>
+  <draw:equation draw:name="f4" draw:formula="top+?f2 "/>
+  <draw:equation draw:name="f5" draw:formula="right-?f2 "/>
+  <draw:equation draw:name="f6" draw:formula="bottom-?f2 "/>
+  <draw:equation draw:name="f7" draw:formula="left+$0 "/>
+  <draw:equation draw:name="f8" draw:formula="top+$0 "/>
+  <draw:equation draw:name="f9" draw:formula="bottom-$0 "/>
+  <draw:handle draw:handle-position="$0 top" draw:handle-range-x-minimum="0" draw:handle-range-x-maximum="10800"/>
+ </draw:enhanced-geometry>
+</draw:custom-shape><draw:frame draw:style-name="gr2" xml:id="shape-2" draw:id="shape-2" draw:layer="backgroundobjects" svg:width="258.88863747140pt" svg:height="243.29805928140pt" draw:transform="matrix(0.80819600000 0.58891400000 -0.58891400000 0.80819600000 638.01500000000pt 332.70400000000pt)">
+ <draw:image xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad" xlink:href="Pictures/image1.png"/>
+</draw:frame><draw:frame draw:style-name="gr3" xml:id="shape-3" draw:id="shape-3" draw:layer="backgroundobjects" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title" presentation:placeholder="true" draw:text-style-name="P1">
+ <draw:text-box/>
+</draw:frame><draw:frame draw:style-name="gr3" xml:id="shape-4" draw:id="shape-4" draw:layer="backgroundobjects" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline" presentation:placeholder="true" draw:text-style-name="P2">
+ <draw:text-box/>
+</draw:frame><draw:frame draw:style-name="gr4" xml:id="shape-5" draw:id="shape-5" draw:layer="backgroundobjects" svg:width="184.90425733340pt" svg:height="41.04574039840pt" svg:x="51.02370000000pt" svg:y="542.26900000000pt" presentation:class="date-time">
+ <draw:text-box>
+  <text:p text:style-name="P3"><text:span text:style-name="T1"><presentation:date-time/></text:span></text:p>
+ </draw:text-box>
+</draw:frame><draw:frame draw:style-name="gr4" xml:id="shape-6" draw:id="shape-6" draw:layer="backgroundobjects" svg:width="251.57523897500pt" svg:height="41.04574039840pt" svg:x="271.44600000000pt" svg:y="542.29700000000pt" presentation:class="footer">
+ <draw:text-box>
+  <text:p text:style-name="P4"><text:span text:style-name="T1"><presentation:footer/></text:span></text:p>
+ </draw:text-box>
+</draw:frame><draw:frame draw:style-name="gr4" xml:id="shape-7" draw:id="shape-7" draw:layer="backgroundobjects" svg:width="175.20975234980pt" svg:height="41.04574039840pt" svg:x="569.08400000000pt" svg:y="542.29700000000pt" presentation:class="page-number">
+ <draw:text-box>
+  <text:p text:style-name="P5"><text:span text:style-name="T1"><text:page-number text:select-page="current">1</text:page-number></text:span></text:p>
+ </draw:text-box>
+</draw:frame>
+  </style:master-page>
+  <style:master-page style:name="Default2" draw:style-name="dp2" style:display-name="Curious Penguin Title" style:page-layout-name="pm1">
+   <draw:layer-set>
+ <draw:layer draw:name="layout"/>
+ <draw:layer draw:name="background"/>
+ <draw:layer draw:name="backgroundobjects"/>
+ <draw:layer draw:name="controls"/>
+ <draw:layer draw:name="measurelines"/>
+</draw:layer-set><draw:frame draw:style-name="gr2" xml:id="shape-8" draw:id="shape-8" draw:layer="backgroundobjects" svg:width="284.31545317400pt" svg:height="240.94529930000pt" svg:x="490.39500000000pt" svg:y="31.18120000000pt">
+ <draw:image xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad" xlink:href="Pictures/image2.png"/>
+</draw:frame><draw:frame draw:style-name="gr2" xml:id="shape-9" draw:id="shape-9" draw:layer="backgroundobjects" svg:width="382.67782830000pt" svg:height="387.49673428600pt" svg:x="205.51200000000pt" svg:y="207.78000000000pt">
+ <draw:image xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad" xlink:href="Pictures/image3.png"/>
+</draw:frame><draw:frame draw:style-name="gr3" xml:id="shape-10" draw:id="shape-10" draw:layer="backgroundobjects" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title" presentation:placeholder="true" draw:text-style-name="P6">
+ <draw:text-box/>
+</draw:frame><draw:frame draw:style-name="gr3" xml:id="shape-11" draw:id="shape-11" draw:layer="backgroundobjects" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline" presentation:placeholder="true" draw:text-style-name="P2">
+ <draw:text-box/>
+</draw:frame><draw:frame draw:style-name="gr4" xml:id="shape-12" draw:id="shape-12" draw:layer="backgroundobjects" svg:width="184.90425733340pt" svg:height="16.41262685820pt" svg:x="39.68510000000pt" svg:y="566.93000000000pt" presentation:class="date-time">
+ <draw:text-box>
+  <text:p text:style-name="P3"><text:span text:style-name="T1"><presentation:date-time/></text:span></text:p>
+ </draw:text-box>
+</draw:frame><draw:frame draw:style-name="gr4" xml:id="shape-13" draw:id="shape-13" draw:layer="backgroundobjects" svg:width="251.57523897500pt" svg:height="16.41262685820pt" svg:x="271.44600000000pt" svg:y="566.93000000000pt" presentation:class="footer">
+ <draw:text-box>
+  <text:p text:style-name="P4"><text:span text:style-name="T1"><presentation:footer/></text:span></text:p>
+ </draw:text-box>
+</draw:frame><draw:frame draw:style-name="gr4" xml:id="shape-14" draw:id="shape-14" draw:layer="backgroundobjects" svg:width="184.90425733340pt" svg:height="16.41262685820pt" svg:x="569.05600000000pt" svg:y="566.93000000000pt" presentation:class="page-number">
+ <draw:text-box>
+  <text:p text:style-name="P7"><text:span text:style-name="T1"><text:page-number text:select-page="current">1</text:page-number></text:span></text:p>
+ </draw:text-box>
+</draw:frame>
+  </style:master-page>
+ </office:master-styles>
+</office:document-styles>
