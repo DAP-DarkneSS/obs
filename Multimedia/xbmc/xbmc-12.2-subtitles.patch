@@ -1,0 +1,66 @@
+--- a/lib/DllAvCodec.h	2013-05-02 16:46:47.000000000 +0200
++++ b/lib/DllAvCodec.h	2013-05-16 02:01:26.940819415 +0200
+@@ -63,6 +63,12 @@
+ #endif
+ }
+ 
++#if LIBAVCODEC_VERSION_MICRO >= 100
++  #define LIBAVCODEC_FROM_FFMPEG
++#else
++  #define LIBAVCODEC_FROM_LIBAV
++#endif
++
+ #include "threads/SingleLock.h"
+ 
+ class DllAvCodecInterface
+--- a/xbmc/cores/dvdplayer/DVDCodecs/DVDFactoryCodec.cpp	2013-05-02 16:46:47.000000000 +0200
++++ b/xbmc/cores/dvdplayer/DVDCodecs/DVDFactoryCodec.cpp	2013-05-16 02:05:08.899391141 +0200
+@@ -26,7 +26,9 @@
+ #include "Audio/DVDAudioCodec.h"
+ #include "Overlay/DVDOverlayCodec.h"
+ 
++#if defined(HAVE_LIBVDADECODER)
+ #include "Video/DVDVideoCodecVDA.h"
++#endif
+ #if defined(HAVE_VIDEOTOOLBOXDECODER)
+ #include "Video/DVDVideoCodecVideoToolBox.h"
+ #endif
+@@ -346,6 +348,12 @@
+   switch (hint.codec)
+   {
+     case CODEC_ID_TEXT:
++#if defined(LIBAVCODEC_FROM_FFMPEG) && LIBAVCODEC_VERSION_INT >= AV_VERSION_INT(54,53,100)
++    // API changed in:
++    // ffmpeg: commit 2626cc4580bfd560c6983338d77b2c11c16af94f (11 Aug 2012)
++    //         release 1.0 (28 Sept 2012)
++    case AV_CODEC_ID_SUBRIP:
++#endif
+       pCodec = OpenCodec(new CDVDOverlayCodecText(), hint, options);
+       if( pCodec ) return pCodec;
+       break;
+--- a/xbmc/cores/dvdplayer/DVDCodecs/Overlay/DVDOverlayCodecText.cpp	2013-05-02 16:46:47.000000000 +0200
++++ b/xbmc/cores/dvdplayer/DVDCodecs/Overlay/DVDOverlayCodecText.cpp	2013-05-16 02:07:43.197469670 +0200
+@@ -44,6 +44,13 @@
+   m_bIsSSA = (hints.codec == CODEC_ID_SSA);
+   if(hints.codec == CODEC_ID_TEXT || hints.codec == CODEC_ID_SSA)
+     return true;
++#if defined(LIBAVCODEC_FROM_FFMPEG) && LIBAVCODEC_VERSION_INT >= AV_VERSION_INT(54,53,100)
++  // API changed in:
++  // ffmpeg: commit 2626cc4580bfd560c6983338d77b2c11c16af94f (11 Aug 2012)
++  //         release 1.0 (28 Sept 2012)
++  if(hints.codec == AV_CODEC_ID_SUBRIP)
++    return true;
++#endif
+   return false;
+ }
+ 
+--- a/xbmc/cores/dvdplayer/DVDCodecs/Overlay/DVDOverlayCodecText.h	2013-05-02 16:46:47.000000000 +0200
++++ b/xbmc/cores/dvdplayer/DVDCodecs/Overlay/DVDOverlayCodecText.h	2013-05-16 02:08:34.419827631 +0200
+@@ -21,6 +21,7 @@
+  */
+ 
+ #include "DVDOverlayCodec.h"
++#include "DllAvCodec.h"
+ 
+ class CDVDOverlayText;
+ 

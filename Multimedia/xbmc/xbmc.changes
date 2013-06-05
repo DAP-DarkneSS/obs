@@ -1,0 +1,119 @@
+-------------------------------------------------------------------
+Mon Jun  3 20:57:13 UTC 2013 - fisiu@opensuse.org
+
+- Add xbmc-12.2-subtitles.patch: embeded fonts' rendering fix.
+
+-------------------------------------------------------------------
+Fri May 10 16:35:39 UTC 2013 - sagiben at gmail dot com
+
+- New upstream version 12.2 
+
+-------------------------------------------------------------------
+Fri Mar 29 03:52:57 UTC 2013 - sagiben at gmail dot com
+
+- New upstream version 12.1
+
+-------------------------------------------------------------------
+Mon Feb  4 17:57:04 UTC 2013 - fisiu@opensuse.org
+
+- Spec file cleanup.
+- Enable support for airplay.
+- Detect libtag version and use it as Requires. 
+
+-------------------------------------------------------------------
+Sun Feb  3 17:38:59 UTC 2013 - p.seiler@linuxmail.org
+
+- small changes in the spec file for cleanness
+ replaced BuildRequires to simple java
+ removed outcommented stuff like BuildRequires and so on
+
+-------------------------------------------------------------------
+Fri Feb  1 13:37:25 UTC 2013 - hvogel@opensuse.org
+
+-Include PVR add-ons, they are the main feature of Frodo 
+
+-------------------------------------------------------------------
+Fri Feb  1 00:44:31 UTC 2013 - p.seiler@linuxmail.org
+
+- added explizit libtag-devel 1.8 requirement to prevent conflict with openSUSE libtag package
+
+-------------------------------------------------------------------
+Thu Jan 31 14:43:41 UTC 2013 - p.seiler@linuxmail.org
+
+- corrected licenses in spec file to prevent build warning
+- added devel package to prevent build error
+
+-------------------------------------------------------------------
+Wed Jan 30 14:09:45 UTC 2013 - p.seiler@linuxmail.org
+
+- new upstream version 12.0
+ + HD audio support, including DTS-MA and Dolby True-HD, via the
+   new XBMC AudioEngine
+ + Live TV and PVR support
+ + h.264 10bit (aka Hi10P) video software decoding for anime
+ + Improved image support, allowing the database to accomodate
+   numerous additional image types
+ + Improved Airplay support across all platforms
+ + Improved controller support
+ + Advanced Filtering in the library
+ + Advanced UPnP sharing
+ + Translations now powered by Transifex
+
+-------------------------------------------------------------------
+Sun Apr  8 14:39:48 UTC 2012 - sagiben at gmail com
+
+- New upstream version 11.0 
+
+-------------------------------------------------------------------
+Fri Dec  9 13:55:25 UTC 2011 - ismail@namtrac.org
+
+- Remove _service its fragile 
+- Spec cleanup
+
+-------------------------------------------------------------------
+Thu Dec  8 18:13:25 UTC 2011 - ismail@namtrac.org
+
+- Depend on libbluray1 
+
+-------------------------------------------------------------------
+Mon Nov 28 19:57:28 UTC 2011 - sagiben@gmail.com
+
+- fix build with gcc-4.6. Flags to the Linker must be passed via -Wl,. 
+  Patch was taken from xbmc ticket #11383, http://trac.xbmc.org/ticket/11383
+
+-------------------------------------------------------------------
+Tue May  3 18:00:13 UTC 2011 - fisiu@opensuse.org
+
+- disable-hal for openSUSE >= 11.4
+
+-------------------------------------------------------------------
+Fri Apr 15 17:53:54 UTC 2011 - andrea@links2linux.de
+
+- New upstream version 10.1
+
+-------------------------------------------------------------------
+Mon Jan 24 17:53:54 UTC 2011 - andrea@links2linux.de
+
+- enabled crystalhd and bluray support (dependencies now available) 
+
+-------------------------------------------------------------------
+Mon Jan 24 16:11:26 UTC 2011 - andrea@links2linux.de
+
+- enabled VA-API (not sure if it works), FAAC, ssh, optimizations 
+
+-------------------------------------------------------------------
+Wed Jan 12 17:58:15 UTC 2011 - andrea@links2linux.de
+
+- New upstream version 10.0 (Thanks fedora) 
+
+-------------------------------------------------------------------
+Sun Feb  7 13:41:42 UTC 2010 - andrea@links2linux.de
+
+- fixed docs location 
+
+-------------------------------------------------------------------
+Sat Feb  6 11:24:05 UTC 2010 - andrea@links2linux.de
+
+- added bool.patch to fix a startup segmentation fault
+- do NOT use ffmpeg external libraries because they make xbmc crashes when you try to reproduce a video
+

@@ -1,0 +1,3 @@
+<services>
+  <service name="download_files"/>
+<service name="download_url"><param name="path">/opdenkamp/xbmc-pvr-addons/archive/frodo.zip</param><param name="host">github.com</param><param name="filename">frodo.zip</param></service></services>
