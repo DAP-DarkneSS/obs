@@ -1,0 +1,17 @@
+<services>
+  <service name="tar_scm">
+    <param name="url">git://github.com/xbmc/xbmc.git</param>
+    <param name="scm">git</param>
+    <param name="versionprefix">12.2+t</param>
+  </service>
+  <service name="recompress">
+    <param name="file">*.tar</param>
+    <param name="compression">bz2</param>
+  </service>
+  <service name="set_version"/>
+  <service name="download_url">
+    <param name="path">/opdenkamp/xbmc-pvr-addons/archive/frodo.zip</param>
+    <param name="host">github.com</param>
+    <param name="filename">frodo.zip</param>
+  </service>
+</services>

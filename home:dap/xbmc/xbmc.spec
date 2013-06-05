@@ -11,10 +11,8 @@ License:        GPL-2.0+ and GPL-3.0+
 Summary:        XBMC Media center
 Url:            http://www.xbmc.org/
 Group:          Productivity/Multimedia/Video/Players
-Source0:        http://mirrors.xbmc.org/releases/source/xbmc-%{version}.tar.gz
+Source0:        xbmc-%{version}.tar.bz2
 Source1:        https://github.com/opdenkamp/xbmc-pvr-addons/archive/frodo.zip
-# PATCH-FIX-UPSTREAM xbmc-12.2-subtitles.patch -- already merged in git rev
-Patch0:         xbmc-12.2-subtitles.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 ExcludeArch:    ppc64
 
@@ -122,7 +120,6 @@ Development files for the XBMC media Center
 
 %prep
 %setup -q
-%patch0 -p1
 unzip -q %{S:1}
 mv xbmc-pvr-addons-frodo pvr-addons
 pushd pvr-addons
@@ -139,13 +136,12 @@ chmod +x bootstrap
 --enable-libusb \
 --enable-airplay \
 --enable-external-libraries \
---enable-external-ffmpeg \
+--disable-external-ffmpeg \
 --enable-vaapi \
 --enable-libbluray \
 --disable-debug \
-CPPFLAGS="-I/usr/include/ffmpeg" \
-CFLAGS="%{optflags} -fPIC -I/usr/include/ffmpeg -D__STDC_CONSTANT_MACROS" \
-CXXFLAGS="%{optflags} -fPIC -I/usr/include/ffmpeg -D__STDC_CONSTANT_MACROS" \
+CFLAGS="%{optflags} -fPIC -D__STDC_CONSTANT_MACROS" \
+CXXFLAGS="%{optflags} -fPIC -D__STDC_CONSTANT_MACROS" \
 LDFLAGS="-fPIC" \
 LIBS="-L%{_libdir}/mysql -lhdhomerun $LIBS" \
 ASFLAGS=-fPIC
@@ -166,6 +162,16 @@ install -m 644 -D docs/manpages/xbmc.bin.1 %{buildroot}%{_mandir}/man1/xbmc.1
 desktop-file-install \
  --dir=%{buildroot}%{_datadir}/applications \
  %{buildroot}%{_datadir}/applications/xbmc.desktop
+
+rm %{buildroot}%{_includedir}/xbmc/libXBMC_addon.h
+install %{buildroot}%{_datadir}/xbmc/addons/library.xbmc.addon/libXBMC_addon.h \
+%{buildroot}%{_includedir}/xbmc/libXBMC_addon.h
+rm %{buildroot}%{_includedir}/xbmc/libXBMC_gui.h
+install %{buildroot}%{_datadir}/xbmc/addons/library.xbmc.gui/libXBMC_gui.h \
+%{buildroot}%{_includedir}/xbmc/libXBMC_gui.h
+rm %{buildroot}%{_includedir}/xbmc/libXBMC_pvr.h
+install %{buildroot}%{_datadir}/xbmc/addons/library.xbmc.pvr/libXBMC_pvr.h \
+%{buildroot}%{_includedir}/xbmc/libXBMC_pvr.h
 
 %fdupes %{buildroot}
 
@@ -242,6 +248,10 @@ desktop-file-install \
 %{_datadir}/xbmc/sounds/*
 %{_datadir}/xbmc/system/*
 %{_datadir}/xbmc/userdata/*
+%{_datadir}/xbmc/addons/metadata.local
+%{_datadir}/xbmc/addons/service.xbmc.versioncheck
+%{_datadir}/xbmc/addons/visualization.fishbmc
+%{_datadir}/xbmc/addons/xbmc.debug
 
 %files devel
 %defattr(-,root,root)
@@ -250,5 +260,6 @@ desktop-file-install \
 %{_datadir}/xbmc/addons/library.xbmc.gui/libXBMC_gui.h
 %{_datadir}/xbmc/addons/library.xbmc.addon/libXBMC_addon.h
 %{_datadir}/xbmc/addons/library.xbmc.pvr/libXBMC_pvr.h
+%{_includedir}/%{name}
 
 %changelog
