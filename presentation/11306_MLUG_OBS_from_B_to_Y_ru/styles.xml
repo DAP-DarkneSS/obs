@@ -7,10 +7,10 @@
   <style:style style:name="Bibliography_20custom3" style:display-name="Bibliography custom3" style:family="paragraph"/>
   <style:style style:name="Bibliography_20custom4" style:display-name="Bibliography custom4" style:family="paragraph"/>
   <style:style style:name="Bibliography_20custom5" style:display-name="Bibliography custom5" style:family="paragraph"/>
-  <style:style style:name="Bibliography_20conference" style:display-name="Bibliography conference" style:family="paragraph"/>
   <style:style style:name="Contents_203" style:display-name="Contents 3" style:family="paragraph">
    <style:paragraph-properties fo:margin-left="16.000000000000000pt"/>
   </style:style>
+  <style:style style:name="Bibliography_20conference" style:display-name="Bibliography conference" style:family="paragraph"/>
   <style:style style:name="Contents_204" style:display-name="Contents 4" style:family="paragraph">
    <style:paragraph-properties fo:margin-left="24.000000000000000pt"/>
   </style:style>
@@ -192,7 +192,7 @@
  </draw:text-box>
 </draw:frame><draw:frame draw:style-name="gr4" xml:id="shape-7" draw:id="shape-7" draw:layer="backgroundobjects" svg:width="175.20975234980pt" svg:height="41.04574039840pt" svg:x="569.08400000000pt" svg:y="542.29700000000pt" presentation:class="page-number">
  <draw:text-box>
-  <text:p text:style-name="P5"><text:span text:style-name="T1"><text:page-number text:select-page="current">1</text:page-number></text:span></text:p>
+  <text:p text:style-name="P5"><text:span text:style-name="T1"><text:page-number text:select-page="current"></text:page-number></text:span></text:p>
  </draw:text-box>
 </draw:frame>
   </style:master-page>
@@ -221,7 +221,7 @@
  </draw:text-box>
 </draw:frame><draw:frame draw:style-name="gr4" xml:id="shape-14" draw:id="shape-14" draw:layer="backgroundobjects" svg:width="184.90425733340pt" svg:height="16.41262685820pt" svg:x="569.05600000000pt" svg:y="566.93000000000pt" presentation:class="page-number">
  <draw:text-box>
-  <text:p text:style-name="P7"><text:span text:style-name="T1"><text:page-number text:select-page="current">1</text:page-number></text:span></text:p>
+  <text:p text:style-name="P7"><text:span text:style-name="T1"><text:page-number text:select-page="current"></text:page-number></text:span></text:p>
  </draw:text-box>
 </draw:frame>
   </style:master-page>

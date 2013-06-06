@@ -102,19 +102,19 @@
   <style:style style:name="dp4" style:family="drawing-page">
    <style:drawing-page-properties presentation:background-objects-visible="true" presentation:background-visible="true" presentation:display-date-time="false" presentation:display-footer="false" presentation:display-header="false" presentation:display-page-number="false"/>
   </style:style>
-  <text:list-style style:name="L1">
-   <text:list-level-style-bullet text:bullet-char="✔" text:level="1" style:num-prefix="" style:num-suffix="">
- <style:list-level-properties text:list-level-position-and-space-mode="label-alignment"><style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="54.00000000000pt" fo:text-indent="-18.00000000000pt" fo:margin-left="54.00000000000pt"/></style:list-level-properties>
+  <text:list-style style:name="L1" style:display-name="L1">
+   <text:list-level-style-bullet text:bullet-char="✔" text:level="1">
+ <style:list-level-properties text:list-level-position-and-space-mode="label-alignment" fo:text-align="start"><style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="54.00000000000pt" fo:text-indent="-18.00000000000pt" fo:margin-left="54.00000000000pt"/></style:list-level-properties>
 </text:list-level-style-bullet>
   </text:list-style>
-  <text:list-style style:name="L2">
+  <text:list-style style:name="L211" style:display-name="L21">
    <text:list-level-style-number text:start-value="1" text:display-levels="1" style:num-format="1" text:level="1" style:num-prefix="" style:num-suffix=".">
- <style:list-level-properties text:list-level-position-and-space-mode="label-alignment"><style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="54.00000000000pt" fo:text-indent="-18.00000000000pt" fo:margin-left="54.00000000000pt"/></style:list-level-properties>
+ <style:list-level-properties text:list-level-position-and-space-mode="label-alignment" fo:text-align="start"><style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="54.00000000000pt" fo:text-indent="-18.00000000000pt" fo:margin-left="54.00000000000pt"/></style:list-level-properties>
 </text:list-level-style-number>
   </text:list-style>
-  <text:list-style style:name="L3">
-   <text:list-level-style-bullet text:bullet-char="•" text:level="1" style:num-prefix="" style:num-suffix="">
- <style:list-level-properties text:list-level-position-and-space-mode="label-alignment"><style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="54.00000000000pt" fo:text-indent="-18.00000000000pt" fo:margin-left="54.00000000000pt"/></style:list-level-properties>
+  <text:list-style style:name="L3" style:display-name="L3">
+   <text:list-level-style-bullet text:bullet-char="•" text:level="1">
+ <style:list-level-properties text:list-level-position-and-space-mode="label-alignment" fo:text-align="start"><style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="54.00000000000pt" fo:text-indent="-18.00000000000pt" fo:margin-left="54.00000000000pt"/></style:list-level-properties>
 </text:list-level-style-bullet>
   </text:list-style>
  </office:automatic-styles>
@@ -178,7 +178,7 @@
     </draw:frame>
     <draw:frame draw:style-name="gr5" xml:id="shape-23" draw:id="shape-23" draw:layer="layout" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline">
      <draw:text-box>
-      <text:list text:style-name="L1" xml:id="list-5b22dba0-8fbf-4a8f-b803-253b47c40f10">
+      <text:list text:style-name="L1" xml:id="list-bcb531da-2dd1-45b4-9587-98217280127b">
        <text:list-item>
         <text:p text:style-name="P11"><text:span text:style-name="T2"><text:s/>готовая платформа</text:span></text:p>
        </text:list-item>
@@ -227,7 +227,7 @@
     </draw:frame>
     <draw:frame draw:style-name="gr5" xml:id="shape-28" draw:id="shape-28" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline">
      <draw:text-box>
-      <text:list text:style-name="L1" xml:id="list-72e18952-d61b-4b1c-91c1-731126ff6920">
+      <text:list text:style-name="L1" xml:id="list-8a5a8668-5932-414e-96a5-9243953b25f9">
        <text:list-item>
         <text:p text:style-name="P11"><text:span text:style-name="T2"><text:s/>web-интерфейс</text:span></text:p>
        </text:list-item>
@@ -258,66 +258,54 @@
       <text:p text:style-name="P10"><text:span text:style-name="T2">Структура OBS</text:span></text:p>
      </draw:text-box>
     </draw:frame>
-    <draw:rect draw:style-name="gr8" xml:id="shape-32" draw:id="shape-32" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="70.86626450000pt" svg:y="127.55927610000pt"/>
-    <draw:rect draw:style-name="gr8" xml:id="shape-33" draw:id="shape-33" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="297.63831090000pt" svg:y="127.55927610000pt"/>
-    <draw:rect draw:style-name="gr8" xml:id="shape-34" draw:id="shape-34" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="524.41035730000pt" svg:y="127.55927610000pt"/>
-    <draw:rect draw:style-name="gr8" xml:id="shape-35" draw:id="shape-35" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="141.73252900000pt" svg:y="269.29180510000pt"/>
-    <draw:rect draw:style-name="gr8" xml:id="shape-36" draw:id="shape-36" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="453.54409280000pt" svg:y="270.42566533200pt"/>
-    <draw:rect draw:style-name="gr8" xml:id="shape-37" draw:id="shape-37" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="297.63831090000pt" svg:y="411.02433410000pt"/>
-    <draw:frame draw:style-name="gr5" xml:id="shape-38" draw:id="shape-38" draw:layer="" svg:width="195.37211364211pt" svg:height="81.31093746955pt" svg:x="299.26942263097pt" svg:y="413.33059880353pt">
+    <draw:rect draw:style-name="gr8" xml:id="shape-32" draw:id="shape-32" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="299.33910124800pt" svg:y="127.55927610000pt"/>
+    <draw:rect draw:style-name="gr8" xml:id="shape-33" draw:id="shape-33" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="141.73252900000pt" svg:y="269.29180510000pt"/>
+    <draw:rect draw:style-name="gr8" xml:id="shape-34" draw:id="shape-34" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="453.54409280000pt" svg:y="270.42566533200pt"/>
+    <draw:rect draw:style-name="gr8" xml:id="shape-35" draw:id="shape-35" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="297.63831090000pt" svg:y="411.02433410000pt"/>
+    <draw:frame draw:style-name="gr5" xml:id="shape-36" draw:id="shape-36" draw:layer="" svg:width="195.30742496200pt" svg:height="81.28401501309pt" svg:x="299.33910124800pt" svg:y="413.29205456400pt">
      <draw:text-box>
       <text:p text:style-name="P13"><text:span text:style-name="T5">Домашний проект: home:username</text:span></text:p>
      </draw:text-box>
     </draw:frame>
-    <draw:frame draw:style-name="gr5" xml:id="shape-39" draw:id="shape-39" draw:layer="" svg:width="195.37211364211pt" svg:height="80.18161889358pt" svg:x="144.55277772364pt" svg:y="273.29509538375pt">
+    <draw:frame draw:style-name="gr5" xml:id="shape-37" draw:id="shape-37" draw:layer="" svg:width="195.37211364211pt" svg:height="80.18161889358pt" svg:x="144.55277772364pt" svg:y="273.29509538375pt">
      <draw:text-box>
       <text:p text:style-name="P13"><text:span text:style-name="T5">Проект для разработки:</text:span></text:p>
       <text:p text:style-name="P14">network, games</text:p>
      </draw:text-box>
     </draw:frame>
-    <draw:frame draw:style-name="gr5" xml:id="shape-40" draw:id="shape-40" draw:layer="" svg:width="195.37211364211pt" svg:height="81.31093746955pt" svg:x="456.24470469023pt" svg:y="273.29509538375pt">
+    <draw:frame draw:style-name="gr5" xml:id="shape-38" draw:id="shape-38" draw:layer="" svg:width="195.37211364211pt" svg:height="81.31093746955pt" svg:x="456.24470469023pt" svg:y="273.29509538375pt">
      <draw:text-box>
       <text:p text:style-name="P13"><text:span text:style-name="T6">Проект-агрегатор:</text:span></text:p>
       <text:p text:style-name="P15">KDE Extra,</text:p>
       <text:p text:style-name="P15">Qt Desktop</text:p>
      </draw:text-box>
     </draw:frame>
-    <draw:frame draw:style-name="gr5" xml:id="shape-41" draw:id="shape-41" draw:layer="" svg:width="191.98415791421pt" svg:height="80.18161889358pt" svg:x="73.40570743779pt" svg:y="154.87163623608pt">
+    <draw:frame draw:style-name="gr5" xml:id="shape-39" draw:id="shape-39" draw:layer="" svg:width="191.98415791421pt" svg:height="50.10371629620pt" svg:x="301.39968244695pt" svg:y="155.96776111593pt">
      <draw:text-box>
       <text:p text:style-name="P13"><text:span text:style-name="T7">openSUSE:Factory</text:span></text:p>
      </draw:text-box>
     </draw:frame>
-    <draw:frame draw:style-name="gr5" xml:id="shape-42" draw:id="shape-42" draw:layer="" svg:width="190.85483933824pt" svg:height="79.05230031761pt" svg:x="300.39874120694pt" svg:y="144.87163623608pt">
-     <draw:text-box>
-      <text:p text:style-name="P13"><text:span text:style-name="T5">openSUSE:Factory</text:span><text:span text:style-name="T5">:PowerPC</text:span></text:p>
-     </draw:text-box>
-    </draw:frame>
-    <draw:frame draw:style-name="gr5" xml:id="shape-43" draw:id="shape-43" draw:layer="" svg:width="190.85483933824pt" svg:height="80.18161889358pt" svg:x="527.39177497609pt" svg:y="144.87163623608pt">
-     <draw:text-box>
-      <text:p text:style-name="P13"><text:span text:style-name="T5">openSUSE:Factory</text:span><text:span text:style-name="T5">:ARM</text:span></text:p>
-     </draw:text-box>
-    </draw:frame>
     <presentation:notes>
-     <draw:frame presentation:style-name="pr2" xml:id="shape-44" draw:id="shape-44" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
+     <draw:frame presentation:style-name="pr2" xml:id="shape-40" draw:id="shape-40" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
       <draw:text-box>
        <text:p text:style-name="P9"/>
       </draw:text-box>
      </draw:frame>
-     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-45" draw:id="shape-45" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="4"/>
+     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-41" draw:id="shape-41" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="4"/>
     </presentation:notes>
    </draw:page>
    <draw:page draw:name="page5" draw:id="page5" xml:id="page5" draw:master-page-name="Default1" draw:style-name="dp4" presentation:presentation-page-layout-name="pl2">
     <draw:layer-set>
      <draw:layer draw:name=""/>
     </draw:layer-set>
-    <draw:frame draw:style-name="gr5" xml:id="shape-46" draw:id="shape-46" draw:layer="" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title">
+    <draw:frame draw:style-name="gr5" xml:id="shape-42" draw:id="shape-42" draw:layer="" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title">
      <draw:text-box>
       <text:p text:style-name="P10"><text:span text:style-name="T2">С чего начать?</text:span></text:p>
      </draw:text-box>
     </draw:frame>
-    <draw:frame draw:style-name="gr5" xml:id="shape-47" draw:id="shape-47" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline">
+    <draw:frame draw:style-name="gr5" xml:id="shape-43" draw:id="shape-43" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline">
      <draw:text-box>
-      <text:list text:style-name="L2" xml:id="list-23184e56-8e0d-4f85-ad59-c55dfdb8e041">
+      <text:list text:style-name="L211" xml:id="list-d73bbe3f-3009-4202-8c06-4e226e1280db">
        <text:list-item>
         <text:number>1.</text:number>
         <text:p text:style-name="P11"><text:span text:style-name="T2"><text:s/>регистрация</text:span></text:p>
@@ -338,53 +326,53 @@
      </draw:text-box>
     </draw:frame>
     <presentation:notes>
-     <draw:frame presentation:style-name="pr2" xml:id="shape-48" draw:id="shape-48" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
+     <draw:frame presentation:style-name="pr2" xml:id="shape-44" draw:id="shape-44" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
       <draw:text-box>
        <text:p text:style-name="P9"/>
       </draw:text-box>
      </draw:frame>
-     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-49" draw:id="shape-49" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="5"/>
+     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-45" draw:id="shape-45" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="5"/>
     </presentation:notes>
    </draw:page>
    <draw:page draw:name="page6" draw:id="page6" xml:id="page6" draw:master-page-name="Default1" draw:style-name="dp4" presentation:presentation-page-layout-name="pl6">
     <draw:layer-set>
      <draw:layer draw:name=""/>
     </draw:layer-set>
-    <draw:frame draw:style-name="gr5" xml:id="shape-50" draw:id="shape-50" draw:layer="" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title">
+    <draw:frame draw:style-name="gr5" xml:id="shape-46" draw:id="shape-46" draw:layer="" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title">
      <draw:text-box>
       <text:p text:style-name="P10"><text:span text:style-name="T2">Но я хочу просто обновить пакет</text:span></text:p>
      </draw:text-box>
     </draw:frame>
-    <draw:frame draw:style-name="gr5" xml:id="shape-51" draw:id="shape-51" draw:layer="" svg:width="696.42929103605pt" svg:height="80.56194805776pt" svg:x="49.65074161995pt" svg:y="142.86638923200pt" presentation:class="outline">
+    <draw:frame draw:style-name="gr5" xml:id="shape-47" draw:id="shape-47" draw:layer="" svg:width="696.42929103605pt" svg:height="80.56194805776pt" svg:x="49.65074161995pt" svg:y="142.86638923200pt" presentation:class="outline">
      <draw:text-box>
       <text:p text:style-name="P16">http://software.opensuse.org/</text:p>
       <text:p text:style-name="P16">search?q=qbittorrent</text:p>
      </draw:text-box>
     </draw:frame>
-    <draw:frame draw:style-name="gr9" xml:id="shape-52" draw:id="shape-52" draw:layer="" svg:width="479.58102701086pt" svg:height="257.83926183379pt" svg:x="50.77916756586pt" svg:y="265.90856025840pt">
+    <draw:frame draw:style-name="gr9" xml:id="shape-48" draw:id="shape-48" draw:layer="" svg:width="479.58102701086pt" svg:height="257.83926183379pt" svg:x="50.77916756586pt" svg:y="265.90856025840pt">
      <draw:image xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad" xlink:href="Pictures/image4.png"/>
     </draw:frame>
     <presentation:notes>
-     <draw:frame presentation:style-name="pr2" xml:id="shape-53" draw:id="shape-53" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
+     <draw:frame presentation:style-name="pr2" xml:id="shape-49" draw:id="shape-49" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
       <draw:text-box>
        <text:p text:style-name="P9"/>
       </draw:text-box>
      </draw:frame>
-     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-54" draw:id="shape-54" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="6"/>
+     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-50" draw:id="shape-50" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="6"/>
     </presentation:notes>
    </draw:page>
    <draw:page draw:name="page7" draw:id="page7" xml:id="page7" draw:master-page-name="Default1" draw:style-name="dp4" presentation:presentation-page-layout-name="pl3">
     <draw:layer-set>
      <draw:layer draw:name=""/>
     </draw:layer-set>
-    <draw:frame draw:style-name="gr5" xml:id="shape-55" draw:id="shape-55" draw:layer="" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title">
+    <draw:frame draw:style-name="gr5" xml:id="shape-51" draw:id="shape-51" draw:layer="" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title">
      <draw:text-box>
-      <text:p text:style-name="P10"><text:span text:style-name="T2">Мкей</text:span></text:p>
+      <text:p text:style-name="P10"><text:span text:style-name="T2">Приступаем</text:span></text:p>
      </draw:text-box>
     </draw:frame>
-    <draw:frame draw:style-name="gr5" xml:id="shape-56" draw:id="shape-56" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="subtitle">
+    <draw:frame draw:style-name="gr5" xml:id="shape-52" draw:id="shape-52" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="subtitle">
      <draw:text-box>
-      <text:list text:style-name="L1" xml:id="list-c20ead4b-e74b-4b36-a36f-418351a38ef4">
+      <text:list text:style-name="L1" xml:id="list-4324fe18-8c5d-4baa-bb27-4d93e87445fc">
        <text:list-item>
         <text:p text:style-name="P11"><text:span text:style-name="T8"><text:s/>переходим в проект для разработки</text:span></text:p>
        </text:list-item>
@@ -393,9 +381,9 @@
        </text:list-item>
       </text:list>
       <text:p text:style-name="P18"><text:span text:style-name="T9">временно отключаем сборку (репозитории)</text:span></text:p>
-      <text:list text:style-name="L1" xml:id="list-889a06ad-1df0-4c9b-a183-7dd03e0a5184">
+      <text:list text:style-name="L1" xml:id="list-7d2c842e-d7ff-47ee-8b31-c7917e8ef553">
        <text:list-item>
-        <text:p text:style-name="P17"><text:s/>заменяем архив с исходниками</text:p>
+        <text:p text:style-name="P17"><text:s/>обновляем архив с исходниками</text:p>
        </text:list-item>
        <text:list-item>
         <text:p text:style-name="P17"><text:s/>обновляем версию в spec</text:p>
@@ -406,7 +394,7 @@
        </text:list-item>
       </text:list>
       <text:p text:style-name="P18"><text:span text:style-name="T9">включаем по одной сборки</text:span></text:p>
-      <text:list text:style-name="L1" xml:id="list-83faec06-c985-4a97-aa62-ee73e6ee2865">
+      <text:list text:style-name="L1" xml:id="list-c87ace70-d48f-410c-844f-341ac5b1ecba">
        <text:list-item>
         <text:p text:style-name="P19"><text:span text:style-name="T10"><text:s/>дожидаемся статуса succeeded</text:span></text:p>
        </text:list-item>
@@ -416,50 +404,50 @@
      </draw:text-box>
     </draw:frame>
     <presentation:notes>
-     <draw:frame presentation:style-name="pr2" xml:id="shape-57" draw:id="shape-57" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
+     <draw:frame presentation:style-name="pr2" xml:id="shape-53" draw:id="shape-53" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
       <draw:text-box>
        <text:p text:style-name="P9"/>
       </draw:text-box>
      </draw:frame>
-     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-58" draw:id="shape-58" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="7"/>
+     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-54" draw:id="shape-54" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="7"/>
     </presentation:notes>
    </draw:page>
    <draw:page draw:name="page8" draw:id="page8" xml:id="page8" draw:master-page-name="Default1" draw:style-name="dp4" presentation:presentation-page-layout-name="pl2">
     <draw:layer-set>
      <draw:layer draw:name=""/>
     </draw:layer-set>
-    <draw:frame draw:style-name="gr5" xml:id="shape-59" draw:id="shape-59" draw:layer="" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title">
+    <draw:frame draw:style-name="gr5" xml:id="shape-55" draw:id="shape-55" draw:layer="" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title">
      <draw:text-box>
       <text:p text:style-name="P10"><text:span text:style-name="T2">Хочу поделиться</text:span></text:p>
      </draw:text-box>
     </draw:frame>
-    <draw:frame draw:style-name="gr9" xml:id="shape-60" draw:id="shape-60" draw:layer="" svg:width="439.38062297457pt" svg:height="428.85653619674pt" svg:x="45.21765711294pt" svg:y="98.66470116913pt">
+    <draw:frame draw:style-name="gr9" xml:id="shape-56" draw:id="shape-56" draw:layer="" svg:width="439.38062297457pt" svg:height="428.85653619674pt" svg:x="45.21765711294pt" svg:y="98.66470116913pt">
      <draw:image xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad" xlink:href="Pictures/image5.png"/>
     </draw:frame>
-    <draw:frame draw:style-name="gr9" xml:id="shape-61" draw:id="shape-61" draw:layer="" svg:width="314.96117555556pt" svg:height="299.96302433862pt" svg:x="433.76629266575pt" svg:y="102.79357456402pt">
+    <draw:frame draw:style-name="gr9" xml:id="shape-57" draw:id="shape-57" draw:layer="" svg:width="314.96117555556pt" svg:height="299.96302433862pt" svg:x="433.76629266575pt" svg:y="102.79357456402pt">
      <draw:image xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad" xlink:href="Pictures/image6.png"/>
     </draw:frame>
     <presentation:notes>
-     <draw:frame presentation:style-name="pr2" xml:id="shape-62" draw:id="shape-62" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
+     <draw:frame presentation:style-name="pr2" xml:id="shape-58" draw:id="shape-58" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
       <draw:text-box>
        <text:p text:style-name="P9"/>
       </draw:text-box>
      </draw:frame>
-     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-63" draw:id="shape-63" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="8"/>
+     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-59" draw:id="shape-59" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="8"/>
     </presentation:notes>
    </draw:page>
    <draw:page draw:name="page9" draw:id="page9" xml:id="page9" draw:master-page-name="Default1" draw:style-name="dp4" presentation:presentation-page-layout-name="pl2">
     <draw:layer-set>
      <draw:layer draw:name=""/>
     </draw:layer-set>
-    <draw:frame draw:style-name="gr5" xml:id="shape-64" draw:id="shape-64" draw:layer="" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title">
+    <draw:frame draw:style-name="gr5" xml:id="shape-60" draw:id="shape-60" draw:layer="" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title">
      <draw:text-box>
       <text:p text:style-name="P10"><text:span text:style-name="T2">А обещали мой пакет</text:span></text:p>
      </draw:text-box>
     </draw:frame>
-    <draw:frame draw:style-name="gr5" xml:id="shape-65" draw:id="shape-65" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline">
+    <draw:frame draw:style-name="gr5" xml:id="shape-61" draw:id="shape-61" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline">
      <draw:text-box>
-      <text:list text:style-name="L1" xml:id="list-b4f567ea-75fe-4f2a-86c0-b7e00d10e2d5">
+      <text:list text:style-name="L1" xml:id="list-3fc8d673-ebac-436b-9aa9-154ebaf15890">
        <text:list-item>
         <text:p text:style-name="P11"><text:span text:style-name="T2"><text:s/>spec любого похожего проекта</text:span></text:p>
        </text:list-item>
@@ -482,26 +470,26 @@
      </draw:text-box>
     </draw:frame>
     <presentation:notes>
-     <draw:frame presentation:style-name="pr2" xml:id="shape-66" draw:id="shape-66" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
+     <draw:frame presentation:style-name="pr2" xml:id="shape-62" draw:id="shape-62" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
       <draw:text-box>
        <text:p text:style-name="P9"/>
       </draw:text-box>
      </draw:frame>
-     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-67" draw:id="shape-67" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="9"/>
+     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-63" draw:id="shape-63" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="9"/>
     </presentation:notes>
    </draw:page>
    <draw:page draw:name="page10" draw:id="page10" xml:id="page10" draw:master-page-name="Default1" draw:style-name="dp4" presentation:presentation-page-layout-name="pl2">
     <draw:layer-set>
      <draw:layer draw:name=""/>
     </draw:layer-set>
-    <draw:frame draw:style-name="gr5" xml:id="shape-68" draw:id="shape-68" draw:layer="" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title">
+    <draw:frame draw:style-name="gr5" xml:id="shape-64" draw:id="shape-64" draw:layer="" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title">
      <draw:text-box>
       <text:p text:style-name="P10"><text:span text:style-name="T2">Полезные ресурсы</text:span></text:p>
      </draw:text-box>
     </draw:frame>
-    <draw:frame draw:style-name="gr5" xml:id="shape-69" draw:id="shape-69" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline">
+    <draw:frame draw:style-name="gr5" xml:id="shape-65" draw:id="shape-65" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline">
      <draw:text-box>
-      <text:list text:style-name="L3" xml:id="list-31e85671-05f6-45de-902a-16005bd7424d">
+      <text:list text:style-name="L3" xml:id="list-24649d88-0bdc-4a1b-b252-35513a63e52d">
        <text:list-item>
         <text:p text:style-name="P11">http://ru.opensuse.org/<text:line-break/>Portal:Служба_сборки</text:p>
        </text:list-item>
@@ -521,24 +509,24 @@
      </draw:text-box>
     </draw:frame>
     <presentation:notes>
-     <draw:frame presentation:style-name="pr2" xml:id="shape-70" draw:id="shape-70" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
+     <draw:frame presentation:style-name="pr2" xml:id="shape-66" draw:id="shape-66" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
       <draw:text-box>
        <text:p text:style-name="P9"/>
       </draw:text-box>
      </draw:frame>
-     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-71" draw:id="shape-71" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="10"/>
+     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-67" draw:id="shape-67" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="10"/>
     </presentation:notes>
    </draw:page>
    <draw:page draw:name="page11" draw:id="page11" xml:id="page11" draw:master-page-name="Default1" draw:style-name="dp4" presentation:presentation-page-layout-name="pl2">
     <draw:layer-set>
      <draw:layer draw:name=""/>
     </draw:layer-set>
-    <draw:frame draw:style-name="gr5" xml:id="shape-72" draw:id="shape-72" draw:layer="" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title">
+    <draw:frame draw:style-name="gr5" xml:id="shape-68" draw:id="shape-68" draw:layer="" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title">
      <draw:text-box>
       <text:p text:style-name="P10"><text:span text:style-name="T2">Спасибо за внимание!</text:span></text:p>
      </draw:text-box>
     </draw:frame>
-    <draw:frame draw:style-name="gr5" xml:id="shape-73" draw:id="shape-73" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline">
+    <draw:frame draw:style-name="gr5" xml:id="shape-69" draw:id="shape-69" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline">
      <draw:text-box>
       <text:p text:style-name="P16"><text:span text:style-name="T2">Dmitriy Perlow aka DA(P).DarkneSS</text:span></text:p>
       <text:p text:style-name="P21"/>
@@ -550,12 +538,12 @@
      </draw:text-box>
     </draw:frame>
     <presentation:notes>
-     <draw:frame presentation:style-name="pr2" xml:id="shape-74" draw:id="shape-74" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
+     <draw:frame presentation:style-name="pr2" xml:id="shape-70" draw:id="shape-70" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
       <draw:text-box>
        <text:p text:style-name="P9"/>
       </draw:text-box>
      </draw:frame>
-     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-75" draw:id="shape-75" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="11"/>
+     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-71" draw:id="shape-71" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="11"/>
     </presentation:notes>
    </draw:page>
    <presentation:settings/>
