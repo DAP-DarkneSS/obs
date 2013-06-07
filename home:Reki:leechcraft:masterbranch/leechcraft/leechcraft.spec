@@ -22,11 +22,11 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 
 %define mellonetray 1
-%define woodpecker 0
+%define woodpecker 1
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-704-g0f4ea98
+%define LEECHCRAFT_VERSION 0.5.95-798-g25ed92d
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -88,9 +88,7 @@ BuildRequires:  mupdf-devel-static
 %endif
 BuildRequires:  pcre-devel
 BuildRequires:  phonon-devel
-%if %{woodpecker}
 BuildRequires:  pkgconfig(kqoauth)
-%endif
 BuildRequires:  qwt6-devel
 BuildRequires:  speex-devel
 BuildRequires:  taglib-devel
@@ -372,6 +370,7 @@ KDE should not be running for AnHero to work.
 Summary:        LeechCraft Screenshoter Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Requires:       %{name}-imgaste = %{version}
 
 %description auscrie
 This package provides a screenshooter plugin for LeechCraft.
@@ -1040,6 +1039,15 @@ Requires:       %{name}-lmp = %{version}
 This package provides a radio streams provider plugin for LeechCraft.
 
 
+%package imgaste
+Summary:        LeechCraft Image Paster Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description imgaste
+This module provides a simple image paster plugin from LeechCraft
+
+
 %package kbswitch
 Summary:        LeechCraft keyboard switcher Module
 Group:          Productivity/Networking/Other
@@ -1563,6 +1571,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-webbrowser
 Obsoletes:      poshuku-wyfv
+Recommends:     %{name}-imgaste = %{version}
 
 %description poshuku
 This package provides a web browser plugin for LeechCraft.
@@ -2013,6 +2022,7 @@ cmake ../src \
         -DENABLE_GMAILNOTIFIER=True \
         -DENABLE_HOTSENSORS=True \
         -DENABLE_HOTSTREAMS=True \
+        -DENABLE_IMGASTE=True \
         -DENABLE_KBSWITCH=True \
         -DENABLE_KNOWHOW=True \
         -DENABLE_KRIGSTASK=True \
@@ -2518,6 +2528,10 @@ EOF
 %files hotstreams
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_hotstreams.so
+
+%files imgaste
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_imgaste.so
 
 %files kbswitch
 %defattr(-,root,root)
