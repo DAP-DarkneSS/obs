@@ -77,6 +77,8 @@ ln -s %{_libdir}/liba52.so.0 %{buildroot}%{_libdir}/liba52-0.7.4.so
 %dir %{_libdir}/xulrunner-addons
 %dir %{_libdir}/*/plugins
 %{_libdir}/*/plugins/libace_plugin.so
+%dir %{_libdir}/python2.7
+%dir %{_libdir}/python2.7/site-packages
 %{_libdir}/python2.7/site-packages/*acestream*
 %{_libdir}/libtsplayer*
 %{_datadir}/acestream*
