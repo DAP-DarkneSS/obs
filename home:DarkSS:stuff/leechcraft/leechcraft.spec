@@ -22,7 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 
 Name:           leechcraft
-Version:        0.5.96
+Version:        0.5.97
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
@@ -39,7 +39,11 @@ Patch1:         leechcraft-acetamide-qt47.patch
 Patch2:         leechcraft-doc-doxygen-rpmlint-w.patch
 %endif
 
+%if 0%{?suse_version} > 1230
+BuildRequires:  boost-devel >= 1.50
+%else
 BuildRequires:  boost-devel
+%endif
 BuildRequires:  cmake > 2.8
 %if 0%{?suse_version} <= 1210 || 0%{?suse_version} > 1230
 BuildRequires:  doxygen
@@ -1727,6 +1731,19 @@ It allows to show the list of currently opened tabs
 and allows to quickly navigate between them.
 
 
+%if 0%{?suse_version} > 1230
+%package touchstreams
+Summary:        LeechCraft VK.com Streaming Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-lmp = %{version}
+Requires:       %{name}-musiczombie = %{version}
+
+%description touchstreams
+This package provides a VK.com music streaming plugin for Leechcraft.
+%endif
+
 %if 0%{suse_version} >= 1220
 %package tpi
 Summary:        LeechCraft Task Progress Indicator Module
@@ -1838,7 +1855,6 @@ cmake ../src \
         -DENABLE_SNAILS=False \
         -DENABLE_SYNCER=True \
         -DENABLE_TABSLIST=True \
-        -DENABLE_TOUCHSTREAMS=False \
         -DENABLE_TWIFEE=False \
 %if 0%{?suse_version} >= 1220
         -DENABLE_AZOTH_SHX=True \
@@ -1900,6 +1916,10 @@ cmake ../src \
 %if 0%{?suse_version} > 1230
         -DENABLE_MONOCLE_MU=True \
         -DMUPDF_VERSION=0x0102 \
+        -DENABLE_TOUCHSTREAMS=True \
+%else
+        -DENABLE_MONOCLE_MU=False \
+        -DENABLE_TOUCHSTREAMS=False \
 %endif
         -DUSE_POSHUKU_CLEANWEB_PCRE=True \
         -DLEECHCRAFT_VERSION=%{version}
@@ -2646,6 +2666,14 @@ cp -r * %{buildroot}%{_docdir}/%{name}-monocle-doc
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_tabslist.so
 %{translations_dir}/leechcraft_tabslist*
+
+%if 0%{?suse_version} > 1230
+%files touchstreams
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_touchstreams.so
+%{_datadir}/%{name}/translations/%{name}_touchstreams*.qm
+%{_datadir}/%{name}/settings/touchstreamssettings.xml
+%endif
 
 %if 0%{?suse_version} >= 1220
 %files tpi

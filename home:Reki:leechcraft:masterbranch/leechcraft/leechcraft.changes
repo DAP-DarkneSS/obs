@@ -1,11 +1,17 @@
 -------------------------------------------------------------------
-Tue May 21 18:12:07 UTC 2013 - dap.darkness@gmail.com
+Mon Jun 10 20:52:59 UTC 2013 - dap.darkness@gmail.com
 
-- New plugins were enabled for Factory:
-  * touchstreams — VK.com music streaming;
 - Added leechcraft-qt-moc-boost.patch to prevent
   'AUTOMOC: Parse error at "BOOST_JOIN"'. See more at
   https://bugreports.qt-project.org/browse/QTBUG-22829
+
+-------------------------------------------------------------------
+Mon Jun 10 20:52:29 UTC 2013 - dap.darkness@gmail.com
+
+- 0.5.97 bugfix release:
+  * Blah!
+- New plugins were enabled for Factory:
+  * touchstreams — VK.com music streaming.
 
 -------------------------------------------------------------------
 Tue May 21 18:03:02 UTC 2013 - dap.darkness@gmail.com
