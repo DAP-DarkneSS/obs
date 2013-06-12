@@ -1,10 +1,29 @@
 -------------------------------------------------------------------
+Wed Jun 12 20:57:59 UTC 2013 - dap.darkness@gmail.com
+- Fixed for PowerPC and ARM architectures:
+  * no v8 and mupdf for ppc* — monocle-mu plugin was disabled;
+  * no libpurple for armv5 — azoth-velvetbird plugin was disabled.
+
+-------------------------------------------------------------------
 Mon Jun 10 20:52:29 UTC 2013 - dap.darkness@gmail.com
 
 - 0.5.97 bugfix release:
-  * Blah!
+  * Core: fixed colors for QML buttons (mucn neater now).
+  * Core: properly handle META key in shortcuts dialog.
+  * Core: properly set default string codec, fixes debug messages encoding.
+  * Util: fixed memory leak with QML and ColorThemeProxy.
+  * Util: fixed rectangle fitting algorithm.
+  * Azoth: fixed chat entry destruction on chat tab close.
+  * HotSensors: take text color from the QML theme.
+  * LackMan: fixed a typo in SQL query.
+  * Launchy: extended known category aliases for Multimedia.
+  * Monocle: keep page position on resize.
+  * NSM: fixed icons for tab context menu actions.
+  * TPI: update job name as well.
+  * TPI: don't show internal tasks.
+  * Vrooby: close the device popup on hoverout.
 - New plugins were enabled for Factory:
-  * touchstreams — VK.com music streaming.
+  * Touchstreams — VK.com music streaming.
 
 -------------------------------------------------------------------
 Tue May 21 18:03:02 UTC 2013 - dap.darkness@gmail.com

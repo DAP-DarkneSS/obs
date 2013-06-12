@@ -72,7 +72,9 @@ BuildRequires:  libnl3-devel
 BuildRequires:  libotr-devel
 %if 0%{?suse_version} >= 1220
 BuildRequires:  libpoppler-qt4-devel
+%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
 BuildRequires:  libpurple-devel
+%endif
 %endif
 BuildRequires:  libqca2-devel
 BuildRequires:  libqjson-devel
@@ -86,7 +88,9 @@ BuildRequires:  libsensors4-devel
 BuildRequires:  libspectre-devel
 BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
 %if 0%{?suse_version} > 1230
+%ifarch i586 i686 x86_64 armv5el armv7l armv7hl
 BuildRequires:  mupdf-devel-static
+%endif
 %endif
 BuildRequires:  pcre-devel
 BuildRequires:  phonon-devel
@@ -566,6 +570,7 @@ The following protocol features are supported:
 
 
 %if 0%{suse_version} >= 1220
+%ifarch i586 i686 x86_64 ppc ppc64 armv7l
 %package azoth-velvetbird
 Summary:        LeechCraft Azoth - LibPurple Module
 License:        BSL-1.0
@@ -577,6 +582,7 @@ Provides:       %{name}-azoth-protocolplugin
 This package provides a LibPurple plugin for LeechCraft Azoth.
 
 It supportes various protocols provided by Purple library.
+%endif
 %endif
 
 %package azoth-xoox
@@ -1190,6 +1196,7 @@ This package provides FB2 documents support for Document viewer Module.
 %endif
 
 %if 0%{suse_version} > 1230
+%ifarch i586 i686 x86_64 armv5el armv7l armv7hl
 %package monocle-mu
 Summary:        LeechCraft Monocle - Another PDF Module
 License:        BSL-1.0
@@ -1204,6 +1211,7 @@ This package contains another pdf subplugin for LeechCraft Monocle.
 
 This package provides PDF documents support for Document viewer Module
 via the mupdf backend.
+%endif
 %endif
 
 %if 0%{suse_version} >= 1220
@@ -1858,7 +1866,11 @@ cmake ../src \
         -DENABLE_TWIFEE=False \
 %if 0%{?suse_version} >= 1220
         -DENABLE_AZOTH_SHX=True \
+%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
         -DENABLE_AZOTH_VELVETBIRD=True \
+%else
+        -DENABLE_AZOTH_VELVETBIRD=False \
+%endif
         -DENABLE_BLOGIQUE=True \
         -DENABLE_CHOROID=True \
         -DENABLE_DUMBEEP=True \
@@ -1914,11 +1926,18 @@ cmake ../src \
         -DENABLE_VROOBY=False \
 %endif
 %if 0%{?suse_version} > 1230
+%ifarch i586 i686 x86_64 armv5el armv7l armv7hl
         -DENABLE_MONOCLE_MU=True \
         -DMUPDF_VERSION=0x0102 \
-        -DENABLE_TOUCHSTREAMS=True \
 %else
         -DENABLE_MONOCLE_MU=False \
+%endif
+%else
+        -DENABLE_MONOCLE_MU=False \
+%endif
+%if 0%{?suse_version} > 1230
+        -DENABLE_TOUCHSTREAMS=True \
+%else
         -DENABLE_TOUCHSTREAMS=False \
 %endif
         -DUSE_POSHUKU_CLEANWEB_PCRE=True \
@@ -2198,9 +2217,11 @@ cp -r * %{buildroot}%{_docdir}/%{name}-monocle-doc
 %{plugin_dir}/*%{name}_azoth_vader.so
 
 %if 0%{?suse_version} >= 1220
+%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
 %files azoth-velvetbird
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_velvetbird.so
+%endif
 %endif
 
 %files azoth-xoox
@@ -2468,9 +2489,11 @@ cp -r * %{buildroot}%{_docdir}/%{name}-monocle-doc
 %endif
 
 %if 0%{?suse_version} > 1230
+%ifarch i586 i686 x86_64 armv5el armv7l armv7hl
 %files monocle-mu
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_mu.so
+%endif
 %endif
 
 %if 0%{?suse_version} >= 1220
