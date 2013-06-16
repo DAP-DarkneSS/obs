@@ -1,0 +1,9 @@
+[Desktop Entry]
+Categories=Network;InstantMessaging;
+Encoding=UTF-8
+Terminal=true
+Exec=mcabber
+Type=Application
+StartupNotify=false
+Name=mcabber
+GenericName=Instant Messenger

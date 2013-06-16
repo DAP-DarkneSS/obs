@@ -1,0 +1,113 @@
+-------------------------------------------------------------------
+Sun Dec 02 20:45:24 UTC 2012 - pascal.bleser@opensuse.org
+
+- update to 0.10.2:
+ * the FIFO and url_regex systems have been modularized
+ * load the appropriate modules if you want these features
+   (the sample configuration file has been updated)
+
+-------------------------------------------------------------------
+Wed Dec  1 23:13:09 UTC 2010 - pascal.bleser@opensuse.org
+
+- update to 0.10.1:
+  * display a warning when the configuration file hasn't been updated
+  * display better messages when connecting to the XMPP server
+  * [MUC] do not block MUC private messages when 'block_unsubscribed' is set
+  * [MUC] fix handling of empty room topic
+  * [MUC] add caps to presence when joining a MUC room
+  * new option 'completion_ignore_case' - completion is now case sensitive by default
+  * display module API information in the output of /version
+  * increase the number of available categories for completions
+  * [Hooks] new "hook-subscription" hook, update to the message-in hooks (See ChangeLog.api)
+  * many misc. bugfixes
+  * minor documentation update
+
+-------------------------------------------------------------------
+Sun Apr 11 19:22:05 UTC 2010 - pascal.bleser@opensuse.org
+
+- update to 0.10.0:
+  * switch to the loudmouth Jabber library
+  * "username" has been replaced with "jid" in the configuration file
+  * mcabber can now do DNS SRV lookups
+  * buffers have priorities, that are used to jump to the next unread buffer
+  * the attention sign (!) is displayed for urgent messages or when the user nickname is used in a MUC room
+  * prints a list of options with "/set"
+  * add support for modules
+  * sample "beep" module
+  * message receipts (XEP-0184) support
+  * new command /request ping
+  * add libidn support
+  * allow changing the nickname in MUC bookmarks
+  * a suffix can be appended to completed nicknames
+  * command "/source" now accepts a file pattern
+  * tracelog level can now be changed at runtime
+  * small vCard support improvements
+  * startup status can be set in the configuration file
+  * obsolete option 'hide_offline_buddies' has been removed
+  * obsolete XEP-0022 (message events) is now disabled by default
+  * no suffix is displayed in the status bar after the 'info' value
+  * add vim syntax file for mcabber history log files
+
+-------------------------------------------------------------------
+Wed Oct  7 00:00:00 UTC 2009 - pascal.bleser@opensuse.org
+
+- update to 0.9.10:
+  * supports spell checking with Enchant
+  * many small improvements and bugfixes
+
+
+-------------------------------------------------------------------
+Thu Oct  9 00:00:00 UTC 2008 - guru@unixtech.be
+
+- update to 0.9.9:
+  * a few bugfixes
+  * some translation updates
+  * a new Czech translation
+
+
+-------------------------------------------------------------------
+Mon Oct  6 00:00:00 UTC 2008 - guru@unixtech.be
+
+- update to 0.9.8:
+  * URLs can be extracted from messages to the log window using the url_regex
+    option
+  * OTR messages are now flagged with "O"
+  * two new commands have been added, "/buffer save" and "/echo"
+  *  several new options and UI improvements
+
+
+-------------------------------------------------------------------
+Thu Apr 17 00:00:00 UTC 2008 - guru@unixtech.be
+
+- new upstream version
+
+
+-------------------------------------------------------------------
+Sun Jan 13 00:00:00 UTC 2008 - guru@unixtech.be
+
+- update to 0.9.6
+
+-------------------------------------------------------------------
+Wed Nov 21 00:00:00 UTC 2007 - guru@unixtech.be
+
+- update to 0.9.5
+
+-------------------------------------------------------------------
+Sun Oct 28 00:00:00 UTC 2007 - guru@unixtech.be
+
+- enabled aspell support
+- use gnutls instead of openssl
+- added OTR support (requires libotr >= 0.3.1)
+- update to 0.9.4
+
+-------------------------------------------------------------------
+Wed Jun 20 00:00:00 UTC 2007 - guru@unixtech.be
+
+- update to 0.9.3
+
+-------------------------------------------------------------------
+Wed Jun 13 00:00:00 UTC 2007 - guru@unixtech.be
+
+- initial openSUSE Build Service submission
+
+
