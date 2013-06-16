@@ -46,13 +46,17 @@ BuildRequires:  boost-devel
 %endif
 BuildRequires:  cmake > 2.8
 %if 0%{?suse_version} <= 1210 || 0%{?suse_version} > 1230
+%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
 BuildRequires:  doxygen
+%endif
 %endif
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 BuildRequires:  gcc-c++ >= 4.6
 %if 0%{?suse_version} <= 1210 || 0%{?suse_version} > 1230
+%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
 BuildRequires:  graphviz
+%endif
 %endif
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  hunspell-devel
@@ -349,6 +353,7 @@ It allows to ignore unwanted participants.
 
 
 %if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
+%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
 %package azoth-doc
 Summary:        LeechCraft Azoth Documentation
 License:        BSL-1.0
@@ -362,6 +367,7 @@ It contains description of Azoth API used for developing LeechCraft
 Azoth sub-plugins. For developing first-lexel plugins, please refer
 to corresponding packages (like leechcraft-doc). This documentation
 is also available online at http://doc.leechcraft.org/azoth/
+%endif
 %endif
 
 %package azoth-embedmedia
@@ -794,6 +800,7 @@ It contains header files required to develop new modules.
 
 
 %if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
+%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
 %package doc
 Summary:        LeechCraft Core Documentation
 License:        BSL-1.0
@@ -807,6 +814,7 @@ It contains description of core API used for developing first-level
 LeechCraft plugins. For developing sub-plugins, please refer to
 corresponding packages (like leechcraft-azoth-doc). This documentation
 is also available online at http://doc.leechcraft.org/core/
+%endif
 %endif
 
 %package dolozhee
@@ -1165,6 +1173,7 @@ It will support different formats via different backends.
 %endif
 
 %if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
+%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
 %package monocle-doc
 Summary:        LeechCraft Monocle Documentation
 License:        BSL-1.0
@@ -1178,6 +1187,7 @@ It contains description of Monocle API used for developing LeechCraft
 Monocle sub-plugins. For developing first-lexel plugins, please refer
 to corresponding packages (like leechcraft-doc). This documentation
 is also available online at http://doc.leechcraft.org/monocle/
+%endif
 %endif
 
 %if 0%{suse_version} >= 1220
@@ -1948,6 +1958,7 @@ cd build
 make %{?_smp_mflags}
 
 %if 0%{?suse_version} <= 1210 || 0%{?suse_version} > 1230
+%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
 cd ../doc/doxygen/core
 sed -i Doxyfile \
 -e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
@@ -1964,12 +1975,14 @@ sed -i Doxyfile \
 -e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
 doxygen Doxyfile
 %endif
+%endif
 
 %install
 cd build
 %makeinstall
 
 %if 0%{?suse_version} <= 1210 || 0%{?suse_version} > 1230
+%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
 cd ../doc/doxygen/core/out/html
 mkdir -p %{buildroot}%{_docdir}/%{name}-doc
 cp -r * %{buildroot}%{_docdir}/%{name}-doc
@@ -1981,6 +1994,7 @@ cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
 cd ../../../monocle/out/html
 mkdir -p %{buildroot}%{_docdir}/%{name}-monocle-doc
 cp -r * %{buildroot}%{_docdir}/%{name}-monocle-doc
+%endif
 %endif
 
 %suse_update_desktop_file -i %{name}
@@ -2121,12 +2135,14 @@ cp -r * %{buildroot}%{_docdir}/%{name}-monocle-doc
 %{translations_dir}/%{name}_azoth_depester*
 
 %if 0%{?suse_version} <= 1210 || 0%{?suse_version} > 1230
+%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
 %files azoth-doc
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}-azoth-doc
 %doc %{_docdir}/%{name}-azoth-doc/*
 %if 0%{?suse_version} <= 1210
 %exclude %{_docdir}/%{name}-azoth-doc/installdox
+%endif
 %endif
 %endif
 
@@ -2309,12 +2325,14 @@ cp -r * %{buildroot}%{_docdir}/%{name}-monocle-doc
 %{_datadir}/cmake/Modules/InitLCPlugin.cmake
 
 %if 0%{?suse_version} <= 1210 || 0%{?suse_version} > 1230
+%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
 %files doc
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}-doc
 %doc %{_docdir}/%{name}-doc/*
 %if 0%{?suse_version} <= 1210
 %exclude %{_docdir}/%{name}-doc/installdox
+%endif
 %endif
 %endif
 
@@ -2472,12 +2490,14 @@ cp -r * %{buildroot}%{_docdir}/%{name}-monocle-doc
 %endif
 
 %if 0%{?suse_version} <= 1210 || 0%{?suse_version} > 1230
+%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
 %files monocle-doc
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}-monocle-doc
 %doc %{_docdir}/%{name}-monocle-doc/*
 %if 0%{?suse_version} <= 1210
 %exclude %{_docdir}/%{name}-monocle-doc/installdox
+%endif
 %endif
 %endif
 
