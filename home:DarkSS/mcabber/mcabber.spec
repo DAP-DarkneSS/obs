@@ -21,11 +21,16 @@ Source:         http://www.lilotux.net/~mikael/mcabber/files/mcabber-%{version}.
 Source1:        mcabber.desktop
 URL:            http://www.lilotux.net/~mikael/mcabber/
 Group:          Productivity/Networking/Other
-License:        GNU General Public License (GPL)
+License:        GPL-2.0+
+
 BuildRoot:      %{_tmppath}/build-%{name}-%{version}
 BuildRequires:  gcc make pkgconfig ncurses-devel
 BuildRequires:  gnutls-devel glib2-devel
+%if %suse_version >= 1230
+BuildRequires:  libotr2-devel
+%else
 BuildRequires:  libotr-devel >= 3.1.0
+%endif
 %if %suse_version > 1030 && %suse_version <= 1100
 BuildRequires:  libotr2
 %endif
@@ -42,7 +47,7 @@ BuildRequires:  update-desktop-files
 %else
 BuildRequires:  gpgme-devel
 %endif
-Requires:       libotr >= 0.3.1
+# Requires:       libotr >= 0.3.1
 
 %description
 mcabber is a small Jabber console client. It features SSL support, history
@@ -59,7 +64,6 @@ Requires:       loudmouth-devel
 mcabber is a small Jabber console client. It features SSL support, history
 logging, and external actions.
 
-%debug_package
 %prep
 %setup -q
 find contrib/ -type f -exec %__chmod 0644 {} \;
@@ -91,9 +95,6 @@ find contrib/ -type f -exec %__chmod 0644 {} \;
 %__rm -rf contrib/vim
 
 %__mv mcabberrc.example mcabberrc
-
-%clean
-%{?buildroot:%__rm -rf "%{buildroot}"}
 
 %files
 %defattr(-,root,root)
