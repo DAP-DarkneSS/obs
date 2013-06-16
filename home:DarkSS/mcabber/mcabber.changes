@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Jun 16 16:01:56 UTC 2013 - dap@open.by
+
+- libotr2-devel became required to build to fix oS 12.3+.
+- Fixed up via `spec-cleaner`.
+- License tag was set to GPL-2.0+ to fix warning.
+
+-------------------------------------------------------------------
 Sun Dec 02 20:45:24 UTC 2012 - pascal.bleser@opensuse.org
 
 - update to 0.10.2:

@@ -16,38 +16,45 @@
 Name:           mcabber
 Version:        0.10.2
 Release:        0
+License:        GPL-2.0+
 Summary:        Small Jabber Console Client
+Url:            http://www.lilotux.net/~mikael/mcabber/
+Group:          Productivity/Networking/Other
 Source:         http://www.lilotux.net/~mikael/mcabber/files/mcabber-%{version}.tar.bz2
 Source1:        mcabber.desktop
-URL:            http://www.lilotux.net/~mikael/mcabber/
-Group:          Productivity/Networking/Other
-License:        GPL-2.0+
 
-BuildRoot:      %{_tmppath}/build-%{name}-%{version}
-BuildRequires:  gcc make pkgconfig ncurses-devel
-BuildRequires:  gnutls-devel glib2-devel
-%if %suse_version >= 1230
+BuildRequires:  aspell-devel
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  enchant-devel
+BuildRequires:  gcc
+BuildRequires:  glib2-devel
+BuildRequires:  gnutls-devel
+BuildRequires:  gpgme
+%if 0%{?suse_version} >= 1010
+BuildRequires:  gpgme-devel
+%endif
+BuildRequires:  libgpg-error-devel
+BuildRequires:  libidn-devel
+%if 0%{?suse_version} > 1030 && 0%{?suse_version} <= 1100
+BuildRequires:  libotr2
+%endif
+%if 0%{?suse_version} >= 1230
 BuildRequires:  libotr2-devel
 %else
 BuildRequires:  libotr-devel >= 3.1.0
 %endif
-%if %suse_version > 1030 && %suse_version <= 1100
-BuildRequires:  libotr2
-%endif
+BuildRequires:  libtool
 BuildRequires:  loudmouth-devel
-BuildRequires:  libidn-devel
-BuildRequires:  aspell-devel enchant-devel
-BuildRequires:  gpgme libgpg-error-devel
-BuildRequires:  autoconf automake libtool
-BuildRequires:  vim-base
+BuildRequires:  make
+BuildRequires:  ncurses-devel
+BuildRequires:  pkgconfig
 %if 0%{?suse_version:1}
 BuildRequires:  update-desktop-files
 %endif
-%if 0%{suse_version} < 1010
-%else
-BuildRequires:  gpgme-devel
-%endif
-# Requires:       libotr >= 0.3.1
+BuildRequires:  vim-base
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+Requires:       libotr >= 0.3.1
 
 %description
 mcabber is a small Jabber console client. It features SSL support, history
