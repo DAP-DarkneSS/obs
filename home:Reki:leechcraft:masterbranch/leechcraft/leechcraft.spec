@@ -26,7 +26,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-807-gb1bce84
+%define LEECHCRAFT_VERSION 0.5.95-926-g797c40d
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -35,10 +35,6 @@ Group:          Productivity/Networking/Other
 Source0:        %{name}-%{version}.tar.xz
 Source1:        %{name}.svg
 
-# PATCH-FIX-OPENSUSE to prevent "W: file-contains-date-and-time" for html.
-%if 0%{?suse_version} > 1230
-Patch2:         leechcraft-doc-doxygen-rpmlint-w.patch
-%endif
 # PATCH-FIX-OPENSUSE to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
 # %%if 0%%{?suse_version} > 1230
 # Patch3:         leechcraft-qt-moc-boost.patch
@@ -50,18 +46,12 @@ BuildRequires:  boost-devel >= 1.50
 BuildRequires:  boost-devel
 %endif
 BuildRequires:  cmake > 2.8
-%if 0%{?suse_version} > 1230
-BuildRequires:  doxygen
-%endif
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 BuildRequires:  gcc-c++ >= 4.6
-%if 0%{?suse_version} > 1230
-BuildRequires:  graphviz
-%endif
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  hunspell-devel
-BuildRequires:  kdebase4-workspace-devel
+# BuildRequires:  kdebase4-workspace-devel
 BuildRequires:  libGeoIP-devel
 BuildRequires:  libQtWebKit-devel
 BuildRequires:  libbz2-devel
@@ -73,6 +63,7 @@ BuildRequires:  libnl3-devel
 BuildRequires:  libotr-devel
 BuildRequires:  libpoppler-qt4-devel
 BuildRequires:  libpurple-devel
+BuildRequires:  libtidy-devel
 BuildRequires:  libqca2-devel
 BuildRequires:  libqjson-devel
 BuildRequires:  libqscintilla-devel
@@ -355,15 +346,15 @@ guide to writing recipes if you are interested in writing your own ones.
 Summary:        LeechCraft Crash handler Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Requires:       kdebase4-runtime
+# Requires:       kdebase4-runtime
 
 %description anhero
 This package provides a crash handler plugin for LeechCraft.
-
-It uses KDE utils to handle crashes, show backtraces and aid
-in sending bug reports.
-
-KDE should not be running for AnHero to work.
+# 
+# It uses KDE utils to handle crashes, show backtraces and aid
+# in sending bug reports.
+# 
+# KDE should not be running for AnHero to work.
 
 
 %package auscrie
@@ -512,22 +503,6 @@ Requires:       %{name}-azoth = %{version}
 This package provides an ignoring plugin for LeechCraft Azoth.
 
 It allows to ignore unwanted participants.
-
-
-%if 0%{?suse_version} > 1230
-%package azoth-doc
-Summary:        LeechCraft Azoth Documentation
-Group:          Development/Libraries/Other
-BuildArch:      noarch
-
-%description azoth-doc
-This packages provides documentation of LeechCraft Azoth API.
-
-It contains description of Azoth API used for developing LeechCraft
-Azoth sub-plugins. For developing first-lexel plugins, please refer
-to corresponding packages (like leechcraft-doc). This documentation
-is also available online at http://doc.leechcraft.org/azoth/
-%endif
 
 
 %package azoth-embedmedia
@@ -927,22 +902,6 @@ This package provides files required for development for LeechCraft.
 It contains header files required to develop new modules.
 
 
-%if 0%{?suse_version} > 1230
-%package doc
-Summary:        LeechCraft Core Documentation
-Group:          Development/Libraries/Other
-BuildArch:      noarch
-
-%description doc
-This packages provides documentation of LeechCraft core API.
-
-It contains description of core API used for developing first-level
-LeechCraft plugins. For developing sub-plugins, please refer to
-corresponding packages (like leechcraft-azoth-doc). This documentation
-is also available online at http://doc.leechcraft.org/core/
-%endif
-
-
 %package dolozhee
 Summary:        LeechCraft Issue reporting Module
 Group:          Productivity/Networking/Other
@@ -1312,22 +1271,6 @@ Requires:       %{name}-monocle-subplugin
 This package provides a modular Document viewer plugin for LeechCraft.
 
 It will support different formats via different backends.
-
-
-%if 0%{?suse_version} > 1230
-%package monocle-doc
-Summary:        LeechCraft Monocle Documentation
-Group:          Development/Libraries/Other
-BuildArch:      noarch
-
-%description monocle-doc
-This packages provides documentation of LeechCraft Monocle API.
-
-It contains description of Monocle API used for developing LeechCraft
-Monocle sub-plugins. For developing first-lexel plugins, please refer
-to corresponding packages (like leechcraft-doc). This documentation
-is also available online at http://doc.leechcraft.org/monocle/
-%endif
 
 
 %package monocle-fxb
@@ -1972,9 +1915,6 @@ It allows to get current user tune via mpris protocol.
 
 %prep
 %setup -q -n %{name}-%{version}
-%if 0%{?suse_version} > 1230
-%patch2
-%endif
 # %%if 0%%{?suse_version} > 1230
 # %%patch3
 # %%endif
@@ -2033,6 +1973,7 @@ cmake ../src \
         -DENABLE_LAUNCHY=True \
         -DENABLE_LEMON=True \
         -DENABLE_LHTR=True \
+        -DWITH_LHTR_HTML=True \
         -DENABLE_LIZNOO=True \
         -DENABLE_LMP=True \
         -DENABLE_LMP_GRAFFITI=True \
@@ -2092,41 +2033,9 @@ cmake ../src \
 cd build
 make %{?_smp_mflags}
 
-%if 0%{?suse_version} > 1230
-cd ../doc/doxygen/core
-sed -i Doxyfile \
--e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
-doxygen Doxyfile
-
-cd ../azoth
-sed -i Doxyfile \
--e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
-doxygen Doxyfile
-
-cd ../monocle
-touch footer.html
-sed -i Doxyfile \
--e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
-doxygen Doxyfile
-%endif
-
 %install
 cd build
 %make_install
-
-%if 0%{?suse_version} > 1230
-cd ../doc/doxygen/core/out/html
-mkdir -p %{buildroot}%{_docdir}/%{name}-doc
-cp -r * %{buildroot}%{_docdir}/%{name}-doc
-
-cd ../../../azoth/out/html
-mkdir -p %{buildroot}%{_docdir}/%{name}-azoth-doc
-cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
-
-cd ../../../monocle/out/html
-mkdir -p %{buildroot}%{_docdir}/%{name}-monocle-doc
-cp -r * %{buildroot}%{_docdir}/%{name}-monocle-doc
-%endif
 
 # Mine ;)
 rm -rf %{buildroot}%{_datadir}/icons/hicolor/*/apps/*leechcraft*
@@ -2175,11 +2084,6 @@ EOF
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth
 %fdupes -s %{buildroot}%{_datadir}/%{name}/global_icons/flags
 %fdupes -s %{buildroot}%{_datadir}/%{name}/themes
-%if 0%{?suse_version} > 1230
-%fdupes -s %{buildroot}%{_docdir}/%{name}-doc/
-%fdupes -s %{buildroot}%{_docdir}/%{name}-azoth-doc/
-%fdupes -s %{buildroot}%{_docdir}/%{name}-monocle-doc/
-%endif
 
 %post -p /sbin/ldconfig
 
@@ -2191,6 +2095,7 @@ EOF
 %{_bindir}/%{name}
 %{_bindir}/%{name}-add-file
 %{_bindir}/%{name}-handle-file
+%{_bindir}/lc_plugin_wrapper
 %{settings_dir}/coresettings.xml
 %{_datadir}/applications/%{name}.desktop
 # Mine ;)
@@ -2240,6 +2145,7 @@ EOF
 
 %files anhero
 %defattr(-,root,root)
+%{_bindir}/lc_anhero_crashprocess
 %{plugin_dir}/*%{name}_anhero.so
 %{translations_dir}/leechcraft_anhero*
 
@@ -2304,13 +2210,6 @@ EOF
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_depester.so
 %{translations_dir}/%{name}_azoth_depester*
-
-%if 0%{?suse_version} > 1230
-%files azoth-doc
-%defattr(-,root,root)
-%dir %{_docdir}/%{name}-azoth-doc
-%doc %{_docdir}/%{name}-azoth-doc/*
-%endif
 
 %files azoth-embedmedia
 %defattr(-,root,root)
@@ -2481,13 +2380,6 @@ EOF
 %{_libdir}/*xmlsettingsdialog.so
 %{_datadir}/cmake/Modules/InitLCPlugin.cmake
 
-%if 0%{?suse_version} > 1230
-%files doc
-%defattr(-,root,root)
-%dir %{_docdir}/%{name}-doc
-%doc %{_docdir}/%{name}-doc/*
-%endif
-
 %files dolozhee
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_dolozhee.so
@@ -2638,13 +2530,6 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_monocle.so
 %{_datadir}/%{name}/translations/%{name}_monocle_*.qm
 %{_datadir}/%{name}/settings/monoclesettings.xml
-
-%if 0%{?suse_version} > 1230
-%files monocle-doc
-%defattr(-,root,root)
-%dir %{_docdir}/%{name}-monocle-doc
-%doc %{_docdir}/%{name}-monocle-doc/*
-%endif
 
 %files monocle-fxb
 %defattr(-,root,root)

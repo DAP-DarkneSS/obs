@@ -36,7 +36,9 @@ else
 
   CTIME=`date +%g'.'%m'.'%d'-'%H.%M.%S`
   cp ./$NOBS.spec ./$NOBS.spec.$VOBS.$CTIME
+  cp ./$NOBS-doc.spec ./$NOBS-doc.spec.$VOBS.$CTIME
   sed "s/$VOBS/$VGIT/g" ./$NOBS.spec.$VOBS.$CTIME > ./$NOBS.spec
+  sed "s/$VOBS/$VGIT/g" ./$NOBS-doc.spec.$VOBS.$CTIME > ./$NOBS-doc.spec
 
   echo -e '\e[0;4m\nShould the commit be done?\e[0m'
   read
