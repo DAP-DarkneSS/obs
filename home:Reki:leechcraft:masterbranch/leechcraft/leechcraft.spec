@@ -26,7 +26,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-926-g797c40d
+%define LEECHCRAFT_VERSION 0.5.95-942-gfd37efb
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -346,15 +346,13 @@ guide to writing recipes if you are interested in writing your own ones.
 Summary:        LeechCraft Crash handler Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-# Requires:       kdebase4-runtime
+Requires:       gdb
+Recommends:     %{name}-dolozhee
 
 %description anhero
 This package provides a crash handler plugin for LeechCraft.
-# 
-# It uses KDE utils to handle crashes, show backtraces and aid
-# in sending bug reports.
-# 
-# KDE should not be running for AnHero to work.
+
+It shows backtraces and aids in sending bug reports.
 
 
 %package auscrie
@@ -709,6 +707,7 @@ It supportes various protocols provided by Purple library.
 Summary:        LeechCraft Azoth - XMPP Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
+Requires:       libqxmpp0 >= 0.7.4
 Provides:       %{name}-azoth-protocolplugin
 
 %description azoth-xoox
