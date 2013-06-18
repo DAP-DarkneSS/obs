@@ -1,5 +1,5 @@
 -------------------------------------------------------------------
-Sun Jun 16 16:01:56 UTC 2013 - dap@open.by
+Sun Jun 16 16:01:56 UTC 2013 - dap.darkness@gmail.com
 
 - libotr2-devel became required to build to fix oS 12.3+.
 - Fixed up via `spec-cleaner`.

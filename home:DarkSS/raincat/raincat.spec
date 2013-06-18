@@ -82,5 +82,3 @@ runhaskell Setup copy --destdir=%{buildroot}
 %exclude %{_datadir}/doc/Raincat-%{version}/LICENSE
 
 %changelog
-* Mon Jun 17 2013 dap@open.by
-- Initial build.
