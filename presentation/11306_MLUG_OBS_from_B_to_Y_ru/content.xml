@@ -12,7 +12,7 @@
    <style:text-properties fo:background-color="transparent" fo:color="#dcdcdc" fo:font-family="Droid Sans" fo:font-size="32.000000000000000pt" fo:font-style="normal" fo:font-variant="normal" fo:font-weight="normal" fo:text-transform="none" style:text-line-through-style="none" style:text-line-through-type="none" style:text-underline-style="none" style:text-underline-type="none"/>
   </style:style>
   <style:style style:name="T4" style:family="text">
-   <style:text-properties fo:background-color="transparent" fo:font-family="Droid Sans" fo:font-size="19.000000000000000pt" fo:font-style="normal" fo:font-variant="normal" fo:font-weight="normal" fo:text-transform="none" style:text-line-through-style="none" style:text-line-through-type="none" style:text-underline-style="none" style:text-underline-type="none"/>
+   <style:text-properties fo:background-color="transparent" fo:font-family="Droid Sans" fo:font-size="24.000000000000000pt" fo:font-style="normal" fo:font-variant="normal" fo:font-weight="normal" fo:text-transform="none" style:text-line-through-style="none" style:text-line-through-type="none" style:text-underline-style="none" style:text-underline-type="none"/>
   </style:style>
   <style:style style:name="P10" style:parent-style-name="Header" style:family="paragraph"/>
   <style:style style:name="P11" style:parent-style-name="Standard" style:family="paragraph">
@@ -107,7 +107,7 @@
  <style:list-level-properties text:list-level-position-and-space-mode="label-alignment" fo:text-align="start"><style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="54.00000000000pt" fo:text-indent="-18.00000000000pt" fo:margin-left="54.00000000000pt"/></style:list-level-properties>
 </text:list-level-style-bullet>
   </text:list-style>
-  <text:list-style style:name="L211" style:display-name="L21">
+  <text:list-style style:name="L21111" style:display-name="L2111">
    <text:list-level-style-number text:start-value="1" text:display-levels="1" style:num-format="1" text:level="1" style:num-prefix="" style:num-suffix=".">
  <style:list-level-properties text:list-level-position-and-space-mode="label-alignment" fo:text-align="start"><style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="54.00000000000pt" fo:text-indent="-18.00000000000pt" fo:margin-left="54.00000000000pt"/></style:list-level-properties>
 </text:list-level-style-number>
@@ -138,15 +138,12 @@
       <text:p text:style-name="P9"><text:span text:style-name="T3">или ваш пакет в openSUSE это не просто, а очень просто</text:span></text:p>
      </draw:text-box>
     </draw:frame>
-    <draw:frame draw:style-name="gr5" xml:id="shape-17" draw:id="shape-17" draw:layer="measurelines" svg:width="257.57023964377pt" svg:height="94.86276038114pt" svg:x="7.81962570822pt" svg:y="508.19335918467pt">
+    <draw:frame draw:style-name="gr5" xml:id="shape-17" draw:id="shape-17" draw:layer="measurelines" svg:width="257.57023964377pt" svg:height="24.52333242328pt" svg:x="7.81962570822pt" svg:y="565.19185293696pt">
      <draw:text-box>
-      <text:p text:style-name="P9"><text:span text:style-name="T4">https://build.opensuse.org/</text:span></text:p>
-      <text:p text:style-name="P9"><text:span text:style-name="T4">home?user=DarkSS</text:span></text:p>
-      <text:p text:style-name="P9"/>
       <text:p text:style-name="P9"><text:span text:style-name="T4">Дмитрий Перлов</text:span></text:p>
      </draw:text-box>
     </draw:frame>
-    <draw:frame draw:style-name="gr5" xml:id="shape-18" draw:id="shape-18" draw:layer="measurelines" svg:width="93.84434913531pt" svg:height="21.58890972219pt" svg:x="695.74585548280pt" svg:y="569.19174409079pt">
+    <draw:frame draw:style-name="gr5" xml:id="shape-18" draw:id="shape-18" draw:layer="measurelines" svg:width="117.66565326899pt" svg:height="26.27634068933pt" svg:x="671.92455134912pt" svg:y="564.50431312365pt">
      <draw:text-box>
       <text:p text:style-name="P9"><text:span text:style-name="T4">Для MLUG</text:span></text:p>
      </draw:text-box>
@@ -178,7 +175,7 @@
     </draw:frame>
     <draw:frame draw:style-name="gr5" xml:id="shape-23" draw:id="shape-23" draw:layer="layout" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline">
      <draw:text-box>
-      <text:list text:style-name="L1" xml:id="list-bcb531da-2dd1-45b4-9587-98217280127b">
+      <text:list text:style-name="L1" xml:id="list-04508132-6b42-4b4d-8a35-600e20a30bdb">
        <text:list-item>
         <text:p text:style-name="P11"><text:span text:style-name="T2"><text:s/>готовая платформа</text:span></text:p>
        </text:list-item>
@@ -227,7 +224,7 @@
     </draw:frame>
     <draw:frame draw:style-name="gr5" xml:id="shape-28" draw:id="shape-28" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline">
      <draw:text-box>
-      <text:list text:style-name="L1" xml:id="list-8a5a8668-5932-414e-96a5-9243953b25f9">
+      <text:list text:style-name="L1" xml:id="list-f435da6c-6aa4-43d9-837c-06735cc62200">
        <text:list-item>
         <text:p text:style-name="P11"><text:span text:style-name="T2"><text:s/>web-интерфейс</text:span></text:p>
        </text:list-item>
@@ -305,7 +302,7 @@
     </draw:frame>
     <draw:frame draw:style-name="gr5" xml:id="shape-43" draw:id="shape-43" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline">
      <draw:text-box>
-      <text:list text:style-name="L211" xml:id="list-d73bbe3f-3009-4202-8c06-4e226e1280db">
+      <text:list text:style-name="L21111" xml:id="list-69331121-3b21-4da9-932b-9d7c15cd9510">
        <text:list-item>
         <text:number>1.</text:number>
         <text:p text:style-name="P11"><text:span text:style-name="T2"><text:s/>регистрация</text:span></text:p>
@@ -372,7 +369,7 @@
     </draw:frame>
     <draw:frame draw:style-name="gr5" xml:id="shape-52" draw:id="shape-52" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="subtitle">
      <draw:text-box>
-      <text:list text:style-name="L1" xml:id="list-4324fe18-8c5d-4baa-bb27-4d93e87445fc">
+      <text:list text:style-name="L1" xml:id="list-3d5b095b-87b2-44d7-aa62-02c3fd4e69dc">
        <text:list-item>
         <text:p text:style-name="P11"><text:span text:style-name="T8"><text:s/>переходим в проект для разработки</text:span></text:p>
        </text:list-item>
@@ -381,7 +378,7 @@
        </text:list-item>
       </text:list>
       <text:p text:style-name="P18"><text:span text:style-name="T9">временно отключаем сборку (репозитории)</text:span></text:p>
-      <text:list text:style-name="L1" xml:id="list-7d2c842e-d7ff-47ee-8b31-c7917e8ef553">
+      <text:list text:style-name="L1" xml:id="list-a151ee7d-8ab8-4d3f-96c3-7f5a04476716">
        <text:list-item>
         <text:p text:style-name="P17"><text:s/>обновляем архив с исходниками</text:p>
        </text:list-item>
@@ -394,7 +391,7 @@
        </text:list-item>
       </text:list>
       <text:p text:style-name="P18"><text:span text:style-name="T9">включаем по одной сборки</text:span></text:p>
-      <text:list text:style-name="L1" xml:id="list-c87ace70-d48f-410c-844f-341ac5b1ecba">
+      <text:list text:style-name="L1" xml:id="list-2fbb9efb-5800-48db-8def-0daf4249c4f0">
        <text:list-item>
         <text:p text:style-name="P19"><text:span text:style-name="T10"><text:s/>дожидаемся статуса succeeded</text:span></text:p>
        </text:list-item>
@@ -447,7 +444,7 @@
     </draw:frame>
     <draw:frame draw:style-name="gr5" xml:id="shape-61" draw:id="shape-61" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline">
      <draw:text-box>
-      <text:list text:style-name="L1" xml:id="list-3fc8d673-ebac-436b-9aa9-154ebaf15890">
+      <text:list text:style-name="L1" xml:id="list-a957ed33-174f-4d04-ab6a-5175089a2ad7">
        <text:list-item>
         <text:p text:style-name="P11"><text:span text:style-name="T2"><text:s/>spec любого похожего проекта</text:span></text:p>
        </text:list-item>
@@ -489,7 +486,7 @@
     </draw:frame>
     <draw:frame draw:style-name="gr5" xml:id="shape-65" draw:id="shape-65" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline">
      <draw:text-box>
-      <text:list text:style-name="L3" xml:id="list-24649d88-0bdc-4a1b-b252-35513a63e52d">
+      <text:list text:style-name="L3" xml:id="list-2670f3da-a2d5-4870-b97b-51cf674b5703">
        <text:list-item>
         <text:p text:style-name="P11">http://ru.opensuse.org/<text:line-break/>Portal:Служба_сборки</text:p>
        </text:list-item>
@@ -504,6 +501,9 @@
        </text:list-item>
        <text:list-item>
         <text:p text:style-name="P11"><text:span text:style-name="T2">http://ru.opensuse.org/<text:line-break/>openSUSE:Список_форумов</text:span></text:p>
+       </text:list-item>
+       <text:list-item>
+        <text:p text:style-name="P11"><text:span text:style-name="T2">http://pkgs.org/search/</text:span></text:p>
        </text:list-item>
       </text:list>
      </draw:text-box>
