@@ -26,7 +26,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-942-gfd37efb
+%define LEECHCRAFT_VERSION 0.5.95-1057-gc70c072
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -802,6 +802,27 @@ etc.
 #Dashboard
 
 
+%package blasq
+Summary:        LeechCraft Image storages Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-blasq-spegnersi = %{version}
+
+%description blasq
+This package provides a modular Image storages plugin for LeechCraft.
+
+It supports different cloud image storages like Picasa or Flick.
+
+
+%package blasq-spegnersi
+Summary:        LeechCraft Blasq - Flickr client Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-blasq = %{version}
+
+%description blasq-spegnersi
+This package provides a Flickr client subplugin for LeechCraft Blasq.
+
+
 %package blogique
 Summary:        LeechCraft Blogging client Module
 Group:          Productivity/Networking/Other
@@ -812,7 +833,7 @@ Requires:       %{name}-lhtr = %{version}
 %description blogique
 This package provides a modular Blogging client plugin for LeechCraft.
 
-It will support different blogging platforms via different submodules.
+It supports different blogging platforms via different submodules.
 
 
 %package blogique-hestia
@@ -1950,6 +1971,8 @@ cmake ../src \
         -DENABLE_AZOTH_VELVETBIRD=True \
         -DENABLE_AZOTH_ZHEET=True \
         -DENABLE_BLACKDASH=False \
+        -DENABLE_BLASQ=True \
+        -DENABLE_BLASQ_SPEGNERSI=True \
         -DENABLE_BLOGIQUE=True \
         -DENABLE_CHOROID=True \
         -DENABLE_DOLOZHEE=True \
@@ -2326,6 +2349,15 @@ EOF
 #%%files blackdash
 #%%defattr(-,root,root)
 #%%{plugin_dir}/*%%{name}_blackdash.so
+
+%files blasq
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_blasq.so
+%{_datadir}/%{name}/settings/blasqsettings.xml
+
+%files blasq-spegnersi
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_blasq_spegnersi.so
 
 %files blogique
 %defattr(-,root,root)
