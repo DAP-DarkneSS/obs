@@ -1,22 +1,38 @@
 #
+# spec file for package xmahjongg
+#
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+#
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
+
 Name:           xmahjongg
 Version:        3.7
-Release:        7.1
-License:        GPL
-Summary:        Colorful X solitaire Mah Jongg game
+Release:        1
+License:        MIT
+Summary:        Colorful X solitaire MahJongg game
 Url:            http://www.lcdf.org/xmahjongg/
-Group:          X11/Applications/Games
+Group:          Amusements/Games/Board/Card
+
 Source0:        http://www.lcdf.org/xmahjongg/%{name}-%{version}.tar.gz
 Source1:        %{name}.desktop
 Source2:        %{name}.png
-BuildRequires:  gcc-c++,
-BuildRequires:  libX11-devel
+
+BuildRequires:  gcc-c++
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  update-desktop-files
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-Summary(pl):	Komputerowy Mad¿ong
-Vendor:		Little Cambridgeport Design Factory
 
 %description
 Real Mah Jongg is a social game that originated in China thousands of
@@ -27,36 +43,22 @@ pleasantly when you knock them together. Computer Solitaire Mah Jongg
 it's fun, or it must be, since there are like 300 shareware versions
 available for Windows. This is for X11 and it's free.
 
-%description -l pl
-Stara, chiñska gra logiczna. Powsta³a ona w staro¿ytnym Pañstwie
-Šrodka, a jej historia siêga chiñskiej dynastii Zachodniego Chou,
-czyli ok. 720 roku n.e. Podobnie jak wiêkszo¶æ gier karcianych tak i
-mad¿ong rozwija³ siê niezale¿nie w ró¿nych okrêgach i prowincjach
-dawnych Chin, zyskuj±c niezliczone odmiany dla ró¿nej liczby
-graj±cych. Ta wersja przeznaczona jest dla jednej osoby i zawiera
-kilka ró¿nych zestawów klocków (dorothys, gnome, gnome2, real, thick,
-dorwhite, small, thin). Wywo³uje siê je za pomoc± parametru '-t'.
-
 %prep
 %setup -q
 
 %build
 %configure
-%{__make}
+make %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
-install -Dm644 %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop
-install -Dm644 %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/pixmaps/%{name}.png
-
-%clean
-rm -rf $RPM_BUILD_ROOT
+%make_install
+%{__install} -D %{SOURCE2} %{buildroot}%{_datadir}/pixmaps/%{name}.png
+%suse_update_desktop_file -i %{name}
 
 %files
 %defattr(-,root,root)
 %doc NEWS README
-%attr(755,root,root) %{_bindir}/%{name}
+%{_bindir}/%{name}
 %{_datadir}/pixmaps/%{name}.*
 %{_datadir}/applications/%{name}.*
 %{_mandir}/man6/%{name}.6*
