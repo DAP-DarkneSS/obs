@@ -1,17 +1,22 @@
-Summary:	Colorful X solitaire Mah Jongg game
+#
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
+#
+
+Name:           xmahjongg
+Version:        3.7
+Release:        7.1
+License:        GPL
+Summary:        Colorful X solitaire Mah Jongg game
+Url:            http://www.lcdf.org/xmahjongg/
+Group:          X11/Applications/Games
+Source0:        http://www.lcdf.org/xmahjongg/%{name}-%{version}.tar.gz
+Source1:        %{name}.desktop
+Source2:        %{name}.png
+BuildRequires:  gcc-c++,
+BuildRequires:  libX11-devel
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Summary(pl):	Komputerowy Mad¿ong
-Name:		xmahjongg
-Version:	3.7
-Release:	7.1
-License:	GPL
 Vendor:		Little Cambridgeport Design Factory
-Group:		X11/Applications/Games
-Source0:	http://www.lcdf.org/xmahjongg/%{name}-%{version}.tar.gz
-Source1:	%{name}.desktop
-Source2:	%{name}.png
-URL:		http://www.lcdf.org/xmahjongg/
-BuildRequires:	gcc-c++, libX11-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Real Mah Jongg is a social game that originated in China thousands of
@@ -58,25 +63,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}
 
 %changelog
-* Sat Sep 29 2012 Huaren Zhong <huaren.zhong@gmail.com> - 3.7
-- Rebuild for Fedora
-* Tue Jul 26 2005 PLD Team <feedback@pld-linux.org>
-All persons listed below can be reached at <cvs_login>@pld-linux.org
-Revision 1.9  2005/07/26 20:29:53  adamg
-- updated to 3.7
-Revision 1.8  2004/11/20 01:46:27  ankry
-- one more fix
-Revision 1.7  2004/11/20 01:22:45  ankry
-- fixed %files, fixed build
-Revision 1.6  2004/11/18 18:15:00  ankry
-- added desktop, rel. 2
-Revision 1.5  2004/04/12 18:54:20  qboosh
-- added DESTDIR patch, moved to /usr
-Revision 1.4  2003/05/28 13:03:08  malekith
-- massive attack: source-md5
-Revision 1.3  2003/05/25 06:28:22  misi3k
-- massive attack s/pld.org.pl/pld-linux.org/
-Revision 1.2  2002/12/21 01:28:08  qboosh
-- don't always strip on install, cleanups, added BRs
-Revision 1.1  2002/12/18 18:14:35  aniou
-- initial version
