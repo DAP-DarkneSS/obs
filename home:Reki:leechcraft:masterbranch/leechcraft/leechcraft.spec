@@ -26,7 +26,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-1057-gc70c072
+%define LEECHCRAFT_VERSION 0.5.95-1155-g08d61d1
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -2136,7 +2136,6 @@ EOF
 %{_libdir}/*lcutil.so.*
 %{_libdir}/*xmlsettingsdialog.so.*
 %doc %{_mandir}/man1/%{name}*.1.gz
-%{_datadir}/%{name}/sounds
 %{_datadir}/%{name}/global_icons/
 %dir %{_datadir}/%{name}/themes
 %dir %{_datadir}/%{name}/themes/*
@@ -2152,6 +2151,7 @@ EOF
 %{translations_dir}/leechcraft_advancednotifications*
 %{settings_dir}/advancednotificationssettings.xml
 %{_datadir}/%{name}/qml/advancednotifications
+%{_datadir}/%{name}/sounds
 
 %files aggregator
 %defattr(-,root,root)
@@ -2354,6 +2354,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blasq.so
 %{_datadir}/%{name}/settings/blasqsettings.xml
+%{_datadir}/%{name}/qml/blasq
 
 %files blasq-spegnersi
 %defattr(-,root,root)
@@ -2478,6 +2479,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_krigstask.so
 %{_datadir}/%{name}/qml/krigstask
+%{_datadir}/%{name}/translations/%{name}_krigstask_*.qm
 
 %files lackman
 %defattr(-,root,root)
