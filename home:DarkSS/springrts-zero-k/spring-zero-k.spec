@@ -1,20 +1,24 @@
+#
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
+#
+
 %define		oname	zk
 
-Name:		spring-zero-k
-Version:	1.0.10.8
-Release:	2
-Summary:	Spring engine based game focused on a streamlined economy & advanced interface
-Group:		Games/Strategy
-License:	GPL
-URL:		http://zero-k.info/
-Source0:	http://packages.springrts.com/builds/%{oname}-v%{version}.sdz
-Source1:	http://api.springfiles.com/files/maps/tabula-v5b.sd7
-Source2:	http://api.springfiles.com/files/maps/folsomdamdeluxev4.sd7
-Source3:	http://api.springfiles.com/files/maps/worldv2.sd7
-Requires:	spring
-Provides:	zero-k = %{version}
-Suggests:	%{name}-maps
-Buildarch:	noarch
+Name:           spring-zero-k
+Version:        1.0.10.8
+Release:        2
+License:        GPL
+Summary:        Spring engine based game focused on a streamlined economy & advanced interface
+Url:            http://zero-k.info/
+Group:          Games/Strategy
+Source0:        http://packages.springrts.com/builds/%{oname}-v%{version}.sdz
+Source1:        http://api.springfiles.com/files/maps/tabula-v5b.sd7
+Source2:        http://api.springfiles.com/files/maps/folsomdamdeluxev4.sd7
+Source3:        http://api.springfiles.com/files/maps/worldv2.sd7
+Requires:       spring
+Suggests:       %{name}-maps
+Provides:       zero-k = %{version}
+BuildArch:      noarch
 
 %description
 Zero-K is a fast, competitive game with a focus on a streamlined economy
@@ -25,8 +29,8 @@ abilities provides tremendous tactical and strategic depth to the game.
 Uses Spring engine to run.
 
 %package maps
-Summary:	Maps designed specially for Zero-K game
-Requires:	spring
+Summary:        Maps designed specially for Zero-K game
+Requires:       spring
 
 %description maps
 Maps designed specially for Zero-K game.
