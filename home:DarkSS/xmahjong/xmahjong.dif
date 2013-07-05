@@ -1,0 +1,77 @@
+--- imakefile
++++ imakefile	2000/06/05 08:44:28
+@@ -5,7 +5,18 @@
+ #	copyright laws of the United States.
+ # 
+ LOCAL_LIBRARIES = $(XLIB) 
++LAYOUT = $(LIBDIR)/xmahjongg
++EXTRA_DEFINES = -DGLOBAL=extern -DLAYOUT=\"$(LAYOUT)\"
++
+ SRCS	= xmahjongg.c draw.c event.c initial.c packet.c play.c random.c sysdep.c variables.c
+ OBJS	= xmahjongg.o draw.o event.o initial.o packet.o play.o random.o sysdep.o variables.o
+ 
+ ComplexProgramTarget(xmahjongg)
++
++CompressedFontTarget(xmahjongg)
++
++InstallNonExecFile(FontObj(xmahjongg),$(FONTDIR)/misc)
++
++InstallNonExecFile(bridge,$(LAYOUT))
++InstallNonExecFile(default,$(LAYOUT))
++InstallNonExecFile(wedges,$(LAYOUT))
+--- initial.c
++++ initial.c	2000/06/05 08:41:52
+@@ -339,11 +339,14 @@
+ 		name.sin_port = htons(pp->port);
+ 		hp = gethostbyname(pp->machine);
+ 		bcopy(hp->h_addr, (char *)&name.sin_addr, hp->h_length);
+-
+ 		while (1) {
+ 			if ((s = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+ 				sleep(1);
+-			} else if (connect(s, (char *)&name, namelen) < 0) {
++#if defined __GLIBC__ && __GLIBC__ >= 2
++			} else if (connect(s, &name, namelen) < 0) {
++#else
++			} else if (connect(s, (struct sockaddr*)&name, namelen) < 0) {
++#endif
+ 				close(s);
+ 				sleep(1);
+ 			} else {
+@@ -368,7 +371,11 @@
+ 	} else if (setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &on, sizeon) < 0) {
+ 		perror("can't reset socket");
+ 		exit(1);
+-	} else if (bind(s, (char *)&name, namelen) < 0) {
++#if defined __GLIBC__ && __GLIBC__ >= 2
++	} else if (bind(s, &name, namelen) < 0) {
++#else
++	} else if (bind(s, (struct sockaddr*)&name, namelen) < 0) {
++#endif
+ 		perror("can't bind socket");
+ 		exit(1);
+ 	} else if (listen(s, 5) < 0) {
+@@ -380,7 +387,11 @@
+ 		if (pp->type != 'A') continue;
+ 		namelen = sizeof(name);
+ 
+-		if ((pp->fd = accept(s, (char *)&name, &namelen)) < 0) {
++#if defined __GLIBC__ && __GLIBC__ >= 2
++		if ((pp->fd = accept(s, &name, &namelen)) < 0) {
++#else
++		if ((pp->fd = accept(s, (struct sockaddr*)&name, &namelen)) < 0) {
++#endif
+ 			sleep(1);
+ 		};
+ 	};
+--- xmahjongg.h
++++ xmahjongg.h	2000/06/05 08:41:52
+@@ -14,7 +14,7 @@
+ /*
+  *	Path used for layout files
+  */
+-#ifndef VMS
++#if !defined(VMS) && !defined(LAYOUT)
+ #define	LAYOUT		"/home/poplar1/jsy/tmp/xmahjongg"
+ #endif
+ 

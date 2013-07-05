@@ -1,0 +1,113 @@
+-------------------------------------------------------------------
+Mon Jan 14 13:41:47 UTC 2013 - werner@suse.de
+
+- Require bdftopcf at build time (bnc#798333)
+
+-------------------------------------------------------------------
+Mon Nov  5 12:35:45 UTC 2012 - werner@suse.de
+
+- Avoid errors due wrong permissions 
+
+-------------------------------------------------------------------
+Fri Aug 10 08:16:20 UTC 2012 - werner@suse.de
+
+- Relocate %reconfigure_fonts_prereq macro as osc source validator
+  is not able to handle this before Version tag
+
+-------------------------------------------------------------------
+Mon Aug  6 11:17:27 UTC 2012 - pgajdos@suse.com
+
+- prepare spec file for dropping SuSEconfig.fonts (openFATE#313536)
+
+-------------------------------------------------------------------
+Thu May 10 10:12:35 UTC 2012 - vuntz@opensuse.org
+
+- Pass FONTDIR=%{fontdir}/.. to "make install" so that the font is
+  correctly installed in /usr/share/fonts/misc instead of
+  /usr/share/fonts/X11/misc.
+
+-------------------------------------------------------------------
+Mon Feb 20 03:39:35 UTC 2012 - jengelh@medozas.de
+
+- Remove redundant tags/sections from specfile
+- Parallel build with %_smp_mflags
+
+-------------------------------------------------------------------
+Mon Nov  8 14:31:58 UTC 2010 - coolo@novell.com
+
+- remove support for pre-9.1
+
+-------------------------------------------------------------------
+Thu Aug 10 11:55:01 CEST 2006 - mfabian@suse.de
+
+- change paths for X11R7
+- bzip2 source tarball
+- add missing includes
+
+-------------------------------------------------------------------
+Wed Jan 25 21:43:14 CET 2006 - mls@suse.de
+
+- converted neededforbuild to BuildRequires
+
+-------------------------------------------------------------------
+Mon Dec 06 11:55:14 CET 2004 - mfabian@suse.de
+
+- use new macro "%run_suseconfig_fonts".
+
+-------------------------------------------------------------------
+Thu May 27 22:56:00 CEST 2004 - sndirsch@suse.de
+
+- added freetype2 to #neededforbuild; prevents from building empty
+  xmahjong font (bdftopcf needs freetype2)
+
+-------------------------------------------------------------------
+Fri Mar 19 21:40:36 CET 2004 - mfabian@suse.de
+
+- use %suseconfig_fonts_prereq
+- run SuSEconfig.fonts and SuSEconfig.pango in %post and %postun
+
+-------------------------------------------------------------------
+Sun Jan 11 09:59:33 CET 2004 - adrian@suse.de
+
+- add %defattr
+
+-------------------------------------------------------------------
+Fri Jun 13 09:08:30 CEST 2003 - kukuk@suse.de
+
+- Use BuildRoot
+
+-------------------------------------------------------------------
+Tue Sep 17 17:34:28 CEST 2002 - ro@suse.de
+
+- removed bogus self-provides 
+
+-------------------------------------------------------------------
+Wed Jun 20 02:11:17 CEST 2001 - ro@suse.de
+
+- fix to build 
+
+-------------------------------------------------------------------
+Thu Dec 14 17:34:35 CET 2000 - werner@suse.de
+
+- Group tag
+
+-------------------------------------------------------------------
+Mon Jun  5 10:49:01 CEST 2000 - ro@suse.de
+
+- specfile cleanup , doc relocation
+
+-------------------------------------------------------------------
+Mon Sep 13 17:23:57 CEST 1999 - bs@suse.de
+
+- ran old prepare_spec on spec file to switch to new prepare_spec.
+
+-------------------------------------------------------------------
+Thu Sep 24 13:47:06 MEST 1998 - ro@suse.de
+
+- fixed arguments for bind, connnect in initial.c
+
+----------------------------------------------------------------------------
+Wed May 14 21:28:22 MET DST 1997 - werner@suse.de
+
+	- Move documentation to /usr/doc/packages/xmahjong
+
