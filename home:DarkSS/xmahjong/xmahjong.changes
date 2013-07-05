@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jul  5 20:01:29 UTC 2013 - dap.darkness@gmail.com
+
+- Conflicts with xmahjongg package because xmahjong is really
+  xmahjongg ver. 2.
+
+-------------------------------------------------------------------
 Mon Jan 14 13:41:47 UTC 2013 - werner@suse.de
 
 - Require bdftopcf at build time (bnc#798333)

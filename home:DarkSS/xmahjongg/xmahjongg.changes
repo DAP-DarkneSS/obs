@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jul  5 20:03:03 UTC 2013 - dap.darkness@gmail.com
+
+- Conflicts with xmahjong package because xmahjong is really
+  xmahjongg ver. 2.
+
+-------------------------------------------------------------------
 Thu Jun 27 20:13:06 UTC 2013 - dap.darkness@gmail.com
 
 - Initial build.

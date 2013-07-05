@@ -12,27 +12,27 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-#
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
 
 Name:           xmahjongg
 Version:        3.7
-Release:        1
-License:        MIT
+Release:        0
 Summary:        Colorful X solitaire MahJongg game
-Url:            http://www.lcdf.org/xmahjongg/
+License:        MIT
 Group:          Amusements/Games/Board/Card
+Url:            http://www.lcdf.org/xmahjongg/
 
 Source0:        http://www.lcdf.org/xmahjongg/%{name}-%{version}.tar.gz
 Source1:        %{name}.desktop
 Source2:        %{name}.png
 
 BuildRequires:  gcc-c++
-BuildRequires:  pkgconfig(x11)
 BuildRequires:  update-desktop-files
+BuildRequires:  pkgconfig(x11)
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+Conflicts:      xmahjong
 
 %description
 Real Mah Jongg is a social game that originated in China thousands of
