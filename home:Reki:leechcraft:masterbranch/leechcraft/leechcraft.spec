@@ -26,7 +26,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-1163-ga4ecb2d
+%define LEECHCRAFT_VERSION 0.5.95-1244-gfdae8f0
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -48,10 +48,9 @@ BuildRequires:  boost-devel
 BuildRequires:  cmake > 2.8
 BuildRequires:  fdupes
 BuildRequires:  file-devel
-BuildRequires:  gcc-c++ >= 4.6
+BuildRequires:  gcc-c++ >= 4.7
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  hunspell-devel
-# BuildRequires:  kdebase4-workspace-devel
 BuildRequires:  libGeoIP-devel
 BuildRequires:  libQtWebKit-devel
 BuildRequires:  libbz2-devel
@@ -59,11 +58,11 @@ BuildRequires:  libcurl-devel
 BuildRequires:  libdjvulibre-devel
 BuildRequires:  liblastfm-devel
 BuildRequires:  libmsn-devel
+BuildRequires:  libmtp-devel
 BuildRequires:  libnl3-devel
 BuildRequires:  libotr-devel
 BuildRequires:  libpoppler-qt4-devel
 BuildRequires:  libpurple-devel
-BuildRequires:  libtidy-devel
 BuildRequires:  libqca2-devel
 BuildRequires:  libqjson-devel
 BuildRequires:  libqscintilla-devel
@@ -73,18 +72,19 @@ BuildRequires:  libqxmpp-devel >= 0.7.4
 # BuildRequires:  libqxt1-devel
 BuildRequires:  libsensors4-devel
 BuildRequires:  libspectre-devel
+BuildRequires:  libtidy-devel
 BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
+BuildRequires:  libudev-devel
 %if 0%{?suse_version} > 1230
 BuildRequires:  mupdf-devel-static
 %endif
 BuildRequires:  pcre-devel
 BuildRequires:  phonon-devel
-BuildRequires:  pkgconfig(kqoauth)
 BuildRequires:  qwt6-devel
 BuildRequires:  speex-devel
 BuildRequires:  taglib-devel
 BuildRequires:  update-desktop-files
-BuildRequires:  xz
+BuildRequires:  pkgconfig(kqoauth)
 
 BuildRequires:  boost-devel >= 1.50
 # BuildRequires:  libchromaprint-devel
@@ -922,11 +922,29 @@ This package provides files required for development for LeechCraft.
 It contains header files required to develop new modules.
 
 
+%package devmon
+Summary:        LeechCraft Device Monitor Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Recommends:     %{name}-secman = %{version}
+
+%description devmon
+This package provides a devices monitor plugin for LeechCraft.
+
+
+%package dlniwe
+Summary:        LeechCraft DLNA Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description dlniwe
+This package provides a DLNA server plugin for LeechCraft.
+
+
 %package dolozhee
 Summary:        LeechCraft Issue reporting Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Recommends:     %{name}-secman = %{version}
 
 %description dolozhee
 This package provides a Dolozhee plugin for LeechCraft.
@@ -946,6 +964,60 @@ Provides:       %{name}-soundnotifications = %{version}
 This package provides a dumb sound notifier plugin for LeechCraft.
 
 It also uses Phonon as a backend or something like aplay/mplayer.
+
+
+%package fenet
+Summary:        LeechCraft Window Manager Module
+Group:          Productivity/Networking/Other
+Recommends:     %{name}-krigstask
+Recommends:     %{name}-laughty
+Recommends:     %{name}-launchy
+Recommends:     %{name}-sb2
+Recommends:     %{name}-vrooby
+Requires:       %{name} = %{version}
+Requires:       %{name}-fenet-wm = %{version}
+
+%description fenet
+This package provides a WM control plugin for Leechcraft.
+
+
+%package fenet-awesome
+Summary:        LeechCraft Fenet Awesome Stuff
+Group:          Productivity/Networking/Other
+BuildArch:      noarch
+Provides:       %{name}-fenet-wm = %{version}
+Requires:       %{name}-fenet = %{version}
+Requires:       awesome
+
+%description fenet-awesome
+This package allows to start Leechcraft as a Desktop Environment with
+the Awesome Window Manager.
+
+
+%package fenet-kwin
+Summary:        LeechCraft Fenet Kwin Stuff
+Group:          Productivity/Networking/Other
+BuildArch:      noarch
+Provides:       %{name}-fenet-wm = %{version}
+Requires:       %{name}-fenet = %{version}
+Requires:       kwin
+
+%description fenet-kwin
+This package allows to start Leechcraft as a Desktop Environment with
+the KDE Window Manager.
+
+
+%package fenet-openbox
+Summary:        LeechCraft Fenet Openbox Stuff
+Group:          Productivity/Networking/Other
+BuildArch:      noarch
+Provides:       %{name}-fenet-wm = %{version}
+Requires:       %{name}-fenet = %{version}
+Requires:       openbox
+
+%description fenet-openbox
+This package allows to start Leechcraft as a Desktop Environment with
+the Openbox Window Manager.
 
 
 %package gacts
@@ -1266,6 +1338,16 @@ It allows to sync and use the mp3tunes.com service.
 Features:
  * Using many accounts.
  * Getting playlists.
+
+
+%package lmp-mtpsync
+Summary:        LeechCraft MtpSync Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+Requires:       %{name}-devmon = %{version}
+
+%description lmp-mtpsync
+This package allows to sync with MTP devices via LeechCraft.
 
 
 %if %{mellonetray}
@@ -1975,11 +2057,14 @@ cmake ../src \
         -DENABLE_BLASQ_SPEGNERSI=True \
         -DENABLE_BLOGIQUE=True \
         -DENABLE_CHOROID=True \
+        -DENABLE_DEVMON=True \
+        -DENABLE_DLNIWE=True \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_DUMBEEP=True \
-        -DDUMBEEP_WITH_PHONON=True \
+                -DDUMBEEP_WITH_PHONON=True \
+        -DENABLE_FENET=True \
         -DENABLE_GACTS=True \
-        -DWITH_GACTS_BUNDLED_QXT=True \
+                -DWITH_GACTS_BUNDLED_QXT=True \
         -DENABLE_GLANCE=True \
         -DENABLE_GMAILNOTIFIER=True \
         -DENABLE_HOTSENSORS=True \
@@ -1995,11 +2080,12 @@ cmake ../src \
         -DENABLE_LAUNCHY=True \
         -DENABLE_LEMON=True \
         -DENABLE_LHTR=True \
-        -DWITH_LHTR_HTML=True \
+                -DWITH_LHTR_HTML=True \
         -DENABLE_LIZNOO=True \
         -DENABLE_LMP=True \
         -DENABLE_LMP_GRAFFITI=True \
         -DENABLE_LMP_MPRIS=True \
+        -DENABLE_LMP_MTPSYNC=True \
         -DENABLE_MEDIACALLS=False \
 %if %{mellonetray}
         -DENABLE_MELLONETRAY=True \
@@ -2008,9 +2094,9 @@ cmake ../src \
 %endif
         -DENABLE_MONOCLE=True \
         -DENABLE_MONOCLE_MU=True \
-        -DMUPDF_VERSION=0x0102 \
+                -DMUPDF_VERSION=0x0102 \
         -DENABLE_MUSICZOMBIE=True \
-        -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
+                -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
         -DENABLE_NACHEKU=True \
         -DENABLE_NEWLIFE=True \
         -DENABLE_NETSTOREMANAGER=True \
@@ -2020,7 +2106,7 @@ cmake ../src \
         -DENABLE_POGOOGLUE=True \
         -DENABLE_POPISHU=True \
         -DENABLE_POSHUKU_AUTOSEARCH=True \
-        -DUSE_POSHUKU_CLEANWEB_PCRE=True \
+                -DUSE_POSHUKU_CLEANWEB_PCRE=True \
         -DENABLE_QROSP=False \
         -DENABLE_SB2=True \
         -DENABLE_SECMAN=True \
@@ -2412,6 +2498,14 @@ EOF
 %{_libdir}/*xmlsettingsdialog.so
 %{_datadir}/cmake/Modules/InitLCPlugin.cmake
 
+%files devmon
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_devmon.so
+
+%files dlniwe
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_dlniwe.so
+
 %files dolozhee
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_dolozhee.so
@@ -2421,6 +2515,33 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_dumbeep.so
 %{_datadir}/%{name}/settings/dumbeepsettings.xml
+
+%files fenet
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_fenet.so
+%{_datadir}/%{name}/settings/fenetsettings.xml
+%{_bindir}/%{name}-session
+%dir %{_datadir}/%{name}/fenet
+%dir %{_datadir}/%{name}/fenet/wms
+%{_datadir}/xsessions/LCDE.desktop
+
+%files fenet-awesome
+%defattr(-,root,root)
+%dir %{_datadir}/%{name}/fenet
+%dir %{_datadir}/%{name}/fenet/wms
+%{_datadir}/%{name}/fenet/wms/*awesome*
+
+%files fenet-kwin
+%defattr(-,root,root)
+%dir %{_datadir}/%{name}/fenet
+%dir %{_datadir}/%{name}/fenet/wms
+%{_datadir}/%{name}/fenet/wms/*kwin*
+
+%files fenet-openbox
+%defattr(-,root,root)
+%dir %{_datadir}/%{name}/fenet
+%dir %{_datadir}/%{name}/fenet/wms
+%{_datadir}/%{name}/fenet/wms/*openbox*
 
 %files gacts
 %defattr(-,root,root)
@@ -2550,6 +2671,10 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_lmp_mp3tunes.so
 %{_datadir}/%{name}/settings/lmpmp3tunessettings.xml
+
+%files lmp-mtpsync
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_lmp_mtpsync.so
 
 %if %{mellonetray}
 %files mellonetray
