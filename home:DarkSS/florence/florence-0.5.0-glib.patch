@@ -1,0 +1,19 @@
+Patch by Robert Scheck <robert@fedoraproject.org> for florence >= 0.5.0
+which removes direct include directives of some glib includes. A recent
+glib, such as 2.31.6 in Fedora 17+, is going to complain "Only <glib.h>
+can be included directly." and building florence will fail.
+
+--- florence-0.5.0/src/trace.c		2010-11-28 15:59:13.000000000 +0100
++++ florence-0.5.0/src/trace.c.glib	2012-01-16 01:41:34.000000000 +0100
+@@ -21,10 +21,8 @@
+ 
+ #include "trace.h"
+ #include "system.h"
++#include <glib.h>
+ #include <glib/gprintf.h>
+-#include <glib/gutils.h>
+-#include <glib/gslist.h>
+-#include <glib/gstrfuncs.h>
+ #include <stdio.h>
+ #include <stdarg.h>
+ 
