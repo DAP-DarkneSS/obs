@@ -18,7 +18,7 @@
 Name:           florence
 Version:        0.6.0
 Release:        1
-License:        GPL-2.0+
+License:        GPL-2.0+ and GFDL-1.2
 Summary:        Extensible scalable on-screen virtual keyboard
 Url:            http://florence.sourceforge.net
 Group:          System/X11/Utilities
@@ -30,7 +30,6 @@ BuildRequires:  intltool
 BuildRequires:  libXtst-devel
 BuildRequires:  librsvg2-devel
 BuildRequires:  pkg-config
-BuildRequires:  scrollkeeper
 BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(gnome-doc-utils)
 BuildRequires:  pkgconfig(gstreamer-0.10)
@@ -39,8 +38,10 @@ BuildRequires:  pkgconfig(libnotify)
 BuildRequires:  pkgconfig(libxml-2.0)
 Recommends:     %{name}-doc
 Recommends:     %{name}-lang
-Requires(post): glib2-tools
+Requires(post):   glib2-tools
 Requires(postun): glib2-tools
+Requires(post):   desktop-file-utils
+Requires(postun): desktop-file-utils
 
 %description
 Florence is an extensible scalable virtual keyboard for GNOME.
@@ -54,48 +55,42 @@ it appears on the screen only when you need it.
 A Timer-based auto-click functionality is available
 to help disabled people having difficulties to click.
 
-%package doc
-License:        GFDL-1.2
-Summary:        Florence documentation
-Requires:       yelp
-BuildArch:      noarch
-
-%description doc
-This packages provides Florence documentation.
-
 %lang_package
 
 %prep
 %setup -q
+sed -i 's|Icon=@ICONDIR@/%{name}.svg|Icon=%{name}|g' data/%{name}.desktop.in.in
 
 %build
-%configure
+%configure --disable-scrollkeeper
 
 make %{?_smp_mflags}
 
 
 %install
-make install \
-     DESTDIR=%{buildroot} \
-     INSTALL="install -p"
+%makeinstall
 
 %suse_update_desktop_file -r %{name} 'Utility;Accessibility;'
 
-mkdir -p %{buildroot}%{_datadir}/pixmaps/
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable
 
 install -p -m 0644 data/%{name}.svg \
-    %{buildroot}%{_datadir}/pixmaps/%{name}.svg
+    %{buildroot}%{_datadir}/icons/hicolor/scalable/%{name}.svg
 
-%find_lang %{name}
+rm -rf %{buildroot}%{_datadir}/pixmaps
+
+%find_lang %{name} %{?no_lang_C}
 
 %fdupes -s %{buildroot}%{_datadir}/gnome/help/%{name}
 
 
 %post
 %glib2_gsettings_schema_post
+%desktop_database_post
 
 %postun
 %glib2_gsettings_schema_postun
+%desktop_database_post
 
 
 %files
@@ -104,18 +99,14 @@ install -p -m 0644 data/%{name}.svg \
 %{_datadir}/%{name}/
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.*
-%{_datadir}/pixmaps/%{name}.svg
-%exclude %{_localstatedir}/lib/scrollkeeper/*/*.xml
-%exclude %{_localstatedir}/lib/scrollkeeper/scrollkeeper_docs
+%{_datadir}/icons/hicolor/scalable/%{name}.svg
 %doc %{_mandir}/man*/%{name}*
 %{_datadir}/glib-2.0/schemas/*%{name}*
-
-%files doc
-%defattr(-,root,root,-)
-%doc %{_datadir}/gnome/help/%{name}
+%dir %{_datadir}/gnome/help/%{name}
+%doc %{_datadir}/gnome/help/%{name}/C
+%dir %{_datadir}/omf/%{name}
+%doc %{_datadir}/omf/%{name}/%{name}-C.omf
 
 %files lang -f %{name}.lang
-%defattr(-,root,root,-)
-%exclude %{_datadir}/gnome/help/%{name}
 
 %changelog
