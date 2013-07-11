@@ -26,7 +26,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-1244-gfdae8f0
+%define LEECHCRAFT_VERSION 0.5.95-1314-g93ce91b
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -51,6 +51,9 @@ BuildRequires:  file-devel
 BuildRequires:  gcc-c++ >= 4.7
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  hunspell-devel
+%if 0%{?suse_version} > 1230
+BuildRequires:  jbig2dec-devel
+%endif
 BuildRequires:  libGeoIP-devel
 BuildRequires:  libQtWebKit-devel
 BuildRequires:  libbz2-devel
@@ -77,6 +80,7 @@ BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
 BuildRequires:  libudev-devel
 %if 0%{?suse_version} > 1230
 BuildRequires:  mupdf-devel-static
+BuildRequires:  openjpeg-devel
 %endif
 BuildRequires:  pcre-devel
 BuildRequires:  phonon-devel
@@ -87,9 +91,11 @@ BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(kqoauth)
 
 BuildRequires:  boost-devel >= 1.50
+BuildRequires:  jbig2dec-devel
 # BuildRequires:  libchromaprint-devel
 # BuildRequires:  libffmpeg-devel
 BuildRequires:  mupdf-devel-static
+BuildRequires:  openjpeg-devel
 BuildRequires:  telepathy-qt4-devel
 
 Requires:       oxygen-icon-theme
@@ -945,6 +951,7 @@ This package provides a DLNA server plugin for LeechCraft.
 Summary:        LeechCraft Issue reporting Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Recommends:     %{name}-secman = %{version}
 
 %description dolozhee
 This package provides a Dolozhee plugin for LeechCraft.
@@ -1423,6 +1430,9 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-monocle = %{version}
 Provides:       %{name}-monocle-subplugin
+# A workaround for https://bugzilla.novell.com/show_bug.cgi?id=828751
+Conflicts:      lcms2 >= 2.5
+Conflicts:      liblcms2-2 >= 2.5
 
 %description monocle-postrus
 This package contains a PostRus subplugin for LeechCraft Monocle.
