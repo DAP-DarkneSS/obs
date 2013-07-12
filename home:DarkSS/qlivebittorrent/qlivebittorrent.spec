@@ -23,8 +23,6 @@ Summary:        A simple bittorrent client with very interesting live feature
 Url:            https://github.com/vtyulb/QLiveBittorrent
 Group:          Productivity/Networking/File-Sharing
 Source0:        %{name}-%{version}.tar.xz
-# PATCH-FIX-OPENSUSE to link with libncurses.so.
-Patch0:         ld-ncurses.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  fuse-devel
@@ -43,7 +41,6 @@ Plus and Minus keys — to increase/decrease download rate limit;
 
 %prep
 %setup -q
-%patch0 -p1
 echo "Disabling portable version"
 grep -v PORTABLE src/QLiveBittorrent.pro > src/%{name}.pro
 
