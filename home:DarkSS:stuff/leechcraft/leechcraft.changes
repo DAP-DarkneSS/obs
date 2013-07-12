@@ -1,9 +1,34 @@
 -------------------------------------------------------------------
-Wed Jun 12 20:57:59 UTC 2013 - dap.darkness@gmail.com
+Mon Jun 24 18:49:25 UTC 2013 - dap.darkness@gmail.com
+
+- 0.5.98 bugfix release:
+  * Core: first show unassociated dock widgets.
+  * Core: fixed some segfaults on tab closes.
+  * Core: fixed notifications about current tab changes.
+  * Core: fixed reusing IDs for jobs.
+  * AN: fixed overlay text drawing on notification icons.
+  * Aggregator: always save provider for delegated jobs.
+  * Aggregator: download the rest of the feeds after killing a stall.
+  * Azoth: fixed several rare segfaults.
+  * Azoth: don't try sending contact ID to another on DnD.
+  * Azoth: change tab name after entry renaming.
+  * Azoth MetaContacts: don't suggest unifying with MUC entries.
+  * Azoth Xoox: properly handle server errors on form fetching.
+  * Kinotify: fixed leaking state machine on each notification.
+  * LMP: fixed broken synchronization symbol fixing.
+  * LMP: temporary files are always removed after sync.
+  * LMP: metadata is now mapped properly from the source.
+  * Monocle: only render those pages that are actually visible.
+  * Monocle: don't set negative scales.
+  * Monocle: menu is shown only if mouse moved with a button pressed.
+  * Monocle Seen: safeguard against rendering a bunch of small images.
+  * TSM: fixed occasional segfaults on tab closes.
+  * Vrooby: proper partition naming in UDisks2 backend.
 - Fixed for PowerPC and ARM architectures:
   * no v8 and mupdf for ppc* — monocle-mu plugin was disabled;
-  * no libpurple for armv5 — azoth-velvetbird plugin was disabled;
-  * doxygen segfaults at armv5 — doc-packages were disabled.
+  * no libpurple for armv5 — azoth-velvetbird plugin was disabled.
+- Removed leechcraft-doc-doxygen-rpmlint-w.patch: resolved in upstream.
+- Qt >= 4.8 became required to build.
 
 -------------------------------------------------------------------
 Mon Jun 10 20:52:29 UTC 2013 - dap.darkness@gmail.com

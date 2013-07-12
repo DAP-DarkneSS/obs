@@ -22,21 +22,17 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 
 Name:           leechcraft
-Version:        0.5.97
+Version:        0.5.98
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
-Source0:        http://netcologne.dl.sourceforge.net/project/%{name}/LeechCraft/%{version}/%{name}-%{version}.tar.xz
+Source0:        http://netcologne.dl.sourceforge.net/project/leechcraft/LeechCraft/0.6.0/leechcraft-%{version}.tar.xz
 
 # PATCH-FEATURE-OPENSUSE to provide acetamide for Qt < 4.8.
 %if 0%{?suse_version} <= 1210
 Patch1:         leechcraft-acetamide-qt47.patch
-%endif
-# PATCH-FIX-OPENSUSE to prevent "W: file-contains-date-and-time" for html.
-%if 0%{?suse_version} <= 1210 || 0%{?suse_version} > 1230
-Patch2:         leechcraft-doc-doxygen-rpmlint-w.patch
 %endif
 
 %if 0%{?suse_version} > 1230
@@ -83,7 +79,7 @@ BuildRequires:  libpurple-devel
 BuildRequires:  libqca2-devel
 BuildRequires:  libqjson-devel
 BuildRequires:  libqscintilla-devel
-BuildRequires:  libqt4-devel >= 4.7
+BuildRequires:  libqt4-devel >= 4.8
 BuildRequires:  libqt4-sql
 BuildRequires:  libqxmpp-devel >= 0.7.4
 %if 0%{?suse_version} >= 1220
@@ -92,7 +88,7 @@ BuildRequires:  libsensors4-devel
 BuildRequires:  libspectre-devel
 BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
 %if 0%{?suse_version} > 1230
-%ifarch i586 i686 x86_64 armv5el armv7l armv7hl
+%ifarch i586 i686 x86_64 armv5el armv5tel armv7l armv7hl
 BuildRequires:  mupdf-devel-static
 %endif
 %endif
@@ -351,24 +347,6 @@ This package provides an ignoring plugin for LeechCraft Azoth.
 
 It allows to ignore unwanted participants.
 
-
-%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
-%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
-%package azoth-doc
-Summary:        LeechCraft Azoth Documentation
-License:        BSL-1.0
-Group:          Development/Libraries/Other
-BuildArch:      noarch
-
-%description azoth-doc
-This packages provides documentation of LeechCraft Azoth API.
-
-It contains description of Azoth API used for developing LeechCraft
-Azoth sub-plugins. For developing first-lexel plugins, please refer
-to corresponding packages (like leechcraft-doc). This documentation
-is also available online at http://doc.leechcraft.org/azoth/
-%endif
-%endif
 
 %package azoth-embedmedia
 Summary:        LeechCraft Azoth - Media Objects Module
@@ -799,24 +777,6 @@ This package provides files required for development for LeechCraft.
 It contains header files required to develop new modules.
 
 
-%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
-%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
-%package doc
-Summary:        LeechCraft Core Documentation
-License:        BSL-1.0
-Group:          Development/Libraries/Other
-BuildArch:      noarch
-
-%description doc
-This packages provides documentation of LeechCraft core API.
-
-It contains description of core API used for developing first-level
-LeechCraft plugins. For developing sub-plugins, please refer to
-corresponding packages (like leechcraft-azoth-doc). This documentation
-is also available online at http://doc.leechcraft.org/core/
-%endif
-%endif
-
 %package dolozhee
 Summary:        LeechCraft Issue reporting Module
 License:        BSL-1.0
@@ -1172,24 +1132,6 @@ This package provides a modular Document viewer plugin for LeechCraft.
 It will support different formats via different backends.
 %endif
 
-%if 0%{suse_version} <= 1210 || 0%{suse_version} > 1230
-%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
-%package monocle-doc
-Summary:        LeechCraft Monocle Documentation
-License:        BSL-1.0
-Group:          Development/Libraries/Other
-BuildArch:      noarch
-
-%description monocle-doc
-This packages provides documentation of LeechCraft Monocle API.
-
-It contains description of Monocle API used for developing LeechCraft
-Monocle sub-plugins. For developing first-lexel plugins, please refer
-to corresponding packages (like leechcraft-doc). This documentation
-is also available online at http://doc.leechcraft.org/monocle/
-%endif
-%endif
-
 %if 0%{suse_version} >= 1220
 %package monocle-fxb
 Summary:        LeechCraft Monocle - FictionBook Module
@@ -1206,7 +1148,7 @@ This package provides FB2 documents support for Document viewer Module.
 %endif
 
 %if 0%{suse_version} > 1230
-%ifarch i586 i686 x86_64 armv5el armv7l armv7hl
+%ifarch i586 i686 x86_64 armv5el armv5tel armv7l armv7hl
 %package monocle-mu
 Summary:        LeechCraft Monocle - Another PDF Module
 License:        BSL-1.0
@@ -1824,9 +1766,6 @@ It allows to configure and use proxy servers.
 %if 0%{?suse_version} <= 1210
 %patch1
 %endif
-%if 0%{?suse_version} <= 1210 || 0%{?suse_version} > 1230
-%patch2
-%endif
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -1936,7 +1875,7 @@ cmake ../src \
         -DENABLE_VROOBY=False \
 %endif
 %if 0%{?suse_version} > 1230
-%ifarch i586 i686 x86_64 armv5el armv7l armv7hl
+%ifarch i586 i686 x86_64 armv5el armv5tel armv7l armv7hl
         -DENABLE_MONOCLE_MU=True \
         -DMUPDF_VERSION=0x0102 \
 %else
@@ -1957,45 +1896,9 @@ cmake ../src \
 cd build
 make %{?_smp_mflags}
 
-%if 0%{?suse_version} <= 1210 || 0%{?suse_version} > 1230
-%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
-cd ../doc/doxygen/core
-sed -i Doxyfile \
--e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
-doxygen Doxyfile
-
-cd ../azoth
-sed -i Doxyfile \
--e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
-doxygen Doxyfile
-
-cd ../monocle
-touch footer.html
-sed -i Doxyfile \
--e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
-doxygen Doxyfile
-%endif
-%endif
-
 %install
 cd build
 %makeinstall
-
-%if 0%{?suse_version} <= 1210 || 0%{?suse_version} > 1230
-%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
-cd ../doc/doxygen/core/out/html
-mkdir -p %{buildroot}%{_docdir}/%{name}-doc
-cp -r * %{buildroot}%{_docdir}/%{name}-doc
-
-cd ../../../azoth/out/html
-mkdir -p %{buildroot}%{_docdir}/%{name}-azoth-doc
-cp -r * %{buildroot}%{_docdir}/%{name}-azoth-doc
-
-cd ../../../monocle/out/html
-mkdir -p %{buildroot}%{_docdir}/%{name}-monocle-doc
-cp -r * %{buildroot}%{_docdir}/%{name}-monocle-doc
-%endif
-%endif
 
 %suse_update_desktop_file -i %{name}
 %suse_update_desktop_file -i %{name}-azoth-acetamide
@@ -2012,11 +1915,6 @@ cp -r * %{buildroot}%{_docdir}/%{name}-monocle-doc
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth
 %fdupes -s %{buildroot}%{_datadir}/%{name}/global_icons/flags
 %fdupes -s %{buildroot}%{_datadir}/%{name}/themes
-%if 0%{?suse_version} <= 1210 || 0%{?suse_version} > 1230
-%fdupes -s %{buildroot}%{_docdir}/%{name}-doc/
-%fdupes -s %{buildroot}%{_docdir}/%{name}-azoth-doc/
-%fdupes -s %{buildroot}%{_docdir}/%{name}-monocle-doc/
-%endif
 
 %post -p /sbin/ldconfig
 
@@ -2133,18 +2031,6 @@ cp -r * %{buildroot}%{_docdir}/%{name}-monocle-doc
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_depester.so
 %{translations_dir}/%{name}_azoth_depester*
-
-%if 0%{?suse_version} <= 1210 || 0%{?suse_version} > 1230
-%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
-%files azoth-doc
-%defattr(-,root,root)
-%dir %{_docdir}/%{name}-azoth-doc
-%doc %{_docdir}/%{name}-azoth-doc/*
-%if 0%{?suse_version} <= 1210
-%exclude %{_docdir}/%{name}-azoth-doc/installdox
-%endif
-%endif
-%endif
 
 %files azoth-embedmedia
 %defattr(-,root,root)
@@ -2324,18 +2210,6 @@ cp -r * %{buildroot}%{_docdir}/%{name}-monocle-doc
 %{_libdir}/*xmlsettingsdialog.so
 %{_datadir}/cmake/Modules/InitLCPlugin.cmake
 
-%if 0%{?suse_version} <= 1210 || 0%{?suse_version} > 1230
-%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
-%files doc
-%defattr(-,root,root)
-%dir %{_docdir}/%{name}-doc
-%doc %{_docdir}/%{name}-doc/*
-%if 0%{?suse_version} <= 1210
-%exclude %{_docdir}/%{name}-doc/installdox
-%endif
-%endif
-%endif
-
 %files dolozhee
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_dolozhee.so
@@ -2489,18 +2363,6 @@ cp -r * %{buildroot}%{_docdir}/%{name}-monocle-doc
 %{_datadir}/%{name}/settings/monoclesettings.xml
 %endif
 
-%if 0%{?suse_version} <= 1210 || 0%{?suse_version} > 1230
-%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
-%files monocle-doc
-%defattr(-,root,root)
-%dir %{_docdir}/%{name}-monocle-doc
-%doc %{_docdir}/%{name}-monocle-doc/*
-%if 0%{?suse_version} <= 1210
-%exclude %{_docdir}/%{name}-monocle-doc/installdox
-%endif
-%endif
-%endif
-
 %if 0%{?suse_version} >= 1220
 %files monocle-fxb
 %defattr(-,root,root)
@@ -2509,7 +2371,7 @@ cp -r * %{buildroot}%{_docdir}/%{name}-monocle-doc
 %endif
 
 %if 0%{?suse_version} > 1230
-%ifarch i586 i686 x86_64 armv5el armv7l armv7hl
+%ifarch i586 i686 x86_64 armv5el armv5tel armv7l armv7hl
 %files monocle-mu
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_mu.so
