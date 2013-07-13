@@ -20,7 +20,7 @@ Name:           xmahjongg
 Version:        3.7
 Release:        0
 Summary:        Colorful X solitaire MahJongg game
-License:        MIT
+License:        HPND and GPL-2.0+
 Group:          Amusements/Games/Board/Card
 Url:            http://www.lcdf.org/xmahjongg/
 
