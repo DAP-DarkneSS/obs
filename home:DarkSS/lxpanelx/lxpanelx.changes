@@ -1,3 +1,23 @@
+-------------------------------------------------------------------
+Sun Jul 14 16:46:20 UTC 2013 - dap.darkness@gmail.com
+
+- Revision 694:
+  * Notification_area: use icon_grid container
+  * Launchbutton: use pango markup
+  * Panel_draw_label_text(): add flag STYLE_MARKUP
+  * Panel_draw_label_text(): Pass label style as bit flags, not gboolean values.
+  * Add lxpanel_load_icon2(). Do not call _gdk_pixbuf_new_from_file_at_scale()
+    from _gtk_image_set_from_file_scaled()
+  * Delete plugin param from fb_button_set_label()
+  * Delete highlighted param from fb_button_* API.
+  * Fb_button.c: more readable field names in ImgData
+  * Move fb_button_* declarations to fb_button.h
+  * Move gcolor2rgb24() from fb_button.c to misc.c
+  * Delete unused function get_button_spacing()
+  * Delete keep_ratio param from fb_button_* API
+  * Move fb_button_* stuff to fb_button.c
+- Description was fixed up.
+
 ----------------------------------------------------------------------------
 Wed May  8 17:14:38 UTC 2013 - dap.darkness@gmail.com
 

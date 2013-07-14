@@ -15,13 +15,14 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
+
 Name:           lxpanelx
-Version:        0.5+r675
+Version:        0.5+r694
 Release:        0
-License:        GPL-2.0
 Summary:        Lightweight X11 desktop panel, based on lxpanel
-Url:            http://code.google.com/p/lxpanelx
+License:        GPL-2.0
 Group:          System/GUI/LXDE
+Url:            http://code.google.com/p/lxpanelx
 
 # svn co http://lxpanelx.googlecode.com/svn/trunk/ lxpanelx-%%{version}
 Source0:        lxpanelx-%{version}.tar.bz2
@@ -42,9 +43,9 @@ Requires:       menu-cache
 Recommends:     %{name}-lang
 
 %description
-LXPanelx is a fork lightweight X11 desktop panel. It's consist more
-flexible taskbar plugin configurations and other  many improvements,
-not in original lxpanel.
+LXPanelx is a fork of lightweight X11 desktop panel. It provides more
+flexible taskbar plugin configuration and many other improvements,
+that are absent in original lxpanel.
 
 %package devel
 Summary:        Devel files for %{name}
