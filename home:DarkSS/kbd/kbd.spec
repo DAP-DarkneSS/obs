@@ -46,11 +46,13 @@ Patch0:         kbd-1.15.2-prtscr_no_sigquit.patch
 # Might be ported!
 # Patch1:         kbd-1.15.2-dumpkeys-ppc.patch
 Patch2:         kbd-1.15.2-unicode_scripts.patch
+# Was updated: new doc path.
 Patch3:         kbd-1.15.2-docu-X11R6-xorg.patch
 Patch4:         kbd-1.15.2-sv-latin1-keycode10.patch
 Patch5:         kbd-1.15.2-setfont-no-cruft.patch
 # Might be ported!
 # Patch6:         kbd-1.15.2-dumpkeys-C-opt.patch
+# Was updated: new doc path.
 Patch8:         kbd-1.15.2-chvt-userwait.patch
 
 BuildRequires:  automake
@@ -88,7 +90,7 @@ Authors:
 # Might be ported!
 # %%patch1 -p1
 %patch2
-%patch3 -p1
+%patch3
 %patch4 -p1
 %patch5 -p1
 # Might be ported!
@@ -142,8 +144,8 @@ make DESTDIR=%{buildroot} DATA_DIR=%{kbd} MAN_DIR=%{_mandir} install
 # ln -s iso01-12x22.psfu $K/consolefonts/suse12x22.psfu
 install -m 644 data/consolefonts/README* $DOC/fonts/
 mkdir -p $DOC/doc/
-install -m 644 doc/keysyms.h.info doc/kbd.FAQ.txt doc/kbd.FAQ*.html doc/README* doc/TODO $DOC/doc/
-install -m 644 doc/as400.kbd doc/console.docs doc/repeat/set_kbd_repeat-2 $DOC/doc/
+install -m 644 docs/doc/keysyms.h.info docs/doc/kbd.FAQ.txt docs/doc/kbd.FAQ*.html docs/doc/README* docs/doc/TODO $DOC/doc/
+install -m 644 docs/doc/as400.kbd docs/doc/console.docs docs/doc/repeat/set_kbd_repeat-2 $DOC/doc/
 echo "See /usr/share/i18/charmaps for a description of char maps" >$DOC/doc/README.charmaps
 install -m 644 COPYING ChangeLog CREDITS README $DOC/
 install -m 644 %{SOURCE3} $DOC/

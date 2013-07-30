@@ -8,8 +8,8 @@ which repeatedly tries changing the terminal until the change has taken place.
 
 Index: kbd-1.14.1/man/man1/chvt.1
 ===================================================================
---- kbd-1.14.1.orig/man/man1/chvt.1
-+++ kbd-1.14.1/man/man1/chvt.1
+--- kbd-1.14.1.orig/docs/man/man1/chvt.1
++++ kbd-1.14.1/docs/man/man1/chvt.1
 @@ -4,6 +4,9 @@
  chvt \- change foreground virtual terminal
  .SH SYNOPSIS
