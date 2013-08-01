@@ -3,7 +3,7 @@
     <param name="url">git://github.com/vtyulb/QLiveBittorrent.git</param>
     <param name="scm">git</param>
     <param name="filename">qlivebittorrent</param>
-    <param name="versionprefix">20130707+t</param>
+    <param name="versionprefix">20130713+t</param>
   </service>
   <service name="recompress">
     <param name="file">*.tar</param>
