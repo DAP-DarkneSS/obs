@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Aug  1 16:16:24 UTC 2013 - dap.darkness@gmail.com
+
+- Update to upstream version 0.6.5:
+  * No upstream changelog.
+- Fixed for Haskell Platform 2013.2.
+
+-------------------------------------------------------------------
 Mon Jun 17 17:07:50 UTC 2013 - dap.darkness@gmail.com
 
 - Initial build.

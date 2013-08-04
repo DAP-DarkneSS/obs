@@ -15,26 +15,42 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
-%global pkg_name SDL-mixer
-%global common_summary Haskell %{pkg_name} library
-%global common_description A %{pkg_name} library for Haskell.
 
-Name:           ghc-%{pkg_name}
+%global pkg_name SDL-mixer
+%global common_summary Haskell binding for %{pkg_name} library
+%global common_description SDL_mixer is a sample multi-channel audio mixer \
+library. It supports any number of simultaneously playing channels of 16 \
+bit stereo audio, plus a single channel of music, mixed by the popular \
+MikMod MOD, Timidity MIDI, Ogg Vorbis, and SMPEG MP3 libraries.
+
+Name:           ghc-SDL-mixer
 Version:        0.6.1
 Release:        0
-License:        BSD-3-Clause
 Summary:        %{common_summary}
-Url:            http://hackage.haskell.org/package/%{pkg_name}
+License:        BSD-3-Clause
 Group:          System/Libraries
+Url:            http://hackage.haskell.org/package/%{pkg_name}
 Source0:        http://hackage.haskell.org/packages/archive/%{pkg_name}/%{version}/%{pkg_name}-%{version}.tar.gz
 
 BuildRequires:  ghc-Cabal-devel
-BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-SDL-devel
+BuildRequires:  ghc-rpm-macros
 BuildRequires:  pkgconfig(SDL_mixer)
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
+%{common_description}
+
+%package devel
+Summary:        %{common_summary} development
+Group:          Development/Languages/Other
+Requires:       %{name} = %{version}
+Requires:       ghc-compiler
+Requires:       pkgconfig(SDL_mixer)
+Requires(post): ghc-compiler
+Requires(postun): ghc-compiler
+
+%description devel
 %{common_description}
 
 %prep
@@ -45,16 +61,20 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %install
 %ghc_lib_install
+# Deletes text stuff, let's include it via doc-macro.
+rm -rf %{buildroot}%{_datadir}/%{pkg_name}-%{version}
 
-%ghc_devel_package
-Requires:      pkgconfig(SDL_mixer)
-Requires:      ghc-SDL-devel
+%post devel
+%ghc_pkg_recache
 
-%ghc_devel_description
+%postun devel
+%ghc_pkg_recache
 
-%ghc_devel_post_postun
+%files -f %{name}.files
+%defattr(-,root,root,-)
+%doc LICENSE README TODO
 
-%ghc_files LICENSE README TODO
-%exclude %{_datadir}/%{pkg_name}-%{version}
+%files devel -f %{name}-devel.files
+%defattr(-,root,root,-)
 
 %changelog
