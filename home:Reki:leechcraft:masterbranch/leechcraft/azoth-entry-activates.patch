@@ -1,0 +1,13 @@
+diff --git a/src/plugins/azoth/azothsettings.xml b/src/plugins/azoth/azothsettings.xml
+index a329dae..a104d34 100644
+--- a/src/plugins/azoth/azothsettings.xml
++++ b/src/plugins/azoth/azothsettings.xml
+@@ -234,7 +234,7 @@
+ 			</item>
+ 			<item type="combobox" property="EntryActivationType">
+ 				<label value="Entry activates on:" />
+-				<option name="click" default="true">
++				<option name="click" default="environment">
+ 					<label value="Single click" />
+ 				</option>
+ 				<option name="dclick">
