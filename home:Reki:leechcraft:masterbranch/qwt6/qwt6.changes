@@ -1,0 +1,39 @@
+-------------------------------------------------------------------
+Mon Jan 28 16:30:49 EET 2013 - koprok@nand.bg
+
+- Update to Qwt 6.0.2
+  * qwtfunctions.pri added
+  * QwtPlotDict::detachItems fixed
+  * QwtWeedingCurveFitter::fitCurve performance improvements
+  * QwtDynGridLayout fixed for non widget items
+  * QwtInterval: avoid annoying compiler warning 
+  * Autoscaling of curves without points fixed
+  * QwtPlotDirectPainter::drawSeries bad translation removed
+  * QwtPlotIntervalCurve: drawing of symbols fixed
+  * QwtPlotlayout: minor layout bufs fixed
+  * Usage of QwtPlotRasterItem::pixelHint fixed
+  * QwtPlotRenderer: several minor fixes
+  * QwtRasterData: CONREC algorithm fixed
+  * QwtThermo: layout code fixed
+  * QwtThermo: memory leak fixed
+  * QwtMmlDocument: compiler issues
+  * Logarithmic autoscaler fixed for intervals close below a decade
+
+-------------------------------------------------------------------
+Tue Nov 20 17:23:54 UTC 2012 - nico.kruber@gmail.com
+
+- Fix the SLES build (%make_install is not expanded on SLES)
+
+-------------------------------------------------------------------
+Thu Mar 29 12:38:20 UTC 2012 - cfarrell@suse.com
+
+- license update: SUSE-QWT-1.0
+  Added to spreadsheet linked at license.opensuse.org. Package warrants its
+  own license
+
+-------------------------------------------------------------------
+Wed Mar 28 08:57:52 UTC 2012 - idonmez@suse.com
+
+- Initial release 
+
+
