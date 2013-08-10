@@ -21,15 +21,15 @@
 %define settings_dir %{_datadir}/%{name}/settings
 %define azoth_dir %{_datadir}/%{name}/azoth
 
-%define fenet 0
+%define fenet 1
 %define mellonetray 1
-%define poleemery 0
+%define poleemery 1
 %define woodpecker 1
-%define vangog 0
+%define vangog 1
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-1730-ge819e3e
+%define LEECHCRAFT_VERSION 0.5.95-1803-g8610119
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -110,8 +110,6 @@ Obsoletes:      %{name}-eiskaltdcpp
 Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
 Obsoletes:      %{name}-tabpp
-
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 This package provides core executable of Leechcraft.
@@ -835,6 +833,17 @@ Requires:       %{name}-blasq-subplugin = %{version}
 This package provides a modular Image storages plugin for LeechCraft.
 
 It supports different cloud image storages like Picasa or Flick.
+
+
+%package blasq-deathnote
+Summary:        LeechCraft DeathNote - LiveJournal FotoBilder client Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-blasq = %{version}
+Provides:       %{name}-blasq-subplugin = %{version}
+
+%description blasq-deathnote
+This package provides a LiveJournal FotoBilder image storage client subplugin
+for LeechCraft Blasq.
 
 
 %package blasq-rappor
@@ -1663,6 +1672,7 @@ It allows to search instantly selected text in Google.
 %package poleemery
 Summary:        LeechCraft Poleemery - Finances manager Module
 Group:          Productivity/Networking/Other
+BuildRequires:  qwt6-devel >= 6.1
 Requires:       %{name} = %{version}
 
 %description poleemery
@@ -2549,6 +2559,10 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_blasq_spegnersi.so
 %{_datadir}/%{name}/translations/%{name}_blasq_spegnersi*.qm
 
+%files blasq-deathnote
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_blasq_deathnote.so
+
 %files blasq-rappor
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blasq_rappor.so
@@ -2640,6 +2654,7 @@ EOF
 %dir %{_datadir}/%{name}/fenet/wms
 %{_datadir}/xsessions/LCDE.desktop
 %{_datadir}/%{name}/translations/%{name}_fenet_*.qm
+%{_datadir}/%{name}/fenet
 
 %files fenet-awesome
 %defattr(-,root,root)
