@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Aug 13 04:45:41 UTC 2013 - dap.darkness@gmail.com
+
+- Another cmake rpath disabling option to be built via 13.1's cmake.
+
+-------------------------------------------------------------------
 Tue Jun 25 07:18:24 UTC 2013 - joop.boonen@opensuse.org
 
 - Build against libpng-devel instead of libpng-compat-devel 
