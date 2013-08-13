@@ -1,0 +1,11 @@
+diff -up libclaw-1.7.0/claw/graph.hpp.gcc46 libclaw-1.7.0/claw/graph.hpp
+--- libclaw-1.7.0/claw/graph.hpp.gcc46	2011-06-12 06:01:53.000000000 -0400
++++ libclaw-1.7.0/claw/graph.hpp	2011-08-25 15:56:48.671035660 -0400
+@@ -38,6 +38,7 @@
+ #include <exception>
+ #include <iterator>
+ #include <utility>
++#include <cstddef>
+ 
+ namespace claw
+ {
