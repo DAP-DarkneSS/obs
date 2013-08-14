@@ -14,7 +14,7 @@
 # Please submit bugfixes or comments via https://bugs.links2linux.org
 
 Name:           smplayer
-Version:        0.8.5
+Version:        0.8.6
 Release:        0
 License:        GPL-2.0+
 Summary:        Complete Frontend for MPlayer
@@ -33,11 +33,10 @@ Patch9:         smplayer-add_kde_protocols_to_desktop_file.patch
 BuildRequires:  gcc-c++
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libkde4-devel
-BuildRequires:  libqt4-devel >= 4.2.0
+BuildRequires:  libqt4-devel >= 4.7
 BuildRequires:  libstdc++-devel
 BuildRequires:  make
 BuildRequires:  update-desktop-files
-BuildRoot:      %{_tmppath}/build-%{name}-%{version}
 # requires at least this version for closed caption channel support:
 Requires:       MPlayer >= 1.0rc4_r32607
 Recommends:     smplayer-skins

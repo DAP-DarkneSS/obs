@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Wed Aug 14 15:23:43 UTC 2013 - dap.darkness@gmail.com
+
+- Update to 0.8.6:
+  * Skingui fixes and improvements.
+  * Subtitles searching and downloading fixes and improvements.
+  * Youtube fixes and improvements.
+  * Don't report about new version if installed version is newer.
+  * Workaround for the control widgets when using a right to left language.
+  * Read the script from the file ytsig.script in the smplayer config dir.
+  * Be sure the main window is visible when requesting to open a file.
+  * Add an "updates" section in preferences.
+  * Ignore -fontconfig and -nofontconfig if using mplayer2.
+  * Check for infinite recursion in favorites.
+  * A new icon has been added for the mplayer error dialog.
+  * Display a wait cursor during the creation of the dialogs.
+  * Save/restore the window state.
+  * Add an option for command line: -delete-config.
+- Service source_validator was removed because of
+  https://bugs.links2linux.org/browse/PM-83
+- SLE_11's Qt became unsupported.
+
+-------------------------------------------------------------------
 Thu May  9 15:23:53 UTC 2013 - dap.darkness@gmail.com
 
 - Update to 0.8.5:

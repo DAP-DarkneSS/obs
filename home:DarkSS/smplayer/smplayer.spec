@@ -8,7 +8,7 @@
 # or http://bugs.opensuse.org/
 
 Name:           smplayer
-Version:        0.8.5
+Version:        0.8.6
 Release:        0
 License:        GPL-2.0+
 Summary:        Complete Frontend for MPlayer
