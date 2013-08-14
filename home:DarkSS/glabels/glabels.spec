@@ -19,17 +19,18 @@
 Name:           glabels
 Version:        3.0.1
 Release:        0
-Summary:        Label Editing and Printing Tool
 License:        GPL-3.0+
-Group:          Productivity/Office/Other
+Summary:        Label Editing and Printing Tool
 Url:            http://glabels.sourceforge.net/
+Group:          Productivity/Office/Other
 Source:         http://download.gnome.org/sources/glabels/3.0/%{name}-%{version}.tar.xz
 # PATCH-FIX-UPSTREAM glabels-eds-3.6.patch bgo#685130 dimstar@opensuse.org -- Fix build with evolution-data-server 3.6
 Patch0:         glabels-eds-3.6.patch
+
 BuildRequires:  barcode-devel
-BuildRequires:  qrencode-devel
 BuildRequires:  fdupes
 BuildRequires:  intltool
+BuildRequires:  qrencode-devel
 # We need the %%mime_database_* macros
 BuildRequires:  shared-mime-info
 BuildRequires:  translation-update-upstream
@@ -45,7 +46,6 @@ BuildRequires:  pkgconfig(libxml-2.0) >= 2.7.8
 BuildRequires:  pkgconfig(pango) >= 1.28.1
 BuildRequires:  pkgconfig(pangocairo) >= 1.28.1
 Recommends:     %{name}-lang
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %glib2_gsettings_schema_requires
 
 %description
@@ -53,8 +53,8 @@ Labels is a powerful tool for editing and printing all kinds of labels.
 It comes with a lot of templates of standard labels.
 
 %package devel
-Summary:        Label Editing and Printing Tool - Development Files
 License:        GPL-2.0+
+Summary:        Label Editing and Printing Tool - Development Files
 Group:          Development/Libraries/GNOME
 Requires:       %{name} = %{version}
 
@@ -66,6 +66,7 @@ This package contains all necessary include files and libraries needed
 to develop applications that require these.
 
 %lang_package
+
 %prep
 %setup -q
 %patch0 -p1
@@ -84,9 +85,6 @@ find %{buildroot} -type f -name "*.la" -delete -print
 %suse_update_desktop_file glabels-3.0 WordProcessor
 %find_lang %{name}-3.0 %{?no_lang_C}
 %fdupes -s %{buildroot}
-
-%clean
-%{?buildroot:rm -rf %{buildroot}}
 
 %post
 /sbin/ldconfig
