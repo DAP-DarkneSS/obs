@@ -1,3 +1,10 @@
+-------------------------------------------------------------------
+Thu Aug 15 16:53:31 UTC 2013 - dap.darkness@gmail.com
+
+- Heads up: Python2 / Python3 parallel installation.
+  %fdupes will not work if files are installed via %doc.
+
+-------------------------------------------------------------------
 Sat Apr 20 14:59:16 UTC 2013 - dap.darkness@gmail.com
 
  - Fixed up to submit.

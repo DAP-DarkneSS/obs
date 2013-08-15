@@ -47,8 +47,7 @@ library is initialy a fork of xmpppy one, but using non-blocking sockets.
 %package doc
 Summary:        Nbxmpp Documentation
 Group:          Development/Libraries/Python
-
-# To buid at SLE <= 11 SP2.
+# ^ To buid at SLE <= 11 SP2.
 
 %description doc
 This packages provides documentation of Nbxmpp API.
@@ -63,18 +62,13 @@ python setup.py build
 python setup.py install -O1 --skip-build --root %{buildroot} --prefix=%{_prefix}
 %fdupes %{buildroot}%{python_sitelib}
 
-mkdir -p %{buildroot}%{_docdir}/%{name}-doc
-cp -r doc/* %{buildroot}%{_docdir}/%{name}-doc
-%fdupes %{buildroot}%{_docdir}
-
 %files
 %defattr(-,root,root)
-%doc ChangeLog COPYING README
 %{python_sitelib}/nbxmpp-*.egg-info
 %{python_sitelib}/nbxmpp/
 
 %files doc
 %defattr(-,root,root)
-%{_docdir}/%{name}-doc
+%doc ChangeLog COPYING README doc/*
 
 %changelog

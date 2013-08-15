@@ -56,18 +56,13 @@ python3 setup.py build
 python3 setup.py install -O1 --skip-build --root=%{buildroot} --prefix=%{_prefix}
 %fdupes %{buildroot}%{python3_sitelib}
 
-mkdir -p %{buildroot}%{_docdir}/%{name}-doc
-cp -r doc/* %{buildroot}%{_docdir}/%{name}-doc
-%fdupes %{buildroot}%{_docdir}
-
 %files
 %defattr(-,root,root)
-%doc ChangeLog COPYING README
 %{python3_sitelib}/nbxmpp-*.egg-info
 %{python3_sitelib}/nbxmpp/
 
 %files doc
 %defattr(-,root,root)
-%{_docdir}/%{name}-doc
+%doc ChangeLog COPYING README doc/*
 
 %changelog

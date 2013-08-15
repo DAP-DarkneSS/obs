@@ -1,0 +1,3 @@
+<services>
+  <service name="source_validator"/>
+</services>
