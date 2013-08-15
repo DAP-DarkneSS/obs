@@ -22,6 +22,7 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 
 %define fenet 1
+%define lmp 1
 %define mellonetray 1
 %define poleemery 1
 %define woodpecker 1
@@ -29,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-1807-g654c95d
+%define LEECHCRAFT_VERSION 0.5.95-1924-g41586f3
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -94,6 +95,7 @@ BuildRequires:  qwt6-devel
 BuildRequires:  speex-devel
 BuildRequires:  taglib-devel
 BuildRequires:  update-desktop-files
+BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
 BuildRequires:  pkgconfig(kqoauth)
 
 BuildRequires:  boost-devel >= 1.50
@@ -1347,6 +1349,7 @@ reconnect properly on startup.
  * Notifies user on low power level.
 
 
+%if %{lmp}
 %package lmp
 Summary:        LeechCraft Media player Module
 Group:          Productivity/Networking/Other
@@ -1355,6 +1358,10 @@ Recommends:     %{name}-deadlyrics = %{version}
 Recommends:     %{name}-lastfmscrobble = %{version}
 Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
+Requires:       gstreamer-0_10-plugins-base
+Requires:       gstreamer-0_10-plugins-good
+Recommends:     gstreamer-0_10-plugins-bad
+Recommends:     gstreamer-0_10-plugins-fluendo_mp3
 Provides:       %{name}-audioplayer
 Provides:       %{name}-soundnotifications = %{version}
 
@@ -1362,7 +1369,7 @@ Provides:       %{name}-soundnotifications = %{version}
 This package provides a audio player plugin for LeechCraft.
 
 It allows to play audio and stream audio.
-It uses Phonon as a backend thus supporting major codecs.
+It uses Gstreamer as a backend thus supporting major codecs.
 
 Features:
  * Support for major audio formats.
@@ -1419,6 +1426,7 @@ Requires:       %{name}-devmon = %{version}
 
 %description lmp-mtpsync
 This package allows to sync with MTP devices via LeechCraft.
+%endif
 
 
 %if %{mellonetray}
@@ -2182,10 +2190,14 @@ cmake ../src \
         -DENABLE_LHTR=True \
                 -DWITH_LHTR_HTML=True \
         -DENABLE_LIZNOO=True \
+%if %{lmp}
         -DENABLE_LMP=True \
         -DENABLE_LMP_GRAFFITI=True \
         -DENABLE_LMP_MPRIS=True \
         -DENABLE_LMP_MTPSYNC=True \
+%else
+        -DENABLE_LMP=False \
+%endif
         -DENABLE_MEDIACALLS=False \
 %if %{mellonetray}
         -DENABLE_MELLONETRAY=True \
@@ -2654,7 +2666,7 @@ EOF
 %dir %{_datadir}/%{name}/fenet/wms
 %{_datadir}/xsessions/LCDE.desktop
 %{_datadir}/%{name}/translations/%{name}_fenet_*.qm
-%{_datadir}/%{name}/fenet
+%{_datadir}/%{name}/fenet/compositing
 
 %files fenet-awesome
 %defattr(-,root,root)
@@ -2785,6 +2797,7 @@ EOF
 %{_datadir}/%{name}/settings/liznoosettings.xml
 %{_datadir}/%{name}/translations/%{name}_liznoo_*.qm
 
+%if %{lmp}
 %files lmp
 %defattr(-,root,root)
 %{settings_dir}/lmpsettings.xml
@@ -2813,6 +2826,7 @@ EOF
 %files lmp-mtpsync
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_lmp_mtpsync.so
+%endif
 
 %if %{mellonetray}
 %files mellonetray
