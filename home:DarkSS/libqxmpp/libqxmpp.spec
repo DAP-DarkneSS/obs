@@ -84,14 +84,12 @@ This packages provides documentation of Qxmpp library API.
 %setup -q -n qxmpp-%{version}
 
 %build
-qmake PREFIX=%{_prefix} QMAKE_STRIP="" QMAKE_CXXFLAGS+="%{optflags}"
+qmake PREFIX=%{_prefix} LIBDIR=%{_lib} QMAKE_STRIP= QMAKE_CXXFLAGS+="%{optflags}"
+
 make %{?_smp_mflags}
 
 %install
 %makeinstall INSTALL_ROOT=%{buildroot}
-%ifarch x86_64 ppc64
-%__mv %{buildroot}/usr/{lib,lib64}
-%endif
 %fdupes %{buildroot}%{_datadir}/doc/qxmpp/
 
 %post -n %{name}0 -p /sbin/ldconfig

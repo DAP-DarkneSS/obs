@@ -1,7 +1,7 @@
 #
 # spec file for package libqxmpp
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -62,8 +62,8 @@ always recommended to the advanced users to read and enjoy the low level details
 Summary:        Qxmpp Development Files
 Group:          Development/Libraries/C and C++
 Requires:       libqxmpp0 = %{version}
-Provides:       libqxmpp-lc1-devel = %{version}
-Obsoletes:      libqxmpp-lc1-devel < %{version}
+Provides:       libqxmpp-lc-devel = %{version}
+Obsoletes:      libqxmpp-lc-devel < %{version}
 
 %description -n %{name}-devel
 It's a development package for qxmpp.
@@ -82,14 +82,12 @@ This packages provides documentation of Qxmpp library API.
 %setup -q -n qxmpp-%{version}
 
 %build
-qmake PREFIX=%{_prefix} QMAKE_STRIP="" QMAKE_CXXFLAGS+="%{optflags}"
+qmake PREFIX=%{_prefix} LIBDIR=%{_lib} QMAKE_STRIP= QMAKE_CXXFLAGS+="%{optflags}"
+
 make %{?_smp_mflags}
 
 %install
 %makeinstall INSTALL_ROOT=%{buildroot}
-%ifarch x86_64 ppc64
-%__mv %{buildroot}/usr/{lib,lib64}
-%endif
 %fdupes %{buildroot}%{_datadir}/doc/qxmpp/
 
 %post -n %{name}0 -p /sbin/ldconfig
