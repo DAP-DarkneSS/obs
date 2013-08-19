@@ -17,7 +17,7 @@
 
 
 Name:           kbd
-Version:        2.0.0wip
+Version:        2.0.0
 Release:        0
 Summary:        Keyboard and Font Utilities
 License:        GPL-2.0+
@@ -25,7 +25,7 @@ Group:          System/Console
 # git: git://git.altlinux.org/people/legion/packages/kbd.git
 Url:            ftp://ftp.altlinux.org/pub/people/legion/kbd/
 %if 0
-Source:         %{name}-%{version}.tar.gz
+Source:         %{name}-%{version}.tar.bz2
 %else
 Source:         %{name}-%{version}-repack.tar.bz2
 %endif
@@ -43,16 +43,14 @@ Source13:       guess_encoding.pl
 Source42:       convert-kbd-mac.sed
 Source43:       repack_kbd.sh
 Patch0:         kbd-1.15.2-prtscr_no_sigquit.patch
-# Might be ported!
-# Patch1:         kbd-1.15.2-dumpkeys-ppc.patch
+# Might p1 be ported?
+Patch1:         kbd-1.15.2-dumpkeys-ppc.patch
 Patch2:         kbd-1.15.2-unicode_scripts.patch
-# Was updated: new doc path.
 Patch3:         kbd-1.15.2-docu-X11R6-xorg.patch
 Patch4:         kbd-1.15.2-sv-latin1-keycode10.patch
 Patch5:         kbd-1.15.2-setfont-no-cruft.patch
-# Might be ported!
-# Patch6:         kbd-1.15.2-dumpkeys-C-opt.patch
-# Was updated: new doc path.
+# Might p6 be ported?
+Patch6:         kbd-1.15.2-dumpkeys-C-opt.patch
 Patch8:         kbd-1.15.2-chvt-userwait.patch
 
 BuildRequires:  automake

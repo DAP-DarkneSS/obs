@@ -1,8 +1,16 @@
 -------------------------------------------------------------------
-Tue May 14 12:56:59 UTC 2013 - dap.darkness@gmail.com
+Mon Aug 19 18:27:19 UTC 2013 - dap.darkness@gmail.com
 
 - Update to version 2.0.0:
-  * The loadkeys and dumpkeys rewritten using the new library.
+  * Add bepo keyboard layout;
+  * Add libkeymap;
+  * The loadkeys and dumpkeys always use the libkeymap.
+- Updated patches because of docs moved:
+  * kbd-1.15.2-chvt-userwait.patch
+  * kbd-1.15.2-docu-X11R6-xorg.patch
+- Disabled patches because of dumpkeys rewritten:
+  * kbd-1.15.2-dumpkeys-C-opt.patch
+  * kbd-1.15.2-dumpkeys-ppc.patch
 
 -------------------------------------------------------------------
 Thu Apr  4 15:57:45 UTC 2013 - meissner@suse.com
