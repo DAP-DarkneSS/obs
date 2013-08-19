@@ -19,21 +19,25 @@
 Name:           libqxmpp
 Version:        0.7.6
 Release:        0
-Source0:        https://qxmpp.googlecode.com/files/qxmpp-%{version}.tar.gz
-Source1:        baselibs.conf
 Summary:        Qt XMPP Library
 License:        LGPL-2.0+
 Group:          System/Libraries
 Url:            https://code.google.com/p/qxmpp/
+Source0:        https://qxmpp.googlecode.com/files/qxmpp-%{version}.tar.gz
+Source1:        baselibs.conf
 BuildRequires:  fdupes
 BuildRequires:  libqt4-devel
+BuildRequires:  libtheora-devel
+%if 0%{?suse_version} >= 1140
+BuildRequires:  libvpx-devel
+%endif
 BuildRequires:  speex-devel
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 QXmpp is a cross-platform C++ XMPP client library. It is based on Qt and C++.
- 
+
 QXmpp is pretty intuitive and easy to use. It uses Qt extensively. Qt is the only
 third party library it is dependent on. Users need to a have working knowledge of
 C++ and Qt basics (Signals and Slots and Qt data types). The underlying TCP socket
@@ -49,7 +53,7 @@ Obsoletes:      libqxmpp-lc1 < %{version}
 
 %description -n %{name}0
 QXmpp is a cross-platform C++ XMPP client library. It is based on Qt and C++.
- 
+
 QXmpp is pretty intuitive and easy to use. It uses Qt extensively. Qt is the only
 third party library it is dependent on. Users need to a have working knowledge of
 C++ and Qt basics (Signals and Slots and Qt data types). The underlying TCP socket
@@ -71,11 +75,11 @@ It's a development package for qxmpp.
 QXmpp is a cross-platform C++ XMPP client library. It is based on Qt and C++.
 
 %package doc
-%if 0%{suse_version} > 1110
-BuildArch:      noarch
-%endif
 Summary:        Qxmpp library documentation
 Group:          Documentation/HTML
+%if 0%{?suse_version} > 1110
+BuildArch:      noarch
+%endif
 
 %description doc
 This packages provides documentation of Qxmpp library API.
@@ -84,7 +88,16 @@ This packages provides documentation of Qxmpp library API.
 %setup -q -n qxmpp-%{version}
 
 %build
-qmake PREFIX=%{_prefix} LIBDIR=%{_lib} QMAKE_STRIP= QMAKE_CXXFLAGS+="%{optflags}"
+qmake \
+      PREFIX=%{_prefix} \
+      LIBDIR=%{_lib} \
+      QMAKE_STRIP="" \
+      QMAKE_CXXFLAGS+="%{optflags}" \
+%if 0%{?suse_version} >= 1140
+      QXMPP_USE_VPX=1 \
+%endif
+      QXMPP_USE_SPEEX=1 \
+      QXMPP_USE_THEORA=1
 
 make %{?_smp_mflags}
 

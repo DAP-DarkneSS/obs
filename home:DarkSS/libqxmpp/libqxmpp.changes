@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Aug 19 17:07:28 UTC 2013 - dap.darkness@gmail.com
+
+- Full VoIP support was enabled.
+- Spec was fixed up via spec-cleaner.
+
+-------------------------------------------------------------------
 Fri Mar 22 10:33:12 UTC 2013 - schwab@suse.de
 
 - Override LIBDIR instead of moving the library manually
