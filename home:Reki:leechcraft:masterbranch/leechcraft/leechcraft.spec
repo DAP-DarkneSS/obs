@@ -15,7 +15,7 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
-%define qtversion %(rpm -q libqt4 --qf='%{VERSION}\n'|awk -F. '{print $1 * 10000 + $2 * 100 + $3}')
+# %%define qtversion %%(rpm -q libqt4 --qf='%%{VERSION}\n'|awk -F. '{print $1 * 10000 + $2 * 100 + $3}')
 %define plugin_dir %{_libdir}/%{name}/plugins
 %define translations_dir %{_datadir}/%{name}/translations
 %define settings_dir %{_datadir}/%{name}/settings
@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-1924-g41586f3
+%define LEECHCRAFT_VERSION 0.5.95-2078-g3760f6d
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -2236,6 +2236,7 @@ cmake ../src \
         -DENABLE_TOUCHSTREAMS=True \
         -DENABLE_TPI=True \
         -DENABLE_TWIFEE=False \
+        -DENABLE_VLC=False \
         -DENABLE_VROOBY=True \
 %if %{woodpecker}
         -DENABLE_WOODPECKER=True \
