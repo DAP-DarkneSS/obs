@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Aug 25 17:13:12 UTC 2013 - dap.darkness@gmail.com
+
+- Rpath disabling was fixed.
+
+-------------------------------------------------------------------
 Tue Aug 13 04:45:41 UTC 2013 - dap.darkness@gmail.com
 
 - Another cmake rpath disabling option to be built via 13.1's cmake.
