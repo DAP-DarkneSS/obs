@@ -1,0 +1,9 @@
+<services>
+  <service name="download_url">
+    <param name="protocol">http</param>
+    <param name="host">www.stuff-o-matic.com</param>
+    <param name="path">/asgp/download/demo.php?platform=source</param>
+    <param name="filename">andy-super-great-park-1.0.7.tar.gz</param>
+  </service>
+  <service name="source_validator"/>
+</services>

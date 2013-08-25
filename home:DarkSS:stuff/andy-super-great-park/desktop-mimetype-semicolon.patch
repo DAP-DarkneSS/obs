@@ -1,0 +1,44 @@
+--- bear/bear-factory/desktop/applications/bf-animation-editor.desktop.orig	2013-08-04 00:03:23.000000000 +0300
++++ bear/bear-factory/desktop/applications/bf-animation-editor.desktop	2013-08-24 13:43:37.785402337 +0300
+@@ -2,7 +2,7 @@
+ Version=1.0
+ 
+ Type=Application
+-MimeType=application/x-bear-animation
++MimeType=application/x-bear-animation;
+ 
+ Name=Bear Factory — Animation Editor
+ 
+--- bear/bear-factory/desktop/applications/bf-level-editor.desktop.orig	2013-08-04 00:03:23.000000000 +0300
++++ bear/bear-factory/desktop/applications/bf-level-editor.desktop	2013-08-24 13:43:47.548402337 +0300
+@@ -2,7 +2,7 @@
+ Version=1.0
+ 
+ Type=Application
+-MimeType=application/x-bear-level
++MimeType=application/x-bear-level;
+ 
+ Name=Bear Factory — Level Editor
+ 
+--- bear/bear-factory/desktop/applications/bf-model-editor.desktop.orig	2013-08-04 00:03:23.000000000 +0300
++++ bear/bear-factory/desktop/applications/bf-model-editor.desktop	2013-08-24 13:43:57.938402336 +0300
+@@ -2,7 +2,7 @@
+ Version=1.0
+ 
+ Type=Application
+-MimeType=application/x-bear-model
++MimeType=application/x-bear-model;
+ 
+ Name=Bear Factory — Model Editor
+ 
+--- bear/bear-factory/desktop/applications/desc2img.desktop.orig	2013-08-04 00:03:23.000000000 +0300
++++ bear/bear-factory/desktop/applications/desc2img.desktop	2013-08-24 13:44:08.679402336 +0300
+@@ -2,7 +2,7 @@
+ Version=1.0
+ 
+ Type=Application
+-MimeType=application/x-bear-spritedesc
++MimeType=application/x-bear-spritedesc;
+ 
+ Name=Bear Factory — Spritedesc interpreter
+ 
