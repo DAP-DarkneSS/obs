@@ -1,3 +1,12 @@
+-------------------------------------------------------------------
+Thu Aug 22 17:07:39 UTC 2013 - dap.darkness@gmail.com
+
+- Version 1.10:
+  * Fixed server answer parsing.
+- Spec-file was refactored.
+- Service source_validator was added.
+
+-------------------------------------------------------------------
 Mon May 21 18:32:54 UTC 2012 - dap.darkness@gmail.com
 
 - Version 1.08. 
