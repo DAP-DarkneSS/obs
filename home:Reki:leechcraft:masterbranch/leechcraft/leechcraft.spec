@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2078-g3760f6d
+%define LEECHCRAFT_VERSION 0.5.95-2129-gd1b6d8e
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -2198,7 +2198,7 @@ cmake ../src \
 %else
         -DENABLE_LMP=False \
 %endif
-        -DENABLE_MEDIACALLS=False \
+        -DENABLE_MEDIACALLS=True \
 %if %{mellonetray}
         -DENABLE_MELLONETRAY=True \
 %else
