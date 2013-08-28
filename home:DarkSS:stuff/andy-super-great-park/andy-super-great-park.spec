@@ -32,22 +32,16 @@ exploding everything else, all while riding a roller coaster: this is \
 Andy's Super Great Park!
 
 Name:           andy-super-great-park
-Version:        1.0.7
+Version:        1.0.8
 Release:        0
 License:        GPL-2.0+
 Summary:        %{pack_summ} — binary files
 Url:            http://www.stuff-o-matic.com/asgp/
 Group:          Amusements/Games/Other
-
 Source0:        %{name}-%{version}.tar.gz
-# FEATURE-OPENSUSE to prevent warnings: string list key "MimeType" in group
-# "Desktop Entry" does not have a semicolon (';') as trailing character.
-Patch1:         desktop-mimetype-semicolon.patch
-# FIX-UPSREAM vs. black window.
-Patch2:         fix-window-size.patch
 
 BuildRequires:  Mesa-libGL-devel
-BuildRequires:  boost-devel <= 1.49.0
+BuildRequires:  boost-devel
 BuildRequires:  chrpath
 BuildRequires:  cmake
 BuildRequires:  fdupes
@@ -89,8 +83,6 @@ BuildArch:      noarch
 
 %prep
 %setup -q
-%patch1
-%patch2
 
 
 %build
@@ -123,9 +115,6 @@ cat bear-engine.lang >>super-great-park.lang
 %suse_update_desktop_file -r desc2img            'Game;PlatformGame;'
 
 chrpath --delete %{buildroot}%{_bindir}/bend-image
-
-# Removing obsoleted and forgotten binary file.
-rm %{buildroot}%{_bindir}/running-bear
 
 %fdupes -s %{buildroot}%{_datadir}/super-great-park
 %fdupes -s %{buildroot}%{_datadir}/icons %{buildroot}%{_datadir}/pixmaps
