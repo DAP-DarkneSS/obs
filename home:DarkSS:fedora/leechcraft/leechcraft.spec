@@ -22,7 +22,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-917-g6de7c63
+%define LEECHCRAFT_VERSION 0.5.95-2166-g950b08b
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -33,9 +33,12 @@ Source0:        %{name}-%{version}.tar.xz
 BuildRequires:  boost-devel
 BuildRequires:  cmake > 2.8
 BuildRequires:  file-devel
-BuildRequires:  gcc-c++ >= 4.6
+BuildRequires:  gcc-c++ >= 4.7
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  hunspell-devel
+%ifarch i586 i686
+BuildRequires:  jbig2dec-devel
+%endif
 BuildRequires:  GeoIP-devel
 BuildRequires:  pkgconfig(QtWebKit)
 BuildRequires:  bzip2-devel
@@ -43,13 +46,13 @@ BuildRequires:  libcurl-devel
 BuildRequires:  pkgconfig(ddjvuapi)
 BuildRequires:  liblastfm-devel
 BuildRequires:  libmsn-devel
+BuildRequires:  libmtp-devel
 BuildRequires:  libnl3-devel
 BuildRequires:  libotr
 BuildRequires:  libotr-devel
 BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt4)
 BuildRequires:  libpurple-devel
-BuildRequires:  libtidy-devel
 BuildRequires:  pkgconfig(qca2)
 BuildRequires:  pkgconfig(QJson)
 BuildRequires:  qscintilla-devel
@@ -57,9 +60,12 @@ BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(qxmpp) >= 0.7.4
 BuildRequires:  lm_sensors-devel
 BuildRequires:  libspectre-devel
+BuildRequires:  libtidy-devel
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
+BuildRequires:  systemd-devel
 %ifarch i586 i686
 BuildRequires:  mupdf-devel
+BuildRequires:  openjpeg-devel
 %endif
 BuildRequires:  pcre-devel
 BuildRequires:  phonon-devel
@@ -67,14 +73,20 @@ BuildRequires:  qwt-devel
 BuildRequires:  speex-devel
 BuildRequires:  taglib-devel
 BuildRequires:  xz
+BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
 BuildRequires:  telepathy-qt4-devel
 
 BuildRequires:  libXcomposite-devel
 BuildRequires:  libXdamage-devel
 BuildRequires:  libXrender-devel
 BuildRequires:  libjpeg-devel
+BuildRequires:  libxkbfile-devel
 
 Requires:       oxygen-icon-theme
+
+Obsoletes:      %{name}-otlozhu
+Obsoletes:      %{name}-poleemery
+Obsoletes:      %{name}-syncer
 
 %description
 This package provides core executable of Leechcraft.
@@ -153,6 +165,8 @@ Requires:       gdb
 
 %description anhero
 This package provides a crash handler plugin for LeechCraft.
+
+It shows backtraces and aids in sending bug reports.
 
 
 %package auscrie
@@ -402,6 +416,17 @@ see nice rendered formulas instead of raw LaTeX code, even if their client
 doesn't have a LaTeX formatter.
 
 
+%package azoth-murm
+Summary:        LeechCraft Azoth - VKontakte Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-azoth = %{version}
+Provides:       %{name}-azoth-protocolplugin
+
+%description azoth-murm
+This package provides a special protocol subplugin for extensive VKontakte
+messaging support plugin for LeechCraft Azoth.
+
+
 %package azoth-nativeemoticons
 Summary:        LeechCraft Azoth - Emoticons packs
 Group:          Productivity/Networking/Other
@@ -591,6 +616,51 @@ Features
 etc.
 
 
+%package blasq
+Summary:        LeechCraft Image storages Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-blasq-subplugin = %{version}
+
+%description blasq
+This package provides a modular Image storages plugin for LeechCraft.
+
+It supports different cloud image storages like Picasa or Flick.
+
+
+%package blasq-deathnote
+Summary:        LeechCraft DeathNote - LiveJournal FotoBilder client Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-blasq = %{version}
+Provides:       %{name}-blasq-subplugin = %{version}
+
+%description blasq-deathnote
+This package provides a LiveJournal FotoBilder image storage client subplugin
+for LeechCraft Blasq.
+
+
+%package blasq-rappor
+Summary:        LeechCraft Blasq - VKontakte client Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-blasq = %{version}
+Provides:       %{name}-blasq-subplugin = %{version}
+
+%description blasq-rappor
+This package provides a VKontakte image storage client subplugin
+for LeechCraft Blasq.
+
+
+%package blasq-vangog
+Summary:        LeechCraft Picasa - Flickr client Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-blasq = %{version}
+Provides:       %{name}-blasq-subplugin = %{version}
+
+%description blasq-vangog
+This package provides a Picasa image storage client subplugin
+for LeechCraft Blasq.
+
+
 %package blogique
 Summary:        LeechCraft Blogging client Module
 Group:          Productivity/Networking/Other
@@ -601,7 +671,7 @@ Requires:       %{name}-lhtr = %{version}
 %description blogique
 This package provides a modular Blogging client plugin for LeechCraft.
 
-It will support different blogging platforms via different submodules.
+It supports different blogging platforms via different submodules.
 
 
 %package blogique-hestia
@@ -689,6 +759,24 @@ This package provides files required for development for LeechCraft.
 It contains header files required to develop new modules.
 
 
+%package devmon
+Summary:        LeechCraft Device Monitor Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description devmon
+This package provides a devices monitor plugin for LeechCraft.
+
+
+%package dlniwe
+Summary:        LeechCraft DLNA Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description dlniwe
+This package provides a DLNA server plugin for LeechCraft.
+
+
 %package dolozhee
 Summary:        LeechCraft Issue reporting Module
 Group:          Productivity/Networking/Other
@@ -711,6 +799,55 @@ Provides:       %{name}-soundnotifications = %{version}
 This package provides a dumb sound notifier plugin for LeechCraft.
 
 It also uses Phonon as a backend or something like aplay/mplayer.
+
+
+%package fenet
+Summary:        LeechCraft Window Manager Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-fenet-wm = %{version}
+
+%description fenet
+This package provides a WM control plugin for Leechcraft.
+
+
+%package fenet-awesome
+Summary:        LeechCraft Fenet Awesome Stuff
+Group:          Productivity/Networking/Other
+BuildArch:      noarch
+Provides:       %{name}-fenet-wm = %{version}
+Requires:       %{name}-fenet = %{version}
+Requires:       awesome
+
+%description fenet-awesome
+This package allows to start Leechcraft as a Desktop Environment with
+the Awesome Window Manager.
+
+
+%package fenet-kwin
+Summary:        LeechCraft Fenet Kwin Stuff
+Group:          Productivity/Networking/Other
+BuildArch:      noarch
+Provides:       %{name}-fenet-wm = %{version}
+Requires:       %{name}-fenet = %{version}
+Requires:       kwin
+
+%description fenet-kwin
+This package allows to start Leechcraft as a Desktop Environment with
+the KDE Window Manager.
+
+
+%package fenet-openbox
+Summary:        LeechCraft Fenet Openbox Stuff
+Group:          Productivity/Networking/Other
+BuildArch:      noarch
+Provides:       %{name}-fenet-wm = %{version}
+Requires:       %{name}-fenet = %{version}
+Requires:       openbox
+
+%description fenet-openbox
+This package allows to start Leechcraft as a Desktop Environment with
+the Openbox Window Manager.
 
 
 %package gacts
@@ -749,6 +886,15 @@ It allows to get notifications about new mail in your GMail account.
 
 It has configurable frequency of the updates and the number of last unread
 messages shown.
+
+
+%package harbinger
+Summary:        LeechCraft Collections Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description harbinger
+This package provides a collections manager plugin for LeechCraft.
 
 
 %package historyholder
@@ -961,6 +1107,8 @@ reconnect properly on startup.
 Summary:        LeechCraft Media player Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Requires:       gstreamer-plugins-base < 0.11.0
+Requires:       gstreamer-plugins-good < 0.11.0
 Provides:       %{name}-audioplayer
 Provides:       %{name}-soundnotifications = %{version}
 
@@ -968,7 +1116,7 @@ Provides:       %{name}-soundnotifications = %{version}
 This package provides a audio player plugin for LeechCraft.
 
 It allows to play audio and stream audio.
-It uses Phonon as a backend thus supporting major codecs.
+It uses Gstreamer as a backend thus supporting major codecs.
 
 Features:
  * Support for major audio formats.
@@ -1014,6 +1162,16 @@ Features:
  * Getting playlists.
 
 
+%package lmp-mtpsync
+Summary:        LeechCraft MtpSync Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+Requires:       %{name}-devmon = %{version}
+
+%description lmp-mtpsync
+This package allows to sync with MTP devices via LeechCraft.
+
+
 %package mellonetray
 Summary:        LeechCraft Tray Area Module
 Group:          Productivity/Networking/Other
@@ -1048,6 +1206,19 @@ Provides:       %{name}-monocle-subplugin
 This package contains a FictionBook subplugin for LeechCraft Monocle.
 
 This package provides FB2 documents support for Document viewer Module.
+
+
+%package monocle-dik
+Summary:        LeechCraft Monocle - MOBI Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-monocle = %{version}
+Provides:       %{name}-monocle-subplugin
+
+%description monocle-dik
+This package contains a MOBI subplugin for LeechCraft Monocle.
+
+This package provides MOBI documents support for Document viewer Module.
 
 
 %ifarch i586 i686
@@ -1087,6 +1258,8 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-monocle = %{version}
 Provides:       %{name}-monocle-subplugin
+# A workaround for https://bugzilla.novell.com/show_bug.cgi?id=828751
+Conflicts:      lcms2 >= 2.5
 
 %description monocle-postrus
 This package contains a PostRus subplugin for LeechCraft Monocle.
@@ -1197,17 +1370,6 @@ update interval and custom storage parameters, Akregator's settings.
  * Liferea: feeds list.
 
 
-%package otlozhu
-Summary:        LeechCraft ToDo manager Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description otlozhu
-This package provides a ToDo manager plugin for LeechCraft.
-
-It is a GTD-inspired ToDo manager.
-
-
 %package pintab
 Summary:        LeechCraft Pinning tabs Module
 Group:          Productivity/Networking/Other
@@ -1232,15 +1394,6 @@ Provides:       %{name}-poshuku-pogooglue = %{version}
 This package provides an instant search plugin for LeechCraft.
 
 It allows to search instantly selected text in Google.
-
-
-%package poleemery
-Summary:        LeechCraft Poleemery - Finances manager Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description poleemery
-This package provides a personal finances manager plugin for LeechCraft.
 
 
 %package popishu
@@ -1515,18 +1668,6 @@ and views for selected items.
  * Category-based search query support via other plugins.
 
 
-%package syncer
-Summary:        LeechCraft Sync setting Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description syncer
-This package provides a synchronizing plugin for Leechcraft.
-
-It allows to synchronize data and settings between LeechCraft instances
-running on different machines.
-
-
 %package sysnotify
 Summary:        LeechCraft System notifications Module
 Group:          Productivity/Networking/Other
@@ -1673,15 +1814,21 @@ cmake ../src \
         -DENABLE_AZOTH_VELVETBIRD=True \
         -DENABLE_AZOTH_ZHEET=True \
         -DENABLE_BLACKDASH=False \
+        -DENABLE_BLASQ=True \
+        -DENABLE_BLASQ_SPEGNERSI=False \
         -DENABLE_BLOGIQUE=True \
         -DENABLE_CHOROID=True \
+        -DENABLE_DEVMON=True \
+        -DENABLE_DLNIWE=True \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_DUMBEEP=True \
-        -DDUMBEEP_WITH_PHONON=True \
+                -DDUMBEEP_WITH_PHONON=True \
+        -DENABLE_FENET=True \
         -DENABLE_GACTS=True \
-        -DWITH_GACTS_BUNDLED_QXT=True \
+                -DWITH_GACTS_BUNDLED_QXT=True \
         -DENABLE_GLANCE=True \
         -DENABLE_GMAILNOTIFIER=True \
+        -DENABLE_HARBINGER=True \
         -DENABLE_HOTSENSORS=True \
         -DENABLE_HOTSTREAMS=True \
         -DENABLE_IMGASTE=True \
@@ -1695,11 +1842,13 @@ cmake ../src \
         -DENABLE_LAUNCHY=True \
         -DENABLE_LEMON=True \
         -DENABLE_LHTR=True \
+                -DWITH_LHTR_HTML=True \
         -DENABLE_LIZNOO=True \
         -DENABLE_LMP=True \
         -DENABLE_LMP_GRAFFITI=True \
         -DENABLE_LMP_MPRIS=True \
-        -DENABLE_MEDIACALLS=False \
+        -DENABLE_LMP_MTPSYNC=True \
+        -DENABLE_MEDIACALLS=True \
         -DENABLE_MELLONETRAY=True \
         -DENABLE_MONOCLE=True \
 %ifarch x86_64
@@ -1709,42 +1858,34 @@ cmake ../src \
         -DMUPDF_VERSION=0x0100 \
 %endif
         -DENABLE_MUSICZOMBIE=True \
-        -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
+                -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
         -DENABLE_NACHEKU=True \
         -DENABLE_NEWLIFE=True \
         -DENABLE_NETSTOREMANAGER=True \
-        -DENABLE_OTLOZHU=True \
+        -DENABLE_OTLOZHU=False \
         -DENABLE_PINTAB=True \
-        -DENABLE_POLEEMERY=True \
+        -DENABLE_POLEEMERY=False \
         -DENABLE_POGOOGLUE=True \
         -DENABLE_POPISHU=True \
         -DENABLE_POSHUKU_AUTOSEARCH=True \
-        -DUSE_POSHUKU_CLEANWEB_PCRE=True \
+                -DUSE_POSHUKU_CLEANWEB_PCRE=True \
         -DENABLE_QROSP=False \
         -DENABLE_SB2=True \
         -DENABLE_SECMAN=True \
         -DENABLE_SHAITAN=True \
         -DENABLE_SHELLOPEN=True \
         -DENABLE_SNAILS=False \
-        -DENABLE_SYNCER=True \
+        -DENABLE_SYNCER=False \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
         -DENABLE_TORRENT=True \
         -DENABLE_TOUCHSTREAMS=True \
         -DENABLE_TPI=True \
         -DENABLE_TWIFEE=False \
+        -DENABLE_VLC=False \
         -DENABLE_VROOBY=True \
         -DENABLE_WOODPECKER=False \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
-
-# gcc 4.7 optimization.
-# Disabled because of https://bugzilla.novell.com/show_bug.cgi?id=774180
-#
-# %%if %%{?suse_version} > 1230
-#         -DCMAKE_CXX_FLAGS="%%{optflags} -flto" \
-#         -DCMAKE_SHARED_LINKER_FLAGS="%%{optflags} -flto" \
-#         -DCMAKE_EXE_LINKER_FLAGS="%%{optflags} -flto" \
-# %%endif
 
 %build
 cd build
@@ -1781,7 +1922,6 @@ cd build
 %{_libdir}/*lcutil.so.*
 %{_libdir}/*xmlsettingsdialog.so.*
 %doc %{_mandir}/man1/%{name}*.1.gz
-%{_datadir}/%{name}/sounds
 %{_datadir}/%{name}/global_icons/
 %dir %{_datadir}/%{name}/themes
 %dir %{_datadir}/%{name}/themes/*
@@ -1796,6 +1936,7 @@ cd build
 %{translations_dir}/leechcraft_advancednotifications*
 %{settings_dir}/advancednotificationssettings.xml
 %{_datadir}/%{name}/qml/advancednotifications
+%{_datadir}/%{name}/sounds
 
 %files aggregator
 %defattr(-,root,root)
@@ -1924,6 +2065,12 @@ cd build
 %{translations_dir}/leechcraft_azoth_modnok*
 %{azoth_dir}/lc_azoth_modnok_latexconvert.sh
 
+%files azoth-murm
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_azoth_murm.so
+%{_datadir}/%{name}/translations/%{name}_azoth_murm*.qm
+%{settings_dir}/azothmurmsettings.xml
+
 %files azoth-nativeemoticons
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_nativeemoticons.so
@@ -1994,6 +2141,27 @@ cd build
 #%%defattr(-,root,root)
 #%%{plugin_dir}/*%%{name}_blackdash.so
 
+%files blasq
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_blasq.so
+%{_datadir}/%{name}/settings/blasqsettings.xml
+%{_datadir}/%{name}/qml/blasq
+%{_datadir}/%{name}/translations/%{name}_blasq_??.qm
+%{_datadir}/%{name}/translations/%{name}_blasq_??_??.qm
+
+%files blasq-deathnote
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_blasq_deathnote.so
+
+%files blasq-rappor
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_blasq_rappor.so
+%{_datadir}/%{name}/translations/%{name}_blasq_rappor*.qm
+
+%files blasq-vangog
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_blasq_vangog.so
+
 %files blogique
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blogique.so
@@ -2046,6 +2214,14 @@ cd build
 %{_libdir}/*xmlsettingsdialog.so
 %{_datadir}/cmake/Modules/InitLCPlugin.cmake
 
+%files devmon
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_devmon.so
+
+%files dlniwe
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_dlniwe.so
+
 %files dolozhee
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_dolozhee.so
@@ -2055,6 +2231,35 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_dumbeep.so
 %{_datadir}/%{name}/settings/dumbeepsettings.xml
+
+%files fenet
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_fenet.so
+%{_datadir}/%{name}/settings/fenetsettings.xml
+%{_bindir}/%{name}-session
+%dir %{_datadir}/%{name}/fenet
+%dir %{_datadir}/%{name}/fenet/wms
+%{_datadir}/xsessions/LCDE.desktop
+%{_datadir}/%{name}/translations/%{name}_fenet_*.qm
+%{_datadir}/%{name}/fenet/compositing
+
+%files fenet-awesome
+%defattr(-,root,root)
+%dir %{_datadir}/%{name}/fenet
+%dir %{_datadir}/%{name}/fenet/wms
+%{_datadir}/%{name}/fenet/wms/*awesome*
+
+%files fenet-kwin
+%defattr(-,root,root)
+%dir %{_datadir}/%{name}/fenet
+%dir %{_datadir}/%{name}/fenet/wms
+%{_datadir}/%{name}/fenet/wms/*kwin*
+
+%files fenet-openbox
+%defattr(-,root,root)
+%dir %{_datadir}/%{name}/fenet
+%dir %{_datadir}/%{name}/fenet/wms
+%{_datadir}/%{name}/fenet/wms/*openbox*
 
 %files gacts
 %defattr(-,root,root)
@@ -2072,6 +2277,10 @@ cd build
 %{settings_dir}/gmailnotifiersettings.xml
 %{translations_dir}/leechcraft_gmailnotifier*
 %{_datadir}/%{name}/qml/gmailnotifier/
+
+%files harbinger
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/libleechcraft_harbinger.so
 
 %files historyholder
 %defattr(-,root,root)
@@ -2095,6 +2304,8 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_kbswitch.so
 %{_datadir}/%{name}/settings/kbswitchsettings.xml
+%{_datadir}/%{name}/translations/%{name}_kbswitch_*.qm
+%{_datadir}/%{name}/qml/kbswitch
 
 %files kinotify
 %defattr(-,root,root)
@@ -2113,6 +2324,7 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_krigstask.so
 %{_datadir}/%{name}/qml/krigstask
+%{_datadir}/%{name}/translations/%{name}_krigstask_*.qm
 
 %files lackman
 %defattr(-,root,root)
@@ -2184,6 +2396,10 @@ cd build
 %{_libdir}/%{name}/plugins/*%{name}_lmp_mp3tunes.so
 %{_datadir}/%{name}/settings/lmpmp3tunessettings.xml
 
+%files lmp-mtpsync
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_lmp_mtpsync.so
+
 %files mellonetray
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_mellonetray.so
@@ -2194,6 +2410,10 @@ cd build
 %{_libdir}/%{name}/plugins/lib%{name}_monocle.so
 %{_datadir}/%{name}/translations/%{name}_monocle_*.qm
 %{_datadir}/%{name}/settings/monoclesettings.xml
+
+%files monocle-dik
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_monocle_dik.so
 
 %files monocle-fxb
 %defattr(-,root,root)
@@ -2243,13 +2463,6 @@ cd build
 %{_datadir}/%{name}/settings/nsmgoogledrivesettings.xml
 %{_datadir}/%{name}/translations/%{name}_netstoremanager_googledrive_*.qm
 
-#%%if %%qtversion >= 40800
-#%%files netstoremanager-yandexdisk
-#%%defattr(-,root,root)
-#%%{_libdir}/%%{name}/plugins/*%%{name}_netstoremanager_yandexdisk.so
-#%%{_datadir}/%%{name}/translations/%%{name}_netstoremanager_yandexdisk_*.qm
-#%%endif
-
 %files networkmonitor
 %defattr(-,root,root)
 %{translations_dir}/%{name}_networkmonitor*.qm
@@ -2260,11 +2473,6 @@ cd build
 %{translations_dir}/%{name}_newlife*.qm
 %{plugin_dir}/*%{name}_newlife.so
 
-%files otlozhu
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_otlozhu.so
-%{_datadir}/%{name}/translations/%{name}_otlozhu_*.qm
-
 %files pintab
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_pintab.so
@@ -2274,12 +2482,6 @@ cd build
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_pogooglue*
 %{translations_dir}/leechcraft_pogooglue*
-
-%files poleemery
-%defattr(-,root,root)
-%{_datadir}/%{name}/settings/poleemerysettings.xml
-%{_datadir}/%{name}/translations/%{name}_poleemery_*.qm
-%{_libdir}/%{name}/plugins/*%{name}_poleemery*
 
 %files popishu
 %defattr(-,root,root)
@@ -2374,12 +2576,6 @@ cd build
 %defattr(-,root,root)
 %{translations_dir}/%{name}_summary*.qm
 %{plugin_dir}/*%{name}_summary.so
-
-%files syncer
-%defattr(-,root,root)
-%{plugin_dir}/*%{name}_syncer.so
-%{settings_dir}/syncersettings.xml
-%{translations_dir}/leechcraft_syncer*
 
 %files sysnotify
 %defattr(-,root,root)
