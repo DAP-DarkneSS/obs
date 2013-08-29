@@ -17,13 +17,17 @@
 
 
 Name:           qwt6
-Version:        6.0.2
+Version:        6.1.0
 Release:        0
 Summary:        Qt Widgets for Technical Applications
 License:        SUSE-QWT-1.0
 Group:          Development/Libraries/C and C++
 Url:            http://qwt.sourceforge.net/
 Source:         http://switch.dl.sourceforge.net/sourceforge/qwt/qwt-%{version}.tar.bz2
+# PATCH-FIX-OPENSUSE to prevent 'ERROR: RPATH "/usr/local/qwt-6.1.0/lib" on
+# /usr/lib(64)/qt4/plugins/designer/libqwt_designer_plugin.so is not allowed'.
+Patch0:         qwt-6.1.0-rpath.patch
+
 BuildRequires:  freetype2-devel
 BuildRequires:  gcc-c++
 BuildRequires:  libpng-devel
@@ -108,6 +112,7 @@ as is it created by doxygen.
 
 %prep
 %setup -q -n qwt-%{version}
+%patch0
 
 %build
 %if 0%{?fedora_version} || 0%{?rhel_version} || 0%{?centos_version}
@@ -119,6 +124,7 @@ export PATH=/usr/lib/qt4/bin/:$PATH
 
 # Now build the qwt6 library
 qmake \
+	QMAKE_STRIP="" \
 	QWT_INSTALL_PREFIX=%{_prefix} \
 	CONFIG+=QwtDll CONFIG+=QwtDesigner CONFIG+=QwtExamples -after \
 	QMAKE_CXXFLAGS="%{optflags}" \
@@ -135,7 +141,7 @@ make DESTDIR=%{buildroot} install INSTALL_ROOT=%{buildroot}
 
 # Documentation
 mkdir -p %{buildroot}%{_docdir}/%{name}
-cp COPYING CHANGES README %{buildroot}%{_docdir}/%{name}
+cp COPYING README %{buildroot}%{_docdir}/%{name}
 cp -r examples %{buildroot}%{_docdir}/%{name}/examples
 
 # Designer plugin

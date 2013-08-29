@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Fri Aug  9 15:36:51 UTC 2013 - dap.darkness@gmail.com
+
+- Update to Qwt 6.1.0
+  * New plot items
+  * Scales beyond linear and logarithmic transformations
+  * Datetime scales
+  * Redesign of the dial and meter widgets
+  * Basic support for an OpenGL plot canvas
+  * A new system for plot legends
+  * Off-screen paint device for vector graphics
+  * Changes and improvements to several classes
+- Added qwt-6.1.0-rpath.patch to prevent
+  https://sourceforge.net/p/qwt/bugs/191
+- Qmake debug info stripping was disabled.
+
+-------------------------------------------------------------------
 Mon Jan 28 16:30:49 EET 2013 - koprok@nand.bg
 
 - Update to Qwt 6.0.2
