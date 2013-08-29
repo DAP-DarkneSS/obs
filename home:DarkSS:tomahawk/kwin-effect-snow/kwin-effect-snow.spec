@@ -7,15 +7,17 @@
 # Please submit bugfixes or comments via http://kubuntu.ru/node/10695
 #
 
+%define postfix raring~ppa2
+
 Name:           kwin-effect-snow
-Version:        0.4
+Version:        0.5
 Release:        1
 Summary:        A kwin effect Snow
 
 License:        GPL-2.0+
 Url:            http://kubuntu.ru/node/10695
 Group:          System/GUI/KDE
-Source0:        https://launchpad.net/~ivan-safonov/+archive/ppa/+files/%{name}_%{version}~precise~ppa1.tar.gz
+Source0:        https://launchpad.net/~ivan-safonov/+archive/ppa/+files/%{name}_%{version}~%{postfix}.tar.gz
 
 BuildRequires:  kdebase4-workspace-devel
 BuildRequires:  update-desktop-files
@@ -25,21 +27,18 @@ BuildRequires:  update-desktop-files
 A kwin effect "Snow" revived!
 
 %prep
-%setup -q -n %{name}-%{version}~precise~ppa1
+%setup -q -n %{name}-%{version}~%{postfix}
 
 %build
-mkdir build && cd build
-export CFLAGS=$RPM_OPT_FLAGS
-export CXXFLAGS=$RPM_OPT_FLAGS
-cmake ..  \
-       -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-       -DCMAKE_INSTALL_PREFIX=/usr
+%cmake_kde4 -d build
 make %{?_smp_mflags}
 
 %install
 cd build
-make install DESTDIR=%{buildroot}
+%make_install
 %suse_update_desktop_file %{buildroot}%{_datadir}/kde4/services/kwin/snow*
+
+%kde_post_install
 
 %files
 %defattr(-,root,root)
