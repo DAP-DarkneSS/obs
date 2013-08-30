@@ -22,7 +22,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2166-g950b08b
+%define LEECHCRAFT_VERSION 0.5.95-2194-gc94fc48
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -41,9 +41,13 @@ BuildRequires:  jbig2dec-devel
 %endif
 BuildRequires:  GeoIP-devel
 BuildRequires:  pkgconfig(QtWebKit)
+BuildRequires:  libXcomposite-devel
+BuildRequires:  libXdamage-devel
+BuildRequires:  libXrender-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  pkgconfig(ddjvuapi)
+BuildRequires:  libjpeg-devel
 BuildRequires:  liblastfm-devel
 BuildRequires:  libmsn-devel
 BuildRequires:  libmtp-devel
@@ -63,6 +67,7 @@ BuildRequires:  libspectre-devel
 BuildRequires:  libtidy-devel
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
 BuildRequires:  systemd-devel
+BuildRequires:  libxkbfile-devel
 %ifarch i586 i686
 BuildRequires:  mupdf-devel
 BuildRequires:  openjpeg-devel
@@ -76,14 +81,9 @@ BuildRequires:  xz
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
 BuildRequires:  telepathy-qt4-devel
 
-BuildRequires:  libXcomposite-devel
-BuildRequires:  libXdamage-devel
-BuildRequires:  libXrender-devel
-BuildRequires:  libjpeg-devel
-BuildRequires:  libxkbfile-devel
-
 Requires:       oxygen-icon-theme
 
+Obsoletes:      %{name}-nacheku
 Obsoletes:      %{name}-otlozhu
 Obsoletes:      %{name}-poleemery
 Obsoletes:      %{name}-syncer
@@ -830,7 +830,7 @@ Group:          Productivity/Networking/Other
 BuildArch:      noarch
 Provides:       %{name}-fenet-wm = %{version}
 Requires:       %{name}-fenet = %{version}
-Requires:       kwin
+Requires:       kde-workspace
 
 %description fenet-kwin
 This package allows to start Leechcraft as a Desktop Environment with
@@ -1290,18 +1290,6 @@ Requires:       %{name}-lmp = %{version}
 
 %description musiczombie
 This package provides a MusicBrainz.org client plugin for LeechCraft.
-
-
-%package nacheku
-Summary:        LeechCraft Link watcher Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description nacheku
-This package provides a Nacheku plugin for LeechCraft.
-
-It allows to watch clipboard and directory in order to
-get links and download files.
 
 
 %package netstoremanager
@@ -1859,7 +1847,7 @@ cmake ../src \
 %endif
         -DENABLE_MUSICZOMBIE=True \
                 -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
-        -DENABLE_NACHEKU=True \
+        -DENABLE_NACHEKU=False \
         -DENABLE_NEWLIFE=True \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_OTLOZHU=False \
@@ -2444,11 +2432,6 @@ cd build
 %files musiczombie
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_musiczombie.so
-
-%files nacheku
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_nacheku.so
-%{_datadir}/%{name}/settings/nachekusettings.xml
 
 %files netstoremanager
 %defattr(-,root,root)
