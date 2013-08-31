@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2129-gd1b6d8e
+%define LEECHCRAFT_VERSION 0.5.95-2198-g76b1141
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -61,30 +61,36 @@ BuildRequires:  hunspell-devel
 BuildRequires:  jbig2dec-devel
 %endif
 BuildRequires:  libGeoIP-devel
-BuildRequires:  libQtWebKit-devel
+BuildRequires:  pkgconfig(QtWebKit)
+BuildRequires:  libXcomposite-devel
+BuildRequires:  libXdamage-devel
+BuildRequires:  libXrender-devel
 BuildRequires:  libbz2-devel
 BuildRequires:  libcurl-devel
-BuildRequires:  libdjvulibre-devel
+BuildRequires:  pkgconfig(ddjvuapi)
+BuildRequires:  libjpeg-devel
 BuildRequires:  liblaretz-devel
 BuildRequires:  liblastfm-devel
 BuildRequires:  libmsn-devel
 BuildRequires:  libmtp-devel
 BuildRequires:  libnl3-devel
 BuildRequires:  libotr-devel
-BuildRequires:  libpoppler-qt4-devel
+BuildRequires:  pkgconfig(poppler-cpp)
+BuildRequires:  pkgconfig(poppler-qt4)
 BuildRequires:  libpurple-devel
-BuildRequires:  libqca2-devel
-BuildRequires:  libqjson-devel
+BuildRequires:  pkgconfig(qca2)
+BuildRequires:  pkgconfig(QJson)
 BuildRequires:  libqscintilla-devel
-BuildRequires:  libqt4-devel >= 4.8
+BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  libqt4-sql
-BuildRequires:  libqxmpp-devel >= 0.7.4
+BuildRequires:  pkgconfig(qxmpp) >= 0.7.4
 # BuildRequires:  libqxt1-devel
 BuildRequires:  libsensors4-devel
 BuildRequires:  libspectre-devel
 BuildRequires:  libtidy-devel
-BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
+BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
 BuildRequires:  libudev-devel
+BuildRequires:  libxkbfile-devel
 %if 0%{?suse_version} > 1230
 BuildRequires:  mupdf-devel-static
 BuildRequires:  openjpeg-devel
@@ -111,6 +117,7 @@ Requires:       oxygen-icon-theme
 Obsoletes:      %{name}-eiskaltdcpp
 Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
+Obsoletes:      %{name}-nacheku
 Obsoletes:      %{name}-tabpp
 
 %description
@@ -285,7 +292,6 @@ Requires:       %{name}-monocle
 Requires:       %{name}-monocle-fxb
 Requires:       %{name}-monocle-pdf
 Requires:       %{name}-monocle-seen
-Requires:       %{name}-nacheku
 Requires:       %{name}-netstoremanager
 Requires:       %{name}-netstoremanager-googledrive
 Requires:       %{name}-networkmonitor
@@ -1550,16 +1556,16 @@ Requires:       %{name}-lmp = %{version}
 This package provides a MusicBrainz.org client plugin for LeechCraft.
 
 
-%package nacheku
-Summary:        LeechCraft Link watcher Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description nacheku
-This package provides a Nacheku plugin for LeechCraft.
-
-It allows to watch clipboard and directory in order to
-get links and download files.
+# %%package nacheku
+# Summary:        LeechCraft Link watcher Module
+# Group:          Productivity/Networking/Other
+# Requires:       %%{name} = %%{version}
+# 
+# %%description nacheku
+# This package provides a Nacheku plugin for LeechCraft.
+# 
+# It allows to watch clipboard and directory in order to
+# get links and download files.
 
 
 %package netstoremanager
@@ -2142,6 +2148,7 @@ cmake ../src \
         -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DSTRICT_LICENSING=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
@@ -2209,7 +2216,7 @@ cmake ../src \
                 -DMUPDF_VERSION=0x0102 \
         -DENABLE_MUSICZOMBIE=True \
                 -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
-        -DENABLE_NACHEKU=True \
+        -DENABLE_NACHEKU=False \
         -DENABLE_NEWLIFE=True \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_OTLOZHU=True \
@@ -2233,6 +2240,7 @@ cmake ../src \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
         -DENABLE_TORRENT=True \
+                -DENABLE_BITTORRENT_GEOIP=True \
         -DENABLE_TOUCHSTREAMS=True \
         -DENABLE_TPI=True \
         -DENABLE_TWIFEE=False \
@@ -2874,10 +2882,10 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_musiczombie.so
 
-%files nacheku
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_nacheku.so
-%{_datadir}/%{name}/settings/nachekusettings.xml
+# %%files nacheku
+# %%defattr(-,root,root)
+# %%{_libdir}/%%{name}/plugins/lib%%{name}_nacheku.so
+# %%{_datadir}/%%{name}/settings/nachekusettings.xml
 
 %files netstoremanager
 %defattr(-,root,root)
