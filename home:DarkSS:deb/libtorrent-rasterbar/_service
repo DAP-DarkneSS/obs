@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<services>
+  <service name="download_url">
+    <param name="protocol">http</param>
+    <param name="host">archive.ubuntu.com</param>
+    <param name="path">/ubuntu/pool/universe/libt/libtorrent-rasterbar/libtorrent-rasterbar_0.16.7-0ubuntu1.dsc</param>
+  </service>
+  <service name="download_url">
+    <param name="protocol">http</param>
+    <param name="host">archive.ubuntu.com</param>
+    <param name="path">/ubuntu/pool/universe/libt/libtorrent-rasterbar/libtorrent-rasterbar_0.16.7.orig.tar.gz</param>
+  </service>
+  <service name="download_url">
+    <param name="protocol">http</param>
+    <param name="host">archive.ubuntu.com</param>
+    <param name="path">/ubuntu/pool/universe/libt/libtorrent-rasterbar/libtorrent-rasterbar_0.16.7-0ubuntu1.debian.tar.gz</param>
+  </service>
+</services>
