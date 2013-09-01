@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2198-g76b1141
+%define LEECHCRAFT_VERSION 0.5.95-2204-g874f29d
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -2108,7 +2108,7 @@ It allows to configure and use proxy servers.
 
 
 %package xtazy
-Summary:        LeechCraft - Current user tune Module
+Summary:        LeechCraft Current user tune Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
