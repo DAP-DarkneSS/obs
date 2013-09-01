@@ -1,0 +1,98 @@
+#
+# spec file for package qmplay2
+#
+# Copyright (c) 2013 Packman team: http://packman.links2linux.org/
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+# Please submit bugfixes or comments via https://bugs.links2linux.org/
+#
+
+Name:           QMPlay2
+Version:        13.08.18
+Release:        0
+License:        GPL-3.0
+Summary:        A Qt based media player, streamer and downloader
+Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
+Group:          Productivity/Multimedia/Video/Players
+Source:         http://kent.dl.sourceforge.net/project/zaps166/QMPlay2/QMPlay2-src-%{version}.tar.bz2
+
+BuildRequires:  libXv-devel
+BuildRequires:  portaudio-devel
+BuildRequires:  pkgconfig(QtCore)
+BuildRequires:  pkgconfig(libass)
+BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libcdio)
+BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(libswresample)
+BuildRequires:  pkgconfig(libswscale)
+BuildRequires:  pkgconfig(libva)
+
+%description
+%{name} is a video player, it can play and stream all formats supported by
+ffmpeg and libmodplug (including J2B). It has an integrated Youtube browser.
+
+%package        devel
+Summary:        %{name} development files
+Group:          Development/Libraries/Other
+Requires:       %{name} = %{version}
+
+%description    devel
+It's a development package for %{name}.
+
+%prep
+%setup -q -n %{name}-src
+
+
+%build
+NOTERM=1 SYSTEM_BUILD=1 ./compile_unix `echo "%{?_smp_mflags}" | grep -o '[0-9]*'`
+
+
+%install
+mkdir -p %{buildroot}%{_prefix}
+cp -R app/* %{buildroot}%{_prefix}
+
+# Setting libs to system libdir instead of 'lib'.
+%ifarch x86_64 ppc64
+mv %{buildroot}/%{_prefix}/{lib,lib64}
+%endif
+
+# Don't package binary modules in datadir.
+mkdir -p %{buildroot}%{_libdir}/%{name}
+mv %{buildroot}/%{_datadir}/qmplay2/modules/*.so %{buildroot}%{_libdir}/%{name}
+rm -rf %{buildroot}/%{_datadir}/qmplay2/modules
+ln -s %{_libdir}/%{name} %{buildroot}/%{_datadir}/qmplay2/modules
+
+# Setting icon to 'pixmaps' instead of 'icons'.
+mv %{buildroot}/%{_datadir}/{icons,pixmaps}
+
+
+%post   -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
+
+
+%files
+%defattr(-,root,root)
+%doc COPYING TODO
+%{_bindir}/%{name}
+%{_libdir}/%{name}
+%{_libdir}/libqmplay2.so.*
+%{_datadir}/applications/%{name}*.desktop
+%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/qmplay2
+
+%files devel
+%defattr(-,root,root)
+%{_libdir}/libqmplay2.so
+
+%changelog
