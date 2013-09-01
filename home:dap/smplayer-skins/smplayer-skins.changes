@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sun Sep  1 21:19:00 UTC 2013 - dap.darkness@gmail.com
+
+- Update to 20130605:
+  * no upstream changelog.
+- Service source_validator was removed because of
+  https://bugs.links2linux.org/browse/PM-83
+
+-------------------------------------------------------------------
 Sun Dec 23 15:05:08 UTC 2012 - dap.darkness@gmail.com
 
 - Initial package: skins for smplayer >= 0.8.2.
