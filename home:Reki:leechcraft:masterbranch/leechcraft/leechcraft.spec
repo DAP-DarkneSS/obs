@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2204-g874f29d
+%define LEECHCRAFT_VERSION 0.5.95-2265-gf721732
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -103,6 +103,7 @@ BuildRequires:  taglib-devel
 BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
 BuildRequires:  pkgconfig(kqoauth)
+BuildRequires:  pkgconfig(libvlc)
 
 BuildRequires:  boost-devel >= 1.50
 BuildRequires:  jbig2dec-devel
@@ -170,7 +171,6 @@ Requires:       %{name}-secman
 Requires:       %{name}-secman-simplestorage
 Requires:       %{name}-seekthru
 Requires:       %{name}-summary
-Requires:       %{name}-syncer
 Requires:       %{name}-tabsessionmanager
 Requires:       %{name}-vgrabber
 Requires:       %{name}-xproxy
@@ -193,32 +193,35 @@ Requires:       %{name}-azoth-autopaste
 Requires:       %{name}-azoth-birthdaynotifier
 Requires:       %{name}-azoth-chathistory
 Requires:       %{name}-azoth-depester
+Requires:       %{name}-azoth-embedmedia
 Requires:       %{name}-azoth-herbicide
 Requires:       %{name}-azoth-hili
 Requires:       %{name}-azoth-isterique
+Requires:       %{name}-azoth-juick
+Requires:       %{name}-azoth-keeso
 Requires:       %{name}-azoth-lastseen
+Requires:       %{name}-azoth-metacontacts
+Requires:       %{name}-azoth-modnok
+Requires:       %{name}-azoth-murm
 Requires:       %{name}-azoth-nativeemoticons
+Requires:       %{name}-azoth-otroid
+Requires:       %{name}-azoth-p100q
+Requires:       %{name}-azoth-rosenthal
+Requires:       %{name}-azoth-shx
 Requires:       %{name}-azoth-standardstyles
 Requires:       %{name}-azoth-vader
+Requires:       %{name}-azoth-velvetbird
 Requires:       %{name}-azoth-xoox
 Requires:       %{name}-azoth-xtazy
 Requires:       %{name}-azoth-zheet
 Requires:       %{name}-historyholder
-Requires:       %{name}-kinotify
 Requires:       %{name}-lackman
 Requires:       %{name}-newlife
 Requires:       %{name}-secman
 Requires:       %{name}-secman-simplestorage
-Requires:       %{name}-syncer
+Requires:       %{name}-soundnotifications
 Requires:       %{name}-tabsessionmanager
-Requires:       %{name}-xproxy
-Recommends:     %{name}-azoth-embedmedia
-Recommends:     %{name}-azoth-juick
-Recommends:     %{name}-azoth-keeso
-Recommends:     %{name}-azoth-metacontacts
-Recommends:     %{name}-azoth-modnok
-Recommends:     %{name}-azoth-p100q
-Recommends:     %{name}-azoth-rosenthal
+Requires:       %{name}-visualnotifications
 
 %description meta_messenger
 This package is installed if a pattern is selected to have a working update path
@@ -231,12 +234,15 @@ Requires:       %{name}-deadlyrics
 Requires:       %{name}-gacts
 Requires:       %{name}-hotstreams
 Requires:       %{name}-kinotify
-Requires:       %{name}-lastfmscrobble
 Requires:       %{name}-lmp
 Requires:       %{name}-lmp-dumbsync
+Requires:       %{name}-lmp-graffiti
 Requires:       %{name}-lmp-mp3tunes
+Requires:       %{name}-lmp-mtpsync
+Requires:       %{name}-musiczombie
 Requires:       %{name}-secman
 Requires:       %{name}-secman-simplestorage
+Requires:       %{name}-touchstreams
 Requires:       %{name}-vgrabber
 
 %description meta_media
@@ -270,8 +276,8 @@ Requires:       %{name}-sb
 Requires:       %{name}-secman
 Requires:       %{name}-secman-simplestorage
 Requires:       %{name}-summary
-Requires:       %{name}-syncer
 Requires:       %{name}-tabsessionmanager
+Requires:       %{name}-woodpecker
 Requires:       %{name}-xproxy
 
 %description meta_websurf
@@ -281,6 +287,11 @@ This package is installed if a pattern is selected to have a working update path
 Summary:        Meta package for pattern leechcraft_websurf
 Group:          Metapackages
 Requires:       %{name}-advancednotifications
+Requires:       %{name}-blasq
+Requires:       %{name}-blasq-spegnersi
+Requires:       %{name}-blasq-deathnote
+Requires:       %{name}-blasq-rappor
+Requires:       %{name}-blasq-vangog
 Requires:       %{name}-dolozhee
 Requires:       %{name}-gacts
 Requires:       %{name}-glance
@@ -289,17 +300,24 @@ Requires:       %{name}-kinotify
 Requires:       %{name}-knowhow
 Requires:       %{name}-lackman
 Requires:       %{name}-monocle
+Requires:       %{name}-monocle-dik
 Requires:       %{name}-monocle-fxb
+Requires:       %{name}-monocle-mu
 Requires:       %{name}-monocle-pdf
+Requires:       %{name}-monocle-postrus
 Requires:       %{name}-monocle-seen
 Requires:       %{name}-netstoremanager
 Requires:       %{name}-netstoremanager-googledrive
 Requires:       %{name}-networkmonitor
-Requires:       %{name}-otlozhu
+Requires:       %{name}-pogooglue
 Requires:       %{name}-popishu
-Requires:       %{name}-sb
+Requires:       %{name}-sb2
+Requires:       %{name}-tabsessionmanager
+Requires:       %{name}-tabslist
+Requires:       %{name}-tpi
 Requires:       %{name}-vrooby
 Requires:       %{name}-xproxy
+Requires:       %{name}-xtazy
 
 %description meta_tools
 This package is installed if a pattern is selected to have a working update path
@@ -1361,7 +1379,7 @@ Summary:        LeechCraft Media player Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Recommends:     %{name}-deadlyrics = %{version}
-Recommends:     %{name}-lastfmscrobble = %{version}
+Recommends:     %{name}-gacts = %{version}
 Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
 Requires:       gstreamer-0_10-plugins-base
@@ -1389,7 +1407,6 @@ Summary:        LeechCraft Media syncing Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-lmp = %{version}
 Recommends:     %{name}-hotstreams = %{version}
-Recommends:     %{name}-lastfmscrobble = %{version}
 Recommends:     %{name}-vrooby = %{version}
 
 %description lmp-dumbsync
@@ -2072,6 +2089,19 @@ Features:
  * Search for audios and videos.
 
 
+%package vlc
+Summary:        LeechCraft Video player Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Recommends:     vlc-codecs
+
+%description vlc
+This package provides a video player plugin for LeechCraft.
+
+It allows to play video (local files, web, DVD etc).
+It uses vlc library as a backend thus supporting major codecs.
+
+
 %package vrooby
 Summary:        LeechCraft Removable storage devices Manager
 Group:          Productivity/Networking/Other
@@ -2244,7 +2274,7 @@ cmake ../src \
         -DENABLE_TOUCHSTREAMS=True \
         -DENABLE_TPI=True \
         -DENABLE_TWIFEE=False \
-        -DENABLE_VLC=False \
+        -DENABLE_VLC=True \
         -DENABLE_VROOBY=True \
 %if %{woodpecker}
         -DENABLE_WOODPECKER=True \
@@ -3070,6 +3100,10 @@ EOF
 %{settings_dir}/vgrabbersettings.xml
 %{translations_dir}/%{name}_vgrabber*.qm
 %{plugin_dir}/*%{name}_vgrabber.so
+
+%files vlc
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_vlc.so
 
 %files vrooby
 %defattr(-,root,root)
