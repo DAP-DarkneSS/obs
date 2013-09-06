@@ -18,7 +18,7 @@
 
 Name:           leechcraft-doc
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2303-g0ae6e04
+%define LEECHCRAFT_VERSION 0.5.95-2331-g1451d9e
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client Documentation

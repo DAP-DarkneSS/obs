@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2303-g0ae6e04
+%define LEECHCRAFT_VERSION 0.5.95-2331-g1451d9e
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -2843,6 +2843,7 @@ EOF
 %{_datadir}/%{name}/translations/%{name}_lmp_??.qm
 %{_datadir}/%{name}/translations/%{name}_lmp_??_??.qm
 %{plugin_dir}/*%{name}_lmp.so
+%{_datadir}/applications/%{name}-lmp*.desktop
 
 %files lmp-dumbsync
 %defattr(-,root,root)
