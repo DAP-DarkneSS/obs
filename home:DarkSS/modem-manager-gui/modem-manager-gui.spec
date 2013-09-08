@@ -1,37 +1,45 @@
-Summary: Modem Manager GUI
-Name: modem-manager-gui
-Version: 0.0.16
-Release: %mkrel 3
-License: GPLv3
-Group: Communications/Mobile
-URL: http://linuxonly.ru
-Source:	%{name}-%{version}.tar.gz
+#
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
+#
+
+Name:           modem-manager-gui
+Version:        0.0.16
+Release:        %mkrel
+License:        GPLv3
+Summary:        Modem Manager GUI
+Url:            http://linuxonly.ru
+Group:          Communications/Mobile
+Source:         %{name}-%{version}.tar.gz
 Vendor:	Alex <alex@linuxonly.ru>
 
-BuildRequires: pkgconfig
-BuildRequires: libgtk+3.0-devel >= 3.4.0
-BuildRequires: glib2-devel >= 2.32.1
-BuildRequires: libgdbm-devel >= 1.10
+BuildRequires:  libgdbm-devel >= 1.10
+BuildRequires:  libgtk+3.0-devel >= 3.4.0
+BuildRequires:  pkgconfig
+BuildRequires:  pkgconfig(glib-2.0) >= 2.32.1
 
-Requires: gtk+3.0 >= 3.4.0
-Requires: glib2 >= 2.32.1
-Requires: modemmanager >= 0.5.0.0
-Suggests: libnotify >= 0.7.5
-Suggests: libcanberra0 >= 0.28
-Suggests: evolution-data-server >= 3.4.1
+Requires:       glib2 >= 2.32.1
+Requires:       gtk+3.0 >= 3.4.0
+Requires:       modemmanager >= 0.5.0.0
+Suggests:       evolution-data-server >= 3.4.1
+Suggests:       libcanberra0 >= 0.28
+Suggests:       libnotify >= 0.7.5
 
-Patch0:	modem-manager-gui-0.0.16-recommended-modules.patch
-Patch1:	modem-manager-gui-0.0.16-mageia-mm.patch
-Patch2: modem-manager-gui-0.0.16-notifications-icon.patch
-Patch3: modem-manager-gui-0.0.16-window-position-and-unix-signals.patch
+# PATCH-MISSING-TAG -- See http://wiki.opensuse.org/openSUSE:Packaging_Patches_guidelines
+Patch0:         modem-manager-gui-0.0.16-recommended-modules.patch
+# PATCH-MISSING-TAG -- See http://wiki.opensuse.org/openSUSE:Packaging_Patches_guidelines
+Patch1:         modem-manager-gui-0.0.16-mageia-mm.patch
+# PATCH-MISSING-TAG -- See http://wiki.opensuse.org/openSUSE:Packaging_Patches_guidelines
+Patch2:         modem-manager-gui-0.0.16-notifications-icon.patch
+# PATCH-MISSING-TAG -- See http://wiki.opensuse.org/openSUSE:Packaging_Patches_guidelines
+Patch3:         modem-manager-gui-0.0.16-window-position-and-unix-signals.patch
 
 %description
-This program is simple graphical interface for Modem Manager 
+This program is simple graphical interface for Modem Manager
 daemon dbus interface.
 Current features:
 - View device information: Operator name, Mode, IMEI, IMSI,
   Signal level.
-- Send and receive SMS messages with long massages 
+- Send and receive SMS messages with long massages
   concatenation and store messages in database.
 - Send USSD requests and read answers in GSM7 and UCS2 formats
   converted to system UTF8 charset.
@@ -49,7 +57,6 @@ Current features:
 make %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
 make install INSTALLPREFIX=%{buildroot}
 %find_lang %{name}
 
@@ -89,25 +96,3 @@ rm -rf %{buildroot}
 %{_mandir}/man1/modem-manager-gui.1.xz
 
 %changelog
-
-* Tue Jul 28 2013 Alex <alex@linuxonly.ru>
-- Recommended modules and mageia-specific patches
-
-* Tue Jun 18 2013 Alex <alex@linuxonly.ru>
-- Version 0.0.16 changes
-
-* Fri Apr 12 2013 AlexL <loginov.alex.valer@gmail.com>
-- fixed Group for Mageia
-- added modemmanager to Requires
-- added networkmanager to Suggests
-- added patch modem-manager-gui.ui
-
-* Mon Apr 07 2013 Zomby <Zomby@ukr.net>
-- repack for Mageia Russian Community
-
-* Tue Dec 16 2012 Alex <alex@linuxonly.ru>
-- added additional pictures for 0.0.15 release
-
-* Wed Aug 08 2012 Alex <alex@linuxonly.ru>
-- released spec
-
