@@ -1,37 +1,46 @@
 #
+# spec file for package modem-manager-gui
+#
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
 Name:           modem-manager-gui
 Version:        0.0.16
-Release:        %mkrel
-License:        GPLv3
+Release:        0
+License:        GPL-3.0+
 Summary:        Modem Manager GUI
-Url:            http://linuxonly.ru
-Group:          Communications/Mobile
-Source:         %{name}-%{version}.tar.gz
-Vendor:	Alex <alex@linuxonly.ru>
+Url:            http://linuxonly.ru/cms/page.php?7
+Group:          Hardware/Mobile
+Source:         http://download.tuxfamily.org/gsf/source/modem-manager-gui-%{version}.tar.gz
 
-BuildRequires:  libgdbm-devel >= 1.10
-BuildRequires:  libgtk+3.0-devel >= 3.4.0
-BuildRequires:  pkgconfig
+BuildRequires:  fdupes
+BuildRequires:  gdbm-devel
+BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(glib-2.0) >= 2.32.1
-
-Requires:       glib2 >= 2.32.1
-Requires:       gtk+3.0 >= 3.4.0
-Requires:       modemmanager >= 0.5.0.0
+BuildRequires:  pkgconfig(gtk+-3.0) >= 3.4.0
+Requires:       ModemManager >= 0.5.0.0
+Recommends:     %{name}-lang
 Suggests:       evolution-data-server >= 3.4.1
 Suggests:       libcanberra0 >= 0.28
-Suggests:       libnotify >= 0.7.5
+Suggests:       libnotify-tools >= 0.7.5
 
-# PATCH-MISSING-TAG -- See http://wiki.opensuse.org/openSUSE:Packaging_Patches_guidelines
-Patch0:         modem-manager-gui-0.0.16-recommended-modules.patch
-# PATCH-MISSING-TAG -- See http://wiki.opensuse.org/openSUSE:Packaging_Patches_guidelines
+# PATCH-UPSTREAM from Mageia package.
 Patch1:         modem-manager-gui-0.0.16-mageia-mm.patch
-# PATCH-MISSING-TAG -- See http://wiki.opensuse.org/openSUSE:Packaging_Patches_guidelines
+# PATCH-UPSTREAM from Mageia package.
 Patch2:         modem-manager-gui-0.0.16-notifications-icon.patch
-# PATCH-MISSING-TAG -- See http://wiki.opensuse.org/openSUSE:Packaging_Patches_guidelines
-Patch3:         modem-manager-gui-0.0.16-window-position-and-unix-signals.patch
+# PATCH-FIX-UPSTREAM to prevent gcc warnings.
+Patch3:         modem-manager-gui-0.0.16-fix-gcc-warnings.patch
 
 %description
 This program is simple graphical interface for Modem Manager
@@ -45,9 +54,10 @@ Current features:
   converted to system UTF8 charset.
 - Scan available mobile networks.
 
+%lang_package
+
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -59,40 +69,21 @@ make %{?_smp_mflags}
 %install
 make install INSTALLPREFIX=%{buildroot}
 %find_lang %{name}
+%suse_update_desktop_file -r %{name} 'Internet;Monitor;'
+%fdupes -s %{buildroot}%{_datadir}
 
-%clean
-rm -rf %{buildroot}
-
-%files -f %{name}.lang
+%files
 %defattr(-,root,root,-)
 %doc LICENSE
 %doc AUTHORS
 %doc Changelog
 %{_bindir}/%{name}
-%{_libdir}/%{name}/modules/modmm_mm06.so
-%{_libdir}/%{name}/modules/modmm_mm07.so
-%{_libdir}/%{name}/modules/modcm_nm09.so
-%{_libdir}/%{name}/modules/modcm_pppd245.so
+%{_libdir}/%{name}
 %{_datadir}/pixmaps/%{name}.png
-%{_datadir}/%{name}/pixmaps/%{name}.png
-%{_datadir}/%{name}/pixmaps/cont-tb.png
-%{_datadir}/%{name}/pixmaps/dev-tb.png
-%{_datadir}/%{name}/pixmaps/info-tb.png
-%{_datadir}/%{name}/pixmaps/scan-tb.png
-%{_datadir}/%{name}/pixmaps/sms-tb.png
-%{_datadir}/%{name}/pixmaps/ussd-tb.png
-%{_datadir}/%{name}/pixmaps/traffic-tb.png
-%{_datadir}/%{name}/pixmaps/sms-read.png
-%{_datadir}/%{name}/pixmaps/sms-unread.png
-%{_datadir}/%{name}/pixmaps/message-received.png
-%{_datadir}/%{name}/pixmaps/message-sent.png
-%{_datadir}/%{name}/pixmaps/message-drafts.png
-%{_datadir}/%{name}/pixmaps/info-equipment.png
-%{_datadir}/%{name}/pixmaps/info-network.png
-%{_datadir}/%{name}/pixmaps/info-location.png
-%{_datadir}/%{name}/sounds/message.ogg
-%{_datadir}/%{name}/ui/%{name}.ui
+%{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%{_mandir}/man1/modem-manager-gui.1.xz
+%{_mandir}/man1/%{name}.1.*
+
+%files lang -f %{name}.lang
 
 %changelog
