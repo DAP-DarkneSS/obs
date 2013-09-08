@@ -1,0 +1,1463 @@
+diff -crB modem-manager-gui-0.0.16/src/addressbooks.c modem-manager-gui-0.0.16.new/src/addressbooks.c
+*** modem-manager-gui-0.0.16/src/addressbooks.c	2013-06-17 00:04:16.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/addressbooks.c	2013-08-21 22:34:04.718779000 +0400
+***************
+*** 74,80 ****
+  	gchar *s;
+  	/*New API*/
+  	ESourceRegistry *registry;
+! 	ESource *source, *addressbook;
+  	EBookClient *client;
+  	GSList *scontacts;
+  	/*Old API*/
+--- 74,80 ----
+  	gchar *s;
+  	/*New API*/
+  	ESourceRegistry *registry;
+! 	ESource *source/*, *addressbook*/;
+  	EBookClient *client;
+  	GSList *scontacts;
+  	/*Old API*/
+diff -crB modem-manager-gui-0.0.16/src/ayatana.c modem-manager-gui-0.0.16.new/src/ayatana.c
+*** modem-manager-gui-0.0.16/src/ayatana.c	2013-06-18 15:17:36.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/ayatana.c	2013-08-21 22:36:02.558783000 +0400
+***************
+*** 179,184 ****
+--- 179,187 ----
+  	/*Open module for libmessaging-menu*/
+  	ayatana->module = g_module_open(mmgui_libpaths_cache_get_library_name(libcache, "libmessaging-menu"), G_MODULE_BIND_LAZY);
+  	
++ 	/*Initialize local flag*/
++ 	libopened = FALSE;
++ 	
+  	if (ayatana->module != NULL) {
+  		libopened = TRUE;
+  		libopened = libopened && g_module_symbol(ayatana->module, "messaging_menu_app_new", (gpointer *)&(ayatana->backend.mmenu.messaging_menu_app_new));
+diff -crB modem-manager-gui-0.0.16/src/encoding.c modem-manager-gui-0.0.16.new/src/encoding.c
+*** modem-manager-gui-0.0.16/src/encoding.c	2013-07-16 14:59:28.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/encoding.c	2013-08-21 23:12:31.790845000 +0400
+***************
+*** 19,26 ****
+--- 19,28 ----
+  
+  #include <glib.h>
+  #include <stdio.h>
++ #include <stdlib.h>
+  #include <malloc.h>
+  #include <string.h>
++ #include <ctype.h>
+  
+  static const guint gsm7_utf8_table [128] = {
+  	0x0040, 0xc2a3, 0x0024, 0xc2a5, 0xc3a8, 0xc3a9, 0xc3b9, 0xc3ac, 0xc3b2, 0xc387,
+***************
+*** 329,343 ****
+  			detected = TRUE;
+  			iptr += 1;
+  		} else if ((input[iptr] >= 194) && (input[iptr] <= 223)) {
+! 			value = (((input[iptr] << 8) & 0xff00) | input[iptr+1]) & 0xffff;
+  			detected = TRUE;
+  			iptr += 2;
+  		} else if ((input[iptr] >= 224) && (input[iptr] <= 239)) {
+! 			value = ((((input[iptr] << 16) & 0xff0000) | (input[iptr+1] << 8) & 0x00ff00) | input[iptr+2]) & 0xffffff;
+  			detected = TRUE;
+  			iptr += 3;
+  		}  else if ((input[iptr] >= 240) && (input[iptr] <= 244)) {
+! 			value = (((((input[iptr] << 24) & 0xff000000) | (input[iptr+1] << 16) & 0x00ff0000) | (input[iptr+2] << 8) & 0x0000ff00) | input[iptr+3]) & 0xffffffff;
+  			detected = TRUE;
+  			iptr += 4;
+  		} 
+--- 331,345 ----
+  			detected = TRUE;
+  			iptr += 1;
+  		} else if ((input[iptr] >= 194) && (input[iptr] <= 223)) {
+! 			value = (((input[iptr] << 8) & 0xff00) | (input[iptr+1])) & 0xffff;
+  			detected = TRUE;
+  			iptr += 2;
+  		} else if ((input[iptr] >= 224) && (input[iptr] <= 239)) {
+! 			value = ((((input[iptr] << 16) & 0xff0000) | ((input[iptr+1] << 8) & 0x00ff00)) | (input[iptr+2])) & 0xffffff;
+  			detected = TRUE;
+  			iptr += 3;
+  		}  else if ((input[iptr] >= 240) && (input[iptr] <= 244)) {
+! 			value = (((((input[iptr] << 24) & 0xff000000) | ((input[iptr+1] << 16) & 0x00ff0000)) | ((input[iptr+2] << 8) & 0x0000ff00)) | (input[iptr+3])) & 0xffffffff;
+  			detected = TRUE;
+  			iptr += 4;
+  		} 
+***************
+*** 397,403 ****
+  	for (iptr=0; iptr<ilength; iptr++) {
+  		value = tolower(input[iptr]);
+  		if (((!isdigit(value)) && (value != 'a') && (value != 'b') && (value != 'c') && (value != '*') && (value != '#')) || (ilength <= 6)) {
+! 			output = g_strdup(input);
+  			*olength = ilength;
+  			return output;
+  		}
+--- 399,405 ----
+  	for (iptr=0; iptr<ilength; iptr++) {
+  		value = tolower(input[iptr]);
+  		if (((!isdigit(value)) && (value != 'a') && (value != 'b') && (value != 'c') && (value != '*') && (value != '#')) || (ilength <= 6)) {
+! 			output = (guchar *)g_strdup((const gchar *)input);
+  			*olength = ilength;
+  			return output;
+  		}
+***************
+*** 415,430 ****
+  		memset(buf, 0, sizeof(buf)); 
+  		if (isdigit(input[iptr])) {
+  			if ((input[iptr] == '1') && (ilength - iptr >= 3))  {
+! 				strncpy(buf, input+iptr, 3);
+! 				value = (unsigned char)atoi(buf);
+  				if (value <= 127) {
+  					output[optr] = value;
+  					optr++;
+  				}
+  				iptr += 3;
+  			} else if (ilength - iptr >= 2) {
+! 				strncpy(buf, input+iptr, 2);
+! 				value = (unsigned char)atoi(buf);
+  				if (value >= 32) {
+  					output[optr] = value;
+  					optr++;
+--- 417,432 ----
+  		memset(buf, 0, sizeof(buf)); 
+  		if (isdigit(input[iptr])) {
+  			if ((input[iptr] == '1') && (ilength - iptr >= 3))  {
+! 				strncpy((char *)buf, (const char *)input+iptr, 3);
+! 				value = (guchar)atoi((const char *)buf);
+  				if (value <= 127) {
+  					output[optr] = value;
+  					optr++;
+  				}
+  				iptr += 3;
+  			} else if (ilength - iptr >= 2) {
+! 				strncpy((char *)buf, (const char *)input+iptr, 2);
+! 				value = (guchar)atoi((const char *)buf);
+  				if (value >= 32) {
+  					output[optr] = value;
+  					optr++;
+diff -crB modem-manager-gui-0.0.16/src/libpaths.c modem-manager-gui-0.0.16.new/src/libpaths.c
+*** modem-manager-gui-0.0.16/src/libpaths.c	2013-06-17 23:18:02.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/libpaths.c	2013-08-21 23:06:57.166836000 +0400
+***************
+*** 292,300 ****
+  static guint mmgui_libpaths_cache_parse_db(mmgui_libpaths_cache_t libcache)
+  {
+  	guint ptr, start, end, entry, entries;
+! 	gchar *entryhash, *entryname, *entryext;
+  	
+! 	if (libcache == NULL) return;
+  	
+  	/*Cache file must be terminated with value 0x00*/
+  	if (libcache->mapping[libcache->mapsize-1] != 0x00) {
+--- 292,300 ----
+  static guint mmgui_libpaths_cache_parse_db(mmgui_libpaths_cache_t libcache)
+  {
+  	guint ptr, start, end, entry, entries;
+! 	/*gchar *entryhash, *entryname, *entryext;*/
+  	
+! 	if (libcache == NULL) return 0;
+  	
+  	/*Cache file must be terminated with value 0x00*/
+  	if (libcache->mapping[libcache->mapsize-1] != 0x00) {
+diff -crB modem-manager-gui-0.0.16/src/main.c modem-manager-gui-0.0.16.new/src/main.c
+*** modem-manager-gui-0.0.16/src/main.c	2013-07-20 19:29:34.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/main.c	2013-08-22 00:50:33.100814000 +0400
+***************
+*** 31,38 ****
+--- 31,40 ----
+  #include <libintl.h>
+  #include <glib/gi18n.h>
+  #include <gdk/gdkkeysyms.h>
++ #include <glib/gprintf.h>
+  
+  #include "settings.h"
++ #include "ussdlist.h"
+  #include "encoding.h"
+  #include "libpaths.h"
+  #include "notifications.h"
+***************
+*** 541,547 ****
+  static gboolean mmgui_main_device_handle_enabled_status_from_thread(gpointer data);
+  static gboolean mmgui_main_device_handle_blocked_status_from_thread(gpointer data);
+  static gboolean mmgui_main_device_handle_connection_status_from_thread(gpointer data);
+! static void mmgui_main_device_handle_enable(mmgui_application_t mmguiapp, mmguicore_t mmguicore);
+  static void mmgui_main_device_clear_data(mmgui_application_t mmguiapp);
+  static gboolean mmgui_main_device_open(mmgui_application_t mmguiapp, guint id);
+  static gboolean mmgui_main_device_list_unselect_foreach(GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer data);
+--- 543,549 ----
+  static gboolean mmgui_main_device_handle_enabled_status_from_thread(gpointer data);
+  static gboolean mmgui_main_device_handle_blocked_status_from_thread(gpointer data);
+  static gboolean mmgui_main_device_handle_connection_status_from_thread(gpointer data);
+! //static void mmgui_main_device_handle_enable(mmgui_application_t mmguiapp, mmguicore_t mmguicore);
+  static void mmgui_main_device_clear_data(mmgui_application_t mmguiapp);
+  static gboolean mmgui_main_device_open(mmgui_application_t mmguiapp, guint id);
+  static gboolean mmgui_main_device_list_unselect_foreach(GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer data);
+***************
+*** 732,738 ****
+  		
+  	appdata = (mmgui_application_data_t)data;
+  	
+! 	if (appdata == NULL) return;
+  	
+  	currenttime = time(NULL);
+  	
+--- 734,740 ----
+  		
+  	appdata = (mmgui_application_data_t)data;
+  	
+! 	if (appdata == NULL) return TRUE;
+  	
+  	currenttime = time(NULL);
+  	
+***************
+*** 1254,1259 ****
+--- 1256,1263 ----
+  			}
+  		}
+  	}
++ 	
++ 	return TRUE;
+  }
+  
+  static void mmgui_main_ui_open_page(mmgui_application_t mmguiapp, guint page)
+***************
+*** 1364,1370 ****
+  static enum _mmgui_main_exit_dialog_result mmgui_main_ui_window_hide_dialog(mmgui_application_t mmguiapp)
+  {
+  	gint response;
+! 	gchar *strcolor;
+  	
+  	if (mmguiapp == NULL) return MMGUI_MAIN_EXIT_DIALOG_CANCEL;
+  	if ((mmguiapp->options == NULL) || (mmguiapp->settings == NULL)) return MMGUI_MAIN_EXIT_DIALOG_CANCEL;
+--- 1368,1374 ----
+  static enum _mmgui_main_exit_dialog_result mmgui_main_ui_window_hide_dialog(mmgui_application_t mmguiapp)
+  {
+  	gint response;
+! 	/*gchar *strcolor;*/
+  	
+  	if (mmguiapp == NULL) return MMGUI_MAIN_EXIT_DIALOG_CANCEL;
+  	if ((mmguiapp->options == NULL) || (mmguiapp->settings == NULL)) return MMGUI_MAIN_EXIT_DIALOG_CANCEL;
+***************
+*** 1425,1431 ****
+  	
+  	mmguiapp = (mmgui_application_t)data;
+  	
+! 	if (mmguiapp == NULL) return;
+  	
+  	if (mmguiapp->options->askforhide) {
+  		/*Ask at exit*/
+--- 1429,1435 ----
+  	
+  	mmguiapp = (mmgui_application_t)data;
+  	
+! 	if (mmguiapp == NULL) return TRUE;
+  	
+  	if (mmguiapp->options->askforhide) {
+  		/*Ask at exit*/
+***************
+*** 1752,1758 ****
+  	
+  	mmguiapp = (mmgui_application_t)data;
+  	
+! 	if (mmguiapp == NULL) return;
+  	
+  	if (mmguicore_devices_get_current(mmguiapp->core) != NULL) {
+  		unreadmessages = mmgui_smsdb_get_unread_messages(mmguicore_devices_get_sms_db(mmguiapp->core));
+--- 1756,1762 ----
+  	
+  	mmguiapp = (mmgui_application_t)data;
+  	
+! 	if (mmguiapp == NULL) return FALSE;
+  	
+  	if (mmguicore_devices_get_current(mmguiapp->core) != NULL) {
+  		unreadmessages = mmgui_smsdb_get_unread_messages(mmguicore_devices_get_sms_db(mmguiapp->core));
+***************
+*** 1766,1771 ****
+--- 1770,1777 ----
+  	} else {
+  		gtk_tooltip_set_text(tooltip, _("No unread messages"));
+  	}
++ 	
++ 	return TRUE;
+  }
+  
+  /*Ayatana*/
+***************
+*** 1795,1801 ****
+  	guint id, contacttype;
+  	mmgui_contact_t contact;
+  	
+! 	if (mmguiapp == NULL) return;
+  	
+  	model = gtk_tree_view_get_model(GTK_TREE_VIEW(mmguiapp->window->contactstreeview));
+  	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(mmguiapp->window->contactstreeview));
+--- 1801,1807 ----
+  	guint id, contacttype;
+  	mmgui_contact_t contact;
+  	
+! 	if (mmguiapp == NULL) return NULL;
+  	
+  	model = gtk_tree_view_get_model(GTK_TREE_VIEW(mmguiapp->window->contactstreeview));
+  	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(mmguiapp->window->contactstreeview));
+***************
+*** 2443,2448 ****
+--- 2449,2455 ----
+  	//Local time
+  	presenttime = time(NULL);
+  	timespec = localtime(&presenttime);
++ 	year = timespec->tm_year+1900;
+  	//Selected month and year identifiers
+  	monthid = gtk_combo_box_get_active(GTK_COMBO_BOX(mmguiapp->window->trafficstatsmonthcb));
+  	yearid = gtk_combo_box_get_active(GTK_COMBO_BOX(mmguiapp->window->trafficstatsyearcb));
+***************
+*** 2460,2466 ****
+  
+  static void mmgui_main_traffic_statistics_dialog(mmgui_application_t mmguiapp)
+  {
+! 	gint response;
+  	time_t presenttime;
+  	struct tm *timespec;
+  	gchar strformat[64];
+--- 2467,2473 ----
+  
+  static void mmgui_main_traffic_statistics_dialog(mmgui_application_t mmguiapp)
+  {
+! 	/*gint response;*/
+  	time_t presenttime;
+  	struct tm *timespec;
+  	gchar strformat[64];
+***************
+*** 2486,2492 ****
+  	//Fill list
+  	mmgui_main_traffic_statistics_dialog_fill_statistics(mmguiapp, timespec->tm_mon, timespec->tm_year+1900);
+  	
+! 	response = gtk_dialog_run(GTK_DIALOG(mmguiapp->window->trafficstatsdialog));
+  	
+  	gtk_widget_hide(mmguiapp->window->trafficstatsdialog);
+  }
+--- 2493,2499 ----
+  	//Fill list
+  	mmgui_main_traffic_statistics_dialog_fill_statistics(mmguiapp, timespec->tm_mon, timespec->tm_year+1900);
+  	
+! 	/*response = */gtk_dialog_run(GTK_DIALOG(mmguiapp->window->trafficstatsdialog));
+  	
+  	gtk_widget_hide(mmguiapp->window->trafficstatsdialog);
+  }
+***************
+*** 2507,2513 ****
+  	GtkCellRenderer *renderer;
+  	GtkTreeViewColumn *column;
+  	GtkListStore *store;
+! 	GtkTreeIter iter;
+  	
+  	if (mmguiapp == NULL) return;
+  	
+--- 2514,2520 ----
+  	GtkCellRenderer *renderer;
+  	GtkTreeViewColumn *column;
+  	GtkListStore *store;
+! 	/*GtkTreeIter iter;*/
+  	
+  	if (mmguiapp == NULL) return;
+  	
+***************
+*** 2650,2660 ****
+  
+  static void mmgui_main_traffic_connections_dialog(mmgui_application_t mmguiapp)
+  {
+! 	gint response;
+  	
+  	if (mmguiapp == NULL) return;
+  	
+! 	response = gtk_dialog_run(GTK_DIALOG(mmguiapp->window->conndialog));
+  	
+  	gtk_widget_hide(mmguiapp->window->conndialog);
+  }
+--- 2657,2667 ----
+  
+  static void mmgui_main_traffic_connections_dialog(mmgui_application_t mmguiapp)
+  {
+! 	/*gint response;*/
+  	
+  	if (mmguiapp == NULL) return;
+  	
+! 	/*response = */gtk_dialog_run(GTK_DIALOG(mmguiapp->window->conndialog));
+  	
+  	gtk_widget_hide(mmguiapp->window->conndialog);
+  }
+***************
+*** 2675,2681 ****
+  	GtkCellRenderer *renderer;
+  	GtkTreeViewColumn *column;
+  	GtkListStore *store;
+! 	GtkTreeIter iter;
+  	
+  	if (mmguiapp == NULL) return;
+  	
+--- 2682,2688 ----
+  	GtkCellRenderer *renderer;
+  	GtkTreeViewColumn *column;
+  	GtkListStore *store;
+! 	/*GtkTreeIter iter;*/
+  	
+  	if (mmguiapp == NULL) return;
+  	
+***************
+*** 2958,2965 ****
+  	
+  	mmguiapp = (mmgui_application_t)data;
+  	
+! 	if (mmguiapp == NULL) return;
+! 	if (mmguiapp->core == NULL) return;
+  	
+  	device = mmguicore_devices_get_current(mmguiapp->core);
+  	
+--- 2965,2972 ----
+  	
+  	mmguiapp = (mmgui_application_t)data;
+  	
+! 	if (mmguiapp == NULL) return FALSE;
+! 	if (mmguiapp->core == NULL) return FALSE;
+  	
+  	device = mmguicore_devices_get_current(mmguiapp->core);
+  	
+***************
+*** 2995,3002 ****
+  		
+  	mmguiapp = (mmgui_application_t)data;
+  	
+! 	if (mmguiapp == NULL) return;
+! 	if (mmguiapp->core == NULL) return;
+  	
+  	device = mmguicore_devices_get_current(mmguiapp->core);
+  	
+--- 3002,3009 ----
+  		
+  	mmguiapp = (mmgui_application_t)data;
+  	
+! 	if (mmguiapp == NULL) return FALSE;
+! 	if (mmguiapp->core == NULL) return FALSE;
+  	
+  	device = mmguicore_devices_get_current(mmguiapp->core);
+  	
+***************
+*** 3671,3677 ****
+  {
+  	struct _mmgui_application_data mmguiappdata;
+  	GtkTreeModel *model;
+! 	gint response;
+  	
+  	if (mmguiapp == NULL) return;
+  	
+--- 3678,3684 ----
+  {
+  	struct _mmgui_application_data mmguiappdata;
+  	GtkTreeModel *model;
+! 	/*gint response;*/
+  	
+  	if (mmguiapp == NULL) return;
+  	
+***************
+*** 3700,3706 ****
+  		gtk_tree_view_set_model(GTK_TREE_VIEW(mmguiapp->window->ussdedittreeview), model);
+  		g_object_unref(model);
+  		
+! 		response = gtk_dialog_run(GTK_DIALOG(mmguiapp->window->ussdeditdialog));
+  		
+  		if (mmguicore_devices_get_current(mmguiapp->core) != NULL) {
+  			//Write commands to XML file
+--- 3707,3713 ----
+  		gtk_tree_view_set_model(GTK_TREE_VIEW(mmguiapp->window->ussdedittreeview), model);
+  		g_object_unref(model);
+  		
+! 		/*response = */gtk_dialog_run(GTK_DIALOG(mmguiapp->window->ussdeditdialog));
+  		
+  		if (mmguicore_devices_get_current(mmguiapp->core) != NULL) {
+  			//Write commands to XML file
+***************
+*** 4183,4189 ****
+  	gint smsvalidflags;
+  	enum _mmgui_main_new_sms_dialog_result result;
+  	
+! 	if (mmguiapp == NULL) return;
+  	
+  	smsvalidflags = MMGUI_MAIN_NEW_SMS_VALIDATION_VALID;
+  	
+--- 4190,4196 ----
+  	gint smsvalidflags;
+  	enum _mmgui_main_new_sms_dialog_result result;
+  	
+! 	if (mmguiapp == NULL) return MMGUI_MAIN_NEW_SMS_DIALOG_CLOSE;
+  	
+  	smsvalidflags = MMGUI_MAIN_NEW_SMS_VALIDATION_VALID;
+  	
+***************
+*** 4311,4317 ****
+  	GtkTreeSelection *selection;
+  	GtkTreeIter iter;
+  	gulong id;
+! 	gboolean valid;
+  	gboolean isfolder;
+  	
+  	if (mmguiapp == NULL) return;
+--- 4318,4324 ----
+  	GtkTreeSelection *selection;
+  	GtkTreeIter iter;
+  	gulong id;
+! 	/*gboolean valid;*/
+  	gboolean isfolder;
+  	
+  	if (mmguiapp == NULL) return;
+***************
+*** 4442,4448 ****
+  	GtkTreeSelection *selection;
+  	GtkTextBuffer *buffer;
+  	GtkTreeIter iter;
+! 	GtkTextIter siter, eiter;
+  	gulong id;
+  	guint folder;
+  	gboolean isfolder;
+--- 4449,4455 ----
+  	GtkTreeSelection *selection;
+  	GtkTextBuffer *buffer;
+  	GtkTreeIter iter;
+! 	/*GtkTextIter siter, eiter;*/
+  	gulong id;
+  	guint folder;
+  	gboolean isfolder;
+***************
+*** 4658,4663 ****
+--- 4665,4672 ----
+  		
+  		g_idle_add(mmgui_main_sms_get_message_list_from_thread, appdata);
+  	}
++ 	
++ 	return FALSE;
+  }
+  
+  static void mmgui_main_sms_list_init(mmgui_application_t mmguiapp)
+***************
+*** 4761,4766 ****
+--- 4770,4777 ----
+  	
+  	g_free(mmguiappdata);
+  	
++ 	g_debug("Device blocked status: %u\n", blockedstatus);
++ 	
+  	return FALSE;
+  }
+  
+***************
+*** 4784,4789 ****
+--- 4795,4802 ----
+  	
+  	g_free(mmguiappdata);
+  	
++ 	g_debug("Device connected status: %u\n", connstatus);
++ 	
+  	return FALSE;
+  }
+  
+***************
+*** 4799,4805 ****
+  	gboolean validcat, validcont;
+  	guint contacttype, numcontacts;
+  	const gchar *pathstr;
+! 	guint pagecaps;
+  	
+  	if (mmguiapp == NULL) return;
+  	
+--- 4812,4818 ----
+  	gboolean validcat, validcont;
+  	guint contacttype, numcontacts;
+  	const gchar *pathstr;
+! 	/*guint pagecaps;*/
+  	
+  	if (mmguiapp == NULL) return;
+  	
+***************
+*** 5057,5062 ****
+--- 5070,5077 ----
+  		model = gtk_tree_view_get_model(GTK_TREE_VIEW(mmguiapp->window->devlist));
+  	}
+  	
++ 	devtype = NULL;
++ 	
+  	if (device->type == MMGUI_DEVICE_TYPE_GSM) {
+  		devtype = "GSM";
+  	} else if (device->type == MMGUI_DEVICE_TYPE_CDMA) {
+***************
+*** 5661,5674 ****
+  
+  static void mmgui_main_application_terminate(mmgui_application_t mmguiapp)
+  {
+- 	GtkWidget *win;
+- 	GList *wlist, *wnext;
+- 	
+  	if (mmguiapp == NULL) return;
+  	
+  	#if GLIB_CHECK_VERSION(2,32,0)
+  		g_application_quit(G_APPLICATION(mmguiapp->gtkapplication));
+  	#else	
+  		wlist = gtk_application_get_windows(GTK_APPLICATION(mmguiapp->gtkapplication));
+  		while (wlist) {
+  			win = wlist->data;
+--- 5676,5689 ----
+  
+  static void mmgui_main_application_terminate(mmgui_application_t mmguiapp)
+  {
+  	if (mmguiapp == NULL) return;
+  	
+  	#if GLIB_CHECK_VERSION(2,32,0)
+  		g_application_quit(G_APPLICATION(mmguiapp->gtkapplication));
+  	#else	
++ 		GtkWidget *win;
++ 		GList *wlist, *wnext;
++ 		
+  		wlist = gtk_application_get_windows(GTK_APPLICATION(mmguiapp->gtkapplication));
+  		while (wlist) {
+  			win = wlist->data;
+diff -crB modem-manager-gui-0.0.16/src/mmguicore.c modem-manager-gui-0.0.16.new/src/mmguicore.c
+*** modem-manager-gui-0.0.16/src/mmguicore.c	2013-07-19 00:39:37.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/mmguicore.c	2013-08-22 00:45:49.004806000 +0400
+***************
+*** 18,26 ****
+--- 18,28 ----
+   */
+  
+  #include <glib.h>
++ #include <glib/gprintf.h>
+  #include <gmodule.h>
+  #include <gio/gio.h>
+  #include <string.h>
++ #include <ctype.h>
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <poll.h>
+***************
+*** 50,56 ****
+  static gpointer mmguicore_work_thread(gpointer data);
+  static void mmguicore_traffic_count(mmguicore_t mmguicore, guint64 rxbytes, guint64 txbytes);
+  static void mmguicore_traffic_zero(mmguicore_t mmguicore);
+! static gboolean mmgucore_get_device_traffic(mmguicore_t mmguicore, mmgui_traffic_stats_t stats);
+  static void mmguicore_traffic_limits(mmguicore_t mmguicore);
+  
+  static void mmguicore_event_callback(enum _mmgui_event event, gpointer mmguicore, gpointer data)
+--- 52,58 ----
+  static gpointer mmguicore_work_thread(gpointer data);
+  static void mmguicore_traffic_count(mmguicore_t mmguicore, guint64 rxbytes, guint64 txbytes);
+  static void mmguicore_traffic_zero(mmguicore_t mmguicore);
+! //static gboolean mmgucore_get_device_traffic(mmguicore_t mmguicore, mmgui_traffic_stats_t stats);
+  static void mmguicore_traffic_limits(mmguicore_t mmguicore);
+  
+  static void mmguicore_event_callback(enum _mmgui_event event, gpointer mmguicore, gpointer data)
+***************
+*** 106,111 ****
+--- 108,114 ----
+  			}
+  			break;
+  		case MMGUI_EVENT_USSD_RESULT:
++ 			ussdanswer = NULL;
+  			if (mmguicore_ussd_get_encoding(mmguicore) == MMGUI_USSD_ENCODING_GSM7) {
+  				ussdanswer = (gchar *)data;
+  			} else if (mmguicore_ussd_get_encoding(mmguicore) == MMGUI_USSD_ENCODING_UCS2) {
+***************
+*** 257,262 ****
+--- 260,267 ----
+  	} else if (mod1->priority < mod2->priority) {
+  		return -1;
+  	}
++ 	
++ 	return 0;
+  }
+  
+  guint mmguicore_modules_enum(mmguicore_t mmguicore)
+***************
+*** 1248,1254 ****
+  	
+  	if (strsize > 0) {
+  		/*Map UTF8 symbols using GSM7 table*/
+! 		decstr2 = utf8_map_gsm7(decstr1, strsize, &strsize);
+  		if (decstr2 != NULL) {
+  			/*Free temporary string and go next step*/
+  			g_free(decstr1);
+--- 1253,1259 ----
+  	
+  	if (strsize > 0) {
+  		/*Map UTF8 symbols using GSM7 table*/
+! 		decstr2 = (gchar *)utf8_map_gsm7((const guchar *)decstr1, strsize, &strsize);
+  		if (decstr2 != NULL) {
+  			/*Free temporary string and go next step*/
+  			g_free(decstr1);
+***************
+*** 1257,1263 ****
+  			return decstr1;
+  		}
+  		/*Translate UTF8 to GSM7*/
+! 		decstr1 = utf8_to_gsm7(decstr2, strsize, &strsize);
+  		if (decstr1 != NULL) {
+  			/*Free temporary string and go next step*/
+  			g_free(decstr2);
+--- 1262,1268 ----
+  			return decstr1;
+  		}
+  		/*Translate UTF8 to GSM7*/
+! 		decstr1 = (gchar *)utf8_to_gsm7((const guchar *)decstr2, strsize, &strsize);
+  		if (decstr1 != NULL) {
+  			/*Free temporary string and go next step*/
+  			g_free(decstr2);
+***************
+*** 1273,1279 ****
+  			}
+  		}
+  		/*Translate UCS2 to UTF8*/	
+! 		decstr2 = ucs2_to_utf8(decstr1, strsize, &strsize);
+  		if (decstr2 != NULL) {
+  			if (g_utf8_validate((const gchar *)decstr2, -1, (const gchar **)NULL)) {
+  				/*Decoded string validated*/
+--- 1278,1284 ----
+  			}
+  		}
+  		/*Translate UCS2 to UTF8*/	
+! 		decstr2 = (gchar *)ucs2_to_utf8((const guchar *)decstr1, strsize, &strsize);
+  		if (decstr2 != NULL) {
+  			if (g_utf8_validate((const gchar *)decstr2, -1, (const gchar **)NULL)) {
+  				/*Decoded string validated*/
+***************
+*** 1303,1308 ****
+--- 1308,1315 ----
+  			}
+  		}
+  	}
++ 	
++ 	return decstr1;
+  }
+  
+  enum _mmgui_ussd_validation mmguicore_ussd_validate_request(gchar *request)
+***************
+*** 1917,1922 ****
+--- 1924,1932 ----
+  	if (mmguicore == NULL) return NULL;
+  	
+  	activesockets = 0;
++ 	ctlfdnum = 0;
++ 	intfdnum = 0;
++ 	connfdnum = 0;
+  	
+  	ctlfd = mmguicore->workthreadctl[1];
+  	
+diff -crB modem-manager-gui-0.0.16/src/mmguicore.h modem-manager-gui-0.0.16.new/src/mmguicore.h
+*** modem-manager-gui-0.0.16/src/mmguicore.h	2013-07-16 14:43:38.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/mmguicore.h	2013-08-21 23:38:08.110889000 +0400
+***************
+*** 491,498 ****
+  typedef struct _mmguicore *mmguicore_t;
+  
+  //Devices
+  gboolean mmguicore_devices_open(mmguicore_t mmguicore, guint deviceid, gboolean openfirst);
+- 
+  gboolean mmguicore_devices_enable(mmguicore_t mmguicore, gboolean enabled);
+  GSList *mmguicore_devices_get_list(mmguicore_t mmguicore);
+  mmguidevice_t mmguicore_devices_get_current(mmguicore_t mmguicore);
+--- 491,498 ----
+  typedef struct _mmguicore *mmguicore_t;
+  
+  //Devices
++ gboolean mmguicore_devices_enum(mmguicore_t mmguicore);
+  gboolean mmguicore_devices_open(mmguicore_t mmguicore, guint deviceid, gboolean openfirst);
+  gboolean mmguicore_devices_enable(mmguicore_t mmguicore, gboolean enabled);
+  GSList *mmguicore_devices_get_list(mmguicore_t mmguicore);
+  mmguidevice_t mmguicore_devices_get_current(mmguicore_t mmguicore);
+diff -crB modem-manager-gui-0.0.16/src/modules/mm06.c modem-manager-gui-0.0.16.new/src/modules/mm06.c
+*** modem-manager-gui-0.0.16/src/modules/mm06.c	2013-07-20 18:56:57.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/modules/mm06.c	2013-08-22 00:08:34.746941000 +0400
+***************
+*** 19,28 ****
+--- 19,30 ----
+  
+  
+  #include <glib.h>
++ #include <glib/gprintf.h>
+  #include <glib/gi18n.h>
+  #include <gio/gio.h>
+  #include <gmodule.h>
+  #include <string.h>
++ #include <stdlib.h>
+  #include <net/if.h>
+  
+  #include "../mmguicore.h"
+***************
+*** 226,236 ****
+  	mmguicore_t mmguicore;
+  	mmguidevice_t device;
+  	GVariantIter *iter;
+! 	GVariant *item;
+  	const gchar *key;
+  	GVariant *value;
+! 	guint statevalue;
+! 	gboolean stateflag;
+  	
+  	if ((changed_properties == NULL) || (data == NULL)) return;
+  	
+--- 228,238 ----
+  	mmguicore_t mmguicore;
+  	mmguidevice_t device;
+  	GVariantIter *iter;
+! 	/*GVariant *item;*/
+  	const gchar *key;
+  	GVariant *value;
+! 	/*guint statevalue;
+! 	gboolean stateflag;*/
+  	
+  	if ((changed_properties == NULL) || (data == NULL)) return;
+  	
+***************
+*** 243,251 ****
+  		g_variant_get(changed_properties, "a{sv}", &iter);
+  		while (g_variant_iter_loop(iter, "{&sv}", &key, &value)) {
+  			if (g_str_equal(key, "Location")) {
+! 				if (mmgui_module_devices_update_location(mmguicore, mmguicore->device)) {
+  					if (mmguicore->eventcb != NULL) {
+! 						(mmguicore->eventcb)(MMGUI_EVENT_LOCATION_CHANGE, mmguicore, mmguicore->device);
+  					}
+  				}
+  			}
+--- 245,253 ----
+  		g_variant_get(changed_properties, "a{sv}", &iter);
+  		while (g_variant_iter_loop(iter, "{&sv}", &key, &value)) {
+  			if (g_str_equal(key, "Location")) {
+! 				if (mmgui_module_devices_update_location(mmguicore, device)) {
+  					if (mmguicore->eventcb != NULL) {
+! 						(mmguicore->eventcb)(MMGUI_EVENT_LOCATION_CHANGE, mmguicore, device);
+  					}
+  				}
+  			}
+***************
+*** 1905,1911 ****
+  		}
+  	}	
+  	
+! 	
+  }
+  
+  static void mmgui_module_devices_enable_handler(GDBusProxy *proxy, GAsyncResult *res, gpointer user_data)
+--- 1907,1913 ----
+  		}
+  	}	
+  	
+! 	return FALSE;
+  }
+  
+  static void mmgui_module_devices_enable_handler(GDBusProxy *proxy, GAsyncResult *res, gpointer user_data)
+***************
+*** 2523,2528 ****
+--- 2525,2532 ----
+  	
+  	ussdreq = g_variant_new("(s)", request);
+  	
++ 	command = NULL;
++ 	
+  	if (sessionstate == MMGUI_USSD_STATE_IDLE) {
+  		command = "Initiate";
+  	} else if (sessionstate == MMGUI_USSD_STATE_USER_RESPONSE) {
+***************
+*** 2558,2564 ****
+  	GVariant *value;
+  	gsize strlength;
+  	const gchar *valuestr;
+! 	guint i;
+  	
+  	if (networkv == NULL) return NULL;
+  		
+--- 2562,2568 ----
+  	GVariant *value;
+  	gsize strlength;
+  	const gchar *valuestr;
+! 	/*guint i;*/
+  	
+  	if (networkv == NULL) return NULL;
+  		
+diff -crB modem-manager-gui-0.0.16/src/modules/mm07.c modem-manager-gui-0.0.16.new/src/modules/mm07.c
+*** modem-manager-gui-0.0.16/src/modules/mm07.c	2013-07-16 15:13:48.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/modules/mm07.c	2013-08-22 00:02:14.198930000 +0400
+***************
+*** 264,270 ****
+  	mmguicore_t mmguicore;
+  	mmguidevice_t device;
+  	GVariantIter *iter;
+! 	GVariant *item;
+  	const gchar *key;
+  	GVariant *value;
+  	guint statevalue;
+--- 264,270 ----
+  	mmguicore_t mmguicore;
+  	mmguidevice_t device;
+  	GVariantIter *iter;
+! 	/*GVariant *item;*/
+  	const gchar *key;
+  	GVariant *value;
+  	guint statevalue;
+***************
+*** 954,960 ****
+  {
+  	mmguicore_t mmguicorelc;
+  	moduledata_t moduledata;
+! 	GError *error;
+  	
+  	if (mmguicore == NULL) return FALSE;
+  	mmguicorelc = (mmguicore_t)mmguicore;
+--- 954,960 ----
+  {
+  	mmguicore_t mmguicorelc;
+  	moduledata_t moduledata;
+! 	/*GError *error;*/
+  	
+  	if (mmguicore == NULL) return FALSE;
+  	mmguicorelc = (mmguicore_t)mmguicore;
+***************
+*** 1506,1513 ****
+  	moduledata_t moduledata;
+  	mmguidevice_t device;
+  	GVariant *data;
+! 	GError *error;
+! 	gchar *blockstr;
+  	gsize strsize = 256;
+  	gint statevalue;
+  	gboolean stateflag;
+--- 1506,1513 ----
+  	moduledata_t moduledata;
+  	mmguidevice_t device;
+  	GVariant *data;
+! 	/*GError *error;
+! 	gchar *blockstr;*/
+  	gsize strsize = 256;
+  	gint statevalue;
+  	gboolean stateflag;
+***************
+*** 2391,2405 ****
+  G_MODULE_EXPORT mmgui_sms_message_t mmgui_module_sms_get(gpointer mmguicore, guint index)
+  {
+  	mmguicore_t mmguicorelc;
+! 	moduledata_t moduledata;
+  	gchar *smspath;
+  	mmgui_sms_message_t message;
+  	
+  	if (mmguicore == NULL) return NULL;
+  	mmguicorelc = (mmguicore_t)mmguicore;
+  	
+! 	if (mmguicorelc->moduledata == NULL) return NULL;
+! 	moduledata = (moduledata_t)mmguicorelc->moduledata;
+  	
+  	if (mmguicorelc->device == NULL) return NULL;
+  	if (!mmguicorelc->device->enabled) return NULL;
+--- 2391,2405 ----
+  G_MODULE_EXPORT mmgui_sms_message_t mmgui_module_sms_get(gpointer mmguicore, guint index)
+  {
+  	mmguicore_t mmguicorelc;
+! 	/*moduledata_t moduledata;*/
+  	gchar *smspath;
+  	mmgui_sms_message_t message;
+  	
+  	if (mmguicore == NULL) return NULL;
+  	mmguicorelc = (mmguicore_t)mmguicore;
+  	
+! 	/*if (mmguicorelc->moduledata == NULL) return NULL;
+! 	moduledata = (moduledata_t)mmguicorelc->moduledata;*/
+  	
+  	if (mmguicorelc->device == NULL) return NULL;
+  	if (!mmguicorelc->device->enabled) return NULL;
+***************
+*** 2518,2524 ****
+  	GVariantBuilder *builder;
+  	GVariant *array, *message, *smspathv;
+  	GError *error;
+! 	gsize strlength;
+  	gchar *smspath;
+  	GDBusProxy *messageproxy;
+  	
+--- 2518,2524 ----
+  	GVariantBuilder *builder;
+  	GVariant *array, *message, *smspathv;
+  	GError *error;
+! 	/*gsize strlength;*/
+  	gchar *smspath;
+  	GDBusProxy *messageproxy;
+  	
+***************
+*** 2763,2768 ****
+--- 2763,2770 ----
+  	
+  	ussdreq = g_variant_new("(s)", request);
+  	
++ 	command = NULL;
++ 	
+  	if (sessionstate == MMGUI_USSD_STATE_IDLE) {
+  		command = "Initiate";
+  	} else if (sessionstate == MMGUI_USSD_STATE_USER_RESPONSE) {
+***************
+*** 2798,2804 ****
+  	GVariant *value;
+  	gsize strlength;
+  	const gchar *valuestr;
+! 	guint i;
+  	
+  	if (networkv == NULL) return NULL;
+  		
+--- 2800,2806 ----
+  	GVariant *value;
+  	gsize strlength;
+  	const gchar *valuestr;
+! 	/*guint i;*/
+  	
+  	if (networkv == NULL) return NULL;
+  		
+***************
+*** 2862,2869 ****
+  	GError *error;
+  	GVariant *result;
+  	GSList *networks;
+! 	GVariantIter niterl1, niterl2, niterl3;
+! 	GVariant *nnodel1, *nnodel2, *nnodel3;
+  	mmgui_scanned_network_t network;
+  		
+  	mmguicorelc = (mmguicore_t)user_data;
+--- 2864,2871 ----
+  	GError *error;
+  	GVariant *result;
+  	GSList *networks;
+! 	GVariantIter niterl1, niterl2/*, niterl3*/;
+! 	GVariant *nnodel1, *nnodel2/*, *nnodel3*/;
+  	mmgui_scanned_network_t network;
+  		
+  	mmguicorelc = (mmguicore_t)user_data;
+diff -crB modem-manager-gui-0.0.16/src/modules/nm09.c modem-manager-gui-0.0.16.new/src/modules/nm09.c
+*** modem-manager-gui-0.0.16/src/modules/nm09.c	2013-07-16 15:14:31.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/modules/nm09.c	2013-08-22 00:10:19.810944000 +0400
+***************
+*** 190,196 ****
+  {
+  	mmguicore_t mmguicorelc;
+  	moduledata_t moduledata;
+! 	GError *error;
+  	
+  	if (mmguicore == NULL) return FALSE;
+  	mmguicorelc = (mmguicore_t)mmguicore;
+--- 190,196 ----
+  {
+  	mmguicore_t mmguicorelc;
+  	moduledata_t moduledata;
+! 	/*GError *error;*/
+  	
+  	if (mmguicore == NULL) return FALSE;
+  	mmguicorelc = (mmguicore_t)mmguicore;
+***************
+*** 242,248 ****
+  	const gchar *valuestr;
+  	GDBusProxy *nmdevproxy;
+  	GVariant *devproperties;
+! 	const gchar *nmdevpath, *nmactconnpath;
+  	guint nmdevtype;
+  	
+  	if ((mmguicore == NULL) || (device == NULL)) return FALSE;
+--- 242,248 ----
+  	const gchar *valuestr;
+  	GDBusProxy *nmdevproxy;
+  	GVariant *devproperties;
+! 	const gchar *nmdevpath/*, *nmactconnpath*/;
+  	guint nmdevtype;
+  	
+  	if ((mmguicore == NULL) || (device == NULL)) return FALSE;
+***************
+*** 259,264 ****
+--- 259,268 ----
+  	//First time just set it to NULL
+  	moduledata->nmdevpath = NULL;
+  	
++ 	/*Initialize local variables*/
++ 	nmdevtype = MODULE_INT_DEVICE_TYPE_UNKNOWN;
++ 	nmdevpath = NULL;
++ 	
+  	//Network Manager interface
+  	if (moduledata->nmproxy != NULL) {
+  		nmdevices = g_dbus_proxy_call_sync(moduledata->nmproxy, "GetDevices", NULL, 0, -1, NULL, &error);
+***************
+*** 295,306 ****
+  							g_variant_unref(devproperties);
+  						}
+  						/*Active connection*/
+! 						devproperties = g_dbus_proxy_get_cached_property(nmdevproxy, "ActiveConnection");
+  						if (devproperties != NULL) {
+  							strlength = 256;
+  							nmactconnpath = g_variant_get_string(devproperties, &strlength);
+  							g_variant_unref(devproperties);
+! 						}
+  						/*Is it device we looking for*/
+  						if ((nmdevtype == MODULE_INT_DEVICE_TYPE_MODEM) && (g_str_equal(device->objectpath, nmdevpath))) {
+  							/*Cache device path*/
+--- 299,310 ----
+  							g_variant_unref(devproperties);
+  						}
+  						/*Active connection*/
+! 						/*devproperties = g_dbus_proxy_get_cached_property(nmdevproxy, "ActiveConnection");
+  						if (devproperties != NULL) {
+  							strlength = 256;
+  							nmactconnpath = g_variant_get_string(devproperties, &strlength);
+  							g_variant_unref(devproperties);
+! 						}*/
+  						/*Is it device we looking for*/
+  						if ((nmdevtype == MODULE_INT_DEVICE_TYPE_MODEM) && (g_str_equal(device->objectpath, nmdevpath))) {
+  							/*Cache device path*/
+***************
+*** 312,318 ****
+  						}
+  					} else {
+  						//Failed to create Network Manager device proxy
+! 						mmgui_module_device_connection_get_timestamp(mmguicorelc);
+  						g_error_free(error);
+  					}
+  					g_variant_unref(nmdevnodel2);
+--- 316,322 ----
+  						}
+  					} else {
+  						//Failed to create Network Manager device proxy
+! 						/*mmgui_module_device_connection_get_timestamp(mmguicorelc);*/
+  						g_error_free(error);
+  					}
+  					g_variant_unref(nmdevnodel2);
+diff -crB modem-manager-gui-0.0.16/src/modules/pppd245.c modem-manager-gui-0.0.16.new/src/modules/pppd245.c
+*** modem-manager-gui-0.0.16/src/modules/pppd245.c	2013-07-11 02:19:22.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/modules/pppd245.c	2013-08-22 00:07:19.410938000 +0400
+***************
+*** 207,213 ****
+  {
+  	gchar pidfilepath[32], pidfiledata[32];
+  	gint pidfilefd, status;
+! 	struct flock pidfilelock;
+  	
+  	if (moduledata == NULL) return FALSE;
+  	if (moduledata->connifname[0] == '\0') return FALSE;
+--- 207,213 ----
+  {
+  	gchar pidfilepath[32], pidfiledata[32];
+  	gint pidfilefd, status;
+! 	/*struct flock pidfilelock;*/
+  	
+  	if (moduledata == NULL) return FALSE;
+  	if (moduledata->connifname[0] == '\0') return FALSE;
+***************
+*** 240,246 ****
+  	if (mmguicore == NULL) return;
+  	mmguicorelc = (mmguicore_t)mmguicore;
+  	
+! 	if (mmguicorelc->moduledata == NULL) return;
+  	moduledata = (moduledata_t)mmguicorelc->cmoduledata;
+  	
+  	if (mmguicorelc->device == NULL) return;
+--- 240,246 ----
+  	if (mmguicore == NULL) return;
+  	mmguicorelc = (mmguicore_t)mmguicore;
+  	
+! 	if (mmguicorelc->cmoduledata == NULL) return;
+  	moduledata = (moduledata_t)mmguicorelc->cmoduledata;
+  	
+  	if (mmguicorelc->device == NULL) return;
+***************
+*** 353,359 ****
+  	if (mmguicore == NULL) return FALSE;
+  	mmguicorelc = (mmguicore_t)mmguicore;
+  	
+! 	if (mmguicorelc->moduledata == NULL) return FALSE;
+  	moduledata = (moduledata_t)mmguicorelc->cmoduledata;
+  	
+  	memset(moduledata->devserial, 0, sizeof(moduledata->devserial));
+--- 353,359 ----
+  	if (mmguicore == NULL) return FALSE;
+  	mmguicorelc = (mmguicore_t)mmguicore;
+  	
+! 	if (mmguicorelc->cmoduledata == NULL) return FALSE;
+  	moduledata = (moduledata_t)mmguicorelc->cmoduledata;
+  	
+  	memset(moduledata->devserial, 0, sizeof(moduledata->devserial));
+***************
+*** 376,382 ****
+  	if (mmguicore == NULL) return FALSE;
+  	mmguicorelc = (mmguicore_t)mmguicore;
+  	
+! 	if (mmguicorelc->moduledata == NULL) return FALSE;
+  	moduledata = (moduledata_t)mmguicorelc->cmoduledata;
+  	
+  	if (mmguicorelc->device == NULL) return FALSE;
+--- 376,382 ----
+  	if (mmguicore == NULL) return FALSE;
+  	mmguicorelc = (mmguicore_t)mmguicore;
+  	
+! 	if (mmguicorelc->cmoduledata == NULL) return FALSE;
+  	moduledata = (moduledata_t)mmguicorelc->cmoduledata;
+  	
+  	if (mmguicorelc->device == NULL) return FALSE;
+***************
+*** 505,511 ****
+  G_MODULE_EXPORT guint64 mmgui_module_device_connection_timestamp(gpointer mmguicore)
+  {
+  	mmguicore_t mmguicorelc;
+! 	moduledata_t moduledata;
+  	gchar lockfilepath[128];
+  	guint64 timestamp;
+  	struct stat statbuf;
+--- 505,511 ----
+  G_MODULE_EXPORT guint64 mmgui_module_device_connection_timestamp(gpointer mmguicore)
+  {
+  	mmguicore_t mmguicorelc;
+! 	/*moduledata_t moduledata;*/
+  	gchar lockfilepath[128];
+  	guint64 timestamp;
+  	struct stat statbuf;
+***************
+*** 513,520 ****
+  	if (mmguicore == NULL) return FALSE;
+  	mmguicorelc = (mmguicore_t)mmguicore;
+  	
+! 	if (mmguicorelc->moduledata == NULL) return FALSE;
+! 	moduledata = (moduledata_t)mmguicorelc->cmoduledata;
+  	
+  	if (mmguicorelc->device == NULL) return FALSE;
+  	
+--- 513,520 ----
+  	if (mmguicore == NULL) return FALSE;
+  	mmguicorelc = (mmguicore_t)mmguicore;
+  	
+! 	/*if (mmguicorelc->cmoduledata == NULL) return FALSE;
+! 	moduledata = (moduledata_t)mmguicorelc->cmoduledata;*/
+  	
+  	if (mmguicorelc->device == NULL) return FALSE;
+  	
+diff -crB modem-manager-gui-0.0.16/src/netlink.c modem-manager-gui-0.0.16.new/src/netlink.c
+*** modem-manager-gui-0.0.16/src/netlink.c	2013-07-17 23:51:20.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/netlink.c	2013-08-22 01:03:54.692836000 +0400
+***************
+*** 19,24 ****
+--- 19,25 ----
+   
+  #include <glib.h>
+  #include <stdio.h>
++ #include <stdlib.h>
+  #include <string.h>
+  #include <errno.h>
+  #include <unistd.h>
+***************
+*** 146,165 ****
+  {
+  	DIR *procdir, *fddir;
+  	struct dirent *procde, *fdde;
+! 	char fdirpath[128], fdpath[128];
+  	
+  	if ((appname == NULL) || (namesize == 0) || (apppid == NULL)) return FALSE;
+  	
+  	procdir = opendir("/proc");
+  	if (procdir != NULL) {
+! 		while (procde = readdir(procdir)) {
+  			if (mmgui_netlink_process_access(procde->d_name, getuid())) {
+  				memset(fdirpath, 0, sizeof(fdirpath));
+  				sprintf(fdirpath, "/proc/%s/fd", procde->d_name);
+  				//enumerate file descriptors
+  				fddir = opendir(fdirpath);
+  				if (fddir != NULL) {
+! 					while (fdde = readdir(fddir)) {
+  						if (mmgui_netlink_socket_access(procde->d_name, fdde->d_name, inode)) {
+  							//printf("%s:%s (%s)\n", procde->d_name, fdde->d_name, nlconnections_process_name(procde->d_name, appname, sizeof(appname)));
+  							*apppid = atoi(procde->d_name);
+--- 147,166 ----
+  {
+  	DIR *procdir, *fddir;
+  	struct dirent *procde, *fdde;
+! 	char fdirpath[128]/*, fdpath[128]*/;
+  	
+  	if ((appname == NULL) || (namesize == 0) || (apppid == NULL)) return FALSE;
+  	
+  	procdir = opendir("/proc");
+  	if (procdir != NULL) {
+! 		while ((procde = readdir(procdir))) {
+  			if (mmgui_netlink_process_access(procde->d_name, getuid())) {
+  				memset(fdirpath, 0, sizeof(fdirpath));
+  				sprintf(fdirpath, "/proc/%s/fd", procde->d_name);
+  				//enumerate file descriptors
+  				fddir = opendir(fdirpath);
+  				if (fddir != NULL) {
+! 					while ((fdde = readdir(fddir))) {
+  						if (mmgui_netlink_socket_access(procde->d_name, fdde->d_name, inode)) {
+  							//printf("%s:%s (%s)\n", procde->d_name, fdde->d_name, nlconnections_process_name(procde->d_name, appname, sizeof(appname)));
+  							*apppid = atoi(procde->d_name);
+***************
+*** 267,273 ****
+  	
+  	memset(&request.nlreq, 0, sizeof(struct inet_diag_req));
+  	request.nlreq.idiag_family = family;
+! 	request.nlreq.idiag_states = ((1 << TCP_CLOSING + 1) - 1);
+  	
+  	request.msgheader.nlmsg_len = NLMSG_ALIGN(request.msgheader.nlmsg_len);
+  	
+--- 268,274 ----
+  	
+  	memset(&request.nlreq, 0, sizeof(struct inet_diag_req));
+  	request.nlreq.idiag_family = family;
+! 	request.nlreq.idiag_states = ((1 << (TCP_CLOSING + 1)) - 1);
+  	
+  	request.msgheader.nlmsg_len = NLMSG_ALIGN(request.msgheader.nlmsg_len);
+  	
+***************
+*** 286,292 ****
+  	struct nlmsghdr *msgheader;
+  	struct inet_diag_msg *entry;
+  	mmgui_netlink_connection_t connection;
+! 	struct hostent *dsthost;
+  	gchar srcbuf[INET6_ADDRSTRLEN];
+  	gchar dstbuf[INET6_ADDRSTRLEN];
+  	gchar appname[1024];
+--- 287,293 ----
+  	struct nlmsghdr *msgheader;
+  	struct inet_diag_msg *entry;
+  	mmgui_netlink_connection_t connection;
+! 	/*struct hostent *dsthost;*/
+  	gchar srcbuf[INET6_ADDRSTRLEN];
+  	gchar dstbuf[INET6_ADDRSTRLEN];
+  	gchar appname[1024];
+diff -crB modem-manager-gui-0.0.16/src/netlink.h modem-manager-gui-0.0.16.new/src/netlink.h
+*** modem-manager-gui-0.0.16/src/netlink.h	2013-07-16 15:00:42.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/netlink.h	2013-08-21 23:40:26.830893000 +0400
+***************
+*** 90,95 ****
+--- 90,96 ----
+  gboolean mmgui_netlink_update(mmgui_netlink_t netlink);
+  
+  gboolean mmgui_netlink_request_connections_list(mmgui_netlink_t netlink, guint family);
++ gboolean mmgui_netlink_read_connections_list(mmgui_netlink_t netlink, gchar *data, gsize datasize);
+  gboolean mmgui_netlink_request_interface_statistics(mmgui_netlink_t netlink, gchar *interface);
+  gboolean mmgui_netlink_read_interface_event(mmgui_netlink_t netlink, gchar *data, gsize datasize, mmgui_netlink_interface_event_t event);
+  
+diff -crB modem-manager-gui-0.0.16/src/notifications.c modem-manager-gui-0.0.16.new/src/notifications.c
+*** modem-manager-gui-0.0.16/src/notifications.c	2013-06-23 22:07:00.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/notifications.c	2013-08-21 22:33:20.386778000 +0400
+***************
+*** 153,158 ****
+--- 153,161 ----
+  				break;
+  		}
+  		caresult = (notifications->ca_context_play_full)(notifications->cacontext, 0, caproplist, NULL, NULL);
++ 		if (caresult != 0) {
++ 			g_debug("Failed to play sound using libcanberra\n");
++ 		}
+  		(notifications->ca_proplist_destroy)(caproplist);
+  	}
+  	
+diff -crB modem-manager-gui-0.0.16/src/smsdb.c modem-manager-gui-0.0.16.new/src/smsdb.c
+*** modem-manager-gui-0.0.16/src/smsdb.c	2013-07-02 23:07:32.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/smsdb.c	2013-08-21 22:40:11.442790000 +0400
+***************
+*** 19,24 ****
+--- 19,25 ----
+  
+  #include <stdlib.h>
+  #include <glib.h>
++ #include <glib/gstdio.h>
+  #include <glib/gprintf.h>
+  #include <string.h>
+  #include <gdbm.h>
+***************
+*** 179,185 ****
+  	
+  	if (srclen == 0) return NULL;
+  	
+! 	bcdnumber = bcd_to_utf8_ascii_part(number, srclen, &numlen);
+  	
+  	if (bcdnumber != NULL) {
+  		escnumber = encoding_clear_special_symbols(bcdnumber, numlen);
+--- 180,186 ----
+  	
+  	if (srclen == 0) return NULL;
+  	
+! 	bcdnumber = (gchar *)bcd_to_utf8_ascii_part((const guchar *)number, srclen, &numlen);
+  	
+  	if (bcdnumber != NULL) {
+  		escnumber = encoding_clear_special_symbols(bcdnumber, numlen);
+***************
+*** 726,732 ****
+  	gchar smsid[64];
+  	gint idlen;
+  	datum key, data;
+! 	gchar *node, *trailer, *newmsg;
+  	gchar newtrailer[64];
+  	gint newtrailerlen;
+  	gboolean res;
+--- 727,733 ----
+  	gchar smsid[64];
+  	gint idlen;
+  	datum key, data;
+! 	gchar *node, /* *trailer,*/ *newmsg;
+  	gchar newtrailer[64];
+  	gint newtrailerlen;
+  	gboolean res;
+***************
+*** 876,885 ****
+  		case MMGUI_SMSDB_XML_PARAM_NUMBER:
+  			numescstr = encoding_unescape_xml_markup(text, size);
+  			if (numescstr != NULL) {
+! 				message->number = bcd_to_utf8_ascii_part(numescstr, strlen(numescstr), &numlen);
+  				g_free(numescstr);
+  			} else {
+! 				message->number = bcd_to_utf8_ascii_part(text, size, &numlen);
+  			}
+  			if (message->number != NULL) {
+  				message->number = encoding_clear_special_symbols(message->number, numlen);
+--- 877,886 ----
+  		case MMGUI_SMSDB_XML_PARAM_NUMBER:
+  			numescstr = encoding_unescape_xml_markup(text, size);
+  			if (numescstr != NULL) {
+! 				message->number = (gchar *)bcd_to_utf8_ascii_part((const guchar *)numescstr, strlen(numescstr), &numlen);
+  				g_free(numescstr);
+  			} else {
+! 				message->number = (gchar *)bcd_to_utf8_ascii_part((const guchar *)text, size, &numlen);
+  			}
+  			if (message->number != NULL) {
+  				message->number = encoding_clear_special_symbols(message->number, numlen);
+diff -crB modem-manager-gui-0.0.16/src/trafficdb.c modem-manager-gui-0.0.16.new/src/trafficdb.c
+*** modem-manager-gui-0.0.16/src/trafficdb.c	2013-07-17 22:07:14.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/trafficdb.c	2013-08-21 22:41:13.218792000 +0400
+***************
+*** 19,24 ****
+--- 19,25 ----
+  
+  #include <stdlib.h>
+  #include <glib.h>
++ #include <glib/gstdio.h>
+  #include <glib/gprintf.h>
+  #include <string.h>
+  #include <gdbm.h>
+***************
+*** 482,488 ****
+  {
+  	GDBM_FILE db;
+  	gchar dayid[64];
+! 	gulong idvalue;
+  	gint idlen;
+  	datum key, data;
+  	gchar *daytrafficxml;
+--- 483,489 ----
+  {
+  	GDBM_FILE db;
+  	gchar dayid[64];
+! 	/*gulong idvalue;*/
+  	gint idlen;
+  	datum key, data;
+  	gchar *daytrafficxml;
+diff -crB modem-manager-gui-0.0.16/src/ussdlist.c modem-manager-gui-0.0.16.new/src/ussdlist.c
+*** modem-manager-gui-0.0.16/src/ussdlist.c	2013-07-16 15:03:38.000000000 +0400
+--- modem-manager-gui-0.0.16.new/src/ussdlist.c	2013-08-21 22:41:34.582792000 +0400
+***************
+*** 19,24 ****
+--- 19,25 ----
+  
+  #include <stdlib.h>
+  #include <glib.h>
++ #include <glib/gstdio.h>
+  #include <glib/gprintf.h>
+  #include <string.h>
+  #include <sys/stat.h>
