@@ -1,14 +1,18 @@
-Summary:   MiniRacer game
-Name:      miniracer
-Version:   1.04
-Release:   1
-Group:     games
+#
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
+#
+
+Name:           miniracer
+Version:        1.04
+Release:        1
+Summary:        MiniRacer game
+Url:            http://miniracer.sourceforge.net
+Group:          games
+Source0:        %{name}-%{version}.tar.gz
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Copyright: GPL
 Vendor:    Martin Weiss <plattfisch@epost.de>
-Url:       http://miniracer.sourceforge.net
 Packager:  Martin Weiss <plattfisch@epost.de>
-Source0:   %{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 %description
  MiniRacer is an OpenGL car racing game, based on the Quake1 engine.
@@ -21,7 +25,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 %setup -q
 
 %build
-%{__make}
+make
 
 %install
 install -d %{_tmppath}/%{name}-%{version}-root/usr/bin
@@ -38,26 +42,18 @@ install -m 644 data/maps/*.bsp %{_tmppath}/%{name}-%{version}-root/usr/share/gam
 install -m 644 data/maps/maps1.lst %{_tmppath}/%{name}-%{version}-root/usr/share/games/MiniRacer/data/maps
 
 %clean
-%{__make} clean
+make clean
 
 %files
 %defattr(-,root,root)
-%attr(0755,-,-) /usr/share/games/MiniRacer/engine.glx
-%attr(0644,-,-) /usr/share/games/MiniRacer/data/pak0.pak
-%attr(0644,-,-) /usr/share/games/MiniRacer/data/config.cfg
-%attr(0644,-,-) /usr/share/games/MiniRacer/data/maps/*.bsp
-%attr(0644,-,-) /usr/share/games/MiniRacer/data/maps/maps1.lst
-%attr(0755,-,-) /usr/bin/miniracer
-%attr(0644,-,-) /usr/share/man/man6/miniracer.6.gz
+%attr(0755,-,-) %{_datadir}/games/MiniRacer/engine.glx
+%attr(0644,-,-) %{_datadir}/games/MiniRacer/data/pak0.pak
+%attr(0644,-,-) %{_datadir}/games/MiniRacer/data/config.cfg
+%attr(0644,-,-) %{_datadir}/games/MiniRacer/data/maps/*.bsp
+%attr(0644,-,-) %{_datadir}/games/MiniRacer/data/maps/maps1.lst
+%attr(0755,-,-) %{_bindir}/miniracer
+%attr(0644,-,-) %{_mandir}/man6/miniracer.6.gz
 
 
 
 %changelog
-* Thu May 5 2005 Martin Weiss <plattfisch@users.sourceforge.net>
-- Updated RPM release
-
-* Tue Sep 30 2003 Martin Weiss <plattfisch@users.sourceforge.net>
-- Updated RPM release
-
-* Mon Mar 10 2003 Martin Weiss <plattfisch@users.sourceforge.net>
-- Initial RPM release
