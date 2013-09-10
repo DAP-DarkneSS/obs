@@ -1,59 +1,85 @@
 #
+# spec file for package miniracer
+#
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
+
+
+%define pack_desc  MiniRacer is an OpenGL car racing game, based \
+on the Quake1 engine. It was written by Thomas Jakobsson for the \
+win32 platform and ported to Linux by Martin Weiss. Enjoy!
 
 Name:           miniracer
 Version:        1.04
 Release:        1
-Summary:        MiniRacer game
+License:        GPL-2.0+
+Summary:        An OpenGL car racing game
 Url:            http://miniracer.sourceforge.net
-Group:          games
-Source0:        %{name}-%{version}.tar.gz
+Group:          Amusements/Games/3D/Race
+Source0:        https://downloads.sourceforge.net/project/miniracer/miniracer/miniracer-%{version}/miniracer-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-Copyright: GPL
-Vendor:    Martin Weiss <plattfisch@epost.de>
-Packager:  Martin Weiss <plattfisch@epost.de>
+ExclusiveArch:  i586 i686 x86_64
+
+BuildRequires:  update-desktop-files
+BuildRequires:  pkgconfig(SDL_mixer)
+BuildRequires:  pkgconfig(glu)
+Requires:       %{name}-data = %{version}
 
 %description
- MiniRacer is an OpenGL car racing game, based on the Quake1 engine.
- It was written by Thomas Jakobsson for the win32 platform and ported
- to Linux by Martin Weiss. This Release can still contain bugs.
- See the website http://miniracer.sourceforge.net for details.
- Enjoy!
+%{pack_desc}
+
+%package        data
+Summary:        MiniRacer: art and other architecture independent data
+Group:          Amusements/Games/3D/Race
+
+Requires:       %{name} = %{version}
+BuildArch:      noarch
+
+%description    data
+%{pack_desc}
 
 %prep
 %setup -q
 
+# A hint from https://aur.archlinux.org/packages/mi/miniracer/PKGBUILD
+%ifarch x86_64
+sed -i 's|ecx|rcx|g' misc/mathlib.c
+sed -i 's|eax|rax|g' misc/mathlib.c
+%endif
+
 %build
-make
+make %{?_smp_mflags} VERBOSE=1 CFLAGS="%{optflags}"
 
 %install
-install -d %{_tmppath}/%{name}-%{version}-root/usr/bin
-install -d %{_tmppath}/%{name}-%{version}-root/usr/share/man/man6
-install -d %{_tmppath}/%{name}-%{version}-root/usr/share/games/MiniRacer
-install -d %{_tmppath}/%{name}-%{version}-root/usr/share/games/MiniRacer/data
-install -d %{_tmppath}/%{name}-%{version}-root/usr/share/games/MiniRacer/data/maps
-install -m 755 engine.glx %{_tmppath}/%{name}-%{version}-root/usr/share/games/MiniRacer
-install -m 644 data/pak0.pak %{_tmppath}/%{name}-%{version}-root/usr/share/games/MiniRacer/data
-install -m 644 data/config.cfg %{_tmppath}/%{name}-%{version}-root/usr/share/games/MiniRacer/data
-install -m 755 miniracer %{_tmppath}/%{name}-%{version}-root/usr/bin/miniracer
-install -m 644 miniracer.6 %{_tmppath}/%{name}-%{version}-root/usr/share/man/man6
-install -m 644 data/maps/*.bsp %{_tmppath}/%{name}-%{version}-root/usr/share/games/MiniRacer/data/maps
-install -m 644 data/maps/maps1.lst %{_tmppath}/%{name}-%{version}-root/usr/share/games/MiniRacer/data/maps
+%makeinstall
+%suse_update_desktop_file -c %{name} "MiniRacer" "An OpenGL car racing game" "%{name}" "" "Game;3DGame;ArcadeGame;"
 
-%clean
-make clean
+# Don't package binary file in datadir.
+mkdir -p %{buildroot}%{_libdir}/%{name}
+mv %{buildroot}/%{_datadir}/games/MiniRacer/engine.glx %{buildroot}%{_libdir}/%{name}
+ln -s %{_libdir}/%{name}/engine.glx %{buildroot}/%{_datadir}/games/MiniRacer/engine.glx
 
 %files
 %defattr(-,root,root)
-%attr(0755,-,-) %{_datadir}/games/MiniRacer/engine.glx
-%attr(0644,-,-) %{_datadir}/games/MiniRacer/data/pak0.pak
-%attr(0644,-,-) %{_datadir}/games/MiniRacer/data/config.cfg
-%attr(0644,-,-) %{_datadir}/games/MiniRacer/data/maps/*.bsp
-%attr(0644,-,-) %{_datadir}/games/MiniRacer/data/maps/maps1.lst
-%attr(0755,-,-) %{_bindir}/miniracer
-%attr(0644,-,-) %{_mandir}/man6/miniracer.6.gz
+%doc ChangeLog COPYING CREDITS README TODO
+%{_libdir}/%{name}
 
-
+%files data
+%defattr(-,root,root)
+%{_datadir}/games/MiniRacer
+%{_bindir}/%{name}
+%{_mandir}/man*/%{name}*
+%{_datadir}/applications/%{name}.desktop
 
 %changelog
