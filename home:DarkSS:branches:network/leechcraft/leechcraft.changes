@@ -1,11 +1,43 @@
 -------------------------------------------------------------------
+Wed Sep 11 20:51:25 UTC 2013 - dap.darkness@gmail.com
+
+- 0.6.0 release fixes lots of bugs in
+  * Core, Util & XSD,
+  * AdvancedNotifications,
+  * Aggregator,
+  * Azoth, Azoth AdiumStyles, Azoth Autoidler,
+    Azoth p100q, Azoth Vader & Azoth Xoox,
+  * Dolozhee (set proper stretch on widgets),
+  * LastFMScrobble (fixed leaking),
+  * Launchy (use own settings instead of messing with LMP),
+  * Liznoo (try autostarting UPower if it's unavailable),
+  * LMP & LMP Graffiti,
+  * Poshuku & Poshuku CleanWeb,
+  * Summary (fixed leaking context menu actions).
+- Spec fixing up:
+  * Obsoletes nacheku because of ustream request.
+  * DSTRICT_LICENSING=True to suggest IM clients icons.
+  * DENABLE_MEDIACALLS=True to enable Jingle support.
+  * DENABLE_BITTORRENT_GEOIP=True to enable countries flags.
+
+-------------------------------------------------------------------
 Fri Jul 12 21:10:46 UTC 2013 - dap.darkness@gmail.com
 
-- 0.5.98 bugfix release:
-  * Blah.
+- 0.5.99 bugfix release:
+  * AN: fixed a typo in user string.
+  * AN: updated English and Russian translations.
+  * Azoth: auto-request logs for MUC participants as well.
+  * Azoth: fixed font zooming in fixed-font MUCs.
+  * Azoth CH: don't test the entry type, leave that to core.
+  * LMP: fixed a segfault on removable device removal in sync widget.
+  * Lemon: added Qwt 6.1 compatibility.
+  * Liznoo: added Qwt 6.1 compatibility.
+  * Monocle Mu: depend on openjpeg and jbig2dec, required by mupdf.
+  * Poshuku CleanWeb: fixed a rare segfault.
 - openSUSE 12.1 became EOL and unsupported by upstream:
   * leechcraft-acetamide-qt47.patch was deleted;
-  * if-sections were deleted.
+  * if-sections were deleted;
+  * gcc version required to build was incremented.
 - Forgotten doc dependencies were deleted (doxygen, graphviz).
 - Additional mupdf linking dependencies were added (jbig2dec, openjpeg).
 - Conflict with Lcms 2.5+ was added as a workaround for bnc#828751.

@@ -22,13 +22,13 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 
 Name:           leechcraft
-Version:        0.5.99
+Version:        0.6.0
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
-Source0:        http://netcologne.dl.sourceforge.net/project/leechcraft/LeechCraft/0.6.0/leechcraft-%{version}.tar.xz
+Source0:        http://dist.leechcraft.org/LeechCraft/%{version}/leechcraft-%{version}.tar.xz
 
 %if 0%{?suse_version} > 1230
 BuildRequires:  boost-devel >= 1.50
@@ -86,6 +86,7 @@ Requires:       oxygen-icon-theme
 Obsoletes:      %{name}-eiskaltdcpp
 Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
+Obsoletes:      %{name}-nacheku
 Obsoletes:      %{name}-tabpp
 
 %description
@@ -1170,19 +1171,6 @@ Requires:       %{name}-lmp = %{version}
 This package provides a MusicBrainz.org client plugin for LeechCraft.
 
 
-%package nacheku
-Summary:        LeechCraft Link watcher Module
-License:        BSL-1.0
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description nacheku
-This package provides a Nacheku plugin for LeechCraft.
-
-It allows to watch clipboard and directory in order to
-get links and download files.
-
-
 %package netstoremanager
 Summary:        LeechCraft Network file storages Module
 License:        BSL-1.0
@@ -1717,6 +1705,7 @@ cmake ../src \
         -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DSTRICT_LICENSING=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
@@ -1732,8 +1721,8 @@ cmake ../src \
         -DENABLE_KNOWHOW=True \
         -DENABLE_LACKMAN=True \
         -DENABLE_LADS=False \
-        -DENABLE_MEDIACALLS=False \
-        -DENABLE_NACHEKU=True \
+        -DENABLE_MEDIACALLS=True \
+        -DENABLE_NACHEKU=False \
         -DENABLE_NEWLIFE=True \
         -DENABLE_PINTAB=True \
         -DENABLE_POPISHU=True \
@@ -1776,6 +1765,7 @@ cmake ../src \
         -DENABLE_SHAITAN=True \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TORRENT=True \
+        -DENABLE_BITTORRENT_GEOIP=True \
         -DENABLE_TPI=True \
         -DENABLE_VROOBY=True \
 %if 0%{?suse_version} > 1230
@@ -2254,11 +2244,6 @@ cd build
 %files musiczombie
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_musiczombie.so
-
-%files nacheku
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_nacheku.so
-%{_datadir}/%{name}/settings/nachekusettings.xml
 
 %files netstoremanager
 %defattr(-,root,root)

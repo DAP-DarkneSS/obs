@@ -17,13 +17,13 @@
 
 
 Name:           leechcraft-doc
-Version:        0.5.99
+Version:        0.6.0
 Release:        0
 Summary:        Modular Internet Client Documentation
 License:        BSL-1.0
 Group:          Development/Libraries/Other
 Url:            http://leechcraft.org
-Source0:        http://netcologne.dl.sourceforge.net/project/leechcraft/LeechCraft/0.6.0/leechcraft-%{version}.tar.xz
+Source0:        http://dist.leechcraft.org/LeechCraft/%{version}/leechcraft-%{version}.tar.xz
 
 %if 0%{?suse_version} > 1210
 BuildRequires:  doxygen >= 1.8.3.1
