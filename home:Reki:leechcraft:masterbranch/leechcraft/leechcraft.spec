@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2331-g1451d9e
+%define LEECHCRAFT_VERSION 0.5.95-2410-gf468dba
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -55,6 +55,7 @@ BuildRequires:  cmake > 2.8
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 BuildRequires:  gcc-c++ >= 4.7
+# BuildRequires:  herqq-devel
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  hunspell-devel
 %if 0%{?suse_version} > 1230
@@ -115,6 +116,7 @@ BuildRequires:  telepathy-qt4-devel
 
 Requires:       oxygen-icon-theme
 
+Obsoletes:      %{name}-dlniwe
 Obsoletes:      %{name}-eiskaltdcpp
 Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
@@ -1016,13 +1018,13 @@ Recommends:     %{name}-secman = %{version}
 This package provides a devices monitor plugin for LeechCraft.
 
 
-%package dlniwe
-Summary:        LeechCraft DLNA Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description dlniwe
-This package provides a DLNA server plugin for LeechCraft.
+# %%package dlniwe
+# Summary:        LeechCraft DLNA Module
+# Group:          Productivity/Networking/Other
+# Requires:       %%{name} = %%{version}
+# 
+# %%description dlniwe
+# This package provides a DLNA server plugin for LeechCraft.
 
 
 %package dolozhee
@@ -1078,6 +1080,19 @@ Requires:       awesome
 %description fenet-awesome
 This package allows to start Leechcraft as a Desktop Environment with
 the Awesome Window Manager.
+
+
+%package fenet-compton
+Summary:        LeechCraft Fenet Compton Stuff
+Group:          Productivity/Networking/Other
+BuildArch:      noarch
+Provides:       %{name}-fenet-wm = %{version}
+Requires:       %{name}-fenet = %{version}
+Requires:       compton
+
+%description fenet-compton
+This package allows to start Leechcraft as a Desktop Environment with
+the Compton Compositor.
 
 
 %package fenet-kwin
@@ -2092,7 +2107,7 @@ Features:
 %package vlc
 Summary:        LeechCraft Video player Module
 Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
+Requires:       %{name} >= 0.6.0.1378466408
 Recommends:     vlc-codecs
 
 %description vlc
@@ -2198,7 +2213,7 @@ cmake ../src \
         -DENABLE_BLOGIQUE=True \
         -DENABLE_CHOROID=True \
         -DENABLE_DEVMON=True \
-        -DENABLE_DLNIWE=True \
+        -DENABLE_DLNIWE=False \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_DUMBEEP=True \
                 -DDUMBEEP_WITH_PHONON=True \
@@ -2681,9 +2696,9 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_devmon.so
 
-%files dlniwe
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_dlniwe.so
+# %%files dlniwe
+# %%defattr(-,root,root)
+# %%{_libdir}/%%{name}/plugins/lib%%{name}_dlniwe.so
 
 %files dolozhee
 %defattr(-,root,root)
@@ -2702,16 +2717,22 @@ EOF
 %{_datadir}/%{name}/settings/fenetsettings.xml
 %{_bindir}/%{name}-session
 %dir %{_datadir}/%{name}/fenet
+%dir %{_datadir}/%{name}/fenet/compositing
 %dir %{_datadir}/%{name}/fenet/wms
 %{_datadir}/xsessions/LCDE.desktop
 %{_datadir}/%{name}/translations/%{name}_fenet_*.qm
-%{_datadir}/%{name}/fenet/compositing
 
 %files fenet-awesome
 %defattr(-,root,root)
 %dir %{_datadir}/%{name}/fenet
 %dir %{_datadir}/%{name}/fenet/wms
 %{_datadir}/%{name}/fenet/wms/*awesome*
+
+%files fenet-compton
+%defattr(-,root,root)
+%dir %{_datadir}/%{name}/fenet
+%dir %{_datadir}/%{name}/fenet/compositing
+%{_datadir}/%{name}/fenet/compositing/*compton*
 
 %files fenet-kwin
 %defattr(-,root,root)
