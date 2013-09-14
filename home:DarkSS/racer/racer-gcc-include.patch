@@ -1,0 +1,10 @@
+--- src/STDH.cpp.orig	2013-09-14 22:21:26.110391934 +0300
++++ src/STDH.cpp	2013-09-14 22:21:37.174391934 +0300
+@@ -126,6 +126,7 @@
+ 
+ #include <fstream>
+ #include <iostream>
++#include <sys/stat.h>
+ 
+ inline bool exist(const char* file)
+ {
