@@ -1,0 +1,93 @@
+<pattern xmlns="http://novell.com/package/metadata/suse/pattern" xmlns:rpm="http://linux.duke.edu/metadata/rpm">
+  <name>Leechcraft</name>
+  <summary>Leechcraft Modular Internet Client</summary>
+  <description>LeechCraft is a free modular "Internet client" application.
+
+ LeechCraft allows to browse the web, read RSS/Atom feeds, download
+ files via BitTorrent, HTTP, FTP and DC, automatically stream,
+ download or play podcasts and other media files and much more.
+ .
+ Features can be easily added via plugins that can be integrated with
+ each other with no effert while staying abstract from the exact
+ implementation.
+ .
+ This package contains the main LeechCraft executable, which connects
+ all the plugins with each other, routes requests between them, tracks
+ dependencies and performs several other housekeeping tasks.</description>
+  <uservisible/>
+  <category lang="en">Applications Internet</category>
+  <rpm:requires>
+    <rpm:entry name="leechcraft"/>
+  </rpm:requires>
+  <rpm:recommends>
+    <rpm:entry name="leechcraft-advancednotifications"/>
+    <rpm:entry name="leechcraft-aggregator"/>
+    <rpm:entry name="leechcraft-aggregator-bodyfetch"/>
+    <rpm:entry name="leechcraft-anhero"/>
+    <rpm:entry name="leechcraft-auscrie"/>
+    <rpm:entry name="leechcraft-azoth"/>
+    <rpm:entry name="leechcraft-azoth-acetamide"/>
+    <rpm:entry name="leechcraft-azoth-adiumstyles"/>
+    <rpm:entry name="leechcraft-azoth-astrality"/>
+    <rpm:entry name="leechcraft-azoth-autoidler"/>
+    <rpm:entry name="leechcraft-azoth-autopaste"/>
+    <rpm:entry name="leechcraft-azoth-chathistory"/>
+    <rpm:entry name="leechcraft-azoth-depester"/>
+    <rpm:entry name="leechcraft-azoth-embedmedia"/>
+    <rpm:entry name="leechcraft-azoth-herbicide"/>
+    <rpm:entry name="leechcraft-azoth-hili"/>
+    <rpm:entry name="leechcraft-azoth-isterique"/>
+    <rpm:entry name="leechcraft-azoth-juick"/>
+    <rpm:entry name="leechcraft-azoth-keeso"/>
+    <rpm:entry name="leechcraft-azoth-lastseen"/>
+    <rpm:entry name="leechcraft-azoth-metacontacts"/>
+    <rpm:entry name="leechcraft-azoth-modnok"/>
+    <rpm:entry name="leechcraft-azoth-nativeemoticons"/>
+    <rpm:entry name="leechcraft-azoth-p100q"/>
+    <rpm:entry name="leechcraft-azoth-rosenthal"/>
+    <rpm:entry name="leechcraft-azoth-standardstyles"/>
+    <rpm:entry name="leechcraft-azoth-vader"/>
+    <rpm:entry name="leechcraft-azoth-xoox"/>
+    <rpm:entry name="leechcraft-azoth-xtazy"/>
+    <rpm:entry name="leechcraft-azoth-zheet"/>
+    <rpm:entry name="leechcraft-bittorrent"/>
+    <rpm:entry name="leechcraft-choroid"/>
+    <rpm:entry name="leechcraft-cstp"/>
+    <rpm:entry name="leechcraft-dbusmanager"/>
+    <rpm:entry name="leechcraft-deadlyrics"/>
+    <rpm:entry name="leechcraft-glance"/>
+    <rpm:entry name="leechcraft-gmailnotifier"/>
+    <rpm:entry name="leechcraft-historyholder"/>
+    <rpm:entry name="leechcraft-kinotify"/>
+    <rpm:entry name="leechcraft-knowhow"/>
+    <rpm:entry name="leechcraft-lackman"/>
+    <rpm:entry name="leechcraft-lhtr"/>
+    <rpm:entry name="leechcraft-lmp"/>
+    <rpm:entry name="leechcraft-netstoremanager"/>
+    <rpm:entry name="leechcraft-networkmonitor"/>
+    <rpm:entry name="leechcraft-newlife"/>
+    <rpm:entry name="leechcraft-popishu"/>
+    <rpm:entry name="leechcraft-poshuku"/>
+    <rpm:entry name="leechcraft-poshuku-cleanweb"/>
+    <rpm:entry name="leechcraft-poshuku-delicious"/>
+    <rpm:entry name="leechcraft-poshuku-fatape"/>
+    <rpm:entry name="leechcraft-poshuku-filescheme"/>
+    <rpm:entry name="leechcraft-poshuku-fua"/>
+    <rpm:entry name="leechcraft-poshuku-keywords"/>
+    <rpm:entry name="leechcraft-poshuku-onlinebookmarks"/>
+    <rpm:entry name="leechcraft-poshuku-pintab"/>
+    <rpm:entry name="leechcraft-poshuku-pogooglue"/>
+    <rpm:entry name="leechcraft-poshuku-readitlater"/>
+    <rpm:entry name="leechcraft-poshuku-wyfv"/>
+    <rpm:entry name="leechcraft-secman"/>
+    <rpm:entry name="leechcraft-secman-simplestorage"/>
+    <rpm:entry name="leechcraft-seekthru"/>
+    <rpm:entry name="leechcraft-shellopen"/>
+    <rpm:entry name="leechcraft-sidebar"/>
+    <rpm:entry name="leechcraft-summary"/>
+    <rpm:entry name="leechcraft-syncer"/>
+    <rpm:entry name="leechcraft-tabsessionmanager"/>
+    <rpm:entry name="leechcraft-tabslist"/>
+    <rpm:entry name="leechcraft-vgrabber"/>
+  </rpm:recommends>
+</pattern>
