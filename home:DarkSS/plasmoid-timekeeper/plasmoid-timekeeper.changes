@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Sun Sep 15 18:24:36 UTC 2013 - dap.darkness@gmail.com
+
+- Update to version 0.5.1:
+  * Components path fixed.
+  * CPU usage optimization (when there is no animation).
+  * Font preferences dialog added.
+  * Button added to switch to the full year (2013 instead of 13).
+  * Change names of the days of week along with the change date.
+
+-------------------------------------------------------------------
 Sat Aug 24 17:49:30 UTC 2013 - asterios.dramis@gmail.com
 
 - Update to version 0.4:

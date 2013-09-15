@@ -17,7 +17,7 @@
 
 
 Name:           plasmoid-timekeeper
-Version:        0.4
+Version:        0.5.1
 Release:        0
 License:        GPL-3.0
 Summary:        A clock and a calendar functions via steampunk interface
