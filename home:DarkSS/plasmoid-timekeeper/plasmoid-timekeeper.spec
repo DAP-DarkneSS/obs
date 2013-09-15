@@ -17,14 +17,13 @@
 
 
 Name:           plasmoid-timekeeper
-Version:        0.3.1
+Version:        0.4
 Release:        0
 License:        GPL-3.0
 Summary:        A clock and a calendar functions via steampunk interface
 Url:            http://kde-apps.org/content/show.php/Time+Keeper?content=159345
 Group:          System/GUI/KDE
-Source0:        http://kde-apps.org/CONTENT/content-files/159345-timekeeper-%{version}.plasmoid
-
+Source0:        http://kde-apps.org/CONTENT/content-files/159345-timekeeper.plasmoid
 BuildRequires:  fdupes
 BuildRequires:  kde4-filesystem
 BuildRequires:  unzip
@@ -42,20 +41,32 @@ For the Moon graphics from Luna QML were used:
 http://kde-look.org/content/show.php?content=140204
 
 %prep
+%setup -qc
+
+# Fix icon name
+sed -i "s/icon.png/timekeeper/" metadata.desktop
 
 %build
 
 %install
 mkdir -p %{buildroot}%{_kde4_appsdir}/plasma/plasmoids/timekeeper
-unzip %{SOURCE0} -d %{buildroot}%{_kde4_appsdir}/plasma/plasmoids/timekeeper
-%fdupes -s %{buildroot}%{_kde4_appsdir}/plasma/plasmoids/timekeeper
+mkdir -p %{buildroot}%{_kde4_servicesdir}
+mkdir -p %{buildroot}%{_datadir}/pixmaps
+cp -a contents/ metadata.desktop %{buildroot}%{_kde4_appsdir}/plasma/plasmoids/timekeeper/
+cp -a metadata.desktop %{buildroot}%{_kde4_servicesdir}/plasma-applet-timekeeper.desktop
+cp -a icon.png %{buildroot}%{_datadir}/pixmaps/timekeeper.png
+
+%fdupes -s %{buildroot}
 
 %kde_post_install
 
 %files
-%defattr(-,root,root)
+%defattr(-,root,root,-)
+%doc LICENSE.GPL3
 %dir %{_kde4_appsdir}/plasma
 %dir %{_kde4_appsdir}/plasma/plasmoids
 %{_kde4_appsdir}/plasma/plasmoids/timekeeper
+%{_kde4_servicesdir}/plasma-applet-timekeeper.desktop
+%{_datadir}/pixmaps/timekeeper.png
 
 %changelog

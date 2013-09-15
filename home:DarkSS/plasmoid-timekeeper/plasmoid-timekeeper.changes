@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Sat Aug 24 17:49:30 UTC 2013 - asterios.dramis@gmail.com
+
+- Update to version 0.4:
+  * Save some states between reboots
+  * Button added to save the position of the Marble
+  * Month ring position bug fixed
+  * timekeeper.png image update
+
+-------------------------------------------------------------------
+Wed Aug  7 14:59:32 UTC 2013 - asterios.dramis@gmail.com
+
+- Install a desktop file for the plasmoid in kde services dir.
+- Fix icon name and install it in a global directory.
+
+-------------------------------------------------------------------
 Sat Jul  6 13:20:01 UTC 2013 - dap.darkness@gmail.com
 
 - Intial build.
