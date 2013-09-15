@@ -49,7 +49,6 @@ grep -v PORTABLE src/QLiveBittorrent.pro > src/%{name}.pro
 export XCFLAGS="%{optflags}"
 gcc -g -o %{name}-driver src/driver.c `pkg-config fuse --cflags --libs`
 
-export PATH=%_libqt5_bindir:$PATH
 qmake-qt5 \
             QMAKE_STRIP="" \
             QMAKE_CXXFLAGS+="%{optflags}" \
