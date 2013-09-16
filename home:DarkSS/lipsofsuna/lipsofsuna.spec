@@ -52,8 +52,7 @@ BuildRequires:  libSDL_ttf-devel
 BuildRequires:  libbullet-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libenet-devel
-BuildRequires:  libinotifytools-devel
-BuildRequires:  libpng14-devel
+BuildRequires:  libpng-devel
 BuildRequires:  libvorbis-devel
 %if 0%{?suse_version} >= 1220
 BuildRequires:  lua51-devel

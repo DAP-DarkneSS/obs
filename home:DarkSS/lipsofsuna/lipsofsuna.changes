@@ -1,3 +1,14 @@
+-------------------------------------------------------------------
+Thu Feb 14 16:28:06 UTC 2013 - reddwarf@opensuse.org
+
+- Remove libinotifytools-devel BuildRequires.
+
+-------------------------------------------------------------------
+Sat Dec  8 13:44:31 UTC 2012 - joop.boonen@opensuse.org
+
+- Use generic libpng-devel name
+
+-------------------------------------------------------------------
 Sun Nov 11 14:59:40 UTC 2012 - dap.darkness@gmail.com
 - 0.6.0 doesn't work with lua > 5.1
   * https://bugzilla.novell.com/show_bug.cgi?id=789164 was fixed.
