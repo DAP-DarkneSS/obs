@@ -1,9 +1,7 @@
 #
 # spec file for package lipsofsuna
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
-# Copyright (c) 2007-2012 Ari Mustonen aka amuzen & Ketchetwah South
-# aka shatikar (source [LGPLv3] and data [CC BY-SA 3.0])
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -19,15 +17,14 @@
 
 
 Name:           lipsofsuna
-Version:        0.6.0
+Version:        0.7.0
 Release:        0
-License:        LGPL-3.0
 Summary:        Lips of Suna: binary files
-Url:            http://lipsofsuna.org/
+License:        LGPL-3.0
 Group:          Amusements/Games/3D/Other
+Url:            http://lipsofsuna.org/
 Source0:        http://sourceforge.net/projects/%{name}/files/%{name}/%{version}/%{name}-%{version}.tar.gz
-# PATCH-FIX-UPSTREAM lipsofsuna-lua52.patch
-Patch0:         %{name}-lua52-new.patch
+
 BuildRequires:  ImageMagick
 %if 0%{?suse_version} > 1210
 BuildRequires:  libGLw-devel
@@ -40,6 +37,7 @@ BuildRequires:  curl
 BuildRequires:  desktop-file-utils
 BuildRequires:  fdupes
 BuildRequires:  flac-devel
+BuildRequires:  freeimage-devel
 BuildRequires:  gcc-c++
 BuildRequires:  glew-devel
 BuildRequires:  glibc-devel
@@ -52,7 +50,6 @@ BuildRequires:  libSDL_ttf-devel
 BuildRequires:  libbullet-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libenet-devel
-BuildRequires:  libpng-devel
 BuildRequires:  libvorbis-devel
 %if 0%{?suse_version} >= 1220
 BuildRequires:  lua51-devel
@@ -62,6 +59,7 @@ BuildRequires:  lua-devel
 BuildRequires:  openal-soft-devel
 BuildRequires:  sqlite3-devel
 BuildRequires:  update-desktop-files
+BuildRequires:  pkgconfig(zlib)
 Requires:       %{name}-data = %{version}
 Requires:       libOgreMain-plugins
 
@@ -97,14 +95,13 @@ since you can crawl the dungeons with your friends.
 
 %prep
 %setup -q
-%patch0
 
 %build
 ./waf configure --prefix=%{_prefix} \
 		--libdir=%{_libdir} \
 		--bindir=%{_bindir} \
-		--relpath=false \
-		--optimize=true
+		--disable-relpath \
+		--enable-optimization
 
 %install
 ./waf install --destdir=%{buildroot}

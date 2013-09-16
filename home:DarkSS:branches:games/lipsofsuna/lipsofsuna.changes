@@ -1,4 +1,30 @@
 -------------------------------------------------------------------
+Mon Sep 16 17:25:39 UTC 2013 - dap.darkness@gmail.com
+
+- 0.7.0 release
+  * New terrain system.
+  * More responsive controls.
+  * Real single player mode.
+  * New spell and enchantment systems.
+  * Many graphical improvements.
+  * Added limited scope game modes.
+  * Improved script performance.
+  * Extended character modeling support.
+  * User interface improvements.
+  * Improved mod loading.
+  * Major code cleanup.
+  * Several less interesting changes.
+- Spec header was cleaned up.
+- The game still doesn't work with lua > 5.1,
+  lipsofsuna-lua52-new.patch became broken
+  because of update and was removed as useless.
+- Libpng was replaced by freeimage to prevent "error:
+  'file' redeclared as different kind of symbol;
+  error: undeclared (first use in this function)".
+- Waf options were updated.
+- zlib became required to build to prevent Factory's "not found".
+
+-------------------------------------------------------------------
 Thu Feb 14 16:28:06 UTC 2013 - reddwarf@opensuse.org
 
 - Remove libinotifytools-devel BuildRequires.
