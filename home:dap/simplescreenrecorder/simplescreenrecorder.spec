@@ -34,7 +34,10 @@ BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  update-desktop-files
-
+# Fix build on => 12.3
+%if 0%{?suse_version} > 1220 
+BuildRequires:  libjpeg8-devel
+%endif
 Recommends:     libssr-glinject
 
 %description
