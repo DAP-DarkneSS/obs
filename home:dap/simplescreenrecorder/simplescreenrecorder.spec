@@ -38,7 +38,13 @@ BuildRequires:  update-desktop-files
 %if 0%{?suse_version} > 1220 
 BuildRequires:  libjpeg8-devel
 %endif
+%ifarch armv6l armv6hl armv7l armv7hl
+%else
 Recommends:     libssr-glinject
+%if %{_lib} == "lib64"
+Recommends:     libssr-glinject-32bit
+%endif
+%endif
 
 %description
 SimpleScreenRecorder is a Linux program that was created to record programs
@@ -73,18 +79,28 @@ Features:
  * Tooltips for almost everything: no need to read the documentation to find
    out what something does.
 
+
+%ifarch armv6l armv6hl armv7l armv7hl
+%else
 %package -n libssr-glinject
 Summary:        A feature-rich screen recorder library
 Group:          System/Libraries
 License:        MIT
 %description -n libssr-glinject
 This package provides SimpleScreenRecorder's optional library.
+%endif
+
 
 %prep
 %setup -q -n MaartenBaert-ssr-a663498
 
 %build
+%ifarch armv6l armv6hl armv7l armv7hl
+%configure \
+           --disable-glinjectlib
+%else
 %configure
+%endif
 make %{?_smp_mflags}
 
 %install
@@ -99,8 +115,11 @@ make %{?_smp_mflags}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/256x256/apps/%{name}.png
 
+%ifarch armv6l armv6hl armv7l armv7hl
+%else
 %files -n libssr-glinject
 %defattr(-,root,root)
 %{_libdir}/libssr-glinject.*
+%endif
 
 %changelog

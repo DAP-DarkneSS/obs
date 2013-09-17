@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Mon Sep 16 19:17:33 UTC 2013 - dap.darkness@gmail.com
+
+- libssr-glinject-32bit became built and recommended
+  to record x32 games at x64 hosts.
+- libssr-glinject can't be built for arm:
+  https://github.com/MaartenBaert/ssr/issues/30
+- Service source_validator was removed because of
+  https://bugs.links2linux.org/browse/PM-83
+
+-------------------------------------------------------------------
 Tue Jun 11 04:40:07 UTC 2013 - dap.darkness@gmail.com
 
 - Initial package.
