@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2410-gf468dba
+%define LEECHCRAFT_VERSION 0.5.95-2442-g83e60de+vlc
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -41,6 +41,10 @@ Source1:        %{name}.svg
 
 # PATCH-FEATURE-OPENSUSE to use environment settings to activate entries.
 Patch0:         azoth-entry-activates.patch
+# PATCH-FEATURE-OPENSUSE to update vlc plugin code base.
+Patch1:         leechcraft-vlc-plusplus.patch
+# PATCH-FIX-OPENSUSE to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
+Patch2:         leechcraft-vlc-qt-moc-boost.patch
 # PATCH-FIX-OPENSUSE to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
 # %%if 0%%{?suse_version} > 1230
 # Patch3:         leechcraft-qt-moc-boost.patch
@@ -143,11 +147,12 @@ dependencies and performs several other housekeeping tasks.
 %package meta_full
 Summary:        Meta package for pattern leechcraft_full
 Group:          Metapackages
-Requires:       patterns-openSUSE-leechcraft_browser
-Requires:       patterns-openSUSE-leechcraft_media
-Requires:       patterns-openSUSE-leechcraft_messenger
-Requires:       patterns-openSUSE-leechcraft_tools
-Requires:       patterns-openSUSE-leechcraft_websurf
+Requires:       leechcraft-meta_browser
+Requires:       leechcraft-meta_media
+Requires:       leechcraft-meta_messenger
+Requires:       leechcraft-meta_office
+Requires:       leechcraft-meta_tools
+Requires:       leechcraft-meta_websurf
 
 %description meta_full
 This package is installed if a pattern is selected to have a working update path
@@ -164,6 +169,8 @@ Requires:       %{name}-pintab
 Requires:       %{name}-pogooglue
 Requires:       %{name}-poshuku
 Requires:       %{name}-poshuku-cleanweb
+Requires:       %{name}-poshuku-fatape
+Requires:       %{name}-poshuku-filescheme
 Requires:       %{name}-poshuku-fua
 Requires:       %{name}-poshuku-keywords
 Requires:       %{name}-poshuku-onlinebookmarks
@@ -174,12 +181,30 @@ Requires:       %{name}-secman-simplestorage
 Requires:       %{name}-seekthru
 Requires:       %{name}-summary
 Requires:       %{name}-tabsessionmanager
-Requires:       %{name}-vgrabber
 Requires:       %{name}-xproxy
-Recommends:     %{name}-poshuku-fatape
-Recommends:     %{name}-poshuku-filescheme
+Recommends:     %{name}-meta_tools
 
 %description meta_browser
+This package is installed if a pattern is selected to have a working update path
+
+%package meta_desktop
+Summary:        Meta package for pattern leechcraft_browser
+Group:          Metapackages
+Requires:       %{name}-fenet
+Requires:       %{name}-kbswitch
+Requires:       %{name}-krigstask
+Requires:       %{name}-laughty
+Requires:       %{name}-launchy
+Requires:       %{name}-lemon
+Requires:       %{name}-liznoo
+Requires:       %{name}-mellonetray
+Requires:       %{name}-sb2
+Requires:       %{name}-tpi
+Requires:       %{name}-vrooby
+Recommends:     %{name}-hotsensors
+Recommends:     %{name}-meta_tools
+
+%description meta_desktop
 This package is installed if a pattern is selected to have a working update path
 
 %package meta_messenger
@@ -224,6 +249,7 @@ Requires:       %{name}-secman-simplestorage
 Requires:       %{name}-soundnotifications
 Requires:       %{name}-tabsessionmanager
 Requires:       %{name}-visualnotifications
+Recommends:     %{name}-meta_tools
 
 %description meta_messenger
 This package is installed if a pattern is selected to have a working update path
@@ -231,11 +257,9 @@ This package is installed if a pattern is selected to have a working update path
 %package meta_media
 Summary:        Meta package for pattern leechcraft_media
 Group:          Metapackages
-Requires:       %{name}-advancednotifications
 Requires:       %{name}-deadlyrics
 Requires:       %{name}-gacts
 Requires:       %{name}-hotstreams
-Requires:       %{name}-kinotify
 Requires:       %{name}-lmp
 Requires:       %{name}-lmp-dumbsync
 Requires:       %{name}-lmp-graffiti
@@ -246,6 +270,9 @@ Requires:       %{name}-secman
 Requires:       %{name}-secman-simplestorage
 Requires:       %{name}-touchstreams
 Requires:       %{name}-vgrabber
+Requires:       %{name}-vlc
+Recommends:     %{name}-lastfmscrobble
+Recommends:     %{name}-meta_tools
 
 %description meta_media
 This package is installed if a pattern is selected to have a working update path
@@ -258,6 +285,11 @@ Requires:       %{name}-aggregator
 Requires:       %{name}-aggregator-bodyfetch
 Requires:       %{name}-auscrie
 Requires:       %{name}-bittorrent
+Requires:       %{name}-blasq
+Requires:       %{name}-blasq-spegnersi
+Requires:       %{name}-blasq-deathnote
+Requires:       %{name}-blasq-rappor
+Requires:       %{name}-blasq-vangog
 Requires:       %{name}-blogique
 Requires:       %{name}-blogique-hestia
 Requires:       %{name}-blogique-metida
@@ -266,10 +298,6 @@ Requires:       %{name}-gmailnotifier
 Requires:       %{name}-historyholder
 Requires:       %{name}-kinotify
 Requires:       %{name}-lhtr
-Requires:       %{name}-monocle
-Requires:       %{name}-monocle-fxb
-Requires:       %{name}-monocle-pdf
-Requires:       %{name}-monocle-seen
 Requires:       %{name}-netstoremanager
 Requires:       %{name}-netstoremanager-googledrive
 Requires:       %{name}-newlife
@@ -281,19 +309,35 @@ Requires:       %{name}-summary
 Requires:       %{name}-tabsessionmanager
 Requires:       %{name}-woodpecker
 Requires:       %{name}-xproxy
+Recommends:     %{name}-meta_tools
 
 %description meta_websurf
+This package is installed if a pattern is selected to have a working update path
+
+%package meta_office
+Summary:        Meta package for pattern leechcraft_office
+Group:          Metapackages
+Requires:       %{name}-blogique
+Requires:       %{name}-blogique-hestia
+Requires:       %{name}-lhtr
+Requires:       %{name}-monocle
+Requires:       %{name}-monocle-dik
+Requires:       %{name}-monocle-fxb
+Requires:       %{name}-monocle-pdf
+Requires:       %{name}-monocle-postrus
+Requires:       %{name}-monocle-seen
+Requires:       %{name}-popishu
+Recommends:     %{name}-meta_tools
+Recommends:     %{name}-monocle-mu
+Recommends:     %{name}-otlozhu
+
+%description meta_office
 This package is installed if a pattern is selected to have a working update path
 
 %package meta_tools
 Summary:        Meta package for pattern leechcraft_websurf
 Group:          Metapackages
 Requires:       %{name}-advancednotifications
-Requires:       %{name}-blasq
-Requires:       %{name}-blasq-spegnersi
-Requires:       %{name}-blasq-deathnote
-Requires:       %{name}-blasq-rappor
-Requires:       %{name}-blasq-vangog
 Requires:       %{name}-dolozhee
 Requires:       %{name}-gacts
 Requires:       %{name}-glance
@@ -301,25 +345,14 @@ Requires:       %{name}-kbswitch
 Requires:       %{name}-kinotify
 Requires:       %{name}-knowhow
 Requires:       %{name}-lackman
-Requires:       %{name}-monocle
-Requires:       %{name}-monocle-dik
-Requires:       %{name}-monocle-fxb
-Requires:       %{name}-monocle-mu
-Requires:       %{name}-monocle-pdf
-Requires:       %{name}-monocle-postrus
-Requires:       %{name}-monocle-seen
-Requires:       %{name}-netstoremanager
-Requires:       %{name}-netstoremanager-googledrive
 Requires:       %{name}-networkmonitor
 Requires:       %{name}-pogooglue
-Requires:       %{name}-popishu
-Requires:       %{name}-sb2
 Requires:       %{name}-tabsessionmanager
 Requires:       %{name}-tabslist
-Requires:       %{name}-tpi
 Requires:       %{name}-vrooby
 Requires:       %{name}-xproxy
 Requires:       %{name}-xtazy
+Recommends:     %{name}-sb2
 
 %description meta_tools
 This package is installed if a pattern is selected to have a working update path
@@ -1057,10 +1090,16 @@ It also uses Phonon as a backend or something like aplay/mplayer.
 %package fenet
 Summary:        LeechCraft Window Manager Module
 Group:          Productivity/Networking/Other
+Recommends:     %{name}-hotsensors
+Recommends:     %{name}-kbswitch
 Recommends:     %{name}-krigstask
 Recommends:     %{name}-laughty
 Recommends:     %{name}-launchy
+Recommends:     %{name}-lemon
+Recommends:     %{name}-liznoo
+Recommends:     %{name}-mellonetray
 Recommends:     %{name}-sb2
+Recommends:     %{name}-tpi
 Recommends:     %{name}-vrooby
 Requires:       %{name} = %{version}
 Requires:       %{name}-fenet-wm = %{version}
@@ -2107,7 +2146,7 @@ Features:
 %package vlc
 Summary:        LeechCraft Video player Module
 Group:          Productivity/Networking/Other
-Requires:       %{name} >= 0.6.0.1378466408
+Requires:       %{name} = %{version}
 Recommends:     vlc-codecs
 
 %description vlc
@@ -2167,6 +2206,8 @@ It allows to get current user tune via mpris protocol.
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p1
+%patch1 -p1
+%patch2
 # %%if 0%%{?suse_version} > 1230
 # %%patch3
 # %%endif
@@ -2336,12 +2377,20 @@ cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_browser
 This file marks the pattern meta_browser to be installed.
 EOF
 
+cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_desktop
+This file marks the pattern meta_desktop to be installed.
+EOF
+
 cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_media
 This file marks the pattern meta_browser to be installed.
 EOF
 
 cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_messenger
 This file marks the pattern meta_messenger to be installed.
+EOF
+
+cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_office
+This file marks the pattern meta_office to be installed.
 EOF
 
 cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_tools
@@ -3157,6 +3206,11 @@ EOF
 %dir %{_docdir}/%{name}/
 %{_docdir}/%{name}/meta_browser
 
+%files meta_desktop
+%defattr(-,root,root)
+%dir %{_docdir}/%{name}/
+%{_docdir}/%{name}/meta_desktop
+
 %files meta_media
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}/
@@ -3166,6 +3220,11 @@ EOF
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}/
 %{_docdir}/%{name}/meta_messenger
+
+%files meta_office
+%defattr(-,root,root)
+%dir %{_docdir}/%{name}/
+%{_docdir}/%{name}/meta_office
 
 %files meta_tools
 %defattr(-,root,root)
