@@ -1,7 +1,7 @@
 #
 # spec file for package ogre
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,18 +17,23 @@
 
 
 Name:           ogre
-Version:        1.8.1
+Version:        1.8.95
 Release:        0.0
-%define _version %(echo %{version} | sed 's/\\./-/g')
-%define soname %(echo %{version} | sed 's/\\./_/g')
-%define major_minor %(echo %{version} | cut -b-3)
+# TODO: please switch defines back when ogre gets a stable 1.9 version.
+# %%define _version %%(echo %%{version} | sed 's/\\./-/g')
+%define _version 1-9-0RC1
+# %%define soname %%(echo %%{version} | sed 's/\\./_/g')
+%define soname 1_9_0
+# %%define major_minor %%(echo %%{version} | cut -b-3)
+%define major_minor 1.9/RC1
+# %%define so_postfix %%{version}
+%define so_postfix 1.9.0
 Summary:        Object-Oriented Graphics Rendering Engine
 License:        LGPL-2.1
 Group:          System/Libraries
 Url:            http://www.ogre3d.org/
 Source0:        http://sourceforge.net/projects/ogre/files/ogre/%{major_minor}/ogre_src_v%{_version}.tar.bz2
-# PATCH-FIX-UPSTREAM ogre-1.8,1-system_tinyxml.patch reddwarf@opensuse.org -- Use system libtinyxml. The patch should be improved to make it optional before submitting upstream
-Patch0:         ogre-1.8.1-system_tinyxml.patch
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  boost-devel
 BuildRequires:  cg-devel
@@ -100,6 +105,19 @@ objects and other intuitive classes.
 
 This package contains the Cg plugin
 
+%package -n libOgreOverlay%{soname}
+Summary:        Ogre 3D: an open source graphics engine
+Group:          System/Libraries
+Provides:       libOgreOverlay = %{version}
+
+%description -n libOgreOverlay%{soname}
+OGRE (Object-Oriented Graphics Rendering Engine) is a scene-oriented, flexible
+3D engine written in C++ designed to make it easier and more intuitive for
+developers to produce applications utilising hardware-accelerated 3D graphics.
+The class library abstracts all the details of using the underlying system
+libraries like Direct3D and OpenGL and provides an interface based on world
+objects and other intuitive classes.
+
 %package -n libOgrePaging%{soname}
 Summary:        Ogre 3D: an open source graphics engine
 Group:          System/Libraries
@@ -152,6 +170,19 @@ The class library abstracts all the details of using the underlying system
 libraries like Direct3D and OpenGL and provides an interface based on world
 objects and other intuitive classes.
 
+%package -n libOgreVolume%{soname}
+Summary:        Ogre 3D: an open source graphics engine
+Group:          System/Libraries
+Provides:       libOgreVolume = %{version}
+
+%description -n libOgreVolume%{soname}
+OGRE (Object-Oriented Graphics Rendering Engine) is a scene-oriented, flexible
+3D engine written in C++ designed to make it easier and more intuitive for
+developers to produce applications utilising hardware-accelerated 3D graphics.
+The class library abstracts all the details of using the underlying system
+libraries like Direct3D and OpenGL and provides an interface based on world
+objects and other intuitive classes.
+
 %package -n libOgreMain-devel
 Summary:        Ogre 3D: an open source graphics engine
 Group:          Development/Libraries/C and C++
@@ -169,11 +200,27 @@ objects and other intuitive classes.
 
 This package contains the development headers.
 
+%package -n libOgreOverlay-devel
+Summary:        Ogre 3D: an open source graphics engine
+Group:          Development/Libraries/C and C++
+Requires:       libOgreMain-devel
+Requires:       libOgreOverlay%{soname} = %{version}
+
+%description -n libOgreOverlay-devel
+OGRE (Object-Oriented Graphics Rendering Engine) is a scene-oriented, flexible
+3D engine written in C++ designed to make it easier and more intuitive for
+developers to produce applications utilising hardware-accelerated 3D graphics.
+The class library abstracts all the details of using the underlying system
+libraries like Direct3D and OpenGL and provides an interface based on world
+objects and other intuitive classes.
+
+This package contains the development headers.
+
 %package -n libOgrePaging-devel
 Summary:        Ogre 3D: an open source graphics engine
 Group:          Development/Libraries/C and C++
+Requires:       libOgreMain-devel
 Requires:       libOgrePaging%{soname} = %{version}
-Requires:	libOgreMain-devel
 
 %description -n libOgrePaging-devel
 OGRE (Object-Oriented Graphics Rendering Engine) is a scene-oriented, flexible
@@ -188,8 +235,8 @@ This package contains the development headers.
 %package -n libOgreProperty-devel
 Summary:        Ogre 3D: an open source graphics engine
 Group:          Development/Libraries/C and C++
+Requires:       libOgreMain-devel
 Requires:       libOgreProperty%{soname} = %{version}
-Requires:	libOgreMain-devel
 
 %description -n libOgreProperty-devel
 OGRE (Object-Oriented Graphics Rendering Engine) is a scene-oriented, flexible
@@ -204,8 +251,8 @@ This package contains the development headers.
 %package -n libOgreRTShaderSystem-devel
 Summary:        Ogre 3D: an open source graphics engine
 Group:          Development/Libraries/C and C++
+Requires:       libOgreMain-devel
 Requires:       libOgreRTShaderSystem%{soname} = %{version}
-Requires:	libOgreMain-devel
 
 %description -n libOgreRTShaderSystem-devel
 OGRE (Object-Oriented Graphics Rendering Engine) is a scene-oriented, flexible
@@ -220,10 +267,24 @@ This package contains the development headers.
 %package -n libOgreTerrain-devel
 Summary:        Ogre 3D: an open source graphics engine
 Group:          Development/Libraries/C and C++
+Requires:       libOgreMain-devel
 Requires:       libOgreTerrain%{soname} = %{version}
-Requires:	libOgreMain-devel
 
 %description -n libOgreTerrain-devel
+OGRE (Object-Oriented Graphics Rendering Engine) is a scene-oriented, flexible
+3D engine written in C++ designed to make it easier and more intuitive for
+developers to produce applications utilising hardware-accelerated 3D graphics.
+The class library abstracts all the details of using the underlying system
+libraries like Direct3D and OpenGL and provides an interface based on world
+objects and other intuitive classes.
+
+%package -n libOgreVolume-devel
+Summary:        Ogre 3D: an open source graphics engine
+Group:          Development/Libraries/C and C++
+Requires:       libOgreMain-devel
+Requires:       libOgreVolume%{soname} = %{version}
+
+%description -n libOgreVolume-devel
 OGRE (Object-Oriented Graphics Rendering Engine) is a scene-oriented, flexible
 3D engine written in C++ designed to make it easier and more intuitive for
 developers to produce applications utilising hardware-accelerated 3D graphics.
@@ -299,7 +360,6 @@ This package contains documentation for OGRE.
 
 %prep
 %setup -q -n ogre_src_v%{_version}
-%patch0
 # Be sure we use system tinyxml
 rm Tools/XMLConverter/src/tiny*
 rm Tools/XMLConverter/include/tiny*
@@ -310,7 +370,6 @@ sed "51 s/GNUC/GNUCC/" -i OgreMain/src/OgreSIMDHelper.h
 %if 0%{?sles_version}
     sed -e "s/ -Wno-unused-but-set-parameter//" -i CMakeLists.txt
 %endif
-
 
 %build
 mkdir build
@@ -339,6 +398,10 @@ cd build
 
 %postun -n libOgreMain%{soname} -p /sbin/ldconfig
 
+%post -n libOgreOverlay%{soname} -p /sbin/ldconfig
+
+%postun -n libOgreOverlay%{soname} -p /sbin/ldconfig
+
 %post -n libOgrePaging%{soname} -p /sbin/ldconfig
 
 %postun -n libOgrePaging%{soname} -p /sbin/ldconfig
@@ -355,10 +418,14 @@ cd build
 
 %postun -n libOgreTerrain%{soname} -p /sbin/ldconfig
 
+%post -n libOgreVolume%{soname} -p /sbin/ldconfig
+
+%postun -n libOgreVolume%{soname} -p /sbin/ldconfig
+
 %files -n libOgreMain%{soname}
 %defattr(0644,root,root,0755)
 %doc AUTHORS BUGS README COPYING
-%{_libdir}/libOgreMain.so.%{version}
+%{_libdir}/libOgreMain.so.%{so_postfix}
 
 %files -n libOgreMain%{soname}-plugins
 %defattr(0644,root,root,0755)
@@ -369,34 +436,42 @@ cd build
 %{_libdir}/OGRE/Plugin_BSPSceneManager.so
 %{_libdir}/OGRE/Plugin_OctreeZone.so
 %{_libdir}/OGRE/Plugin_PCZSceneManager.so
-%{_libdir}/OGRE/RenderSystem_GL.so.%{version}
-%{_libdir}/OGRE/Plugin_OctreeSceneManager.so.%{version}
-%{_libdir}/OGRE/Plugin_ParticleFX.so.%{version}
-%{_libdir}/OGRE/Plugin_BSPSceneManager.so.%{version}
-%{_libdir}/OGRE/Plugin_OctreeZone.so.%{version}
-%{_libdir}/OGRE/Plugin_PCZSceneManager.so.%{version}
+%{_libdir}/OGRE/RenderSystem_GL.so.%{so_postfix}
+%{_libdir}/OGRE/Plugin_OctreeSceneManager.so.%{so_postfix}
+%{_libdir}/OGRE/Plugin_ParticleFX.so.%{so_postfix}
+%{_libdir}/OGRE/Plugin_BSPSceneManager.so.%{so_postfix}
+%{_libdir}/OGRE/Plugin_OctreeZone.so.%{so_postfix}
+%{_libdir}/OGRE/Plugin_PCZSceneManager.so.%{so_postfix}
 
 %files -n libOgreMain%{soname}-plugin-Cg
 %defattr(0644,root,root,0755)
 %dir %{_libdir}/OGRE/
 %{_libdir}/OGRE/Plugin_CgProgramManager.so
-%{_libdir}/OGRE/Plugin_CgProgramManager.so.%{version}
+%{_libdir}/OGRE/Plugin_CgProgramManager.so.%{so_postfix}
+
+%files -n libOgreOverlay%{soname}
+%defattr(0644,root,root,0755)
+%{_libdir}/libOgreOverlay.so.%{so_postfix}
 
 %files -n libOgrePaging%{soname}
 %defattr(0644,root,root,0755)
-%{_libdir}/libOgrePaging.so.%{version}
+%{_libdir}/libOgrePaging.so.%{so_postfix}
 
 %files -n libOgreProperty%{soname}
 %defattr(0644,root,root,0755)
-%{_libdir}/libOgreProperty.so.%{version}
+%{_libdir}/libOgreProperty.so.%{so_postfix}
 
 %files -n libOgreRTShaderSystem%{soname}
 %defattr(0644,root,root,0755)
-%{_libdir}/libOgreRTShaderSystem.so.%{version}
+%{_libdir}/libOgreRTShaderSystem.so.%{so_postfix}
 
 %files -n libOgreTerrain%{soname}
 %defattr(0644,root,root,0755)
-%{_libdir}/libOgreTerrain.so.%{version}
+%{_libdir}/libOgreTerrain.so.%{so_postfix}
+
+%files -n libOgreVolume%{soname}
+%defattr(0644,root,root,0755)
+%{_libdir}/libOgreVolume.so.%{so_postfix}
 
 %files -n libOgreMain-devel
 %defattr(0644,root,root,0755)
@@ -411,6 +486,12 @@ cd build
 %{_libdir}/libOgreMain.so
 %{_libdir}/pkgconfig/OGRE.pc
 %{_libdir}/pkgconfig/OGRE-PCZ.pc
+
+%files -n libOgreOverlay-devel
+%defattr(0644,root,root,0755)
+%{_includedir}/OGRE/Overlay/
+%{_libdir}/libOgreOverlay.so
+%{_libdir}/pkgconfig/OGRE-Overlay.pc
 
 %files -n libOgrePaging-devel
 %defattr(0644,root,root,0755)
@@ -435,6 +516,12 @@ cd build
 %{_includedir}/OGRE/Terrain/
 %{_libdir}/libOgreTerrain.so
 %{_libdir}/pkgconfig/OGRE-Terrain.pc
+
+%files -n libOgreVolume-devel
+%defattr(0644,root,root,0755)
+%{_includedir}/OGRE/Volume/
+%{_libdir}/libOgreVolume.so
+%{_libdir}/pkgconfig/OGRE-Volume.pc
 
 %files -n ogre-demos
 %defattr(-,root,root)

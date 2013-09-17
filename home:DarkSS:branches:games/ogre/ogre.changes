@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Tue Sep 17 18:24:21 UTC 2013 - dap.darkness@gmail.com
+
+- Update to upstream release candidate 1.9.0:
+  * New LOD Volume Rendering Component with LOD from GSoC 2012.
+  * Terrain Improvements from GSoC 2012.
+  * Android platform support.
+  * Windows Phone 8 platform support.
+  * Windows Metro / WinRT support.
+  * OpenGL3+ Render System (still experimental and under heavy development).
+  * Improvements to all Render Systems, e.g. DirectX11 from GSoC 2012.
+  * Multitude of bug fixes.
+- ogre-1.8.1-system_tinyxml.patch was deleted because internal library
+  will be used only if there are no system one.
+- Switched to use download_files service.
+
+-------------------------------------------------------------------
 Mon Oct  1 16:05:04 UTC 2012 - Rene.vanPaassen@gmail.com
 
 - remove the -Wno-unused-but-set-parameter for sles builds 
