@@ -96,6 +96,7 @@ This package provides SimpleScreenRecorder's optional library.
 
 %build
 %ifarch armv6l armv6hl armv7l armv7hl
+export CPPFLAGS="-DSSR_USE_X86_ASM=0"
 %configure \
            --disable-glinjectlib
 %else
