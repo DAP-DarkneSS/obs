@@ -16,16 +16,15 @@
 #
 
 
-%define ver 1.53.0
-%define file_version 1_53_0
-%define short_version 1_53
-%define lib_appendix 1_53_0
+%define ver 1.54.0
+%define file_version 1_54_0
+%define short_version 1_54
+%define lib_appendix 1_54_0
 
 #Only define to 1 to generate the man pages
 %define build_docs 0
 
-#Define to 0 to not generate the pdf documentation
-%define build_pdf 0
+#Define to 0 to not package the pdf documentation
 %define package_pdf 1
 
 # Just hardcode build_mpi to 1 as soon as openmpi builds on all
@@ -56,7 +55,7 @@
 %define boost_libs4 libboost_signals%{lib_appendix} libboost_system%{lib_appendix} libboost_thread%{lib_appendix}
 %define boost_libs5 libboost_wave%{lib_appendix} libboost_regex%{lib_appendix} libboost_regex%{lib_appendix}
 %define boost_libs6 libboost_random%{lib_appendix} libboost_chrono%{lib_appendix} libboost_locale%{lib_appendix}
-%define boost_libs7 libboost_timer%{lib_appendix}
+%define boost_libs7 libboost_timer%{lib_appendix} libboost_atomic%{lib_appendix} libboost_log%{lib_appendix}
 
 %define most_libs %boost_libs1 %boost_libs2 %boost_libs3 %boost_libs4 %boost_libs5 %boost_libs6 %boost_libs7
 
@@ -97,12 +96,12 @@ Summary:        Boost C++ Libraries
 License:        BSL-1.0
 Group:          Development/Libraries/C and C++
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-Version:        1.53.0
+Version:        1.54.0
 Release:        0
-Source0:        http://downloads.sourceforge.net/project/boost/boost/1.53.0/%{name}_%{file_version}.tar.bz2
+Source0:        http://downloads.sourceforge.net/project/boost/boost/%{version}/%{name}_%{file_version}.tar.bz2
 Source1:        boost-rpmlintrc
 Source2:        %{name}_%{short_version}_man.tar.bz2
-Source3:        %{name}_%{short_version}_pdf.tar.bz2
+Source3:        http://downloads.sourceforge.net/project/boost/boost-docs/%{version}/%{name}_%{file_version}_pdf.tar.bz2
 Source4:        existing_extra_docs
 #Source5:        NEWS
 Patch1:         boost-thread.patch
@@ -110,9 +109,13 @@ Patch2:         boost-no_type_punning.patch
 Patch8:         boost-no_segfault_in_Regex_filter.patch
 Patch20:        boost-strict_aliasing.patch
 Patch50:        boost-use_std_xml_catalog.patch
-#PATCH-FIX-UPSTREAM Fix erroneous assembler code for ppc64 [boost#8374]
-Patch51:        boost-fix_ppc64_asm.patch
 Patch60:        boost-glibc-2.18.patch
+#PATCH-FIX-UPSTREAM A post-release patch.
+Patch71:        boost-1.54-001-coroutine.patch
+#PATCH-FIX-UPSTREAM A post-release patch.
+Patch72:        boost-1.54-002-date-time.patch
+#PATCH-FIX-UPSTREAM A post-release patch.
+Patch73:        boost-1.54-003-log.patch
 Recommends:     %{all_libs}
 
 %define _docdir %{_datadir}/doc/packages/boost-%{version}
@@ -255,6 +258,17 @@ Requires:       boost-license%{lib_appendix}
 
 %description    -n libboost_iostreams%{lib_appendix}
 This package contains the Boost::IOStreams Runtime libraries.
+
+
+%package        -n libboost_log%{lib_appendix}
+Summary:        Run-Time component of boost logging library
+Group:          System/Libraries
+Requires:       boost-license%{lib_appendix}
+
+%description -n libboost_log%{lib_appendix}
+Boost.Log library aims to make logging significantly easier for the
+application developer. It provides a wide range of out-of-the-box
+tools along with public interfaces for extending the library.
 
 
 %package        -n libboost_math%{lib_appendix}
@@ -404,8 +418,10 @@ find -type f ! \( -name \*.sh -o -name \*.py -o -name \*.pl \) -exec chmod -x {}
 %patch8
 %patch20
 %patch50
-%patch51
 %patch60 -p1
+%patch71 -p1
+%patch72 -p1
+%patch73 -p1
 #stupid build machinery copies .orig files
 find . -name \*.orig -exec rm {} +
 
@@ -530,10 +546,6 @@ rm -f *.manifest
 tar -cf - .| tar -C %{buildroot}/%{_mandir} -xvf -
 popd
 
-#install the pdf documentation
-install -d %buildroot/%{_docdir}/pdf
-install -p -m 644 ../%{name}_%{short_version}_pdf/*.pdf %{buildroot}/%{_docdir}/pdf/
-
 #install doc files
 dos2unix libs/ptr_container/doc/tutorial_example.html \
 	libs/parameter/doc/html/reference.html \
@@ -562,6 +574,7 @@ rm -f %{buildroot}%{_libdir}/*.a
 %post -n libboost_date_time%{lib_appendix} -p /sbin/ldconfig
 %post -n libboost_filesystem%{lib_appendix} -p /sbin/ldconfig
 %post -n libboost_iostreams%{lib_appendix} -p /sbin/ldconfig
+%post -n libboost_log%{lib_appendix} -p /sbin/ldconfig
 %post -n libboost_test%{lib_appendix} -p /sbin/ldconfig
 %post -n libboost_program_options%{lib_appendix} -p /sbin/ldconfig
 %post -n libboost_python%{lib_appendix} -p /sbin/ldconfig
@@ -588,6 +601,7 @@ rm -f %{buildroot}%{_libdir}/*.a
 %postun -n libboost_date_time%{lib_appendix} -p /sbin/ldconfig
 %postun -n libboost_filesystem%{lib_appendix} -p /sbin/ldconfig
 %postun -n libboost_iostreams%{lib_appendix} -p /sbin/ldconfig
+%postun -n libboost_log%{lib_appendix} -p /sbin/ldconfig
 %postun -n libboost_test%{lib_appendix} -p /sbin/ldconfig
 %postun -n libboost_program_options%{lib_appendix} -p /sbin/ldconfig
 %postun -n libboost_python%{lib_appendix} -p /sbin/ldconfig
@@ -640,6 +654,10 @@ rm -f %{buildroot}%{_libdir}/*.a
 %files -n libboost_iostreams%{lib_appendix}
 %defattr(-, root, root, -)
 %{_libdir}/libboost_iostreams*.so.*
+
+%files -n libboost_log%{lib_appendix}
+%defattr(-, root, root, -)
+%{_libdir}/libboost_log*.so.*
 
 %files -n libboost_math%{lib_appendix}
 %defattr(-, root, root, -)
@@ -718,7 +736,6 @@ rm -f %{buildroot}%{_libdir}/*.a
 %files doc-html
 %defattr(-, root, root, -)
 %doc %{_docdir}/*
-%exclude %{_docdir}/pdf
 %exclude %{_docdir}/LICENSE_1_0.txt
 
 %files doc-man
@@ -731,7 +748,7 @@ rm -f %{buildroot}%{_libdir}/*.a
 
 %files doc-pdf
 %defattr(-, root, root, -)
-%doc %{_docdir}/pdf
+%attr(644,root,root) %doc ../%{name}_%{file_version}_pdf/*.pdf
 %endif
 
 %changelog

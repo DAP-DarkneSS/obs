@@ -1,4 +1,29 @@
 -------------------------------------------------------------------
+Wed Sep 18 16:40:37 UTC 2013 - dap.darkness@gmail.com
+
+- Update to 1.54.0. Major changes since 1.53.0:
+
+  New libraries:
+  * Log: Logging library, from Andrey Semashev.
+  * TTI: Type Traits Introspection library, from Edward Diener.
+  * Type Erasure: Runtime polymorphism based on concepts.
+
+  For a detailed descriptions see
+  http://www.boost.org/users/history/version_1_54_0.html
+
+- Update broken patch:
+  * boost-use_std_xml_catalog.patch
+- Delete merged patch:
+  * boost-fix_ppc64_asm.patch
+- Add post-release fix patches:
+  * boost-1.54-001-coroutine.patch
+  * boost-1.54-002-date-time.patch
+  * boost-1.54-003-log.patch
+
+- build_pdf define was deleted as unused;
+  package_pdf was refactored.
+
+-------------------------------------------------------------------
 Sun Aug 18 20:11:52 UTC 2013 - tchvatal@suse.com
 
 - Fix build with updated glibc:
