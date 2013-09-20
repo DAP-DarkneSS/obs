@@ -31,10 +31,17 @@
 # Just hardcode build_mpi to 1 as soon as openmpi builds on all
 # named architectures.
 
-%ifarch s390 s390x ia64 hppa aarch64
+%ifarch s390 s390x ia64 hppa
 %define build_mpi 0
 %else
 %define build_mpi 1
+%endif
+
+# context hasn't been ported to most architectures yet
+%ifarch %ix86 x86_64 %arm mips ppc ppc64
+%define build_context 1
+%else
+%define build_context 0
 %endif
 
 %ifarch hppa
@@ -62,7 +69,7 @@
 %define debug_package_requires %{all_libs}
 
 Name:           boost
-BuildRequires:  boost-jam >= 201104
+BuildRequires:  boost-jam >= 3.1.19
 BuildRequires:  chrpath
 BuildRequires:  dos2unix
 BuildRequires:  gcc-c++
@@ -92,7 +99,7 @@ Group:          Development/Libraries/C and C++
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Version:        1.53.0
 Release:        0
-Source0:        %{name}_%{file_version}.tar.bz2
+Source0:        http://downloads.sourceforge.net/project/boost/boost/1.53.0/%{name}_%{file_version}.tar.bz2
 Source1:        boost-rpmlintrc
 Source2:        %{name}_%{short_version}_man.tar.bz2
 Source3:        %{name}_%{short_version}_pdf.tar.bz2
@@ -103,6 +110,9 @@ Patch2:         boost-no_type_punning.patch
 Patch8:         boost-no_segfault_in_Regex_filter.patch
 Patch20:        boost-strict_aliasing.patch
 Patch50:        boost-use_std_xml_catalog.patch
+#PATCH-FIX-UPSTREAM Fix erroneous assembler code for ppc64 [boost#8374]
+Patch51:        boost-fix_ppc64_asm.patch
+Patch60:        boost-glibc-2.18.patch
 Recommends:     %{all_libs}
 
 %define _docdir %{_datadir}/doc/packages/boost-%{version}
@@ -392,17 +402,18 @@ find -type f ! \( -name \*.sh -o -name \*.py -o -name \*.pl \) -exec chmod -x {}
 %patch1
 %patch2
 %patch8
-#%%patch9
-#%%patch19
 %patch20
 %patch50
-
+%patch51
+%patch60 -p1
 #stupid build machinery copies .orig files
 find . -name \*.orig -exec rm {} +
 
 %build
 find . -type f -exec chmod u+w {} +
 
+# Create shared build instructions
+cat > .build <<\EOF
 # Now build it
 J_P=%{jobs}
 J_G=$(getconf _NPROCESSORS_ONLN)
@@ -413,23 +424,29 @@ if test -z "$JOBS"; then
 else
   test 1 -gt "$JOBS" && JOBS=1
 fi
-if test "$JOBS" == "0"; then
+if test "$JOBS" = 0; then
   JOBS=1
 fi
 
-# In case you want more parallel jobs then autobuild grants you
+# In case you want more parallel jobs than autobuild grants you
 #if [ $J_P -gt $J_I ]; then
 #  JOBS=$J_G
 #fi
+
 %if %{disable_long_double}
 export LONG_DOUBLE_FLAGS="--disable-long-double"
 %endif
 BJAM_CONFIG="-d2 -j$JOBS -sICU_PATH=%{_prefix}"
 PYTHON_VERSION=$(python -c 'import sys; print sys.version[:3]')
 PYTHON_FLAGS="--with-python-root=/usr --with-python-version=$PYTHON_VERSION"
-REGEX_FLAGS="--with-icu"
-export EXPAT_INCLUDE=/usr/include EXPAT_LIBPATH=%{_libdir} REGEX_FLAGS="--with-icu"
+export REGEX_FLAGS="--with-icu"
+export EXPAT_INCLUDE=/usr/include EXPAT_LIBPATH=%{_libdir}
 export PYTHON_FLAGS
+LIBRARIES_FLAGS=
+%if !%build_context
+LIBRARIES_FLAGS+=" --without-context"
+%endif
+EOF
 
 cat << EOF >user-config.jam
 # Boost.Build Configuration
@@ -456,11 +473,18 @@ cat << EOF >>user-config.jam
 using mpi ;
 EOF
 
+cat >> .build <<\EOF
 # Set PATH, MANPATH and LD_LIBRARY_PATH
 source /var/mpi-selector/data/$(rpm --qf "%{NAME}-%{VERSION}" -q openmpi).sh
+EOF
 %endif
 
-%{_bindir}/bjam ${BJAM_CONFIG} --user-config=user-config.jam ${LONG_DOUBLE_FLAGS} cflags="%{optflags}" cxxflags="%{optflags}" stage || \
+# Read shared build instructions
+. ./.build
+
+%{_bindir}/bjam ${BJAM_CONFIG} ${LONG_DOUBLE_FLAGS} ${LIBRARIES_FLAGS} \
+	--user-config=user-config.jam \
+	cflags="%{optflags}" cxxflags="%{optflags}" stage || \
 	(echo "Not all Boost libraries built properly."; exit 1)
 
 %if %build_docs
@@ -469,38 +493,11 @@ cd doc
 %endif
 
 %install
-# Now build it
-J_P=%{jobs}
-J_G=$(getconf _NPROCESSORS_ONLN)
-[ $J_G -gt 64 ] && J_G=64
+# Read shared build instructions
+. ./.build
 
-if test -z "$JOBS"; then
-  JOBS=$J_G
-else
-  test 1 -gt "$JOBS" && JOBS=1
-fi
-if test "$JOBS" == "0"; then
-  JOBS=1
-fi
-
-# In case you want more parallel jobs then autobuild grants you
-if [ $J_P -gt $J_G ]; then
-  JOBS=$J_G
-fi
-
-BJAM_CONFIG="-d2 -j$JOBS -sICU_PATH=%{_prefix}"
-PYTHON_VERSION=$(python -c 'import sys; print sys.version[:3]')
-PYTHON_FLAGS="--with-python-root=/usr --with-python-version=$PYTHON_VERSION"
-REGEX_FLAGS="--with-icu"
-export EXPAT_INCLUDE=/usr/include EXPAT_LIBPATH=%{_libdir} REGEX_FLAGS="--with-icu"
-export PYTHON_FLAGS
-
-# Set PATH, MANPATH and LD_LIBRARY_PATH
-%if %build_mpi
-source /var/mpi-selector/data/$(rpm --qf "%{NAME}-%{VERSION}" -q openmpi).sh
-%endif
-
-%{_bindir}/bjam ${BJAM_CONFIG} ${LONG_DOUBLE_FLAGS} --user-config=user-config.jam \
+%{_bindir}/bjam ${BJAM_CONFIG} ${LONG_DOUBLE_FLAGS} ${LIBRARIES_FLAGS} \
+	--user-config=user-config.jam \
 	--prefix=%{buildroot}%{_prefix} \
 	--exec-prefix=$%{buildroot}%{_prefix} \
 	--libdir=%{buildroot}%{_libdir} \
@@ -520,8 +517,10 @@ for lib in ${blibs}; do
 done
 popd
 
-#install the man pages
+# install the man pages
 rm -rf doc/man/man3/boost::units::operator
+mv doc/man/man3/path.3 doc/man/man3/boost::property_tree::path.3
+mv doc/man/man3/string.3 doc/man/man3/boost::container::string.3
 
 for sec in 3 7 9; do
     install -d %buildroot/%{_mandir}/man${sec}
@@ -620,9 +619,11 @@ rm -f %{buildroot}%{_libdir}/*.a
 %defattr(-, root, root, -)
 %{_libdir}/libboost_atomic*.so.*
 
+%if %build_context
 %files -n libboost_context%{lib_appendix}
 %defattr(-, root, root, -)
 %{_libdir}/libboost_context*.so.*
+%endif
 
 %files -n libboost_date_time%{lib_appendix}
 %defattr(-, root, root, -)
