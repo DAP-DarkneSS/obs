@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2442-g83e60de+vlc
+%define LEECHCRAFT_VERSION 0.5.95-2509-g599c148+vcl
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -44,7 +44,7 @@ Patch0:         azoth-entry-activates.patch
 # PATCH-FEATURE-OPENSUSE to update vlc plugin code base.
 Patch1:         leechcraft-vlc-plusplus.patch
 # PATCH-FIX-OPENSUSE to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
-Patch2:         leechcraft-vlc-qt-moc-boost.patch
+# Patch2:         leechcraft-vlc-qt-moc-boost.patch
 # PATCH-FIX-OPENSUSE to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
 # %%if 0%%{?suse_version} > 1230
 # Patch3:         leechcraft-qt-moc-boost.patch
@@ -74,7 +74,6 @@ BuildRequires:  libbz2-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  pkgconfig(ddjvuapi)
 BuildRequires:  libjpeg-devel
-BuildRequires:  liblaretz-devel
 BuildRequires:  liblastfm-devel
 BuildRequires:  libmsn-devel
 BuildRequires:  libmtp-devel
@@ -105,20 +104,41 @@ BuildRequires:  phonon-devel
 BuildRequires:  qwt6-devel
 BuildRequires:  speex-devel
 BuildRequires:  taglib-devel
-BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
 BuildRequires:  pkgconfig(kqoauth)
+%if 0%{?suse_version} > 1230
+BuildRequires:  pkgconfig(libguess)
 BuildRequires:  pkgconfig(libvlc)
+%endif
+
 
 BuildRequires:  boost-devel >= 1.50
 BuildRequires:  jbig2dec-devel
 # BuildRequires:  libchromaprint-devel
 # BuildRequires:  libffmpeg-devel
+BuildRequires:  liblaretz-devel
 BuildRequires:  mupdf-devel-static
 BuildRequires:  openjpeg-devel
 BuildRequires:  telepathy-qt4-devel
+BuildRequires:  pkgconfig(libguess)
+BuildRequires:  pkgconfig(libvlc)
+
 
 Requires:       oxygen-icon-theme
+Recommends:     %{name}-advancednotifications
+Recommends:     %{name}-azoth-acetamide
+Recommends:     %{name}-azoth-xoox
+Recommends:     %{name}-bittorrent
+Recommends:     %{name}-blogique
+Recommends:     %{name}-dolozhee
+Recommends:     %{name}-lackman
+Recommends:     %{name}-lastfmscrobble
+Recommends:     %{name}-monocle
+Recommends:     %{name}-netstoremanager
+Recommends:     %{name}-newlife
+Recommends:     %{name}-poshuku
+Recommends:     %{name}-secman-simplestorage
+Recommends:     %{name}-visualnotifications
 
 Obsoletes:      %{name}-dlniwe
 Obsoletes:      %{name}-eiskaltdcpp
@@ -850,7 +870,7 @@ The following protocol features are currently supported:
 Summary:        LeechCraft BitTorrent client Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Requires:       %{name}-summaryrepresentation = %{version}
+Recommends:     %{name}-summaryrepresentation = %{version}
 
 %description bittorrent
 This package provides a bittorrent client for Leechcraft.
@@ -1434,6 +1454,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Recommends:     %{name}-deadlyrics = %{version}
 Recommends:     %{name}-gacts = %{version}
+Recommends:     %{name}-lastfmscrobble = %{version}
 Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
 Requires:       gstreamer-0_10-plugins-base
@@ -2147,6 +2168,7 @@ Features:
 Summary:        LeechCraft Video player Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Recommends:     %{name}-liznoo
 Recommends:     vlc-codecs
 
 %description vlc
@@ -2207,7 +2229,7 @@ It allows to get current user tune via mpris protocol.
 %setup -q -n %{name}-%{version}
 %patch0 -p1
 %patch1 -p1
-%patch2
+# %%patch2
 # %%if 0%%{?suse_version} > 1230
 # %%patch3
 # %%endif
@@ -2285,9 +2307,10 @@ cmake ../src \
         -DENABLE_LIZNOO=True \
 %if %{lmp}
         -DENABLE_LMP=True \
-        -DENABLE_LMP_GRAFFITI=True \
-        -DENABLE_LMP_MPRIS=True \
-        -DENABLE_LMP_MTPSYNC=True \
+                -DENABLE_LMP_GRAFFITI=True \
+                -DENABLE_LMP_LIBGUESS=True \
+                -DENABLE_LMP_MPRIS=True \
+                -DENABLE_LMP_MTPSYNC=True \
 %else
         -DENABLE_LMP=False \
 %endif
@@ -2360,15 +2383,6 @@ cd build
 rm -rf %{buildroot}%{_datadir}/icons/hicolor/*/apps/*leechcraft*
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
 %{__install} %{SOURCE1} %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}_main.svg
-
-%suse_update_desktop_file -i %{name}
-%suse_update_desktop_file -i %{name}-azoth-acetamide
-%suse_update_desktop_file -i %{name}-azoth-xoox
-%suse_update_desktop_file -i %{name}-bittorrent
-%suse_update_desktop_file -i %{name}-monocle-fxb
-%suse_update_desktop_file -i %{name}-monocle-pdf
-%suse_update_desktop_file -i %{name}-monocle-postrus
-%suse_update_desktop_file -i %{name}-monocle-seen
 
 #-------------------------patterns----------------------------#
 %__install -d %{buildroot}%{_docdir}/%{name}
@@ -3175,6 +3189,7 @@ EOF
 %files vlc
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_vlc.so
+%{_datadir}/%{name}/settings/vlcsettings.xml
 
 %files vrooby
 %defattr(-,root,root)
