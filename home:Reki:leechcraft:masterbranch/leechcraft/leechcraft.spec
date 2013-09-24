@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2509-g599c148+vcl
+%define LEECHCRAFT_VERSION 0.5.95-2580-g3d8c6cf
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -42,7 +42,7 @@ Source1:        %{name}.svg
 # PATCH-FEATURE-OPENSUSE to use environment settings to activate entries.
 Patch0:         azoth-entry-activates.patch
 # PATCH-FEATURE-OPENSUSE to update vlc plugin code base.
-Patch1:         leechcraft-vlc-plusplus.patch
+# Patch1:         leechcraft-vlc-plusplus.patch
 # PATCH-FIX-OPENSUSE to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
 # Patch2:         leechcraft-vlc-qt-moc-boost.patch
 # PATCH-FIX-OPENSUSE to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
@@ -2228,7 +2228,7 @@ It allows to get current user tune via mpris protocol.
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p1
-%patch1 -p1
+# %%patch1 -p1
 # %%patch2
 # %%if 0%%{?suse_version} > 1230
 # %%patch3
