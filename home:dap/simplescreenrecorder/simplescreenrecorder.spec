@@ -16,13 +16,13 @@
 #
 
 Name:           simplescreenrecorder
-Version:        0.0.7
+Version:        0.1.0
 Release:        0
 License:        GPL-3.0+
 Summary:        A feature-rich screen recorder that supports X11 and OpenGL
 Url:            http://www.maartenbaert.be/simplescreenrecorder
 Group:          System/X11/Utilities
-Source:         https://github.com/MaartenBaert/ssr/tarball/%{version}
+Source:         https://github.com/MaartenBaert/ssr/archive/%{version}.tar.gz
 
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  pkgconfig(QtCore) >= 4.8
@@ -30,6 +30,7 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(glu)
 BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
@@ -38,7 +39,7 @@ BuildRequires:  update-desktop-files
 %if 0%{?suse_version} > 1220 
 BuildRequires:  libjpeg8-devel
 %endif
-%ifarch armv6l armv6hl armv7l armv7hl
+%ifarch %arm
 %else
 Recommends:     libssr-glinject
 %if %{_lib} == "lib64"
@@ -80,7 +81,7 @@ Features:
    out what something does.
 
 
-%ifarch armv6l armv6hl armv7l armv7hl
+%ifarch %arm
 %else
 %package -n libssr-glinject
 Summary:        A feature-rich screen recorder library
@@ -92,10 +93,10 @@ This package provides SimpleScreenRecorder's optional library.
 
 
 %prep
-%setup -q -n MaartenBaert-ssr-a663498
+%setup -q -n ssr-%{version}
 
 %build
-%ifarch armv6l armv6hl armv7l armv7hl
+%ifarch %arm
 export CPPFLAGS="-DSSR_USE_X86_ASM=0"
 %configure \
            --disable-glinjectlib
@@ -116,7 +117,7 @@ make %{?_smp_mflags}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/256x256/apps/%{name}.png
 
-%ifarch armv6l armv6hl armv7l armv7hl
+%ifarch %arm
 %else
 %files -n libssr-glinject
 %defattr(-,root,root)

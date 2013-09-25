@@ -1,6 +1,8 @@
 -------------------------------------------------------------------
-Mon Sep 16 19:17:33 UTC 2013 - dap.darkness@gmail.com
+Wed Sep 25 05:02:35 UTC 2013 - dap.darkness@gmail.com
 
+- Update to 0.1.10:
+  * no upstream changelog.
 - libssr-glinject-32bit became built and recommended
   to record x32 games at x64 hosts.
 - libssr-glinject can't be built for arm:
