@@ -33,13 +33,14 @@ process it.
 Name:           libkqoauth
 Version:        0.97
 Release:        0
-License:        LGPL-2.1+
+License:        LGPL-2.1+ and LGPL-3.0+
 Summary:        %{pack_summ}
 Group:          System/Libraries
 
 Url:            https://github.com/kypeli/kQOAuth
 # https://github.com/kypeli/kQOAuth/archive/0.97.tar.gz
 Source0:        kQOAuth-%{version}.tar.gz
+Patch0:         libdir.patch
 
 BuildRequires:  pkgconfig(QtNetwork) >= 4.7
 
@@ -49,6 +50,7 @@ BuildRequires:  pkgconfig(QtNetwork) >= 4.7
 
 %package        -n %{name}0
 Summary:        %{pack_summ}
+Group:          System/Libraries
 
 %description    -n %{name}0
 %{pack_desc}
@@ -66,11 +68,13 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n kQOAuth-%{version}
+%patch0 -p1
 
 
 %build
 qmake \
 PREFIX=%{_prefix} \
+KQOAUTH_LIBDIR=%{_libdir} \
 QMAKE_STRIP="" \
 QMAKE_CXXFLAGS+="%{optflags}"
 make %{?_smp_mflags}

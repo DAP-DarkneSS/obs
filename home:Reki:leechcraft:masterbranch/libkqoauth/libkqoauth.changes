@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Wed May 29 12:34:40 UTC 2013 - dvaleev@suse.com
+
+- dehardcode x86_64 lib64, use %libdir instead
+  libdir.patch
+
+-------------------------------------------------------------------
+Tue May 28 11:46:00 UTC 2013 - cfarrell@suse.com
+
+- license update: LGPL-2.1+ and LGPL-3.0+
+  Numerous files under tests/ and examples/ have LGPL-3.0+ license
+
+-------------------------------------------------------------------
 Wed May 22 21:06:48 UTC 2013 - dap.darkness@gmail.com
 
 - Initial package.
