@@ -29,17 +29,17 @@ authorization page, give a local URL as the callback URL and setup a HTTP \
 server on this address to listen for the reply from the service and then \
 process it.
 
-
 Name:           libkqoauth
-Version:        0.97
+Version:        0.98
 Release:        0
-License:        LGPL-2.1+ and LGPL-3.0+
 Summary:        %{pack_summ}
+License:        LGPL-2.1+ and LGPL-3.0+
 Group:          System/Libraries
 
 Url:            https://github.com/kypeli/kQOAuth
-# https://github.com/kypeli/kQOAuth/archive/0.97.tar.gz
+# https://github.com/kypeli/kQOAuth/archive/%%{version}.tar.gz
 Source0:        kQOAuth-%{version}.tar.gz
+# PATCH-FIX-OPENSUSE to set libraries directory.
 Patch0:         libdir.patch
 
 BuildRequires:  pkgconfig(QtNetwork) >= 4.7
@@ -47,14 +47,12 @@ BuildRequires:  pkgconfig(QtNetwork) >= 4.7
 %description
 %{pack_desc}
 
-
 %package        -n %{name}0
 Summary:        %{pack_summ}
 Group:          System/Libraries
 
 %description    -n %{name}0
 %{pack_desc}
-
 
 %package        devel
 Summary:        Development files for %{name}
@@ -70,24 +68,20 @@ developing applications that use %{name}.
 %setup -q -n kQOAuth-%{version}
 %patch0 -p1
 
-
 %build
-qmake \
-PREFIX=%{_prefix} \
-KQOAUTH_LIBDIR=%{_libdir} \
-QMAKE_STRIP="" \
-QMAKE_CXXFLAGS+="%{optflags}"
+`pkg-config --variable=exec_prefix QtCore`/bin/qmake \
+      PREFIX=%{_prefix} \
+      KQOAUTH_LIBDIR=%{_libdir} \
+      QMAKE_STRIP="" \
+      QMAKE_CXXFLAGS+="%{optflags}"
 make %{?_smp_mflags}
-
 
 %install
 %make_install INSTALL_ROOT=%{buildroot}
 
-
 %post -n %{name}0 -p /sbin/ldconfig
 
 %postun -n %{name}0 -p /sbin/ldconfig
-
 
 %files -n %{name}0
 %defattr(-,root,root)
@@ -100,6 +94,10 @@ make %{?_smp_mflags}
 %{_libdir}/%{name}.so
 %{_libdir}/%{name}.prl
 %{_libdir}/pkgconfig/kqoauth.pc
+%if 0%{?suse_version}
 %{_datadir}/qt4/mkspecs/features/kqoauth.prf
+%else
+%{_libdir}/qt4/mkspecs/features/kqoauth.prf
+%endif
 
 %changelog

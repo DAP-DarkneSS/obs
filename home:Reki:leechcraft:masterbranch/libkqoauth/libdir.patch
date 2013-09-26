@@ -12,15 +12,11 @@ Index: kQOAuth-0.97/src/src.pro
 ===================================================================
 --- kQOAuth-0.97.orig/src/src.pro
 +++ kQOAuth-0.97/src/src.pro
-@@ -75,11 +75,7 @@ else:unix {
+@@ -75,7 +75,7 @@
      system( ./pcfile.sh $${INSTALL_PREFIX} $${VERSION} )
      pkgconfig.files = kqoauth.pc
      
--    contains(QMAKE_HOST.arch, x86_64) {
--      target.path = $${INSTALL_PREFIX}/lib64
--    } else {
--      target.path = $${INSTALL_PREFIX}/lib
--    }
+-    target.path = $${INSTALL_PREFIX}/lib
 +    target.path = $${KQOAUTH_LIBDIR}
  
      headers.path = $${INSTALL_PREFIX}/include/QtKOAuth

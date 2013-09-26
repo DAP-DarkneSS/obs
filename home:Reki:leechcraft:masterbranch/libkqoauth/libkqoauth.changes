@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Sep 26 16:45:58 UTC 2013 - dap.darkness@gmail.com
+
+- Update to 0.98:
+  * no upstream changelog.
+- Compatible with other rpm-based distros.
+
+-------------------------------------------------------------------
 Wed May 29 12:34:40 UTC 2013 - dvaleev@suse.com
 
 - dehardcode x86_64 lib64, use %libdir instead
