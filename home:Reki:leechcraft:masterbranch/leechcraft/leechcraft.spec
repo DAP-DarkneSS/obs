@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2580-g3d8c6cf
+%define LEECHCRAFT_VERSION 0.5.95-2666-g60432c2
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -104,7 +104,11 @@ BuildRequires:  phonon-devel
 BuildRequires:  qwt6-devel
 BuildRequires:  speex-devel
 BuildRequires:  taglib-devel
+%if 0%{?suse_version} > 1230
+BuildRequires:  pkgconfig(gstreamer-app-1.0)
+%else
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
+%endif
 BuildRequires:  pkgconfig(kqoauth)
 %if 0%{?suse_version} > 1230
 BuildRequires:  pkgconfig(libguess)
@@ -258,6 +262,7 @@ Requires:       %{name}-azoth-shx
 Requires:       %{name}-azoth-standardstyles
 Requires:       %{name}-azoth-vader
 Requires:       %{name}-azoth-velvetbird
+Requires:       %{name}-azoth-woodpecker
 Requires:       %{name}-azoth-xoox
 Requires:       %{name}-azoth-xtazy
 Requires:       %{name}-azoth-zheet
@@ -290,7 +295,7 @@ Requires:       %{name}-secman
 Requires:       %{name}-secman-simplestorage
 Requires:       %{name}-touchstreams
 Requires:       %{name}-vgrabber
-Requires:       %{name}-vlc
+Requires:       %{name}-vtyulc
 Recommends:     %{name}-lastfmscrobble
 Recommends:     %{name}-meta_tools
 
@@ -327,7 +332,6 @@ Requires:       %{name}-secman
 Requires:       %{name}-secman-simplestorage
 Requires:       %{name}-summary
 Requires:       %{name}-tabsessionmanager
-Requires:       %{name}-woodpecker
 Requires:       %{name}-xproxy
 Recommends:     %{name}-meta_tools
 
@@ -466,6 +470,7 @@ Requires:       %{name} = %{version}
 Requires:       %{name}-azoth-chatstyler = %{version}
 Requires:       %{name}-azoth-protocolplugin
 Requires:       %{name}-securestorage = %{version}
+Suggests:       %{name}-azoth-standardstyles
 
 %description azoth
 This package provides a modular IM client for LeechCraft.
@@ -803,6 +808,20 @@ Provides:       %{name}-azoth-protocolplugin
 This package provides a LibPurple plugin for LeechCraft Azoth.
 
 It supportes various protocols provided by Purple library.
+
+
+%if %{woodpecker}
+%package azoth-woodpecker
+Summary:        LeechCraft Twitter Client Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Recommends:     libkqoauth0 >= 0.98
+Provides:       %{name}-woodpecker = %{version}
+Obsoletes:      %{name}-woodpecker < %{version}
+
+%description azoth-woodpecker
+This package provides a Twitter Client plugin for LeechCraft.
+%endif
 
 
 %package azoth-xoox
@@ -1457,10 +1476,16 @@ Recommends:     %{name}-gacts = %{version}
 Recommends:     %{name}-lastfmscrobble = %{version}
 Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
+%if 0%{?suse_version} > 1230
+Requires:       gstreamer-plugins-base >= 1.0
+Requires:       gstreamer-plugins-good >= 1.0
+Recommends:     gstreamer-plugins-bad >= 1.0
+%else
 Requires:       gstreamer-0_10-plugins-base
 Requires:       gstreamer-0_10-plugins-good
 Recommends:     gstreamer-0_10-plugins-bad
 Recommends:     gstreamer-0_10-plugins-fluendo_mp3
+%endif
 Provides:       %{name}-audioplayer
 Provides:       %{name}-soundnotifications = %{version}
 
@@ -2164,14 +2189,16 @@ Features:
  * Search for audios and videos.
 
 
-%package vlc
+%package vtyulc
 Summary:        LeechCraft Video player Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Recommends:     %{name}-liznoo
 Recommends:     vlc-codecs
+Provides:       %{name}-vlc = %{version}
+Obsoletes:      %{name}-vlc < %{version}
 
-%description vlc
+%description vtyulc
 This package provides a video player plugin for LeechCraft.
 
 It allows to play video (local files, web, DVD etc).
@@ -2189,17 +2216,6 @@ Recommends:     udisks2
 This package provides a Vrooby plugin for LeechCraft.
 
 It allows to watch removable storage devices via d-bus and udisks.
-
-
-%if %{woodpecker}
-%package woodpecker
-Summary:        LeechCraft Twitter Client Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description woodpecker
-This package provides a Twitter Client plugin for LeechCraft.
-%endif
 
 
 %package xproxy
@@ -2265,6 +2281,11 @@ cmake ../src \
         -DENABLE_AZOTH_OTROID=True \
         -DENABLE_AZOTH_SHX=True \
         -DENABLE_AZOTH_VELVETBIRD=True \
+%if %{woodpecker}
+        -DENABLE_AZOTH_WOODPECKER=True \
+%else
+        -DENABLE_AZOTH_WOODPECKER=False \
+%endif
         -DENABLE_AZOTH_ZHEET=True \
         -DENABLE_BLACKDASH=False \
         -DENABLE_BLASQ=True \
@@ -2307,6 +2328,9 @@ cmake ../src \
         -DENABLE_LIZNOO=True \
 %if %{lmp}
         -DENABLE_LMP=True \
+%if 0%{?suse_version} > 1230
+        -DUSE_GSTREAMER_10=True \
+%endif
                 -DENABLE_LMP_GRAFFITI=True \
                 -DENABLE_LMP_LIBGUESS=True \
                 -DENABLE_LMP_MPRIS=True \
@@ -2353,13 +2377,8 @@ cmake ../src \
         -DENABLE_TOUCHSTREAMS=True \
         -DENABLE_TPI=True \
         -DENABLE_TWIFEE=False \
-        -DENABLE_VLC=True \
+        -DENABLE_VTYULC=True \
         -DENABLE_VROOBY=True \
-%if %{woodpecker}
-        -DENABLE_WOODPECKER=True \
-%else
-        -DENABLE_WOODPECKER=False \
-%endif
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
 # gcc 4.7 optimization.
@@ -2645,6 +2664,13 @@ EOF
 %files azoth-velvetbird
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_velvetbird.so
+
+%if %{woodpecker}
+%files azoth-woodpecker
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_azoth_woodpecker.so
+%{_datadir}/%{name}/settings/azothwoodpeckersettings.xml
+%endif
 
 %files azoth-xoox
 %defattr(-,root,root)
@@ -3120,6 +3146,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_sb2.so
 %{_datadir}/%{name}/qml/sb2/
+%{_datadir}/%{name}/settings/sb2panelsettings.xml
 
 %files secman
 %defattr(-,root,root)
@@ -3186,22 +3213,16 @@ EOF
 %{translations_dir}/%{name}_vgrabber*.qm
 %{plugin_dir}/*%{name}_vgrabber.so
 
-%files vlc
+%files vtyulc
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_vlc.so
-%{_datadir}/%{name}/settings/vlcsettings.xml
+%{_libdir}/%{name}/plugins/lib%{name}_vtyulc.so
+%{_datadir}/%{name}/settings/vtyulcsettings.xml
+%{_datadir}/%{name}/translations/%{name}_vtyulc_*.qm
 
 %files vrooby
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_vrooby.so
 %{_datadir}/%{name}/translations/%{name}_vrooby_*.qm
-
-%if %{woodpecker}
-%files woodpecker
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_woodpecker.so
-%{_datadir}/%{name}/settings/woodpeckersettings.xml
-%endif
 
 %files xproxy
 %defattr(-,root,root)
