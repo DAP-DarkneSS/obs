@@ -22,7 +22,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2331-g1451d9e
+%define LEECHCRAFT_VERSION 0.5.95-2747-g687442b
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -79,10 +79,15 @@ BuildRequires:  speex-devel
 BuildRequires:  taglib-devel
 BuildRequires:  xz
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
+BuildRequires:  pkgconfig(libguess)
+%if 0%{?fedora} > 19
+BuildRequires:  pkgconfig(libvlc)
+%endif
 BuildRequires:  telepathy-qt4-devel
 
 Requires:       oxygen-icon-theme
 
+Obsoletes:      %{name}-dlniwe
 Obsoletes:      %{name}-nacheku
 Obsoletes:      %{name}-otlozhu
 Obsoletes:      %{name}-poleemery
@@ -591,7 +596,6 @@ The following protocol features are currently supported:
 Summary:        LeechCraft BitTorrent client Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Requires:       %{name}-summaryrepresentation = %{version}
 
 %description bittorrent
 This package provides a bittorrent client for Leechcraft.
@@ -768,15 +772,6 @@ Requires:       %{name} = %{version}
 This package provides a devices monitor plugin for LeechCraft.
 
 
-%package dlniwe
-Summary:        LeechCraft DLNA Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description dlniwe
-This package provides a DLNA server plugin for LeechCraft.
-
-
 %package dolozhee
 Summary:        LeechCraft Issue reporting Module
 Group:          Productivity/Networking/Other
@@ -822,6 +817,19 @@ Requires:       awesome
 %description fenet-awesome
 This package allows to start Leechcraft as a Desktop Environment with
 the Awesome Window Manager.
+
+
+%package fenet-compton
+Summary:        LeechCraft Fenet Compton Stuff
+Group:          Productivity/Networking/Other
+BuildArch:      noarch
+Provides:       %{name}-fenet-wm = %{version}
+Requires:       %{name}-fenet = %{version}
+Requires:       compton
+
+%description fenet-compton
+This package allows to start Leechcraft as a Desktop Environment with
+the Compton Compositor.
 
 
 %package fenet-kwin
@@ -941,6 +949,7 @@ This module provides a simple image paster plugin from LeechCraft
 Summary:        LeechCraft keyboard switcher Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Requires:       setxkbmap
 Provides:       %{name}-keyboardcraft = %{version}
 Obsoletes:      %{name}-keyboardcraft < %{version}
 
@@ -995,6 +1004,7 @@ Summary:        LeechCraft Package manager Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-http = %{version}
+Requires:       lzma
 Requires:       xz
 
 %description lackman
@@ -1736,6 +1746,20 @@ Features:
  * Search for audios and videos.
 
 
+%if 0%{?fedora} > 19
+%package vtyulc
+Summary:        LeechCraft Video player Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description vtyulc
+This package provides a video player plugin for LeechCraft.
+
+It allows to play video (local files, web, DVD etc).
+It uses vlc library as a backend thus supporting major codecs.
+%endif
+
+
 %package vrooby
 Summary:        LeechCraft Removable storage devices Manager
 Group:          Productivity/Networking/Other
@@ -1760,7 +1784,7 @@ It allows to configure and use proxy servers.
 
 
 %package xtazy
-Summary:        LeechCraft - Current user tune Module
+Summary:        LeechCraft Current user tune Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
@@ -1792,6 +1816,7 @@ cmake ../src \
         -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DSTRICT_LICENSING=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
@@ -1800,6 +1825,7 @@ cmake ../src \
         -DENABLE_AZOTH_OTROID=True \
         -DENABLE_AZOTH_SHX=True \
         -DENABLE_AZOTH_VELVETBIRD=True \
+        -DENABLE_AZOTH_WOODPECKER=False \
         -DENABLE_AZOTH_ZHEET=True \
         -DENABLE_BLACKDASH=False \
         -DENABLE_BLASQ=True \
@@ -1807,7 +1833,7 @@ cmake ../src \
         -DENABLE_BLOGIQUE=True \
         -DENABLE_CHOROID=True \
         -DENABLE_DEVMON=True \
-        -DENABLE_DLNIWE=True \
+        -DENABLE_DLNIWE=False \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_DUMBEEP=True \
                 -DDUMBEEP_WITH_PHONON=True \
@@ -1833,9 +1859,10 @@ cmake ../src \
                 -DWITH_LHTR_HTML=True \
         -DENABLE_LIZNOO=True \
         -DENABLE_LMP=True \
-        -DENABLE_LMP_GRAFFITI=True \
-        -DENABLE_LMP_MPRIS=True \
-        -DENABLE_LMP_MTPSYNC=True \
+                -DENABLE_LMP_GRAFFITI=True \
+                -DENABLE_LMP_LIBGUESS=True \
+                -DENABLE_LMP_MPRIS=True \
+                -DENABLE_LMP_MTPSYNC=True \
         -DENABLE_MEDIACALLS=True \
         -DENABLE_MELLONETRAY=True \
         -DENABLE_MONOCLE=True \
@@ -1867,12 +1894,16 @@ cmake ../src \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
         -DENABLE_TORRENT=True \
+                -DENABLE_BITTORRENT_GEOIP=True \
         -DENABLE_TOUCHSTREAMS=True \
         -DENABLE_TPI=True \
         -DENABLE_TWIFEE=False \
-        -DENABLE_VLC=False \
+%if 0%{?fedora} > 19
+        -DENABLE_VTYULC=True \
+%else
+        -DENABLE_VTYULC=False \
+%endif
         -DENABLE_VROOBY=True \
-        -DENABLE_WOODPECKER=False \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
 %build
@@ -2206,10 +2237,6 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_devmon.so
 
-%files dlniwe
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_dlniwe.so
-
 %files dolozhee
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_dolozhee.so
@@ -2226,16 +2253,22 @@ cd build
 %{_datadir}/%{name}/settings/fenetsettings.xml
 %{_bindir}/%{name}-session
 %dir %{_datadir}/%{name}/fenet
+%dir %{_datadir}/%{name}/fenet/compositing
 %dir %{_datadir}/%{name}/fenet/wms
 %{_datadir}/xsessions/LCDE.desktop
 %{_datadir}/%{name}/translations/%{name}_fenet_*.qm
-%{_datadir}/%{name}/fenet/compositing
 
 %files fenet-awesome
 %defattr(-,root,root)
 %dir %{_datadir}/%{name}/fenet
 %dir %{_datadir}/%{name}/fenet/wms
 %{_datadir}/%{name}/fenet/wms/*awesome*
+
+%files fenet-compton
+%defattr(-,root,root)
+%dir %{_datadir}/%{name}/fenet
+%dir %{_datadir}/%{name}/fenet/compositing
+%{_datadir}/%{name}/fenet/compositing/*compton*
 
 %files fenet-kwin
 %defattr(-,root,root)
@@ -2532,6 +2565,7 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_sb2.so
 %{_datadir}/%{name}/qml/sb2/
+%{_datadir}/%{name}/settings/sb2panelsettings.xml
 
 %files secman
 %defattr(-,root,root)
@@ -2591,6 +2625,14 @@ cd build
 %{settings_dir}/vgrabbersettings.xml
 %{translations_dir}/%{name}_vgrabber*.qm
 %{plugin_dir}/*%{name}_vgrabber.so
+
+%if 0%{?fedora} > 19
+%files vtyulc
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_vtyulc.so
+%{_datadir}/%{name}/settings/vtyulcsettings.xml
+%{_datadir}/%{name}/translations/%{name}_vtyulc_*.qm
+%endif
 
 %files vrooby
 %defattr(-,root,root)
