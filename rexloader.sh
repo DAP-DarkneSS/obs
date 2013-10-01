@@ -7,7 +7,7 @@ MPRJ=$OPRJ':mandriva'
 DPRJ=$OPRJ':deb'
 DPR2=$OPRJ':deb:old'
 APRJ=$OPRJ':archlinux'
-DSVN=~/Documents/obs/trash/$NOBS
+DSVN=~/Documents/obs/trash/$NOBS-0.1a.svn
 DOBS=~/Documents/obs/home:DarkSS/$NOBS
 DFBS=~/Documents/obs/home:DarkSS:fedora/$NOBS
 
@@ -39,7 +39,7 @@ else
   do
     cd ~/Documents/obs/$NPRJ/$NOBS
     osc service rr
-    osc up
+    osc up &
   done
 
 fi

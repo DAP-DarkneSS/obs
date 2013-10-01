@@ -40,6 +40,7 @@ else
   cp ./$NOBS-doc.spec ./$NOBS-doc.spec.$VOBS.$CTIME
   sed "s/$VOBS/$VGIT/g" ./$NOBS.spec.$VOBS.$CTIME > ./$NOBS.spec
   sed "s/$VOBS/$VGIT/g" ./$NOBS-doc.spec.$VOBS.$CTIME > ./$NOBS-doc.spec
+  rm $NOBS*.spec.$VOBS.$CTIME
 
   echo -e '\e[0;4m\nShould the commit be done?\e[0m'
   read
