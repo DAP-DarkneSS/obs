@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2727-g8230f2b
+%define LEECHCRAFT_VERSION 0.5.95-2797-gc37bd22
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -42,13 +42,17 @@ Source1:        %{name}.svg
 # PATCH-FEATURE-OPENSUSE to use environment settings to activate entries.
 Patch0:         azoth-entry-activates.patch
 # PATCH-FEATURE-OPENSUSE to update vlc plugin code base.
-# Patch1:         leechcraft-vlc-plusplus.patch
+Patch1:         leechcraft-vlc-plusplus.patch
 # PATCH-FIX-OPENSUSE to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
 # Patch2:         leechcraft-vlc-qt-moc-boost.patch
 # PATCH-FIX-OPENSUSE to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
 # %%if 0%%{?suse_version} > 1230
 # Patch3:         leechcraft-qt-moc-boost.patch
 # %%endif
+# PATCH-FIX-OPENSUSE vs. "the value is not usable in a constant expression".
+%if 0%{?suse_version} <= 1230
+Patch4:         leechcraft-azoth-gcc47.patch
+%endif
 
 %if 0%{?suse_version} > 1230
 BuildRequires:  boost-devel >= 1.50
@@ -829,6 +833,7 @@ Summary:        LeechCraft Azoth - XMPP Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 Requires:       libqxmpp0 >= 0.7.4
+Recommends:     libqxmpp0 >= 0.7.6
 Provides:       %{name}-azoth-protocolplugin
 
 %description azoth-xoox
@@ -2244,11 +2249,14 @@ It allows to get current user tune via mpris protocol.
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p1
-# %%patch1 -p1
+%patch1 -p1
 # %%patch2
 # %%if 0%%{?suse_version} > 1230
 # %%patch3
 # %%endif
+%if 0%{?suse_version} <= 1230
+%patch4 -p1
+%endif
 
 # Mine ;)
 rm src/core/resources/images/leechcraft.svg

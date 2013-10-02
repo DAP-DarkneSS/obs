@@ -5,7 +5,4 @@
       <size unit="M">1500</size>
     </physicalmemory>
   </hardware>
-  <sandbox>kvm</sandbox>
-  <hostlabel exclude="true">SLOW_CPU</hostlabel>
 </constraints>
-
