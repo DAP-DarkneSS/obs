@@ -1,0 +1,13 @@
+diff --git a/src/plugins/azoth/actionsmanager.cpp b/src/plugins/azoth/actionsmanager.cpp
+index 8c11a81..f0efc85 100644
+--- a/src/plugins/azoth/actionsmanager.cpp
++++ b/src/plugins/azoth/actionsmanager.cpp
+@@ -424,7 +424,7 @@ namespace Azoth
+ 
+ 			new Util::DelayedExecutor
+ 			{
+-				[w, imjw, accObj] () -> void
++				[=] () -> void
+ 				{
+ 					imjw->Join (accObj);
+ 					w->deleteLater ();
