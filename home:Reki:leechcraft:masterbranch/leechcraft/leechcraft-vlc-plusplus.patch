@@ -1,0 +1,150 @@
+diff --git a/src/plugins/vtyulc/playlistmodel.cpp b/src/plugins/vtyulc/playlistmodel.cpp
+index 3464069..dc737b6 100644
+--- a/src/plugins/vtyulc/playlistmodel.cpp
++++ b/src/plugins/vtyulc/playlistmodel.cpp
+@@ -127,7 +127,8 @@ namespace vlc
+ 				mediaList << media;
+ 			else
+ 			{
+-				mediaList << libvlc_media_new_path (Instance_, urls [i].toEncoded ());
++				mediaList << libvlc_media_new_location (Instance_, urls [i].toEncoded ());
++				libvlc_media_parse (mediaList [i]);
+ 				libvlc_media_set_meta (mediaList [i], libvlc_meta_URL, urls [i].toEncoded ());
+ 			}
+ 		}
+@@ -169,7 +170,7 @@ namespace vlc
+ 		QList<QUrl> urls;
+ 		for (int i = 0; i < indexes.size (); i++)
+ 			if (indexes [i].column () == 0)
+-				urls << QUrl (libvlc_media_get_meta (libvlc_media_list_item_at_index (Playlist_, indexes [i].row ()), libvlc_meta_URL));
++				urls << QUrl::fromEncoded (libvlc_media_get_meta (libvlc_media_list_item_at_index (Playlist_, indexes [i].row ()), libvlc_meta_URL));
+ 		
+ 		result->setUrls (urls);
+ 		return result;
+@@ -184,7 +185,7 @@ namespace vlc
+ 	{
+ 		libvlc_media_t *res = nullptr;
+ 		for (int i = 0; i < libvlc_media_list_count (Playlist_); i++) {
+-			if (libvlc_media_get_meta (libvlc_media_list_item_at_index (Playlist_, i), libvlc_meta_URL) == url.toEncoded ())
++			if (QUrl::fromEncoded (libvlc_media_get_meta (libvlc_media_list_item_at_index (Playlist_, i), libvlc_meta_URL)) == url)
+ 			{
+ 				res = libvlc_media_list_item_at_index (Playlist_, i);
+ 				libvlc_media_list_remove_index (Playlist_, i);
+diff --git a/src/plugins/vtyulc/playlisttitlewidget.cpp b/src/plugins/vtyulc/playlisttitlewidget.cpp
+index 03558b3..3d1f27c 100644
+--- a/src/plugins/vtyulc/playlisttitlewidget.cpp
++++ b/src/plugins/vtyulc/playlisttitlewidget.cpp
+@@ -50,16 +50,19 @@ namespace vlc
+ 		ClearPlaylist_ = new QToolButton;
+ 		ClearAction_ = new QAction (ClearPlaylist_);
+ 		ClearAction_->setIcon (proxy->GetIcon ("edit-clear-list"));
++		ClearAction_->setToolTip (tr ("Clear playlist"));
+ 		ClearPlaylist_->setDefaultAction (ClearAction_);
+ 		
+ 		MagicSort_ = new QToolButton;
+ 		MagicAction_ = new QAction (MagicSort_);
+ 		MagicAction_->setIcon (proxy->GetIcon ("tools-wizard"));
++		MagicAction_->setToolTip (tr ("Magic sort"));
+ 		MagicSort_->setDefaultAction (MagicAction_);
+ 		
+ 		AddFiles_ = new QToolButton;
+ 		AddAction_ = new QAction (AddFiles_);
+-		AddAction_->setIcon (proxy->GetIcon ("document-open-folder"));
++		AddAction_->setIcon (proxy->GetIcon ("list-add"));
++		AddAction_->setToolTip (tr ("Add files to playlist"));
+ 		AddFiles_->setDefaultAction (AddAction_);
+ 		
+ 		layout2->addWidget (AddFiles_);
+diff --git a/src/plugins/vtyulc/playlistwidget.cpp b/src/plugins/vtyulc/playlistwidget.cpp
+index 126b8ff..656478f 100644
+--- a/src/plugins/vtyulc/playlistwidget.cpp
++++ b/src/plugins/vtyulc/playlistwidget.cpp
+@@ -121,6 +121,7 @@ namespace vlc
+ 			}
+ 		
+ 		libvlc_media_t *m = libvlc_media_new_location (Instance_, url.toEncoded ());
++		libvlc_media_parse (m);
+ 		libvlc_media_set_meta (m, libvlc_meta_URL, url.toEncoded ());
+ 		libvlc_media_list_add_media (Playlist_, m);
+ 		
+diff --git a/src/plugins/vtyulc/soundwidget.cpp b/src/plugins/vtyulc/soundwidget.cpp
+index 61b2f39..357b854 100644
+--- a/src/plugins/vtyulc/soundwidget.cpp
++++ b/src/plugins/vtyulc/soundwidget.cpp
+@@ -41,9 +41,8 @@ namespace vlc
+ 	SoundWidget::SoundWidget (QWidget *parent, std::shared_ptr<libvlc_media_player_t> mp)
+ 	: QWidget (parent)
+ 	, Mp_ (mp)
+-	{
+-		libvlc_audio_set_volume (Mp_.get (), 100);
+-		
++	{		
++		setVolume (100);
+ 		connect (this,
+ 				SIGNAL (volumeChanged (int)),
+ 				this,
+@@ -81,7 +80,10 @@ namespace vlc
+ 		const int h = height () - 1;
+ 		const int w = width ();
+ 		
+-		const int currentVolume = libvlc_audio_get_volume (Mp_.get ());
++		int currentVolume = libvlc_audio_get_volume (Mp_.get ());
++		if (currentVolume == -1)
++			currentVolume = 100;
++		
+ 		for (int i = 1; i <= currentVolume; i++) 
+ 		{
+ 			if (i <= 100)
+diff --git a/src/plugins/vtyulc/vlc.cpp b/src/plugins/vtyulc/vlc.cpp
+index f8fad07..704abf5 100644
+--- a/src/plugins/vtyulc/vlc.cpp
++++ b/src/plugins/vtyulc/vlc.cpp
+@@ -172,7 +172,7 @@ namespace vlc
+ 		connect (widget,
+ 				SIGNAL (deleteMe (QWidget*)),
+ 				this,
+-				SLOT (deleteDeleted (QWidget*)));
++				SLOT (deleted (QWidget*)));
+ 	}
+ 
+ 	LeechCraft::TabClasses_t Plugin::GetTabClasses () const
+diff --git a/src/plugins/vtyulc/vlcwidget.cpp b/src/plugins/vtyulc/vlcwidget.cpp
+index 63ce6e1..e859556 100644
+--- a/src/plugins/vtyulc/vlcwidget.cpp
++++ b/src/plugins/vtyulc/vlcwidget.cpp
+@@ -235,6 +235,7 @@ namespace vlc
+ 	{
+ 		Settings_ = new QSettings (QCoreApplication::organizationName (), QCoreApplication::applicationName () + "_VTYULC");
+ 		RestorePlaylist ();
++		Autostart_ = XmlSettingsManager::Instance ().property ("Autostart").toBool ();
+ 	}
+ 
+ 	void VlcWidget::SaveSettings ()
+@@ -484,6 +485,7 @@ namespace vlc
+ 		OpenButton_ = new QToolButton (Bar_);
+ 		Open_ = new QAction (OpenButton_);
+ 		Open_->setProperty ("ActionIcon", "folder");
++		Open_->setToolTip (tr ("Open file"));
+ 		OpenButton_->setMenu (GenerateMenuForOpenAction ());
+ 		OpenButton_->setPopupMode (QToolButton::MenuButtonPopup);
+ 		OpenButton_->setDefaultAction (Open_);
+@@ -519,6 +521,7 @@ namespace vlc
+ 		FullScreenAction_->setProperty ("ActionIcon", "view-fullscreen");
+ 		Manager_->RegisterAction ("org.vtyulc.toggle_fullscreen", FullScreenAction_, true);
+ 		TimeLeft_ = new QLabel (this);
++		TimeLeft_->setToolTip (tr ("Time left"));
+ 		Bar_->addWidget (TimeLeft_);
+ 		ScrollBar_ = new VlcScrollBar;
+ 		ScrollBar_->setBaseSize (200, 25);
+@@ -534,9 +537,11 @@ namespace vlc
+ 		tmp->setSizePolicy(pol);
+ 		Bar_->addWidget (tmp);
+ 		TimeAll_ = new QLabel;
++		TimeAll_->setToolTip (tr ("Length"));
+ 		Bar_->addWidget (TimeAll_);
+ 		SoundWidget_ = new SoundWidget (this, VlcPlayer_->GetPlayer ());
+ 		SoundWidget_->setFixedSize (100, 25);
++		SoundWidget_->setToolTip (tr ("Volume"));
+ 		layout = new QVBoxLayout;
+ 		layout->addWidget (SoundWidget_);
+ 		layout->setContentsMargins (2, 2, 2, 2);
