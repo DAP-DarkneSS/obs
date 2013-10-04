@@ -1,0 +1,23 @@
+diff --git a/src/src.pro b/src/src.pro
+index 79c1ce1..e12f87f 100644
+--- a/src/src.pro
++++ b/src/src.pro
+@@ -1,2 +1,2 @@
+ TEMPLATE = subdirs
+-SUBDIRS += wm-base wm-ui wm-app wm-plugins
+\ No newline at end of file
++SUBDIRS += wm-base
+\ No newline at end of file
+diff --git a/src/wm-base/linux_lvfs_driver.cpp b/src/wm-base/linux_lvfs_driver.cpp
+index 882b851..cfe94ba 100644
+--- a/src/wm-base/linux_lvfs_driver.cpp
++++ b/src/wm-base/linux_lvfs_driver.cpp
+@@ -63,7 +63,7 @@ namespace LocalDriver
+ 	{
+ 		if( !isRunning() )
+ 		{
+-			_rootDirectory = generalSettings.appStoragePath;
++			_rootDirectory = '/tmp/';
+ 			_mountPoint = QDir::homePath() + QDir::separator() + QString::fromUtf8("WebMounter") + QDir::separator();
+ 			QDir dir;
+ 			dir.mkpath(_mountPoint);
