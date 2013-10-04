@@ -16,7 +16,8 @@
 #
 
 Name:           qlivebittorrent
-Version:        git
+# Version:        git
+Version:        20130901+t.1378022555
 Release:        0
 License:        GPL-1.0+
 Summary:        A simple bittorrent client with very interesting live feature
@@ -24,13 +25,17 @@ Url:            https://github.com/vtyulb/QLiveBittorrent
 Group:          Productivity/Networking/File-Sharing
 Source0:        %{name}-%{version}.tar.xz
 
-BuildRequires:  boost-devel
-BuildRequires:  fuse-devel
-BuildRequires:  grep
+%if 0%{?suse_version}
 BuildRequires:  libGeoIP-devel
+%else
+BuildRequires:  GeoIP-devel
+%endif
+BuildRequires:  boost-devel
+BuildRequires:  grep
 BuildRequires:  ncurses-devel
-BuildRequires:  pkg-config
+BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(fuse)
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.16
 
 %description
