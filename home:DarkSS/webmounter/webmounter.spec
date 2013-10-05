@@ -28,7 +28,10 @@ Source0:        %{name}-%{version}.tar.xz
 Patch0:         min.patch
 
 BuildRequires:  boost-devel
+BuildRequires:  chrpath
+BuildRequires:  fdupes
 BuildRequires:  pkgconfig
+BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(QJson)
 BuildRequires:  pkgconfig(QtCore)
 BuildRequires:  pkgconfig(QtWebKit)
@@ -55,19 +58,28 @@ developing applications that use %{name}.
 %prep
 %setup -q
 %patch0 -p1
+mv src/wm-plugins/ya-disk/icons/yandex_disk.PNG \
+   src/wm-plugins/ya-disk/icons/yandex_disk.png
 
 
 %build
 qmake \
       QMAKE_STRIP="" \
-      QMAKE_CFLAGS+="%{optflags} -fpermissive"
-      QMAKE_CXXFLAGS+="%{optflags} -fpermissive"
+      QMAKE_CFLAGS+="%{optflags}"
+      QMAKE_CXXFLAGS+="%{optflags}"
 
-make VERBOSE=1 %{?_smp_mflags}
+# Don't use {?_smp_mflags} !
+make VERBOSE=1
 
 
 %install
 %make_install INSTALL_ROOT=%{buildroot}
+%suse_update_desktop_file -r %{name} 'Internet;FileTransfer;Qt;'
+export NO_BRP_CHECK_RPATH true
+# chrpath --delete %%{buildroot}/%%{_bindir}/%%{name}
+# chrpath --delete %%{buildroot}/%%{_prefix}/lib/%%{name}/plugins/libwm-*-plugin.so
+# chrpath --delete %%{buildroot}/%%{_prefix}/lib/%%{name}/ui/libwmui.so.1.0.0
+%fdupes -s %{buildroot}%{_datadir}/%{name}
 
 
 %files
@@ -77,6 +89,10 @@ make VERBOSE=1 %{?_smp_mflags}
 %dir %{_prefix}/lib/%{name}
 %dir %{_prefix}/lib/%{name}/*
 %{_prefix}/lib/%{name}/*/libwm*.so.*
+%{_bindir}/%{name}
+%{_prefix}/lib/%{name}/plugins/libwm-*-plugin.so
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/pixmaps/drive.png
 
 
 %files devel
@@ -86,6 +102,7 @@ make VERBOSE=1 %{?_smp_mflags}
 %dir %{_prefix}/lib/%{name}
 %dir %{_prefix}/lib/%{name}/*
 %{_prefix}/lib/%{name}/*/libwm*.so
+%exclude %{_prefix}/lib/%{name}/plugins/libwm-*-plugin.so
 
 
 %changelog
