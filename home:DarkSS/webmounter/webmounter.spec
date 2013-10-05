@@ -24,8 +24,6 @@ Summary:        A tool to map any http storage as local directory
 Url:            https://github.com/ershovdz/webmounter_public
 Group:          Productivity/Networking/File-Sharing
 Source0:        %{name}-%{version}.tar.xz
-# PATCH-OPENSUSE-FIX to build whatever…
-Patch0:         min.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  chrpath
@@ -37,6 +35,8 @@ BuildRequires:  pkgconfig(QtCore)
 BuildRequires:  pkgconfig(QtWebKit)
 BuildRequires:  pkgconfig(fuse)
 BuildRequires:  pkgconfig(libcurl)
+# `export NO_BRP_CHECK_RPATH true` doesn't work.
+BuildConflicts: brp-check-suse
 
 %description
 Storages supported by default: Google docs, Yandex.Fotki, Yandex.Disk,
@@ -57,7 +57,6 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-%patch0 -p1
 mv src/wm-plugins/ya-disk/icons/yandex_disk.PNG \
    src/wm-plugins/ya-disk/icons/yandex_disk.png
 
@@ -75,7 +74,6 @@ make VERBOSE=1
 %install
 %make_install INSTALL_ROOT=%{buildroot}
 %suse_update_desktop_file -r %{name} 'Internet;FileTransfer;Qt;'
-export NO_BRP_CHECK_RPATH true
 # chrpath --delete %%{buildroot}/%%{_bindir}/%%{name}
 # chrpath --delete %%{buildroot}/%%{_prefix}/lib/%%{name}/plugins/libwm-*-plugin.so
 # chrpath --delete %%{buildroot}/%%{_prefix}/lib/%%{name}/ui/libwmui.so.1.0.0
