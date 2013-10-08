@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2880-g926b3e1
+%define LEECHCRAFT_VERSION 0.5.95-2911-g3e3bc08+vtyulc
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -2400,7 +2400,7 @@ cmake ../src \
 
 %build
 cd build
-make %{?_smp_mflags}
+make %{?_smp_mflags} VERBOSE=1
 
 %install
 cd build
