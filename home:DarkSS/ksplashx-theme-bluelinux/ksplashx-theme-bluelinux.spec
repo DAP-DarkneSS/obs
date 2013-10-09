@@ -1,8 +1,20 @@
 #
-# spec file for package [spectemplate]
+# spec file for package ksplashx-theme-bluelinux
 #
-# Copyright (c) 2009-2012 Sebastian Z aka ziolo4ever (theme), (c) 2012 Perlow Dmitriy A. (spec file)
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
+#
+
 
 %define _path BlueLinuxSplash
 
@@ -11,17 +23,13 @@ Version:        0.1
 Release:        0
 Summary:        KDE splashx — theme
 
-License:        GPL
+License:        GPL-3.0
 Url:            http://opendesktop.org/content/show.php?content=105988
 Group:          System/GUI/KDE
 Source0:        http://dl.dropbox.com/u/4403301/BlueLinuxSplash.tar.gz
 
-# Provides:       ksplashx-branding = ?version
-# Supplements:    packageand(ksplashx:branding-bluelinux)
-# Conflicts:      otherproviders(ksplashx-branding)
-
-BuildRequires:  fdupes 
-BuildRequires:  kdebase4-workspace-devel
+BuildRequires:  fdupes
+BuildRequires:  kde4-filesystem
 Requires:       kdebase4-workspace
 BuildArch:      noarch
 
@@ -38,16 +46,10 @@ mkdir -p %{buildroot}%{_kde4_appsdir}/ksplash/Themes/%{_path}
 cp -r ./* %{buildroot}%{_kde4_appsdir}/ksplash/Themes/%{_path}
 %fdupes -s %{buildroot}
 
-%clean
-rm -rf %{buildroot}
-
 %files
 %defattr(-,root,root)
-%{_kde4_appsdir}/ksplash/
-%{_kde4_appsdir}/ksplash/Themes/
+%dir %{_kde4_appsdir}/ksplash/
+%dir %{_kde4_appsdir}/ksplash/Themes/
 %{_kde4_appsdir}/ksplash/Themes/%{_path}
-%{_kde4_appsdir}/ksplash/Themes/%{_path}/*
 
 %changelog
-* Tue Jan 31 2012 DA <dap.darkness@gmail.com> - 20120131-1
-- Version 0.1.
