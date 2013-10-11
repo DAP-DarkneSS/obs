@@ -1,0 +1,265 @@
+diff --git a/src/plugins/vtyulc/playlistwidget.cpp b/src/plugins/vtyulc/playlistwidget.cpp
+index 9a899d5..2fce306 100644
+--- a/src/plugins/vtyulc/playlistwidget.cpp
++++ b/src/plugins/vtyulc/playlistwidget.cpp
+@@ -71,17 +71,23 @@ namespace vlc
+ 	
+ 	PlaylistWidget::~PlaylistWidget ()
+ 	{
+-		QStringList save;
++		QueueState res;
+ 		int size = libvlc_media_list_count (Playlist_);
+ 		for (int i = 0; i < size; i++)
+-			save << QString (libvlc_media_get_meta (libvlc_media_list_item_at_index (Playlist_, i), libvlc_meta_URL));
++			res.Playlist_ << QString (libvlc_media_get_meta (libvlc_media_list_item_at_index (Playlist_, i), libvlc_meta_URL));
+ 		
+-		if (LastPlayingItem_ == nullptr)
+-			save << "0";
+-		else
+-			save << QString::number (LastPlayingItem_->row ());
++		if (!libvlc_media_player_get_media (NativePlayer_)) 
++		{
++			res.Current_ = 0;
++			res.Position_ = 0;
++		}
++		else 
++		{
++			res.Current_ = libvlc_media_list_index_of_item (Playlist_, libvlc_media_player_get_media (NativePlayer_));
++			res.Position_ = libvlc_media_player_get_time (NativePlayer_);
++		}
+ 		
+-		emit savePlaylist (save);
++		emit savePlaylist (res);
+ 		
+ 		clearPlaylist ();
+ 
+diff --git a/src/plugins/vtyulc/playlistwidget.h b/src/plugins/vtyulc/playlistwidget.h
+index 3cd7b4d..c0e568e 100644
+--- a/src/plugins/vtyulc/playlistwidget.h
++++ b/src/plugins/vtyulc/playlistwidget.h
+@@ -32,6 +32,7 @@
+ #include <QWidget>
+ #include <QUrl>
+ #include <QTreeView>
++#include <vlc/libvlc_structures.h>
+ 
+ struct libvlc_media_player_t;
+ struct libvlc_media_list_player_t;
+@@ -49,6 +50,13 @@ namespace vlc
+ {
+ 	class PlaylistModel;
+ 	
++	struct QueueState
++	{
++		QStringList Playlist_;
++		int Current_;
++		libvlc_time_t Position_;
++	};
++	
+ 	class PlaylistWidget : public QTreeView
+ 	{
+ 		Q_OBJECT
+@@ -88,7 +96,7 @@ namespace vlc
+ 		void deleteRequested (QAction*);
+ 		
+ 	signals:
+-		void savePlaylist (QStringList);
++		void savePlaylist (const QueueState&);
+ 	};
+ }
+ }
+diff --git a/src/plugins/vtyulc/vlcplayer.cpp b/src/plugins/vtyulc/vlcplayer.cpp
+index 4ff4f96..29147f8 100644
+--- a/src/plugins/vtyulc/vlcplayer.cpp
++++ b/src/plugins/vtyulc/vlcplayer.cpp
+@@ -155,6 +155,19 @@ namespace vlc
+ 			return convertTime (0);
+ 	}
+ 	
++	void VlcPlayer::SetCurrentTime (libvlc_time_t time)
++	{
++		if (libvlc_media_player_is_playing (Mp_.get ()))
++			libvlc_media_player_set_time (Mp_.get (), time);
++		else
++		{
++			libvlc_media_player_play (Mp_.get ());
++			WaitForPlaying ();
++			libvlc_media_player_set_time (Mp_.get (), time);
++			libvlc_media_player_pause (Mp_.get ());
++		}
++	}
++	
+ 	void VlcPlayer::Freeze ()
+ 	{
+ 		emit unstable ();
+diff --git a/src/plugins/vtyulc/vlcplayer.h b/src/plugins/vtyulc/vlcplayer.h
+index bcb83d1..1dc77a0 100644
+--- a/src/plugins/vtyulc/vlcplayer.h
++++ b/src/plugins/vtyulc/vlcplayer.h
+@@ -96,6 +96,7 @@ namespace vlc
+ 		
+ 		QTime GetCurrentTime () const;
+ 		QTime GetFullTime () const;
++		void SetCurrentTime (libvlc_time_t);
+ 		
+ 	private:
+ 		libvlc_track_description_t* GetTrack (libvlc_track_description_t *t, int track) const;
+diff --git a/src/plugins/vtyulc/vlcwidget.cpp b/src/plugins/vtyulc/vlcwidget.cpp
+index e859556..e9ab604 100644
+--- a/src/plugins/vtyulc/vlcwidget.cpp
++++ b/src/plugins/vtyulc/vlcwidget.cpp
+@@ -189,9 +189,9 @@ namespace vlc
+ 				SLOT (disableScreenSaver ()));
+ 
+ 		connect (PlaylistWidget_,
+-				SIGNAL (savePlaylist (QStringList)),
++				SIGNAL (savePlaylist (QueueState)),
+ 				this,
+-				SLOT (savePlaylist (QStringList)));
++				SLOT (savePlaylist (QueueState)));
+ 
+ 		connect (VlcPlayer_,
+ 				SIGNAL (stable ()),
+@@ -222,10 +222,7 @@ namespace vlc
+ 
+ 	VlcWidget::~VlcWidget ()
+ 	{
+-		VlcPlayer_->stop ();
+-		disableScreenSaver ();
+ 		delete PlaylistWidget_;
+-		delete PlaylistDock_;
+ 		delete VlcPlayer_;
+ 		SaveSettings ();
+ 		emit deleteMe (this);
+@@ -236,6 +233,7 @@ namespace vlc
+ 		Settings_ = new QSettings (QCoreApplication::organizationName (), QCoreApplication::applicationName () + "_VTYULC");
+ 		RestorePlaylist ();
+ 		Autostart_ = XmlSettingsManager::Instance ().property ("Autostart").toBool ();
++		QDir::setCurrent (Settings_->value ("WorkingDirectory", QDir::currentPath ()).toString ());
+ 	}
+ 
+ 	void VlcWidget::SaveSettings ()
+@@ -243,22 +241,28 @@ namespace vlc
+ 		delete Settings_;
+ 	}
+ 
+-	void VlcWidget::savePlaylist (const QStringList& list)
++	void VlcWidget::savePlaylist (const QueueState& playlist)
+ 	{
+-		qDebug () << list;
+-		Settings_->setValue ("Playlist", list);
++		Settings_->setValue ("Playlist", playlist.Playlist_);
++		Settings_->setValue ("LastPlaying", playlist.Current_);
++		Settings_->setValue ("LastTime", (long long)playlist.Position_);
+ 	}
+ 
+ 	void VlcWidget::RestorePlaylist ()
+ 	{
+ 		QStringList playlist = Settings_->value ("Playlist").toStringList ();
+-		if (playlist.size () < 2)
+-			return;
+-
+-		for (int i = 0; i < playlist.size () - 1; i++)
++		
++		for (int i = 0; i < playlist.size (); i++)
+ 			PlaylistWidget_->AddUrl (QUrl::fromEncoded (playlist [i].toUtf8 ()), false);
+ 
+-		PlaylistWidget_->SetCurrentMedia (playlist [playlist.size () - 1].toInt ());
++		int lastPlaying = Settings_->value ("LastPlaying").toInt ();
++		if (lastPlaying < playlist.size () && lastPlaying >= 0)
++		{
++			PlaylistWidget_->SetCurrentMedia (lastPlaying);
++			const long long time = Settings_->value ("LastTime").toLongLong ();
++			if (time)
++				VlcPlayer_->SetCurrentTime (time);
++		}
+ 	}
+ 
+ 	QObject* VlcWidget::ParentMultiTabs ()
+@@ -282,6 +286,9 @@ namespace vlc
+ 				tr ("Open files"),
+ 				tr ("Videos (*.mkv *.avi *.mov *.mpg)"));
+ 
++		if (!files.isEmpty ())
++			ParsePath (files [0]);
++		
+ 		PlaylistWidget_->clearPlaylist ();
+ 		for (int i = 0; i < files.size (); i++)
+ 			if (QFile::exists (files [i]))
+@@ -293,7 +300,10 @@ namespace vlc
+ 		QStringList files = QFileDialog::getOpenFileNames (this,
+ 				tr ("Open files"),
+ 				tr ("Videos (*.mkv *.avi *.mov *.mpg)"));
+-
++		
++		if (!files.isEmpty ())
++			ParsePath (files [0]);
++		
+ 		for (int i = 0; i < files.size (); i++)
+ 			if (QFile::exists (files [i]))
+ 				PlaylistWidget_->AddUrl (QUrl::fromLocalFile (files [i]), Autostart_);
+@@ -308,6 +318,7 @@ namespace vlc
+ 
+ 		if (QFile::exists (folder))
+ 		{
++			ParsePath (folder);
+ 			PlaylistWidget_->clearPlaylist ();
+ 			PlaylistWidget_->AddUrl ("directory://" + folder, Autostart_);
+ 		}
+@@ -321,6 +332,7 @@ namespace vlc
+ 
+ 		if (QFile::exists (folder))
+ 		{
++			ParsePath (folder);
+ 			PlaylistWidget_->clearPlaylist ();
+ 			PlaylistWidget_->AddUrl ("dvdsimple://" + folder, Autostart_);
+ 		}
+@@ -334,6 +346,7 @@ namespace vlc
+ 
+ 		if (QFile::exists (folder))
+ 		{
++			ParsePath (folder);
+ 			PlaylistWidget_->clearPlaylist ();
+ 			PlaylistWidget_->AddUrl ("dvd://" + folder, Autostart_);
+ 		}
+@@ -357,7 +370,18 @@ namespace vlc
+ 				tr ("Media (*.ac3)"));
+ 
+ 		if (QFile::exists (url))
++		{
++			ParsePath (url);
+ 			VlcPlayer_->addUrl (QUrl::fromLocalFile (url));
++		}
++	}
++	
++	void VlcWidget::ParsePath (QString s)
++	{
++		while (s.length () && s[s.length () - 1] != '/')
++			s.remove (s.length () - 1, 1);
++		
++		Settings_->setValue ("WorkingDirectory", s);
+ 	}
+ 
+ 	void VlcWidget::updateInterface ()
+diff --git a/src/plugins/vtyulc/vlcwidget.h b/src/plugins/vtyulc/vlcwidget.h
+index c22a7b8..d3edf5c 100644
+--- a/src/plugins/vtyulc/vlcwidget.h
++++ b/src/plugins/vtyulc/vlcwidget.h
+@@ -154,6 +154,8 @@ namespace vlc
+ 		void RestoreSettings ();
+ 		void RestorePlaylist ();
+ 		
++		void ParsePath (QString);
++		
+ 	public slots:
+ 		void autostartChanged ();
+ 		
+@@ -192,7 +194,7 @@ namespace vlc
+ 		
+ 		void disableScreenSaver ();
+ 		
+-		void savePlaylist (const QStringList&);
++		void savePlaylist (const QueueState&);
+ 		
+ 	signals:
+ 		void deleteMe (QWidget*);
