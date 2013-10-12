@@ -52,7 +52,7 @@ mkdir -p %{buildroot}%{_bindir}
 install %{name} %{buildroot}%{_bindir}
 
 mkdir -p %{buildroot}%{_datadir}/pixmaps
-install checksum.png %{buildroot}%{_datadir}/pixmaps/%{name}
+install checksum.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
 
 %suse_update_desktop_file -c %{name} %{name} "An easy-to-use tool for hashing files and validating checksums" %{name} %{name} "Utility;Accessibility;"
 
@@ -61,7 +61,7 @@ install checksum.png %{buildroot}%{_datadir}/pixmaps/%{name}
 %defattr(-,root,root)
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/pixmaps/%{name}
+%{_datadir}/pixmaps/%{name}.png
 
 
 %changelog
