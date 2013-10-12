@@ -31,7 +31,7 @@ BuildRequires:  fdupes
 BuildRequires:  pkgconfig
 BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(QJson)
-BuildRequires:  pkgconfig(QtCore)
+BuildRequires:  pkgconfig(QtGui)
 BuildRequires:  pkgconfig(QtWebKit)
 BuildRequires:  pkgconfig(fuse)
 BuildRequires:  pkgconfig(libcurl)
@@ -57,14 +57,12 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-mv src/wm-plugins/ya-disk/icons/yandex_disk.PNG \
-   src/wm-plugins/ya-disk/icons/yandex_disk.png
 
 
 %build
 qmake \
       QMAKE_STRIP="" \
-      QMAKE_CFLAGS+="%{optflags}"
+      QMAKE_CFLAGS+="%{optflags}" \
       QMAKE_CXXFLAGS+="%{optflags}"
 
 # Don't use {?_smp_mflags} !
