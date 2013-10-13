@@ -1,5 +1,17 @@
+diff --git a/src/plugins/vtyulc/CMakeLists.txt b/src/plugins/vtyulc/CMakeLists.txt
+index ac630cc..a9352c1 100644
+--- a/src/plugins/vtyulc/CMakeLists.txt
++++ b/src/plugins/vtyulc/CMakeLists.txt
+@@ -24,6 +24,7 @@ set (SRCS
+ 	playlistmodel.cpp
+ 	xmlsettingsmanager.cpp
+ 	playlisttitlewidget.cpp
++	volumenotification.cpp
+ 	)
+ 	
+ CreateTrs("vtyulc" "en;ru_RU" COMPILED_TRANSLATIONS)
 diff --git a/src/plugins/vtyulc/playlistwidget.cpp b/src/plugins/vtyulc/playlistwidget.cpp
-index 9a899d5..2fce306 100644
+index 9a899d5..e66783f 100644
 --- a/src/plugins/vtyulc/playlistwidget.cpp
 +++ b/src/plugins/vtyulc/playlistwidget.cpp
 @@ -71,17 +71,23 @@ namespace vlc
@@ -33,8 +45,76 @@ index 9a899d5..2fce306 100644
  		
  		clearPlaylist ();
  
+@@ -111,22 +117,22 @@ namespace vlc
+ 		timer->start ();
+ 	}
+ 	
+-	void PlaylistWidget::AddUrl (const QUrl& url, bool start)
++	libvlc_media_t* PlaylistWidget::AddUrl (const QUrl& url, bool start)
+ 	{
+ 		for (int i = 0; i < libvlc_media_list_count (Playlist_); i++)
+ 			if (url.toEncoded () == libvlc_media_get_meta (libvlc_media_list_item_at_index (Playlist_, i), libvlc_meta_URL))
+ 			{
+ 				qWarning () << Q_FUNC_INFO << "Ignoring already added url";
+-				return;
++				return nullptr;
+ 			}
+ 		
+ 		libvlc_media_t *m = libvlc_media_new_location (Instance_, url.toEncoded ());
+ 		libvlc_media_parse (m);
+-		if (libvlc_media_get_duration (m) == 0) 
++		if (!libvlc_media_is_parsed (m) || libvlc_media_get_duration (m) == 0) 
+ 		{
+ 			libvlc_media_release (m);
+ 			qWarning () << Q_FUNC_INFO << "A little fail:" << url;
+-			return;
++			return nullptr;
+ 		}
+ 		
+ 		libvlc_media_set_meta (m, libvlc_meta_URL, url.toEncoded ());
+@@ -136,6 +142,8 @@ namespace vlc
+ 			libvlc_media_list_player_play (Player_);
+ 		
+ 		updateInterface ();
++		
++		return m;
+ 	}
+ 	
+ 	bool PlaylistWidget::IsPlaying () const
+@@ -243,18 +251,21 @@ namespace vlc
+ 	void PlaylistWidget::SetCurrentMedia (int current)
+ 	{
+ 		libvlc_media_t *media = libvlc_media_list_item_at_index (Playlist_, current);
+-		if (current > -1 && current < libvlc_media_list_count (Playlist_))
++		if (media)
++			SetCurrentMedia (media);
++	}
++	
++	void PlaylistWidget::SetCurrentMedia (libvlc_media_t *media)
++	{
++		libvlc_media_list_player_play_item (Player_, media);
++		while (!libvlc_media_player_is_playing (NativePlayer_))
+ 		{
+-			libvlc_media_list_player_play_item (Player_, media);
+-			while (!libvlc_media_player_is_playing (NativePlayer_))
+-			{
+-				QEventLoop loop;
+-				QTimer::singleShot (5, &loop, SLOT (quit ()));
+-				loop.exec ();
+-			}
+-			
+-			libvlc_media_player_stop (NativePlayer_);
++			QEventLoop loop;
++			QTimer::singleShot (5, &loop, SLOT (quit ()));
++			loop.exec ();
+ 		}
++		
++		libvlc_media_player_stop (NativePlayer_);
+ 	}
+ 	
+ 	void PlaylistWidget::clearPlaylist ()
 diff --git a/src/plugins/vtyulc/playlistwidget.h b/src/plugins/vtyulc/playlistwidget.h
-index 3cd7b4d..c0e568e 100644
+index 3cd7b4d..6f0222e 100644
 --- a/src/plugins/vtyulc/playlistwidget.h
 +++ b/src/plugins/vtyulc/playlistwidget.h
 @@ -32,6 +32,7 @@
@@ -59,7 +139,17 @@ index 3cd7b4d..c0e568e 100644
  	class PlaylistWidget : public QTreeView
  	{
  		Q_OBJECT
-@@ -88,7 +96,7 @@ namespace vlc
+@@ -67,7 +75,8 @@ namespace vlc
+ 		~PlaylistWidget ();
+ 		
+ 		void SetCurrentMedia (int);
+-		void AddUrl (const QUrl&, bool start);
++		void SetCurrentMedia (libvlc_media_t*);
++		libvlc_media_t* AddUrl (const QUrl&, bool start);
+ 		bool IsPlaying () const;
+ 		void Init (libvlc_instance_t *instance, libvlc_media_player_t *player);
+ 		void DeleteRequested (int index);
+@@ -88,7 +97,7 @@ namespace vlc
  		void deleteRequested (QAction*);
  		
  	signals:
@@ -68,11 +158,36 @@ index 3cd7b4d..c0e568e 100644
  	};
  }
  }
+diff --git a/src/plugins/vtyulc/vlc.cpp b/src/plugins/vtyulc/vlc.cpp
+index 704abf5..a9624f9 100644
+--- a/src/plugins/vtyulc/vlc.cpp
++++ b/src/plugins/vtyulc/vlc.cpp
+@@ -217,7 +217,7 @@ namespace vlc
+ 	{
+ 		if (entity.Entity_ == "Sleeping")
+ 			for (int i = 0; i < Tabs_.size (); i++)
+-				Tabs_ [i]->Pause ();
++				Tabs_ [i]->Sleep ();
+ 	}
+ }
+ }
 diff --git a/src/plugins/vtyulc/vlcplayer.cpp b/src/plugins/vtyulc/vlcplayer.cpp
-index 4ff4f96..29147f8 100644
+index 4ff4f96..9086883 100644
 --- a/src/plugins/vtyulc/vlcplayer.cpp
 +++ b/src/plugins/vtyulc/vlcplayer.cpp
-@@ -155,6 +155,19 @@ namespace vlc
+@@ -133,6 +133,11 @@ namespace vlc
+ 		libvlc_media_player_stop (Mp_.get ());
+ 	}
+ 	
++	void VlcPlayer::pause ()
++	{
++		libvlc_media_player_pause (Mp_.get ());
++	}
++	
+ 	void VlcPlayer::changePosition (double pos)
+ 	{
+ 		if (libvlc_media_player_get_media (Mp_.get ()))
+@@ -155,6 +160,19 @@ namespace vlc
  			return convertTime (0);
  	}
  	
@@ -93,7 +208,7 @@ index 4ff4f96..29147f8 100644
  	{
  		emit unstable ();
 diff --git a/src/plugins/vtyulc/vlcplayer.h b/src/plugins/vtyulc/vlcplayer.h
-index bcb83d1..1dc77a0 100644
+index bcb83d1..db66c89 100644
 --- a/src/plugins/vtyulc/vlcplayer.h
 +++ b/src/plugins/vtyulc/vlcplayer.h
 @@ -96,6 +96,7 @@ namespace vlc
@@ -104,11 +219,27 @@ index bcb83d1..1dc77a0 100644
  		
  	private:
  		libvlc_track_description_t* GetTrack (libvlc_track_description_t *t, int track) const;
+@@ -109,6 +110,7 @@ namespace vlc
+ 	public slots:
+ 		void stop ();
+ 		void togglePlay ();
++		void pause ();
+ 		void addUrl (const QUrl&);
+ 		void setUrl (const QUrl&);
+ 		void changePosition (double);
 diff --git a/src/plugins/vtyulc/vlcwidget.cpp b/src/plugins/vtyulc/vlcwidget.cpp
-index e859556..e9ab604 100644
+index e859556..6e89b1a 100644
 --- a/src/plugins/vtyulc/vlcwidget.cpp
 +++ b/src/plugins/vtyulc/vlcwidget.cpp
-@@ -189,9 +189,9 @@ namespace vlc
+@@ -94,6 +94,7 @@ namespace vlc
+ 	, Parent_ (parent)
+ 	, Manager_ (manager)
+ 	, AllowFullScreenPanel_ (false)
++	, VolumeNotificationWidget_ (new VolumeNotification (this))
+ 	, Autostart_ (true)
+ 	{
+ 		VlcMainWidget_ = new SignalledWidget;
+@@ -189,9 +190,9 @@ namespace vlc
  				SLOT (disableScreenSaver ()));
  
  		connect (PlaylistWidget_,
@@ -120,7 +251,24 @@ index e859556..e9ab604 100644
  
  		connect (VlcPlayer_,
  				SIGNAL (stable ()),
-@@ -222,10 +222,7 @@ namespace vlc
+@@ -212,6 +213,16 @@ namespace vlc
+ 				SIGNAL (triggered ()),
+ 				PlaylistWidget_,
+ 				SLOT (clearPlaylist ()));
++		
++		connect (VlcMainWidget_,
++				SIGNAL (resized (QResizeEvent*)),
++				this,
++				SLOT (mainWidgetResized (QResizeEvent*)));
++		
++		connect (SoundWidget_,
++				SIGNAL (volumeChanged (int)),
++				VolumeNotificationWidget_,
++				SLOT (showNotification (int)));
+ 
+ 		InitNavigations ();
+ 		InitVolumeActions ();
+@@ -222,10 +233,7 @@ namespace vlc
  
  	VlcWidget::~VlcWidget ()
  	{
@@ -131,7 +279,7 @@ index e859556..e9ab604 100644
  		delete VlcPlayer_;
  		SaveSettings ();
  		emit deleteMe (this);
-@@ -236,6 +233,7 @@ namespace vlc
+@@ -236,6 +244,7 @@ namespace vlc
  		Settings_ = new QSettings (QCoreApplication::organizationName (), QCoreApplication::applicationName () + "_VTYULC");
  		RestorePlaylist ();
  		Autostart_ = XmlSettingsManager::Instance ().property ("Autostart").toBool ();
@@ -139,7 +287,7 @@ index e859556..e9ab604 100644
  	}
  
  	void VlcWidget::SaveSettings ()
-@@ -243,22 +241,28 @@ namespace vlc
+@@ -243,22 +252,33 @@ namespace vlc
  		delete Settings_;
  	}
  
@@ -160,15 +308,21 @@ index e859556..e9ab604 100644
 -			return;
 -
 -		for (int i = 0; i < playlist.size () - 1; i++)
-+		
+-			PlaylistWidget_->AddUrl (QUrl::fromEncoded (playlist [i].toUtf8 ()), false);
++		int lastPlaying = Settings_->value ("LastPlaying").toInt ();
++	
++		libvlc_media_t *current = nullptr, *media;
 +		for (int i = 0; i < playlist.size (); i++)
- 			PlaylistWidget_->AddUrl (QUrl::fromEncoded (playlist [i].toUtf8 ()), false);
++		{
++			media = PlaylistWidget_->AddUrl (QUrl::fromEncoded (playlist [i].toUtf8 ()), false);
++			if (i == lastPlaying)
++				current = media;
++		}
  
 -		PlaylistWidget_->SetCurrentMedia (playlist [playlist.size () - 1].toInt ());
-+		int lastPlaying = Settings_->value ("LastPlaying").toInt ();
-+		if (lastPlaying < playlist.size () && lastPlaying >= 0)
++		if (current != nullptr)
 +		{
-+			PlaylistWidget_->SetCurrentMedia (lastPlaying);
++			PlaylistWidget_->SetCurrentMedia (current);
 +			const long long time = Settings_->value ("LastTime").toLongLong ();
 +			if (time)
 +				VlcPlayer_->SetCurrentTime (time);
@@ -176,7 +330,7 @@ index e859556..e9ab604 100644
  	}
  
  	QObject* VlcWidget::ParentMultiTabs ()
-@@ -282,6 +286,9 @@ namespace vlc
+@@ -282,6 +302,9 @@ namespace vlc
  				tr ("Open files"),
  				tr ("Videos (*.mkv *.avi *.mov *.mpg)"));
  
@@ -186,7 +340,7 @@ index e859556..e9ab604 100644
  		PlaylistWidget_->clearPlaylist ();
  		for (int i = 0; i < files.size (); i++)
  			if (QFile::exists (files [i]))
-@@ -293,7 +300,10 @@ namespace vlc
+@@ -293,7 +316,10 @@ namespace vlc
  		QStringList files = QFileDialog::getOpenFileNames (this,
  				tr ("Open files"),
  				tr ("Videos (*.mkv *.avi *.mov *.mpg)"));
@@ -198,7 +352,7 @@ index e859556..e9ab604 100644
  		for (int i = 0; i < files.size (); i++)
  			if (QFile::exists (files [i]))
  				PlaylistWidget_->AddUrl (QUrl::fromLocalFile (files [i]), Autostart_);
-@@ -308,6 +318,7 @@ namespace vlc
+@@ -308,6 +334,7 @@ namespace vlc
  
  		if (QFile::exists (folder))
  		{
@@ -206,7 +360,7 @@ index e859556..e9ab604 100644
  			PlaylistWidget_->clearPlaylist ();
  			PlaylistWidget_->AddUrl ("directory://" + folder, Autostart_);
  		}
-@@ -321,6 +332,7 @@ namespace vlc
+@@ -321,6 +348,7 @@ namespace vlc
  
  		if (QFile::exists (folder))
  		{
@@ -214,7 +368,7 @@ index e859556..e9ab604 100644
  			PlaylistWidget_->clearPlaylist ();
  			PlaylistWidget_->AddUrl ("dvdsimple://" + folder, Autostart_);
  		}
-@@ -334,6 +346,7 @@ namespace vlc
+@@ -334,6 +362,7 @@ namespace vlc
  
  		if (QFile::exists (folder))
  		{
@@ -222,7 +376,7 @@ index e859556..e9ab604 100644
  			PlaylistWidget_->clearPlaylist ();
  			PlaylistWidget_->AddUrl ("dvd://" + folder, Autostart_);
  		}
-@@ -357,7 +370,18 @@ namespace vlc
+@@ -357,7 +386,18 @@ namespace vlc
  				tr ("Media (*.ac3)"));
  
  		if (QFile::exists (url))
@@ -241,11 +395,71 @@ index e859556..e9ab604 100644
  	}
  
  	void VlcWidget::updateInterface ()
+@@ -468,6 +508,7 @@ namespace vlc
+ 			FullScreenWidget_->SetBackGroundColor (new QColor ("black"));
+ 			FullScreenWidget_->showFullScreen ();
+ 			VlcPlayer_->switchWidget (FullScreenWidget_);
++			VolumeNotificationWidget_->resetGeometry (FullScreenWidget_);
+ 		}
+ 		else
+ 		{
+@@ -476,6 +517,7 @@ namespace vlc
+ 			FullScreenWidget_->hide ();
+ 			FullScreenPanel_->hide ();
+ 			VlcPlayer_->switchWidget (VlcMainWidget_);
++			VolumeNotificationWidget_->resetGeometry (VlcMainWidget_);
+ 		}
+ 	}
+ 
+@@ -1061,10 +1103,15 @@ namespace vlc
+ 	{
+ 		Autostart_ = XmlSettingsManager::Instance ().property ("Autostart").toBool ();
+ 	}
+-
+-	void VlcWidget::Pause ()
++	
++	void VlcWidget::Sleep ()
++	{
++		VlcPlayer_->pause ();
++	}
++	
++	void VlcWidget::mainWidgetResized (QResizeEvent *event)
+ 	{
+-		libvlc_media_player_pause (VlcPlayer_->GetPlayer ().get ());
++		VolumeNotificationWidget_->resetGeometry (VlcMainWidget_);
+ 	}
+ }
+ }
 diff --git a/src/plugins/vtyulc/vlcwidget.h b/src/plugins/vtyulc/vlcwidget.h
-index c22a7b8..d3edf5c 100644
+index c22a7b8..d9320f9 100644
 --- a/src/plugins/vtyulc/vlcwidget.h
 +++ b/src/plugins/vtyulc/vlcwidget.h
-@@ -154,6 +154,8 @@ namespace vlc
+@@ -37,6 +37,7 @@
+ #include "soundwidget.h"
+ #include "signalledwidget.h"
+ #include "playlistwidget.h"
++#include "volumenotification.h"
+ 
+ class QToolBar;
+ class QMenu;
+@@ -118,6 +119,7 @@ namespace vlc
+ 		SignalledWidget *VlcMainWidget_;
+ 		SoundWidget *SoundWidget_;
+ 		SoundWidget *FullScreenSoundWidget_;
++		VolumeNotification *VolumeNotificationWidget_;
+ 		QMenu *ContextMenu_;
+ 		QSettings *Settings_;
+ 		
+@@ -136,7 +138,7 @@ namespace vlc
+ 		void TabMadeCurrent ();
+ 		void TabLostCurrent ();
+ 		
+-		void Pause ();
++		void Sleep ();
+ 		
+ 	private:
+ 		QString GetNewSubtitles ();
+@@ -154,6 +156,8 @@ namespace vlc
  		void RestoreSettings ();
  		void RestorePlaylist ();
  		
@@ -254,7 +468,15 @@ index c22a7b8..d3edf5c 100644
  	public slots:
  		void autostartChanged ();
  		
-@@ -192,7 +194,7 @@ namespace vlc
+@@ -183,6 +187,7 @@ namespace vlc
+ 		void wheelEvent (QWheelEvent*);
+ 		void dropEvent (QDropEvent*);
+ 		void dragEnterEvent (QDragEnterEvent*);
++		void mainWidgetResized (QResizeEvent*);
+ 		
+ 		void fullScreenPanelRequested ();
+ 		void hideFullScreenPanel ();
+@@ -192,7 +197,7 @@ namespace vlc
  		
  		void disableScreenSaver ();
  		
@@ -263,3 +485,173 @@ index c22a7b8..d3edf5c 100644
  		
  	signals:
  		void deleteMe (QWidget*);
+diff --git a/src/plugins/vtyulc/volumenotification.cpp b/src/plugins/vtyulc/volumenotification.cpp
+new file mode 100644
+index 0000000..341dcd5
+--- /dev/null
++++ b/src/plugins/vtyulc/volumenotification.cpp
+@@ -0,0 +1,99 @@
++/**********************************************************************
++ * LeechCraft - modular cross-platform feature rich internet client.
++ * Copyright (C) 2013  Vladislav Tyulbashev
++ *
++ * Boost Software License - Version 1.0 - August 17th, 2003
++ *
++ * Permission is hereby granted, free of charge, to any person or organization
++ * obtaining a copy of the software and accompanying documentation covered by
++ * this license (the "Software") to use, reproduce, display, distribute,
++ * execute, and transmit the Software, and to prepare derivative works of the
++ * Software, and to permit third-parties to whom the Software is furnished to
++ * do so, all subject to the following:
++ *
++ * The copyright notices in the Software and this entire statement, including
++ * the above license grant, this restriction and the following disclaimer,
++ * must be included in all copies of the Software, in whole or in part, and
++ * all derivative works of the Software, unless such copies or derivative
++ * works are solely in the form of machine-executable object code generated by
++ * a source language processor.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO EVENT
++ * SHALL THE COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE
++ * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
++ * DEALINGS IN THE SOFTWARE.
++ **********************************************************************/
++
++#include <QTimer>
++#include <QPainter>
++#include <QBrush>
++#include <QPaintEvent>
++#include "volumenotification.h"
++
++namespace 
++{
++	int globalX (QWidget *widget)
++	{
++		if (widget == nullptr)
++			return 0;
++		else
++			return widget->x () + globalX (widget->parentWidget ());
++	}
++	
++	int globalY (QWidget *widget)
++	{
++		if (widget == nullptr)
++			return 0;
++		else
++			return widget->y () + globalY (widget->parentWidget ());
++	}
++}
++
++namespace LeechCraft
++{
++namespace vlc
++{
++	VolumeNotification::VolumeNotification (QWidget *parent)
++	: QWidget (parent, Qt::Tool | Qt::X11BypassWindowManagerHint)
++	, volume (0)
++	, hideTimer (new QTimer (parent))
++	{
++		hideTimer->setInterval (1000);
++		connect (hideTimer,
++				SIGNAL (timeout ()),
++				this,
++				SLOT (hide ()));
++		
++		setAttribute (Qt::WA_TranslucentBackground);
++	}
++	
++	void VolumeNotification::showNotification (int newVolume)
++	{
++		hideTimer->start ();
++		volume = newVolume;
++		update ();
++		if (!isVisible())
++			show ();
++	}
++	
++	void VolumeNotification::paintEvent (QPaintEvent *event)
++	{
++		QPainter p(this);
++		
++		p.setFont (QFont ("Arial", 20));
++		p.setPen (QPen (QBrush (Qt::white), 5));
++		p.drawText (1, 20, tr ("Volume: %1%").arg (volume == -1 ? 100 : volume));
++			
++		p.end ();
++		event->accept ();
++	}
++	
++	void VolumeNotification::resetGeometry(QWidget *widget)
++	{
++		setGeometry(widget->width () + globalX (widget) - 200, globalY (widget) + 50, 200, 200);
++	}
++}
++}
+diff --git a/src/plugins/vtyulc/volumenotification.h b/src/plugins/vtyulc/volumenotification.h
+new file mode 100644
+index 0000000..c191fbd
+--- /dev/null
++++ b/src/plugins/vtyulc/volumenotification.h
+@@ -0,0 +1,59 @@
++/**********************************************************************
++ * LeechCraft - modular cross-platform feature rich internet client.
++ * Copyright (C) 2013  Vladislav Tyulbashev
++ *
++ * Boost Software License - Version 1.0 - August 17th, 2003
++ *
++ * Permission is hereby granted, free of charge, to any person or organization
++ * obtaining a copy of the software and accompanying documentation covered by
++ * this license (the "Software") to use, reproduce, display, distribute,
++ * execute, and transmit the Software, and to prepare derivative works of the
++ * Software, and to permit third-parties to whom the Software is furnished to
++ * do so, all subject to the following:
++ *
++ * The copyright notices in the Software and this entire statement, including
++ * the above license grant, this restriction and the following disclaimer,
++ * must be included in all copies of the Software, in whole or in part, and
++ * all derivative works of the Software, unless such copies or derivative
++ * works are solely in the form of machine-executable object code generated by
++ * a source language processor.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO EVENT
++ * SHALL THE COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE
++ * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
++ * DEALINGS IN THE SOFTWARE.
++ **********************************************************************/
++
++#pragma once
++
++#include <QWidget>
++
++class QTimer;
++class QPaintEvent;
++
++namespace LeechCraft
++{
++namespace vlc
++{
++	class VolumeNotification : public QWidget
++	{
++		Q_OBJECT
++		
++		int volume;
++		QTimer *hideTimer;
++	
++	public:
++		explicit VolumeNotification (QWidget *parent = 0);
++		void resetGeometry (QWidget*);
++		
++	protected:
++		void paintEvent (QPaintEvent*);
++	
++	public slots:
++		void showNotification (int);
++	};
++}
++}
