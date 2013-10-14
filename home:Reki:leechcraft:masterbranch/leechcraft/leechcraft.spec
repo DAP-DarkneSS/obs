@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2957-gb90bbbb+vtyulc
+%define LEECHCRAFT_VERSION 0.5.95-2961-ge07674c
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -1310,6 +1310,7 @@ Summary:        LeechCraft Kinetic notifications Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-visualnotifications
+Recommends:     %{name}-poshuku
 
 %description kinotify
 This package contains a fancy notifications plugin for LeechCraft.
@@ -1441,6 +1442,7 @@ This package provides another Network Monitor plugin for Leechcraft.
 Summary:        LeechCraft HTML WYSIWYG editor Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Recommends:     %{name}-poshuku
 
 %description lhtr
 This package provides a HTML WYSIWYG editor plugin for Leechcraft.
