@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2969-gfb39677+vtyulc
+%define LEECHCRAFT_VERSION 0.5.95-3011-gf990cd9
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -2481,8 +2481,7 @@ EOF
 %{translations_dir}/leechcraft_??_??.qm
 %dir %{_libdir}/%{name}
 %dir %{plugin_dir}
-%{_libdir}/*lcutil.so.*
-%{_libdir}/*xmlsettingsdialog.so.*
+%{_libdir}/*%{name}-*.so.*
 %doc %{_mandir}/man1/%{name}*.1.gz
 %{_datadir}/%{name}/global_icons/
 %dir %{_datadir}/%{name}/themes
@@ -2787,8 +2786,7 @@ EOF
 %defattr(-,root,root)
 %{_datadir}/%{name}/cmake
 %{_includedir}/%{name}
-%{_libdir}/*lcutil.so
-%{_libdir}/*xmlsettingsdialog.so
+%{_libdir}/*%{name}-*.so
 %{_datadir}/cmake/Modules/InitLCPlugin.cmake
 
 %files devmon
