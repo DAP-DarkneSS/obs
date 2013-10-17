@@ -1,0 +1,48 @@
+diff --git a/src/wm-app/wm-app.pro b/src/wm-app/wm-app.pro
+index 3184bc3..55bfb2d 100644
+--- a/src/wm-app/wm-app.pro
++++ b/src/wm-app/wm-app.pro
+@@ -55,7 +55,6 @@ unix {
+     ldconf.path = /etc/ld.so.conf.d
+ 
+     libpath.path = .
+-    libpath.commands = "echo $${INSTALL_PREFIX}/webmounter > /etc/ld.so.conf.d/webmounter.conf" && "ldconfig"
+ 
+     INSTALLS += qmfiles \
+         desktop \
+diff --git a/src/wm-plugins/facebook/view/facebook_oauth.cpp b/src/wm-plugins/facebook/view/facebook_oauth.cpp
+index 1ec4d40..8c05920 100644
+--- a/src/wm-plugins/facebook/view/facebook_oauth.cpp
++++ b/src/wm-plugins/facebook/view/facebook_oauth.cpp
+@@ -19,6 +19,7 @@
+ 
+ #include <QtGui>
+ #include <QtWebKit>
++#include <QNetworkCookieJar>
+ #include <QNetworkProxy>
+ #include "webmounter.h"
+ #include "reg_exp.h"
+diff --git a/src/wm-plugins/vk/view/vk_oauth.cpp b/src/wm-plugins/vk/view/vk_oauth.cpp
+index 0601a7c..4649763 100644
+--- a/src/wm-plugins/vk/view/vk_oauth.cpp
++++ b/src/wm-plugins/vk/view/vk_oauth.cpp
+@@ -19,6 +19,7 @@
+ 
+ #include <QtGui>
+ #include <QtWebKit>
++#include <QNetworkCookieJar>
+ #include <QNetworkProxy>
+ #include "webmounter.h"
+ #include "reg_exp.h"
+diff --git a/src/wm-plugins/ya-disk/view/yandex_disk_oauth.cpp b/src/wm-plugins/ya-disk/view/yandex_disk_oauth.cpp
+index 2115505..15b4a38 100644
+--- a/src/wm-plugins/ya-disk/view/yandex_disk_oauth.cpp
++++ b/src/wm-plugins/ya-disk/view/yandex_disk_oauth.cpp
+@@ -19,6 +19,7 @@
+ 
+ #include <QtGui>
+ #include <QtWebKit>
++#include <QNetworkCookieJar>
+ #include <QNetworkProxy>
+ #include "webmounter.h"
+ #include "reg_exp.h"

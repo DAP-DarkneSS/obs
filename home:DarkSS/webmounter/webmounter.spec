@@ -24,6 +24,7 @@ Summary:        A tool to map any http storage as local directory
 Url:            https://github.com/ershovdz/webmounter_public
 Group:          Productivity/Networking/File-Sharing
 Source0:        %{name}-%{version}.tar.xz
+Patch0:         include_QNetworkCookieJar.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  chrpath
@@ -35,8 +36,6 @@ BuildRequires:  pkgconfig(QtGui)
 BuildRequires:  pkgconfig(QtWebKit)
 BuildRequires:  pkgconfig(fuse)
 BuildRequires:  pkgconfig(libcurl)
-# `export NO_BRP_CHECK_RPATH true` doesn't work.
-BuildConflicts: brp-check-suse
 
 %description
 Storages supported by default: Google docs, Yandex.Fotki, Yandex.Disk,
@@ -57,10 +56,12 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
+%patch0 -p1
 
 
 %build
 qmake \
+      INSTALL_PREFIX=%{_libdir} \
       QMAKE_STRIP="" \
       QMAKE_CFLAGS+="%{optflags}" \
       QMAKE_CXXFLAGS+="%{optflags}"
@@ -72,21 +73,27 @@ make VERBOSE=1
 %install
 %make_install INSTALL_ROOT=%{buildroot}
 %suse_update_desktop_file -r %{name} 'Internet;FileTransfer;Qt;'
-# chrpath --delete %%{buildroot}/%%{_bindir}/%%{name}
-# chrpath --delete %%{buildroot}/%%{_prefix}/lib/%%{name}/plugins/libwm-*-plugin.so
-# chrpath --delete %%{buildroot}/%%{_prefix}/lib/%%{name}/ui/libwmui.so.1.0.0
+rm -rf %{buildroot}/etc
 %fdupes -s %{buildroot}%{_datadir}/%{name}
+
+
+%post
+echo "%{_libdir}/webmounter" > /etc/ld.so.conf.d/webmounter.conf
+/sbin/ldconfig
+
+%postun
+rm /etc/ld.so.conf.d/webmounter.conf
+/sbin/ldconfig
 
 
 %files
 %defattr(-,root,root)
 %doc Licence Readme
 %{_datadir}/%{name}
-%dir %{_prefix}/lib/%{name}
-%dir %{_prefix}/lib/%{name}/*
-%{_prefix}/lib/%{name}/*/libwm*.so.*
+%dir %{_libdir}/%{name}
+%{_libdir}/%{name}/libwm*.so.*
 %{_bindir}/%{name}
-%{_prefix}/lib/%{name}/plugins/libwm-*-plugin.so
+%{_libdir}/%{name}/plugins/
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/drive.png
 
@@ -94,11 +101,9 @@ make VERBOSE=1
 %files devel
 %defattr(-,root,root)
 %{_includedir}/%{name}
-%{_prefix}/lib/pkgconfig/libwm*.pc
-%dir %{_prefix}/lib/%{name}
-%dir %{_prefix}/lib/%{name}/*
-%{_prefix}/lib/%{name}/*/libwm*.so
-%exclude %{_prefix}/lib/%{name}/plugins/libwm-*-plugin.so
+%{_libdir}/pkgconfig/libwm*.pc
+%dir %{_libdir}/%{name}
+%{_libdir}/%{name}/libwm*.so
 
 
 %changelog
