@@ -16,7 +16,7 @@
 #
 
 Name:           simplescreenrecorder
-Version:        0.1.0
+Version:        0.1.1
 Release:        0
 License:        GPL-3.0+
 Summary:        A feature-rich screen recorder that supports X11 and OpenGL
@@ -25,6 +25,7 @@ Group:          System/X11/Utilities
 Source:         https://github.com/MaartenBaert/ssr/archive/%{version}.tar.gz
 
 BuildRequires:  hicolor-icon-theme
+BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(gl)
@@ -34,13 +35,11 @@ BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
-BuildRequires:  update-desktop-files
 # Fix build on => 12.3
-%if 0%{?suse_version} > 1220 
+%if 0%{?suse_version} > 1220
 BuildRequires:  libjpeg8-devel
 %endif
-%ifarch %arm
-%else
+%ifarch %ix86 x86_64
 Recommends:     libssr-glinject
 %if %{_lib} == "lib64"
 Recommends:     libssr-glinject-32bit
@@ -80,28 +79,25 @@ Features:
  * Tooltips for almost everything: no need to read the documentation to find
    out what something does.
 
-
-%ifarch %arm
-%else
+%ifarch %ix86 x86_64
 %package -n libssr-glinject
+License:        MIT
 Summary:        A feature-rich screen recorder library
 Group:          System/Libraries
-License:        MIT
 %description -n libssr-glinject
 This package provides SimpleScreenRecorder's optional library.
 %endif
-
 
 %prep
 %setup -q -n ssr-%{version}
 
 %build
-%ifarch %arm
+%ifarch %ix86 x86_64
+%configure
+%else
 export CPPFLAGS="-DSSR_USE_X86_ASM=0"
 %configure \
            --disable-glinjectlib
-%else
-%configure
 %endif
 make %{?_smp_mflags}
 
@@ -117,8 +113,7 @@ make %{?_smp_mflags}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/256x256/apps/%{name}.png
 
-%ifarch %arm
-%else
+%ifarch %ix86 x86_64
 %files -n libssr-glinject
 %defattr(-,root,root)
 %{_libdir}/libssr-glinject.*
