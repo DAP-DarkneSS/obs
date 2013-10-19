@@ -23,16 +23,19 @@ License:        GPL-3.0+
 Summary:        A GTK2 batch renamer for files and directories
 Url:            http://gprename.sourceforge.net/
 Group:          Productivity/File utilities
-Source0:        http://kent.dl.sourceforge.net/project/gprename/gprename/%{version}/gprename-%{version}.tar.bz2
 
-%if 0%{?suse_version} >= 1140
+Source0:        http://kent.dl.sourceforge.net/project/gprename/gprename/%{version}/gprename-%{version}.tar.bz2
+# PATCH-FIX-OPENSUSE to prevent "W: invalid-desktopfile; unknown value."
+Patch0:         validate-desktopfile.patch
+
 BuildRequires:  update-desktop-files
-%endif
 Requires:       perl-Gtk2
 Requires:       perl-gettext
 Recommends:     %{name}-lang
 Recommends:     nautilus-actions
 BuildArch:      noarch
+# SLE 11 requires it to build:
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 GPRename is a complete GTK2/perl batch renamer for files and directories.
@@ -41,6 +44,7 @@ GPRename is a complete GTK2/perl batch renamer for files and directories.
 
 %prep
 %setup -q
+%patch0
 
 
 %build
@@ -51,15 +55,16 @@ make \
      PREFIX=%{_prefix} \
      DESTDIR=%{buildroot}%{_prefix} \
      install
-%if 0%{?suse_version} >= 1140
 %suse_update_desktop_file -r %{name} 'Utility;System;FileManager;'
-%endif
 %find_lang %{name}
 
 
 %files
 %defattr(-,root,root)
+# SLE complains: "directories are not even executable by their owner."
+%if 0%{?suse_version} >= 1140
 %attr(644,root,root) %doc *.TXT
+%endif
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}*
 %doc %{_mandir}/man*/%{name}*

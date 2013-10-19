@@ -1,0 +1,8 @@
+--- bin/gprename.desktop.orig	2013-10-18 18:39:48.097999984 +0300
++++ bin/gprename.desktop	2013-10-18 18:39:48.108999984 +0300
+@@ -1,5 +1,4 @@
+ [Desktop Entry]
+-Version=2.6
+ Name=GPRename
+ Comment=To rename files and directories in batch
+ Exec=gprename
