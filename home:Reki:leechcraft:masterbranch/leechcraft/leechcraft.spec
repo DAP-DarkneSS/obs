@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-3011-gf990cd9
+%define LEECHCRAFT_VERSION 0.5.95-3048-gfc91bd5
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -87,7 +87,7 @@ BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt4)
 BuildRequires:  libpurple-devel
 BuildRequires:  pkgconfig(qca2)
-BuildRequires:  pkgconfig(QJson)
+BuildRequires:  pkgconfig(QJson) >= 0.8.1
 BuildRequires:  libqscintilla-devel
 BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  libqt4-sql
@@ -2321,6 +2321,7 @@ cmake ../src \
         -DENABLE_GLANCE=True \
         -DENABLE_GMAILNOTIFIER=True \
         -DENABLE_HARBINGER=True \
+        -DENABLE_HTTHARE=False \
         -DENABLE_HOTSENSORS=True \
         -DENABLE_HOTSTREAMS=True \
         -DENABLE_IMGASTE=True \
