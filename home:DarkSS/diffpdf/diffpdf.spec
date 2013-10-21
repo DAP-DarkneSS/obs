@@ -1,25 +1,34 @@
 #
+# spec file for package diffpdf
+#
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
-Name:           diffpdf
-Version:        2.1.2
-Release:        3%{?dist}
-Summary:        PDF files comparator
 
-License:        GPLv2+
+Name:           diffpdf
+Version:        2.1.3
+Release:        0
+License:        GPL-2.0+
+Summary:        PDF files comparator
 Url:            http://www.qtrac.eu/diffpdf.html
-Group:          Applications/Text
+Group:          Productivity/Text/Utilities
 Source0:        http://www.qtrac.eu/%{name}-%{version}.tar.gz
 Source3:        %{name}.desktop
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
-BuildRequires:  ImageMagick
-BuildRequires:  desktop-file-utils,
-# /usr/include/poppler/cpp/poppler-version.h
-BuildRequires:  poppler-cpp-devel
-BuildRequires:  poppler-qt4-devel,
-Requires:       hicolor-icon-theme
+BuildRequires:  update-desktop-files
+BuildRequires:  pkgconfig(poppler-cpp)
+BuildRequires:  pkgconfig(poppler-qt4)
 
 %description
 DiffPDF is used to compare two PDF files. By default the comparison is
@@ -33,8 +42,11 @@ ranges.
 
 
 %build
-lrelease-qt4 diffpdf.pro
-qmake-qt4
+lrelease diffpdf.pro
+qmake \
+      QMAKE_STRIP="" \
+      QMAKE_CFLAGS+="%{optflags}" \
+      QMAKE_CXXFLAGS+="%{optflags}"
 make %{?_smp_mflags}
 
 
@@ -42,38 +54,29 @@ make %{?_smp_mflags}
 mkdir -p %{buildroot}%{_bindir}
 install -m 755 diffpdf %{buildroot}%{_bindir}
 
-for f in 32 16; do
-   mkdir -p %{buildroot}%{_datadir}/icons/hicolor/"$f"x$f/apps
-   convert images/icon.png -size "$f"x$f diffpdf-$f.png
-   install -p diffpdf-$f.png %{buildroot}%{_datadir}/icons/hicolor/"$f"x$f/apps/diffpdf.png
-done
+mkdir -p %{buildroot}%{_datadir}/pixmaps
+install images/icon.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
 
-desktop-file-install                                    \
-  --dir=%{buildroot}%{_datadir}/applications         \
-  %{SOURCE3}
+%suse_update_desktop_file -i %{name}
+
 
 %post
-touch --no-create %{_datadir}/icons/hicolor
 if [ -x %{_bindir}/gtk-update-icon-cache ]; then
   %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
 fi
 
 
 %postun
-touch --no-create %{_datadir}/icons/hicolor
 if [ -x %{_bindir}/gtk-update-icon-cache ]; then
   %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
 fi
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files
 %defattr(-,root,root,-)
 %doc CHANGES gpl-2.0.txt help_cz.html help_de.html help_fr.html help.html README
 %{_bindir}/%{name}
-%{_datadir}/icons/hicolor/??x??/apps/*.png
+%{_datadir}/pixmaps/%{name}.png
 %{_datadir}/applications/%{name}.desktop
 
 

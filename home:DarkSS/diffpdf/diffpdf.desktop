@@ -1,8 +1,9 @@
 [Desktop Entry]
 Name=diffpdf
+GenericName=PDF files comparator
 Comment=Compare PDF files
 Exec=diffpdf
-Icon=diffpdf.png
+Icon=diffpdf
 Terminal=false
 Type=Application
-Categories=Utility;TextTools;
+Categories=Utility;Office;Viewer;
