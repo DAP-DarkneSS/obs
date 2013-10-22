@@ -11,7 +11,7 @@ index ac630cc..a9352c1 100644
  	
  CreateTrs("vtyulc" "en;ru_RU" COMPILED_TRANSLATIONS)
 diff --git a/src/plugins/vtyulc/playlistmodel.cpp b/src/plugins/vtyulc/playlistmodel.cpp
-index dc737b6..aae76aa 100644
+index dc737b6..d765883 100644
 --- a/src/plugins/vtyulc/playlistmodel.cpp
 +++ b/src/plugins/vtyulc/playlistmodel.cpp
 @@ -48,6 +48,7 @@ namespace vlc
@@ -74,31 +74,23 @@ index dc737b6..aae76aa 100644
  	}
  	
  	bool PlaylistModel::dropMimeData (const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex& parent)
-@@ -104,12 +99,11 @@ namespace vlc
+@@ -103,13 +98,10 @@ namespace vlc
+ 		if (urls.size () == 0)
  			return false;
  		
- 		if (parent != invisibleRootItem ()->index ())
+-		if (parent != invisibleRootItem ()->index ())
 -			row = parent.row () - 1;
 -		else	
 -			row -= 2;
-+			row = parent.row ();
++		row += parent.row ();
  		
-+		fprintf(stderr, "%d\n", row);
  		QUrl insertAfter;
 -		for (int i = row; i > 0; i--)
 +		for (int i = row; i >= 0; i--)
  		{
  			QUrl url = QUrl::fromEncoded(libvlc_media_get_meta (libvlc_media_list_item_at_index (Playlist_, i), libvlc_meta_URL));
  			if (!urls.contains (url))
-@@ -118,6 +112,7 @@ namespace vlc
- 				break;
- 			}
- 		}
-+		fprintf(stderr, "%s\n", insertAfter.toEncoded().constData());
- 		
- 		QList<libvlc_media_t*> mediaList;
- 		for (int i = 0; i < urls.size (); i++)
-@@ -129,7 +124,13 @@ namespace vlc
+@@ -129,7 +121,13 @@ namespace vlc
  			{
  				mediaList << libvlc_media_new_location (Instance_, urls [i].toEncoded ());
  				libvlc_media_parse (mediaList [i]);
@@ -113,19 +105,19 @@ index dc737b6..aae76aa 100644
  			}
  		}
  		
-@@ -200,5 +201,10 @@ namespace vlc
+@@ -200,5 +198,10 @@ namespace vlc
  	{
  		Parent_->AddUrl (url, false);
  	}
 +	
 +	QString PlaylistModel::ShrinkText (const QString& a, const QString& b)
 +	{
-+		return FontMetrics_.elidedText (b, Qt::ElideRight, Width_ - FontMetrics_.width (a)) + a;
++		return a + " " + FontMetrics_.elidedText (b, Qt::ElideRight, Width_ - FontMetrics_.width (a + " ") - 16);
 +	}
  }
  }
 diff --git a/src/plugins/vtyulc/playlistmodel.h b/src/plugins/vtyulc/playlistmodel.h
-index 7bad421..1857b84 100644
+index 7bad421..d374cc1 100644
 --- a/src/plugins/vtyulc/playlistmodel.h
 +++ b/src/plugins/vtyulc/playlistmodel.h
 @@ -31,6 +31,7 @@
@@ -158,21 +150,54 @@ index 7bad421..1857b84 100644
  		libvlc_instance_t *Instance_;
  	
  	public:
-@@ -71,8 +65,12 @@ namespace vlc
+@@ -70,9 +64,14 @@ namespace vlc
+ 		Qt::DropActions supportedDropActions () const;
  		
  		void AddUrl (const QUrl&);
- 		
++		libvlc_media_t* Take (const QUrl&);
++		
 +		int Width_;
 +		QFontMetrics FontMetrics_;
 +		
+ 		
  	private:
- 		libvlc_media_t* Take (const QUrl&);
+-		libvlc_media_t* Take (const QUrl&);
 +		QString ShrinkText (const QString&, const QString&);
  		
  	public slots:
  		void updateTable ();
+diff --git a/src/plugins/vtyulc/playlisttitlewidget.cpp b/src/plugins/vtyulc/playlisttitlewidget.cpp
+index 8090bbe..5ea8257 100644
+--- a/src/plugins/vtyulc/playlisttitlewidget.cpp
++++ b/src/plugins/vtyulc/playlisttitlewidget.cpp
+@@ -49,6 +49,12 @@ namespace vlc
+ 		
+ 		MagicAction_ = addAction (tr ("Magic sort"));
+ 		MagicAction_->setIcon (proxy->GetIcon ("tools-wizard"));
++		
++		UpAction_ = addAction (tr ("Up"));
++		UpAction_->setIcon (proxy->GetIcon ("arrow-up"));
++		
++		DownAction_ = addAction (tr ("Down"));
++		DownAction_->setIcon (proxy->GetIcon ("arrow-down"));
+ 	}
+ }
+ }
+diff --git a/src/plugins/vtyulc/playlisttitlewidget.h b/src/plugins/vtyulc/playlisttitlewidget.h
+index 9191edf..93e4ffb 100644
+--- a/src/plugins/vtyulc/playlisttitlewidget.h
++++ b/src/plugins/vtyulc/playlisttitlewidget.h
+@@ -49,6 +49,8 @@ namespace vlc
+ 		QAction *ClearAction_;
+ 		QAction *MagicAction_;
+ 		QAction *AddAction_;
++		QAction *UpAction_;
++		QAction *DownAction_;
+ 	};
+ }
+ }
 diff --git a/src/plugins/vtyulc/playlistwidget.cpp b/src/plugins/vtyulc/playlistwidget.cpp
-index 9a899d5..ab0ab3b 100644
+index 9a899d5..ded515e 100644
 --- a/src/plugins/vtyulc/playlistwidget.cpp
 +++ b/src/plugins/vtyulc/playlistwidget.cpp
 @@ -52,7 +52,7 @@ namespace LeechCraft
@@ -324,8 +349,53 @@ index 9a899d5..ab0ab3b 100644
  	}
  	
  	void PlaylistWidget::clearPlaylist ()
+@@ -263,14 +277,42 @@ namespace vlc
+ 			DeleteRequested (0);
+ 	}
+ 	
+-	void PlaylistWidget::next()
++	void PlaylistWidget::next ()
+ 	{
+ 		libvlc_media_list_player_next (Player_);
+ 	}
+ 	
+-	void PlaylistWidget::prev()
++	void PlaylistWidget::prev ()
+ 	{
+ 		libvlc_media_list_player_previous (Player_);
+ 	}
++	
++	void PlaylistWidget::down ()
++	{
++		int current = selectionModel ()->currentIndex ().row ();
++		if (current == libvlc_media_list_count (Playlist_) - 1 || current == -1)
++			return;
++		
++		libvlc_media_t *media = libvlc_media_list_item_at_index (Playlist_, current);
++		libvlc_media_list_remove_index (Playlist_, current);
++		libvlc_media_list_insert_media (Playlist_, media, current + 1);
++		
++		selectionModel()->setCurrentIndex (Model_->index (current + 1, 0), QItemSelectionModel::Select);
++		selectionModel()->select (Model_->index (current, 0), QItemSelectionModel::Deselect);
++	}
++
++	void PlaylistWidget::up ()
++	{
++		int current = selectionModel ()->currentIndex ().row ();
++		if (current == 0 || current == -1)
++			return;
++		
++		libvlc_media_t *media = libvlc_media_list_item_at_index (Playlist_, current);
++		libvlc_media_list_remove_index (Playlist_, current);
++		libvlc_media_list_insert_media (Playlist_, media, current - 1);
++		
++		selectionModel ()->setCurrentIndex (Model_->index (current - 1, 0), QItemSelectionModel::Select);
++		selectionModel ()->select (Model_->index (current, 0), QItemSelectionModel::Deselect);
++	}
+ }
+ }
 diff --git a/src/plugins/vtyulc/playlistwidget.h b/src/plugins/vtyulc/playlistwidget.h
-index 3cd7b4d..7e67ac4 100644
+index 3cd7b4d..76a8978 100644
 --- a/src/plugins/vtyulc/playlistwidget.h
 +++ b/src/plugins/vtyulc/playlistwidget.h
 @@ -31,7 +31,8 @@
@@ -364,7 +434,7 @@ index 3cd7b4d..7e67ac4 100644
  		bool IsPlaying () const;
  		void Init (libvlc_instance_t *instance, libvlc_media_player_t *player);
  		void DeleteRequested (int index);
-@@ -76,6 +85,9 @@ namespace vlc
+@@ -76,10 +85,15 @@ namespace vlc
  		void mouseDoubleClickEvent (QMouseEvent*);
  		void resizeEvent (QResizeEvent*);
  		
@@ -374,7 +444,13 @@ index 3cd7b4d..7e67ac4 100644
  	public slots:
  		void clearPlaylist ();
  		void next ();
-@@ -88,7 +100,7 @@ namespace vlc
+ 		void prev ();
++		void up ();
++		void down ();
+ 		
+ 	private slots:
+ 		void togglePlay ();
+@@ -88,7 +102,7 @@ namespace vlc
  		void deleteRequested (QAction*);
  		
  	signals:
@@ -397,10 +473,22 @@ index 704abf5..a9624f9 100644
  }
  }
 diff --git a/src/plugins/vtyulc/vlcplayer.cpp b/src/plugins/vtyulc/vlcplayer.cpp
-index 4ff4f96..9086883 100644
+index 4ff4f96..ea1e975 100644
 --- a/src/plugins/vtyulc/vlcplayer.cpp
 +++ b/src/plugins/vtyulc/vlcplayer.cpp
-@@ -133,6 +133,11 @@ namespace vlc
+@@ -74,6 +74,11 @@ namespace vlc
+ 		libvlc_media_player_set_xwindow (Mp_.get (), parent->winId ());
+ 	}
+ 	
++	VlcPlayer::~VlcPlayer()
++	{
++		libvlc_media_player_stop (Mp_.get ());
++	}
++	
+ 	void VlcPlayer::Init (QWidget *parent)
+ 	{
+ 		libvlc_media_player_set_xwindow (Mp_.get (), parent->winId ());
+@@ -133,6 +138,11 @@ namespace vlc
  		libvlc_media_player_stop (Mp_.get ());
  	}
  	
@@ -412,7 +500,7 @@ index 4ff4f96..9086883 100644
  	void VlcPlayer::changePosition (double pos)
  	{
  		if (libvlc_media_player_get_media (Mp_.get ()))
-@@ -155,6 +160,19 @@ namespace vlc
+@@ -155,6 +165,19 @@ namespace vlc
  			return convertTime (0);
  	}
  	
@@ -433,10 +521,18 @@ index 4ff4f96..9086883 100644
  	{
  		emit unstable ();
 diff --git a/src/plugins/vtyulc/vlcplayer.h b/src/plugins/vtyulc/vlcplayer.h
-index bcb83d1..db66c89 100644
+index bcb83d1..5f1edcf 100644
 --- a/src/plugins/vtyulc/vlcplayer.h
 +++ b/src/plugins/vtyulc/vlcplayer.h
-@@ -96,6 +96,7 @@ namespace vlc
+@@ -69,6 +69,7 @@ namespace vlc
+ 		
+ 	public:
+ 		explicit VlcPlayer (QWidget *parent = 0);
++		~VlcPlayer();
+ 		
+ 		void AddSubtitles (const QString&);
+ 		bool NowPlaying () const;
+@@ -96,6 +97,7 @@ namespace vlc
  		
  		QTime GetCurrentTime () const;
  		QTime GetFullTime () const;
@@ -444,7 +540,7 @@ index bcb83d1..db66c89 100644
  		
  	private:
  		libvlc_track_description_t* GetTrack (libvlc_track_description_t *t, int track) const;
-@@ -109,6 +110,7 @@ namespace vlc
+@@ -109,6 +111,7 @@ namespace vlc
  	public slots:
  		void stop ();
  		void togglePlay ();
@@ -453,7 +549,7 @@ index bcb83d1..db66c89 100644
  		void setUrl (const QUrl&);
  		void changePosition (double);
 diff --git a/src/plugins/vtyulc/vlcwidget.cpp b/src/plugins/vtyulc/vlcwidget.cpp
-index e859556..4a535ac 100644
+index e859556..0dd15b3 100644
 --- a/src/plugins/vtyulc/vlcwidget.cpp
 +++ b/src/plugins/vtyulc/vlcwidget.cpp
 @@ -94,6 +94,7 @@ namespace vlc
@@ -489,7 +585,7 @@ index e859556..4a535ac 100644
  
  		connect (VlcPlayer_,
  				SIGNAL (stable ()),
-@@ -212,20 +207,40 @@ namespace vlc
+@@ -212,20 +207,50 @@ namespace vlc
  				SIGNAL (triggered ()),
  				PlaylistWidget_,
  				SLOT (clearPlaylist ()));
@@ -503,6 +599,16 @@ index e859556..4a535ac 100644
 +				SIGNAL (volumeChanged (int)),
 +				VolumeNotificationWidget_,
 +				SLOT (showNotification (int)));
++		
++		connect (TitleWidget_->UpAction_,
++				SIGNAL (triggered ()),
++				PlaylistWidget_,
++				SLOT (up ()));
++		
++		connect (TitleWidget_->DownAction_,
++				SIGNAL (triggered ()),
++				PlaylistWidget_,
++				SLOT (down ()));
  
  		InitNavigations ();
  		InitVolumeActions ();
@@ -533,7 +639,7 @@ index e859556..4a535ac 100644
  		delete VlcPlayer_;
  		SaveSettings ();
  		emit deleteMe (this);
-@@ -236,29 +251,47 @@ namespace vlc
+@@ -236,29 +261,47 @@ namespace vlc
  		Settings_ = new QSettings (QCoreApplication::organizationName (), QCoreApplication::applicationName () + "_VTYULC");
  		RestorePlaylist ();
  		Autostart_ = XmlSettingsManager::Instance ().property ("Autostart").toBool ();
@@ -550,7 +656,7 @@ index e859556..4a535ac 100644
 +	
 +	void VlcWidget::savePlaylistPosition (Qt::DockWidgetArea area)
 +	{
-+		Settings_->setValue ("PlaylistArea", (int)area);
++		Settings_->setValue ("PlaylistArea", static_cast<int> (area));
 +	}
 +	
 +	void VlcWidget::savePlaylist (const QueueState& playlist)
@@ -591,7 +697,7 @@ index e859556..4a535ac 100644
  	}
  
  	QObject* VlcWidget::ParentMultiTabs ()
-@@ -280,8 +313,12 @@ namespace vlc
+@@ -280,8 +323,12 @@ namespace vlc
  	{
  		QStringList files = QFileDialog::getOpenFileNames (this,
  				tr ("Open files"),
@@ -605,7 +711,7 @@ index e859556..4a535ac 100644
  		PlaylistWidget_->clearPlaylist ();
  		for (int i = 0; i < files.size (); i++)
  			if (QFile::exists (files [i]))
-@@ -292,8 +329,12 @@ namespace vlc
+@@ -292,8 +339,12 @@ namespace vlc
  	{
  		QStringList files = QFileDialog::getOpenFileNames (this,
  				tr ("Open files"),
@@ -620,7 +726,7 @@ index e859556..4a535ac 100644
  		for (int i = 0; i < files.size (); i++)
  			if (QFile::exists (files [i]))
  				PlaylistWidget_->AddUrl (QUrl::fromLocalFile (files [i]), Autostart_);
-@@ -304,10 +345,11 @@ namespace vlc
+@@ -304,10 +355,11 @@ namespace vlc
  	{
  		QString folder = QFileDialog::getExistingDirectory (this,
  				tr ("Open folder"),
@@ -633,7 +739,7 @@ index e859556..4a535ac 100644
  			PlaylistWidget_->clearPlaylist ();
  			PlaylistWidget_->AddUrl ("directory://" + folder, Autostart_);
  		}
-@@ -317,10 +359,11 @@ namespace vlc
+@@ -317,10 +369,11 @@ namespace vlc
  	{
  		QString folder = QFileDialog::getExistingDirectory (this,
  				tr ("Open DVD"),
@@ -646,7 +752,7 @@ index e859556..4a535ac 100644
  			PlaylistWidget_->clearPlaylist ();
  			PlaylistWidget_->AddUrl ("dvdsimple://" + folder, Autostart_);
  		}
-@@ -330,10 +373,11 @@ namespace vlc
+@@ -330,10 +383,11 @@ namespace vlc
  	{
  		QString folder = QFileDialog::getExistingDirectory (this,
  				tr ("Open DVD"),
@@ -659,7 +765,7 @@ index e859556..4a535ac 100644
  			PlaylistWidget_->clearPlaylist ();
  			PlaylistWidget_->AddUrl ("dvd://" + folder, Autostart_);
  		}
-@@ -354,10 +398,22 @@ namespace vlc
+@@ -354,10 +408,22 @@ namespace vlc
  	{
  		const QString& url = QFileDialog::getOpenFileName (this,
  				tr ("Open file"),
@@ -683,7 +789,7 @@ index e859556..4a535ac 100644
  	}
  
  	void VlcWidget::updateInterface ()
-@@ -468,6 +524,7 @@ namespace vlc
+@@ -468,6 +534,7 @@ namespace vlc
  			FullScreenWidget_->SetBackGroundColor (new QColor ("black"));
  			FullScreenWidget_->showFullScreen ();
  			VlcPlayer_->switchWidget (FullScreenWidget_);
@@ -691,7 +797,7 @@ index e859556..4a535ac 100644
  		}
  		else
  		{
-@@ -476,6 +533,7 @@ namespace vlc
+@@ -476,6 +543,7 @@ namespace vlc
  			FullScreenWidget_->hide ();
  			FullScreenPanel_->hide ();
  			VlcPlayer_->switchWidget (VlcMainWidget_);
@@ -699,7 +805,7 @@ index e859556..4a535ac 100644
  		}
  	}
  
-@@ -1061,10 +1119,15 @@ namespace vlc
+@@ -1061,10 +1129,15 @@ namespace vlc
  	{
  		Autostart_ = XmlSettingsManager::Instance ().property ("Autostart").toBool ();
  	}
