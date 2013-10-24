@@ -1,0 +1,128 @@
+-------------------------------------------------------------------
+Thu Nov  1 07:37:06 UTC 2012 - lazy.kent@opensuse.org
+
+- Update to 0.16.0.
+  * Remove deprecated gtk function.
+  * Add more xneur options.
+- Drop gxneur-0.15.0-alt-glib2.patch and
+  gxneur-0.15.0-alt-libX11.patch ( fixed upstream).
+- Compile without GConf support.
+
+-------------------------------------------------------------------
+Sat May 19 10:05:31 UTC 2012 - lazy.kent@opensuse.org
+
+- Add gxneur-0.15.0-alt-libX11.patch: fix build against libX11 in
+  openSUSE Factory/12.2 (patch from ALT Linux project).
+
+-------------------------------------------------------------------
+Wed Apr 11 22:18:13 UTC 2012 - lazy.kent@opensuse.org
+
+- Add gxneur-0.15.0-alt-glib2.patch: fix build against glib 2.31
+  (patch from ALT Linux project).
+- Splitted off language package.
+- Use pkgconfig(*) as build dependencies.
+- Removed useless fdupes.
+- Removed check for unsupported openSUSE versions.
+- Use make_install macro.
+
+-------------------------------------------------------------------
+Fri Nov 18 08:40:18 UTC 2011 - lazy.kent@opensuse.org
+
+- Update to 0.15.0.
+  * Add more xneur options.
+
+-------------------------------------------------------------------
+Tue Nov  1 05:50:59 UTC 2011 - lazy.kent@opensuse.org
+
+- Update to 0.14.0.
+  * Some bugfixes for rendering engine selection.
+  * Add CLI options for gxneur.
+  * Add option for setup Gnome3 extension for placing icon on shell
+    area.
+- Removed obsolete "clean"section.
+
+-------------------------------------------------------------------
+Fri Jun 24 06:28:42 UTC 2011 - lazy.kent@opensuse.org
+
+- Disable unused-but-set-variable warning for gcc >= 4.6.
+- Use full URL for source.
+- Corrected License tag.
+
+-------------------------------------------------------------------
+Sat May 28 23:49:26 UTC 2011 - lazy.kent@opensuse.org
+
+- Update to 0.13.0.
+  * Add App Indicator icon and option to select icon rendering
+    engine (StatusIcon, AppIndicator and Built-in engines).
+  * Add option to change icon (flag, icon, text).
+- Build requires glib2-devel.
+- Call desktop_database_post/un and icon_theme_cache_post/un
+  scripts for openSUSE > 11.3.
+
+-------------------------------------------------------------------
+Wed Feb  2 10:13:42 UTC 2011 - lazy.kent@opensuse.org
+
+- Update to 0.12.0.
+- Added COPYING to docs.
+
+-------------------------------------------------------------------
+Tue Nov 30 11:04:45 UTC 2010 - lazy.kent.suse@gmail.com
+
+- Update to 0.11.1.
+  * New UI for creating user dictionaries.
+  * Icon resize to tray size (optional).
+  * Add personal settings for gxneur (autostart, icon theme,
+    keyboard properties and others). 
+  * Lot of bugfixes.
+- Added enchant-devel to BuildRequires.
+
+-------------------------------------------------------------------
+Sat Oct 16 14:51:02 UTC 2010 - lazy.kent.suse@gmail.com
+
+- Update to 0.10.0.
+  * View log-file over gxneur.
+  * Add delay before start.
+  * Add autostart option.
+  * Add option for change flag theme.
+  * Add option to view keyboard settings.
+  * Lot of bugfixes.
+- Added gconf2-devel to BuildRequires.
+- Dropped gtk_downgrade patch.
+
+-------------------------------------------------------------------
+Fri Jun  4 23:16:28 UTC 2010 - lazy.kent.suse@gmail.com
+
+- Downgrade to 0.9.8 according to xneur version.
+
+-------------------------------------------------------------------
+Fri Mar 26 10:36:53 UTC 2010 - lazy.kent.suse@gmail.com
+
+- Update to 0.9.8.
+  * New logo of gxneur.
+- Added aspell-devel to BuildRequires.
+- Patch from Andrew Crew Kuznetsov to build against GTK2 < 2.18
+- New logo.
+
+-------------------------------------------------------------------
+Thu Oct 15 00:00:00 MSD 2009 - lazy.kent.suse@gmail.com
+
+- Update to 0.9.7.
+  * Executing user actions from gxneur tray icon menu.
+  * Add option to adding application manually
+  * Add more xneur options.
+
+-------------------------------------------------------------------
+Wed Sep  9 00:00:00 MSD 2009 - lazy.kent.suse@gmail.com
+
+- Update to 0.9.6.
+  * Add more xneur options.
+
+-------------------------------------------------------------------
+Thu Aug  6 00:00:00 MSD 2009 - lazy.kent.suse@gmail.com
+
+- Added icon.
+
+-------------------------------------------------------------------
+Wed Aug  5 00:00:00 MSD 2009 - lazy.kent.suse@gmail.com
+
+- initial package created - 0.9.4.

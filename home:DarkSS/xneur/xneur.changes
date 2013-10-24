@@ -1,0 +1,185 @@
+-------------------------------------------------------------------
+Wed Oct 31 21:24:51 UTC 2012 - lazy.kent@opensuse.org
+
+- Update to 0.16.
+  * New option for сorrect two minus with a long dash.
+  * New option for сorrect ... with a ….
+  * Add multistring abbreviation.
+  * Remove deprecated Xlib function.
+  * Add support window with WM_NAME atom.
+  * Bugfixes.
+- Drop xneur-0.15.0-alt-libX11.patch (fixed upstream).
+- Libraries major version changed to 16.
+- Install symlinks to modules to libdir/xneur.
+
+-------------------------------------------------------------------
+Sat May 19 10:05:31 UTC 2012 - lazy.kent@opensuse.org
+
+- Add xneur-0.15.0-alt-libX11.patch: fix build against libX11 in
+  openSUSE Factory/12.2 (patch from ALT Linux project).
+
+-------------------------------------------------------------------
+Wed Apr 11 22:42:25 UTC 2012 - lazy.kent@opensuse.org
+
+- Splitted off language package.
+- Use pkgconfig(*) as build dependencies.
+- Removed check for unsupported openSUSE versions.
+- Use make_install macro.
+- Fix build/runtime dependencies.
+
+-------------------------------------------------------------------
+Fri Nov 18 08:00:43 UTC 2011 - lazy.kent@opensuse.org
+
+- Update to 0.15.0.
+  * New option for correct two minus with a dash.
+  * New option for correct (c) with a copyright sign.
+  * New option for correct (tm) with a trademark sign.
+  * New option for correct (r) with a registered sign.
+- Libraries major version changed to 15.
+- Requires aspell.
+
+-------------------------------------------------------------------
+Mon Oct 31 17:27:45 UTC 2011 - lazy.kent@opensuse.org
+
+- Update to 0.14.0.
+  * New troubleshooting option for disable mouse tracking.
+  * New troubleshooting option for full-screen apps.
+  * New option for correct two space with a comma and a space
+  * Bug-fix for change case action.
+  * Bug-fix for Gtk3 apps.
+- Libraries major version changed to 14.
+- Corrected License tag.
+- Removed obsolete "clean"section.
+
+-------------------------------------------------------------------
+Sat May 28 22:19:30 UTC 2011 - lazy.kent@opensuse.org
+
+- Update to 0.13.0.
+  * Enabled hotkeys on excluded apps.
+  * New option - monitor the input.
+  * Big lot of bug-fixes.
+- Libraries major version changed to 13.
+- Configure --with-gtk.
+- Build doesn't require imlib2-devel.
+- Don't install icons.
+- Remove LIBNOTIFY_CFLAGS and LIBNOTIFY_LIBS.
+
+-------------------------------------------------------------------
+Wed Feb  2 08:59:37 UTC 2011 - lazy.kent@opensuse.org
+
+- Update to 0.12.0.
+  * New troubleshooth option - compatibility with completion.
+  * New troubleshooth option - flush buffer when pressed Escape.
+  * New option - correction small letter to capital letter after
+    dot.
+  * New hotkey - insert date.
+  * Big lot of bug-fixes.
+- Libraries major version changed to 12.
+- Export LIBNOTIFY_CFLAGS and LIBNOTIFY_LIBS to fix build in
+  openSUSE 11.4.
+- Added COPYING to docs.
+
+-------------------------------------------------------------------
+Sun Dec  5 13:47:54 UTC 2010 - lazy.kent.suse@gmail.com
+
+- Disabled gstreamer for sound - use aplay.
+- Don't remove zero byte files - something goes not well.
+
+-------------------------------------------------------------------
+Tue Nov 30 10:42:12 UTC 2010 - lazy.kent.suse@gmail.com
+
+- Update to 0.11.1.
+  * New file format for user dictionaries.
+  * Add new keyboard binds - block keyboard, rotate layout after
+    cwith selected text, back rotate layouts.
+  * Lot of bug-fixes.
+- Dropped xneurrc patch.
+- Libraries major version changed to 11.
+- Added gtk2-devel and enchant-devel to BuildRequires.
+- Removed zero byte files.
+
+-------------------------------------------------------------------
+Wed Oct 20 21:23:57 UTC 2010 - lazy.kent.suse@gmail.com
+
+- Disabled libnotify for oS 11.4 to fix build.
+
+-------------------------------------------------------------------
+Sat Oct 16 14:30:28 UTC 2010 - lazy.kent.suse@gmail.com
+
+- Update to 0.10.0.
+  * Bugfix for locales.
+  * Send archived log to e-mail possile to named server
+    (smtp.server.org, ex.).
+  * Log writed to html.
+
+-------------------------------------------------------------------
+Fri Jun  4 23:00:51 UTC 2010 - lazy.kent.suse@gmail.com
+
+- Downgrade to 0.9.8 because of crash.
+
+-------------------------------------------------------------------
+Fri May 21 11:18:54 UTC 2010 - lazy.kent.suse@gmail.com
+
+- Update to 0.9.9.
+  * Bugfix for change layots count where xneur run.
+  * Bugfix for new version D-Bus.
+  * Bugfix for modificator keys.
+  * Bugfix for ISO Level 3 keys.
+- Dropped gcc_error patch.
+- System shared libraries moved to libxneur package.
+- Don't pack static library.
+- Added gxneur to Recommends.
+
+-------------------------------------------------------------------
+Fri Mar 26 09:43:37 UTC 2010 - lazy.kent.suse@gmail.com
+
+- Update to 0.9.8.
+  * Automatic identification of system keyboard layouts.
+  * Calculating clipboard and selected formul's via calc deleted.
+  * New options for troubleshooting.
+  * Add georgian language.
+  * Lot of bug-fixes.
+- Dropped obsolete patches.
+- Add libxneur static library to devel package.
+
+-------------------------------------------------------------------
+Tue Dec 29 21:11:50 UTC 2009 - lazy.kent.suse@gmail.com
+
+- Applied Debian patches.
+  * Corrected settings in default xneurrc.
+  * Newline at the end of file.
+  * Fix for shared memory usage.
+
+-------------------------------------------------------------------
+Thu Oct 15 00:00:00 MSD 2009 - lazy.kent.suse@gmail.com
+
+- Update to 0.9.7.
+  * Add option for preview conversation of selected text.
+  * Add volume level option.
+  * Add option for individual disabling оf notification.
+- Changes in 0.9.6.
+  * Add option to send archived log to e-mail.
+  * Add plugins system and plugin for xneur statistic.
+  * Calculating clipboard and selected formul's via calc.
+  * Bug fix for numeric keyboard.
+
+-------------------------------------------------------------------
+Wed Sep  9 00:00:00 MSD 2009 - lazy.kent.suse@gmail.com
+
+- Splitted off shared libraries.
+- Disabled build static libraries.
+- Removed *.la files.
+-------------------------------------------------------------------
+Wed Aug  5 00:00:00 MSD 2009 - lazy.kent.suse@gmail.com
+
+- Update to 0.9.5.
+  * Add lock to Caps.
+  * Add check puntuation.
+  * Pattern mining and recognition.
+  * Clipboard correction.
+  * Add popup messages.
+
+-------------------------------------------------------------------
+Sun May 17 00:00:00 MSD 2009 - lazy.kent.suse@gmail.com
+
+- Initial package - 0.9.4.
