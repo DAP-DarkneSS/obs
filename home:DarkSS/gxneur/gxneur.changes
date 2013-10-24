@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Thu Oct 24 19:45:58 UTC 2013 - dap.darkness@gmail.com
+
+- Update to 0.17.
+  * Added a new option: "Misprints correction".
+  * Improved language recognition on the similar words principle.
+  * Added an ability to cancel all automatic corrections.
+  * Added a function switch options autocompletion.
+  * Fixed many bugs and memory leaks.
+- Switched to use download_files service.
+- xneur-gui became provided.
+
+-------------------------------------------------------------------
 Thu Nov  1 07:37:06 UTC 2012 - lazy.kent@opensuse.org
 
 - Update to 0.16.0.

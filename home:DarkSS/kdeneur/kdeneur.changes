@@ -1,13 +1,25 @@
+-------------------------------------------------------------------
+Thu Oct 24 19:45:58 UTC 2013 - dap.darkness@gmail.com
+
+- Update to 0.17.
+  * Initial official release.
+- Switched to use download_files service.
+- xneur-gui became provided.
+- Added kdeneur-qt4-bin.patch to fix Qt4 binaries names.
+
+-------------------------------------------------------------------
 Sat Feb  2 20:02:33 UTC 2013 - dap.darkness@gmail.com
 
 - Russian locale was added.
 
+-------------------------------------------------------------------
 Thu Dec 27 20:07:15 UTC 2012 - dap.darkness@gmail.com
 
 - Spec refactoring by Lazy_Kent:
   * debuginfo package became non-void;
   * unnecessary directories became not owned.
 
+-------------------------------------------------------------------
 Mon Nov 12 18:29:42 UTC 2012 - dap.darkness@gmail.com
 
 - Initial build.

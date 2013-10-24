@@ -1,7 +1,7 @@
 #
 # spec file for package gxneur
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,23 +17,24 @@
 
 
 Name:           gxneur
-Version:        0.16.0
+Version:        0.17.0
 Release:        0
 License:        GPL-2.0+
 Summary:        GTK Front-end for XNeur
 Url:            http://www.xneur.ru
 Group:          System/X11/Utilities
-Source0:        http://dists.xneur.ru/release-%{version}/tgz/%{name}-%{version}.tar.bz2
+Source0:        https://launchpad.net/~andrew-crew-kuznetsov/+archive/xneur-stable/+files/gxneur_%{version}.orig.tar.gz
 BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(enchant)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gtk+-2.0)
 BuildRequires:  pkgconfig(libglade-2.0)
 BuildRequires:  pkgconfig(libpcre)
-BuildRequires:  pkgconfig(xneur) = %{version}
 BuildRequires:  pkgconfig(xnconfig) = %{version}
+BuildRequires:  pkgconfig(xneur) = %{version}
 Requires:       xneur = %{version}
 Recommends:     %{name}-lang
+Provides:       xneur-gui
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description

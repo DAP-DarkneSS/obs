@@ -1,28 +1,39 @@
 #
 # spec file for package kdeneur
 #
-# Copyright (c) 2012, Sergei Chistyakov <brestows@gmail.com> (source),
-# (c) 2012 Perlow Dmitriy A. (spec file)
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
-# Please submit bugfixes or comments via http://forum.ubuntu.ru/index.php?topic=165332
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
+
 
 Name:           kdeneur
-Version:        0.16.0
-Release:        1
-Summary:        KDE Front-end for XNeur
-
+Version:        0.17.0
+Release:        0
 License:        GPL-2.0+
+Summary:        KDE Front-end for XNeur
+Url:            http://www.xneur.ru
 Group:          System/X11/Utilities
-URL:            http://forum.ubuntu.ru/index.php?topic=165332
-Source0:        %{name}-%{version}.tar.gz
-Patch1:         unistd_h_include.patch
+Source0:        https://launchpad.net/~andrew-crew-kuznetsov/+archive/xneur-stable/+files/kdeneur_%{version}.orig.tar.gz
+# PATCH-FIX-OPENSUSE to fix Qt4 binaries names.
+Patch0:         kdeneur-qt4-bin.patch
 
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libkde4-devel
-BuildRequires:  libxneur-devel
 BuildRequires:  update-desktop-files
-Requires:       xneur >= %{version}
+BuildRequires:  pkgconfig(xnconfig) = %{version}
+BuildRequires:  pkgconfig(xneur) = %{version}
+Requires:       xneur = %{version}
+Provides:       xneur-gui
 %kde4_runtime_requires
 
 %description
@@ -31,31 +42,23 @@ kdeneur runs in system tray and shows XNeur's state.
 It also allows to configure XNeur via GUI dialog.
 
 %prep
-%setup -q -n src
-%patch1
+%setup -q
+%patch0
 
 %build
-qmake \
-QMAKE_STRIP="" \
-QMAKE_CFLAGS+="%{optflags}" \
-QMAKE_CXXFLAGS+="%{optflags}" \
-PREFIX=%{_prefix}
+%configure
 make %{?_smp_mflags}
+%suse_update_desktop_file -r %{name} 'Utility;DesktopUtility;Qt;'
 
 %install
-make INSTALL_ROOT=%{buildroot} install
-
-mkdir -p %{buildroot}%{_datadir}/%{name}/i18n/
-%{__install} i18n/%{name}*.qm %{buildroot}%{_datadir}/%{name}/i18n/
-
-%suse_update_desktop_file -r %{name} 'Utility;DesktopUtility;Qt;'
+%make_install
 
 %files
 %defattr(-,root,root)
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}*
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/*
+%{_datadir}/%{name}/
+%doc %{_mandir}/man?/%{name}*
 
 %changelog

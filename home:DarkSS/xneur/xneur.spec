@@ -1,7 +1,7 @@
 #
 # spec file for package xneur
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,16 +16,16 @@
 #
 
 
-%define major   16
+%define major   17
 
 Name:           xneur
-Version:        0.16.0
+Version:        0.17.0
 Release:        0
 License:        GPL-2.0+
 Summary:        X Neural Switcher
 Url:            http://www.xneur.ru
 Group:          System/X11/Utilities
-Source0:        http://dists.xneur.ru/release-%{version}/tgz/%{name}-%{version}.tar.bz2
+Source0:        https://launchpad.net/~andrew-crew-kuznetsov/+archive/xneur-stable/+files/xneur_%{version}.orig.tar.gz
 BuildRequires:  alsa-utils
 BuildRequires:  fdupes
 BuildRequires:  xosd-devel
@@ -36,7 +36,12 @@ BuildRequires:  pkgconfig(libpcre)
 Requires:       alsa-utils
 Requires:       aspell
 Recommends:     %{name}-lang
-Recommends:     gxneur
+Recommends:     %{name}-gui
+Recommends:     aspell-en
+Recommends:     aspell-ru
+Recommends:     myspell-american
+Recommends:     myspell-british
+Recommends:     myspell-russian
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
