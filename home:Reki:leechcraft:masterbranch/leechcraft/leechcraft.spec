@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-3085-gd161dd7+vtyulc
+%define LEECHCRAFT_VERSION 0.5.95-3147-gca81f7d+vtyulc
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -2518,6 +2518,7 @@ EOF
 %{_bindir}/lc_anhero_crashprocess
 %{plugin_dir}/*%{name}_anhero.so
 %{translations_dir}/leechcraft_anhero*
+%doc %{_mandir}/man*/lc_anhero_crashprocess*
 
 %files auscrie
 %defattr(-,root,root)
