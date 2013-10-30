@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Wed Oct 30 14:34:55 UTC 2013 - dap.darkness@gmail.com
+
+- Update to 13.10.24 (changes since 13.09.08):
+  * actual number of frames per second representation;
+  * OSD in DirectDraw improved;
+  * LastFM support;
+  * connections through a proxy server support;
+  * display OSD in XVideo and DirectDraw improved;
+  * hardware decoding via VDPAU added;
+  * OSD display optimization;
+  * ALSA module improved;
+  * bug fixes.
+- Spec-file was fixed up via `spec-cleaner`.
+- KDE integration subpackage was added.
+
+-------------------------------------------------------------------
 Wed Sep 11 18:16:09 UTC 2013 - fisiu@opensuse.org
 
 - Update to 13.09.08 (changes since 13.08.18):

@@ -16,7 +16,7 @@
 #
 
 Name:           QMPlay2
-Version:        13.09.08
+Version:        13.10.24
 Release:        0
 License:        GPL-3.0
 Summary:        A Qt based media player, streamer and downloader
@@ -24,6 +24,7 @@ Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
 Group:          Productivity/Multimedia/Video/Players
 Source:         http://kent.dl.sourceforge.net/project/zaps166/QMPlay2/QMPlay2-src-%{version}.tar.bz2
 
+BuildRequires:  kdebase4-workspace
 BuildRequires:  libXv-devel
 BuildRequires:  portaudio-devel
 BuildRequires:  pkgconfig(QtCore)
@@ -36,11 +37,20 @@ BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libswresample)
 BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(libva)
-BuildRequires:	kdebase4-workspace
+Recommends:     %{name}-kde-integration
 
 %description
 %{name} is a video player, it can play and stream all formats supported by
 ffmpeg and libmodplug (including J2B). It has an integrated Youtube browser.
+
+%package        kde-integration
+Summary:        %{name} KDE integration subpackage
+Requires:       %{name}
+Requires:       %{name} = kdebase4-workspace
+BuildArch:      noarch
+
+%description    kde-integration
+Media playing actions for removable devices in KDE.
 
 %package        devel
 Summary:        %{name} development files
@@ -62,7 +72,7 @@ mkdir -p %{buildroot}%{_prefix}
 cp -R app/* %{buildroot}%{_prefix}
 
 # Setting libs to system libdir instead of 'lib'.
-%ifarch x86_64 ppc64
+%if "%{_lib}" == "lib64"
 mv %{buildroot}/%{_prefix}/{lib,lib64}
 %endif
 
@@ -90,8 +100,9 @@ mv %{buildroot}/%{_datadir}/{icons,pixmaps}
 %{_datadir}/applications/%{name}*.desktop
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/qmplay2
-### TODO What about put it in -kde-integration subpackage
-### and make it dependend from kdebase4-workspace?
+
+%files kde-integration
+%defattr(-,root,root)
 %{_datadir}/kde4/apps/solid/actions/*.desktop
 
 %files devel
