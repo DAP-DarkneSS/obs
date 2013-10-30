@@ -16,7 +16,7 @@
 #
 
 Name:           QMPlay2
-Version:        13.08.18
+Version:        13.09.08
 Release:        0
 License:        GPL-3.0
 Summary:        A Qt based media player, streamer and downloader
@@ -36,6 +36,7 @@ BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libswresample)
 BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(libva)
+BuildRequires:	kdebase4-workspace
 
 %description
 %{name} is a video player, it can play and stream all formats supported by
@@ -55,7 +56,6 @@ It's a development package for %{name}.
 
 %build
 NOTERM=1 SYSTEM_BUILD=1 ./compile_unix `echo "%{?_smp_mflags}" | grep -o '[0-9]*'`
-
 
 %install
 mkdir -p %{buildroot}%{_prefix}
@@ -90,6 +90,9 @@ mv %{buildroot}/%{_datadir}/{icons,pixmaps}
 %{_datadir}/applications/%{name}*.desktop
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/qmplay2
+### TODO What about put it in -kde-integration subpackage
+### and make it dependend from kdebase4-workspace?
+%{_datadir}/kde4/apps/solid/actions/*.desktop
 
 %files devel
 %defattr(-,root,root)
