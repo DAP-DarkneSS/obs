@@ -1,0 +1,886 @@
+-------------------------------------------------------------------
+Sun Jan 27 12:32:59 UTC 2013 - cstender@opensuse.org
+
+- update to version 1.7.1
+  * Fix a deadlock happening if log messages were flooding
+  * Handle line breaks for URL field in history files
+  * ICQ: Fix parsing of buddy icon data to not break on long fields
+  * Qt4-Gui: Show authorization request dialog when adding a user
+  * Qt4-Gui: Better logic for setting away message on non-ICQ account
+  * Qt4-Gui: Dock icon could show offline even if one account was online
+  * Qt4-Gui: Floaties could appear as empty windows
+
+-------------------------------------------------------------------
+Tue Oct 23 11:53:50 UTC 2012 - cstender@opensuse.org
+
+- update to version 1.7.0
+  * Always save history as UTF-8 to avoid mixing encodings
+  * Fix several memory leaks
+  * Fifo: Add commands to show/hide UI contact list window
+  * Forwarder: Support for MSN and Jabber protocols
+  * Forwarder: Write default configuration file to correct directory
+  * ICQ: Do reverse direct connects even if port number is wrong
+  * ICQ: Fix removing groups from server side list
+  * Plugin API: Multiple changes to make api less ICQ specific
+  * Plugin API: Allow subclassed user/owner for each protocol
+  * Plugin API: Use UTF-8 for all event messages and user data
+  * Qt4-Gui: Manage protocols plugins from accounts dialog
+  * Qt4-Gui: Moved debug level menu to log window
+  * Qt4-Gui: Add settings page for editing event filter rules
+  * Qt4-Gui: Add a header in chat history for each new day
+  * Qt4-Gui: Move per-account settings to user dialog
+  * Qt4-Gui: Don't clear clipboard after opening URL/File dialog
+  * Qt4-Gui: Controls to set owner birthday were missing
+
+-------------------------------------------------------------------
+Sat Aug 25 16:30:39 UTC 2012 - cstender@opensuse.org
+
+- update to version 1.6.1
+  * Save user list when adding a Not In List user to list
+  * ICQ: Fix packets not being sent for sequence numbers above 0x7fff
+  * ICQ: Mark direct unicode messages as such
+  * Qt4-Gui: Handle meta key in global hotkeys
+  * Qt4-Gui: Fix global hotkeys to work with Caps-/Numlock active
+  * Qt4-Gui: Fix crash on message right click without spell checking
+  * Qt4-Gui: Update title of user dialogs when alias/name changes
+  * Qt4-Gui: Compensate for decoractions when saving window geometries
+
+-------------------------------------------------------------------
+Thu Nov  3 12:03:31 UTC 2011 - cstender@suse.com
+
+- updated to version 1.6.0
+  * Reduce number of reads and writes of config files
+  * Let GUI run in main thread on Mac OS X
+  * Build: Improved detection of libcdk and X11 scrnsaver
+  * Plugin API: Replace ICQ specific constants
+  * Plugin API: Replace exported plugin symbols with a single struct
+  * Plugin API: Define values for all enums to reduce future ABI breaking
+  * ICQ: Keep track of when contacts went away
+  * ICQ: Add detection of several other user clients
+  * ICQ: Fix owner info to send correct first name and last name
+  * ICQ: Fix several encoding problems with unicode messages
+  * Jabber: Add support to connect through HTTP proxy
+  * Jabber: Keep track of when contacts went online
+  * Jabber: Set group membership when adding contact
+  * MSN: Add user client detection
+  * RMS: Authentication can be configured instead of always using ICQ account
+  * Qt4-Gui: Add global shortcut to show/hide main window
+  * Qt4-Gui: Show authorization request dialog when adding a contact
+  * Qt4-Gui: Option to show recent messages based on message age
+  * Qt4-Gui: Server address can be configured for all accounts
+  * Qt4-Gui: Don't show online time if it isn't known
+  * Qt4-Gui: Fix multiple recipients to work with URLs and contacts
+  * Qt4-Gui: Fix user alias to be saved after edit from contact list
+  * Qt4-Gui: Fix auto-popup to not steal focus between tabs/windows
+
+-------------------------------------------------------------------
+Mon Jul  4 18:27:36 CEST 2011 - cstender@suse.de
+
+- updated to version 1.5.1
+  * Package GTest with Licq to guarantee same version as GMock
+  * Owners can no longer be removed when online to prevent contact
+    list problems
+  * Build: Various fixes to reduce problems when building
+  * AutoReply: Command line parameters -d and -e were ignored
+  * ICQ: Buddy icons would fail to update for some contacts retrying
+    every minute
+  * Jabber: Use full name for contact if there is no nickname set
+  * Jabber: Get away message for contacts
+  * Jabber: Keep track of contacts pending for authorization
+  * OSD: Default config would be written to file without path
+  * RMS: Plugin could crash if bad parameters were given to some commands
+  * Qt4-Gui: Ignored users were displayed in All Users list
+  * Qt4-Gui: Several menu items and buttons were missing ... after caption
+  * Qt4-Gui: Main window would appear under other windows on some systems
+  * Qt4-Gui: GUI could hang when toggling Send Through Server button
+  * Qt4-Gui: Show keyboard shortcuts in the user popup menu from
+    contact list
+- removed fix-cmake.diff
+
+-------------------------------------------------------------------
+Mon Jan 31 13:51:38 CET 2011 - cstender@suse.de
+
+- added libassuan-devel buildrequire to fix build in openSUSE:Factory
+
+-------------------------------------------------------------------
+Sat Nov  6 15:44:57 UTC 2010 - cstender@novell.com
+
+- updated to final version 1.5.0
+  * removed broken-translations.diff
+  * added licq-1.5.0-removed_second_desktop_file.patch
+
+-------------------------------------------------------------------
+Fri Sep 17 10:00:29 UTC 2010 - llunak@novell.com
+
+- updated to version 1.5.0-rc1
+  * Added auto logon feature per protocol in Licq 
+  * Sound settings can be overridden per group or per user 
+  * Fifo command "setpicture" added 
+  * Build: Switched Licq and all plugins to use cmake 
+  * Build: Various fixes to make Licq build on Solaris 
+  * Plugin API: Major changes, see below 
+  * ICQ: Sending a system message with no text would cause disconnect from server 
+  * ICQ: Contacts were shown as online after fetching auto response 
+  * Qt-Gui/Kde-Gui: Removed and no longer maintained in favor of Qt4-Gui 
+  * Qt4-Gui: Allow shortcut to be configured for creating a new group 
+  * Qt4-Gui: Mass messages sent are added to user specific chat window as well 
+  * Qt4-Gui: Thread mode 2 sometimes showed online contacts under offline header 
+  * Qt4-Gui: Group names with ampersands were not displayed properly in menus 
+  * Qt4-Gui: Added option to limit auto-popup to only urgent messages 
+  * Jabber: New protocol plugin for the Jabber protocol, supporting: 
+    - Sending and receiving messages (including messages received when being offline) 
+    - Adding and removing users (including authorization management) 
+    - Typing notifications 
+    - Fetching users vcard 
+    - "Buzzing" users (i.e. sending messages to get the receivers attention)
+
+-------------------------------------------------------------------
+Fri May 21 10:25:13 UTC 2010 - cstender@novell.com
+
+- updated to version 1.3.9
+  * Various bugs in both Licq and plugins that caused crashes and
+    hangings have been fixed
+  * Hebrew support was broken and could cause crashes
+  * Licq will automatically switch to qt4-gui if qt-gui fails to
+    load on startup
+  * Sockets would become IPv6 only if system default was to not
+    allow IPv4
+  * Build: --disable-hebrew caused hebrew support to be enabled
+  * Build: Wrong header files were included on FreeBSD
+  * Build: Various fixes to remove build warnings
+  * Console: Command to add contact was not working
+  * Console: Backspace across multiple lines wasn't handled correct
+  * ICQ: Deleting a contact would not update the server side list
+  * ICQ: Failed log on did not report it was ICQ protocol that
+    failed
+  * ICQ: Removing a user from the server ignore list was not
+    possible
+  * MSN: Contacts with status Occupied were handled as Away
+  * MSN: Own status for Occupied was reported as Do Not Disturb
+  * MSN: Failed log on due to wrong password was not signaled to GUI
+  * LicqWeb: Added option to set status Free For Chat
+  * Qt-Gui: Confirmation to ignore user never appeared
+  * Qt4-Gui: Added option to permanently add "Not in list" users
+  * Qt4-Gui: Adding user from search dialog did not pass on user id
+    to add dialog
+  * Qt4-Gui: Confirmation to ignore user appeared when removing
+    instead of adding
+  * Qt4-Gui: User count in group header was wrong if group contained
+    ignored users
+  * Qt4-Gui: Added confirmation dialog when removing an account
+  * Qt4-Gui: Shift+Return can be used to make new line in single
+    line chat mode
+  * Qt4-Gui: Added shortcut to chat dialog for opening next unread
+    message
+  * Qt4-Gui: Renaming groups from contact list did not save the new
+    group name
+
+-------------------------------------------------------------------
+Thu Apr 15 09:32:42 UTC 2010 - mseben@novell.com
+
+- updated to 1.3.8
+  * Plugin API: Added GPG functions so plugins don't need to depend 
+    on gpgme anymore 
+  * Qt4-Gui: Fixed a bug that could cause GUI to crash on startup 
+  * Qt4-Gui: Fixed a bug causing the same image to be loaded for all 
+    icons 
+  * Qt4-Gui: Dragging a file to chat dialog will open send dialog 
+  * Qt4-Gui: Tray icon will show status from another protocol if ICQ 
+    is offline 
+  * RMS: Fixed a bug causing LIST command to always return an empty 
+    list 
+  * RMS: Added HISTORY command for fetching user history 
+  * Web-Gui: Corrected various syntax errors in scripts 
+  * Web-Gui: Updated html to conform with xhtml 1.1 standard 
+  * Web-Gui: Added option to set status offline 
+  * Web-Gui: Made windows resizable 
+  * Web-Gui: Show messages from history when opening chat window 
+  * Web-Gui: Highlight timestamp and user alias in chat history
+- changes in 1.3.7
+  * Various bugs in both Licq and plugins that caused crashes and 
+    hangings have been fixed. 
+  * Build: Various fixes to make Licq and plugins compile cleaner. 
+  * ICQ: Line breaks in received messages from some clients were lost. 
+  * ICQ: Manually set aliases were sometimes lost during logon. 
+  * ICQ: Files were left open after canceled transfers. 
+  * MSN: Sometimes sockets were getting associated with the wrong 
+    conversation. 
+  * Plugin API: Renamed ICQUser class to LicqUser. 
+  * Plugin API: Introduced a user id data type to replace account+ppid. 
+  * Plugin API: Introduced mutex guard classes for user and group objects. 
+  * Plugin API: Added IPv6 support to socket class (currently not used 
+    by ICQ or MSN plugin). 
+  * Plugin API: Various other changes and improvements. 
+  * Qt4-Gui: Deleting a user caused the contact list to behave strange 
+    or even crash. 
+  * Qt4-Gui: Moved Qt style setting from command line to settings dialog. 
+  * Qt4-Gui: Moved skin and icon set selections to settings dialog. 
+  * Qt4-Gui: Alt+1, Alt+2, etc in message dialog can be used to switch 
+    between tabs. 
+  * Qt4-Gui: Made keyboard shortcuts configurable. 
+  * Qt4-Gui: Several additional functions can be configured to have 
+    keyboard shortcuts. 
+  * Qt4-Gui: Added option to disable sound for active message window. 
+  * Qt4-Gui: Size of view event and send event dialogs are remembered. 
+  * Qt4-Gui: Current group in contact list can be changed using scroll 
+    wheel on message field. 
+  * Qt4-Gui: Shift+PgUp/PgDn in message input can be used to scroll 
+    history area. 
+  * Qt4-Gui: Added spell checking support (using Hunspell) for message 
+    dialog. 
+  * Qt4-Gui: Thread contact list can be split in online and offline 
+    parts (group mode 2). 
+- deprecated ru_login_fix.patch,gcc44.patch,leak-fix.patch
+
+-------------------------------------------------------------------
+Thu Sep 24 09:26:48 CEST 2009 - mseben@novell.com
+
+- added leak-fix.patch (bnc#540498)
+
+-------------------------------------------------------------------
+Wed Aug  5 21:03:51 CEST 2009 - mseben@novell.com
+
+- added ru_login_fix.patch to fix login issues for Russian users
+
+-------------------------------------------------------------------
+Wed Jun  3 22:30:39 CEST 2009 - coolo@novell.com
+
+- fix build
+
+-------------------------------------------------------------------
+Thu Apr 16 01:35:01 CEST 2009 - ro@suse.de
+
+- buildfix: refresh patches 
+
+-------------------------------------------------------------------
+Thu Jan  8 10:59:17 CET 2009 - mseben@suse.cz
+
+- updated to version 1.3.6
+- changes since 1.3.5:
+ * Various bugs in both Licq and plugins that caused crashes have 
+   been fixed.
+ * Prevent DoS attack by adding limit to number of incoming 
+   connections accepted.
+ * Properly handle backslashes in auto responses.
+ * ICQ: Updated client id sent to server to enable login after 
+   2008-07-01.
+ * ICQ: Use MD5 based authentication for login instead of sending 
+   plain text password.
+ * ICQ: Support for downloading contact pictures from server.
+ * MSN: Fixed a problem with contact pictures sometimes failing to
+   download.
+ * Plugin API: Functions using Uin parameter have been deprecated.
+ * Plugin API: Improved group handling. 
+ - Qt4-Gui :
+ * Message dialog has new layout which uses less space for the 
+   controls.
+ * Settings dialog pages has been reorganized with fewer options 
+   per page for easier navigation.
+ * User info dialog has been extended to also include pages with
+   user settings.
+ * Settings dialog and user info dialog now uses a navigation-tree 
+   pane instead of tabs.
+ * A completely new history dialog with easier navigation and search 
+   functionality.
+ * Message dialog remember its position and size (tabbed mode only).
+ * Option to display user image in message dialog.
+ * Contact list shows contacts awaiting authorization in different 
+   colour
+
+-------------------------------------------------------------------
+Fri Nov 21 10:03:16 CET 2008 - mseben@suse.cz
+
+- fixed array delete *-array_del.patch [#444973 request]
+
+-------------------------------------------------------------------
+Wed Jul 16 18:42:16 CEST 2008 - lmichnovic@suse.cz
+
+- update from svn to version 20080716
+- fix for download of contact list from server [bnc#408681]
+
+-------------------------------------------------------------------
+Mon Jul  7 15:45:11 CEST 2008 - lmichnovic@suse.cz
+
+- update from svn to version 20080704
+ * obsoleted patches: assert, bool, declaration, glibc2_8
+ * fixes correct login on AOL servers after dropping of old oscar
+   protocol [bnc#405633]
+- dropped icqnd plugin, it's too old thus doesn't work
+
+-------------------------------------------------------------------
+Mon Apr 21 16:13:06 CEST 2008 - lmichnovic@suse.cz
+
+- updated from svn to version 20080410
+- needs boost-devel in BuildRequires
+- includes fix for opening too much sockets issue [bnc#378217]
+
+-------------------------------------------------------------------
+Tue Apr 15 16:32:42 CEST 2008 - lmichnovic@suse.cz
+
+- fixed missing inclusion of limits.h (glibc2_8.patch)
+
+-------------------------------------------------------------------
+Thu Apr 10 16:19:31 CEST 2008 - lmichnovic@suse.cz
+
+- update from svn to latest version 20080410
+ * including new qt4-gui plug-in
+- new subpackage qt4-gui 
+- obsoletes ssbi-licq.patch, *vector_h.patch
+
+-------------------------------------------------------------------
+Tue Nov 27 15:27:38 CET 2007 - lmichnovic@suse.cz
+
+- added upstream patch which supports server stored user pictures
+  (ssbi-licq.patch)
+
+-------------------------------------------------------------------
+Wed Nov 14 15:04:33 CET 2007 - lmichnovic@suse.cz
+
+- fixed check for obsoleted vector.h in configure (*vector_h.patch)
+
+-------------------------------------------------------------------
+Mon Oct 29 17:08:28 CET 2007 - lmichnovic@suse.cz
+
+- upgrade to 1.3.5 final
+ * Fixed some memory leaks. [#333976]
+ * Deactivated debug code for detecting deadlocks.
+ * Fixed window stickiness.
+ * Replaced the emoticon theme FeltTip3 with FeltTip4. FeltTip4
+   has more icons and a more GPL friendly license. [fixes #330683]
+ * Display a text string in the popup info if we're waiting for
+   contact authorization.
+ * Fix to allow floaties for non-ICQ contacts.
+ * Updated translations.
+- using manual list %lang for xosd* mo files and icqnd mo file
+  which is now correctly in licq-icnd subpackage
+
+-------------------------------------------------------------------
+Mon Oct 15 17:25:47 CEST 2007 - lmichnovic@suse.cz
+
+- update to version 1.3.5 RC2
+- wiped FeltTip3 emoticon set untill we get permission to 
+  distribute it [#330683]
+
+-------------------------------------------------------------------
+Tue Oct  2 21:29:44 CEST 2007 - lmichnovic@suse.cz
+
+- update to version 1.3.5 RC1 with new features:
+ * New "Date format" option for customizing date and time in
+   message and history windows.
+ * The local time of contacts can be displayed in contact list and
+   popup information.
+ * New option to use double return instead of Ctrl+Return for
+   sending and in input dialogs.
+ * Skins can now set a separate background color for group headings
+   in the contact list. (Parameter colors.groupBack)
+ * Tabs in chatdialog can be closed by middle clicking on them.
+- obsoletes nostrip.patch, datetime.patch, condition.patch,
+  crash_on_authorization.patch
+- no magic with licq_constants.h on 64 bit arch is needed any more
+  which was in config-fix.patch
+- installing icon licq.png
+- split off devel package
+
+-------------------------------------------------------------------
+Wed Aug 15 11:19:09 CEST 2007 - lmichnovic@suse.cz
+
+- upstream patch solves possible Licq crashing when authentization 
+  request comes (crash_on_authorization.patch)
+
+-------------------------------------------------------------------
+Thu Jul  5 16:14:01 CEST 2007 - coolo@suse.de
+
+- put icon into package 
+
+-------------------------------------------------------------------
+Fri May 25 16:01:42 CEST 2007 - lmichnovic@suse.cz
+
+- excluding headers
+- using %lang macro
+
+-------------------------------------------------------------------
+Fri Apr  6 12:40:12 CEST 2007 - cthiel@suse.de
+
+- updated licqnd to 0.2BETA
+  * Added a new user info window
+  * Hotkeys are now configurable and there are global hotkeys now!
+  * Many facelifts including a new smiley skin
+  * icqnd is now using a new config file with new standard settings
+
+-------------------------------------------------------------------
+Mon Jan 22 11:45:16 CET 2007 - lmichnovic@suse.cz
+
+- reenabled gtkspell [#236912]
+
+-------------------------------------------------------------------
+Fri Jan 19 12:13:22 CET 2007 - stbinner@suse.de
+
+- fix weak dependency on sox for < 10.1
+
+-------------------------------------------------------------------
+Mon Jan  8 15:17:03 CET 2007 - lmichnovic@suse.cz
+
+- disabled gtkspell for icqnd plug-in untill gtkspell rebuilds 
+  with /usr prefix
+
+-------------------------------------------------------------------
+Fri Jan  5 19:55:46 CET 2007 - lmichnovic@suse.cz
+
+- fixed undefined code (condition.patch) [#232116]
+- added weak dependecy on sox because licq uses play command 
+  by default
+
+-------------------------------------------------------------------
+Mon Oct 16 14:08:15 CEST 2006 - lmichnovic@suse.cz
+
+- update to final 
+  * some minor fixes
+  * unnecessary messages are suppressed [#211312]
+
+-------------------------------------------------------------------
+Mon Oct  9 12:12:43 CEST 2006 - lmichnovic@suse.cz
+- update to RC3 
+  * fix of pid file; obsoletes *pidfile.patch
+  * some other bugfixes
+- osd plugin needs gettextize before running autotools
+
+-------------------------------------------------------------------
+Mon Oct  2 18:38:51 CEST 2006 - lmichnovic@suse.cz
+
+- update to licq-1.3.4 RC2
+  * osd plugin again
+  - obsoletes invisible_to_others.patch, fakeoffline_error.patch
+- unreadable pid file fix (licq-pidfile.patch)
+
+-------------------------------------------------------------------
+Mon Sep 25 13:45:56 CEST 2006 - lmichnovic@suse.cz
+
+- Update icqnd to version 0.1.9.6
+  * This release fixes mainly bugs and adds some small features e.g.
+  gtk-spell-checker (enabled).
+  - obsoletes icqnd*cast_on_64bit.patch 
+  - icqnd-libdir_64bit.patch corrects libdir on 64bit archs
+- Update Licq from svn
+  Should fix some problems with autoaway mechanism.
+
+-------------------------------------------------------------------
+Wed Aug 30 11:37:53 CEST 2006 - lmichnovic@suse.cz
+
+- update from svn 
+  - should fix some problems when switching tabs with mouse wheel
+
+-------------------------------------------------------------------
+Thu Aug 10 19:41:03 CEST 2006 - lmichnovic@suse.cz
+
+- update from svn 
+   should fix auto away even when offline
+- fix offline status to others issue (invisible_to_others.patch)
+
+-------------------------------------------------------------------
+Mon Aug  7 20:28:00 CEST 2006 - lmichnovic@suse.cz
+
+- update from svn  
+- fixes qpl only licence in two files [#192081]
+- emoticons.cpp is rewritten hence removed emtoticons.patch 
+- suppressing fake_offline error messages (fakeoffline_error.patch)
+
+-------------------------------------------------------------------
+Wed Jul 12 11:04:29 CEST 2006 - lmichnovic@suse.cz
+
+- filled in description and Author for icqnd subpackage 
+
+-------------------------------------------------------------------
+Tue Jul 11 18:06:37 CEST 2006 - lmichnovic@suse.cz
+
+- incorect lib dir and wrong pointer type punning on 64bit archs regarding
+  only icqnd plugin fixed in icqnd-0.1.9.5-cast_on_64bit.patch
+
+-------------------------------------------------------------------
+Tue Jul 11 12:11:54 CEST 2006 - lmichnovic@suse.cz
+
+- update to svn version to date 20060711
+ - fixes uninitialized variable [#190016]
+ - URL can contain '#' fix 
+- adjusted patches: config-fix and emoticons due to changes in 
+  Makefile for qt, msn and console plugins
+- due to change of creating desktop file in Makefile also for KDE 
+  into kde dir, patch two_desktop_files fixes this duplication 
+- added icqnd gtk2 plugin version 0.1.9.5 and building as subpackage
+  this plugin needs gtk2-devel in BuildRequires
+
+-------------------------------------------------------------------
+Tue Jun  6 14:54:24 CEST 2006 - lmichnovic@suse.cz
+
+- upgrade to uptodate svn version,
+  obsoletes unicode.patch and user_picture.patch
+- updated regexp for URL in emoticons.patch because URL can 
+  contain '#'
+- removed xosd-devel and gtk-devel from BuildRequires 
+  (xosd plugin is not maintened any more)
+
+-------------------------------------------------------------------
+Tue May 30 07:21:19 CEST 2006 - adrian@suse.de
+
+- fix build for < 10.1
+
+-------------------------------------------------------------------
+Thu May 25 13:07:27 CEST 2006 - lmichnovic@suse.cz
+
+- update to version 20060522 from svn with new features:
+  - switching trough tabs with mousewheel
+  - "copy URL" added when rightcicking on URL
+  - some bugfixes
+
+- Obsolete patches removed: qualification, mistyped, ssl_fix, 
+                            homedirslash, msn_overflow
+- new patches:
+  - emoticons - enhances emoticons and prevent displaying them in URL 
+  - user_picture - fix displaying black square, when no picture aviable
+  - unicode - fixes error when updating user info which has non utf encoding
+- file licq_constants.h has changed hence config-fix.patch had to be updated
+
+
+-------------------------------------------------------------------
+Wed Apr 12 18:22:39 CEST 2006 - lmichnovic@suse.cz
+
+- fixed buffer overflow in msn plugin (msn_overflow.patch) 
+
+-------------------------------------------------------------------
+Mon Apr  3 10:41:26 CEST 2006 - lmichnovic@suse.cz
+
+- fixed building for PLUS
+
+-------------------------------------------------------------------
+Mon Mar 27 17:21:58 CEST 2006 - lmichnovic@suse.cz
+
+- added upstream patch (homedirslash.patch)
+- changed opening URLs with firefox, since netscape and mozilla are obsolete
+
+-------------------------------------------------------------------
+Tue Mar 14 16:44:19 CET 2006 - lmichnovic@suse.cz
+
+- removed forgotten -O0 flag
+
+-------------------------------------------------------------------
+Tue Mar 14 16:18:33 CET 2006 - lmichnovic@suse.cz
+
+- fixed crash when network is unavailable [#148224],
+   resolving-fix.patch had to be removed
+
+-------------------------------------------------------------------
+Sat Feb 18 13:27:54 CET 2006 - stbinner@suse.de
+
+- fix GenericName in .desktop file
+
+-------------------------------------------------------------------
+Wed Jan 25 21:33:31 CET 2006 - mls@suse.de
+
+- converted neededforbuild to BuildRequires
+
+-------------------------------------------------------------------
+Sat Jan 14 23:35:39 CET 2006 - kukuk@suse.de
+
+- add gpgme-devel to nfb
+
+-------------------------------------------------------------------
+Thu Jan 12 13:39:19 CET 2006 - lmichnovic@suse.cz
+
+- added -fstack-protector into C[XX]FLAGS 
+
+-------------------------------------------------------------------
+Tue Dec  6 22:10:23 CET 2005 - lmichnovic@suse.cz
+
+- added some changes in previous patch (ssl_fix) 
+
+-------------------------------------------------------------------
+Fri Dec  2 16:48:29 CET 2005 - lmichnovic@suse.cz
+
+- added patch from upstream, which solves inoperable ssl connection. 
+
+-------------------------------------------------------------------
+Fri Nov 25 13:55:23 CET 2005 - lmichnovic@suse.cz
+
+- added patch datetime (enhances time display format to yyyy-MM-dd hh:mm:ss)
+  added patch userinfodlg (fixes non updating KDE addressbook integration tab)
+- added -fno-strict-aliasing into CPPFLAGS, CXXFLAGS
+
+-------------------------------------------------------------------
+Tue Oct 25 18:11:15 CEST 2005 - lmichnovic@suse.cz
+
+- upgrade to version 1.3.2 (registration of new users works again)
+- fixed autobuild with new gcc 4.1: 
+  fixed extra class qualiffication
+  fixed unproper order in definition of function
+
+-------------------------------------------------------------------
+Wed Oct  5 13:01:02 CEST 2005 - lmichnovic@suse.cz
+
+- fixed another uninitialized variable and no return value from function
+
+-------------------------------------------------------------------
+Mon Oct  3 16:49:55 CEST 2005 - lmichnovic@suse.cz
+
+- fixed compiling of kde plugin on x86_64 arch (#119541); libacl, libattr + devel added into needforbuild
+- fixed uninitialized variable
+- excluded useless *.la libraries
+
+-------------------------------------------------------------------
+Thu Sep 15 13:48:39 CEST 2005 - lmichnovic@suse.cz
+
+- added libgpg-error into needforbuild 
+  (fixes also licq failed to build in distribution 9.2-i386+kde) 
+
+-------------------------------------------------------------------
+Mon Sep  5 15:12:02 CEST 2005 - nadvornik@suse.cz
+
+- fixed adding new users [104556]
+
+-------------------------------------------------------------------
+Fri Aug  5 18:30:11 CEST 2005 - dmueller@suse.de
+
+- remove qt3-non-mt from nfb 
+
+-------------------------------------------------------------------
+Sun May 29 21:25:37 CEST 2005 - schwab@suse.de
+
+- Fix missing declaration.
+
+-------------------------------------------------------------------
+Tue Mar  8 13:09:38 CET 2005 - ro@suse.de
+
+- fix build (return 0 if gethostbyname_r worked ok) 
+
+-------------------------------------------------------------------
+Mon Mar  7 16:58:04 CET 2005 - postadal@suse.cz
+
+- fixed ip address resolving [#66739]
+
+-------------------------------------------------------------------
+Wed Jan 19 15:15:11 CET 2005 - postadal@suse.cz
+
+- fixed lib64 path for autoreplay, osd and msn plugins
+
+-------------------------------------------------------------------
+Fri Jan 14 12:37:27 CET 2005 - ro@suse.de
+
+- fix sv po installation 
+
+-------------------------------------------------------------------
+Wed Jan 12 16:38:27 CET 2005 - postadal@suse.cz
+
+- updated to version 1.3.0
+- added new plugins
+- fix gpgme support (used patch made by rschiele@uni-mannheim.de)
+- use parallel make
+
+-------------------------------------------------------------------
+Fri Nov 19 11:32:57 CET 2004 - ro@suse.de
+
+- include icon in filelist 
+
+-------------------------------------------------------------------
+Fri Feb 13 11:41:55 CET 2004 - postadal@suse.cz
+
+- added kde-gui plugin [#34127]
+
+-------------------------------------------------------------------
+Tue Jan 27 00:06:32 CET 2004 - ro@suse.de
+
+- fix build: workaround various "define bool" clashes
+
+-------------------------------------------------------------------
+Sat Jan 10 10:40:50 CET 2004 - adrian@suse.de
+
+- add %defattr
+
+-------------------------------------------------------------------
+Sat Aug 16 13:22:31 CEST 2003 - adrian@suse.de
+
+- install desktop file
+
+-------------------------------------------------------------------
+Tue Jul 29 13:35:43 CEST 2003 - postadal@suse.cz
+
+- fixed lib64 path for forward plugin
+
+-------------------------------------------------------------------
+Fri Jul 25 12:27:05 CEST 2003 - postadal@suse.cz
+
+- updated to version 1.2.7
+  * new plugin forwarder, removed plugin jons-gtk-gui
+
+-------------------------------------------------------------------
+Mon Jul 14 13:19:51 CEST 2003 - sbrabec@suse.cz
+
+- GNOME prefix change to /opt/gnome.
+
+-------------------------------------------------------------------
+Tue Feb 25 10:59:29 CET 2003 - aj@suse.de
+
+- Add missing assert include.
+
+-------------------------------------------------------------------
+Mon Feb 24 14:14:44 CET 2003 - postadal@suse.cz
+
+- added support for ssl crypted communication between licq clients [#24191]
+
+-------------------------------------------------------------------
+Wed Jan 29 13:45:18 CET 2003 - postadal@suse.cz
+
+- updated to version 1.2.4
+  * Batch File Transfers
+  * improved threading control
+  * several potential crashes have been fixed
+  * accepting batch file transfers from Miranda o Dante SOCKS5 works
+  now
+  * closing dialog windows have been fixed
+
+-------------------------------------------------------------------
+Thu Jan 16 16:12:02 CET 2003 - postadal@suse.cz
+
+- updated to version 1.2.3
+  * completed v8 client side protocol support
+  * improved server side contact lists
+  * defaults to using v8 for client and server side contact list
+  * improved change password dialog
+  * extended icons are now skinnable as well in Qt-GUI
+  * many bugs fixed
+- removed obsoleted gcc3.1 patch
+- added config-fix patch to install the plugins on 64bit archs to the right place
+- calling am_edit in qt-gui to build .mov files
+
+-------------------------------------------------------------------
+Thu Nov 14 12:21:51 CET 2002 - ro@suse.de
+
+- while the qt frontend is built without kde support,
+  we can as well use qt3 
+
+-------------------------------------------------------------------
+Wed Jul 31 16:50:46 CEST 2002 - postadal@suse.cz
+
+- update to version 1.2.0a
+  * Lots and lots of bug fixes
+  * Memory management fixes
+  * Per user encoding in QT plugin
+  * Initial server side list support
+  * Sending SMS
+  * Improved buffer overflow prevention
+  * ICQ CLB file converter 
+
+-------------------------------------------------------------------
+Thu May 30 10:14:00 CEST 2002 - postadal@suse.cz
+
+- fixed qt path 
+
+-------------------------------------------------------------------
+Wed Apr 17 15:17:48 CEST 2002 - postadal@suse.cz
+
+- fixes for gcc 3.1  
+
+-------------------------------------------------------------------
+Wed Jan 23 00:49:37 CET 2002 - ro@suse.de
+
+- use kde2-devel-packages 
+
+-------------------------------------------------------------------
+Thu Jan 10 11:34:46 CET 2002 - rvasice@suse.cz
+
+- use macros %{_libdir} and %{_prefix}
+- prevent misconfiguration by removing --with-kde configure option
+
+-------------------------------------------------------------------
+Wed Dec 12 11:04:15 CET 2001 - rvasice@suse.cz
+
+- update to version 1.0.4
+
+-------------------------------------------------------------------
+Fri Nov  9 11:25:11 CET 2001 - ro@suse.de
+
+- use qt-devel-packages in neededforbuild 
+
+-------------------------------------------------------------------
+Wed Oct 17 12:45:03 CEST 2001 - dan@suse.cz
+
+- hide old dialog instead of closing it (#9792)
+
+-------------------------------------------------------------------
+Wed Aug  8 19:15:58 CEST 2001 - ro@suse.de
+
+- updated neededforbuild again 
+
+-------------------------------------------------------------------
+Fri Jun 29 14:39:00 CEST 2001 - ro@suse.de
+
+- updated neededforbuild
+- removed ILLEGAL links 
+
+-------------------------------------------------------------------
+Thu Jun  7 11:33:19 CEST 2001 - pblaha@suse.cz
+
+- add more into #needforbuild build for compile qt-qui plugin
+
+-------------------------------------------------------------------
+Tue May  8 19:38:37 CEST 2001 - mfabian@suse.de
+
+- bzip2 sources
+
+-------------------------------------------------------------------
+Mon Mar 19 12:14:54 CET 2001 - pblaha@suse.cz
+
+- fix my error with one %define version macro 
+
+-------------------------------------------------------------------
+Thu Mar 15 10:51:13 CET 2001 - pblaha@suse.cz
+
+- add build root 
+
+-------------------------------------------------------------------
+Wed Mar  7 16:12:42 CET 2001 - pblaha@suse.cz
+
+- update on 1.0.3 
+
+-------------------------------------------------------------------
+Thu Feb 22 13:57:35 CET 2001 - pblaha@suse.cz
+
+- use patch for fix small ugly security problem with URL viewer
+
+-------------------------------------------------------------------
+Mon Feb 12 13:13:30 CET 2001 - pblaha@suse.cz
+
+- added URL 
+
+-------------------------------------------------------------------
+Thu Feb  8 17:06:23 CET 2001 - sndirsch@suse.de
+
+- added security fix (remotely exploitable flaw)
+
+-------------------------------------------------------------------
+Tue Jan  2 16:48:51 CET 2001 - sndirsch@suse.de
+
+- update to release 1.0.2 (now also works with KDE2)
+
+-------------------------------------------------------------------
+Tue Dec 19 13:26:08 MET 2000 - sndirsch@suse.de
+
+- "chmod 755" for all licq directories
+
+-------------------------------------------------------------------
+Thu Nov 23 09:41:07 CET 2000 - sndirsch@suse.de
+
+- #neededforbuild += openssl-devel
+
+-------------------------------------------------------------------
+Wed Nov  8 11:44:58 CET 2000 - sndirsch@suse.de
+
+- updated to release 1.0
+
+-------------------------------------------------------------------
+Sun Nov  5 15:25:12 CET 2000 - kukuk@suse.de
+
+- adjust neededfobuild
+
+-------------------------------------------------------------------
+Thu Jul 27 14:28:47 CEST 2000 - sndirsch@suse.de
+
+- created package
+

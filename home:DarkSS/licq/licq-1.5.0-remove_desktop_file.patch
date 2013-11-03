@@ -1,0 +1,11 @@
+Index: licq-1.5.0/plugins/qt4-gui/share/misc/CMakeLists.txt
+===================================================================
+--- licq-1.5.0.orig/plugins/qt4-gui/share/misc/CMakeLists.txt
++++ licq-1.5.0/plugins/qt4-gui/share/misc/CMakeLists.txt
+@@ -1,5 +1 @@
+-if (WITH_KDE)
+-  install(FILES licq.desktop DESTINATION share/applications/kde4)
+-else (WITH_KDE)
+-  install(FILES licq.desktop DESTINATION share/applications)
+-endif (WITH_KDE)
++install(FILES licq.desktop DESTINATION share/applications)
