@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Sun Nov  3 17:51:09 UTC 2013 - dap.darkness@gmail.com
+
+- Update to version 2.0.1:
+  * Disable arch-specific tests.
+  * Fix regression in processing alt_is_meta keyword.
+  * Rename Bepo keymaps:
+    dvorak-fr-bepo.map -> fr-bepo-latin9.map
+    dvorak-fr-bepo-utf8.map -> fr-bepo.map.
+- Deleted kbd-1.15.2-dumpkeys-ppc.patch as obsolete:
+  http://lists.opensuse.org/opensuse-factory/2013-08/msg00347.html
+- gcc 4.6+ became required to prevent compilling error:
+  "expected declaration specifiers or '...' before 'va_list'".
+
+-------------------------------------------------------------------
 Mon Aug 19 18:27:19 UTC 2013 - dap.darkness@gmail.com
 
 - Update to version 2.0.0:
