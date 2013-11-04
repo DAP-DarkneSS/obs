@@ -26,17 +26,20 @@ BuildRequires:  gpgme-devel
 BuildRequires:  libassuan-devel
 BuildRequires:  libkde4-devel
 BuildRequires:  xosd-devel
-Version:        1.7.1
+BuildRequires:  pkgconfig(QtGui) >= 4.7
+Version:        1.8.1
 Release:        0
 Summary:        Linux ICQ Client
 License:        GPL-2.0+
 Group:          Productivity/Networking/ICQ
-Source:         %{name}-%{version}.tar.bz2
+Source:         http://switch.dl.sourceforge.net/project/licq/licq/%{version}/licq-%{version}.tar.bz2
 Source2:        licq.png
 Recommends:     sox
 Patch2:         licq-1.5.0-remove_desktop_file.patch
+# TODO: please drop it after the next subj update!
+# PATCH-FIX-UPSTREAM to prevent compiling error.
+Patch3:         licq-1.8.1-65026d6.patch
 Url:            http://www.licq.org/
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 Licq includes all the basic features of ICQ, like sending and receiving
@@ -96,6 +99,7 @@ Header files of Licq program.
 %prep
 %setup
 %patch2 -p1
+%patch3
 
 # disabled for now (deps missing)
 rm -r plugins/aosd plugins/jabber
@@ -128,9 +132,6 @@ install -m 644 doc/*  $RPM_BUILD_ROOT%{_docdir}/licq
 %find_lang %{name} %{name}.lang
 %find_lang licq_osd_plugin %{name}.lang
 %fdupes -s $RPM_BUILD_ROOT
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(-,root,root,755)

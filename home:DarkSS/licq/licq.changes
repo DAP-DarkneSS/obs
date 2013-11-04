@@ -1,4 +1,37 @@
 -------------------------------------------------------------------
+Mon Nov  4 15:48:11 UTC 2013 - dap.darkness@gmail.com
+
+- update to version 1.8.1
+  * Fixed crash when shutting down plugins
+  * Handle slashes in account/contact ids
+  * Fixed timestamp overflow problem causing CPU spin
+  * Build: Made Doxygen support optional
+  * Build: Fixed build problem with socks support
+  * Aosd: Update to build with GLib 2.36
+  * Qt4-Gui: Brought Turkish translation up to date
+  * Qt4-Gui: Fixed build problems with OS X
+  * Fixed some memory leaks
+  * Removed console plugin (no longer maintained)
+  * Support for multiple owners for MSN and Jabber
+  * Change config file structure to support multiple owners
+  * Plugin API: Add a mainloop class that plugins can use
+  * Plugin API: Many changes to better support multiple owners
+  * Plugin API: Separated plugin helper function from interface
+  * Auto-Reply: Apply startup status to all owners
+  * Fifo: Don't hang if data doesn't end with a line break
+  * Forwarder: Apply startup status to all owners
+  * ICQ: Some non-UTF8 messages were converted from UTF8 instead of to
+  * ICQ: Moved from daemon and built as separate protocol plugin
+  * MSN: Moved MSN specific typing notification logic from Qt4-Gui
+  * Qt4-Gui: Contact list only showed typing icon for ICQ contacts
+  * Qt4-Gui: Ask for missing password before trying to log on
+  * RMS: Apply auto response changes to all owners
+- Qt >= 4.7 became required to prevent failing builds for old releases.
+- Added licq-1.8.1-65026d6.patch to prevent compiling error:
+  https://github.com/licq-im/licq/commit/65026d6
+- BuildRoot and %clean were removed as unnecessary.
+
+-------------------------------------------------------------------
 Sun Jan 27 12:32:59 UTC 2013 - cstender@opensuse.org
 
 - update to version 1.7.1
