@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-3147-gca81f7d+vtyulc
+%define LEECHCRAFT_VERSION 0.5.95-3257-g3558d9e
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -42,7 +42,7 @@ Source1:        %{name}.svg
 # PATCH-FEATURE-OPENSUSE to use environment settings to activate entries.
 Patch0:         azoth-entry-activates.patch
 # PATCH-FEATURE-OPENSUSE to update vlc plugin code base.
-Patch1:         leechcraft-vlc-plusplus.patch
+# Patch1:         leechcraft-vlc-plusplus.patch
 # PATCH-FIX-OPENSUSE to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
 # Patch2:         leechcraft-vlc-qt-moc-boost.patch
 # PATCH-FIX-OPENSUSE to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
@@ -991,7 +991,7 @@ Summary:        LeechCraft Blogging client Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-blogique-subplugin = %{version}
-Requires:       %{name}-lhtr = %{version}
+Recommends:     %{name}-lhtr
 
 %description blogique
 This package provides a modular Blogging client plugin for LeechCraft.
@@ -2251,7 +2251,7 @@ It allows to get current user tune via mpris protocol.
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p1
-%patch1 -p1
+# %%patch1 -p1
 # %%patch2
 # %%if 0%%{?suse_version} > 1230
 # %%patch3
