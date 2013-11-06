@@ -1,0 +1,19 @@
+-------------------------------------------------------------------
+Thu Sep 12 21:48:50 UTC 2013 - fa0sck@gmail.com
+
+- openSUSE package:
+ + no more provide pastebinit, suggest instead the corresponding
+   package (src patched in accordance)
+ + use susepaste.org as pastebin for openSUSE.
+ + (cleanup specifile)
+
+-------------------------------------------------------------------
+Thu Feb 21 15:05:29 UTC 2013 - fa0sck@gmail.com
+
+- Upstream version 0.5.2
+  * Patch sources to have full functionality in openSUSE
+  * Add profile for pastebin 
+
+Fri Feb  1 18:10:09 UTC 2013 - dap.darkness@gmail.com
+
+- Initial build.

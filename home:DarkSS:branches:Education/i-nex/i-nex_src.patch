@@ -1,0 +1,37 @@
+diff -U 3 -H -d -r -N -- i-nex_orig/src/i-nex/.src/FReport_Gen.class i-nex/src/i-nex/.src/FReport_Gen.class
+--- i-nex_orig/src/i-nex/.src/FReport_Gen.class	2013-01-01 23:27:04.000000000 +0100
++++ i-nex/src/i-nex/.src/FReport_Gen.class	2013-02-02 23:49:41.281846446 +0100
+@@ -16,6 +16,7 @@
+   ComboBox1.Add("paste.drizzle.org")
+   ComboBox1.Add("paste.kde.org")
+   ComboBox1.Add("paste.openstack.org")
++  ComboBox1.Add("susepaste.org")
+   ComboBox1.Add("paste.pocoo.org")
+   ComboBox1.Add("paste.pound-python.org")
+   ComboBox1.Add("paste.ubuntu.com")
+diff -U 3 -H -d -r -N -- i-nex_orig/src/i-nex/.src/Finfosys.class i-nex/src/i-nex/.src/Finfosys.class
+--- i-nex_orig/src/i-nex/.src/Finfosys.class	2013-01-04 15:57:33.000000000 +0100
++++ i-nex/src/i-nex/.src/Finfosys.class	2013-02-03 00:17:03.332317989 +0100
+@@ -172,7 +172,7 @@
+ 
+ Public Sub System()
+   Dim hostname, arch, gcc, timezone, xorg_version, glx_version As String
+-  Shell "cat /etc/timezone" Wait To timezone
++  Shell "cat /etc/timezone || grep ^TIMEZONE= /etc/sysconfig/clock | cut -d '=' -f 2" Wait To timezone
+   hostname = System.Host
+   arch = System.Architecture
+   Shell "gcc -dumpversion" Wait To gcc
+@@ -441,10 +441,11 @@
+ End
+ 
+ Public Sub Button7_Click()
+-  Dim dpkg As String
++  Dim dpkg, rpm As String
+   Shell "grep '^Status: install ok installed' /var/lib/dpkg/status | wc -l" Wait To dpkg
++  Shell "rpm -qa | wc -l" Wait To rpm
+   TextLabel21.Visible = True
+-  TextLabel21.Text = "" & dpkg & " Packages are installed"
++  TextLabel21.Text = "" & Str(Val(dpkg) + Val(rpm)) & " Packages are installed"
+ End
+ 
+ Public Sub Button10_Click()
