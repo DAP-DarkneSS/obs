@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Wed Nov  6 16:42:32 UTC 2013 - dap.darkness@gmail.com
+
+- Upstream version 0.5.2:
+  * more hardware support;
+  * optimizations;
+  * bugfixes.
+- openSUSE package:
+  * spec header was fixed up;
+  * i-nex-check_kernel.patch was removed as merged by upstream;
+  * i-nex-check_src.patch was updated as particularly merged;
+  * requires section was fixed up via `spec-cleaner`.
+
+-------------------------------------------------------------------
 Thu Sep 12 21:48:50 UTC 2013 - fa0sck@gmail.com
 
 - openSUSE package:
@@ -14,6 +27,7 @@ Thu Feb 21 15:05:29 UTC 2013 - fa0sck@gmail.com
   * Patch sources to have full functionality in openSUSE
   * Add profile for pastebin 
 
+-------------------------------------------------------------------
 Fri Feb  1 18:10:09 UTC 2013 - dap.darkness@gmail.com
 
 - Initial build.

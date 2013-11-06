@@ -1,14 +1,23 @@
 #
 # spec file for package i-nex
 #
-# Copyright (c) 2012, https://launchpad.net/~i-nex-development-team (source),
-# (c) 2013 Perlow Dmitriy A. (spec file).
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
-# Please submit bugfixes or comments via https://bugs.launchpad.net/i-nex
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
+
 Name:           i-nex
-Version:        0.5.2
+Version:        0.5.4
 Release:        1
 Summary:        System information tool
 
@@ -17,58 +26,58 @@ Url:            https://launchpad.net/i-nex
 Group:          System/X11/Utilities
 Source0:        https://launchpad.net/%{name}/trunk/%{version}/+download/%{name}_%{version}.tar.gz
 # series of patches to have full/correct functionality in openSUSE
-Patch:          %{name}-check_kernel.patch
 Patch1:         %{name}_src.patch
 
 BuildArch:      noarch
 
-BuildRequires:  gambas3-devel >= 3.4.0
-BuildRequires:  gambas3-gb-image >= 3.4.0
-BuildRequires:  gambas3-gb-gtk >= 3.4.0
-BuildRequires:  gambas3-gb-qt4 >= 3.4.0 gambas3-gb-qt4-ext >= 3.4.0
-BuildRequires:  gambas3-gb-form >= 3.4.0
-BuildRequires:  gambas3-gb-desktop >= 3.4.0
-BuildRequires:  gambas3-gb-form-dialog >= 3.4.0
-BuildRequires:  gambas3-gb-settings >= 3.4.0
-BuildRequires:  gambas3-gb-form-stock >= 3.4.0
-BuildRequires:  gambas3-gb-gui >= 3.4.0
-BuildRequires:  lsb-release
-BuildRequires:  pciutils
-BuildRequires:  procps
-BuildRequires:  net-tools
-BuildRequires:  hicolor-icon-theme
-BuildRequires:  update-desktop-files
 %if 0%{?suse_version} <= 1210
 BuildRequires:  freeglut
 %else
 BuildRequires:  Mesa-demo-x
 %endif
+BuildRequires:  gambas3-devel >= 3.4.0
+BuildRequires:  gambas3-gb-desktop >= 3.4.0
+BuildRequires:  gambas3-gb-form >= 3.4.0
+BuildRequires:  gambas3-gb-form-dialog >= 3.4.0
+BuildRequires:  gambas3-gb-form-stock >= 3.4.0
+BuildRequires:  gambas3-gb-gtk >= 3.4.0
+BuildRequires:  gambas3-gb-gui >= 3.4.0
+BuildRequires:  gambas3-gb-image >= 3.4.0
+BuildRequires:  gambas3-gb-qt4 >= 3.4.0
+BuildRequires:  gambas3-gb-qt4-ext >= 3.4.0
+BuildRequires:  gambas3-gb-settings >= 3.4.0
+BuildRequires:  hicolor-icon-theme
+BuildRequires:  lsb-release
+BuildRequires:  net-tools
+BuildRequires:  pciutils
+BuildRequires:  procps
+BuildRequires:  update-desktop-files
 BuildRequires:  xorg-x11 >= 7.5
-
-Requires:       gambas3-runtime >= 3.4.0
-Requires:       gambas3-gb-image >= 3.4.0
-Requires:       gambas3-gb-gtk >= 3.4.0
-Requires:       gambas3-gb-qt4 >= 3.4.0 gambas3-gb-qt4-ext >= 3.4.0
-Requires:       gambas3-gb-form >= 3.4.0
 Requires:       gambas3-gb-desktop >= 3.4.0
+Requires:       gambas3-gb-form >= 3.4.0
 Requires:       gambas3-gb-form-dialog >= 3.4.0
-Requires:       gambas3-gb-gui >= 3.4.0
-Requires:       gambas3-gb-settings >= 3.4.0
 Requires:       gambas3-gb-form-stock >= 3.4.0
+Requires:       gambas3-gb-gtk >= 3.4.0
+Requires:       gambas3-gb-gui >= 3.4.0
+Requires:       gambas3-gb-image >= 3.4.0
+Requires:       gambas3-gb-qt4 >= 3.4.0
+Requires:       gambas3-gb-qt4-ext >= 3.4.0
+Requires:       gambas3-gb-settings >= 3.4.0
+Requires:       gambas3-runtime >= 3.4.0
 %if 0%{?suse_version} <= 1210
 Recommends:     freeglut
 %else
 Recommends:     Mesa-demo-x
 Recommends:     xrandr
 %endif
-Recommends:     xorg-x11 >= 7.5
-Recommends:     net-tools
 Recommends:     lsb-release
-Recommends:     procps
+Recommends:     net-tools
+Recommends:     pastebinit >= 1.3
 Recommends:     pciutils
+Recommends:     procps
 Recommends:     python
 Recommends:     python-configobj
-Recommends:     pastebinit >= 1.3
+Recommends:     xorg-x11 >= 7.5
 
 %description
 An application that gathers information for hardware
@@ -77,7 +86,7 @@ user interface similar to the popular Windows tool CPU-Z.
 pastebinit required for publishing the hardware configuration.
 
 %prep
-%setup -q -n %{name}
+%setup -q -n recipe-{debupstream}-0~bzr{revno}~20131018
 # A hack to be able to run the program via the name execution.
 #+ some info tools are under *sbin
 cat > %{name}.sh <<HERE
@@ -86,7 +95,6 @@ cat > %{name}.sh <<HERE
 export LIBOVERLAY_SCROLLBAR=0 PATH=/sbin:/usr/sbin:\$PATH
 exec %{_bindir}/%{name}.gambas
 HERE
-%patch
 %patch1 -p1
 #using system's pastebinit
 %__sed -i '\|/usr/share/i-nex/pastebinit/|s|/usr/share/i-nex/pastebinit/||' src/i-nex/.src/Reportm.module
