@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=SmillaEnlarger
+GenericName=Image Resize Tool
+Comment=Graphics tool for enlarging images
+Exec=smillaenlarger %u
+Terminal=false
+Type=Application
+Icon=smillaenlarger
+Categories=Graphics;Qt;
+MimeType=image/bmp;image/jpeg;image/png;image/gif;image/tiff;
