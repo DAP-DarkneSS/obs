@@ -6,5 +6,5 @@ Exec=smillaenlarger %u
 Terminal=false
 Type=Application
 Icon=smillaenlarger
-Categories=Graphics;Qt;
+Categories=Graphics;RasterGraphics;Qt;
 MimeType=image/bmp;image/jpeg;image/png;image/gif;image/tiff;

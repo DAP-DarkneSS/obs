@@ -1,36 +1,49 @@
-%ifarch %{ix86}
-BuildArchitectures: i686
-%endif
+#
+# spec file for package smillaenlarger
+#
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
 
-# %{?rhel} %{?centos} %{?centos_ver}
-%if 0%{?centos_version} >= 600
-%define dist .el%(echo %{?centos_version} | cut -b 1)
-%endif
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
+#
 
 
-Name: smillaenlarger
-Summary: graphical tool to resize bitmaps in high quality
-Version: 0.9.0
-Release: 0%{?dist}.1.<B_CNT>
-License: GPLv3+
-Group: Amusements/Graphics
-URL: http://sourceforge.net/projects/imageenlarger/
-Source0: smillaenlarger_%{version}.orig.tar.bz2
-Source1: smillaenlarger_%{version}-0.2~ppa3.debian.tar.bz2
-Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root
-Packager: Sawa <http://linux.ikoinoba.net/>
-BuildRequires: qt-devel gcc-c++ desktop-file-utils
+Name:           smillaenlarger
+Version:        0.9.0
+Release:        0
+License:        GPL-3.0+
+Summary:        A graphical tool to resize bitmaps in high quality
+Url:            http://sourceforge.net/projects/imageenlarger/
+Group:          Productivity/Graphics/Bitmap Editors
+Source0:        http://kent.dl.sourceforge.net/project/imageenlarger/imageenlarger/SmillaEnlarger%20Release%20%{version}/SmillaEnlarger_%{version}_source.zip
+Source1:        smillaenlarger.desktop
+
+BuildRequires:  gcc-c++
+BuildRequires:  qt-devel
+BuildRequires:  unzip
 %if 0%{?suse_version}
 BuildRequires:  update-desktop-files
 %endif
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 SmillaEnlarger is a small graphical tool ( based on Qt ) to resize,
 especially magnify bitmaps in high quality.
 
 %prep
-%setup -q -a 1
-patch -p1 < debian/patches/fix_version.diff
+%setup -q -n SmillaEnlarger_%{version}_source
+sed \
+    -i -e \
+    's|0.8.9|%{version}|g' \
+    SmillaEnlargerSrc/EnlargerDialog.cpp
 cd SmillaEnlargerSrc
 %{_libdir}/qt4/bin/qmake \
                          ImageEnlarger.pro \
@@ -43,38 +56,33 @@ cd SmillaEnlargerSrc
 %{__make} %{?_smp_mflags}
 
 %install
-%{__rm} -rf %{buildroot}
-%{__install} -m0755 -D -s SmillaEnlargerSrc/SmillaEnlarger %{buildroot}%{_libexecdir}/SmillaEnlarger
+%{__install} -m0755 -D SmillaEnlargerSrc/SmillaEnlarger %{buildroot}%{_bindir}/smillaenlarger
 %{__install} -m0644 -D SmillaEnlargerSrc/smilla.png %{buildroot}%{_datadir}/pixmaps/smillaenlarger.png
-desktop-file-install --dir=%{buildroot}%{_datadir}/applications debian/etc/smillaenlarger.desktop
 %if 0%{?suse_version}
-%suse_update_desktop_file -r %{name} 'Graphics;RasterGraphics;Qt;'
+%suse_update_desktop_file -i %{name}
+%else
+%{__install} -m0644 -D %{SOURCE1} %{buildroot}%{_datadir}/applications/%{name}.desktop
 %endif
 
-#%{__install} -m0755 -D debian/etc/smillaenlarger %{buildroot}%{_bindir}/smillaenlarger
-# (^^;
-sed -i -e 's|/usr/share/doc/smillaenlarger|%{_docdir}/%{name}-%{version}|g' \
-       -e 's|/usr/lib/smillaenlarger|%{_libexecdir}|g' debian/etc/smillaenlarger
-%{__install} -m0755 -D debian/etc/smillaenlarger %{buildroot}%{_bindir}/smillaenlarger
-
 %post
+%if 0%{?suse_version} >= 1140
+%desktop_database_post
+%else
 update-desktop-database &> /dev/null || :
+%endif
 
 %postun
+%if 0%{?suse_version} >= 1140
+%desktop_database_postun
+%else
 update-desktop-database &> /dev/null || :
-
-%clean
-%{__rm} -rf %{buildroot}
+%endif
 
 %files
-%defattr(-,root,root,-)
-%doc ReadMe.rtf WhatsNew.rtf changelog.txt gpl-3.0.txt
-%doc debian/etc/smillaenlarger.ini
-%{_bindir}/*
-%{_libexecdir}/*
-%{_datadir}/pixmaps/*
-%{_datadir}/applications/*
+%defattr(-,root,root)
+%doc SmillaEnlargerSrc/docs/* SmillaEnlargerSrc/help/*
+%{_bindir}/%{name}
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/pixmaps/%{name}.png
 
 %changelog
-* Wed Apr 11 2012 Sawa <sawa@ikoinoba.net> - 0.9.0
-- Initial package
