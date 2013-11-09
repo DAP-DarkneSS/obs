@@ -17,16 +17,18 @@
 
 
 Name:           Checksum
-Version:        1.1.7
+Version:        1.2
 Release:        0
 License:        SUSE-WTFPL-2.0
 Summary:        An easy-to-use tool for hashing files and validating checksums
 Url:            http://qt-apps.org/content/show.php/Checksum?content=161033
 Group:          Productivity/Other
-Source0:        Checksum_%{version}.tar.gz
+Source0:        Checksum_1_2_Qt_4.tar.gz
 
+%if 0%{?suse_version}
 BuildRequires:  update-desktop-files
-BuildRequires:  pkgconfig(QtGui)
+%endif
+BuildRequires:  pkgconfig(QtCore) >= 4.7
 
 %description
 Features:
@@ -48,19 +50,21 @@ make VERBOSE=1 %{?_smp_mflags}
 
 
 %install
-mkdir -p %{buildroot}%{_bindir}
-install %{name} %{buildroot}%{_bindir}
+install -D checksum-qt5 %{buildroot}%{_bindir}/%{name}
+install -D checksum.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
 
-mkdir -p %{buildroot}%{_datadir}/pixmaps
-install checksum.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
-
+%if 0%{?suse_version}
 %suse_update_desktop_file -c %{name} %{name} "An easy-to-use tool for hashing files and validating checksums" %{name} %{name} "Utility;Accessibility;"
+%endif
 
 
 %files
 %defattr(-,root,root)
+%doc CHANGELOG COPYING
 %{_bindir}/%{name}
+%if 0%{?suse_version}
 %{_datadir}/applications/%{name}.desktop
+%endif
 %{_datadir}/pixmaps/%{name}.png
 
 

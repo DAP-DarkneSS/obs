@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Sat Nov  9 12:31:05 UTC 2013 - dap.darkness@gmail.com
+
+- 1.2 release:
+  * Complete code refactoring — more speed, stability and usability;
+  * Changed titles for pop-up dialog boxes;
+  * Added shortcuts for "Remove Selected Files" and "Remove All Files";
+  * Added icon for file counter;
+  * Redesigned filename and directory info;
+  * Added info about qt version;
+  * Added title;
+  * Changed info about developer.
+- More build targets.
+
+-------------------------------------------------------------------
 Sat Oct 12 16:32:07 UTC 2013 - dap.darkness@gmail.com
 
 - Initial build.
