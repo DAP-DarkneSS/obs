@@ -20,6 +20,9 @@ Source1: smillaenlarger_%{version}-0.2~ppa3.debian.tar.bz2
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Packager: Sawa <http://linux.ikoinoba.net/>
 BuildRequires: qt-devel gcc-c++ desktop-file-utils
+%if 0%{?suse_version}
+BuildRequires:  update-desktop-files
+%endif
 
 %description
 SmillaEnlarger is a small graphical tool ( based on Qt ) to resize,
@@ -29,7 +32,11 @@ especially magnify bitmaps in high quality.
 %setup -q -a 1
 patch -p1 < debian/patches/fix_version.diff
 cd SmillaEnlargerSrc
-%{_libdir}/qt4/bin/qmake ImageEnlarger.pro
+%{_libdir}/qt4/bin/qmake \
+                         ImageEnlarger.pro \
+                         QMAKE_STRIP="" \
+                         QMAKE_CFLAGS+="%{optflags}" \
+                         QMAKE_CXXFLAGS+="%{optflags}"
 
 %build
 cd SmillaEnlargerSrc
@@ -40,6 +47,9 @@ cd SmillaEnlargerSrc
 %{__install} -m0755 -D -s SmillaEnlargerSrc/SmillaEnlarger %{buildroot}%{_libexecdir}/SmillaEnlarger
 %{__install} -m0644 -D SmillaEnlargerSrc/smilla.png %{buildroot}%{_datadir}/pixmaps/smillaenlarger.png
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications debian/etc/smillaenlarger.desktop
+%if 0%{?suse_version}
+%suse_update_desktop_file -r %{name} 'Graphics;RasterGraphics;Qt;'
+%endif
 
 #%{__install} -m0755 -D debian/etc/smillaenlarger %{buildroot}%{_bindir}/smillaenlarger
 # (^^;
