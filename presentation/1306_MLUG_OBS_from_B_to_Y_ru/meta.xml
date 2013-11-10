@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <office:document-meta xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" office:version="1.2" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xlink="http://www.w3.org/1999/xlink">
  <office:meta>
-  <meta:generator>Calligra/2.5.4</meta:generator>
+  <meta:generator>Calligra/2.7.4</meta:generator>
   <dc:title>openSUSE Build Server от Б до Ю</dc:title>
   <dc:description>или ваш пакет в openSUSE это не просто, а очень просто</dc:description>
   <dc:subject>openSUSE Build Server</dc:subject>
   <meta:keyword>OBS, openSUSE, packaging, rpm, linux</meta:keyword>
   <meta:initial-creator>Unknown</meta:initial-creator>
-  <meta:editing-cycles>34</meta:editing-cycles>
-  <dc:date>2013-06-22T13:06:32</dc:date>
+  <meta:editing-cycles>36</meta:editing-cycles>
+  <dc:date>2013-11-10T17:58:54</dc:date>
   <meta:creation-date>2010-09-14T19:07:31</meta:creation-date>
+  <dc:language>ru</dc:language>
   <dc:creator>Dmitriy DarkneSS Perlow</dc:creator>
  </office:meta>
 </office:document-meta>

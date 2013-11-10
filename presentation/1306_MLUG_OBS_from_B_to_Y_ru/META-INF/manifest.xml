@@ -11,6 +11,5 @@
  <manifest:file-entry manifest:media-type="image/png" manifest:full-path="Pictures/image3.png"/>
  <manifest:file-entry manifest:media-type="image/png" manifest:full-path="Pictures/image1.png"/>
  <manifest:file-entry manifest:media-type="text/xml" manifest:full-path="meta.xml"/>
- <manifest:file-entry manifest:media-type="" manifest:full-path="Thumbnails/"/>
- <manifest:file-entry manifest:media-type="" manifest:full-path="Thumbnails/thumbnail.png"/>
+ <manifest:file-entry manifest:media-type="image/png" manifest:full-path="Thumbnails/thumbnail.png"/>
 </manifest:manifest>
