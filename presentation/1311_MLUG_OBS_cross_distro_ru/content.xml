@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<office:document-content xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:presentation="urn:oasis:names:tc:opendocument:xmlns:presentation:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:anim="urn:oasis:names:tc:opendocument:xmlns:animation:1.0" xmlns:smil="urn:oasis:names:tc:opendocument:xmlns:smil-compatible:1.0" xmlns:calligra="http://www.calligra.org/2005/" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:delta="http://www.deltaxml.com/ns/track-changes/delta-namespace" xmlns:split="http://www.deltaxml.com/ns/track-changes/split-namespace" xmlns:ac="http://www.deltaxml.com/ns/track-changes/attribute-change-namespace" office:version="1.2" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <office:automatic-styles>
+  <style:style style:name="T2" style:family="text">
+   <style:text-properties fo:font-family="Droid Sans" style:font-family-generic="roman" style:font-pitch="variable"/>
+  </style:style>
+  <style:style style:name="T3" style:family="text">
+   <style:text-properties fo:background-color="transparent" fo:color="#dcdcdc" fo:font-family="Droid Sans" fo:font-size="32.000000000000000pt" fo:font-style="normal" fo:font-variant="normal" fo:font-weight="normal" fo:text-transform="none" style:text-line-through-style="none" style:text-line-through-type="none" style:text-underline-style="none" style:text-underline-type="none"/>
+  </style:style>
+  <style:style style:name="T4" style:family="text">
+   <style:text-properties fo:background-color="transparent" fo:font-family="Droid Sans" fo:font-size="24.000000000000000pt" fo:font-style="normal" fo:font-variant="normal" fo:font-weight="normal" fo:text-transform="none" style:text-line-through-style="none" style:text-line-through-type="none" style:text-underline-style="none" style:text-underline-type="none"/>
+  </style:style>
+  <style:style style:name="T5" style:family="text">
+   <style:text-properties fo:font-family="Droid Sans" fo:font-size="22.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="T6" style:family="text">
+   <style:text-properties fo:font-family="Droid Sans" fo:font-size="22.000000000000000pt" fo:font-weight="100"/>
+  </style:style>
+  <style:style style:name="T7" style:family="text">
+   <style:text-properties fo:font-family="droid sans" fo:font-size="22.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="T8" style:family="text">
+   <style:text-properties fo:font-family="Droid Sans" fo:font-size="20.000000000000000pt" style:font-family-generic="roman" style:font-pitch="variable"/>
+  </style:style>
+  <style:style style:name="T9" style:family="text">
+   <style:text-properties fo:color="#006633"/>
+  </style:style>
+  <style:style style:name="T10" style:family="text">
+   <style:text-properties fo:font-size="20.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="P8" style:parent-style-name="Title" style:family="paragraph"/>
+  <style:style style:name="P9" style:family="paragraph">
+   <style:text-properties fo:color="#000000" fo:font-family="Sans Serif" fo:font-size="12.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="P10" style:parent-style-name="Header" style:family="paragraph"/>
+  <style:style style:name="P11" style:family="paragraph">
+   <style:paragraph-properties fo:text-align="center"/>
+   <style:text-properties fo:color="#000000" fo:font-family="Sans Serif" fo:font-size="12.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="P12" style:parent-style-name="Standard" style:family="paragraph">
+   <style:paragraph-properties fo:margin-left="0.000000000000000pt" fo:margin-right="0.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="P13" style:parent-style-name="Standard" style:family="paragraph">
+   <style:paragraph-properties fo:margin-left="0.000000000000000pt" fo:margin-right="0.000000000000000pt"/>
+   <style:text-properties fo:font-family="Droid Sans"/>
+  </style:style>
+  <style:style style:name="P14" style:family="paragraph">
+   <style:paragraph-properties fo:text-align="center"/>
+   <style:text-properties fo:color="#ffffff" fo:font-family="Arial" fo:font-size="40.000000000000000pt" fo:font-weight="normal" style:font-family-generic="roman" style:font-pitch="variable" style:letter-kerning="true" style:text-line-through-style="none" style:text-line-through-type="none" style:text-line-through-width="auto" style:text-outline="false" style:text-underline-style="none" style:text-underline-type="none" style:text-underline-width="auto"/>
+  </style:style>
+  <style:style style:name="P15" style:family="paragraph">
+   <style:paragraph-properties fo:margin="0.000000000000000pt" fo:text-align="left" fo:text-indent="0.000000000000000pt"/>
+   <style:text-properties fo:color="#000000" fo:font-family="Arial" fo:font-size="32.000000000000000pt" fo:font-weight="normal" style:font-family-generic="roman" style:font-pitch="variable" style:letter-kerning="true" style:text-line-through-style="none" style:text-line-through-type="none" style:text-line-through-width="auto" style:text-outline="false" style:text-underline-style="none" style:text-underline-type="none" style:text-underline-width="auto"/>
+  </style:style>
+  <style:style style:name="P16" style:family="paragraph">
+   <style:paragraph-properties fo:margin="0.000000000000000pt" fo:text-align="center" fo:text-indent="0.000000000000000pt"/>
+   <style:text-properties fo:color="#000000" fo:font-family="Arial" fo:font-size="32.000000000000000pt" fo:font-weight="normal" style:font-family-generic="roman" style:font-pitch="variable" style:letter-kerning="true" style:text-line-through-style="none" style:text-line-through-type="none" style:text-line-through-width="auto" style:text-outline="false" style:text-underline-style="none" style:text-underline-type="none" style:text-underline-width="auto"/>
+  </style:style>
+  <style:style style:name="P17" style:family="paragraph">
+   <style:paragraph-properties fo:margin="0.000000000000000pt" fo:text-align="left" fo:text-indent="0.000000000000000pt"/>
+   <style:text-properties fo:color="#000000" fo:font-family="Droid Sans" fo:font-size="32.000000000000000pt" fo:font-weight="normal" style:letter-kerning="true" style:text-line-through-style="none" style:text-line-through-type="none" style:text-line-through-width="auto" style:text-outline="false" style:text-underline-style="none" style:text-underline-type="none" style:text-underline-width="auto"/>
+  </style:style>
+  <style:style style:name="P18" style:family="paragraph">
+   <style:paragraph-properties fo:margin="0.000000000000000pt" fo:text-align="center" fo:text-indent="0.000000000000000pt"/>
+   <style:text-properties fo:color="#000000" fo:font-family="Droid Sans" fo:font-size="32.000000000000000pt" fo:font-weight="normal" style:letter-kerning="true" style:text-line-through-style="none" style:text-line-through-type="none" style:text-line-through-width="auto" style:text-outline="false" style:text-underline-style="none" style:text-underline-type="none" style:text-underline-width="auto"/>
+  </style:style>
+  <style:style style:name="P19" style:parent-style-name="Standard" style:family="paragraph">
+   <style:paragraph-properties fo:margin-left="0.000000000000000pt" fo:margin-right="0.000000000000000pt" fo:text-align="center"/>
+  </style:style>
+  <style:style style:name="P20" style:parent-style-name="Standard" style:family="paragraph">
+   <style:paragraph-properties fo:margin-left="0.000000000000000pt" fo:margin-right="0.000000000000000pt" fo:text-align="center"/>
+   <style:text-properties fo:font-family="Droid Sans"/>
+  </style:style>
+  <style:style style:name="gr5" style:family="graphic">
+   <style:graphic-properties draw:auto-grow-height="false" draw:fill="none" draw:stroke="none" draw:textarea-vertical-align="top" fo:margin="0.000000000000000pt" fo:padding="0.000000000000000pt" style:wrap="biggest" style:wrap-contour="true" style:wrap-contour-mode="full" style:wrap-dynamic-threshold="0.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="gr6" style:family="graphic">
+   <style:graphic-properties draw:color-mode="standard" draw:fill="none" draw:stroke="none" draw:textarea-horizontal-align="left" draw:textarea-vertical-align="top" fo:margin="0.000000000000000pt" style:protect="position size" style:wrap="biggest" style:wrap-contour="true" style:wrap-contour-mode="full" style:wrap-dynamic-threshold="0.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="gr7" style:family="graphic">
+   <style:graphic-properties draw:fill="none" draw:stroke="none" fo:margin="0.000000000000000pt" style:wrap="biggest" style:wrap-contour="false" style:wrap-dynamic-threshold="0.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="gr8" style:family="graphic">
+   <style:graphic-properties draw:fill="gradient" draw:fill-gradient-name="gradient3" draw:stroke="solid" draw:stroke-linejoin="miter" draw:textarea-horizontal-align="left" draw:textarea-vertical-align="top" fo:margin="0.000000000000000pt" style:wrap="biggest" style:wrap-contour="true" style:wrap-contour-mode="full" style:wrap-dynamic-threshold="0.000000000000000pt" svg:fill-rule="evenodd" svg:stroke-color="#000000" svg:stroke-linecap="square" svg:stroke-opacity="1" svg:stroke-width="1.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="gr9" style:family="graphic">
+   <style:graphic-properties draw:fill="solid" draw:fill-color="#006633" draw:stroke="solid" draw:stroke-linejoin="miter" draw:textarea-horizontal-align="left" draw:textarea-vertical-align="top" fo:margin="0.000000000000000pt" style:wrap="biggest" style:wrap-contour="true" style:wrap-contour-mode="full" style:wrap-dynamic-threshold="0.000000000000000pt" svg:fill-rule="evenodd" svg:stroke-color="#000000" svg:stroke-linecap="square" svg:stroke-opacity="1" svg:stroke-width="1.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="gr10" style:family="graphic">
+   <style:graphic-properties calligra:shadow-blur-radius="7.93702pt" draw:fill="gradient" draw:fill-gradient-name="gradient3" draw:shadow="hidden" draw:shadow-color="#000000" draw:shadow-offset-x="5.61232pt" draw:shadow-offset-y="5.61232pt" draw:shadow-opacity="75.2941%" draw:stroke="solid" draw:stroke-linejoin="miter" draw:textarea-horizontal-align="left" draw:textarea-vertical-align="top" fo:margin="0.000000000000000pt" style:wrap="biggest" style:wrap-contour="true" style:wrap-contour-mode="full" style:wrap-dynamic-threshold="0.000000000000000pt" svg:fill-rule="evenodd" svg:stroke-color="#000000" svg:stroke-linecap="square" svg:stroke-opacity="1" svg:stroke-width="1.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="gr11" style:family="graphic">
+   <style:graphic-properties draw:color-mode="standard" draw:fill="none" draw:stroke="none" draw:textarea-horizontal-align="left" draw:textarea-vertical-align="top" fo:margin="0.000000000000000pt" style:wrap="biggest" style:wrap-contour="true" style:wrap-contour-mode="full" style:wrap-dynamic-threshold="0.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="pr1" style:family="presentation">
+   <style:graphic-properties draw:fill="none" draw:stroke="none" fo:margin="0.000000000000000pt" fo:padding="0.000000000000000pt" style:wrap="biggest" style:wrap-contour="false" style:wrap-dynamic-threshold="0.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="pr2" style:family="presentation">
+   <style:graphic-properties draw:fill="none" draw:stroke="none" fo:margin="0.000000000000000pt" fo:padding="0.000000000000000pt" style:protect="position size" style:wrap="biggest" style:wrap-contour="true" style:wrap-contour-mode="full" style:wrap-dynamic-threshold="0.000000000000000pt"/>
+  </style:style>
+  <style:style style:name="dp3" style:family="drawing-page">
+   <style:drawing-page-properties presentation:background-objects-visible="true" presentation:background-visible="true" presentation:display-date-time="true" presentation:display-footer="true" presentation:display-header="false" presentation:display-page-number="false"/>
+  </style:style>
+  <style:style style:name="dp4" style:family="drawing-page">
+   <style:drawing-page-properties presentation:background-objects-visible="true" presentation:background-visible="true" presentation:display-date-time="false" presentation:display-footer="false" presentation:display-header="false" presentation:display-page-number="false"/>
+  </style:style>
+  <text:list-style style:name="L1" style:display-name="L1">
+   <text:list-level-style-bullet text:bullet-char="✔" text:level="1">
+ <style:list-level-properties text:list-level-position-and-space-mode="label-alignment" fo:text-align="start"><style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="54.00000000000pt" fo:text-indent="-18.00000000000pt" fo:margin-left="54.00000000000pt"/></style:list-level-properties>
+</text:list-level-style-bullet>
+  </text:list-style>
+  <text:list-style style:name="L3" style:display-name="L3">
+   <text:list-level-style-bullet text:bullet-char="•" text:level="1">
+ <style:list-level-properties text:list-level-position-and-space-mode="label-alignment" fo:text-align="start"><style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="54.00000000000pt" fo:text-indent="-18.00000000000pt" fo:margin-left="54.00000000000pt"/></style:list-level-properties>
+</text:list-level-style-bullet>
+  </text:list-style>
+ </office:automatic-styles>
+ <office:body>
+  <office:presentation>
+   <draw:page draw:name="page1" draw:id="page1" xml:id="page1" draw:master-page-name="Default2" draw:style-name="dp3" presentation:presentation-page-layout-name="pl1">
+    <draw:layer-set>
+     <draw:layer draw:name="layout"/>
+     <draw:layer draw:name="background"/>
+     <draw:layer draw:name="backgroundobjects"/>
+     <draw:layer draw:name="controls"/>
+     <draw:layer draw:name="measurelines"/>
+    </draw:layer-set>
+    <draw:frame draw:style-name="gr5" xml:id="shape-29" draw:id="shape-29" draw:layer="layout" svg:width="729.53980007399pt" svg:height="55.14586066890pt" svg:x="28.23296439915pt" svg:y="47.62212974400pt" presentation:class="title">
+     <draw:text-box>
+      <text:p text:style-name="P8"><text:span text:style-name="T2">openSUSE Build Server:</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:frame draw:style-name="gr5" xml:id="shape-30" draw:id="shape-30" draw:layer="measurelines" svg:width="450.59811181040pt" svg:height="119.21406479248pt" svg:x="86.95753034938pt" svg:y="115.19049474852pt">
+     <draw:text-box>
+      <text:p text:style-name="P9"><text:span text:style-name="T3">tips &amp; tricks кросс-дистрибутивной сборки</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:frame draw:style-name="gr5" xml:id="shape-31" draw:id="shape-31" draw:layer="measurelines" svg:width="257.57023964377pt" svg:height="24.52333242328pt" svg:x="27.81962570822pt" svg:y="545.19185293696pt">
+     <draw:text-box>
+      <text:p text:style-name="P9"><text:span text:style-name="T4">Дмитрий Перлов</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:frame draw:style-name="gr5" xml:id="shape-32" draw:id="shape-32" draw:layer="measurelines" svg:width="117.66565326899pt" svg:height="26.27634068933pt" svg:x="651.92455134912pt" svg:y="544.50431312365pt">
+     <draw:text-box>
+      <text:p text:style-name="P9"><text:span text:style-name="T4">Для MLUG</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <presentation:notes>
+     <draw:frame presentation:style-name="pr1" xml:id="shape-33" draw:id="shape-33" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
+      <draw:text-box>
+       <text:p text:style-name="P9"/>
+      </draw:text-box>
+      <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+      <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     </draw:frame>
+     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-34" draw:id="shape-34" draw:layer="" svg:width="420.88891811840pt" svg:height="315.63834208300pt" svg:x="87.16550000000pt" svg:y="63.97810000000pt" presentation:class="page" draw:page-number="1"/>
+     <draw:frame draw:style-name="gr7" xml:id="shape-35" draw:id="shape-35" draw:layer="" svg:width="476.19295093420pt" svg:height="378.85105001700pt" svg:x="59.52770000000pt" svg:y="399.88400000000pt" presentation:class="notes" presentation:placeholder="true">
+      <draw:text-box/>
+      <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+      <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     </draw:frame>
+    </presentation:notes>
+   </draw:page>
+   <draw:page draw:name="page2" draw:id="page2" xml:id="page2" draw:master-page-name="Default1" draw:style-name="dp4" presentation:presentation-page-layout-name="pl1">
+    <draw:layer-set>
+     <draw:layer draw:name=""/>
+    </draw:layer-set>
+    <draw:frame draw:style-name="gr5" xml:id="shape-36" draw:id="shape-36" draw:layer="" svg:width="708.66264500000pt" svg:height="56.69301160000pt" svg:x="42.51975870000pt" svg:y="42.51975870000pt" presentation:class="title">
+     <draw:text-box>
+      <text:p text:style-name="P10"><text:span text:style-name="T2">Поддерживаемые форматы</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:rect draw:style-name="gr8" xml:id="shape-37" draw:id="shape-37" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="127.55927610000pt" svg:y="113.38602320000pt">
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:rect>
+    <draw:rect draw:style-name="gr8" xml:id="shape-38" draw:id="shape-38" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="127.55927610000pt" svg:y="212.59879350000pt">
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:rect>
+    <draw:rect draw:style-name="gr8" xml:id="shape-39" draw:id="shape-39" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="453.54409280000pt" svg:y="212.59879350000pt">
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:rect>
+    <draw:rect draw:style-name="gr8" xml:id="shape-40" draw:id="shape-40" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="127.55927610000pt" svg:y="311.81156380000pt">
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:rect>
+    <draw:frame draw:style-name="gr5" xml:id="shape-41" draw:id="shape-41" draw:layer="" svg:width="198.42554060000pt" svg:height="28.34650580000pt" svg:x="127.55927610000pt" svg:y="340.15806960000pt">
+     <draw:text-box>
+      <text:p text:style-name="P11"><text:span text:style-name="T5">PKGBUILD</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:frame draw:style-name="gr5" xml:id="shape-42" draw:id="shape-42" draw:layer="" svg:width="198.42554060000pt" svg:height="56.69301160000pt" svg:x="127.55927610000pt" svg:y="230.45709215400pt">
+     <draw:text-box>
+      <text:p text:style-name="P11"><text:span text:style-name="T5">dsc (rules, control, changelog)</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:frame draw:style-name="gr5" xml:id="shape-43" draw:id="shape-43" draw:layer="" svg:width="198.42554060000pt" svg:height="56.69301160000pt" svg:x="453.54409280000pt" svg:y="230.45709215400pt">
+     <draw:text-box>
+      <text:p text:style-name="P11"><text:span text:style-name="T6">deb</text:span></text:p>
+      <text:p text:style-name="P11"><text:span text:style-name="T6">(Debian, *buntu)</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:frame draw:style-name="gr5" xml:id="shape-44" draw:id="shape-44" draw:layer="" svg:width="198.42554060000pt" svg:height="28.34650580000pt" svg:x="127.55927610000pt" svg:y="141.73252900000pt">
+     <draw:text-box>
+      <text:p text:style-name="P11"><text:span text:style-name="T7">spec</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:rect draw:style-name="gr8" xml:id="shape-45" draw:id="shape-45" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="453.54409280000pt" svg:y="113.38602320000pt">
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:rect>
+    <draw:rect draw:style-name="gr8" xml:id="shape-46" draw:id="shape-46" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="453.54409280000pt" svg:y="311.81156380000pt">
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:rect>
+    <draw:frame draw:style-name="gr5" xml:id="shape-47" draw:id="shape-47" draw:layer="" svg:width="198.42554060000pt" svg:height="56.69301160000pt" svg:x="453.54409280000pt" svg:y="329.66986245400pt">
+     <draw:text-box>
+      <text:p text:style-name="P11"><text:span text:style-name="T6">pkg.tar.xz</text:span></text:p>
+      <text:p text:style-name="P11"><text:span text:style-name="T6">(Arch Linux)</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:frame draw:style-name="gr5" xml:id="shape-48" draw:id="shape-48" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="453.54409280000pt" svg:y="113.38602320000pt">
+     <draw:text-box>
+      <text:p text:style-name="P11"><text:span text:style-name="T6">rpm</text:span></text:p>
+      <text:p text:style-name="P11"><text:span text:style-name="T6">(RH, openSUSE, SLE, Fedora, CentOS, SL)</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:custom-shape draw:style-name="gr9" xml:id="shape-49" draw:id="shape-49" draw:layer="" svg:x="354.33132250000pt" svg:y="141.73252900000pt" svg:width="70.86626450000pt" svg:height="28.34650580000pt">
+     <draw:enhanced-geometry svg:viewBox="0 0 100 100" draw:modifiers="60 35" draw:enhanced-path="M$0 $1 L$0 0 width ?HalfHeight $0 height $0 ?LowerCorner 0 ?LowerCorner 0 $1 Z">
+      <draw:equation draw:name="HalfHeight" draw:formula="0.5 * height"/>
+      <draw:equation draw:name="LowerCorner" draw:formula="height - $1"/>
+      <draw:handle draw:handle-position="$0 $1" draw:handle-range-x-minimum="48" draw:handle-range-x-maximum="width" draw:handle-range-y-minimum="48" draw:handle-range-y-maximum="?HalfHeight"/>
+     </draw:enhanced-geometry>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:custom-shape>
+    <draw:custom-shape draw:style-name="gr9" xml:id="shape-50" draw:id="shape-50" draw:layer="" svg:x="354.33132250000pt" svg:y="240.94529930000pt" svg:width="70.86626450000pt" svg:height="28.34650580000pt">
+     <draw:enhanced-geometry svg:viewBox="0 0 100 100" draw:modifiers="60 35" draw:enhanced-path="M$0 $1 L$0 0 width ?HalfHeight $0 height $0 ?LowerCorner 0 ?LowerCorner 0 $1 Z">
+      <draw:equation draw:name="HalfHeight" draw:formula="0.5 * height"/>
+      <draw:equation draw:name="LowerCorner" draw:formula="height - $1"/>
+      <draw:handle draw:handle-position="$0 $1" draw:handle-range-x-minimum="48" draw:handle-range-x-maximum="width" draw:handle-range-y-minimum="48" draw:handle-range-y-maximum="?HalfHeight"/>
+     </draw:enhanced-geometry>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:custom-shape>
+    <draw:custom-shape draw:style-name="gr9" xml:id="shape-51" draw:id="shape-51" draw:layer="" svg:x="354.33132250000pt" svg:y="340.15806960000pt" svg:width="70.86626450000pt" svg:height="28.34650580000pt">
+     <draw:enhanced-geometry svg:viewBox="0 0 100 100" draw:modifiers="60 35" draw:enhanced-path="M$0 $1 L$0 0 width ?HalfHeight $0 height $0 ?LowerCorner 0 ?LowerCorner 0 $1 Z">
+      <draw:equation draw:name="HalfHeight" draw:formula="0.5 * height"/>
+      <draw:equation draw:name="LowerCorner" draw:formula="height - $1"/>
+      <draw:handle draw:handle-position="$0 $1" draw:handle-range-x-minimum="48" draw:handle-range-x-maximum="width" draw:handle-range-y-minimum="48" draw:handle-range-y-maximum="?HalfHeight"/>
+     </draw:enhanced-geometry>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:custom-shape>
+    <draw:rect draw:style-name="gr8" xml:id="shape-52" draw:id="shape-52" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="127.55927610000pt" svg:y="411.02433410000pt">
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:rect>
+    <draw:rect draw:style-name="gr10" xml:id="shape-53" draw:id="shape-53" draw:layer="" svg:width="198.42554060000pt" svg:height="85.03951740000pt" svg:x="453.54409280000pt" svg:y="411.02433410000pt">
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:rect>
+    <draw:custom-shape draw:style-name="gr9" xml:id="shape-54" draw:id="shape-54" draw:layer="" svg:x="354.33132250000pt" svg:y="439.37083990000pt" svg:width="70.86626450000pt" svg:height="28.34650580000pt">
+     <draw:enhanced-geometry svg:viewBox="0 0 100 100" draw:modifiers="60 35" draw:enhanced-path="M$0 $1 L$0 0 width ?HalfHeight $0 height $0 ?LowerCorner 0 ?LowerCorner 0 $1 Z">
+      <draw:equation draw:name="HalfHeight" draw:formula="0.5 * height"/>
+      <draw:equation draw:name="LowerCorner" draw:formula="height - $1"/>
+      <draw:handle draw:handle-position="$0 $1" draw:handle-range-x-minimum="48" draw:handle-range-x-maximum="width" draw:handle-range-y-minimum="48" draw:handle-range-y-maximum="?HalfHeight"/>
+     </draw:enhanced-geometry>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:custom-shape>
+    <draw:frame draw:style-name="gr5" xml:id="shape-55" draw:id="shape-55" draw:layer="" svg:width="198.42554060000pt" svg:height="28.34650580000pt" svg:x="127.55927610000pt" svg:y="439.37083990000pt">
+     <draw:text-box>
+      <text:p text:style-name="P11"><text:span text:style-name="T5">kiwi</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:frame draw:style-name="gr5" xml:id="shape-56" draw:id="shape-56" draw:layer="" svg:width="198.42554060000pt" svg:height="28.34650580000pt" svg:x="453.54409280000pt" svg:y="439.37083990000pt">
+     <draw:text-box>
+      <text:p text:style-name="P11"><text:span text:style-name="T5">iso</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <presentation:notes>
+     <draw:frame presentation:style-name="pr2" xml:id="shape-57" draw:id="shape-57" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
+      <draw:text-box>
+       <text:p text:style-name="P9"/>
+      </draw:text-box>
+      <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+      <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     </draw:frame>
+     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-58" draw:id="shape-58" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="2"/>
+    </presentation:notes>
+   </draw:page>
+   <draw:page draw:name="page3" draw:id="page3" xml:id="page3" draw:master-page-name="Default1" draw:style-name="dp3" presentation:presentation-page-layout-name="pl2">
+    <draw:layer-set>
+     <draw:layer draw:name="layout"/>
+     <draw:layer draw:name="background"/>
+     <draw:layer draw:name="backgroundobjects"/>
+     <draw:layer draw:name="controls"/>
+     <draw:layer draw:name="measurelines"/>
+    </draw:layer-set>
+    <draw:frame draw:style-name="gr5" xml:id="shape-59" draw:id="shape-59" draw:layer="layout" svg:width="708.66264500000pt" svg:height="56.69301160000pt" svg:x="42.51975870000pt" svg:y="42.51975870000pt" presentation:class="title">
+     <draw:text-box>
+      <text:p text:style-name="P10"><text:span text:style-name="T2">Что нам стоит дом построить</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:frame draw:style-name="gr5" xml:id="shape-60" draw:id="shape-60" draw:layer="layout" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="42.51975870000pt" svg:y="141.73252900000pt" presentation:class="outline">
+     <draw:text-box>
+      <text:list text:style-name="L1" xml:id="list-0039385a-9e61-4a97-a4c4-2055c4970768">
+       <text:list-item>
+        <text:p text:style-name="P12"><text:span text:style-name="T2"><text:s/>архив с исходными кодами</text:span></text:p>
+       </text:list-item>
+       <text:list-item>
+        <text:p text:style-name="P13"><text:s/>spec</text:p>
+       </text:list-item>
+       <text:list-item>
+        <text:p text:style-name="P13"><text:s/>dsc, rules, control, changelog</text:p>
+       </text:list-item>
+       <text:list-item>
+        <text:p text:style-name="P13"><text:s/>PKGBUILD</text:p>
+       </text:list-item>
+      </text:list>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <presentation:notes>
+     <draw:frame presentation:style-name="pr1" xml:id="shape-61" draw:id="shape-61" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
+      <draw:text-box>
+       <text:p text:style-name="P9"/>
+      </draw:text-box>
+      <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+      <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     </draw:frame>
+     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-62" draw:id="shape-62" draw:layer="" svg:width="420.88891811840pt" svg:height="315.66668858880pt" svg:x="87.16550000000pt" svg:y="63.97810000000pt" presentation:class="page" draw:page-number="3"/>
+     <draw:frame draw:style-name="gr7" xml:id="shape-63" draw:id="shape-63" draw:layer="" svg:width="476.19295093420pt" svg:height="378.85105001700pt" svg:x="59.52770000000pt" svg:y="399.88400000000pt" presentation:class="notes" presentation:placeholder="true">
+      <draw:text-box/>
+      <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+      <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     </draw:frame>
+    </presentation:notes>
+   </draw:page>
+   <draw:page draw:name="page4" draw:id="page4" xml:id="page4" draw:master-page-name="Default1" draw:style-name="dp4" presentation:presentation-page-layout-name="pl2">
+    <draw:layer-set>
+     <draw:layer draw:name=""/>
+    </draw:layer-set>
+    <draw:frame draw:style-name="gr5" xml:id="shape-64" draw:id="shape-64" draw:layer="" svg:width="708.66264500000pt" svg:height="56.69301160000pt" svg:x="42.51975870000pt" svg:y="42.51975870000pt" presentation:class="title">
+     <draw:text-box>
+      <text:p text:style-name="P10"><text:span text:style-name="T2">Гибкость spec</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:frame draw:style-name="gr5" xml:id="shape-65" draw:id="shape-65" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="42.51975870000pt" svg:y="141.73252900000pt" presentation:class="outline">
+     <draw:text-box>
+      <text:list text:style-name="L1" xml:id="list-aa638d5c-3b2e-4738-a3e6-71d99422edf4">
+       <text:list-item>
+        <text:p text:style-name="P12"><text:span text:style-name="T2"><text:s/>%if 0%{?suse_version}</text:span></text:p>
+       </text:list-item>
+       <text:list-item>
+        <text:p text:style-name="P13"><text:s/>%if 0%{?fedora} &lt;= 17</text:p>
+       </text:list-item>
+       <text:list-item>
+        <text:p text:style-name="P13"><text:s/>%ifarch %arm</text:p>
+        <text:p text:style-name="P13"/>
+       </text:list-item>
+       <text:list-item>
+        <text:p text:style-name="P13"><text:s/>%define qtversion %(rpm -q libqt4</text:p>
+        <text:p text:style-name="P13"><text:s text:c="2"/>--qf='%{VERSION}\n' | awk -F.</text:p>
+        <text:p text:style-name="P13"><text:s text:c="2"/>'{print $1 * 10000 + $2 * 100 + $3}')</text:p>
+        <text:p text:style-name="P13"/>
+        <text:p text:style-name="P13"><text:s text:c="2"/>%if %{qtversion} &gt;= 40801</text:p>
+       </text:list-item>
+      </text:list>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <presentation:notes>
+     <draw:frame presentation:style-name="pr2" xml:id="shape-66" draw:id="shape-66" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
+      <draw:text-box>
+       <text:p text:style-name="P9"/>
+      </draw:text-box>
+      <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+      <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     </draw:frame>
+     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-67" draw:id="shape-67" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="4"/>
+    </presentation:notes>
+   </draw:page>
+   <draw:page draw:name="page5" draw:id="page5" xml:id="page5" draw:master-page-name="Default3" draw:style-name="dp4" presentation:presentation-page-layout-name="pl2">
+    <draw:layer-set>
+     <draw:layer draw:name=""/>
+    </draw:layer-set>
+    <draw:frame draw:style-name="gr5" xml:id="shape-68" draw:id="shape-68" draw:layer="" svg:width="708.66264500000pt" svg:height="56.69301160000pt" svg:x="42.51975870000pt" svg:y="42.51975870000pt" presentation:class="title">
+     <draw:text-box>
+      <text:p text:style-name="P14"><text:span text:style-name="T2">Каждой цели по файлу</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:frame draw:style-name="gr5" xml:id="shape-69" draw:id="shape-69" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="42.51975870000pt" svg:y="141.73252900000pt" presentation:class="outline">
+     <draw:text-box>
+      <text:list text:style-name="L1" xml:id="list-8dd2091e-408a-4c4a-a119-b6359d6431fe">
+       <text:list-item>
+        <text:p text:style-name="P15"><text:span text:style-name="T2"><text:s/>gconfmm.dsc</text:span></text:p>
+        <text:p text:style-name="P16"><text:span text:style-name="T8">для всех версий Debian и *buntu, кроме нижеперечисленных</text:span></text:p>
+        <text:p text:style-name="P15"/>
+       </text:list-item>
+       <text:list-item>
+        <text:p text:style-name="P17"><text:s/>gconfmm<text:span text:style-name="T9">-Debian_7.0</text:span>.dsc</text:p>
+        <text:p text:style-name="P18"><text:span text:style-name="T10">для<text:s/></text:span><text:span text:style-name="T8">Debian</text:span><text:span text:style-name="T10"><text:s/>7</text:span></text:p>
+        <text:p text:style-name="P17"/>
+       </text:list-item>
+       <text:list-item>
+        <text:p text:style-name="P17"><text:s/>gconfmm<text:span text:style-name="T9">-xUbuntu_12.04</text:span>.dsc</text:p>
+        <text:p text:style-name="P18"><text:span text:style-name="T10">для *</text:span><text:span text:style-name="T8">buntu</text:span><text:span text:style-name="T10"><text:s/>12.04</text:span></text:p>
+       </text:list-item>
+      </text:list>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <presentation:notes>
+     <draw:frame presentation:style-name="pr2" xml:id="shape-70" draw:id="shape-70" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
+      <draw:text-box>
+       <text:p text:style-name="P9"/>
+      </draw:text-box>
+      <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+      <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     </draw:frame>
+     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-71" draw:id="shape-71" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="5"/>
+    </presentation:notes>
+   </draw:page>
+   <draw:page draw:name="page6" draw:id="page6" xml:id="page6" draw:master-page-name="Default4" draw:style-name="dp4" presentation:presentation-page-layout-name="pl2">
+    <draw:layer-set>
+     <draw:layer draw:name=""/>
+    </draw:layer-set>
+    <draw:frame draw:style-name="gr5" xml:id="shape-72" draw:id="shape-72" draw:layer="" svg:width="708.66264500000pt" svg:height="56.69301160000pt" svg:x="42.51975870000pt" svg:y="42.51975870000pt" presentation:class="title">
+     <draw:text-box>
+      <text:p text:style-name="P14"><text:span text:style-name="T2">_link</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:frame draw:style-name="gr5" xml:id="shape-73" draw:id="shape-73" draw:layer="" svg:width="698.45790291200pt" svg:height="300.29515877045pt" svg:x="42.51975870000pt" svg:y="255.11855220000pt" presentation:class="outline">
+     <draw:text-box>
+      <text:p text:style-name="P15"><text:span text:style-name="T2"><text:s text:c="3"/>Пакет-ссылка = оригинальный пакет + разница из внесённых именений.</text:span></text:p>
+      <text:p text:style-name="P15"><text:span text:style-name="T2"><text:s text:c="3"/>При обновлении оринального пакета и при отсутствии конфликтов пакет-ссылка</text:span></text:p>
+      <text:p text:style-name="P15"><text:span text:style-name="T2">также обновится.</text:span></text:p>
+      <text:p text:style-name="P15"><text:span text:style-name="T8"><text:s text:c="4"/>NB! Сервисы ( _service ) в пакетах-ссылках</text:span></text:p>
+      <text:p text:style-name="P15"><text:span text:style-name="T8">не запускаются автоматически.</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:frame draw:style-name="gr11" xml:id="shape-74" draw:id="shape-74" draw:layer="" svg:width="708.66264500000pt" svg:height="75.01410314446pt" svg:x="42.51975870000pt" svg:y="141.73252900000pt">
+     <draw:image xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad" xlink:href="Pictures/image4.png"/>
+    </draw:frame>
+    <presentation:notes>
+     <draw:frame presentation:style-name="pr2" xml:id="shape-75" draw:id="shape-75" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
+      <draw:text-box>
+       <text:p text:style-name="P9"/>
+      </draw:text-box>
+      <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+      <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     </draw:frame>
+     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-76" draw:id="shape-76" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="6"/>
+    </presentation:notes>
+   </draw:page>
+   <draw:page draw:name="page7" draw:id="page7" xml:id="page7" draw:master-page-name="Default1" draw:style-name="dp4" presentation:presentation-page-layout-name="pl2">
+    <draw:layer-set>
+     <draw:layer draw:name=""/>
+    </draw:layer-set>
+    <draw:frame draw:style-name="gr5" xml:id="shape-77" draw:id="shape-77" draw:layer="" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title">
+     <draw:text-box>
+      <text:p text:style-name="P10"><text:span text:style-name="T2">Полезные ресурсы</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:frame draw:style-name="gr5" xml:id="shape-78" draw:id="shape-78" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="42.51975870000pt" svg:y="141.73252900000pt" presentation:class="outline">
+     <draw:text-box>
+      <text:list text:style-name="L3" xml:id="list-a509f684-053b-480b-817a-9a535b3b2879">
+       <text:list-item>
+        <text:p text:style-name="P12">http://en.opensuse.org/openSUSE</text:p>
+       </text:list-item>
+      </text:list>
+      <text:p text:style-name="P15"><text:s text:c="6"/>:Build_Service_cross_distribution_howto</text:p>
+      <text:p text:style-name="P15"/>
+      <text:list text:style-name="L3" xml:id="list-9f2e9049-dfcf-45f8-8e8f-fa79f18a24be">
+       <text:list-item>
+        <text:p text:style-name="P12">http://en.opensuse.org/openSUSE</text:p>
+        <text:p text:style-name="P12">:Build_Service_Tips_and_Tricks</text:p>
+        <text:p text:style-name="P12"/>
+       </text:list-item>
+       <text:list-item>
+        <text:p text:style-name="P12">http://en.opensuse.org/openSUSE</text:p>
+        <text:p text:style-name="P12">:Build_Service_Debian_builds</text:p>
+       </text:list-item>
+      </text:list>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <presentation:notes>
+     <draw:frame presentation:style-name="pr2" xml:id="shape-79" draw:id="shape-79" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
+      <draw:text-box>
+       <text:p text:style-name="P9"/>
+      </draw:text-box>
+      <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+      <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     </draw:frame>
+     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-80" draw:id="shape-80" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="7"/>
+    </presentation:notes>
+   </draw:page>
+   <draw:page draw:name="page8" draw:id="page8" xml:id="page8" draw:master-page-name="Default1" draw:style-name="dp4" presentation:presentation-page-layout-name="pl2">
+    <draw:layer-set>
+     <draw:layer draw:name=""/>
+    </draw:layer-set>
+    <draw:frame draw:style-name="gr5" xml:id="shape-81" draw:id="shape-81" draw:layer="" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title">
+     <draw:text-box>
+      <text:p text:style-name="P10"><text:span text:style-name="T2">Спасибо за внимание!</text:span></text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <draw:frame draw:style-name="gr5" xml:id="shape-82" draw:id="shape-82" draw:layer="" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline">
+     <draw:text-box>
+      <text:p text:style-name="P19"><text:span text:style-name="T2">Dmitriy Perlow aka DA(P).DarkneSS</text:span></text:p>
+      <text:p text:style-name="P20"/>
+      <text:p text:style-name="P20">https://build.opensuse.org/home?user=DarkSS</text:p>
+      <text:p text:style-name="P20">https://github.com/DAP-DarkneSS/obs</text:p>
+      <text:p text:style-name="P20">http://dap-darkness.livejournal.com/tag/obs</text:p>
+      <text:p text:style-name="P20"/>
+      <text:p text:style-name="P20">dap.darkness@gmail.com</text:p>
+     </draw:text-box>
+     <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+    </draw:frame>
+    <presentation:notes>
+     <draw:frame presentation:style-name="pr2" xml:id="shape-83" draw:id="shape-83" draw:layer="" svg:width="489.57000000000pt" svg:height="356.37000000000pt" svg:x="62.22000000000pt" svg:y="374.46000000000pt" presentation:class="notes">
+      <draw:text-box>
+       <text:p text:style-name="P9"/>
+      </draw:text-box>
+      <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+      <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+     </draw:frame>
+     <draw:page-thumbnail draw:style-name="gr6" xml:id="shape-84" draw:id="shape-84" draw:layer="" svg:width="396.28000000000pt" svg:height="296.96000000000pt" svg:x="108.00000000000pt" svg:y="60.18000000000pt" presentation:class="page" draw:page-number="8"/>
+    </presentation:notes>
+   </draw:page>
+   <presentation:settings/>
+  </office:presentation>
+ </office:body>
+</office:document-content>
