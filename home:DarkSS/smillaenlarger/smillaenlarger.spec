@@ -29,9 +29,7 @@ Source1:        smillaenlarger.desktop
 BuildRequires:  gcc-c++
 BuildRequires:  qt-devel
 BuildRequires:  unzip
-%if 0%{?suse_version}
 BuildRequires:  update-desktop-files
-%endif
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -39,30 +37,24 @@ SmillaEnlarger is a small graphical tool ( based on Qt ) to resize,
 especially magnify bitmaps in high quality.
 
 %prep
-%setup -q -n SmillaEnlarger_%{version}_source
+%setup -q -n SmillaEnlarger_%{version}_source/SmillaEnlargerSrc
 sed \
     -i -e \
     's|0.8.9|%{version}|g' \
-    SmillaEnlargerSrc/EnlargerDialog.cpp
-cd SmillaEnlargerSrc
+    EnlargerDialog.cpp
+
+%build
 %{_libdir}/qt4/bin/qmake \
                          ImageEnlarger.pro \
                          QMAKE_STRIP="" \
                          QMAKE_CFLAGS+="%{optflags}" \
                          QMAKE_CXXFLAGS+="%{optflags}"
-
-%build
-cd SmillaEnlargerSrc
 %{__make} %{?_smp_mflags}
 
 %install
-%{__install} -m0755 -D SmillaEnlargerSrc/SmillaEnlarger %{buildroot}%{_bindir}/smillaenlarger
-%{__install} -m0644 -D SmillaEnlargerSrc/smilla.png %{buildroot}%{_datadir}/pixmaps/smillaenlarger.png
-%if 0%{?suse_version}
+%{__install} -m0755 -D SmillaEnlarger %{buildroot}%{_bindir}/smillaenlarger
+%{__install} -m0644 -D smilla.png %{buildroot}%{_datadir}/pixmaps/smillaenlarger.png
 %suse_update_desktop_file -i %{name}
-%else
-%{__install} -m0644 -D %{SOURCE1} %{buildroot}%{_datadir}/applications/%{name}.desktop
-%endif
 
 %post
 %if 0%{?suse_version} >= 1140
@@ -80,7 +72,7 @@ update-desktop-database &> /dev/null || :
 
 %files
 %defattr(-,root,root)
-%doc SmillaEnlargerSrc/docs/* SmillaEnlargerSrc/help/*
+%doc docs/* help/*
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png

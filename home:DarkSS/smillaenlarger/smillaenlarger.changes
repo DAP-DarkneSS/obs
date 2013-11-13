@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Nov 13 15:36:28 UTC 2013 - dap.darkness@gmail.com
+
+- https://build.opensuse.org/request/show/206506 :
+  * qmake call was moved to %build phase;
+  * %setup -n was changed not to cd everywhere;
+  * non SUSE distros were dropped.
+
+-------------------------------------------------------------------
 Fri Nov  8 19:25:30 UTC 2013 - dap.darkness@gmail.com
 
 - Initial build by Sa Wa.
