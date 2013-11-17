@@ -1,0 +1,1 @@
+NB! LibreOffice Impress is known to broke Calligra Stage' odp-files.
