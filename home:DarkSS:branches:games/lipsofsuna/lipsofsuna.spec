@@ -17,7 +17,7 @@
 
 
 Name:           lipsofsuna
-Version:        0.7.0
+Version:        0.8.0
 Release:        0
 Summary:        Lips of Suna: binary files
 License:        LGPL-3.0

@@ -1,4 +1,38 @@
 -------------------------------------------------------------------
+Sun Nov 17 21:26:53 UTC 2013 - dap.darkness@gmail.com
+
+- 0.7.0 release
+  * New player model and animations contributed by gruntunbur.
+  * Lots of sound effects contributed by qubodup.
+  * Originals of data files are now included to the package.
+  * More powerful animation blending.
+  * Randomly spawned crafting devices and obelisks are now accessible in-game.
+  * Performance improvements.
+  * Better eye, face and hair color customization.
+  * Improvements to camera behavior.
+  * Fixed the AI not being able to use many kind of weapons correctly.
+  * Added a basic death camera.
+  * Balancing of falling damage.
+  * Improved some particle effects.
+  * Fixed seams between terrain chunks sometimes not being render correctly.
+  * Made black haze more disease-like.
+  * Procedural map area placement and planning system.
+  * Better terrain surface shapes with the Diamond-square algorithm.
+  * Better grass density calculation for mountains.
+  * Random castle wall generation.
+  * Procedural dungeon generation with corridors, rooms, treasures and monsters.
+  * Fixed the game not compiling against Bullet 2.82.
+  * Fixed actors sometimes taking damage when spawning.
+  * Separately customizable eyebrows, mouth and base face texture.
+  * Integrated Julius' face textures from OpenGameArt.
+  * Fixed the AI ignoring the cooldown time of some attacks.
+  * Fixed NPCs sometimes failing to render.
+  * Balanced the movement speed and physics behavior of player characters.
+  * Fixed inaccurate aiming in displaced camera mode.
+  * Terrain chunks close to the player character load much faster.
+  * Several minor bugfixes and improvements.
+
+-------------------------------------------------------------------
 Mon Sep 16 17:25:39 UTC 2013 - dap.darkness@gmail.com
 
 - 0.7.0 release
