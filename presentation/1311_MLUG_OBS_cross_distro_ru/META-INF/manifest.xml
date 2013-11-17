@@ -5,8 +5,11 @@
  <manifest:file-entry manifest:media-type="text/xml" manifest:full-path="styles.xml"/>
  <manifest:file-entry manifest:media-type="text/xml" manifest:full-path="settings.xml"/>
  <manifest:file-entry manifest:media-type="image/png" manifest:full-path="Pictures/image4.png"/>
+ <manifest:file-entry manifest:media-type="image/png" manifest:full-path="Pictures/image6.png"/>
  <manifest:file-entry manifest:media-type="image/png" manifest:full-path="Pictures/image2.png"/>
  <manifest:file-entry manifest:media-type="image/png" manifest:full-path="Pictures/image3.png"/>
+ <manifest:file-entry manifest:media-type="image/png" manifest:full-path="Pictures/image7.png"/>
+ <manifest:file-entry manifest:media-type="image/png" manifest:full-path="Pictures/image5.png"/>
  <manifest:file-entry manifest:media-type="image/png" manifest:full-path="Pictures/image1.png"/>
  <manifest:file-entry manifest:media-type="text/xml" manifest:full-path="meta.xml"/>
  <manifest:file-entry manifest:media-type="image/png" manifest:full-path="Thumbnails/thumbnail.png"/>
