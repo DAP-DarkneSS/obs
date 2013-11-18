@@ -1,3 +1,14 @@
+Fri Jun 28 16:39:33 UTC 2013 - lr131k@gmail.com
+
+- Updated to ver. 0.92.7:
+ * Added quicklist menu to Unity launcher
+ * Fixed 'add tab' button position in Ubuntu
+ * Fixed title of playlist updating in lists dropdown menu
+ * Fixed texts overflow
+ * Fixed text color in playlist for dark DE themes
+ * Popup windows like friendslist set to fill parent size
+ * Trim whitespaces for filename in downloadmanager(thanks to tskho)
+
 Thu Feb  7 19:21:25 UTC 2013 - dap.darkness@gmail.com
 
 - Updated to ver. 0.92.

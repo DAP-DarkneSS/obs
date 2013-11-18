@@ -10,7 +10,7 @@
 #
 
 %define majver 0.92
-%define subver 6
+%define subver 7
 
 Name:           pulsar
 Version:        %{majver}.%{subver}
