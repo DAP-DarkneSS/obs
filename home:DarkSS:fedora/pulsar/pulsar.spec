@@ -1,30 +1,33 @@
 #
 # spec file for package pulsar
 #
-# Copyright (c) 2011-2013 Vasily 'YuBerion' Kiniv (source),
-# (c) 2012-2013 Perlow Dmitriy A. (spec file)
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
-# Please submit bugfixes or comments via
-# http://forum.ubuntu.ru/index.php?topic=203220 [russian only]
-# or via http://bugs.opensuse.org/
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
+
 %define majver 0.92
-%define subver 7
+%define subver 9
 
 Name:           pulsar
 Version:        %{majver}.%{subver}
 Release:        1
 Summary:        Vk.com audio player
-
 License:        GPL-3.0+
 Url:            http://forum.ubuntu.ru/index.php?topic=203220
 Group:          Productivity/Multimedia/Sound/Players
 Source0:        https://launchpad.net/~yuberion/+archive/pulsar/+files/pulsar_%{majver}-%{subver}.tar.gz
 
-%if 0%{?fedora} <= 17
-BuildRequires:  gcc-c++
-%endif
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libqxt-devel
 BuildRequires:  pkgconfig(QtCore)

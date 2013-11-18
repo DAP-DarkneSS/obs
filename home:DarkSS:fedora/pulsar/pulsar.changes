@@ -1,3 +1,15 @@
+-------------------------------------------------------------------
+Mon Nov 18 16:13:46 UTC 2013 - dap.darkness@gmail.com
+
+- Updated to ver. 0.92.9:
+  * Fixed audio library issues;
+  * Small UI changes;
+  * Bottom player buttons changed;
+  * New icons.
+- Licence header was fixed up.
+- source_validator service was removed.
+
+-------------------------------------------------------------------
 Fri Jun 28 16:39:33 UTC 2013 - lr131k@gmail.com
 
 - Updated to ver. 0.92.7:
