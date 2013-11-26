@@ -3,6 +3,7 @@
  <office:styles>
   <style:default-style style:family="paragraph">
    <style:paragraph-properties fo:padding-top="0.000000000000000pt"/>
+   <style:text-properties fo:color="#000000" fo:font-family="Arial" fo:font-size="32.000000000000000pt" fo:font-weight="normal" style:font-family-generic="roman" style:font-pitch="variable" style:letter-kerning="true" style:text-line-through-style="none" style:text-line-through-type="none" style:text-line-through-width="auto" style:text-outline="false" style:text-underline-style="none" style:text-underline-type="none" style:text-underline-width="auto"/>
   </style:default-style>
   <style:style style:name="Title" style:display-name="Title" style:family="paragraph">
    <style:paragraph-properties fo:padding-top="0.000000000000000pt" fo:text-align="center"/>
@@ -81,7 +82,10 @@
   <svg:linearGradient draw:name="gradient2" svg:spreadMethod="pad" svg:x1="50.000000%" svg:x2="50.000000%" svg:y1="-20.710700%" svg:y2="120.711000%">
    <svg:stop svg:offset="0" svg:stop-color="#1c82b9"/><svg:stop svg:offset="1" svg:stop-color="#ffffff"/>
   </svg:linearGradient>
-  <svg:linearGradient draw:name="gradient3" svg:spreadMethod="pad" svg:x1="0.000000%" svg:x2="100.000000%" svg:y1="0.000000%" svg:y2="100.000000%">
+  <svg:linearGradient draw:name="gradient3" svg:spreadMethod="pad" svg:x1="-20.710700%" svg:x2="120.711000%" svg:y1="50.000000%" svg:y2="50.000000%">
+   <svg:stop svg:offset="0" svg:stop-color="#aecf00"/><svg:stop svg:offset="1" svg:stop-color="#579d1c"/>
+  </svg:linearGradient>
+  <svg:linearGradient draw:name="gradient4" svg:spreadMethod="pad" svg:x1="0.000000%" svg:x2="100.000000%" svg:y1="0.000000%" svg:y2="100.000000%">
    <svg:stop svg:offset="0" svg:stop-color="#ffffff"/><svg:stop svg:offset="1" svg:stop-color="#00ff00"/>
   </svg:linearGradient>
   <style:presentation-page-layout style:name="pl1" style:display-name="AL4T19">
@@ -90,22 +94,25 @@
   <style:presentation-page-layout style:name="pl2" style:display-name="AL2T1">
    <presentation:placeholder presentation:object="title" svg:x="6%" svg:y="8%" svg:width="88%" svg:height="14%"/><presentation:placeholder presentation:object="outline" svg:x="6%" svg:y="24%" svg:width="88%" svg:height="64%"/>
   </style:presentation-page-layout>
-  <style:presentation-page-layout style:name="pl3" style:display-name="AL1T0">
+  <style:presentation-page-layout style:name="pl3" style:display-name="AL2T1">
+   <presentation:placeholder presentation:object="title" svg:x="13%" svg:y="4%" svg:width="82%" svg:height="15%"/><presentation:placeholder presentation:object="outline" svg:x="13%" svg:y="23%" svg:width="82%" svg:height="66%"/>
+  </style:presentation-page-layout>
+  <style:presentation-page-layout style:name="pl4" style:display-name="AL1T0">
    <presentation:placeholder presentation:object="title" svg:x="6%" svg:y="8%" svg:width="88%" svg:height="14%"/><presentation:placeholder presentation:object="subtitle" svg:x="6%" svg:y="24%" svg:width="88%" svg:height="64%"/>
   </style:presentation-page-layout>
-  <style:presentation-page-layout style:name="pl4" style:display-name="AL7T7">
+  <style:presentation-page-layout style:name="pl5" style:display-name="AL7T7">
    <presentation:placeholder presentation:object="title" svg:x="6%" svg:y="8%" svg:width="88%" svg:height="14%"/><presentation:placeholder presentation:object="chart" svg:x="6%" svg:y="24%" svg:width="43%" svg:height="64%"/><presentation:placeholder presentation:object="outline" svg:x="51%" svg:y="24%" svg:width="43%" svg:height="64%"/>
   </style:presentation-page-layout>
-  <style:presentation-page-layout style:name="pl5" style:display-name="AL8T4">
+  <style:presentation-page-layout style:name="pl6" style:display-name="AL8T4">
    <presentation:placeholder presentation:object="title" svg:x="6%" svg:y="8%" svg:width="88%" svg:height="14%"/><presentation:placeholder presentation:object="outline" svg:x="6%" svg:y="24%" svg:width="43%" svg:height="64%"/><presentation:placeholder presentation:object="chart" svg:x="51%" svg:y="24%" svg:width="43%" svg:height="64%"/>
   </style:presentation-page-layout>
-  <style:presentation-page-layout style:name="pl6" style:display-name="AL5T9">
+  <style:presentation-page-layout style:name="pl7" style:display-name="AL5T9">
    <presentation:placeholder presentation:object="title" svg:x="6%" svg:y="8%" svg:width="88%" svg:height="14%"/><presentation:placeholder presentation:object="graphic" svg:x="6%" svg:y="24%" svg:width="43%" svg:height="64%"/><presentation:placeholder presentation:object="outline" svg:x="51%" svg:y="24%" svg:width="43%" svg:height="64%"/>
   </style:presentation-page-layout>
-  <style:presentation-page-layout style:name="pl7" style:display-name="AL6T6">
+  <style:presentation-page-layout style:name="pl8" style:display-name="AL6T6">
    <presentation:placeholder presentation:object="title" svg:x="6%" svg:y="8%" svg:width="88%" svg:height="14%"/><presentation:placeholder presentation:object="outline" svg:x="6%" svg:y="24%" svg:width="43%" svg:height="64%"/><presentation:placeholder presentation:object="graphic" svg:x="51%" svg:y="24%" svg:width="43%" svg:height="64%"/>
   </style:presentation-page-layout>
-  <style:presentation-page-layout style:name="pl8" style:display-name="AL3T3">
+  <style:presentation-page-layout style:name="pl9" style:display-name="AL3T3">
    <presentation:placeholder presentation:object="title" svg:x="6%" svg:y="8%" svg:width="88%" svg:height="14%"/><presentation:placeholder presentation:object="outline" svg:x="6%" svg:y="24%" svg:width="43%" svg:height="64%"/><presentation:placeholder presentation:object="outline" svg:x="51%" svg:y="24%" svg:width="43%" svg:height="64%"/>
   </style:presentation-page-layout>
   <text:notes-configuration text:note-class="footnote" text:start-value="1" style:num-format="1" text:start-numbering-at="document" text:footnotes-position="page"/>
@@ -119,24 +126,25 @@
    <style:paragraph-properties fo:margin-left="0.000000000000000pt" fo:margin-right="0.000000000000000pt"/>
   </style:style>
   <style:style style:name="P3" style:family="paragraph">
-   <style:text-properties fo:color="#000000" fo:font-family="Sans Serif" fo:font-size="14.000000000000000pt" style:letter-kerning="true"/>
+   <style:text-properties fo:font-family="Sans Serif" fo:font-size="14.000000000000000pt" style:font-family-generic="roman" style:font-pitch="variable"/>
   </style:style>
   <style:style style:name="P4" style:family="paragraph">
    <style:paragraph-properties fo:text-align="center"/>
-   <style:text-properties fo:color="#000000" fo:font-family="Sans Serif" fo:font-size="14.000000000000000pt" style:letter-kerning="true"/>
+   <style:text-properties fo:font-family="Sans Serif" fo:font-size="14.000000000000000pt" style:font-family-generic="roman" style:font-pitch="variable"/>
   </style:style>
   <style:style style:name="P5" style:family="paragraph">
    <style:paragraph-properties fo:text-align="end"/>
-   <style:text-properties fo:color="#ffffff" fo:font-family="Sans Serif" fo:font-size="14.000000000000000pt" style:letter-kerning="true"/>
+   <style:text-properties fo:color="#ffffff" fo:font-family="Sans Serif" fo:font-size="14.000000000000000pt" style:font-family-generic="roman" style:font-pitch="variable"/>
   </style:style>
   <style:style style:name="P6" style:parent-style-name="Title" style:family="paragraph"/>
   <style:style style:name="P7" style:family="paragraph">
    <style:paragraph-properties fo:text-align="end"/>
-   <style:text-properties fo:color="#000000" fo:font-family="Sans Serif" fo:font-size="14.000000000000000pt" style:letter-kerning="true"/>
+   <style:text-properties fo:font-family="Sans Serif" fo:font-size="14.000000000000000pt" style:font-family-generic="roman" style:font-pitch="variable"/>
   </style:style>
   <style:style style:name="P8" style:family="paragraph">
-   <style:text-properties fo:color="#000000" fo:font-family="Sans Serif" fo:font-size="12.000000000000000pt"/>
+   <style:text-properties fo:font-family="Sans Serif" fo:font-size="12.000000000000000pt" style:font-family-generic="roman" style:font-pitch="variable"/>
   </style:style>
+  <style:style style:name="P9" style:family="paragraph"/>
   <style:style style:name="gr1" style:family="graphic">
    <style:graphic-properties draw:fill="gradient" draw:fill-gradient-name="gradient2" draw:shadow="hidden" draw:shadow-color="#808080" draw:shadow-offset-x="8.50395pt" draw:shadow-offset-y="8.50395pt" draw:stroke="none" draw:textarea-horizontal-align="left" draw:textarea-vertical-align="top" fo:margin="0.000000000000000pt" style:protect="position size" style:wrap="biggest" style:wrap-contour="false" style:wrap-dynamic-threshold="0.000000000000000pt" svg:fill-rule="evenodd"/>
   </style:style>
@@ -149,11 +157,17 @@
   <style:style style:name="gr4" style:family="graphic">
    <style:graphic-properties draw:auto-grow-height="false" draw:fill="none" draw:shadow="hidden" draw:shadow-color="#808080" draw:shadow-offset-x="8.50395pt" draw:shadow-offset-y="8.50395pt" draw:stroke="none" draw:textarea-vertical-align="top" fo:margin="0.000000000000000pt" fo:padding="0.000000000000000pt" style:wrap="biggest" style:wrap-contour="false" style:wrap-dynamic-threshold="0.000000000000000pt"/>
   </style:style>
+  <style:style style:name="gr5" style:family="graphic">
+   <style:graphic-properties draw:fill="solid" draw:fill-color="#579d1c" draw:shadow="hidden" draw:shadow-color="#808080" draw:shadow-offset-x="8.50395pt" draw:shadow-offset-y="8.50395pt" draw:stroke="none" draw:textarea-horizontal-align="left" draw:textarea-vertical-align="top" fo:margin="0.000000000000000pt" style:wrap="biggest" style:wrap-contour="false" style:wrap-dynamic-threshold="0.000000000000000pt" svg:fill-rule="evenodd"/>
+  </style:style>
   <style:style style:name="dp1" style:family="drawing-page">
    <style:drawing-page-properties draw:fill="gradient" draw:fill-gradient-name="gradient1"/>
   </style:style>
   <style:style style:name="dp2" style:family="drawing-page">
    <style:drawing-page-properties draw:fill="gradient" draw:fill-gradient-name="gradient2"/>
+  </style:style>
+  <style:style style:name="dp3" style:family="drawing-page">
+   <style:drawing-page-properties draw:fill="gradient" draw:fill-gradient-name="gradient3"/>
   </style:style>
   <style:page-layout style:name="pm1" style:page-usage="all">
    <style:page-layout-properties calligra:specialborder-bottom="none" calligra:specialborder-left="none" calligra:specialborder-right="none" calligra:specialborder-top="none" fo:border="0pt none #000000" fo:margin="0.000000000000000pt" fo:padding="0.000000000000000pt" fo:page-height="595.276621799999930pt" fo:page-width="793.702162400000020pt" style:print-orientation="landscape"/>
@@ -354,6 +368,219 @@
  <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
  <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
 </draw:frame><draw:frame draw:style-name="gr4" xml:id="shape-28" draw:id="shape-28" draw:layer="backgroundobjects" svg:width="175.20975234980pt" svg:height="41.04574039840pt" svg:x="569.08400000000pt" svg:y="542.29700000000pt" presentation:class="page-number">
+ <draw:text-box>
+  <text:p text:style-name="P5"><text:span text:style-name="T1"><text:page-number text:select-page="current"></text:page-number></text:span></text:p>
+ </draw:text-box>
+ <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+</draw:frame>
+  </style:master-page>
+  <style:master-page style:name="Default5" draw:style-name="dp3" style:display-name="Rounded%20square" style:page-layout-name="pm1">
+   <draw:layer-set>
+ <draw:layer draw:name="layout"/>
+ <draw:layer draw:name="background"/>
+ <draw:layer draw:name="backgroundobjects"/>
+ <draw:layer draw:name="controls"/>
+ <draw:layer draw:name="measurelines"/>
+</draw:layer-set><draw:g draw:style-name="gr3" xml:id="shape-29" draw:id="shape-29" svg:y="20.75990000000pt">
+ <draw:custom-shape draw:style-name="gr5" xml:id="shape-30" draw:id="shape-30" draw:layer="backgroundobjects" svg:x="14.17330000000pt" svg:y="21.25990000000pt" svg:width="56.69301160000pt" svg:height="56.69301160000pt">
+  <draw:enhanced-geometry svg:viewBox="0 0 21600 21600" draw:modifiers="" draw:enhanced-path="M0 0 L21600 0 21600 21600 0 21600 0 0 Z N"/>
+  <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+  <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ </draw:custom-shape>
+ <draw:custom-shape draw:style-name="gr5" xml:id="shape-31" draw:id="shape-31" draw:layer="backgroundobjects" svg:x="42.51980000000pt" svg:y="92.35290000000pt" svg:width="56.69301160000pt" svg:height="56.69301160000pt">
+  <draw:enhanced-geometry svg:viewBox="0 0 21600 21600" draw:modifiers="1748.73" draw:enhanced-path="M?f7 0 X0 ?f8 L0 ?f9 Y?f7 21600 L?f10 21600 X21600 ?f9 L21600 ?f8 Y?f10 0 Z N">
+   <draw:equation draw:name="f0" draw:formula="45"/>
+   <draw:equation draw:name="f1" draw:formula="$0 *sin(?f0 *(pi/180))"/>
+   <draw:equation draw:name="f10" draw:formula="right-$0 "/>
+   <draw:equation draw:name="f2" draw:formula="?f1 *3163/7636"/>
+   <draw:equation draw:name="f3" draw:formula="left+?f2 "/>
+   <draw:equation draw:name="f4" draw:formula="top+?f2 "/>
+   <draw:equation draw:name="f5" draw:formula="right-?f2 "/>
+   <draw:equation draw:name="f6" draw:formula="bottom-?f2 "/>
+   <draw:equation draw:name="f7" draw:formula="left+$0 "/>
+   <draw:equation draw:name="f8" draw:formula="top+$0 "/>
+   <draw:equation draw:name="f9" draw:formula="bottom-$0 "/>
+   <draw:handle draw:handle-position="$0 top" draw:handle-range-x-minimum="0" draw:handle-range-x-maximum="10800"/>
+  </draw:enhanced-geometry>
+  <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+  <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ </draw:custom-shape>
+ <draw:custom-shape draw:style-name="gr5" xml:id="shape-32" draw:id="shape-32" draw:layer="backgroundobjects" svg:x="14.17330000000pt" svg:y="163.41800000000pt" svg:width="56.69301160000pt" svg:height="56.69301160000pt">
+  <draw:enhanced-geometry svg:viewBox="0 0 21600 21600" draw:modifiers="3443.48" draw:enhanced-path="M?f7 0 X0 ?f8 L0 ?f9 Y?f7 21600 L?f10 21600 X21600 ?f9 L21600 ?f8 Y?f10 0 Z N">
+   <draw:equation draw:name="f0" draw:formula="45"/>
+   <draw:equation draw:name="f1" draw:formula="$0 *sin(?f0 *(pi/180))"/>
+   <draw:equation draw:name="f10" draw:formula="right-$0 "/>
+   <draw:equation draw:name="f2" draw:formula="?f1 *3163/7636"/>
+   <draw:equation draw:name="f3" draw:formula="left+?f2 "/>
+   <draw:equation draw:name="f4" draw:formula="top+?f2 "/>
+   <draw:equation draw:name="f5" draw:formula="right-?f2 "/>
+   <draw:equation draw:name="f6" draw:formula="bottom-?f2 "/>
+   <draw:equation draw:name="f7" draw:formula="left+$0 "/>
+   <draw:equation draw:name="f8" draw:formula="top+$0 "/>
+   <draw:equation draw:name="f9" draw:formula="bottom-$0 "/>
+   <draw:handle draw:handle-position="$0 top" draw:handle-range-x-minimum="0" draw:handle-range-x-maximum="10800"/>
+  </draw:enhanced-geometry>
+  <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+  <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ </draw:custom-shape>
+ <draw:custom-shape draw:style-name="gr5" xml:id="shape-33" draw:id="shape-33" draw:layer="backgroundobjects" svg:x="42.51980000000pt" svg:y="234.51100000000pt" svg:width="56.69301160000pt" svg:height="56.69301160000pt">
+  <draw:enhanced-geometry svg:viewBox="0 0 21600 21600" draw:modifiers="5300.15" draw:enhanced-path="M?f7 0 X0 ?f8 L0 ?f9 Y?f7 21600 L?f10 21600 X21600 ?f9 L21600 ?f8 Y?f10 0 Z N">
+   <draw:equation draw:name="f0" draw:formula="45"/>
+   <draw:equation draw:name="f1" draw:formula="$0 *sin(?f0 *(pi/180))"/>
+   <draw:equation draw:name="f10" draw:formula="right-$0 "/>
+   <draw:equation draw:name="f2" draw:formula="?f1 *3163/7636"/>
+   <draw:equation draw:name="f3" draw:formula="left+?f2 "/>
+   <draw:equation draw:name="f4" draw:formula="top+?f2 "/>
+   <draw:equation draw:name="f5" draw:formula="right-?f2 "/>
+   <draw:equation draw:name="f6" draw:formula="bottom-?f2 "/>
+   <draw:equation draw:name="f7" draw:formula="left+$0 "/>
+   <draw:equation draw:name="f8" draw:formula="top+$0 "/>
+   <draw:equation draw:name="f9" draw:formula="bottom-$0 "/>
+   <draw:handle draw:handle-position="$0 top" draw:handle-range-x-minimum="0" draw:handle-range-x-maximum="10800"/>
+  </draw:enhanced-geometry>
+  <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+  <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ </draw:custom-shape>
+ <draw:custom-shape draw:style-name="gr5" xml:id="shape-34" draw:id="shape-34" draw:layer="backgroundobjects" svg:x="14.17330000000pt" svg:y="305.57500000000pt" svg:width="56.69301160000pt" svg:height="56.69301160000pt">
+  <draw:enhanced-geometry svg:viewBox="0 0 21600 21600" draw:modifiers="7728.94" draw:enhanced-path="M?f7 0 X0 ?f8 L0 ?f9 Y?f7 21600 L?f10 21600 X21600 ?f9 L21600 ?f8 Y?f10 0 Z N">
+   <draw:equation draw:name="f0" draw:formula="45"/>
+   <draw:equation draw:name="f1" draw:formula="$0 *sin(?f0 *(pi/180))"/>
+   <draw:equation draw:name="f10" draw:formula="right-$0 "/>
+   <draw:equation draw:name="f2" draw:formula="?f1 *3163/7636"/>
+   <draw:equation draw:name="f3" draw:formula="left+?f2 "/>
+   <draw:equation draw:name="f4" draw:formula="top+?f2 "/>
+   <draw:equation draw:name="f5" draw:formula="right-?f2 "/>
+   <draw:equation draw:name="f6" draw:formula="bottom-?f2 "/>
+   <draw:equation draw:name="f7" draw:formula="left+$0 "/>
+   <draw:equation draw:name="f8" draw:formula="top+$0 "/>
+   <draw:equation draw:name="f9" draw:formula="bottom-$0 "/>
+   <draw:handle draw:handle-position="$0 top" draw:handle-range-x-minimum="0" draw:handle-range-x-maximum="10800"/>
+  </draw:enhanced-geometry>
+  <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+  <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ </draw:custom-shape>
+ <draw:custom-shape draw:style-name="gr5" xml:id="shape-35" draw:id="shape-35" draw:layer="backgroundobjects" svg:x="42.51980000000pt" svg:y="376.66800000000pt" svg:width="56.69301160000pt" svg:height="56.69301160000pt">
+  <draw:enhanced-geometry svg:viewBox="0 0 21600 21600" draw:modifiers="9369.72" draw:enhanced-path="M?f7 0 X0 ?f8 L0 ?f9 Y?f7 21600 L?f10 21600 X21600 ?f9 L21600 ?f8 Y?f10 0 Z N">
+   <draw:equation draw:name="f0" draw:formula="45"/>
+   <draw:equation draw:name="f1" draw:formula="$0 *sin(?f0 *(pi/180))"/>
+   <draw:equation draw:name="f10" draw:formula="right-$0 "/>
+   <draw:equation draw:name="f2" draw:formula="?f1 *3163/7636"/>
+   <draw:equation draw:name="f3" draw:formula="left+?f2 "/>
+   <draw:equation draw:name="f4" draw:formula="top+?f2 "/>
+   <draw:equation draw:name="f5" draw:formula="right-?f2 "/>
+   <draw:equation draw:name="f6" draw:formula="bottom-?f2 "/>
+   <draw:equation draw:name="f7" draw:formula="left+$0 "/>
+   <draw:equation draw:name="f8" draw:formula="top+$0 "/>
+   <draw:equation draw:name="f9" draw:formula="bottom-$0 "/>
+   <draw:handle draw:handle-position="$0 top" draw:handle-range-x-minimum="0" draw:handle-range-x-maximum="10800"/>
+  </draw:enhanced-geometry>
+  <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+  <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ </draw:custom-shape>
+ <draw:custom-shape draw:style-name="gr5" xml:id="shape-36" draw:id="shape-36" draw:layer="backgroundobjects" svg:x="14.17330000000pt" svg:y="447.73300000000pt" svg:width="56.69301160000pt" svg:height="56.69301160000pt">
+  <draw:enhanced-geometry svg:viewBox="0 0 21600 21600" draw:modifiers="10697.5" draw:enhanced-path="M?f7 0 X0 ?f8 L0 ?f9 Y?f7 21600 L?f10 21600 X21600 ?f9 L21600 ?f8 Y?f10 0 Z N">
+   <draw:equation draw:name="f0" draw:formula="45"/>
+   <draw:equation draw:name="f1" draw:formula="$0 *sin(?f0 *(pi/180))"/>
+   <draw:equation draw:name="f10" draw:formula="right-$0 "/>
+   <draw:equation draw:name="f2" draw:formula="?f1 *3163/7636"/>
+   <draw:equation draw:name="f3" draw:formula="left+?f2 "/>
+   <draw:equation draw:name="f4" draw:formula="top+?f2 "/>
+   <draw:equation draw:name="f5" draw:formula="right-?f2 "/>
+   <draw:equation draw:name="f6" draw:formula="bottom-?f2 "/>
+   <draw:equation draw:name="f7" draw:formula="left+$0 "/>
+   <draw:equation draw:name="f8" draw:formula="top+$0 "/>
+   <draw:equation draw:name="f9" draw:formula="bottom-$0 "/>
+   <draw:handle draw:handle-position="$0 top" draw:handle-range-x-minimum="0" draw:handle-range-x-maximum="10800"/>
+  </draw:enhanced-geometry>
+  <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+  <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ </draw:custom-shape>
+ <draw:custom-shape draw:style-name="gr5" xml:id="shape-37" draw:id="shape-37" draw:layer="backgroundobjects" svg:x="42.51980000000pt" svg:y="518.74100000000pt" svg:width="56.69301160000pt" svg:height="56.69301160000pt">
+  <draw:enhanced-geometry svg:viewBox="0 0 21600 21600" draw:modifiers="" draw:enhanced-path="U10800 10800 10800 10800 0 360 Z N"/>
+  <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+  <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ </draw:custom-shape>
+ <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+</draw:g><draw:frame draw:style-name="gr3" xml:id="shape-38" draw:id="shape-38" draw:layer="backgroundobjects" svg:width="650.83577316800pt" svg:height="89.29149327000pt" svg:x="103.18100000000pt" svg:y="23.81110000000pt" presentation:class="title" presentation:placeholder="true" draw:text-style-name="P9">
+ <draw:text-box/>
+ <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+</draw:frame><draw:frame draw:style-name="gr3" xml:id="shape-39" draw:id="shape-39" draw:layer="backgroundobjects" svg:width="650.83577316800pt" svg:height="392.88257038800pt" svg:x="103.18100000000pt" svg:y="136.91400000000pt" presentation:class="outline" presentation:placeholder="true" draw:text-style-name="P9">
+ <draw:text-box/>
+ <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+</draw:frame><draw:frame draw:style-name="gr4" xml:id="shape-40" draw:id="shape-40" draw:layer="backgroundobjects" svg:width="184.90425733340pt" svg:height="16.41262685820pt" svg:x="569.05600000000pt" svg:y="568.70200000000pt" presentation:class="date-time">
+ <draw:text-box>
+  <text:p text:style-name="P7"><text:span text:style-name="T1"><presentation:date-time/></text:span></text:p>
+ </draw:text-box>
+ <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+</draw:frame><draw:frame draw:style-name="gr4" xml:id="shape-41" draw:id="shape-41" draw:layer="backgroundobjects" svg:width="251.57523897500pt" svg:height="41.04574039840pt" svg:x="271.44600000000pt" svg:y="542.29700000000pt" presentation:class="footer">
+ <draw:text-box>
+  <text:p text:style-name="P4"><text:span text:style-name="T1"><presentation:footer/></text:span></text:p>
+ </draw:text-box>
+ <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+</draw:frame><draw:frame draw:style-name="gr4" xml:id="shape-42" draw:id="shape-42" draw:layer="backgroundobjects" svg:width="184.90425733340pt" svg:height="24.63311354020pt" svg:x="569.05600000000pt" svg:y="542.29700000000pt" presentation:class="page-number">
+ <draw:text-box>
+  <text:p text:style-name="P7"><text:span text:style-name="T1"><text:page-number text:select-page="current"></text:page-number></text:span></text:p>
+ </draw:text-box>
+ <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+</draw:frame><draw:path draw:style-name="gr5" xml:id="shape-43" draw:id="shape-43" draw:layer="backgroundobjects" svg:width="694.31227873532pt" svg:height="14.63503837367pt" svg:x="113.38600000000pt" svg:y="119.05500000000pt" svg:viewBox="0 0 694 15" svg:d="M7.08452 0C3.54226 0 0 3.65144 0 7.30289L0 7.30289C0 10.9544 3.54226 14.635 7.08452 14.635C233.789 14.635 460.494 14.635 687.2 14.635C690.741 14.635 694.284 10.9544 694.284 7.30289L694.284 7.30289C694.284 3.65144 690.741 0 687.2 0C460.494 0 233.789 0 7.08452 0ZM0 0M694.312 14.635" calligra:nodeTypes="ccccccccccc">
+ <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+</draw:path>
+  </style:master-page>
+  <style:master-page style:name="Default6" draw:style-name="dp1" style:display-name="Curious Penguin" style:page-layout-name="pm1">
+   <draw:layer-set>
+ <draw:layer draw:name="layout"/>
+ <draw:layer draw:name="background"/>
+ <draw:layer draw:name="backgroundobjects"/>
+ <draw:layer draw:name="controls"/>
+ <draw:layer draw:name="measurelines"/>
+</draw:layer-set><draw:custom-shape draw:style-name="gr1" xml:id="shape-44" draw:id="shape-44" draw:layer="backgroundobjects" svg:x="39.68510000000pt" svg:y="36.90720000000pt" svg:width="714.30359965420pt" svg:height="495.24180283180pt">
+ <draw:enhanced-geometry svg:viewBox="0 0 21600 21600" draw:modifiers="380.379" draw:enhanced-path="M?f7 0 X0 ?f8 L0 ?f9 Y?f7 21600 L?f10 21600 X21600 ?f9 L21600 ?f8 Y?f10 0 Z N">
+  <draw:equation draw:name="f0" draw:formula="45"/>
+  <draw:equation draw:name="f1" draw:formula="$0 *sin(?f0 *(pi/180))"/>
+  <draw:equation draw:name="f10" draw:formula="right-$0 "/>
+  <draw:equation draw:name="f2" draw:formula="?f1 *3163/7636"/>
+  <draw:equation draw:name="f3" draw:formula="left+?f2 "/>
+  <draw:equation draw:name="f4" draw:formula="top+?f2 "/>
+  <draw:equation draw:name="f5" draw:formula="right-?f2 "/>
+  <draw:equation draw:name="f6" draw:formula="bottom-?f2 "/>
+  <draw:equation draw:name="f7" draw:formula="left+$0 "/>
+  <draw:equation draw:name="f8" draw:formula="top+$0 "/>
+  <draw:equation draw:name="f9" draw:formula="bottom-$0 "/>
+  <draw:handle draw:handle-position="$0 top" draw:handle-range-x-minimum="0" draw:handle-range-x-maximum="10800"/>
+ </draw:enhanced-geometry>
+ <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+</draw:custom-shape><draw:frame draw:style-name="gr2" xml:id="shape-45" draw:id="shape-45" draw:layer="backgroundobjects" svg:width="258.88863747140pt" svg:height="243.29805928140pt" draw:transform="matrix(0.80819600000 0.58891400000 -0.58891400000 0.80819600000 638.01500000000pt 332.70400000000pt)">
+ <draw:image xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad" xlink:href="Pictures/image1.png"/>
+</draw:frame><draw:frame draw:style-name="gr3" xml:id="shape-46" draw:id="shape-46" draw:layer="backgroundobjects" svg:width="698.45790291200pt" svg:height="83.33872705200pt" svg:x="47.62212974400pt" svg:y="47.62212974400pt" presentation:class="title" presentation:placeholder="true" draw:text-style-name="P9">
+ <draw:text-box/>
+ <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+</draw:frame><draw:frame draw:style-name="gr3" xml:id="shape-47" draw:id="shape-47" draw:layer="backgroundobjects" svg:width="698.45790291200pt" svg:height="380.97703795200pt" svg:x="47.62212974400pt" svg:y="142.86638923200pt" presentation:class="outline" presentation:placeholder="true" draw:text-style-name="P9">
+ <draw:text-box/>
+ <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+</draw:frame><draw:frame draw:style-name="gr4" xml:id="shape-48" draw:id="shape-48" draw:layer="backgroundobjects" svg:width="184.90425733340pt" svg:height="41.04574039840pt" svg:x="51.02370000000pt" svg:y="542.26900000000pt" presentation:class="date-time">
+ <draw:text-box>
+  <text:p text:style-name="P3"><text:span text:style-name="T1"><presentation:date-time/></text:span></text:p>
+ </draw:text-box>
+ <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+</draw:frame><draw:frame draw:style-name="gr4" xml:id="shape-49" draw:id="shape-49" draw:layer="backgroundobjects" svg:width="251.57523897500pt" svg:height="41.04574039840pt" svg:x="271.44600000000pt" svg:y="542.29700000000pt" presentation:class="footer">
+ <draw:text-box>
+  <text:p text:style-name="P4"><text:span text:style-name="T1"><presentation:footer/></text:span></text:p>
+ </draw:text-box>
+ <draw:glue-point draw:id="4" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+ <draw:glue-point draw:id="5" svg:x="0.50000000000pt" svg:y="0.50000000000pt" draw:align="center"/>
+</draw:frame><draw:frame draw:style-name="gr4" xml:id="shape-50" draw:id="shape-50" draw:layer="backgroundobjects" svg:width="175.20975234980pt" svg:height="41.04574039840pt" svg:x="569.08400000000pt" svg:y="542.29700000000pt" presentation:class="page-number">
  <draw:text-box>
   <text:p text:style-name="P5"><text:span text:style-name="T1"><text:page-number text:select-page="current"></text:page-number></text:span></text:p>
  </draw:text-box>
