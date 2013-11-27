@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-3322-ga750fc4
+%define LEECHCRAFT_VERSION 0.5.95-3589-g2ab0b78
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -1284,6 +1284,18 @@ Requires:       %{name}-lmp = %{version}
 This package provides a radio streams provider plugin for LeechCraft.
 
 
+%if 0%{?suse_version} > 1230
+%package htthare
+Summary:        LeechCraft Http Server Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description htthare
+This package provides content from local filesystem over LANs (and
+possibly WANs, but by default only LAN interfaces are listened on).
+%endif
+
+
 %package imgaste
 Summary:        LeechCraft Image Paster Module
 Group:          Productivity/Networking/Other
@@ -2321,7 +2333,11 @@ cmake ../src \
         -DENABLE_GLANCE=True \
         -DENABLE_GMAILNOTIFIER=True \
         -DENABLE_HARBINGER=True \
+%if 0%{?suse_version} > 1230
+        -DENABLE_HTTHARE=True \
+%else
         -DENABLE_HTTHARE=False \
+%endif
         -DENABLE_HOTSENSORS=True \
         -DENABLE_HOTSTREAMS=True \
         -DENABLE_IMGASTE=True \
@@ -2880,6 +2896,14 @@ EOF
 %files hotstreams
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_hotstreams.so
+
+%if 0%{?suse_version} > 1230
+%files htthare
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_htthare.so
+%{_datadir}/%{name}/settings/httharesettings.xml
+%{_datadir}/%{name}/translations/%{name}_htthare_*.qm
+%endif
 
 %files imgaste
 %defattr(-,root,root)
