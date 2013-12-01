@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Sun Dec  1 17:11:00 UTC 2013 - dap.darkness@gmail.com
+
+- update to 3.1.1:
+  * no upstream changelog.
+- sakura-icon.patch was updated.
+- spec was reactored in modern openSUSE style.
+- openSUSE 13.1+ build error:
+  https://bugs.launchpad.net/sakura/+bug/1256668
+
+-------------------------------------------------------------------
 Mon Apr 19 14:59:16 UTC 2010 - pascal.bleser@opensuse.org
 
 - update to 2.3.8:

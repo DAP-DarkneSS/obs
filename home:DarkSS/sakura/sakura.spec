@@ -1,42 +1,55 @@
-# norootforbuild
+#
+# spec file for package sakura
+#
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
+#
+
 
 %define cmake_version %(rpm -q --qf='%{VERSION}' cmake || echo NOTFOUND)
-%define cmake_major %(echo %cmake_version | cut -f1 -d.)
-%define cmake_minor %(echo %cmake_version | cut -f2 -d.)
+%define cmake_major %(echo %{cmake_version} | cut -f1 -d.)
+%define cmake_minor %(echo %{cmake_version} | cut -f2 -d.)
 
-Name:			sakura
-Version:		2.3.8
-Release:		0
-Summary:		Terminal Emulator based on the VTE Library
-Source:			http://pleyades.net/david/projects/sakura/sakura-%{version}.tar.bz2
-Patch1:			sakura-icon.patch
-Patch2:			sakura-cmake-usepkgconfig.patch
+Name:           sakura
+Version:        3.1.1
+Release:        0
+License:        GPL-2.0
+Summary:        Terminal Emulator based on the VTE Library
+Url:            https://launchpad.net/sakura
+Group:          System/X11/Utilities
+
+Source:         https://launchpad.net/sakura/trunk/%{version}/+download/sakura-%{version}.tar.bz2
+Patch1:         sakura-icon.patch
+Patch2:         sakura-cmake-usepkgconfig.patch
 Patch4:         sakura-fix_pod2man.patch
-URL:			http://pleyades.net/david/sakura.php
-Group:			System/X11/Utilities
-License:		GNU General Public License version 2 (GPL 2)
-BuildRoot:		%{_tmppath}/build-%{name}-%{version}
-BuildRequires:	gcc gcc-c++ libstdc++-devel glibc-devel make vte-devel >= 0.20
-BuildRequires:	pkgconfig gtk2-devel >= 2.6.0
-BuildRequires:	cmake
-BuildRequires:	gettext gettext-devel intltool
-BuildRequires:	update-desktop-files
+
 # to convert SVG to PNG:
 BuildRequires:  ImageMagick
-# to fix an rpmlint/python bug on Factory:
-BuildRequires:	python
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
+BuildRequires:  gettext-devel
+BuildRequires:  intltool
+BuildRequires:  libstdc++-devel
+BuildRequires:  make
+BuildRequires:  update-desktop-files
+BuildRequires:  pkgconfig(glib-2.0) >= 2.20
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(vte-2.90) >= 0.28
 
 %description
 sakura is a vte-based terminal emulator. It aims to provide a terminal
 emulator that only depends on GTK and VTE. It uses a notebook to allow
 multiple tabs in the same window.
-
-
-
-
-Authors:
---------
-    David Gómez Espinosa <david@pleyades.net>
 
 %prep
 %setup -q
@@ -54,9 +67,9 @@ convert sakura.svg sakura.png
 %__mkdir build
 pushd build
 cmake -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
-      -DCMAKE_BUILD_TYPE:STRING="Release" \
-      -DCMAKE_C_FLAGS:STRING="" \
-      -DCMAKE_C_FLAGS_RELEASE:STRING="%{optflags} -DNDEBUG" \
+      -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+      -DCMAKE_C_FLAGS="-DNDEBUG %{optflags}" \
+      -DCMAKE_CXX_FLAGS="-DNDEBUG %{optflags}" \
       ..
 
 %__make %{?jobs:-j%{jobs}} VERBOSE=1 V=1
@@ -72,12 +85,9 @@ popd #build
 
 %find_lang "%{name}"
 
-%clean
-%__rm -rf "%{buildroot}"
-
 %files -f "%{name}.lang"
 %defattr(-,root,root)
-%doc AUTHORS GPL INSTALL
+%doc AUTHORS GPL
 %{_bindir}/sakura
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.*

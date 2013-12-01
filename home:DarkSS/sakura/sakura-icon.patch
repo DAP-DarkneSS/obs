@@ -7,7 +7,7 @@
 -Icon=terminal-tango
 +Icon=sakura.png
  Type=Application
- Categories=GTK;Utility;TerminalEmulator;
+ Categories=GTK;Utility;TerminalEmulator;System;
  StartupNotify=true
 --- CMakeLists.txt.orig	2010-03-09 08:37:23.000000000 +0100
 +++ CMakeLists.txt	2010-03-09 08:37:50.000000000 +0100
@@ -22,7 +22,7 @@
  ENDIF (POD2MAN)
 --- src/sakura.c.orig	2010-03-09 08:37:55.000000000 +0100
 +++ src/sakura.c	2010-03-09 08:38:17.000000000 +0100
-@@ -201,7 +201,7 @@
+@@ -285,7 +285,7 @@
  };
  
  
@@ -30,4 +30,4 @@
 +#define ICON_FILE "sakura.svg"
  #define SCROLL_LINES 4096
  #define HTTP_REGEXP "(ftp|http)s?://[-a-zA-Z0-9.?$%&/=_~#.,:;+]*"
- #define CONFIGFILE "sakura.conf"
+ #define DEFAULT_CONFIGFILE "sakura.conf"
