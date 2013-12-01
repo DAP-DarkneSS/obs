@@ -1,0 +1,33 @@
+--- sakura.desktop.orig	2010-03-09 08:37:05.000000000 +0100
++++ sakura.desktop	2010-03-09 08:37:19.000000000 +0100
+@@ -3,7 +3,7 @@
+ Comment=Use the command line
+ TryExec=sakura
+ Exec=sakura
+-Icon=terminal-tango
++Icon=sakura.png
+ Type=Application
+ Categories=GTK;Utility;TerminalEmulator;
+ StartupNotify=true
+--- CMakeLists.txt.orig	2010-03-09 08:37:23.000000000 +0100
++++ CMakeLists.txt	2010-03-09 08:37:50.000000000 +0100
+@@ -51,7 +51,7 @@
+ 
+ INSTALL (TARGETS sakura RUNTIME DESTINATION bin)	
+ INSTALL (FILES sakura.desktop DESTINATION share/applications)
+-INSTALL (FILES terminal-tango.svg DESTINATION share/pixmaps)
++INSTALL (FILES sakura.png DESTINATION share/pixmaps)
+ IF (POD2MAN)	
+ 	INSTALL (FILES ${sakura_BINARY_DIR}/sakura.1 DESTINATION share/man/man1)	
+ ENDIF (POD2MAN)
+--- src/sakura.c.orig	2010-03-09 08:37:55.000000000 +0100
++++ src/sakura.c	2010-03-09 08:38:17.000000000 +0100
+@@ -201,7 +201,7 @@
+ };
+ 
+ 
+-#define ICON_FILE "terminal-tango.svg"
++#define ICON_FILE "sakura.svg"
+ #define SCROLL_LINES 4096
+ #define HTTP_REGEXP "(ftp|http)s?://[-a-zA-Z0-9.?$%&/=_~#.,:;+]*"
+ #define CONFIGFILE "sakura.conf"

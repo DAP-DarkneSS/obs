@@ -1,0 +1,68 @@
+-------------------------------------------------------------------
+Mon Apr 19 14:59:16 UTC 2010 - pascal.bleser@opensuse.org
+
+- update to 2.3.8:
+  * fixed a bug about lost keyboard focus
+  * add true transparency support if there is a composite manager running
+  * add a new item (new window) in the popup menu
+  * reorganize the menu
+  * updated translations
+  * made several small fixes
+- now requires vte >= 0.20, dropped backport patch
+
+-------------------------------------------------------------------
+Mon Mar  8 23:21:57 UTC 2010 - pascal.bleser@opensuse.org
+
+- update to 2.3.7:
+  * adds detection for running processes when closing sakura,
+    instead of counting the number of opened tabs
+  * a man page bug has been fixed
+  * updated translations
+
+-------------------------------------------------------------------
+Sun May 31 00:00:00 UTC 2009 - pascal.bleser@opensuse.org
+
+- properly pass %%optflags
+- backport for vte < 0.16.15
+- update to 2.3.4:
+  * an option was added for a blinking cursor
+  * the Czech translation was updated
+  * the documentation was updated
+- changes from 2.3.3:
+  * window default size problems were fixed
+  * minor changes were made to the close dialog
+  * a new Croatian translation
+  * an SVG icon were added
+
+
+-------------------------------------------------------------------
+Mon Nov 10 00:00:00 UTC 2008 - guru@unixtech.be
+
+- scrapped %changelog entries before 2.3.0
+- only apply backport UsePkgConfig patch when the cmake version is < 2.6.x
+- update to 2.3.2:
+  * adds a new accelerator to open a URL using the left mouse button
+  * fixes the maximize bug and other window size problems
+  * less verbose when not compiled in debug mode
+
+
+-------------------------------------------------------------------
+Thu Oct 23 00:00:00 UTC 2008 - guru@unixtech.be
+
+- update to 2.3.1:
+  * all dialogs have been improved to conform to HIG recommendations
+  * a configuration option has been added to enable/disable the per-tab close
+    button
+  * strings are used instead of keycodes for easier key bindings configuration
+
+
+-------------------------------------------------------------------
+Fri Sep 26 00:00:00 UTC 2008 - guru@unixtech.be
+
+- update to 2.3.0:
+  * a bug where the scrollbar configuration was not kept has been fixed
+  * a close button has been added to tabs (disabled by default)
+  * a new terminal bell and palette options have been added
+  * a race condition when destroying the sakura window has been fixed
+
+
