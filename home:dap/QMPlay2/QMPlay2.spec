@@ -16,7 +16,7 @@
 #
 
 Name:           QMPlay2
-Version:        13.10.24
+Version:        13.12.07
 Release:        0
 License:        GPL-3.0
 Summary:        A Qt based media player, streamer and downloader
@@ -46,7 +46,7 @@ ffmpeg and libmodplug (including J2B). It has an integrated Youtube browser.
 %package        kde-integration
 Summary:        %{name} KDE integration subpackage
 Requires:       %{name}
-Requires:       %{name} = kdebase4-workspace
+Requires:       kdebase4-workspace
 BuildArch:      noarch
 
 %description    kde-integration

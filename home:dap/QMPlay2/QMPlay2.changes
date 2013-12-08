@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sun Dec  8 17:24:06 UTC 2013 - dap.darkness@gmail.com
+
+- Update to 13.12.07 (changes since 13.10.24):
+  * Window will be opened automatically when the movie opens;
+  * Shuffles play songs without repetitions;
+  * Allows only one instance;
+  * Bug fixes.
+
+-------------------------------------------------------------------
 Wed Oct 30 14:34:55 UTC 2013 - dap.darkness@gmail.com
 
 - Update to 13.10.24 (changes since 13.09.08):
