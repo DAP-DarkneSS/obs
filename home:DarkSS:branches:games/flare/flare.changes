@@ -1,3 +1,37 @@
+-------------------------------------------------------------------
+Tue Dec  3 03:51:27 UTC 2013 - dap.darkness@gmail.com
+- 0.19 release
+  * Power specific stat modifiers (Ryan Dansie);
+  * Cutscenes (Stefan Beller);
+  * Specify data path via command line argument;
+  * Minions support (Ryan Dansie);
+  * Flare engine man page (Christoph Thompson);
+  * Keyboard based menu navigation;
+  * Movement using floating point positions;
+  * Hardcore characters no longer share a stash;
+  * Credits added to title menu (Igor Paliychuk);
+  * Additional event triggers (Stefan Beller);
+  * Configurable death penalty (Justin Jacobs);
+  * Colorblind mode options (blazindragon);
+  * Add chance_flee behavior for enemies (Justin Jacobs);
+  * Currency as a stackable item (Justin Jacobs);
+  * Inline configuration attribute documentation;
+  * New minimap tiles for false walls (Matthew Krohn);
+  * Allow custom attack animations (Matthew Krohn);
+  * EventManager to handle map and NPC events;
+  * Use paths in config files when referring to other files;
+  * Upgradeable powers (Ryan Dansie and Igor Paliychuk);
+  * TONS of internal refactoring/cleanup (everyone);
+  * Various bug fixes (everyone);
+  * Gold is now a stackable item and can
+    safely be stored in the shared stash;
+  * Heroic Swing and Greater Channel are
+    now upgrades of starting powers;
+  * New powers Ember Shot and Thunderstrikev.
+- name-game packages was split out to submit other games
+  that are based on flare engine.
+
+-------------------------------------------------------------------
 Sat Apr  6 09:30:24 UTC 2013 - dap.darkness@gmail.com
 
 - 0.18 release
