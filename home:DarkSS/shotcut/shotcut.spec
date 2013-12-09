@@ -17,14 +17,20 @@
 
 
 Name:           shotcut
-Version:        131205
+Version:        0.0.0+git131209
 Release:        0
 Summary:        A free, open source, cross-platform video editor
 License:        GPL-3.0+
 Group:          Productivity/Multimedia/Video/Editors and Convertors
 Url:            http://www.shotcut.org/
-Source:         http://d1av856udzjaks.cloudfront.net/shotcut/shotcut-src-%{version}.tar.bz2
+# Let's not use vanilla tarball because of ffmpeg bundled.
+# git clone https://github.com/mltframework/shotcut.git
+# cd shotcut
+# git archive --prefix=src/shotcut/ --format \
+# tar.gz -9 -o shotcut-%%{version}.tar.gz master
+Source0:        shotcut-%{version}.tar.gz
 
+BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(Qt5Network)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5WebKitWidgets)
@@ -80,7 +86,7 @@ These are all currently implemented features:
 
 
 %prep
-%setup -q -n src/shotcut
+%setup -q -n src/%{name}
 
 
 %build
@@ -90,16 +96,21 @@ qmake-qt5 \
           QMAKE_CFLAGS+="%{optflags}" \
           QMAKE_CXXFLAGS+="%{optflags}"
 
-make %{?_smp_mflags}
+make V=1 %{?_smp_mflags}
 
 
 %install
-%make_install
+%make_install V=1
+install -D icons/%{name}-logo-64.png %{buildroot}/%{_datadir}/pixmaps/%{name}.png
+%suse_update_desktop_file -c %{name} %{name} "A free, open source, cross-platform video editor" %{name} %{name} "AudioVideo;AudioVideoEditing;"
 
 
 %files
 %defattr(-,root,root)
+%doc COPYING README.md
 %{_bindir}/%{name}
+%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
