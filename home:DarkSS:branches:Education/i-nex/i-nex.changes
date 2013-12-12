@@ -1,7 +1,12 @@
 -------------------------------------------------------------------
+Mon Nov 25 18:06:10 UTC 2013 - dap.darkness@gmail.com
+- Upstream version 0.5.6:
+  * no upstream changelog.
+
+-------------------------------------------------------------------
 Wed Nov  6 16:42:32 UTC 2013 - dap.darkness@gmail.com
 
-- Upstream version 0.5.2:
+- Upstream version 0.5.4:
   * more hardware support;
   * optimizations;
   * bugfixes.

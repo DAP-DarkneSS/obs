@@ -17,14 +17,14 @@
 
 
 Name:           i-nex
-Version:        0.5.4
+Version:        0.5.6
 Release:        1
 Summary:        System information tool
 
 License:        LGPL-3.0+
 Url:            https://launchpad.net/i-nex
 Group:          System/X11/Utilities
-Source0:        https://launchpad.net/%{name}/trunk/%{version}/+download/%{name}_%{version}.tar.gz
+Source0:        https://launchpad.net/i-nex/trunk/%{version}/+download/i-nex_%{version}.orig.tar.xz
 # series of patches to have full/correct functionality in openSUSE
 Patch1:         %{name}_src.patch
 
@@ -35,17 +35,17 @@ BuildRequires:  freeglut
 %else
 BuildRequires:  Mesa-demo-x
 %endif
-BuildRequires:  gambas3-devel >= 3.4.0
-BuildRequires:  gambas3-gb-desktop >= 3.4.0
-BuildRequires:  gambas3-gb-form >= 3.4.0
-BuildRequires:  gambas3-gb-form-dialog >= 3.4.0
-BuildRequires:  gambas3-gb-form-stock >= 3.4.0
-BuildRequires:  gambas3-gb-gtk >= 3.4.0
-BuildRequires:  gambas3-gb-gui >= 3.4.0
-BuildRequires:  gambas3-gb-image >= 3.4.0
-BuildRequires:  gambas3-gb-qt4 >= 3.4.0
-BuildRequires:  gambas3-gb-qt4-ext >= 3.4.0
-BuildRequires:  gambas3-gb-settings >= 3.4.0
+BuildRequires:  gambas3-devel >= 3.5.0
+BuildRequires:  gambas3-gb-desktop >= 3.5.0
+BuildRequires:  gambas3-gb-form >= 3.5.0
+BuildRequires:  gambas3-gb-form-dialog >= 3.5.0
+BuildRequires:  gambas3-gb-form-stock >= 3.5.0
+BuildRequires:  gambas3-gb-gtk >= 3.5.0
+BuildRequires:  gambas3-gb-gui >= 3.5.0
+BuildRequires:  gambas3-gb-image >= 3.5.0
+BuildRequires:  gambas3-gb-qt4 >= 3.5.0
+BuildRequires:  gambas3-gb-qt4-ext >= 3.5.0
+BuildRequires:  gambas3-gb-settings >= 3.5.0
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  lsb-release
 BuildRequires:  net-tools
@@ -53,17 +53,19 @@ BuildRequires:  pciutils
 BuildRequires:  procps
 BuildRequires:  update-desktop-files
 BuildRequires:  xorg-x11 >= 7.5
-Requires:       gambas3-gb-desktop >= 3.4.0
-Requires:       gambas3-gb-form >= 3.4.0
-Requires:       gambas3-gb-form-dialog >= 3.4.0
-Requires:       gambas3-gb-form-stock >= 3.4.0
-Requires:       gambas3-gb-gtk >= 3.4.0
-Requires:       gambas3-gb-gui >= 3.4.0
-Requires:       gambas3-gb-image >= 3.4.0
-Requires:       gambas3-gb-qt4 >= 3.4.0
-Requires:       gambas3-gb-qt4-ext >= 3.4.0
-Requires:       gambas3-gb-settings >= 3.4.0
-Requires:       gambas3-runtime >= 3.4.0
+BuildRequires:  xz
+Requires:       gambas3-gb-desktop >= 3.5.0
+Requires:       gambas3-gb-form >= 3.5.0
+Requires:       gambas3-gb-form-dialog >= 3.5.0
+Requires:       gambas3-gb-form-stock >= 3.5.0
+Requires:       gambas3-gb-geom >= 3.4.0
+Requires:       gambas3-gb-gtk >= 3.5.0
+Requires:       gambas3-gb-gui >= 3.5.0
+Requires:       gambas3-gb-image >= 3.5.0
+Requires:       gambas3-gb-qt4 >= 3.5.0
+Requires:       gambas3-gb-qt4-ext >= 3.5.0
+Requires:       gambas3-gb-settings >= 3.5.0
+Requires:       gambas3-runtime >= 3.5.0
 %if 0%{?suse_version} <= 1210
 Recommends:     freeglut
 %else
@@ -86,7 +88,7 @@ user interface similar to the popular Windows tool CPU-Z.
 pastebinit required for publishing the hardware configuration.
 
 %prep
-%setup -q -n recipe-{debupstream}-0~bzr{revno}~20131018
+%setup -qc
 # A hack to be able to run the program via the name execution.
 #+ some info tools are under *sbin
 cat > %{name}.sh <<HERE
@@ -103,8 +105,7 @@ HERE
          -e '/^Icon=/s|=.*|=%{name}|' debian/%{name}.desktop > %{name}.desktop
 
 %build
-/usr/bin/gbc3 -e -a -g -t -p -m  src/i-nex
-gba3 src/i-nex
+make V=1 %{?_smp_mflags}
 
 %install
 %{__install} -D -m 755 %{name}.sh %{buildroot}%{_bindir}/%{name}
@@ -113,7 +114,7 @@ gba3 src/i-nex
 
 %files
 %defattr(-,root,root,-)
-%doc debian/changelog* debian/copyright LICENSE
+%doc debian/changelog* COPYING LICENSE README
 %{_bindir}/%{name}*
 %{_bindir}/check_kernel
 %{_datadir}/applications/%{name}.desktop
