@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Sat Dec 14 16:04:00 UTC 2013 - dap.darkness@gmail.com
+
+- new upstream version <1.3.1>
+  * Added: Support for the 'Disc Number' tag.
+  * Added: Stream loader can handle compound urls better.
+  * Added: Manually override MPD's (remote) music dir.
+  * Fixed: Crash upon calling mpd_return_pair (Archlinux).
+  * Fixed: Player changed position after hide-show toggle.
+  * Fixed: Allow more time to connect to MPD at start-up.
+  * Fixed: Possible wrong sorting order of dragged items.
+  * Coded: Project 'includes' libmpdclient using pkg-config.
+
+-------------------------------------------------------------------
 Sat Jan 12 09:59:07 UTC 2013 - dap.darkness@gmail.com
 
 - new upstream version <1.3.0>

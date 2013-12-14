@@ -1,10 +1,10 @@
 # norootforbuild
 
 Name:		quimup
-Version:	1.3.0
+Version:	1.3.1
 Release:	1
 
-License:	GPL
+License:	GPL-3.0+
 Summary:	A client for the music player daemon (MPD)
 Group:		Productivity/Multimedia/Sound/Players
 URL:		http://www.coonsden.com/
