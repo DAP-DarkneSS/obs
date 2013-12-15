@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-3589-g2ab0b78
+%define LEECHCRAFT_VERSION 0.5.95-3894-g5ca1339
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -120,6 +120,7 @@ BuildRequires:  pkgconfig(libvlc)
 %endif
 
 
+BuildRequires:  Qross-devel
 BuildRequires:  boost-devel >= 1.50
 BuildRequires:  jbig2dec-devel
 # BuildRequires:  libchromaprint-devel
@@ -140,7 +141,7 @@ Recommends:     %{name}-bittorrent
 Recommends:     %{name}-blogique
 Recommends:     %{name}-dolozhee
 Recommends:     %{name}-lackman
-Recommends:     %{name}-lastfmscrobble
+Recommends:     %{name}-scrobbler
 Recommends:     %{name}-monocle
 Recommends:     %{name}-netstoremanager
 Recommends:     %{name}-newlife
@@ -286,7 +287,7 @@ This package is installed if a pattern is selected to have a working update path
 %package meta_media
 Summary:        Meta package for pattern leechcraft_media
 Group:          Metapackages
-Requires:       %{name}-deadlyrics
+Requires:       %{name}-lyricsprovider
 Requires:       %{name}-gacts
 Requires:       %{name}-hotstreams
 Requires:       %{name}-lmp
@@ -300,7 +301,7 @@ Requires:       %{name}-secman-simplestorage
 Requires:       %{name}-touchstreams
 Requires:       %{name}-vgrabber
 Requires:       %{name}-vtyulc
-Recommends:     %{name}-lastfmscrobble
+Recommends:     %{name}-scrobbler
 Recommends:     %{name}-meta_tools
 
 %description meta_media
@@ -428,6 +429,7 @@ Summary:        LeechCraft Aggregator - Bodyfetch Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-aggregator
+Recommends:     %{name}-qrosp
 
 %description aggregator-bodyfetch
 This package provides a body fetch plugin for LeechCraft Aggregator.
@@ -1066,6 +1068,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-http = %{version}
 Requires:       %{name}-summaryrepresentation = %{version}
+Provides:       %{name}-lyricsprovider
 
 %description deadlyrics
 This package provides a lyrics finder plugin for LeechCraft.
@@ -1391,6 +1394,7 @@ Summary:        LeechCraft Last.FM Scrobble Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-lmp = %{version}
+Provides:       %{name}-scrobbler
 
 %description lastfmscrobble
 This package contains a LastFMScrobble plugin for LeechCraft.
@@ -1490,9 +1494,9 @@ reconnect properly on startup.
 Summary:        LeechCraft Media player Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Recommends:     %{name}-deadlyrics = %{version}
+Recommends:     %{name}-lyricsprovider
 Recommends:     %{name}-gacts = %{version}
-Recommends:     %{name}-lastfmscrobble = %{version}
+Recommends:     %{name}-scrobbler
 Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
 %if 0%{?suse_version} > 1230
@@ -1997,6 +2001,16 @@ This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
 It provides support for the Read it Later service.
 
 
+%package qrosp
+Summary:        LeechCraft Qross Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       libqrosspython1
+
+%description qrosp
+This package contains a scripting support plugin for Leechcraft.
+
+
 %package sb2
 Summary:        LeechCraft SideBar2 Module
 Group:          Productivity/Networking/Other
@@ -2009,6 +2023,26 @@ Provides:       %{name}-sidebar = %{version}
 This package provides another side bar plugin for Leechcraft.
 
 It is a next-gen fluid sidebar with quick launch, tabs and tray areas.
+
+
+%package scroblibre
+Summary:        LeechCraft Submissions Protocol Scrobble Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+Provides:       %{name}-scrobbler
+
+%description scroblibre
+This package contains a Scroblibre plugin for LeechCraft.
+
+It is an implementation of the submissions protocol 1.2 with
+support ( http://www.audioscrobbler.net/development/protocol )
+for sites other than last.fm (libre.fm for now). It can
+potentially handle arbitrary scrobbling URLs implementing the
+submissions protocol, but it is not exposed in the GUI (yet).
+ 
+Scroblibre is a supplement for LastFMScrobble module, and the
+latter is still the recommended one because of all the social
+features it offers which Scroblibre lacks.
 
 
 %package secman
@@ -2168,6 +2202,21 @@ This package provides a tabs list plugin for Leechcraft.
 
 It allows to show the list of currently opened tabs
 and allows to quickly navigate between them.
+
+
+%package textogroose
+Summary:        LeechCraft Script-Based Lyrics Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-http = %{version}
+Requires:       %{name}-summaryrepresentation = %{version}
+Requires:       %{name}-qrosp
+Provides:       %{name}-lyricsprovider
+
+%description textogroose
+This package provides a lyrics finder plugin for LeechCraft.
+
+Textogroose is a kind of supplement to DeadLyrics for sites
+too complex to be described by DeadLyrics rules.
 
 
 %package touchstreams
@@ -2390,8 +2439,9 @@ cmake ../src \
         -DENABLE_POPISHU=True \
         -DENABLE_POSHUKU_AUTOSEARCH=True \
                 -DUSE_POSHUKU_CLEANWEB_PCRE=True \
-        -DENABLE_QROSP=False \
+        -DENABLE_QROSP=True \
         -DENABLE_SB2=True \
+        -DENABLE_SCROBLIBRE=True \
         -DENABLE_SECMAN=True \
         -DENABLE_SHAITAN=True \
         -DENABLE_SHELLOPEN=True \
@@ -2563,6 +2613,7 @@ EOF
 %defattr(644,root,root,755)
 %{plugin_dir}/*%{name}_azoth_adiumstyles*
 %{_datadir}/%{name}/azoth/styles/adium
+%{_datadir}/%{name}/translations/%{name}_azoth_adiumstyles_*.qm
 
 %files azoth-astrality
 %defattr(-,root,root)
@@ -2623,6 +2674,7 @@ EOF
 %files azoth-juick
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_juick.so
+%{_datadir}/%{name}/translations/%{name}_azoth_juick_*.qm
 
 %files azoth-keeso
 %defattr(-,root,root)
@@ -2654,6 +2706,7 @@ EOF
 %files azoth-nativeemoticons
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_nativeemoticons.so
+%{_datadir}/%{name}/translations/%{name}_azoth_nativeemoticons_*.qm
 
 %files azoth-otroid
 %defattr(-,root,root)
@@ -2676,11 +2729,13 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_shx.so
 %{_datadir}/%{name}/settings/azothshxsettings.xml
+%{_datadir}/%{name}/translations/%{name}_azoth_shx_*.qm
 
 %files azoth-standardstyles
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_standardstyles.so
 %{_datadir}/%{name}/azoth/styles/standard/
+%{_datadir}/%{name}/translations/%{name}_azoth_standardstyles_*.qm
 
 %files azoth-vader
 %defattr(-,root,root)
@@ -2697,6 +2752,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_azoth_woodpecker.so
 %{_datadir}/%{name}/settings/azothwoodpeckersettings.xml
+%{_datadir}/%{name}/translations/%{name}_azoth_woodpecker_*.qm
 %endif
 
 %files azoth-xoox
@@ -2744,6 +2800,7 @@ EOF
 %files blasq-deathnote
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blasq_deathnote.so
+%{_datadir}/%{name}/translations/%{name}_blasq_deathnote*.qm
 
 %files blasq-rappor
 %defattr(-,root,root)
@@ -2754,6 +2811,7 @@ EOF
 %files blasq-vangog
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blasq_vangog.so
+%{_datadir}/%{name}/translations/%{name}_blasq_vangog*.qm
 %endif
 
 %files blogique
@@ -2775,7 +2833,8 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blogique_metida.so
 %{_datadir}/%{name}/settings/blogiquemetidasettings.xml
-%{_datadir}/%{name}/qml/blogique/metida/
+%{_datadir}/%{name}/translations/%{name}_blogique_metida*.qm
+# %%{_datadir}/%%{name}/qml/blogique/metida/
 
 %files choroid
 %defattr(-,root,root)
@@ -3017,6 +3076,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_mellonetray.so
 %{_datadir}/%{name}/qml/mellonetray/
+%{_datadir}/%{name}/translations/%{name}_mellonetray_*.qm
 %endif
 
 %files monocle
@@ -3176,11 +3236,20 @@ EOF
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_poshuku_onlinebookmarks_readitlater.*
 
+%files qrosp
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_qrosp.so
+
 %files sb2
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_sb2.so
 %{_datadir}/%{name}/qml/sb2/
 %{_datadir}/%{name}/settings/sb2panelsettings.xml
+
+%files scroblibre
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_scroblibre.so
+%{_datadir}/%{name}/settings/scroblibresettings.xml
 
 %files secman
 %defattr(-,root,root)
@@ -3229,6 +3298,10 @@ EOF
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_tabslist.so
 %{translations_dir}/leechcraft_tabslist*
+
+%files textogroose
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_textogroose.so
 
 %files touchstreams
 %defattr(-,root,root)
