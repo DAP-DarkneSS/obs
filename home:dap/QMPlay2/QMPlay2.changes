@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sun Dec 15 13:04:50 UTC 2013 - dap.darkness@gmail.com
+
+- Update to 13.12.15 (changes since 13.12.07):
+  * Added ability to set the tabs at the top of the main window;
+  * Added ability to select the audio channel in the Playback menu;
+  * Restoration of validity HWAccel with FFMpeg 1.2;
+  * Minor Bug fixes.
+
+-------------------------------------------------------------------
 Sun Dec  8 17:24:06 UTC 2013 - dap.darkness@gmail.com
 
 - Update to 13.12.07 (changes since 13.10.24):
