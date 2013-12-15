@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sat Sep 21 09:54:00 UTC 2013 - zaitor@opensuse.org
+
+- Add rarian-scrollkeeper-compat BuildRequires, due to
+  gnome-doc-utils no longer pulling in scrollkeeper. Configure
+  explicitly checks for scrollkeeper.
+- Own %{_datadir}/omf because of the above change.
+
+-------------------------------------------------------------------
 Sat Jul  6 10:48:22 UTC 2013 - dap.darkness@gmail.com
 
 - Initial build.

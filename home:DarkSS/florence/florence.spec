@@ -15,28 +15,28 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
+
 Name:           florence
 Version:        0.6.0
-Release:        1
-License:        GPL-2.0+ and GFDL-1.2
+Release:        0
 Summary:        Extensible scalable on-screen virtual keyboard
-Url:            http://florence.sourceforge.net
+License:        GPL-2.0+ and GFDL-1.2
 Group:          System/X11/Utilities
+Url:            http://florence.sourceforge.net
 Source0:        http://downloads.sourceforge.net/florence/%{name}-%{version}.tar.bz2
-
 BuildRequires:  at-spi2-core-devel
 BuildRequires:  fdupes
 BuildRequires:  intltool
 BuildRequires:  libXtst-devel
 BuildRequires:  librsvg2-devel
 BuildRequires:  pkg-config
+BuildRequires:  rarian-scrollkeeper-compat
 BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(gnome-doc-utils)
 BuildRequires:  pkgconfig(gstreamer-0.10)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(libnotify)
 BuildRequires:  pkgconfig(libxml-2.0)
-Recommends:     %{name}-doc
 Recommends:     %{name}-lang
 Requires(post):   glib2-tools
 Requires(postun): glib2-tools
@@ -56,33 +56,23 @@ A Timer-based auto-click functionality is available
 to help disabled people having difficulties to click.
 
 %lang_package
-
 %prep
 %setup -q
 sed -i 's|Icon=@ICONDIR@/%{name}.svg|Icon=%{name}|g' data/%{name}.desktop.in.in
 
 %build
-%configure --disable-scrollkeeper
-
+%configure \
+    --disable-scrollkeeper
 make %{?_smp_mflags}
 
-
 %install
-%makeinstall
+%make_install
 
-%suse_update_desktop_file -r %{name} 'Utility;Accessibility;'
-
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable
-
-install -p -m 0644 data/%{name}.svg \
-    %{buildroot}%{_datadir}/icons/hicolor/scalable/%{name}.svg
-
-rm -rf %{buildroot}%{_datadir}/pixmaps
-
+# a .svg is not really a pixmap and should not be installed there.
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
+mv %{buildroot}%{_datadir}/pixmaps/%{name}.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
+%suse_update_desktop_file -r %{name} Utility Accessibility
 %find_lang %{name} %{?no_lang_C}
-
-%fdupes -s %{buildroot}%{_datadir}/gnome/help/%{name}
-
 
 %post
 %glib2_gsettings_schema_post
@@ -90,22 +80,23 @@ rm -rf %{buildroot}%{_datadir}/pixmaps
 
 %postun
 %glib2_gsettings_schema_postun
-%desktop_database_post
-
+%desktop_database_postun
 
 %files
-%defattr(-,root,root,-)
+%defattr(-,root,root)
 %doc AUTHORS ChangeLog COPYING COPYING-DOCS NEWS README
-%{_datadir}/%{name}/
-%{_bindir}/%{name}
-%{_datadir}/applications/%{name}.*
-%{_datadir}/icons/hicolor/scalable/%{name}.svg
-%doc %{_mandir}/man*/%{name}*
-%{_datadir}/glib-2.0/schemas/*%{name}*
 %dir %{_datadir}/gnome/help/%{name}
-%doc %{_datadir}/gnome/help/%{name}/C
+%doc %{_datadir}/gnome/help/%{name}/C/
+%dir %{_datadir}/omf
 %dir %{_datadir}/omf/%{name}
 %doc %{_datadir}/omf/%{name}/%{name}-C.omf
+%doc %{_mandir}/man1/%{name}.1%{?ext_man}
+%doc %{_mandir}/man1/%{name}_applet.1%{?ext_man}
+%{_bindir}/%{name}
+%{_datadir}/%{name}/
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/glib-2.0/schemas/org.%{name}.gschema.xml
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %files lang -f %{name}.lang
 
