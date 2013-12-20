@@ -29,7 +29,7 @@ then
 else
 
   cd $DGIT
-  git log $VOBS..HEAD --date=raw --full-diff --name-only
+  git diff $VOBS..HEAD --name-status | grep "^A" | less
   cd $DOBS
 
   echo -e '\e[0;4m\nShould the spec be edited?\e[0m'
