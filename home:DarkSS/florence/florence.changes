@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Dec 15 16:48:13 UTC 2013 - dap.darkness@gmail.com
+
+- Added florence-icondir.patch to set correct svg icon directory
+  and not to broke the app: bnc#855529.
+- Commented why `fdupes` shouldn't be used.
+
+-------------------------------------------------------------------
 Sat Sep 21 09:54:00 UTC 2013 - zaitor@opensuse.org
 
 - Add rarian-scrollkeeper-compat BuildRequires, due to

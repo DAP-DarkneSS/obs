@@ -24,8 +24,10 @@ License:        GPL-2.0+ and GFDL-1.2
 Group:          System/X11/Utilities
 Url:            http://florence.sourceforge.net
 Source0:        http://downloads.sourceforge.net/florence/%{name}-%{version}.tar.bz2
+# PATCH-FIX-OPENSUSE to set correct svg icon directory
+# and not to broke the app: bnc#855529.
+Patch0:         florence-icondir.patch
 BuildRequires:  at-spi2-core-devel
-BuildRequires:  fdupes
 BuildRequires:  intltool
 BuildRequires:  libXtst-devel
 BuildRequires:  librsvg2-devel
@@ -56,8 +58,10 @@ A Timer-based auto-click functionality is available
 to help disabled people having difficulties to click.
 
 %lang_package
+
 %prep
 %setup -q
+%patch0
 sed -i 's|Icon=@ICONDIR@/%{name}.svg|Icon=%{name}|g' data/%{name}.desktop.in.in
 
 %build
@@ -67,12 +71,10 @@ make %{?_smp_mflags}
 
 %install
 %make_install
-
-# a .svg is not really a pixmap and should not be installed there.
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
-mv %{buildroot}%{_datadir}/pixmaps/%{name}.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
 %suse_update_desktop_file -r %{name} Utility Accessibility
 %find_lang %{name} %{?no_lang_C}
+# The fdupes call is dangerous: there is no guarantee if the
+# 'link target' will be in the -lang package or main package…
 
 %post
 %glib2_gsettings_schema_post

@@ -1,0 +1,55 @@
+--- configure.orig	2013-12-15 19:55:20.788000046 +0300
++++ configure	2013-12-15 19:55:20.816000053 +0300
+@@ -8703,7 +8703,7 @@
+ 
+ 
+ # Files generated
+-ICONDIR=${prefix}/share/pixmaps
++ICONDIR=${prefix}/share/icons/hicolor/scalable/apps
+ if test "x$prefix" = "xNONE"; then
+ 	ICONDIR=/usr/local/share/pixmaps
+ fi
+--- configure.ac.orig	2013-12-15 19:55:19.125000058 +0300
++++ configure.ac	2013-12-15 19:55:19.126000054 +0300
+@@ -132,7 +132,7 @@
+ AC_CHECK_FUNCS([setlocale memset memchr sscanf strcmp strrchr strchr strstr strcpy strncpy strcat atoi putenv fopen fclose fgets fputs lstat opendir readdir closedir])
+ 
+ # Files generated
+-ICONDIR=${prefix}/share/pixmaps
++ICONDIR=${prefix}/share/icons/hicolor/scalable/apps
+ if test "x$prefix" = "xNONE"; then
+ 	ICONDIR=/usr/local/share/pixmaps
+ fi
+--- data/Makefile.am.orig	2013-12-15 19:33:03.110000041 +0300
++++ data/Makefile.am	2013-12-15 19:33:03.128000026 +0300
+@@ -13,7 +13,7 @@
+ $(desktop_in_files): $(desktop_in_files:.desktop.in=.desktop.in.in)
+ 	sed -e "s|\@ICONDIR\@|$(ICONDIR)|" $< > $@
+ 
+-iconsdir=$(datadir)/pixmaps
++iconsdir=$(datadir)/icons/hicolor/scalable/apps
+ icons_DATA=florence.svg
+ 
+ gtkbuilderdir=$(datadir)/florence
+--- data/Makefile.in.orig	2013-12-15 19:31:57.703000027 +0300
++++ data/Makefile.in	2013-12-15 19:31:57.716000027 +0300
+@@ -279,7 +279,7 @@
+ desktopdir = $(datadir)/applications
+ desktop_in_files = florence.desktop.in
+ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+-iconsdir = $(datadir)/pixmaps
++iconsdir = $(datadir)/icons/hicolor/scalable/apps
+ icons_DATA = florence.svg
+ gtkbuilderdir = $(datadir)/florence
+ gtkbuilder_DATA = florence.glade
+--- data/styles/default/symbols.xml.orig	2013-12-15 19:24:07.199000014 +0300
++++ data/styles/default/symbols.xml	2013-12-15 19:24:07.224000012 +0300
+@@ -9,7 +9,7 @@
+ 	</symbol>
+ 	<symbol>
+ 		<name>Super_[LR]</name>
+-		<xi:include href="/usr/share/pixmaps/florence.svg"/>
++		<xi:include href="/usr/share/icons/hicolor/scalable/apps/florence.svg"/>
+ 	</symbol>
+ 	<symbol>
+ 		<name>(Alt_[LR]|Meta_L)</name>
