@@ -15,6 +15,8 @@
 # Please submit bugfixes or comments via http://dev.leechcraft.org/
 #
 
+%define vlc 0
+
 %define plugin_dir %{_libdir}/%{name}/plugins
 %define translations_dir %{_datadir}/%{name}/translations
 %define settings_dir %{_datadir}/%{name}/settings
@@ -22,7 +24,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-2747-g687442b
+%define LEECHCRAFT_VERSION 0.5.95-3980-g9b1b155
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -80,7 +82,7 @@ BuildRequires:  taglib-devel
 BuildRequires:  xz
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
 BuildRequires:  pkgconfig(libguess)
-%if 0%{?fedora} > 19
+%if %{vlc}
 BuildRequires:  pkgconfig(libvlc)
 %endif
 BuildRequires:  telepathy-qt4-devel
@@ -744,6 +746,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-http = %{version}
 Requires:       %{name}-summaryrepresentation = %{version}
+Provides:       %{name}-lyricsprovider
 
 %description deadlyrics
 This package provides a lyrics finder plugin for LeechCraft.
@@ -936,6 +939,16 @@ Requires:       %{name}-lmp = %{version}
 This package provides a radio streams provider plugin for LeechCraft.
 
 
+%package htthare
+Summary:        LeechCraft Http Server Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description htthare
+This package provides content from local filesystem over LANs (and
+possibly WANs, but by default only LAN interfaces are listened on).
+
+
 %package imgaste
 Summary:        LeechCraft Image Paster Module
 Group:          Productivity/Networking/Other
@@ -1030,6 +1043,7 @@ Summary:        LeechCraft Last.FM Scrobble Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-lmp = %{version}
+Provides:       %{name}-scrobbler
 
 %description lastfmscrobble
 This package contains a LastFMScrobble plugin for LeechCraft.
@@ -1368,6 +1382,17 @@ update interval and custom storage parameters, Akregator's settings.
  * Liferea: feeds list.
 
 
+%package otlozhu
+Summary:        LeechCraft ToDo manager Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description otlozhu
+This package provides a ToDo manager plugin for LeechCraft.
+
+It is a GTD-inspired ToDo manager.
+
+
 %package pintab
 Summary:        LeechCraft Pinning tabs Module
 Group:          Productivity/Networking/Other
@@ -1392,6 +1417,16 @@ Provides:       %{name}-poshuku-pogooglue = %{version}
 This package provides an instant search plugin for LeechCraft.
 
 It allows to search instantly selected text in Google.
+
+
+%package poleemery
+Summary:        LeechCraft Poleemery - Finances manager Module
+Group:          Productivity/Networking/Other
+BuildRequires:  qwt6-devel >= 6.1
+Requires:       %{name} = %{version}
+
+%description poleemery
+This package provides a personal finances manager plugin for LeechCraft.
 
 
 %package popishu
@@ -1573,6 +1608,26 @@ This package provides another side bar plugin for Leechcraft.
 It is a next-gen fluid sidebar with quick launch, tabs and tray areas.
 
 
+%package scroblibre
+Summary:        LeechCraft Submissions Protocol Scrobble Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+Provides:       %{name}-scrobbler
+
+%description scroblibre
+This package contains a Scroblibre plugin for LeechCraft.
+
+It is an implementation of the submissions protocol 1.2 with
+support ( http://www.audioscrobbler.net/development/protocol )
+for sites other than last.fm (libre.fm for now). It can
+potentially handle arbitrary scrobbling URLs implementing the
+submissions protocol, but it is not exposed in the GUI (yet).
+ 
+Scroblibre is a supplement for LastFMScrobble module, and the
+latter is still the recommended one because of all the social
+features it offers which Scroblibre lacks.
+
+
 %package secman
 Summary:        LeechCraft Security manager Module
 Group:          Productivity/Networking/Other
@@ -1708,6 +1763,21 @@ It allows to show the list of currently opened tabs
 and allows to quickly navigate between them.
 
 
+%package textogroose
+Summary:        LeechCraft Script-Based Lyrics Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-http = %{version}
+Requires:       %{name}-summaryrepresentation = %{version}
+Requires:       %{name}-qrosp
+Provides:       %{name}-lyricsprovider
+
+%description textogroose
+This package provides a lyrics finder plugin for LeechCraft.
+
+Textogroose is a kind of supplement to DeadLyrics for sites
+too complex to be described by DeadLyrics rules.
+
+
 %package touchstreams
 Summary:        LeechCraft VK.com Streaming Module
 Group:          Productivity/Networking/Other
@@ -1746,7 +1816,7 @@ Features:
  * Search for audios and videos.
 
 
-%if 0%{?fedora} > 19
+%if %{vlc}
 %package vtyulc
 Summary:        LeechCraft Video player Module
 Group:          Productivity/Networking/Other
@@ -1843,6 +1913,7 @@ cmake ../src \
         -DENABLE_GLANCE=True \
         -DENABLE_GMAILNOTIFIER=True \
         -DENABLE_HARBINGER=True \
+        -DENABLE_HTTHARE=True \
         -DENABLE_HOTSENSORS=True \
         -DENABLE_HOTSTREAMS=True \
         -DENABLE_IMGASTE=True \
@@ -1859,6 +1930,7 @@ cmake ../src \
                 -DWITH_LHTR_HTML=True \
         -DENABLE_LIZNOO=True \
         -DENABLE_LMP=True \
+        -DUSE_GSTREAMER_10=False \
                 -DENABLE_LMP_GRAFFITI=True \
                 -DENABLE_LMP_LIBGUESS=True \
                 -DENABLE_LMP_MPRIS=True \
@@ -1877,15 +1949,17 @@ cmake ../src \
         -DENABLE_NACHEKU=False \
         -DENABLE_NEWLIFE=True \
         -DENABLE_NETSTOREMANAGER=True \
-        -DENABLE_OTLOZHU=False \
+        -DENABLE_OTLOZHU=True \
+        -DENABLE_OTLOZHU_SYNC=False \
         -DENABLE_PINTAB=True \
-        -DENABLE_POLEEMERY=False \
+        -DENABLE_POLEEMERY=True \
         -DENABLE_POGOOGLUE=True \
         -DENABLE_POPISHU=True \
         -DENABLE_POSHUKU_AUTOSEARCH=True \
                 -DUSE_POSHUKU_CLEANWEB_PCRE=True \
         -DENABLE_QROSP=False \
         -DENABLE_SB2=True \
+        -DENABLE_SCROBLIBRE=True \
         -DENABLE_SECMAN=True \
         -DENABLE_SHAITAN=True \
         -DENABLE_SHELLOPEN=True \
@@ -1898,7 +1972,7 @@ cmake ../src \
         -DENABLE_TOUCHSTREAMS=True \
         -DENABLE_TPI=True \
         -DENABLE_TWIFEE=False \
-%if 0%{?fedora} > 19
+%if %{vlc}
         -DENABLE_VTYULC=True \
 %else
         -DENABLE_VTYULC=False \
@@ -1938,8 +2012,7 @@ cd build
 %{translations_dir}/leechcraft_??_??.qm
 %dir %{_libdir}/%{name}
 %dir %{plugin_dir}
-%{_libdir}/*lcutil.so.*
-%{_libdir}/*xmlsettingsdialog.so.*
+%{_libdir}/*%{name}-*.so.*
 %doc %{_mandir}/man1/%{name}*.1.gz
 %{_datadir}/%{name}/global_icons/
 %dir %{_datadir}/%{name}/themes
@@ -1974,6 +2047,7 @@ cd build
 %{_bindir}/lc_anhero_crashprocess
 %{plugin_dir}/*%{name}_anhero.so
 %{translations_dir}/leechcraft_anhero*
+%doc %{_mandir}/man*/lc_anhero_crashprocess*
 
 %files auscrie
 %defattr(-,root,root)
@@ -2002,6 +2076,7 @@ cd build
 %defattr(644,root,root,755)
 %{plugin_dir}/*%{name}_azoth_adiumstyles*
 %{_datadir}/%{name}/azoth/styles/adium
+%{_datadir}/%{name}/translations/%{name}_azoth_adiumstyles_*.qm
 
 %files azoth-astrality
 %defattr(-,root,root)
@@ -2062,6 +2137,7 @@ cd build
 %files azoth-juick
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_juick.so
+%{_datadir}/%{name}/translations/%{name}_azoth_juick_*.qm
 
 %files azoth-keeso
 %defattr(-,root,root)
@@ -2093,6 +2169,7 @@ cd build
 %files azoth-nativeemoticons
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_nativeemoticons.so
+%{_datadir}/%{name}/translations/%{name}_azoth_nativeemoticons_*.qm
 
 %files azoth-otroid
 %defattr(-,root,root)
@@ -2115,11 +2192,13 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_shx.so
 %{_datadir}/%{name}/settings/azothshxsettings.xml
+%{_datadir}/%{name}/translations/%{name}_azoth_shx_*.qm
 
 %files azoth-standardstyles
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_standardstyles.so
 %{_datadir}/%{name}/azoth/styles/standard/
+%{_datadir}/%{name}/translations/%{name}_azoth_standardstyles_*.qm
 
 %files azoth-vader
 %defattr(-,root,root)
@@ -2171,6 +2250,7 @@ cd build
 %files blasq-deathnote
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blasq_deathnote.so
+%{_datadir}/%{name}/translations/%{name}_blasq_deathnote*.qm
 
 %files blasq-rappor
 %defattr(-,root,root)
@@ -2180,6 +2260,7 @@ cd build
 %files blasq-vangog
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blasq_vangog.so
+%{_datadir}/%{name}/translations/%{name}_blasq_vangog*.qm
 
 %files blogique
 %defattr(-,root,root)
@@ -2195,12 +2276,14 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blogique_hestia.so
 %{_datadir}/%{name}/settings/blogiquehestiasettings.xml
+%{_datadir}/%{name}/translations/%{name}_blogique_hestia*.qm
 
 %files blogique-metida
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blogique_metida.so
 %{_datadir}/%{name}/settings/blogiquemetidasettings.xml
-%{_datadir}/%{name}/qml/blogique/metida/
+%{_datadir}/%{name}/translations/%{name}_blogique_metida*.qm
+# %%{_datadir}/%%{name}/qml/blogique/metida/
 
 %files choroid
 %defattr(-,root,root)
@@ -2229,13 +2312,13 @@ cd build
 %defattr(-,root,root)
 %{_datadir}/%{name}/cmake
 %{_includedir}/%{name}
-%{_libdir}/*lcutil.so
-%{_libdir}/*xmlsettingsdialog.so
+%{_libdir}/*%{name}-*.so
 %{_datadir}/cmake/Modules/InitLCPlugin.cmake
 
 %files devmon
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_devmon.so
+%{_datadir}/%{name}/translations/%{name}_devmon_*.qm
 
 %files dolozhee
 %defattr(-,root,root)
@@ -2286,6 +2369,7 @@ cd build
 %defattr(-,root,root)
 %doc src/plugins/gacts/3rdparty/qxt/LICENSE
 %{_libdir}/%{name}/plugins/*%{name}_gacts.so
+%{_datadir}/%{name}/translations/%{name}_gacts_*.qm
 
 %files glance
 %defattr(-,root,root)
@@ -2312,14 +2396,23 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_hotsensors.so
 %{_datadir}/%{name}/qml/hotsensors
+%{_datadir}/%{name}/translations/%{name}_hotsensors_*.qm
 
 %files hotstreams
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_hotstreams.so
+%{_datadir}/%{name}/translations/%{name}_hotstreams_*.qm
+
+%files htthare
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_htthare.so
+%{_datadir}/%{name}/settings/httharesettings.xml
+%{_datadir}/%{name}/translations/%{name}_htthare_*.qm
 
 %files imgaste
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_imgaste.so
+%{_datadir}/%{name}/translations/%{name}_imgaste_*.qm
 
 %files kbswitch
 %defattr(-,root,root)
@@ -2426,6 +2519,7 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_mellonetray.so
 %{_datadir}/%{name}/qml/mellonetray/
+%{_datadir}/%{name}/translations/%{name}_mellonetray_*.qm
 
 %files monocle
 %defattr(-,root,root)
@@ -2490,6 +2584,11 @@ cd build
 %{translations_dir}/%{name}_newlife*.qm
 %{plugin_dir}/*%{name}_newlife.so
 
+%files otlozhu
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_otlozhu.so
+%{_datadir}/%{name}/translations/%{name}_otlozhu_*.qm
+
 %files pintab
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_pintab.so
@@ -2499,6 +2598,12 @@ cd build
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_pogooglue*
 %{translations_dir}/leechcraft_pogooglue*
+
+%files poleemery
+%defattr(-,root,root)
+%{_datadir}/%{name}/settings/poleemerysettings.xml
+%{_datadir}/%{name}/translations/%{name}_poleemery_*.qm
+%{_libdir}/%{name}/plugins/*%{name}_poleemery*
 
 %files popishu
 %defattr(-,root,root)
@@ -2567,6 +2672,11 @@ cd build
 %{_datadir}/%{name}/qml/sb2/
 %{_datadir}/%{name}/settings/sb2panelsettings.xml
 
+%files scroblibre
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_scroblibre.so
+%{_datadir}/%{name}/settings/scroblibresettings.xml
+
 %files secman
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_secman.so
@@ -2609,6 +2719,10 @@ cd build
 %{plugin_dir}/*%{name}_tabslist.so
 %{translations_dir}/leechcraft_tabslist*
 
+%files textogroose
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_textogroose.so
+
 %files touchstreams
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_touchstreams.so
@@ -2626,7 +2740,7 @@ cd build
 %{translations_dir}/%{name}_vgrabber*.qm
 %{plugin_dir}/*%{name}_vgrabber.so
 
-%if 0%{?fedora} > 19
+%if %{vlc}
 %files vtyulc
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_vtyulc.so
