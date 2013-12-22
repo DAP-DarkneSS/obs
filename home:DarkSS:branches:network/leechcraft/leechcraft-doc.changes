@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Dec 21 16:11:29 UTC 2013 - dap.darkness@gmail.com
+
+- Unsupported distros (oS < 12.2) were dropped.
+
+-------------------------------------------------------------------
 Wed Sep 11 20:50:53 UTC 2013 - dap.darkness@gmail.com
 
 - 0.6.0 bugfix release.

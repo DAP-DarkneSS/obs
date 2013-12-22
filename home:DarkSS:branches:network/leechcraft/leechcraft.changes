@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Sat Dec 21 16:11:29 UTC 2013 - dap.darkness@gmail.com
+
+- Added leechcraft-otlozhu-0.6.0-cpp.patch to prevent strange
+  build issue: "error: no type named 'type' in 'struct",
+  https://github.com/0xd34df00d/leechcraft/commit/170e8
+- make_jobs, ix86 and arm macros became used.
+- choroid, hotsensors, shaitan and syncer plugins
+  became obsoleted because of ustream request.
+
+-------------------------------------------------------------------
+Fri Sep 27 20:06:22 UTC 2013 - dap.darkness@gmail.com
+
+- _constraints was added to prevent out-of-memory build issue.
+
+-------------------------------------------------------------------
 Wed Sep 11 20:51:25 UTC 2013 - dap.darkness@gmail.com
 
 - 0.6.0 release fixes lots of bugs in

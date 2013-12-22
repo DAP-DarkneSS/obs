@@ -25,11 +25,7 @@ Group:          Development/Libraries/Other
 Url:            http://leechcraft.org
 Source0:        http://dist.leechcraft.org/LeechCraft/%{version}/leechcraft-%{version}.tar.xz
 
-%if 0%{?suse_version} > 1210
 BuildRequires:  doxygen >= 1.8.3.1
-%else
-BuildRequires:  doxygen
-%endif
 BuildRequires:  fdupes
 BuildRequires:  graphviz
 BuildRequires:  xz

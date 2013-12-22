@@ -29,6 +29,10 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 Source0:        http://dist.leechcraft.org/LeechCraft/%{version}/leechcraft-%{version}.tar.xz
+# PATCH-FIX-UPSTREAM to prevent strange build
+# issue: "error: no type named 'type' in 'struct",
+# https://github.com/0xd34df00d/leechcraft/commit/170e8
+Patch0:         leechcraft-otlozhu-0.6.0-cpp.patch
 
 %if 0%{?suse_version} > 1230
 BuildRequires:  boost-devel >= 1.50
@@ -55,7 +59,7 @@ BuildRequires:  libmsn-devel
 BuildRequires:  libnl3-devel
 BuildRequires:  libotr-devel
 BuildRequires:  libpoppler-qt4-devel
-%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
+%ifarch %ix86 x86_64 ppc ppc64 armv7l armv7hl
 BuildRequires:  libpurple-devel
 %endif
 BuildRequires:  libqca2-devel
@@ -68,7 +72,7 @@ BuildRequires:  libsensors4-devel
 BuildRequires:  libspectre-devel
 BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
 %if 0%{?suse_version} > 1230
-%ifarch i586 i686 x86_64 armv5el armv5tel armv7l armv7hl
+%ifarch %ix86 x86_64 %arm
 BuildRequires:  mupdf-devel-static
 BuildRequires:  openjpeg-devel
 %endif
@@ -83,10 +87,14 @@ BuildRequires:  xz
 
 Requires:       oxygen-icon-theme
 
+Obsoletes:      %{name}-choroid
 Obsoletes:      %{name}-eiskaltdcpp
+Obsoletes:      %{name}-hotsensors
 Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
 Obsoletes:      %{name}-nacheku
+Obsoletes:      %{name}-shaitan
+Obsoletes:      %{name}-syncer
 Obsoletes:      %{name}-tabpp
 
 %description
@@ -520,7 +528,7 @@ The following protocol features are supported:
  * Grouping contacts.
 
 
-%ifarch i586 i686 x86_64 ppc ppc64 armv7l
+%ifarch %ix86 x86_64 ppc ppc64 armv7l
 %package azoth-velvetbird
 Summary:        LeechCraft Azoth - LibPurple Module
 License:        BSL-1.0
@@ -666,16 +674,6 @@ This package provides a LiveJournal subplugin for LeechCraft Blogique.
 It provides LiveJournal support.
 
 
-%package choroid
-Summary:        LeechCraft Image viewer Module
-License:        BSL-1.0
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description choroid
-This package provides an image viewer plugin for LeechCraft.
-
-
 %package cstp
 Summary:        LeechCraft HTTP Module
 License:        BSL-1.0
@@ -817,17 +815,6 @@ This package provides a history keeper plugin for LeechCraft.
 
 It allows to store information about finished downloads and similar events
 and allows to search it by text, wildcard, regular expressions or tags.
-
-
-%package hotsensors
-Summary:        LeechCraft Temperature Sensors Module
-License:        BSL-1.0
-Group:          Productivity/Networking/Other
-Requires:       %{name}-sb = %{version}
-
-%description hotsensors
-This package provides a temperature sensors subplugin (a quark)
-for LeechCraft SideBar.
 
 
 %package hotstreams
@@ -1093,7 +1080,7 @@ This package provides FB2 documents support for Document viewer Module.
 
 
 %if 0%{suse_version} > 1230
-%ifarch i586 i686 x86_64 armv5el armv5tel armv7l armv7hl
+%ifarch %ix86 x86_64 %arm
 %package monocle-mu
 Summary:        LeechCraft Monocle - Another PDF Module
 License:        BSL-1.0
@@ -1523,17 +1510,6 @@ with a suitable plugin like Aggregator.
  * Show results in HTML format with a suitable plugin like Poshuku.
 
 
-%package shaitan
-Summary:        LeechCraft Shaitan Module
-License:        BSL-1.0
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-Requires:       xterm
-
-%description shaitan
-This package provides a terminal plugin for Leechcraft.
-
-
 %package shellopen
 Summary:        LeechCraft Shellopen Module
 License:        BSL-1.0
@@ -1571,19 +1547,6 @@ Features:
 and views for selected items.
  * Support for gathering status information from other plugins.
  * Category-based search query support via other plugins.
-
-
-%package syncer
-Summary:        LeechCraft Sync setting Module
-License:        BSL-1.0
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description syncer
-This package provides a synchronizing plugin for Leechcraft.
-
-It allows to synchronize data and settings between LeechCraft instances
-running on different machines.
 
 
 %package tabsessionmanager
@@ -1686,6 +1649,7 @@ It allows to configure and use proxy servers.
 
 %prep
 %setup -q
+%patch0 -p1
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -1731,21 +1695,21 @@ cmake ../src \
         -DENABLE_SECMAN=True \
         -DENABLE_SHELLOPEN=True \
         -DENABLE_SNAILS=False \
-        -DENABLE_SYNCER=True \
+        -DENABLE_SYNCER=False \
         -DENABLE_TABSLIST=True \
         -DENABLE_TWIFEE=False \
         -DENABLE_AZOTH_SHX=True \
-%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
+%ifarch %ix86 x86_64 ppc ppc64 armv7l armv7hl
         -DENABLE_AZOTH_VELVETBIRD=True \
 %else
         -DENABLE_AZOTH_VELVETBIRD=False \
 %endif
         -DENABLE_BLOGIQUE=True \
-        -DENABLE_CHOROID=True \
+        -DENABLE_CHOROID=False \
         -DENABLE_DUMBEEP=True \
         -DDUMBEEP_WITH_PHONON=True \
         -DENABLE_GMAILNOTIFIER=True \
-        -DENABLE_HOTSENSORS=True \
+        -DENABLE_HOTSENSORS=False \
         -DENABLE_HOTSTREAMS=True \
         -DENABLE_LASTFMSCROBBLE=True \
         -DENABLE_LAUNCHY=True \
@@ -1762,14 +1726,14 @@ cmake ../src \
         -DENABLE_OTLOZHU=True \
         -DENABLE_POGOOGLUE=True \
         -DENABLE_SB2=True \
-        -DENABLE_SHAITAN=True \
+        -DENABLE_SHAITAN=False \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TORRENT=True \
         -DENABLE_BITTORRENT_GEOIP=True \
         -DENABLE_TPI=True \
         -DENABLE_VROOBY=True \
 %if 0%{?suse_version} > 1230
-%ifarch i586 i686 x86_64 armv5el armv5tel armv7l armv7hl
+%ifarch %ix86 x86_64 %arm
         -DENABLE_MONOCLE_MU=True \
         -DMUPDF_VERSION=0x0102 \
 %else
@@ -1788,7 +1752,7 @@ cmake ../src \
 
 %build
 cd build
-make %{?_smp_mflags}
+%make_jobs
 
 %install
 cd build
@@ -2008,7 +1972,7 @@ cd build
 %{_datadir}/%{name}/settings/azothvadersettings.xml
 %{plugin_dir}/*%{name}_azoth_vader.so
 
-%ifarch i586 i686 x86_64 ppc ppc64 armv7l armv7hl
+%ifarch %ix86 x86_64 ppc ppc64 armv7l armv7hl
 %files azoth-velvetbird
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_velvetbird.so
@@ -2057,11 +2021,6 @@ cd build
 %{_libdir}/%{name}/plugins/lib%{name}_blogique_metida.so
 %{_datadir}/%{name}/settings/blogiquemetidasettings.xml
 %{_datadir}/%{name}/qml/blogique/metida/
-
-%files choroid
-%defattr(-,root,root)
-%{plugin_dir}/*%{name}_choroid.so
-%{_datadir}/%{name}/qml/choroid
 
 %files cstp
 %defattr(-,root,root)
@@ -2119,11 +2078,6 @@ cd build
 %defattr(-,root,root)
 %{plugin_dir}/*leechcraft_historyholder.so
 %{translations_dir}/leechcraft_historyholder*.qm
-
-%files hotsensors
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_hotsensors.so
-%{_datadir}/%{name}/qml/hotsensors
 
 %files hotstreams
 %defattr(-,root,root)
@@ -2219,7 +2173,7 @@ cd build
 %{_datadir}/applications/%{name}-monocle-fxb.desktop
 
 %if 0%{?suse_version} > 1230
-%ifarch i586 i686 x86_64 armv5el armv5tel armv7l armv7hl
+%ifarch %ix86 x86_64 %arm
 %files monocle-mu
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_mu.so
@@ -2363,10 +2317,6 @@ cd build
 %{translations_dir}/%{name}_seekthru*.qm
 %{plugin_dir}/*%{name}_seekthru.so
 
-%files shaitan
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_shaitan.so
-
 %files shellopen
 %defattr(-,root,root)
 %{translations_dir}/%{name}_shellopen*.qm
@@ -2376,12 +2326,6 @@ cd build
 %defattr(-,root,root)
 %{translations_dir}/%{name}_summary*.qm
 %{plugin_dir}/*%{name}_summary.so
-
-%files syncer
-%defattr(-,root,root)
-%{plugin_dir}/*%{name}_syncer.so
-%{settings_dir}/syncersettings.xml
-%{translations_dir}/leechcraft_syncer*
 
 %files tabsessionmanager
 %defattr(-,root,root)
