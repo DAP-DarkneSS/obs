@@ -21,7 +21,7 @@
 %define cmake_minor %(echo %{cmake_version} | cut -f2 -d.)
 
 Name:           sakura
-Version:        3.1.2
+Version:        3.1.3
 Release:        0
 License:        GPL-2.0
 Summary:        Terminal Emulator based on the VTE Library
@@ -32,12 +32,6 @@ Source:         https://launchpad.net/sakura/trunk/%{version}/+download/sakura-%
 Patch1:         sakura-icon.patch
 Patch2:         sakura-cmake-usepkgconfig.patch
 Patch4:         sakura-fix_pod2man.patch
-%if 0%{?suse_version} >= 1310
-# PATCH-FIX-OPENSUSE to prevent build issue.
-# https://bugzilla.novell.com/show_bug.cgi?id=853227
-# https://bugs.launchpad.net/sakura/+bug/1249157
-Patch5:         sakura-gtk.patch
-%endif
 
 # to convert SVG to PNG:
 BuildRequires:  ImageMagick
@@ -47,7 +41,6 @@ BuildRequires:  gettext-devel
 BuildRequires:  intltool
 BuildRequires:  libstdc++-devel
 BuildRequires:  make
-BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(glib-2.0) >= 2.20
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(vte-2.90) >= 0.28
@@ -68,9 +61,6 @@ convert sakura.svg sakura.png
 %patch4
 # replace hard-coded ICON_DIR
 %__sed -i -r 's|^(\s*#define\s*ICON_DIR\s+").+("\s*)$|\1%{_datadir}/pixmaps\2|g' src/sakura.c
-%if 0%{?suse_version} >= 1310
-%patch5
-%endif
 
 %build
 %__mkdir build
@@ -89,8 +79,6 @@ pushd build
 %makeinstall
 popd #build
 %__rm -rf "%{buildroot}%{_datadir}/doc"
-
-%suse_update_desktop_file -r "%{name}" System TerminalEmulator
 
 %find_lang "%{name}"
 
