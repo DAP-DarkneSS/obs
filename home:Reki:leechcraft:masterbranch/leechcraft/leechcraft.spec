@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-3894-g5ca1339
+%define LEECHCRAFT_VERSION '0.6.60 RC1 (0.5.95-4110-g596ff93)'
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -2828,6 +2828,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blogique_hestia.so
 %{_datadir}/%{name}/settings/blogiquehestiasettings.xml
+%{_datadir}/%{name}/translations/%{name}_blogique_hestia*.qm
 
 %files blogique-metida
 %defattr(-,root,root)
@@ -2869,6 +2870,7 @@ EOF
 %files devmon
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_devmon.so
+%{_datadir}/%{name}/translations/%{name}_devmon_*.qm
 
 # %%files dlniwe
 # %%defattr(-,root,root)
@@ -2925,6 +2927,7 @@ EOF
 %defattr(-,root,root)
 %doc src/plugins/gacts/3rdparty/qxt/LICENSE
 %{_libdir}/%{name}/plugins/*%{name}_gacts.so
+%{_datadir}/%{name}/translations/%{name}_gacts_*.qm
 
 %files glance
 %defattr(-,root,root)
@@ -2951,10 +2954,12 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_hotsensors.so
 %{_datadir}/%{name}/qml/hotsensors
+%{_datadir}/%{name}/translations/%{name}_hotsensors_*.qm
 
 %files hotstreams
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_hotstreams.so
+%{_datadir}/%{name}/translations/%{name}_hotstreams_*.qm
 
 %if 0%{?suse_version} > 1230
 %files htthare
@@ -2967,6 +2972,7 @@ EOF
 %files imgaste
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_imgaste.so
+%{_datadir}/%{name}/translations/%{name}_imgaste_*.qm
 
 %files kbswitch
 %defattr(-,root,root)
@@ -3009,6 +3015,7 @@ EOF
 %files laughty
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_laughty.so
+%{_datadir}/%{name}/translations/%{name}_laughty_*.qm
 
 %files launchy
 %defattr(-,root,root)
@@ -3026,6 +3033,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lemon.so
 %{_datadir}/%{name}/qml/lemon/
+%{_datadir}/%{name}/translations/%{name}_lemon_*.qm
 
 %files lhtr
 %defattr(-,root,root)
@@ -3116,11 +3124,13 @@ EOF
 %files musiczombie
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_musiczombie.so
+%{_datadir}/%{name}/translations/%{name}_musiczombie_*.qm
 
 # %%files nacheku
 # %%defattr(-,root,root)
 # %%{_libdir}/%%{name}/plugins/lib%%{name}_nacheku.so
 # %%{_datadir}/%%{name}/settings/nachekusettings.xml
+# %%{_datadir}/%%{name}/translations/%%{name}_nacheku_*.qm
 
 %files netstoremanager
 %defattr(-,root,root)
@@ -3193,6 +3203,7 @@ EOF
 %files poshuku-autosearch
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_poshuku_autosearch.so
+%{_datadir}/%{name}/translations/%{name}_poshuku_autosearch_*.qm
 
 %files poshuku-cleanweb
 %defattr(-,root,root)
@@ -3221,6 +3232,7 @@ EOF
 %defattr(-,root,root,-)
 %{plugin_dir}/*%{name}_poshuku_keywords.so
 %{settings_dir}/poshukukeywordssettings.xml
+%{_datadir}/%{name}/translations/%{name}_poshuku_keywords_*.qm
 
 %files poshuku-onlinebookmarks
 %defattr(-,root,root)
@@ -3245,15 +3257,18 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_sb2.so
 %{_datadir}/%{name}/qml/sb2/
 %{_datadir}/%{name}/settings/sb2panelsettings.xml
+%{_datadir}/%{name}/translations/%{name}_sb2_*.qm
 
 %files scroblibre
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_scroblibre.so
 %{_datadir}/%{name}/settings/scroblibresettings.xml
+%{_datadir}/%{name}/translations/%{name}_scroblibre_*.qm
 
 %files secman
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_secman.so
+%{_datadir}/%{name}/translations/%{name}_secman_*.qm
 
 %files secman-simplestorage
 %defattr(-,root,root)
@@ -3288,6 +3303,7 @@ EOF
 %files sysnotify
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_sysnotify.so
+%{_datadir}/%{name}/translations/%{name}_sysnotify_*.qm
 
 %files tabsessionmanager
 %defattr(-,root,root)
