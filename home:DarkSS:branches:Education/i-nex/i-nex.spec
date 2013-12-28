@@ -17,24 +17,21 @@
 
 
 Name:           i-nex
-Version:        0.5.6
+Version:        0.5.8
 Release:        1
 Summary:        System information tool
 
 License:        LGPL-3.0+
-Url:            https://launchpad.net/i-nex
+Url:            http://i-nex.linux.pl
 Group:          System/X11/Utilities
-Source0:        https://launchpad.net/i-nex/trunk/%{version}/+download/i-nex_%{version}.orig.tar.xz
-# series of patches to have full/correct functionality in openSUSE
-Patch1:         %{name}_src.patch
-
-BuildArch:      noarch
+Source0:        https://github.com/eloaders/I-Nex/archive/%{version}.tar.gz
 
 %if 0%{?suse_version} <= 1210
 BuildRequires:  freeglut
 %else
 BuildRequires:  Mesa-demo-x
 %endif
+BuildRequires:  fdupes
 BuildRequires:  gambas3-devel >= 3.5.0
 BuildRequires:  gambas3-gb-desktop >= 3.5.0
 BuildRequires:  gambas3-gb-form >= 3.5.0
@@ -88,7 +85,7 @@ user interface similar to the popular Windows tool CPU-Z.
 pastebinit required for publishing the hardware configuration.
 
 %prep
-%setup -qc
+%setup -q -n I-Nex-%{version}
 # A hack to be able to run the program via the name execution.
 #+ some info tools are under *sbin
 cat > %{name}.sh <<HERE
@@ -97,9 +94,11 @@ cat > %{name}.sh <<HERE
 export LIBOVERLAY_SCROLLBAR=0 PATH=/sbin:/usr/sbin:\$PATH
 exec %{_bindir}/%{name}.gambas
 HERE
-%patch1 -p1
+
 #using system's pastebinit
-%__sed -i '\|/usr/share/i-nex/pastebinit/|s|/usr/share/i-nex/pastebinit/||' src/i-nex/.src/Reportm.module
+%__sed -i \
+       '\|/usr/share/i-nex/pastebinit/|s|/usr/share/i-nex/pastebinit/||' \
+       src/i-nex/.src/Reports/MPastebinit.module
 %__cp src/i-nex/logo/i-nex.0.4.x.png $RPM_SOURCE_DIR/%{name}.png
 %{__sed} -e 's|env LIBOVERLAY_SCROLLBAR=0 /usr/bin/i-nex.gambas|i-nex|' \
          -e '/^Icon=/s|=.*|=%{name}|' debian/%{name}.desktop > %{name}.desktop
@@ -108,16 +107,27 @@ HERE
 make V=1 %{?_smp_mflags}
 
 %install
+make V=1 DESTDIR=%{buildroot} install
+
+# A hack to be able to run the program via the name execution.
 %{__install} -D -m 755 %{name}.sh %{buildroot}%{_bindir}/%{name}
-%{__install} -m 755 src/i-nex/%{name}.gambas debian/check_kernel %{buildroot}%{_bindir}/
+
+# Let's use %%doc macro.
+rm -rf %{buildroot}%{_datadir}/doc/%{name}
+
+# Let's use system's `pastebinit`.
+rm -rf %{buildroot}%{_datadir}/%{name}
+
 %suse_update_desktop_file -i -G "I-Nex, system information tool" %{name} HardwareSettings
+
+%fdupes -s %{buildroot}%{_datadir}/pixmaps
 
 %files
 %defattr(-,root,root,-)
 %doc debian/changelog* COPYING LICENSE README
-%{_bindir}/%{name}*
+%{_bindir}/*i*nex*
 %{_bindir}/check_kernel
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/pixmaps/%{name}*.png
 
 %changelog

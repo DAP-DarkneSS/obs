@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sat Dec 28 20:45:18 UTC 2013 - dap.darkness@gmail.com
+- Upstream version 0.5.8:
+  * no upstream changelog.
+- Switched to
+  * semipolish upstream url;
+  * github's tarball;
+  * not noarch because of new utility;
+  * `make install`.
+- Removed i-nex_src.patch as merged by upstream.
+
+-------------------------------------------------------------------
 Mon Nov 25 18:06:10 UTC 2013 - dap.darkness@gmail.com
 - Upstream version 0.5.6:
   * no upstream changelog.
