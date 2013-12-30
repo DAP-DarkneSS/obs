@@ -1,4 +1,37 @@
 -------------------------------------------------------------------
+Mon Dec 30 16:18:59 UTC 2013 - dap.darkness@gmail.com
+
+- 0.6.60 release:
+  * Desktop mode provides a full-featured desktop environment;
+  * LMP social collection-oriented audio player improvements;
+  * See more at http://leechcraft.org/leechcraft-0.6.60-is-released
+- New plugins were enabled:
+  * Azoth Murm: VK.com (VKontakte) api messaging support;
+  * Azoth WoodPecker: Twitter support;
+  * Blasq is a new plugin for cloud image photo albums;
+  * Devmon for managing non-mass storage USB devices;
+  * Fenet is responsible for autostarting a window manager;
+  * Harbinger provides a collections manager plugin;
+  * Htthare provides content from local filesystem over LANs;
+  * Imgaste for uploading images to imagebins;
+  * Krigstask provides a taskbar and a pager quark for SB2;
+  * Laughty is a system-wide desktop notifications daemon;
+  * LMP MTPSync, LMP subplugin for uploading music via MTP;
+  * Mellonetray provides a system tray area quark for SB2;
+  * Monocle Dil contains a MOBI subplugin for documents viewer;
+  * Scroblibre, a Submissions API 1.2-compliant scrobbler;
+  * Sysnotify, a notification backend using the libnotify D-Bus;
+  * VtyuLC, experimental VLC-based video player;
+  * Xtazy for fetching currently playing tune from players.
+- Maintainership:
+  * Removed leechcraft-otlozhu-0.6.0-cpp.patch;
+  * Added leechcraft-azoth-gcc47.patch vs. oS 12.2' gcc issue;
+  * %%make_jobs was switched back because it requires kde;
+  * Build requirements were replaced by pkgconfig();
+  * cmake section was refactored again.
+  
+
+-------------------------------------------------------------------
 Sat Dec 21 16:11:29 UTC 2013 - dap.darkness@gmail.com
 
 - Added leechcraft-otlozhu-0.6.0-cpp.patch to prevent strange

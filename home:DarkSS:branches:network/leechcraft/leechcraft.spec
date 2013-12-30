@@ -22,68 +22,93 @@
 %define azoth_dir %{_datadir}/%{name}/azoth
 
 Name:           leechcraft
-Version:        0.6.0
+Version:        0.6.60
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 Source0:        http://dist.leechcraft.org/LeechCraft/%{version}/leechcraft-%{version}.tar.xz
-# PATCH-FIX-UPSTREAM to prevent strange build
-# issue: "error: no type named 'type' in 'struct",
-# https://github.com/0xd34df00d/leechcraft/commit/170e8
-Patch0:         leechcraft-otlozhu-0.6.0-cpp.patch
+# PATCH-FIX-OPENSUSE to prevent oS 12.2' gcc build issue:
+# "error: the value of 'w' is not usable in a constant expression".
+Patch1:         leechcraft-azoth-gcc47.patch
 
 %if 0%{?suse_version} > 1230
 BuildRequires:  boost-devel >= 1.50
 %else
 BuildRequires:  boost-devel
 %endif
+%ifarch x86_64
+BuildRequires:  cmake > 2.8.10
+%else
 BuildRequires:  cmake > 2.8
+%endif
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 BuildRequires:  gcc-c++ >= 4.7
 BuildRequires:  hicolor-icon-theme
-BuildRequires:  hunspell-devel
 %if 0%{?suse_version} > 1230
 BuildRequires:  jbig2dec-devel
 %endif
-BuildRequires:  kdebase4-workspace-devel
-BuildRequires:  libGeoIP-devel
-BuildRequires:  libQtWebKit-devel
-BuildRequires:  libbz2-devel
-BuildRequires:  libcurl-devel
-BuildRequires:  libdjvulibre-devel
+BuildRequires:  libjpeg-devel
 BuildRequires:  liblastfm-devel
-BuildRequires:  libmsn-devel
-BuildRequires:  libnl3-devel
 BuildRequires:  libotr-devel
-BuildRequires:  libpoppler-qt4-devel
-%ifarch %ix86 x86_64 ppc ppc64 armv7l armv7hl
-BuildRequires:  libpurple-devel
-%endif
-BuildRequires:  libqca2-devel
-BuildRequires:  libqjson-devel
 BuildRequires:  libqscintilla-devel
-BuildRequires:  libqt4-devel >= 4.8
 BuildRequires:  libqt4-sql
-BuildRequires:  libqxmpp-devel >= 0.7.4
 BuildRequires:  libsensors4-devel
-BuildRequires:  libspectre-devel
-BuildRequires:  libtorrent-rasterbar-devel >= 0.15.6
+BuildRequires:  libtidy-devel
 %if 0%{?suse_version} > 1230
 %ifarch %ix86 x86_64 %arm
 BuildRequires:  mupdf-devel-static
-BuildRequires:  openjpeg-devel
 %endif
 %endif
-BuildRequires:  pcre-devel
-BuildRequires:  phonon-devel
 BuildRequires:  qwt6-devel
-BuildRequires:  speex-devel
-BuildRequires:  taglib-devel
-BuildRequires:  update-desktop-files
-BuildRequires:  xz
+BuildRequires:  pkgconfig(QJson) >= 0.8.1
+BuildRequires:  pkgconfig(QtCore) >= 4.8
+BuildRequires:  pkgconfig(QtWebKit)
+BuildRequires:  pkgconfig(bzip2)
+BuildRequires:  pkgconfig(ddjvuapi)
+BuildRequires:  pkgconfig(geoip)
+BuildRequires:  pkgconfig(libmtp)
+BuildRequires:  pkgconfig(libnl-3.0)
+BuildRequires:  pkgconfig(libpcre)
+BuildRequires:  pkgconfig(libspectre)
+BuildRequires:  pkgconfig(phonon)
+%ifarch %ix86 x86_64 ppc ppc64 armv7l armv7hl
+BuildRequires:  pkgconfig(purple)
+%endif
+BuildRequires:  pkgconfig(speex)
+BuildRequires:  pkgconfig(taglib)
+%if 0%{?suse_version} > 1230
+BuildRequires:  pkgconfig(gstreamer-app-1.0)
+%else
+BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
+%endif
+BuildRequires:  pkgconfig(hunspell)
+BuildRequires:  pkgconfig(kqoauth)
+BuildRequires:  pkgconfig(libcurl)
+%if 0%{?suse_version} > 1230
+BuildRequires:  pkgconfig(libguess)
+%endif
+BuildRequires:  pkgconfig(libmsn)
+%if 0%{?suse_version} > 1230
+%ifarch %ix86 x86_64 %arm
+BuildRequires:  pkgconfig(libopenjpeg)
+%endif
+%endif
+BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
+%if 0%{?suse_version} > 1230
+BuildRequires:  pkgconfig(libvlc)
+%endif
+BuildRequires:  pkgconfig(poppler-cpp)
+BuildRequires:  pkgconfig(poppler-qt4)
+BuildRequires:  pkgconfig(qca2)
+BuildRequires:  pkgconfig(qxmpp) >= 0.7.4
+BuildRequires:  pkgconfig(udev)
+BuildRequires:  pkgconfig(xcomposite)
+BuildRequires:  pkgconfig(xdamage)
+BuildRequires:  pkgconfig(xkbfile)
+BuildRequires:  pkgconfig(xrender)
 
 Requires:       oxygen-icon-theme
 
@@ -177,15 +202,13 @@ Summary:        LeechCraft Crash handler Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Requires:       kdebase4-runtime
+Requires:       gdb
+Recommends:     %{name}-dolozhee
 
 %description anhero
 This package provides a crash handler plugin for LeechCraft.
 
-It uses KDE utils to handle crashes, show backtraces and aid
-in sending bug reports.
-
-KDE should not be running for AnHero to work.
+It shows backtraces and aids in sending bug reports.
 
 
 %package auscrie
@@ -193,6 +216,7 @@ Summary:        LeechCraft Screenshoter Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Requires:       %{name}-imgaste = %{version}
 
 %description auscrie
 This package provides a screenshooter plugin for LeechCraft.
@@ -209,6 +233,7 @@ Requires:       %{name} = %{version}
 Requires:       %{name}-azoth-chatstyler = %{version}
 Requires:       %{name}-azoth-protocolplugin
 Requires:       %{name}-securestorage = %{version}
+Suggests:       %{name}-azoth-standardstyles
 
 %description azoth
 This package provides a modular IM client for LeechCraft.
@@ -433,6 +458,18 @@ see nice rendered formulas instead of raw LaTeX code, even if their client
 doesn't have a LaTeX formatter.
 
 
+%package azoth-murm
+Summary:        LeechCraft Azoth - VKontakte Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-azoth = %{version}
+Provides:       %{name}-azoth-protocolplugin
+
+%description azoth-murm
+This package provides a special protocol subplugin for extensive VKontakte
+messaging support plugin for LeechCraft Azoth.
+
+
 %package azoth-nativeemoticons
 Summary:        LeechCraft Azoth - Emoticons packs
 License:        BSL-1.0
@@ -542,11 +579,26 @@ This package provides a LibPurple plugin for LeechCraft Azoth.
 It supportes various protocols provided by Purple library.
 %endif
 
+%package azoth-woodpecker
+Summary:        LeechCraft Twitter Client Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Recommends:     libkqoauth0 >= 0.98
+Provides:       %{name}-woodpecker = %{version}
+Obsoletes:      %{name}-woodpecker < %{version}
+
+%description azoth-woodpecker
+This package provides a Twitter Client plugin for LeechCraft.
+
+
 %package azoth-xoox
 Summary:        LeechCraft Azoth - XMPP Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
+Requires:       libqxmpp0 >= 0.7.4
+Recommends:     libqxmpp0 >= 0.7.6
 Provides:       %{name}-azoth-protocolplugin
 
 %description azoth-xoox
@@ -575,6 +627,7 @@ Summary:        LeechCraft Azoth - Publishing current user tune Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
+Requires:       %{name}-xtazy = %{version}
 
 %description azoth-xtazy
 This package provides a tune publishing plugin for LeechCraft Azoth.
@@ -609,7 +662,7 @@ Summary:        LeechCraft BitTorrent client Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Requires:       %{name}-summaryrepresentation = %{version}
+Recommends:     %{name}-summaryrepresentation = %{version}
 
 %description bittorrent
 This package provides a bittorrent client for Leechcraft.
@@ -634,18 +687,79 @@ Features
 etc.
 
 
+%package blasq
+Summary:        LeechCraft Image storages Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-blasq-subplugin = %{version}
+
+%description blasq
+This package provides a modular Image storages plugin for LeechCraft.
+
+It supports different cloud image storages like Picasa or Flick.
+
+
+%package blasq-deathnote
+Summary:        LeechCraft DeathNote - LiveJournal FotoBilder client Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-blasq = %{version}
+Provides:       %{name}-blasq-subplugin = %{version}
+
+%description blasq-deathnote
+This package provides a LiveJournal FotoBilder image storage client subplugin
+for LeechCraft Blasq.
+
+
+%package blasq-rappor
+Summary:        LeechCraft Blasq - VKontakte client Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-blasq = %{version}
+Provides:       %{name}-blasq-subplugin = %{version}
+
+%description blasq-rappor
+This package provides a VKontakte image storage client subplugin
+for LeechCraft Blasq.
+
+
+%package blasq-vangog
+Summary:        LeechCraft Picasa - Flickr client Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-blasq = %{version}
+Provides:       %{name}-blasq-subplugin = %{version}
+
+%description blasq-vangog
+This package provides a Picasa image storage client subplugin
+for LeechCraft Blasq.
+
+
+%package blasq-spegnersi
+Summary:        LeechCraft Blasq - Flickr client Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-blasq = %{version}
+Provides:       %{name}-blasq-subplugin = %{version}
+
+%description blasq-spegnersi
+This package provides a Flickr image storage client subplugin
+for LeechCraft Blasq.
+
+
 %package blogique
 Summary:        LeechCraft Blogging client Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-blogique-subplugin = %{version}
-Requires:       %{name}-lhtr = %{version}
+Recommends:     %{name}-lhtr
 
 %description blogique
 This package provides a modular Blogging client plugin for LeechCraft.
 
-It will support different blogging platforms via different submodules.
+It supports different blogging platforms via different submodules.
 
 
 %package blogique-hestia
@@ -666,6 +780,7 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-blogique = %{version}
+Recommends:     %{name}-xtazy = %{version}
 Provides:       %{name}-blogique-subplugin = %{version}
 
 %description blogique-metida
@@ -698,14 +813,9 @@ Summary:        LeechCraft D-Bus Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Provides:       %{name}-visualnotifications
 
 %description dbusmanager
 This package provides a D-Bus implementation plugin for LeechCraft.
-
-It allows to use D-Bus. Currently, this only means showing notifications
-via implementations supporting FreeDesktop's notifications standard,
-like KDE 4.4 (or higher), Gnome, XFCE and others.
 
 
 %package deadlyrics
@@ -715,6 +825,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-http = %{version}
 Requires:       %{name}-summaryrepresentation = %{version}
+Provides:       %{name}-lyricsprovider
 
 %description deadlyrics
 This package provides a lyrics finder plugin for LeechCraft.
@@ -733,6 +844,17 @@ Requires:       %{name} = %{version}
 This package provides files required for development for LeechCraft.
 
 It contains header files required to develop new modules.
+
+
+%package devmon
+Summary:        LeechCraft Device Monitor Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Recommends:     %{name}-secman = %{version}
+
+%description devmon
+This package provides a devices monitor plugin for LeechCraft.
 
 
 %package dolozhee
@@ -761,6 +883,72 @@ Provides:       %{name}-soundnotifications = %{version}
 This package provides a dumb sound notifier plugin for LeechCraft.
 
 It also uses Phonon as a backend or something like aplay/mplayer.
+
+
+%package fenet
+Summary:        LeechCraft Window Manager Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Provides:       %{name}-fenet-compton = %{version}
+Recommends:     %{name}-hotsensors
+Recommends:     %{name}-kbswitch
+Recommends:     %{name}-krigstask
+Recommends:     %{name}-laughty
+Recommends:     %{name}-launchy
+Recommends:     %{name}-lemon
+Recommends:     %{name}-liznoo
+Recommends:     %{name}-mellonetray
+Recommends:     %{name}-sb2
+Recommends:     %{name}-tpi
+Recommends:     %{name}-vrooby
+Recommends:     compton
+Requires:       %{name} = %{version}
+Requires:       %{name}-fenet-wm = %{version}
+
+%description fenet
+This package provides a WM control plugin for Leechcraft.
+
+
+%package fenet-awesome
+Summary:        LeechCraft Fenet Awesome Stuff
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+BuildArch:      noarch
+Provides:       %{name}-fenet-wm = %{version}
+Requires:       %{name}-fenet = %{version}
+Requires:       awesome
+
+%description fenet-awesome
+This package allows to start Leechcraft as a Desktop Environment with
+the Awesome Window Manager.
+
+
+%package fenet-kwin
+Summary:        LeechCraft Fenet Kwin Stuff
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+BuildArch:      noarch
+Provides:       %{name}-fenet-wm = %{version}
+Requires:       %{name}-fenet = %{version}
+Requires:       kwin
+
+%description fenet-kwin
+This package allows to start Leechcraft as a Desktop Environment with
+the KDE Window Manager.
+
+
+%package fenet-openbox
+Summary:        LeechCraft Fenet Openbox Stuff
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+BuildArch:      noarch
+Provides:       %{name}-fenet-wm = %{version}
+Requires:       %{name}-fenet = %{version}
+Requires:       openbox
+
+%description fenet-openbox
+This package allows to start Leechcraft as a Desktop Environment with
+the Openbox Window Manager.
 
 
 %package gacts
@@ -804,6 +992,16 @@ It has configurable frequency of the updates and the number of last unread
 messages shown.
 
 
+%package harbinger
+Summary:        LeechCraft Collections Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description harbinger
+This package provides a collections manager plugin for LeechCraft.
+
+
 %package historyholder
 Summary:        LeechCraft History Module
 License:        BSL-1.0
@@ -827,11 +1025,34 @@ Requires:       %{name}-lmp = %{version}
 This package provides a radio streams provider plugin for LeechCraft.
 
 
+%if 0%{?suse_version} > 1230
+%package htthare
+Summary:        LeechCraft Http Server Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description htthare
+This package provides content from local filesystem over LANs (and
+possibly WANs, but by default only LAN interfaces are listened on).
+%endif
+
+%package imgaste
+Summary:        LeechCraft Image Paster Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description imgaste
+This module provides a simple image paster plugin from LeechCraft
+
+
 %package kbswitch
 Summary:        LeechCraft keyboard switcher Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Requires:       setxkbmap
 Provides:       %{name}-keyboardcraft = %{version}
 Obsoletes:      %{name}-keyboardcraft < %{version}
 
@@ -845,6 +1066,7 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-visualnotifications
+Recommends:     %{name}-poshuku
 
 %description kinotify
 This package contains a fancy notifications plugin for LeechCraft.
@@ -871,6 +1093,17 @@ Requires:       %{name} = %{version}
 This package provides a tips plugin for LeechCraft.
 
 It allows to display tips of the day window after launch LeechCraft.
+
+
+%package krigstask
+Summary:        LeechCraft Applications Switcher Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-sb2 = %{version}
+
+%description krigstask
+This package provides an applications switcher quark for LeechCraft SB2.
 
 
 %package lackman
@@ -906,6 +1139,7 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-lmp = %{version}
+Provides:       %{name}-scrobbler
 
 %description lastfmscrobble
 This package contains a LastFMScrobble plugin for LeechCraft.
@@ -924,6 +1158,17 @@ Features:
  * Fetching recent releases of artists that are in the user's collection.
  * Fetching artists biography.
  * Configurable language of the fetched information.
+
+
+%package laughty
+Summary:        LeechCraft Notifications Server Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Conflicts:      %{name}-sysnotify
+
+%description laughty
+This package provides a desktop notifications server plugin for Leechcraft.
 
 
 %package launchy
@@ -953,6 +1198,7 @@ Summary:        LeechCraft HTML WYSIWYG editor Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Recommends:     %{name}-poshuku
 
 %description lhtr
 This package provides a HTML WYSIWYG editor plugin for Leechcraft.
@@ -989,10 +1235,21 @@ Summary:        LeechCraft Media player Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Recommends:     %{name}-deadlyrics = %{version}
-Recommends:     %{name}-lastfmscrobble = %{version}
+Recommends:     %{name}-lyricsprovider
+Recommends:     %{name}-gacts = %{version}
+Recommends:     %{name}-scrobbler
 Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
+%if 0%{?suse_version} > 1230
+Requires:       gstreamer-plugins-base >= 1.0
+Requires:       gstreamer-plugins-good >= 1.0
+Recommends:     gstreamer-plugins-bad >= 1.0
+%else
+Requires:       gstreamer-0_10-plugins-base
+Requires:       gstreamer-0_10-plugins-good
+Recommends:     gstreamer-0_10-plugins-bad
+Recommends:     gstreamer-0_10-plugins-fluendo_mp3
+%endif
 Provides:       %{name}-audioplayer
 Provides:       %{name}-soundnotifications = %{version}
 
@@ -1000,7 +1257,7 @@ Provides:       %{name}-soundnotifications = %{version}
 This package provides a audio player plugin for LeechCraft.
 
 It allows to play audio and stream audio.
-It uses Phonon as a backend thus supporting major codecs.
+It uses Gstreamer as a backend thus supporting major codecs.
 
 Features:
  * Support for major audio formats.
@@ -1015,7 +1272,6 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name}-lmp = %{version}
 Recommends:     %{name}-hotstreams = %{version}
-Recommends:     %{name}-lastfmscrobble = %{version}
 Recommends:     %{name}-vrooby = %{version}
 
 %description lmp-dumbsync
@@ -1037,7 +1293,7 @@ It allows to manipulate audio file tags.
 
 
 %package lmp-mp3tunes
-Summary:        LeechCraft mp3tunes
+Summary:        LeechCraft mp3tunes.com Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name}-lmp = %{version}
@@ -1050,6 +1306,29 @@ It allows to sync and use the mp3tunes.com service.
 Features:
  * Using many accounts.
  * Getting playlists.
+
+
+%package lmp-mtpsync
+Summary:        LeechCraft MtpSync Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-devmon = %{version}
+Requires:       %{name}-lmp = %{version}
+
+%description lmp-mtpsync
+This package allows to sync with MTP devices via LeechCraft.
+
+
+%package mellonetray
+Summary:        LeechCraft Tray Area Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-sb2 = %{version}
+
+%description mellonetray
+This package provides a tray area quark for third-party apps
+for LeechCraft SB2.
 
 
 %package monocle
@@ -1077,6 +1356,20 @@ Provides:       %{name}-monocle-subplugin
 This package contains a FictionBook subplugin for LeechCraft Monocle.
 
 This package provides FB2 documents support for Document viewer Module.
+
+
+%package monocle-dik
+Summary:        LeechCraft Monocle - MOBI Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-monocle = %{version}
+Provides:       %{name}-monocle-subplugin
+
+%description monocle-dik
+This package contains a MOBI subplugin for LeechCraft Monocle.
+
+This package provides MOBI documents support for Document viewer Module.
 
 
 %if 0%{suse_version} > 1230
@@ -1148,7 +1441,7 @@ via the DjvuLibre backend.
 
 
 %package musiczombie
-Summary:        LeechCraft Azoth - MusicBrainz
+Summary:        LeechCraft Azoth - MusicBrainz.org client Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
@@ -1297,6 +1590,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-webbrowser
 Obsoletes:      poshuku-wyfv
+Recommends:     %{name}-imgaste = %{version}
 
 %description poshuku
 This package provides a web browser plugin for LeechCraft.
@@ -1461,6 +1755,27 @@ This package provides another side bar plugin for Leechcraft.
 It is a next-gen fluid sidebar with quick launch, tabs and tray areas.
 
 
+%package scroblibre
+Summary:        LeechCraft Submissions Protocol Scrobble Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+Provides:       %{name}-scrobbler
+
+%description scroblibre
+This package contains a Scroblibre plugin for LeechCraft.
+
+It is an implementation of the submissions protocol 1.2 with
+support ( http://www.audioscrobbler.net/development/protocol )
+for sites other than last.fm (libre.fm for now). It can
+potentially handle arbitrary scrobbling URLs implementing the
+submissions protocol, but it is not exposed in the GUI (yet).
+ 
+Scroblibre is a supplement for LastFMScrobble module, and the
+latter is still the recommended one because of all the social
+features it offers which Scroblibre lacks.
+
+
 %package secman
 Summary:        LeechCraft Security manager Module
 License:        BSL-1.0
@@ -1549,6 +1864,21 @@ and views for selected items.
  * Category-based search query support via other plugins.
 
 
+%package sysnotify
+Summary:        LeechCraft System notifications Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Provides:       %{name}-visualnotifications
+Conflicts:      %{name}-laughty
+
+%description sysnotify
+This package contains a system notifications plugin for LeechCraft.
+
+It provides notifications via implementations supporting FreeDesktop's
+notifications standard, like KDE 4.4 (or higher), Gnome, XFCE and others.
+
+
 %package tabsessionmanager
 Summary:        LeechCraft Tab Session Manager Module
 License:        BSL-1.0
@@ -1621,6 +1951,24 @@ Features:
  * Search for audios and videos.
 
 
+%if 0%{?suse_version} > 1230
+%package vtyulc
+Summary:        LeechCraft Video player Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Recommends:     %{name}-liznoo
+Recommends:     vlc-codecs
+Provides:       %{name}-vlc = %{version}
+Obsoletes:      %{name}-vlc < %{version}
+
+%description vtyulc
+This package provides a video player plugin for LeechCraft.
+
+It allows to play video (local files, web, DVD etc).
+It uses vlc library as a backend thus supporting major codecs.
+%endif
+
 %package vrooby
 Summary:        LeechCraft Removable storage devices Manager
 License:        BSL-1.0
@@ -1647,9 +1995,23 @@ This package provides an advanced proxy manager for LeechCraft.
 It allows to configure and use proxy servers.
 
 
+%package xtazy
+Summary:        LeechCraft Current user tune Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description xtazy
+This package provides a tune wrapper plugin for LeechCraft.
+
+It allows to get current user tune via mpris protocol.
+
+
 %prep
 %setup -q
-%patch0 -p1
+%if 0%{?suse_version} <= 1220
+%patch1 -p1
+%endif
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -1673,99 +2035,113 @@ cmake ../src \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
-        -DENABLE_AZOTH_ASTRALITY=False \
-        -DENABLE_AZOTH_OTROID=True \
-        -DENABLE_AZOTH_ZHEET=True \
+                -DENABLE_AZOTH_ASTRALITY=False \
+                -DENABLE_AZOTH_OTROID=True \
+                -DENABLE_AZOTH_SHX=True \
+%ifarch %ix86 x86_64 ppc ppc64 armv7l armv7hl
+                -DENABLE_AZOTH_VELVETBIRD=True \
+%else
+                -DENABLE_AZOTH_VELVETBIRD=False \
+%endif
+                -DENABLE_AZOTH_ZHEET=True \
+                -DENABLE_MEDIACALLS=True \
         -DENABLE_BLACKDASH=False \
+        -DENABLE_BLOGIQUE=True \
+        -DENABLE_CHOROID=False \
         -DENABLE_DOLOZHEE=True \
+        -DENABLE_DUMBEEP=True \
+                -DDUMBEEP_WITH_PHONON=True \
         -DENABLE_GACTS=True \
-        -DWITH_GACTS_BUNDLED_QXT=True \
+                -DWITH_GACTS_BUNDLED_QXT=True \
         -DENABLE_GLANCE=True \
+        -DENABLE_GMAILNOTIFIER=True \
+        -DENABLE_HOTSENSORS=False \
+        -DENABLE_HOTSTREAMS=True \
+%if 0%{?suse_version} > 1230
+        -DENABLE_HTTHARE=True \
+%else
+        -DENABLE_HTTHARE=False \
+%endif
         -DENABLE_KBSWITCH=True \
         -DENABLE_KNOWHOW=True \
         -DENABLE_LACKMAN=True \
         -DENABLE_LADS=False \
-        -DENABLE_MEDIACALLS=True \
-        -DENABLE_NACHEKU=False \
-        -DENABLE_NEWLIFE=True \
-        -DENABLE_PINTAB=True \
-        -DENABLE_POPISHU=True \
-        -DENABLE_POSHUKU_AUTOSEARCH=True \
-        -DENABLE_QROSP=False \
-        -DENABLE_SECMAN=True \
-        -DENABLE_SHELLOPEN=True \
-        -DENABLE_SNAILS=False \
-        -DENABLE_SYNCER=False \
-        -DENABLE_TABSLIST=True \
-        -DENABLE_TWIFEE=False \
-        -DENABLE_AZOTH_SHX=True \
-%ifarch %ix86 x86_64 ppc ppc64 armv7l armv7hl
-        -DENABLE_AZOTH_VELVETBIRD=True \
-%else
-        -DENABLE_AZOTH_VELVETBIRD=False \
-%endif
-        -DENABLE_BLOGIQUE=True \
-        -DENABLE_CHOROID=False \
-        -DENABLE_DUMBEEP=True \
-        -DDUMBEEP_WITH_PHONON=True \
-        -DENABLE_GMAILNOTIFIER=True \
-        -DENABLE_HOTSENSORS=False \
-        -DENABLE_HOTSTREAMS=True \
         -DENABLE_LASTFMSCROBBLE=True \
         -DENABLE_LAUNCHY=True \
         -DENABLE_LEMON=True \
         -DENABLE_LHTR=True \
+                -DWITH_LHTR_HTML=True \
         -DENABLE_LIZNOO=True \
         -DENABLE_LMP=True \
-        -DENABLE_LMP_GRAFFITI=True \
-        -DENABLE_LMP_MPRIS=True \
+                -DENABLE_LMP_GRAFFITI=True \
+%if 0%{?suse_version} > 1230
+                -DENABLE_LMP_LIBGUESS=True \
+%else
+                -DENABLE_LMP_LIBGUESS=False \
+%endif
+                -DENABLE_LMP_MPRIS=True \
+                -DENABLE_LMP_MTPSYNC=True \
+%if 0%{?suse_version} > 1230
+                -DUSE_GSTREAMER_10=True \
+%endif
         -DENABLE_MONOCLE=True \
-        -DENABLE_MUSICZOMBIE=True \
-        -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
-        -DENABLE_NETSTOREMANAGER=True \
-        -DENABLE_OTLOZHU=True \
-        -DENABLE_POGOOGLUE=True \
-        -DENABLE_SB2=True \
-        -DENABLE_SHAITAN=False \
-        -DENABLE_TABSESSMANAGER=True \
-        -DENABLE_TORRENT=True \
-        -DENABLE_BITTORRENT_GEOIP=True \
-        -DENABLE_TPI=True \
-        -DENABLE_VROOBY=True \
 %if 0%{?suse_version} > 1230
 %ifarch %ix86 x86_64 %arm
-        -DENABLE_MONOCLE_MU=True \
-        -DMUPDF_VERSION=0x0102 \
+                -DENABLE_MONOCLE_MU=True \
+                -DMUPDF_VERSION=0x0102 \
 %else
-        -DENABLE_MONOCLE_MU=False \
+                -DENABLE_MONOCLE_MU=False \
 %endif
 %else
-        -DENABLE_MONOCLE_MU=False \
+                -DENABLE_MONOCLE_MU=False \
 %endif
+        -DENABLE_MUSICZOMBIE=True \
+                -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
+        -DENABLE_NACHEKU=False \
+        -DENABLE_NETSTOREMANAGER=True \
+        -DENABLE_NEWLIFE=True \
+        -DENABLE_OTLOZHU=True \
+                -DENABLE_OTLOZHU_SYNC=False \
+        -DENABLE_PINTAB=True \
+        -DENABLE_POGOOGLUE=True \
+        -DENABLE_POLEEMERY=False \
+        -DENABLE_POPISHU=True \
+        -DENABLE_POSHUKU_AUTOSEARCH=True \
+                -DUSE_POSHUKU_CLEANWEB_PCRE=True \
+        -DENABLE_QROSP=False \
+        -DENABLE_SB2=True \
+        -DENABLE_SECMAN=True \
+        -DENABLE_SHAITAN=False \
+        -DENABLE_SHELLOPEN=True \
+        -DENABLE_SNAILS=False \
+        -DENABLE_SYNCER=False \
+        -DENABLE_TABSESSMANAGER=True \
+        -DENABLE_TABSLIST=True \
+        -DENABLE_TEXTOGROOSE=False \
+        -DENABLE_TORRENT=True \
+                -DENABLE_BITTORRENT_GEOIP=True \
 %if 0%{?suse_version} > 1230
         -DENABLE_TOUCHSTREAMS=True \
 %else
         -DENABLE_TOUCHSTREAMS=False \
 %endif
-        -DUSE_POSHUKU_CLEANWEB_PCRE=True \
+        -DENABLE_TPI=True \
+        -DENABLE_TWIFEE=False \
+%if 0%{?suse_version} > 1230
+        -DENABLE_VTYULC=True \
+%else
+        -DENABLE_VTYULC=False \
+%endif
+        -DENABLE_VROOBY=True \
         -DLEECHCRAFT_VERSION=%{version}
 
 %build
 cd build
-%make_jobs
+make %{?_smp_mflags} VERBOSE=1
 
 %install
 cd build
 %makeinstall
-
-%suse_update_desktop_file -i %{name}
-%suse_update_desktop_file -i %{name}-azoth-acetamide
-%suse_update_desktop_file -i %{name}-azoth-xoox
-%suse_update_desktop_file -i %{name}-bittorrent
-%suse_update_desktop_file -i %{name}-monocle-fxb
-%suse_update_desktop_file -i %{name}-monocle-pdf
-%suse_update_desktop_file -i %{name}-monocle-postrus
-%suse_update_desktop_file -i %{name}-monocle-seen
 
 %fdupes -s %{buildroot}%{_datadir}/%{name}/translations
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth
@@ -1782,6 +2158,7 @@ cd build
 %{_bindir}/%{name}
 %{_bindir}/%{name}-add-file
 %{_bindir}/%{name}-handle-file
+%{_bindir}/lc_plugin_wrapper
 %{settings_dir}/coresettings.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/*/*
@@ -1795,10 +2172,8 @@ cd build
 %{translations_dir}/leechcraft_??_??.qm
 %dir %{_libdir}/%{name}
 %dir %{plugin_dir}
-%{_libdir}/*lcutil.so.*
-%{_libdir}/*xmlsettingsdialog.so.*
+%{_libdir}/*%{name}-*.so.*
 %doc %{_mandir}/man1/%{name}*.1.gz
-%{_datadir}/%{name}/sounds
 %{_datadir}/%{name}/global_icons/
 %dir %{_datadir}/%{name}/themes
 %dir %{_datadir}/%{name}/themes/*
@@ -1813,6 +2188,7 @@ cd build
 %{translations_dir}/leechcraft_advancednotifications*
 %{settings_dir}/advancednotificationssettings.xml
 %{_datadir}/%{name}/qml/advancednotifications
+%{_datadir}/%{name}/sounds
 
 %files aggregator
 %defattr(-,root,root)
@@ -1828,8 +2204,10 @@ cd build
 
 %files anhero
 %defattr(-,root,root)
+%{_bindir}/lc_anhero_crashprocess
 %{plugin_dir}/*%{name}_anhero.so
 %{translations_dir}/leechcraft_anhero*
+%doc %{_mandir}/man*/lc_anhero_crashprocess*
 
 %files auscrie
 %defattr(-,root,root)
@@ -1858,6 +2236,7 @@ cd build
 %defattr(644,root,root,755)
 %{plugin_dir}/*%{name}_azoth_adiumstyles*
 %{_datadir}/%{name}/azoth/styles/adium
+%{_datadir}/%{name}/translations/%{name}_azoth_adiumstyles_*.qm
 
 %files azoth-autoidler
 %defattr(-,root,root)
@@ -1913,6 +2292,7 @@ cd build
 %files azoth-juick
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_juick.so
+%{_datadir}/%{name}/translations/%{name}_azoth_juick_*.qm
 
 %files azoth-keeso
 %defattr(-,root,root)
@@ -1935,9 +2315,16 @@ cd build
 %{translations_dir}/leechcraft_azoth_modnok*
 %{azoth_dir}/lc_azoth_modnok_latexconvert.sh
 
+%files azoth-murm
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_azoth_murm.so
+%{_datadir}/%{name}/translations/%{name}_azoth_murm*.qm
+%{settings_dir}/azothmurmsettings.xml
+
 %files azoth-nativeemoticons
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_nativeemoticons.so
+%{_datadir}/%{name}/translations/%{name}_azoth_nativeemoticons_*.qm
 
 %files azoth-otroid
 %defattr(-,root,root)
@@ -1960,11 +2347,13 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_shx.so
 %{_datadir}/%{name}/settings/azothshxsettings.xml
+%{_datadir}/%{name}/translations/%{name}_azoth_shx_*.qm
 
 %files azoth-standardstyles
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_standardstyles.so
 %{_datadir}/%{name}/azoth/styles/standard/
+%{_datadir}/%{name}/translations/%{name}_azoth_standardstyles_*.qm
 
 %files azoth-vader
 %defattr(-,root,root)
@@ -1977,6 +2366,12 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_velvetbird.so
 %endif
+
+%files azoth-woodpecker
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_azoth_woodpecker.so
+%{_datadir}/%{name}/settings/azothwoodpeckersettings.xml
+%{_datadir}/%{name}/translations/%{name}_azoth_woodpecker_*.qm
 
 %files azoth-xoox
 %defattr(-,root,root)
@@ -2003,6 +2398,34 @@ cd build
 %{plugin_dir}/*%{name}_bittorrent.so
 %{_datadir}/applications/%{name}-bittorrent.desktop
 
+%files blasq
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_blasq.so
+%{_datadir}/%{name}/settings/blasqsettings.xml
+%{_datadir}/%{name}/qml/blasq
+%{_datadir}/%{name}/translations/%{name}_blasq_??.qm
+%{_datadir}/%{name}/translations/%{name}_blasq_??_??.qm
+
+%files blasq-spegnersi
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_blasq_spegnersi.so
+%{_datadir}/%{name}/translations/%{name}_blasq_spegnersi*.qm
+
+%files blasq-deathnote
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_blasq_deathnote.so
+%{_datadir}/%{name}/translations/%{name}_blasq_deathnote*.qm
+
+%files blasq-rappor
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_blasq_rappor.so
+%{_datadir}/%{name}/translations/%{name}_blasq_rappor*.qm
+
+%files blasq-vangog
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_blasq_vangog.so
+%{_datadir}/%{name}/translations/%{name}_blasq_vangog*.qm
+
 %files blogique
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blogique.so
@@ -2010,17 +2433,20 @@ cd build
 %{_datadir}/%{name}/translations/%{name}_blogique_??.qm
 %{_datadir}/%{name}/translations/%{name}_blogique_??_??.qm
 %dir %{_datadir}/%{name}/qml/blogique
+%{_datadir}/%{name}/qml/blogique/*.qml
+%{_datadir}/%{name}/qml/blogique/*.js
 
 %files blogique-hestia
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blogique_hestia.so
 %{_datadir}/%{name}/settings/blogiquehestiasettings.xml
+%{_datadir}/%{name}/translations/%{name}_blogique_hestia*.qm
 
 %files blogique-metida
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_blogique_metida.so
 %{_datadir}/%{name}/settings/blogiquemetidasettings.xml
-%{_datadir}/%{name}/qml/blogique/metida/
+%{_datadir}/%{name}/translations/%{name}_blogique_metida*.qm
 
 %files cstp
 %defattr(-,root,root)
@@ -2043,9 +2469,13 @@ cd build
 %defattr(-,root,root)
 %{_datadir}/%{name}/cmake
 %{_includedir}/%{name}
-%{_libdir}/*lcutil.so
-%{_libdir}/*xmlsettingsdialog.so
+%{_libdir}/*%{name}-*.so
 %{_datadir}/cmake/Modules/InitLCPlugin.cmake
+
+%files devmon
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_devmon.so
+%{_datadir}/%{name}/translations/%{name}_devmon_*.qm
 
 %files dolozhee
 %defattr(-,root,root)
@@ -2057,10 +2487,40 @@ cd build
 %{_libdir}/%{name}/plugins/lib%{name}_dumbeep.so
 %{_datadir}/%{name}/settings/dumbeepsettings.xml
 
+%files fenet
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_fenet.so
+%{_datadir}/%{name}/settings/fenetsettings.xml
+%{_bindir}/%{name}-session
+%dir %{_datadir}/%{name}/fenet
+%{_datadir}/%{name}/fenet/compositing
+%dir %{_datadir}/%{name}/fenet/wms
+%{_datadir}/xsessions/LCDE.desktop
+%{_datadir}/%{name}/translations/%{name}_fenet_*.qm
+
+%files fenet-awesome
+%defattr(-,root,root)
+%dir %{_datadir}/%{name}/fenet
+%dir %{_datadir}/%{name}/fenet/wms
+%{_datadir}/%{name}/fenet/wms/*awesome*
+
+%files fenet-kwin
+%defattr(-,root,root)
+%dir %{_datadir}/%{name}/fenet
+%dir %{_datadir}/%{name}/fenet/wms
+%{_datadir}/%{name}/fenet/wms/*kwin*
+
+%files fenet-openbox
+%defattr(-,root,root)
+%dir %{_datadir}/%{name}/fenet
+%dir %{_datadir}/%{name}/fenet/wms
+%{_datadir}/%{name}/fenet/wms/*openbox*
+
 %files gacts
 %defattr(-,root,root)
 %doc src/plugins/gacts/3rdparty/qxt/LICENSE
 %{_libdir}/%{name}/plugins/*%{name}_gacts.so
+%{_datadir}/%{name}/translations/%{name}_gacts_*.qm
 
 %files glance
 %defattr(-,root,root)
@@ -2074,6 +2534,10 @@ cd build
 %{translations_dir}/leechcraft_gmailnotifier*
 %{_datadir}/%{name}/qml/gmailnotifier/
 
+%files harbinger
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/libleechcraft_harbinger.so
+
 %files historyholder
 %defattr(-,root,root)
 %{plugin_dir}/*leechcraft_historyholder.so
@@ -2082,11 +2546,27 @@ cd build
 %files hotstreams
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_hotstreams.so
+%{_datadir}/%{name}/translations/%{name}_hotstreams_*.qm
+
+%if 0%{?suse_version} > 1230
+%files htthare
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_htthare.so
+%{_datadir}/%{name}/settings/httharesettings.xml
+%{_datadir}/%{name}/translations/%{name}_htthare_*.qm
+%endif
+
+%files imgaste
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_imgaste.so
+%{_datadir}/%{name}/translations/%{name}_imgaste_*.qm
 
 %files kbswitch
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_kbswitch.so
 %{_datadir}/%{name}/settings/kbswitchsettings.xml
+%{_datadir}/%{name}/translations/%{name}_kbswitch_*.qm
+%{_datadir}/%{name}/qml/kbswitch
 
 %files kinotify
 %defattr(-,root,root)
@@ -2101,6 +2581,12 @@ cd build
 %{plugin_dir}/*%{name}_knowhow.so
 %{settings_dir}/knowhowsettings.xml
 
+%files krigstask
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_krigstask.so
+%{_datadir}/%{name}/qml/krigstask
+%{_datadir}/%{name}/translations/%{name}_krigstask_*.qm
+
 %files lackman
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_lackman.so
@@ -2113,6 +2599,11 @@ cd build
 %{_datadir}/%{name}/settings/lastfmscrobblesettings.xml
 %{_datadir}/%{name}/translations/%{name}_lastfmscrobble_*.qm
 
+%files laughty
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_laughty.so
+%{_datadir}/%{name}/translations/%{name}_laughty_*.qm
+
 %files launchy
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_launchy.so
@@ -2123,6 +2614,7 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lemon.so
 %{_datadir}/%{name}/qml/lemon/
+%{_datadir}/%{name}/translations/%{name}_lemon_*.qm
 
 %files lhtr
 %defattr(-,root,root)
@@ -2142,6 +2634,7 @@ cd build
 %{_datadir}/%{name}/translations/%{name}_lmp_??.qm
 %{_datadir}/%{name}/translations/%{name}_lmp_??_??.qm
 %{plugin_dir}/*%{name}_lmp.so
+%{_datadir}/applications/%{name}-lmp*.desktop
 
 %files lmp-dumbsync
 %defattr(-,root,root)
@@ -2161,11 +2654,25 @@ cd build
 %{_libdir}/%{name}/plugins/*%{name}_lmp_mp3tunes.so
 %{_datadir}/%{name}/settings/lmpmp3tunessettings.xml
 
+%files lmp-mtpsync
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_lmp_mtpsync.so
+
+%files mellonetray
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_mellonetray.so
+%{_datadir}/%{name}/qml/mellonetray/
+%{_datadir}/%{name}/translations/%{name}_mellonetray_*.qm
+
 %files monocle
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle.so
 %{_datadir}/%{name}/translations/%{name}_monocle_*.qm
 %{_datadir}/%{name}/settings/monoclesettings.xml
+
+%files monocle-dik
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_monocle_dik.so
 
 %files monocle-fxb
 %defattr(-,root,root)
@@ -2198,6 +2705,7 @@ cd build
 %files musiczombie
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_musiczombie.so
+%{_datadir}/%{name}/translations/%{name}_musiczombie_*.qm
 
 %files netstoremanager
 %defattr(-,root,root)
@@ -2255,6 +2763,7 @@ cd build
 %files poshuku-autosearch
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_poshuku_autosearch.so
+%{_datadir}/%{name}/translations/%{name}_poshuku_autosearch_*.qm
 
 %files poshuku-cleanweb
 %defattr(-,root,root)
@@ -2283,6 +2792,7 @@ cd build
 %defattr(-,root,root,-)
 %{plugin_dir}/*%{name}_poshuku_keywords.so
 %{settings_dir}/poshukukeywordssettings.xml
+%{_datadir}/%{name}/translations/%{name}_poshuku_keywords_*.qm
 
 %files poshuku-onlinebookmarks
 %defattr(-,root,root)
@@ -2302,10 +2812,19 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_sb2.so
 %{_datadir}/%{name}/qml/sb2/
+%{_datadir}/%{name}/settings/sb2panelsettings.xml
+%{_datadir}/%{name}/translations/%{name}_sb2_*.qm
+
+%files scroblibre
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_scroblibre.so
+%{_datadir}/%{name}/settings/scroblibresettings.xml
+%{_datadir}/%{name}/translations/%{name}_scroblibre_*.qm
 
 %files secman
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_secman.so
+%{_datadir}/%{name}/translations/%{name}_secman_*.qm
 
 %files secman-simplestorage
 %defattr(-,root,root)
@@ -2326,6 +2845,11 @@ cd build
 %defattr(-,root,root)
 %{translations_dir}/%{name}_summary*.qm
 %{plugin_dir}/*%{name}_summary.so
+
+%files sysnotify
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_sysnotify.so
+%{_datadir}/%{name}/translations/%{name}_sysnotify_*.qm
 
 %files tabsessionmanager
 %defattr(-,root,root)
@@ -2356,6 +2880,14 @@ cd build
 %{translations_dir}/%{name}_vgrabber*.qm
 %{plugin_dir}/*%{name}_vgrabber.so
 
+%if 0%{?suse_version} > 1230
+%files vtyulc
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_vtyulc.so
+%{_datadir}/%{name}/settings/vtyulcsettings.xml
+%{_datadir}/%{name}/translations/%{name}_vtyulc_*.qm
+%endif
+
 %files vrooby
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_vrooby.so
@@ -2366,5 +2898,11 @@ cd build
 %{_libdir}/%{name}/plugins/lib%{name}_xproxy.so
 %{_datadir}/%{name}/settings/xproxysettings.xml
 %{_datadir}/%{name}/translations/%{name}_xproxy_*.qm
+
+%files xtazy
+%defattr(-,root,root)
+%{_datadir}/%{name}/settings/xtazysettings.xml
+%{_libdir}/%{name}/plugins/*%{name}_xtazy.so
+%{_datadir}/%{name}/translations/%{name}_xtazy*
 
 %changelog
