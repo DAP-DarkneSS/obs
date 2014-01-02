@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION '0.6.60 RC2 (0.5.95-4111-g1f66f1a)'
+%define LEECHCRAFT_VERSION 0.6.60-41-gee7e98f
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -54,70 +54,83 @@ Patch0:         azoth-entry-activates.patch
 Patch4:         leechcraft-azoth-gcc47.patch
 %endif
 
+
 %if 0%{?suse_version} > 1230
 BuildRequires:  boost-devel >= 1.50
 %else
 BuildRequires:  boost-devel
 %endif
+%ifarch x86_64
+BuildRequires:  cmake > 2.8.10
+%else
 BuildRequires:  cmake > 2.8
+%endif
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 BuildRequires:  gcc-c++ >= 4.7
-# BuildRequires:  herqq-devel
 BuildRequires:  hicolor-icon-theme
-BuildRequires:  hunspell-devel
 %if 0%{?suse_version} > 1230
 BuildRequires:  jbig2dec-devel
 %endif
-BuildRequires:  libGeoIP-devel
-BuildRequires:  pkgconfig(QtWebKit)
-BuildRequires:  libXcomposite-devel
-BuildRequires:  libXdamage-devel
-BuildRequires:  libXrender-devel
-BuildRequires:  libbz2-devel
-BuildRequires:  libcurl-devel
-BuildRequires:  pkgconfig(ddjvuapi)
 BuildRequires:  libjpeg-devel
 BuildRequires:  liblastfm-devel
-BuildRequires:  libmsn-devel
-BuildRequires:  libmtp-devel
-BuildRequires:  libnl3-devel
 BuildRequires:  libotr-devel
-BuildRequires:  pkgconfig(poppler-cpp)
-BuildRequires:  pkgconfig(poppler-qt4)
-BuildRequires:  libpurple-devel
-BuildRequires:  pkgconfig(qca2)
-BuildRequires:  pkgconfig(QJson) >= 0.8.1
 BuildRequires:  libqscintilla-devel
-BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  libqt4-sql
-BuildRequires:  pkgconfig(qxmpp) >= 0.7.4
-# BuildRequires:  libqxt1-devel
 BuildRequires:  libsensors4-devel
-BuildRequires:  libspectre-devel
 BuildRequires:  libtidy-devel
-BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
-BuildRequires:  libudev-devel
-BuildRequires:  libxkbfile-devel
 %if 0%{?suse_version} > 1230
+%ifarch %ix86 x86_64 %arm
 BuildRequires:  mupdf-devel-static
-BuildRequires:  openjpeg-devel
 %endif
-BuildRequires:  pcre-devel
-BuildRequires:  phonon-devel
+%endif
 BuildRequires:  qwt6-devel
-BuildRequires:  speex-devel
-BuildRequires:  taglib-devel
+BuildRequires:  pkgconfig(QJson) >= 0.8.1
+BuildRequires:  pkgconfig(QtCore) >= 4.8
+BuildRequires:  pkgconfig(QtWebKit)
+BuildRequires:  pkgconfig(bzip2)
+BuildRequires:  pkgconfig(ddjvuapi)
+BuildRequires:  libGeoIP-devel
+BuildRequires:  pkgconfig(libmtp)
+BuildRequires:  pkgconfig(libnl-3.0)
+BuildRequires:  pkgconfig(libpcre)
+BuildRequires:  pkgconfig(libspectre)
+BuildRequires:  pkgconfig(phonon)
+%ifarch %ix86 x86_64 ppc ppc64 armv7l armv7hl
+BuildRequires:  pkgconfig(purple)
+%endif
+BuildRequires:  pkgconfig(speex)
+BuildRequires:  pkgconfig(taglib)
 %if 0%{?suse_version} > 1230
 BuildRequires:  pkgconfig(gstreamer-app-1.0)
 %else
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
 %endif
+BuildRequires:  pkgconfig(hunspell)
 BuildRequires:  pkgconfig(kqoauth)
+BuildRequires:  pkgconfig(libcurl)
 %if 0%{?suse_version} > 1230
 BuildRequires:  pkgconfig(libguess)
+%endif
+BuildRequires:  pkgconfig(libmsn)
+%if 0%{?suse_version} > 1230
+%ifarch %ix86 x86_64 %arm
+BuildRequires:  pkgconfig(libopenjpeg)
+%endif
+%endif
+BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
+%if 0%{?suse_version} > 1230
 BuildRequires:  pkgconfig(libvlc)
 %endif
+BuildRequires:  pkgconfig(poppler-cpp)
+BuildRequires:  pkgconfig(poppler-qt4)
+BuildRequires:  pkgconfig(qca2)
+BuildRequires:  pkgconfig(qxmpp) >= 0.7.4
+BuildRequires:  pkgconfig(udev)
+BuildRequires:  pkgconfig(xcomposite)
+BuildRequires:  pkgconfig(xdamage)
+BuildRequires:  pkgconfig(xkbfile)
+BuildRequires:  pkgconfig(xrender)
 
 
 BuildRequires:  Qross-devel
@@ -2317,7 +2330,7 @@ It allows to get current user tune via mpris protocol.
 # %%if 0%%{?suse_version} > 1230
 # %%patch3
 # %%endif
-%if 0%{?suse_version} <= 1230
+%if 0%{?suse_version} <= 1220
 %patch4 -p1
 %endif
 
