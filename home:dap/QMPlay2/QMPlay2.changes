@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Fri Jan  3 19:43:19 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 14.01.03 (changes since 13.12.15):
+  * Method processParams () from "PrepareForHWBobDeint" was fixed;
+  * Automatic search for the correct settings for sound;
+  * Ability to add your own radio stations;
+  * Improved modules ALSA and PortAudio;
+  * Fixed a bug in ALSA plugin because of bad sound cards;
+  * Added German translation (Daniel Meiß-Wilhelm);
+  * "Playback setting" menu was fixed; 
+  * Possibility to save the skin;
+  * Minor code fixes.
+- pkgconfig(alsa) >= 1.0.26 became required to prevent build issue.
+
+-------------------------------------------------------------------
 Sun Dec 15 13:04:50 UTC 2013 - dap.darkness@gmail.com
 
 - Update to 13.12.15 (changes since 13.12.07):
