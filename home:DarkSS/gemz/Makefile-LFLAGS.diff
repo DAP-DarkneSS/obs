@@ -1,0 +1,11 @@
+--- Makefile.orig	2004-05-07 08:39:47.000000000 +0300
++++ Makefile	2014-01-04 21:53:30.780000061 +0300
+@@ -18,7 +18,7 @@
+ all: gemz
+ 
+ gemz:	$(OBJS)
+-	gcc $(CFLAGS) -o $@ $(LFLAGS) $(OBJS)
++	gcc $(CFLAGS) -o $@ $(OBJS) $(LFLAGS)
+ 
+ clean:
+ 	rm -f $(OBJS)
