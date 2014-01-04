@@ -1,21 +1,46 @@
-Name:    monsterz
-Version: 0.7.1
-Release: %mkrel 9
-# in reality, this is the DWYF license..
-License: WTFPL
-Group:   Games/Puzzles
-Summary: A little addictive puzzle game
-Source:  http://sam.zoy.org/projects/monsterz/%{name}-%{version}.tar.bz2
-#gw Debian man page
-Source1:    monsterz.1
-Patch:      monsterz-fix-crash-x86_64.patch
-#gw from Debian, fix crash on start (bug #49431)
-Patch1:     020_fix_blit_crash.diff
-Url:        http://sam.zoy.org/projects/monsterz
+#
+# spec file for package monsterz
+#
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
 
-Requires:   pygame
-BuildArch:  noarch
-BuildRequires: imagemagick
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
+#
+
+
+Name:           monsterz
+Version:        0.7.1
+Release:        0
+Summary:        A little addictive puzzle game
+License:        SUSE-WTFPL-2.0
+Group:          Amusements/Games/Board/Puzzle
+Url:            http://sam.zoy.org/projects/monsterz
+
+Source:         http://sam.zoy.org/monsterz/monsterz-%{version}.tar.gz
+#gw Debian man page
+Source1:        monsterz.1
+# PATCH-FIX-OPENSUSE really from original Mageia package.
+Patch0:         monsterz-fix-crash-x86_64.patch
+# PATCH-FIX-OPENSUSE also from original Mageia package.
+#gw from Debian, fix crash on start (bug #49431)
+Patch1:         020_fix_blit_crash.diff
+
+BuildRoot:	    %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRequires:  fdupes
+BuildRequires:  update-desktop-files
+# libmikmod might be installed to prevent runtime startup error.
+Requires:       libmikmod
+Requires:       python-pygame
+BuildArch:      noarch
+
 
 %description
 Monsterz is a little puzzle game, similar to the famous Bejeweled or Zookeeper.
@@ -29,151 +54,43 @@ reactions earn you even more points.
 This game is mostly about luck, but it remains highly addictive. You have been
 warned.
 
+
 %prep
 %setup -q
-%patch -p0
+%patch0
 %patch1 -p1
+
 
 %build
 
 %install
-mkdir -p $RPM_BUILD_ROOT/%{_gamesdatadir}/%{name}
-cp -R monsterz.py graphics/ sound/ $RPM_BUILD_ROOT/%{_gamesdatadir}/%{name}
+mkdir -p %{buildroot}/%{_datadir}/%{name}
+cp -R monsterz.py graphics/ sound/ %{buildroot}/%{_datadir}/%{name}
 
-mkdir -p $RPM_BUILD_ROOT/%{_gamesbindir}/
+mkdir -p %{buildroot}/%{_bindir}/
 
-cat > $RPM_BUILD_ROOT/%{_gamesbindir}/%{name} <<EOF
+cat > %{buildroot}/%{_bindir}/%{name} <<EOF
 #!/bin/bash
-exec python %{_gamesdatadir}/%{name}/monsterz.py
+exec python %{_datadir}/%{name}/monsterz.py
 EOF
 
-chmod 755 $RPM_BUILD_ROOT/%{_gamesbindir}/%{name}
+chmod 755 %{buildroot}/%{_bindir}/%{name}
 
+install -D graphics/logo.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
+%suse_update_desktop_file -c %{name} %{name} "A little addictive puzzle game" %{name} %{name} "Game;BlocksGame;"
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-cat > $RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop << EOF
-[Desktop Entry]
-Name=Monsterz
-Comment=Addictive puzzle game
-Exec=%_gamesbindir/%{name}
-Icon=%name
-Terminal=false
-Type=Application
-StartupNotify=true
-Categories=Game;BlocksGame;
-EOF
+install -D %{SOURCE1} %{buildroot}%{_mandir}/man6/%{name}.6
 
-mkdir -p $RPM_BUILD_ROOT{%{_miconsdir},%{_iconsdir},%{_liconsdir}}/
-convert -geometry 16x16 graphics/icon.png $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
-convert -geometry 32x32 graphics/icon.png $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
-convert -geometry 48x48 graphics/icon.png $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
-
-install -D %SOURCE1 %buildroot%_mandir/man6/%name.6
+%fdupes -s %{buildroot}%{_datadir}
 
 
 %files
-%doc AUTHORS COPYING INSTALL README TODO
-%{_gamesdatadir}/%{name}/
-%{_gamesbindir}/%{name}
-%_mandir/man6/%name.6*
-%_datadir/applications/*
-%{_miconsdir}/%{name}.png
-%{_iconsdir}/%{name}.png
-%{_liconsdir}/%{name}.png
-
+%defattr(-,root,root)
+%doc AUTHORS COPYING README TODO
+%{_datadir}/%{name}/
+%{_bindir}/%{name}
+%doc %attr(644,root,root) %{_mandir}/man6/%{name}.6*
+%{_datadir}/applications/*
+%{_datadir}/pixmaps/%{name}.png
 
 %changelog
-* Fri Oct 18 2013 umeabot <umeabot> 0.7.1-9.mga4
-+ Revision: 508009
-- Mageia 4 Mass Rebuild
-
-* Sat Jan 12 2013 umeabot <umeabot> 0.7.1-8.mga3
-+ Revision: 360270
-- Mass Rebuild - https://wiki.mageia.org/en/Feature:Mageia3MassRebuild
-
-* Sun Mar 04 2012 malo <malo> 0.7.1-7.mga2
-+ Revision: 217798
-- spec clean-up after import from Mandriva.
-- imported package monsterz
-
-
-* Fri Dec 10 2010 Oden Eriksson <oeriksson@mandriva.com> 0.7.1-7mdv2011.0
-+ Revision: 620392
-- the mass rebuild of 2010.0 packages
-
-* Mon Sep 14 2009 Thierry Vignaud <tv@mandriva.org> 0.7.1-6mdv2010.0
-+ Revision: 440091
-- rebuild
-
-* Thu Apr 02 2009 GÃ¶tz Waschk <waschk@mandriva.org> 0.7.1-5mdv2009.1
-+ Revision: 363488
-- fix crash on start (bug #49431)
-- add man page
-- update menu category
-
-  + Oden Eriksson <oeriksson@mandriva.com>
-    - lowercase ImageMagick
-
-* Wed Jul 30 2008 Michael Scherer <misc@mandriva.org> 0.7.1-4mdv2009.0
-+ Revision: 254949
-- fix bug #40989, patch from upstream
-
-* Tue Jul 29 2008 Thierry Vignaud <tv@mandriva.org> 0.7.1-3mdv2009.0
-+ Revision: 252763
-- rebuild
-- drop old menu
-
-  + Pixel <pixel@mandriva.com>
-    - rpm filetriggers deprecates update_menus/update_scrollkeeper/update_mime_database/update_icon_cache/update_desktop_database/post_install_gconf_schemas
-
-* Fri Jan 04 2008 JÃ©rÃ´me Soyer <saispo@mandriva.org> 0.7.1-1mdv2008.1
-+ Revision: 144997
-- New release
-
-  + Olivier Blin <oblin@mandriva.com>
-    - restore BuildRoot
-
-  + Thierry Vignaud <tv@mandriva.org>
-    - kill re-definition of %%buildroot on Pixel's request
-
-* Fri Sep 07 2007 Michael Scherer <misc@mandriva.org> 0.7.0-2mdv2008.0
-+ Revision: 81703
-- rebuild
-
-  + Thierry Vignaud <tv@mandriva.org>
-    - kill desktop-file-validate's 'warning: key "Encoding" in group "Desktop Entry" is deprecated'
-
-
-* Mon Jul 31 2006 Götz Waschk <waschk@mandriva.org> 0.7.0-1mdv2007.0
-- xdg menu
-- New release 0.7.0
-
-* Wed Oct 26 2005 Götz Waschk <waschk@mandriva.org> 0.6.1-1mdk
-- drop patch
-- New release 0.6.1
-
-* Mon Sep 12 2005 Michael Scherer <misc@mandriva.org> 0.6.0-4mdk
-- directly call the python script without cd, fix lack of music
-
-* Mon Sep 12 2005 Michael Scherer <misc@mandriva.org> 0.6.0-3mdk
-- patch0 to fix #18471, unlock surface when calling blit()
-- mkrel
-
-* Wed Apr 27 2005 Götz Waschk <waschk@mandriva.org> 0.6.0-2mdk
-- fix the license
-
-* Wed Apr 06 2005 GÃ¶tz Waschk <waschk@linux-mandrake.com> 0.6.0-1mdk
-- New release 0.6.0
-
-* Fri Apr 01 2005 Götz Waschk <waschk@linux-mandrake.com> 0.5.0-3mdk
-- add missing binary
-
-* Thu Mar 31 2005 Götz Waschk <waschk@linux-mandrake.com> 0.5.0-2mdk
-- fix buildrequires
-
-* Thu Mar 31 2005 Michael Scherer <misc@mandrake.org> 0.5.0-1mdk
-- New release 0.5.0
-
-* Mon Mar 21 2005 Michael Scherer <misc@mandrake.org> 0.4.1-1mdk
-- First Mandrakelinux package
-
