@@ -1,0 +1,19 @@
+--- jools-0.20/jools/__init__.py.sys	2004-05-03 21:45:05.600131687 +0200
++++ jools-0.20/jools/__init__.py	2004-05-03 21:45:22.338050858 +0200
+@@ -24,6 +24,7 @@
+ # Primary game control loop.
+ #
+ 
++import sys
+ 
+ try:
+    import pygame
+@@ -31,7 +32,7 @@
+    sys.exit("Jools requires Pygame, which does not appear to be installed.")
+ 
+ 
+-import os, random, sys
++import os, random
+ from pygame.locals import *
+ 
+ from globals import *

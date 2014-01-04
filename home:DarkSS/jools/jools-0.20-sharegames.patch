@@ -1,0 +1,22 @@
+=== modified file 'setup.py'
+--- foo/setup.py	2007-08-13 16:01:34 +0000
++++ bar/setup.py	2007-08-13 16:20:29 +0000
+@@ -23,7 +23,7 @@
+          ROOT = os.path.normpath(arg[(index+len("--root=")):])
+ 
+    config = open("jools/config.py", "w")
+-   config.write("MEDIAROOT = \"" + os.path.join(PREFIX,"share/jools") + "\"\n")
++   config.write("MEDIAROOT = \"" + os.path.join(PREFIX,"share/games/jools") + "\"\n")
+    config.close()
+ 
+ 
+@@ -35,7 +35,7 @@
+       fullFile = os.path.join(dirname, file)
+       if os.path.isfile(fullFile):
+          newFiles.append(fullFile)
+-   installList.append( (os.path.join('share', dirname), newFiles) )
++   installList.append( (os.path.join('share/games', dirname), newFiles) )
+ 
+ 
+ # Get all data files by walking through the proper directory trees
+
