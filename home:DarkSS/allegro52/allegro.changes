@@ -1,0 +1,95 @@
+-------------------------------------------------------------------
+Sun Jan  5 13:33:37 UTC 2014 - dap.darkness@gmail.com
+
+- update to 5.0.10
+  - changes: http://liballeg.org/changes.html
+
+-------------------------------------------------------------------
+Fri Mar 29 14:38:31 UTC 2013 - joop.boonen@opensuse.org
+
+- Adapted the License according to the spdx standard
+
+-------------------------------------------------------------------
+Sat Jan  5 13:23:31 UTC 2013 - reddwarf@opensuse.org
+
+- update to 5.0.8
+  - changes: http://liballeg.org/changes.html
+
+-------------------------------------------------------------------
+Tue Jul  3 10:36:31 UTC 2012 - adam@mizerski.pl
+
+- update to 5.0.7
+  - changes: http://liballeg.org/changes.html
+
+-------------------------------------------------------------------
+Tue Mar  6 21:22:48 UTC 2012 - adam@mizerski.pl
+
+- update to 5.0.6
+  - changes: http://liballeg.org/changes.html
+
+-------------------------------------------------------------------
+Wed Feb 29 01:55:35 UTC 2012 - adam@mizerski.pl
+
+- updated license information
+- added devel packages to baselibs
+- added BuildRequires: pkgconfig(glu)
+
+-------------------------------------------------------------------
+Thu Nov 17 14:57:37 UTC 2011 - adam@mizerski.pl
+
+- update to 5.0.5
+    - Graphics:
+        - Fixed several instances of windows being positioned wrong on Windows:
+          regular windows, WGL FULLSCREEN_WINDOW, and ALLEGRO_NOFRAME windows.
+        - Don't re-bind the FBO in al_set_target_bitmap if the new target bitmap
+          shares the parent bitmap with the new target bitmap (Paul Suntsov).
+        - Zero out fake refresh rate information from the nvidia proprietary
+          driver on X11 (Peter Wang).
+        - Implemented the ALLEGRO_FULLSCREEN_WINDOW flag for iOS.
+    - Input:
+        - Make al_set_mouse_xy work in fullscreen on Windows.
+        - Fixed a race condition in al_init_joystick.
+        - Fixed problem on OS X where having two identical gamepads attached
+          would cause joystick initialization to hang (Thanks to Todd Cope for
+          pointing it out.)
+        - Fixed iphone joystick events (it assumed a call to al_get_joystick but
+          that's not required when using events).
+    - TTF fonts:
+        - Save new bitmap flags and bitmap format at time of loading font and
+          use them when creating pages.
+    - Primitives addon:
+        - Very thin arcs/pieslices were not drawn due to an overzealous check
+          (Paul Suntsov).
+    - Native dialogs addon:
+        - Implemented al_show_native_message_box for iOS.
+    - Other:
+        - Use .../Library/Application Support for ALLEGRO_USER_SETTINGS_PATH and
+          ALLEGRO_USER_DATA_PATH on iOS.
+        - Listen for applicationDidBecomeActive and applicationWillResignActive
+          instead of applicationWillEnterForeground and
+          applicationDidEnterBackground on iOS. This makes all of the common
+          situations where you want to pause your game work, such as the lock
+          button.
+        - Fix some memory leaks on iOS.
+    - Documentation:
+        - Various documentation updates.
+        - Generate multiple copies of a man page for all the API entries that it
+          documents.
+
+-------------------------------------------------------------------
+Sun Sep 11 20:18:57 UTC 2011 - adam@mizerski.pl
+
+- added liballegro-doc subpackage
+- added baselibs.conf
+- added /etc/allegro5rc
+
+-------------------------------------------------------------------
+Tue Sep  6 11:34:43 UTC 2011 - reddwarf@opensuse.org
+
+- Update to 5.0.4
+
+-------------------------------------------------------------------
+Mon Feb 21 19:51:13 UTC 2011 - reddwarf@opensuse.org
+
+- Initial package
+
