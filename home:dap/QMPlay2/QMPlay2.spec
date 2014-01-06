@@ -16,7 +16,7 @@
 #
 
 Name:           QMPlay2
-Version:        14.01.03
+Version:        14.01.05
 Release:        0
 License:        GPL-3.0
 Summary:        A Qt based media player, streamer and downloader
@@ -28,7 +28,7 @@ BuildRequires:  kdebase4-workspace
 BuildRequires:  libXv-devel
 BuildRequires:  portaudio-devel
 BuildRequires:  pkgconfig(QtCore)
-BuildRequires:  pkgconfig(alsa) >= 1.0.26
+BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(libass)
 BuildRequires:  pkgconfig(libavcodec)
 BuildRequires:  pkgconfig(libavformat)

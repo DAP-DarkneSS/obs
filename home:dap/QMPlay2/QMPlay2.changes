@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Mon Jan  6 20:13:56 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 14.01.05 (changes since 14.01.03):
+
+  * Optional possibility of preview decoding through VDPAU;
+  * Fixed building with the old version of alsa-lib;
+  * The ability to playback in random order in the group;
+  * Improved VAApi performance and stability;
+  * Minor fixes in "VDPAU Writer.
+
+-------------------------------------------------------------------
 Fri Jan  3 19:43:19 UTC 2014 - dap.darkness@gmail.com
 
 - Update to 14.01.03 (changes since 13.12.15):
