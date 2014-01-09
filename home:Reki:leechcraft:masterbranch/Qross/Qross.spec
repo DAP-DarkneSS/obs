@@ -34,7 +34,7 @@ other, already existing scripting languages.
 
 
 Name:           Qross
-Version:        0.3.0
+Version:        0.3.1
 Release:        0
 License:        LGPL-2.0+
 Summary:        %{pack_summ}
@@ -83,7 +83,7 @@ cmake \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
-make %{?_smp_mflags}
+make %{?_smp_mflags} VERBOSE=1
 
 
 %install
