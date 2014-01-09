@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.60-77-gffa8b08
+%define LEECHCRAFT_VERSION 0.6.60-169-g96c6483
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
