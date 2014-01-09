@@ -24,7 +24,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.5.95-3980-g9b1b155
+%define LEECHCRAFT_VERSION 0.6.60-164-g6059017
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -1982,7 +1982,7 @@ cmake ../src \
 
 %build
 cd build
-make %{?_smp_mflags}
+make %{?_smp_mflags} VERBOSE=1
 
 %install
 cd build
@@ -2455,6 +2455,7 @@ cd build
 %files laughty
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_laughty.so
+%{_datadir}/%{name}/translations/%{name}_laughty_*.qm
 
 %files launchy
 %defattr(-,root,root)
@@ -2472,6 +2473,7 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lemon.so
 %{_datadir}/%{name}/qml/lemon/
+%{_datadir}/%{name}/translations/%{name}_lemon_*.qm
 
 %files lhtr
 %defattr(-,root,root)
@@ -2560,6 +2562,7 @@ cd build
 %files musiczombie
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_musiczombie.so
+%{_datadir}/%{name}/translations/%{name}_musiczombie_*.qm
 
 %files netstoremanager
 %defattr(-,root,root)
@@ -2623,6 +2626,7 @@ cd build
 %files poshuku-autosearch
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_poshuku_autosearch.so
+%{_datadir}/%{name}/translations/%{name}_poshuku_autosearch_*.qm
 
 %files poshuku-cleanweb
 %defattr(-,root,root)
@@ -2651,6 +2655,7 @@ cd build
 %defattr(-,root,root,-)
 %{plugin_dir}/*%{name}_poshuku_keywords.so
 %{settings_dir}/poshukukeywordssettings.xml
+%{_datadir}/%{name}/translations/%{name}_poshuku_keywords_*.qm
 
 %files poshuku-onlinebookmarks
 %defattr(-,root,root)
@@ -2671,15 +2676,18 @@ cd build
 %{_libdir}/%{name}/plugins/lib%{name}_sb2.so
 %{_datadir}/%{name}/qml/sb2/
 %{_datadir}/%{name}/settings/sb2panelsettings.xml
+%{_datadir}/%{name}/translations/%{name}_sb2_*.qm
 
 %files scroblibre
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_scroblibre.so
 %{_datadir}/%{name}/settings/scroblibresettings.xml
+%{_datadir}/%{name}/translations/%{name}_scroblibre_*.qm
 
 %files secman
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_secman.so
+%{_datadir}/%{name}/translations/%{name}_secman_*.qm
 
 %files secman-simplestorage
 %defattr(-,root,root)
@@ -2708,6 +2716,7 @@ cd build
 %files sysnotify
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_sysnotify.so
+%{_datadir}/%{name}/translations/%{name}_sysnotify_*.qm
 
 %files tabsessionmanager
 %defattr(-,root,root)
