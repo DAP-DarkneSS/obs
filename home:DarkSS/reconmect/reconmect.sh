@@ -27,7 +27,7 @@
 #==================================|Source|=================================#
 
 CHECKME1="8.8.4.4"
-CHECKME2="178.124.133.65"
+CHECKME2="84.201.225.101"
 SLEEP="11"
 FPING="/usr/sbin/fping"
 LOG="/tmp/reconmect.log"
