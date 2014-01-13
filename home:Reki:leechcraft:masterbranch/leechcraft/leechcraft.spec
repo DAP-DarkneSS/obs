@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.60-188-g377ff09
+%define LEECHCRAFT_VERSION 0.6.60-246-g5648d3e
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -53,6 +53,7 @@ Patch0:         azoth-entry-activates.patch
 %if 0%{?suse_version} <= 1230
 Patch4:         leechcraft-azoth-gcc47.patch
 %endif
+Patch5:         lhtr.patch
 
 
 %if 0%{?suse_version} > 1230
@@ -406,6 +407,8 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-visualnotifications = %{version}
 Recommends:     %{name}-soundnotifications = %{version}
+Provides:       %{name}-shellopen = %{version}
+Obsoletes:      %{name}-shellopen < %{version}
 
 %description advancednotifications
 This package provides an advanced notifications plugin for Leechcraft.
@@ -2114,19 +2117,6 @@ Requires:       xterm
 This package provides a terminal plugin for Leechcraft.
 
 
-%package shellopen
-Summary:        LeechCraft Shellopen Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description shellopen
-This package provides an opening files with external apps for LeechCraft.
-
-It allows to open files and handle entities with external applications.
-For example, you may choose to open a video file with your favorite media
-player instead of LC's one.
-
-
 #%%package snails
 #Summary:        LeechCraft Email client Module
 #Group:          Productivity/Networking/Other
@@ -2333,6 +2323,7 @@ It allows to get current user tune via mpris protocol.
 %if 0%{?suse_version} <= 1220
 %patch4 -p1
 %endif
+%patch5 -p1
 
 # Mine ;)
 rm src/core/resources/images/leechcraft.svg
@@ -2457,7 +2448,7 @@ cmake ../src \
         -DENABLE_SCROBLIBRE=True \
         -DENABLE_SECMAN=True \
         -DENABLE_SHAITAN=True \
-        -DENABLE_SHELLOPEN=True \
+        -DENABLE_SHELLOPEN=False \
         -DENABLE_SNAILS=False \
         -DENABLE_SYNCER=True \
         -DENABLE_TABSESSMANAGER=True \
@@ -3296,11 +3287,6 @@ EOF
 %files shaitan
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_shaitan.so
-
-%files shellopen
-%defattr(-,root,root)
-%{translations_dir}/%{name}_shellopen*.qm
-%{plugin_dir}/*%{name}_shellopen.so
 
 %files summary
 %defattr(-,root,root)
