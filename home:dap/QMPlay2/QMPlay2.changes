@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Thu Jan 16 18:47:28 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 14.01.10 (changes since 14.01.05):
+
+  * Added support for algorithms that eliminates
+    Intel VAApi card (VAEntrypointVideoProc);
+  * Fixed a lot of VAApi errors;
+  * Minor fixes in the code.
+
+-------------------------------------------------------------------
 Mon Jan  6 20:13:56 UTC 2014 - dap.darkness@gmail.com
 
 - Update to 14.01.05 (changes since 14.01.03):
