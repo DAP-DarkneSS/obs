@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.60-249-ge5328b3
+%define LEECHCRAFT_VERSION 0.6.60-291-g2be0553
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -767,6 +767,7 @@ It provides the enhanced experience with the psto.net microblogging service.
 Summary:        LeechCraft Azoth - Spell Checker Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
+Requires:       %{name}-rosenthal = %{version}
 
 %description azoth-rosenthal
 This package provides a spell checker plugin for LeechCraft Azoth.
@@ -1854,6 +1855,7 @@ This package provides a personal finances manager plugin for LeechCraft.
 Summary:        LeechCraft Text editor Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Recommends:     %{name}-rosenthal
 
 %description popishu
 This package provides a text editor plugin for LeechCraft.
@@ -2025,6 +2027,17 @@ Requires:       libqrosspython1
 
 %description qrosp
 This package contains a scripting support plugin for Leechcraft.
+
+
+%package rosenthal
+Summary:        LeechCraft - Spell Checker Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description rosenthal
+This package provides a spell checker plugin for LeechCraft.
+
+It is based on Hunspell or Myspell dictionaries.
 
 
 %package sb2
@@ -2727,7 +2740,7 @@ EOF
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_rosenthal.so
 %{translations_dir}/%{name}_azoth_rosenthal*
-%{settings_dir}/azothrosenthalsettings.xml
+# %%{settings_dir}/azothrosenthalsettings.xml
 
 %files azoth-shx
 %defattr(-,root,root)
@@ -3255,6 +3268,12 @@ EOF
 %files qrosp
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_qrosp.so
+
+%files rosenthal
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_rosenthal.so
+%{_datadir}/%{name}/translations/%{name}_rosenthal*
+%{_datadir}/%{name}/settings/rosenthalsettings.xml
 
 %files sb2
 %defattr(-,root,root)
