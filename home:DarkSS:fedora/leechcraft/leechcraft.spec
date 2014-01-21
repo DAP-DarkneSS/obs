@@ -24,7 +24,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.60-164-g6059017
+%define LEECHCRAFT_VERSION 0.6.60-356-g7fea1c2
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -117,6 +117,8 @@ Summary:        LeechCraft Notifications framework Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-visualnotifications = %{version}
+Provides:       %{name}-shellopen = %{version}
+Obsoletes:      %{name}-shellopen < %{version}
 
 %description advancednotifications
 This package provides an advanced notifications plugin for Leechcraft.
@@ -469,6 +471,7 @@ It provides the enhanced experience with the psto.net microblogging service.
 Summary:        LeechCraft Azoth - Spell Checker Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
+Requires:       %{name}-rosenthal = %{version}
 
 %description azoth-rosenthal
 This package provides a spell checker plugin for LeechCraft Azoth.
@@ -1594,6 +1597,17 @@ This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
 It provides support for the Read it Later service.
 
 
+%package rosenthal
+Summary:        LeechCraft - Spell Checker Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description rosenthal
+This package provides a spell checker plugin for LeechCraft.
+
+It is based on Hunspell or Myspell dictionaries.
+
+
 %package sb2
 Summary:        LeechCraft SideBar2 Module
 Group:          Productivity/Networking/Other
@@ -1682,19 +1696,6 @@ Requires:       xterm
 
 %description shaitan
 This package provides a terminal plugin for Leechcraft.
-
-
-%package shellopen
-Summary:        LeechCraft Shellopen Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description shellopen
-This package provides an opening files with external apps for LeechCraft.
-
-It allows to open files and handle entities with external applications.
-For example, you may choose to open a video file with your favorite media
-player instead of LC's one.
 
 
 %package summary
@@ -1962,7 +1963,7 @@ cmake ../src \
         -DENABLE_SCROBLIBRE=True \
         -DENABLE_SECMAN=True \
         -DENABLE_SHAITAN=True \
-        -DENABLE_SHELLOPEN=True \
+        -DENABLE_SHELLOPEN=False \
         -DENABLE_SNAILS=False \
         -DENABLE_SYNCER=False \
         -DENABLE_TABSESSMANAGER=True \
@@ -2186,7 +2187,7 @@ cd build
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_rosenthal.so
 %{translations_dir}/%{name}_azoth_rosenthal*
-%{settings_dir}/azothrosenthalsettings.xml
+# %%{settings_dir}/azothrosenthalsettings.xml
 
 %files azoth-shx
 %defattr(-,root,root)
@@ -2671,6 +2672,12 @@ cd build
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_poshuku_onlinebookmarks_readitlater.*
 
+%files rosenthal
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_rosenthal.so
+%{_datadir}/%{name}/translations/%{name}_rosenthal*
+%{_datadir}/%{name}/settings/rosenthalsettings.xml
+
 %files sb2
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_sb2.so
@@ -2702,11 +2709,6 @@ cd build
 %files shaitan
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_shaitan.so
-
-%files shellopen
-%defattr(-,root,root)
-%{translations_dir}/%{name}_shellopen*.qm
-%{plugin_dir}/*%{name}_shellopen.so
 
 %files summary
 %defattr(-,root,root)
