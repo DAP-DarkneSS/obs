@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.60-356-g7fea1c2
+%define LEECHCRAFT_VERSION 0.6.60-436-ga4d9202
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -234,6 +234,7 @@ This package is installed if a pattern is selected to have a working update path
 Summary:        Meta package for pattern leechcraft_browser
 Group:          Metapackages
 Requires:       %{name}-fenet
+# Requires:       %{name}-cpuload
 Requires:       %{name}-kbswitch
 Requires:       %{name}-krigstask
 Requires:       %{name}-laughty
@@ -1052,6 +1053,18 @@ Requires:       %{name} = %{version}
 This package provides an image viewer plugin for LeechCraft.
 
 
+# %package cpuload
+# Summary:        LeechCraft CPU Usage Monitoring Module
+# Group:          Productivity/Networking/Other
+# Requires:       %{name} = %{version}
+# Requires:       %{name}-sb2 = %{version}
+# 
+# %description cpuload
+# This package provides a quark for monitoring the CPU usage
+# for LeechCraft SB2. Monitoring memory and swap will also
+# be probably added later. For now it uses /proc/stat.
+
+
 %package cstp
 Summary:        LeechCraft HTTP Module
 Group:          Productivity/Networking/Other
@@ -1154,6 +1167,7 @@ It also uses Phonon as a backend or something like aplay/mplayer.
 %package fenet
 Summary:        LeechCraft Window Manager Module
 Group:          Productivity/Networking/Other
+# Recommends:     %{name}-cpuload
 Recommends:     %{name}-hotsensors
 Recommends:     %{name}-kbswitch
 Recommends:     %{name}-krigstask
@@ -2384,6 +2398,7 @@ cmake ../src \
 %endif
         -DENABLE_BLOGIQUE=True \
         -DENABLE_CHOROID=True \
+        -DENABLE_CPULOAD=False \
         -DENABLE_DEVMON=True \
         -DENABLE_DLNIWE=False \
         -DENABLE_DOLOZHEE=True \
@@ -2858,6 +2873,11 @@ EOF
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_choroid.so
 %{_datadir}/%{name}/qml/choroid
+
+# %files cpuload
+# %defattr(-,root,root)
+# %{_libdir}/%{name}/plugins/lib%{name}_cpuload.so
+# %{_datadir}/%{name}/qml/cpuload
 
 %files cstp
 %defattr(-,root,root)
