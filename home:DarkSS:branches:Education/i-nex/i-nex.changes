@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Sun Feb  2 11:18:57 UTC 2014 - dap.darkness@gmail.com
+
+- Upstream version 0.6.2:
+  * UPD License (GPL3+).
+  * New uname JSON.
+- openSUSE package:
+  * Make with rpm optflags.
+  * Noarch data subpackage.
+  * Post(un) sections.
+  * Added i-nex-json-no-static.diff to prevent build issue.
+
+-------------------------------------------------------------------
 Sat Dec 28 20:45:18 UTC 2013 - dap.darkness@gmail.com
 - Upstream version 0.5.8:
   * no upstream changelog.
