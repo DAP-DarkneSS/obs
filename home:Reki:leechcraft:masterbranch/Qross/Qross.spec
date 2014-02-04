@@ -1,7 +1,7 @@
 #
 # spec file for package Qross
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -18,19 +18,13 @@
 
 %define pack_summ A Qt-only fork of Kross
 
-%define pack_desc Kross is the new scripting framework \
-for KDE SC 4, the latest version of the KDE SC. Originally \
-Kross was designed for use in KOffice but eventually became the \
-official scripting framework in KDE SC 4. Kross is designed to \
-provide full scripting power for users of KDE applications, \
-with a language of their own choice; and make it easy for \
-developers targeting the KDE platform to enable their \
-application with support for multiple scripting languages \
-(without themselves needing to be proficient in any of them). \
+%define pack_desc Qross is a Qt-only fork of Kross, \
+the KDE scripting framework. \
 \
-The Kross scripting framework is not a scripting language \
-itself. It merely serves to plug into KDE the support for \
-other, already existing scripting languages.
+The Qross scripting framework is not a scripting language itself. \
+It merely serves to plug into C++/Qt applications the support for \
+other, already existing scripting languages, like JavaScript or \
+Python.
 
 
 Name:           Qross
@@ -40,9 +34,13 @@ License:        LGPL-2.0+
 Summary:        %{pack_summ}
 Url:            https://github.com/0xd34df00d/Qross
 Group:          System/Libraries
-Source0:        https://github.com/0xd34df00d/Qross/archive/%{version}.tar.gz
+# WARNING: don't forget to remove at least
+# src/bindings/csharp directory from upstream sources,
+# really only src/bindings/python works now, see more at
+# https://bugzilla.novell.com/show_bug.cgi?id=861882
+Source0:        %{name}-%{version}.tar.xz
 
-BuildRequires:  cmake
+BuildRequires:  cmake >= 2.8
 BuildRequires:  fdupes
 BuildRequires:  pkgconfig(QtCore)
 
@@ -70,16 +68,18 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}/src/qross
 
 
 %build
-cd src/qross
-cmake \
+mkdir build && cd build
+
+cmake .. \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
 %endif
-        -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
+        -DCMAKE_C_FLAGS="%{optflags}" \
+        -DCMAKE_CXX_FLAGS="%{optflags}" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
@@ -87,7 +87,7 @@ make %{?_smp_mflags} VERBOSE=1
 
 
 %install
-cd src/qross
+cd build
 %make_install
 
 %fdupes -s %{buildroot}%{_datadir}

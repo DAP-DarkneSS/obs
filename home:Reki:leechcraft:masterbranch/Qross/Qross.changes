@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Tue Feb  4 15:13:55 UTC 2014 - dap.darkness@gmail.com
+
+- src/bindings/csharp directory and other broken bingings
+  were deleted to resolve bnc#861882 (licensing issue).
+
+-------------------------------------------------------------------
+Fri 10 Jan 20:45:56 UTC 2014 - dap.darkness@gmail.com
+
+- SLE build failure became prevented.
+
+-------------------------------------------------------------------
 Sun Dec  1 11:28:34 UTC 2013 - dap.darkness@gmail.com
 
 - Initial build.
