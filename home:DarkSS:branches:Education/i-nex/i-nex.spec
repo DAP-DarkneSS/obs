@@ -48,9 +48,13 @@ BuildRequires:  gambas3-gb-qt4 >= 3.5.0
 BuildRequires:  gambas3-gb-qt4-ext >= 3.5.0
 BuildRequires:  gambas3-gb-settings >= 3.5.0
 BuildRequires:  hicolor-icon-theme
+%if 0%{?suse_version}
 BuildRequires:  lsb-release
+%endif
 BuildRequires:  net-tools
+%if 0%{?suse_version}
 BuildRequires:  openSUSE-release
+%endif
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(libcpuid)
 BuildRequires:  pkgconfig(libprocps)
@@ -60,9 +64,11 @@ BuildRequires:  pkgconfig(xext)
 BuildRequires:  pciutils
 BuildRequires:  procps
 BuildRequires:  update-desktop-files
+%if 0%{?suse_version}
 BuildRequires:  xorg-x11 >= 7.5
+%endif
 BuildRequires:  xz
-Requires:       %{name}-noarch = %{version}
+Requires:       %{name}-data = %{version}
 Requires:       gambas3-gb-desktop >= 3.5.0
 Requires:       gambas3-gb-form >= 3.5.0
 Requires:       gambas3-gb-form-dialog >= 3.5.0
@@ -75,6 +81,7 @@ Requires:       gambas3-gb-qt4 >= 3.5.0
 Requires:       gambas3-gb-qt4-ext >= 3.5.0
 Requires:       gambas3-gb-settings >= 3.5.0
 Requires:       gambas3-runtime >= 3.5.0
+%if 0%{?suse_version}
 %if 0%{?suse_version} <= 1210
 Recommends:     freeglut
 %else
@@ -89,6 +96,7 @@ Recommends:     procps
 Recommends:     python
 Recommends:     python-configobj
 Recommends:     xorg-x11 >= 7.5
+%endif
 
 %description
 An application that gathers information for hardware
@@ -139,7 +147,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 # Let's use system's `pastebinit`.
 rm -rf %{buildroot}%{_datadir}/%{name}
 
-%suse_update_desktop_file -i -G "I-Nex, system information tool" %{name} HardwareSettings
+%if 0%{?suse_version}
+%suse_update_desktop_file -r %{name} 'System;HardwareSettings;'
+%endif
 
 %fdupes -s %{buildroot}%{_datadir}
 
@@ -166,6 +176,14 @@ rm -rf %{buildroot}%{_datadir}/%{name}
 %{_bindir}/%{name}.gambas
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}*
+%if 0%{?suse_version}
 %{_datadir}/icons/hicolor/*/apps/%{name}.xpm
+%else
+# Fedora is really strange, so…
+%{_datadir}/icons/hicolor/16x16/apps/i-nex.xpm
+%{_datadir}/icons/hicolor/22x22/apps/i-nex.xpm
+%{_datadir}/icons/hicolor/32x32/apps/i-nex.xpm
+%{_datadir}/icons/hicolor/48x48/apps/i-nex.xpm
+%endif
 
 %changelog

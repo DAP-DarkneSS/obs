@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Feb  8 11:58:04 UTC 2014 - dap.darkness@gmail.com
+
+- Fedora package:
+  * initial build.
+
+-------------------------------------------------------------------
 Sun Feb  2 11:18:57 UTC 2014 - dap.darkness@gmail.com
 
 - Upstream version 0.6.2:
@@ -9,6 +15,9 @@ Sun Feb  2 11:18:57 UTC 2014 - dap.darkness@gmail.com
   * Noarch data subpackage.
   * Post(un) sections.
   * Added i-nex-json-no-static.diff to prevent build issue.
+  * Switched suse_update_desktop_file otion from -G to -r
+    to prevent 'W: invalid-desktopfile; multiple "GenericName"'.
+
 
 -------------------------------------------------------------------
 Sat Dec 28 20:45:18 UTC 2013 - dap.darkness@gmail.com
