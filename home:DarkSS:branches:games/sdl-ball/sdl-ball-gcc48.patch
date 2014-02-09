@@ -1,0 +1,16 @@
+Description: Fix FTBFS with gcc-4.8 by removing stray ‘,’
+Author: Juhani Numminen <juhaninumminen0@gmail.com>
+Bug-Debian: http://bugs.debian.org/701355
+Last-Update: 2013-06-06
+
+--- sdl-ball-1.01.orig/main.cpp
++++ sdl-ball-1.01/main.cpp
+@@ -1420,7 +1420,7 @@ int LinesCross(float x0,float y0,float x
+ //Leaves an trail of the ball
+ class tracer {
+   private:
+-    GLfloat x[100], y[100], r[100], g[100], b[100], a[100],s[100], cr,cg,cb,;
++    GLfloat x[100], y[100], r[100], g[100], b[100], a[100],s[100], cr,cg,cb;
+     bool active[100];
+     int color;
+     GLfloat lastX, lastY; //Last position where we spawned one
