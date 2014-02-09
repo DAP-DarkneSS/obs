@@ -30,9 +30,9 @@ Name:           monster-rpg-2
 Version:        2.1
 Release:        0
 Summary:        An Old School Japanese Style RPG
-License:        GiYOL
-Group:          Amusements/Games/RPG
 # http://www.nooskewl.com/content/official-license-post
+License:        SUSE-WTFPL-2.0
+Group:          Amusements/Games/RPG
 Url:            http://www.monster-rpg.com/
 Source0:        http://www.monster-rpg.com/stuff/downloads/monster-rpg-2-src-20130605-2.tar.bz2
 
@@ -129,11 +129,13 @@ for i in 72 512 1024; do install -Dm644 icon"$i".png %{buildroot}%{_datadir}/ico
 
 %fdupes -s %{buildroot}%{_datadir}
 
-%post   data
-%{icon_theme_cache_post}
+%post
+%desktop_database_post
+%icon_theme_cache_post
 
-%postun data
-%{icon_theme_cache_postun}
+%postun
+%desktop_database_postun
+%icon_theme_cache_postun
 
 %files
 %defattr(-,root,root)

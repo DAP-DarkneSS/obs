@@ -1,0 +1,13 @@
+-------------------------------------------------------------------
+Mon Jan 13 17:05:58 UTC 2014 - dap.darkness@gmail.com
+
+- Changes file was wiped because of initial copy-paste error.
+- "W: desktopfile-without-binary" was fixed.
+- "E: invalid-license" was prevented via SUSE-WTFPL-2.0.
+- desktop_database_post macro became used.
+
+-------------------------------------------------------------------
+Mon Jan  5 00:00:00 UTC 2014 - dap.darkness@gmail.com
+
+- Initial build.
+
