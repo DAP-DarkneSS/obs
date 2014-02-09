@@ -1,0 +1,51 @@
+#
+# This patch adds the missing install target.
+#
+# Reported sourceforge bug: https://sourceforge.net/tracker/?func=detail&aid=2780961&group_id=225210&atid=1064137
+# Patch submitted here: https://sourceforge.net/tracker/?func=detail&aid=2787306&group_id=225210&atid=1064139
+#
+# Author: Vincent Petry <PVince81@yahoo.fr>
+#
+--- Makefile	2008-12-31 08:42:35.000000000 +0800
++++ Makefile	2009-05-04 22:52:39.000000000 +0800
+@@ -1,8 +1,14 @@
+-DATADIR?=themes/
++ifndef PREFIX
++        PREFIX=/usr/local
++endif
++
++DATADIR?=$(PREFIX)/share/games/sdl-ball/themes/
++BINDIR=$(PREFIX)/bin
+ 
+ #append -DWITH_WIIUSE to compile with WIIUSE support!
+ #append -DNOSOUND to compile WITHOUT sound support
+ CC=g++ -DDATADIR="\"$(DATADIR)\""
++STRIP=strip
+ 
+ CFLAGS+=-c -Wall `sdl-config --cflags`
+ 
+@@ -19,6 +25,7 @@
+ 	
+ $(EXECUTABLE): $(OBJECTS)
+ 	$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $@
++	$(STRIP) $@
+ 
+ .cpp.o:
+ 	$(CC) $(CFLAGS) $< -o $@
+@@ -26,6 +33,16 @@
+ clean:
+ 	rm -f *.o sdl-ball
+ 
++install: $(EXECUTABLE) install-bin install-data
++
++install-bin:
++	mkdir -p $(DESTDIR)$(BINDIR)/
++	cp $(EXECUTABLE) $(DESTDIR)$(BINDIR)/
++
++install-data:
++	mkdir -p $(DESTDIR)$(DATADIR)/
++	cp -p -R themes/* $(DESTDIR)/$(DATADIR)
++
+ remove:
+ 	rm -R ~/.config/sdl-ball
+ 	

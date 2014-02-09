@@ -1,0 +1,11 @@
+diff -Naur sdl-ball-1.01.orig/main.cpp sdl-ball-1.01/main.cpp
+--- sdl-ball-1.01.orig/main.cpp	2009-01-11 17:09:56.000000000 +0100
++++ sdl-ball-1.01/main.cpp	2012-05-24 10:42:51.942893250 +0200
+@@ -16,6 +16,7 @@
+     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  * ************************************************************************* */
+ 
++#include <unistd.h>
+ #include <iostream>
+ #include <fstream>
+ #include <stdio.h>

@@ -1,0 +1,19 @@
+diff -Naur sdl-ball-1.01.orig/Makefile sdl-ball-1.01/Makefile
+--- sdl-ball-1.01.orig/Makefile	2012-05-24 10:53:55.920990501 +0200
++++ sdl-ball-1.01/Makefile	2012-05-24 10:49:27.739965791 +0200
+@@ -8,7 +8,6 @@
+ #append -DWITH_WIIUSE to compile with WIIUSE support!
+ #append -DNOSOUND to compile WITHOUT sound support
+ CC=g++ -DDATADIR="\"$(DATADIR)\""
+-STRIP=strip
+ 
+ CFLAGS+=-c -Wall `sdl-config --cflags`
+ 
+@@ -25,7 +24,6 @@
+ 	
+ $(EXECUTABLE): $(OBJECTS)
+ 	$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $@
+-	$(STRIP) $@
+ 
+ .cpp.o:
+ 	$(CC) $(CFLAGS) $< -o $@

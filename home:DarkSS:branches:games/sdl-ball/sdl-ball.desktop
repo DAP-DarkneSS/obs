@@ -1,0 +1,7 @@
+[Desktop Entry]
+Categories=Game;ActionGame;
+Type=Application
+Name=sdl-ball
+Exec=sdl-ball
+Icon=sdl-ball
+

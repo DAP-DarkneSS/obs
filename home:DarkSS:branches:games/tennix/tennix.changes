@@ -1,0 +1,24 @@
+-------------------------------------------------------------------
+Tue Mar 26 13:29:49 UTC 2013 - joop.boonen@opensuse.org
+
+- Corrected the License
+
+-------------------------------------------------------------------
+Sun Nov 20 19:41:32 UTC 2011 - seife+obs@b1-systems.com
+
+- fix "directories not owned by package" build failure for 11.4+
+- fix missing initialization of pointers in archive tool, leading
+  to build failures in Factory (MALLOC_CHECK_ catches these)
+
+-------------------------------------------------------------------
+Sat Jul  2 12:55:52 UTC 2011 - jengelh@medozas.de
+
+- Remove conflicting %debug_package: OBS deals with that already
+- Remove unnecessary %clean section
+- Use %_smp_mflags
+
+-------------------------------------------------------------------
+Sat Feb 12 13:13:34 CET 2011 - pascal.bleser@opensuse.org
+
+- initial version (1.1)
+

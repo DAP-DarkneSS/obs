@@ -1,0 +1,28 @@
+Author: Stefan Seyfried <seife+obs@b1-systems.com>
+Upstream: no
+
+MALLOC_CHECK_=3 MALLOC_PERTURB_=69 as set in Factory catches those
+uninitialized pointers which will be realloc()'ed later. It aborts
+the build with an assertion.
+Fix by properly initializing to NULL.
+
+Easily found with the help of the wonderful valgrind tool.
+
+
+Index: b/archive.hh
+===================================================================
+--- a/archive.hh
++++ b/archive.hh
+@@ -78,10 +78,12 @@ class TennixArchive {
+ 
+         static void xormem(char* mem, uint32_t length, char key);
+ 
+     public:
+         TennixArchive() {
++            items = NULL;
++            blobs = NULL;
+             strcpy(header.header, TENNIX_ARCHIVE_HEADER);
+             header.items = 0;
+             building = 1;
+             fp = NULL;
+         }
