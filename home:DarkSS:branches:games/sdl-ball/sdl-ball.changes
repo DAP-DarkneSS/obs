@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Feb  9 17:49:56 UTC 2014 - dap.darkness@gmail.com
+
+- Added sdl-ball-gcc48.patch from Debian Sid
+  to build for openSUSE 13.1 & Factory.
+
+-------------------------------------------------------------------
 Thu May 24 08:54:37 UTC 2012 - joop.boonen@opensuse.org
 
 - Created a gcc47 patch and a don't strip for debug patch

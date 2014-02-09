@@ -1,7 +1,7 @@
 #
 # spec file for package sdl-ball
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 # Copyright Vincent Petry <PVince81@yahoo.fr>
 #
 # All modifications and additions to the file contributed by third parties
@@ -37,6 +37,8 @@ Patch0:         %{name}-makefile.patch
 Patch1:         %{name}-dontstrip.patch
 # PATCH-FIX-UPSTREAM sdl-ball-gcc47.patch
 Patch2:         %{name}-gcc47.patch
+# PATCH-FIX-OPENSUSE from Debian Sid to build via fresh gcc.
+Patch3:         %{name}-gcc48.patch
 BuildRequires:  Mesa-devel
 BuildRequires:  gcc-c++
 BuildRequires:  libSDL-devel
@@ -70,6 +72,7 @@ Features:
 %patch0
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 # The source tarball from Sourceforge contains already compiled sources
