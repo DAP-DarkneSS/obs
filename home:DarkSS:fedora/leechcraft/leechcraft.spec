@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft
 #
-# Copyright (c) 2013 LeechCraft Team.
+# Copyright (c) 2014 LeechCraft Team.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -24,7 +24,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.60-356-g7fea1c2
+%define LEECHCRAFT_VERSION 0.6.60-582-gb51ed17
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -714,6 +714,18 @@ Requires:       %{name} = %{version}
 
 %description choroid
 This package provides an image viewer plugin for LeechCraft.
+
+
+%package cpuload
+Summary:        LeechCraft CPU Usage Monitoring Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-sb2 = %{version}
+
+%description cpuload
+This package provides a quark for monitoring the CPU usage
+for LeechCraft SB2. Monitoring memory and swap will also
+be probably added later. For now it uses /proc/stat.
 
 
 %package cstp
@@ -1903,6 +1915,7 @@ cmake ../src \
         -DENABLE_BLASQ_SPEGNERSI=False \
         -DENABLE_BLOGIQUE=True \
         -DENABLE_CHOROID=True \
+        -DENABLE_CPULOAD=True \
         -DENABLE_DEVMON=True \
         -DENABLE_DLNIWE=False \
         -DENABLE_DOLOZHEE=True \
@@ -2290,6 +2303,11 @@ cd build
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_choroid.so
 %{_datadir}/%{name}/qml/choroid
+
+%files cpuload
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_cpuload.so
+%{_datadir}/%{name}/qml/cpuload
 
 %files cstp
 %defattr(-,root,root)
