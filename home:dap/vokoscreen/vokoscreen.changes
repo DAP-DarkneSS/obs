@@ -1,0 +1,18 @@
+-------------------------------------------------------------------
+Fri Nov 22 13:53:52 UTC 2013 - fisiu@opensuse.org
+
+- Update to 1.8.0:
+  * New record area.
+  * Countdown-timer.
+  * Support for avconv.
+
+-------------------------------------------------------------------
+Sat Aug  3 19:24:19 UTC 2013 - fisiu@opensuse.org
+
+- Use stable release x.y.0 instead devel snapshots.
+
+-------------------------------------------------------------------
+Fri Aug  2 16:28:42 UTC 2013 - fisiu@opensuse.org
+
+- Initial package at version 1.7.7.
+
