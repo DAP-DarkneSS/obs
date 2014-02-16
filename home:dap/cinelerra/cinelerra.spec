@@ -3,6 +3,7 @@
 #
 # Copyright (c) Leon Freitag (leon@links2linux.de).
 # Copyright (c) 2013 Mariusz Fik <fisiu@opensuse.org>.
+# Copyright (c) 2014 Packman team: http://packman.links2linux.org/
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,13 +18,13 @@
 #
 
 Name:           cinelerra
-Version:        2.2cv20120923
+Version:        2.2git.2013.09.09
 Release:        0
 License:        GPL-2.0
 Summary:        A non linear video editor and effects processor
-Url:            http://cvs.cinelerra.org
+Url:            http://cinelerra.org/
 Group:          Productivity/Multimedia/Video/Editors and Convertors
-Source0:        %{name}-%{version}.tar.bz2
+Source0:        %{name}-%{version}.tar.gz
 # TODO Rewrite BuildRequires to pkgconfig(foo) style
 BuildRequires:  IlmBase-devel
 BuildRequires:  Mesa-devel
@@ -100,7 +101,8 @@ Summary:        Cinelerra header files and development libraries
 Group:          Development/Libraries/Other
 Requires:       %{name} = %{version}
 %description devel
-Cinelerra files needed for compiling stuff
+Cinelerra is a professional video editing and compositing software.
+This packages provides files needed for compiling stuff
 
 %{lang_package}
 
@@ -109,7 +111,7 @@ Cinelerra files needed for compiling stuff
 
 %build
 ./autogen.sh
-CXXFLAGS="-O3 -pipe -D__STDC_CONSTANT_MACROS"
+CXXFLAGS="%{optflags} -O3 -pipe -D__STDC_CONSTANT_MACROS"
 %configure \
     --with-plugindir=%{_libdir}/%{name} \
     --with-buildinfo=cust/Packman\ build \
@@ -130,8 +132,6 @@ popd
 %suse_update_desktop_file cinelerra -r Multimedia AudioVideoEditing
 %{find_lang} %{name}
 
-%clean
-rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
