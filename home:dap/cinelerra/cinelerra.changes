@@ -1,0 +1,151 @@
+-------------------------------------------------------------------
+Wed Mar 20 15:38:32 UTC 2013 - fisiu@opensuse.org
+
+- Update to latest git snapshot (20120923).
+- Spec cleanup.
+
+-------------------------------------------------------------------
+Sat May 19 22:15:24 UTC 2012 - seife+obs@b1-systems.com
+
+- fix build on 12.2 by adding autoconf & co buildrequires
+
+-------------------------------------------------------------------
+Sat Nov 26 00:00:00 UTC 2011 - leon@links2linux.de
+
+- new release CV 2.2
+
+-------------------------------------------------------------------
+Tue Feb 22 00:00:00 UTC 2011 - leon@links2linux.de
+
+- new release CV 2.1.5
+
+-------------------------------------------------------------------
+Sun Aug  1 00:00:00 UTC 2010 - leon@links2linux.de
+
+- use latest version from Simen Voelkl's repository (cin2.1sv)
+- enabled opengl
+- Suse 11.3 build
+
+-------------------------------------------------------------------
+Mon Jun 29 00:00:00 UTC 2009 - leon@links2linux.de
+
+- updated the git version to the latest one with the dnxhd codec
+- converted the russian translation to UTF8
+
+-------------------------------------------------------------------
+Tue Jan  6 00:00:00 UTC 2009 - leon@links2linux.de
+
+- new versioning scheme, as cinelerra moved to git and dropped the release numbers
+- Suse 11.1 build
+
+-------------------------------------------------------------------
+Thu Jul  3 00:00:00 UTC 2008 - leon@links2linux.de
+
+- added a patch to compile on gcc 4.3/Suse 11.0, thanks to Toni and Rain_Maker
+
+-------------------------------------------------------------------
+Sat Oct  6 00:00:00 UTC 2007 - leon@links2linux.de
+
+- svn r1036
+
+-------------------------------------------------------------------
+Wed Mar 28 00:00:00 UTC 2007 - leon@links2linux.de
+
+- svn r1006
+- added the custom buildinfo
+
+-------------------------------------------------------------------
+Mon Nov 13 00:00:00 UTC 2006 - leon@links2linux.de
+
+- svn r958
+- updated for the new x264 version
+
+-------------------------------------------------------------------
+Tue Sep 26 00:00:00 UTC 2006 - leon@links2linux.de
+
+- changed the spec to match the packman/SP conventions
+- svn r909
+
+-------------------------------------------------------------------
+Thu Sep 14 00:00:00 UTC 2006 - cobra@compuserve.com
+
+- First package with merged Cinelerra 2.1
+- svn r888
+
+
+-------------------------------------------------------------------
+Thu Jun  1 00:00:00 UTC 2006 - cobra@compuserve.com
+
+- transitions fix, Ogg renderfarm support, po email address fix
+- file.h compile fix, fix thread delete race condition
+- a bunch of mem management fixes
+
+-------------------------------------------------------------------
+Mon May 29 00:00:00 UTC 2006 - cobra@compuserve.com
+
+- reading ogg vorbis fix, Freetype2 2.2.1 compatibility
+- mjpeg load fixes (bug139, 148, 259), fix insertion of media files directly
+- shorten xml files, motion blur plugin
+- camera and projector automation for plugins, waveform not shown fix
+- change every clip all media files behavior in saved xml
+- work without audio enabled, delete pluginsets fix
+
+-------------------------------------------------------------------
+Tue May  2 00:00:00 UTC 2006 - cobra@compuserve.com
+
+- fseek0 fix bug244, bug250, check sound/audio in dv format
+- bug249 vorbis setup fix, chromakey fix, check for libfaac
+- fix DV audio read sample impl., move icon in Gnome
+- bug30 allow transition at end of track, bug243
+- fix crash when rendering plugins, fix null plugin usage
+- fix load XML crash, bug242 >1024 properties
+
+-------------------------------------------------------------------
+Mon Apr  3 00:00:00 UTC 2006 - cobra@compuserve.com
+
+- EDL export, .mov DV fourcc -> dvc, multi transitions with diff lengths fix
+- debian build fixes, new configure checks and libavcodec header fixes
+- mux fixes for long silence/empty video, ubuntu build fixes
+- RGB*_FLOAT color models for mask engine, gcc 4.1.0 fixes/mpeg2enc
+- Makefile cleanups, raise_window() commands, BUZ driver channel editor fixes
+- format selection for timecode in titler, build date and CV versioning
+- fix --disable-firewire, chromakey-hsv plugin, pt_BR translation updates
+- deinterlace plugin updates, cache frames even when not static
+- new deinterlacer, timefronts - take from alpha
+- fix apply-mask-before-plugins for masks, new timefront plugin
+- add histogram split checkbox
+
+-------------------------------------------------------------------
+Sat Feb  4 00:00:00 UTC 2006 - cobra@compuserve.com
+
+- vertical pos of auto-zoom text, dv audio offset/framing fix
+- Italian translation, Spanish update, deinterlace fix
+- mpeg encode params fix
+
+-------------------------------------------------------------------
+Thu Jan 26 00:00:00 UTC 2006 - cobra@compuserve.com
+
+- raw dv i/o fixes, textual info for labels, " conversion
+- Automation text label editable, audio_position adjust for dv1394
+
+-------------------------------------------------------------------
+Sat Dec 24 00:00:00 UTC 2005 - cobra@compuserve.com
+
+- fix bug 219 & 220, make text menu hilight white
+- alt+left/right navigates trough edit handles
+- parameter name fix, single image dnd fixes, remove mwindowmove dup code
+- ffmpeg defaults for elem stream (Bug 164), member function fix
+- gettextize language changes for more plugins, French update
+
+-------------------------------------------------------------------
+Sun Dec 11 00:00:00 UTC 2005 - cobra@compuserve.com
+
+- Fix renderfarm client crash, align cursor on frames default
+- right mouse on keyframe - keyframe popup, guicast / gettextize additions
+- Brazilian update, French update
+- link mpeg2enc.plugin for SUSE, add mjpegtools >= 1.6.3 dep
+
+-------------------------------------------------------------------
+Mon Nov 14 00:00:00 UTC 2005 - cobra@compuserve.com
+
+- Initial build of CV from svn tree.
