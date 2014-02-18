@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Mon Feb 17 17:55:56 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 14.02.17 (changes since 14.01.10):
+
+  * CDDB database support was added;
+    (freedb.org, freedb.musicbrainz.org);
+  * Tags could be edited via taglib library;
+  * Various issues associated with VAApi were fixed;
+  * Fast switching tracks in AudioCD was implemented;
+  * Minor bugs in FFDecSW were fixed;
+  * Echo effect was added;
+  * Minor fixes.
+
+-------------------------------------------------------------------
 Thu Jan 16 18:47:28 UTC 2014 - dap.darkness@gmail.com
 
 - Update to 14.01.10 (changes since 14.01.05):

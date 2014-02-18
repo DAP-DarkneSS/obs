@@ -1,7 +1,7 @@
 #
-# spec file for package qmplay2
+# spec file for package QMPlay2
 #
-# Copyright (c) 2013 Packman team: http://packman.links2linux.org/
+# Copyright (c) 2014 Packman team: http://packman.links2linux.org/
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,7 +16,7 @@
 #
 
 Name:           QMPlay2
-Version:        14.01.10
+Version:        14.02.17
 Release:        0
 License:        GPL-3.0
 Summary:        A Qt based media player, streamer and downloader
@@ -33,11 +33,13 @@ BuildRequires:  pkgconfig(libass)
 BuildRequires:  pkgconfig(libavcodec)
 BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libcddb)
 BuildRequires:  pkgconfig(libcdio)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libswresample)
 BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(libva)
+BuildRequires:  pkgconfig(taglib)
 Recommends:     %{name}-kde-integration
 
 %description
