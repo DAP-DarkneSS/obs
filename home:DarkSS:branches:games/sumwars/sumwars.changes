@@ -1,0 +1,35 @@
+-------------------------------------------------------------------
+Sun Jun 30 12:11:38 UTC 2013 - asterios.dramis@gmail.com
+
+- Updated no-copy-dt-needed-entries.patch to fix compilation also with newer
+  boost. Added boost-devel as build requirement.
+
+-------------------------------------------------------------------
+Mon Jul  9 19:27:54 UTC 2012 - asterios.dramis@gmail.com
+
+- Use desktop-file-utils instead of the %suse_update_desktop_file macro for
+  editing/installing the desktop file (removed update-desktop-files build
+  dependency and added desktop-file-utils for this).
+- Added %icon_theme_cache_post/%icon_theme_cache_postun scriplets. Added
+  required hicolor-icon-theme build dependency for this.
+
+-------------------------------------------------------------------
+Sun Jul  1 19:18:24 UTC 2012 - asterios.dramis@gmail.com
+
+- Use pkgconfig(...) for OGRE, lua and xrandr build requirements.
+- Require libOgreMain-plugins (needed by the package).
+
+-------------------------------------------------------------------
+Sun Jul  1 15:47:10 UTC 2012 - asterios.dramis@gmail.com
+
+- Added libOgreMain-plugins as build requirement (otherwise cmake fails to find
+  the ogre plugin dir and sets the OGRE_PLUGIN_DIR variables to an empty value.
+  This results in an error about plugins not found during the program execution
+  due to wrong PluginFolder= variable in ~/.sumwars/plugins.cfg file).
+
+-------------------------------------------------------------------
+Sat Jun  9 17:31:40 UTC 2012 - asterios.dramis@gmail.com
+
+- Initial release (version 0.5.6).
+- Added a patch (no-copy-dt-needed-entries.patch) to fix linking with
+  --no-copy-dt-needed-entries.
