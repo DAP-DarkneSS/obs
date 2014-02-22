@@ -1,7 +1,7 @@
 #
 # spec file for package simplescreenrecorder
 #
-# Copyright (c) 2013 Packman team: http://packman.links2linux.org/
+# Copyright (c) 2014 Packman team: http://packman.links2linux.org/
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -15,8 +15,9 @@
 # Please submit bugfixes or comments via https://bugs.links2linux.org/
 #
 
+
 Name:           simplescreenrecorder
-Version:        0.1.2
+Version:        0.2.0
 Release:        0
 License:        GPL-3.0+
 Summary:        A feature-rich screen recorder that supports X11 and OpenGL
@@ -24,12 +25,14 @@ Url:            http://www.maartenbaert.be/simplescreenrecorder
 Group:          System/X11/Utilities
 Source:         https://github.com/MaartenBaert/ssr/archive/%{version}.tar.gz
 
+BuildRequires:  cmake
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(glu)
+BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(x11)
@@ -79,6 +82,7 @@ Features:
  * Tooltips for almost everything: no need to read the documentation to find
    out what something does.
 
+
 %ifarch %ix86 x86_64
 %package -n libssr-glinject
 License:        MIT
@@ -88,18 +92,22 @@ Group:          System/Libraries
 This package provides SimpleScreenRecorder's optional library.
 %endif
 
+
 %prep
 %setup -q -n ssr-%{version}
 
+
 %build
 %ifarch %ix86 x86_64
-%configure
+%configure --enable-jack
 %else
 %configure \
+           --enable-jack \
            --disable-x86-asm \
            --disable-glinjectlib
 %endif
 make %{?_smp_mflags}
+
 
 %install
 %make_install
@@ -108,10 +116,12 @@ make %{?_smp_mflags}
 
 %files
 %defattr(-,root,root)
-%doc COPYING *.txt README.md data/about.htm
+%doc COPYING *.txt README.md data/resources/about.htm
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/256x256/apps/%{name}.png
+%{_datadir}/icons/hicolor/*/apps/%{name}*
+%{_datadir}/%{name}
+
 
 %ifarch %ix86 x86_64
 %files -n libssr-glinject

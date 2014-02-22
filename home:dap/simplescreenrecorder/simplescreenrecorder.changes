@@ -1,4 +1,23 @@
 -------------------------------------------------------------------
+Sat Feb 22 20:58:20 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 0.2.0:
+  * no upstream changelog.
+- Switching back to _service.
+
+-------------------------------------------------------------------
+Wed Feb 12 16:32:29 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 0.1.2+git.2014.02.09:
+  * Jack support;
+  * SoX Resampler became used;
+  * cmake became used;
+  * pkg-config became used;
+  * "[VideoEncoder::EncodeFrame] Error: Keyframe flag was not set!"
+    was fixed.
+- Temporary switching from _service to git tarball.
+
+-------------------------------------------------------------------
 Mon Oct 28 16:39:40 UTC 2013 - dap.darkness@gmail.com
 
 - Update to 0.1.2:
