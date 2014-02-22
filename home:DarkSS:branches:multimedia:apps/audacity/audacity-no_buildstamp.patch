@@ -1,0 +1,26 @@
+Index: lib-src/portaudio-v19/src/common/pa_front.c
+===================================================================
+--- lib-src/portaudio-v19/src/common/pa_front.c.orig
++++ lib-src/portaudio-v19/src/common/pa_front.c
+@@ -90,7 +90,7 @@
+ 
+ 
+ #define PA_VERSION_  1899
+-#define PA_VERSION_TEXT_ "PortAudio V19-devel (built " __DATE__  " " __TIME__ ")"
++#define PA_VERSION_TEXT_ "PortAudio V19-devel"
+ 
+ 
+ 
+Index: src/AboutDialog.cpp
+===================================================================
+--- src/AboutDialog.cpp.orig
++++ src/AboutDialog.cpp
+@@ -489,7 +489,7 @@ void AboutDialog::PopulateInformationPag
+    informationStr += wxT("</h3>\n<table>");
+ 
+    // Current date
+-   AddBuildinfoRow(&informationStr, _("Program build date: "), __TDATE__);
++   //AddBuildinfoRow(&informationStr, _("Program build date: "), __TDATE__);
+ 
+ #ifdef __WXDEBUG__
+    AddBuildinfoRow(&informationStr, _("Build type:"), _("Debug build"));
