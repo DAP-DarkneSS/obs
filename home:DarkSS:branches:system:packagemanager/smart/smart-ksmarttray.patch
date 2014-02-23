@@ -1,0 +1,14 @@
+--- contrib/ksmarttray/src/ksmarttray.cc
++++ contrib/ksmarttray/src/ksmarttray.cc
+@@ -120,9 +120,9 @@
+         sysTray.stopAction.setEnabled(true);
+         process.resetAll();
+         if (manual)
+-            process << "smart-update";
++            process << "/usr/sbin/smart-update";
+         else
+-            process << "smart-update" << "--after" << "60";
++            process << "/usr/sbin/smart-update" << "--after" << "60";
+         if (!process.start()) {
+             KNotifyClient::event(sysTray.winId(), "fatalerror",
+                                  "Couldn't run 'smart-update'.");

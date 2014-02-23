@@ -1,0 +1,13 @@
+[Desktop Entry]
+Categories=System;PackageManager;
+Encoding=UTF-8
+Terminal=false
+Icon=smart
+Exec=/opt/kde3/bin/ksmarttray
+Type=Application
+StartupNotify=true
+Name=Smart Package Update Checker
+GenericName=Package Update Checker
+Comment=Monitors channels for new packages
+X-KDE-SubstituteUID=true
+X-KDE-Username=root

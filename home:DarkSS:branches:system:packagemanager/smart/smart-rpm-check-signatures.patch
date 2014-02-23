@@ -1,0 +1,129 @@
+Index: smart/interface.py
+===================================================================
+--- smart/interface.py	(revision 735)
++++ smart/interface.py	(working copy)
+@@ -69,14 +69,14 @@
+             self._progress = Progress()
+         return self._progress
+ 
+-    def askYesNo(self, question, default=False):
+-        return True
++    def askYesNo(self, question, default=True):
++        return default
+ 
+-    def askContCancel(self, question, default=False):
+-        return True
++    def askContCancel(self, question, default=True):
++        return default
+ 
+-    def askOkCancel(self, question, default=False):
+-        return True
++    def askOkCancel(self, question, default=True):
++        return default
+ 
+     def askInput(self, prompt, message=None, widthchars=None, echo=True):
+         return ""
+Index: smart/backends/rpm/base.py
+===================================================================
+--- smart/backends/rpm/base.py	(revision 735)
++++ smart/backends/rpm/base.py	(working copy)
+@@ -49,6 +49,8 @@
+         getTS.ts = rpm.ts(getTS.root)
+         if not sysconf.get("rpm-check-signatures", False):
+             getTS.ts.setVSFlags(rpm._RPMVSF_NOSIGNATURES)
++        else:
++            getTS.ts.setVSFlags(0)
+         dbdir = os.path.join(getTS.root, "var/lib/rpm")
+         if not os.path.isdir(dbdir):
+             try:
+@@ -75,6 +77,8 @@
+         ts = rpm.ts(getTS.root)
+         if not sysconf.get("rpm-check-signatures", False):
+             ts.setVSFlags(rpm._RPMVSF_NOSIGNATURES)
++        else:
++            ts.setVSFlags(0)
+         return ts
+     else:
+         return getTS.ts
+Index: smart/backends/rpm/pm.py
+===================================================================
+--- smart/backends/rpm/pm.py	(revision 735)
++++ smart/backends/rpm/pm.py	(working copy)
+@@ -40,6 +40,17 @@
+ except locale.Error:
+     ENCODING = "C"
+ 
++def get_rpm_public_key(filepath):
++    f = file(filepath, 'r')
++    ts = rpm.ts()
++    ts.setVSFlags(rpm._RPMVSF_NOSIGNATURES)
++    hdr = ts.hdrFromFdno(f.fileno())
++    return hdr.sprintf("%|DSAHEADER?{%{DSAHEADER:pgpsig}}:"
++                       "{%|RSAHEADER?{%{RSAHEADER:pgpsig}}:"
++                       "{%|SIGGPG?{%{SIGGPG:pgpsig}}:"
++                       "{%|SIGPGP?{%{SIGPGP:pgpsig}}:"
++                       "{(none)}|}|}|}|").split()[-1]
++
+ class RPMPackageManager(PackageManager):
+ 
+     def commit(self, changeset, pkgpaths):
+@@ -152,12 +163,53 @@
+                 info = loader.getInfo(pkg)
+                 mode = pkg in upgrading and "u" or "i"
+                 path = pkgpaths[pkg][0]
+-                fd = os.open(path, os.O_RDONLY)
+-                try:
+-                    h = ts.hdrFromFdno(fd)
+-                except rpm.error, e:
+-                    os.close(fd)
+-                    raise Error, "%s: %s" % (os.path.basename(path), e)
++                for _pass in xrange(2):
++                    fd = os.open(path, os.O_RDONLY)
++                    try:
++                        h = ts.hdrFromFdno(fd)
++                    except rpm.error, e:
++                        os.close(fd)
++
++                        # in the slow path we trap the case of a gpg public key not in rpmdb
++                        # and we try to fetch it from the keyserver and we ask the user
++                        # if he wants to trust this key to continue the installation
++                        if not _pass and e.args[0] == 'public key not available':
++                            keyserver = sysconf.get('keyserver')
++                            if not keyserver:
++                                iface.error('To enable the keyserver run: '
++                                            '"smart config --set keyserver=pgp.mit.edu"')
++                            else:
++                                key = get_rpm_public_key(path)
++                                iface.info('Trying to import the key %s from %s...' % (key, keyserver))
++                                popen = os.popen('LANG=C gpg --keyserver %s --recv-keys %s' % (keyserver, key))
++                                popen_out = popen.read()
++                                if popen.close() is not None:
++                                    iface.error('gpg failed to import keyid %s, '
++                                                'please make sure that gpg is installed, '
++                                                'that the keyserver %s is working '
++                                                'and that the package %s has a valid signature.' % (key,
++                                                                                                    keyserver,
++                                                                                                    path))
++                                else:
++                                    popen_out += '\nThe above GPG key has been imported successfully.\n' \
++                                                 'It is required to install this package:\n\n\t' \
++                                                 + os.path.basename(path) + \
++                                                 '\n\nDo you want to trust this key forever?\n\n' \
++                                                 'You must verify the below fingerprint before answering.\n' \
++                                                 + os.popen('LANG=C gpg --fingerprint %s' % key).read() + \
++                                                 '\nIf you answer "Yes" all other packages signed with this key ' \
++                                                 'will be installed automatically.'
++                                    if iface.askYesNo(popen_out, False):
++                                        key_armor = os.popen('LANG=C gpg --export %s' % key, 'r').read()
++                                        if ts.pgpImportPubkey(key_armor):
++                                            iface.error('rpm failed to import the public key id %s' % key)
++                                        else:
++                                            # try one more time with the pub key on
++                                            continue
++
++                        raise Error, "%s: %s" % (os.path.basename(path), e)
++                    else:
++                        break
+                 os.close(fd)
+                 ts.addInstall(h, (info, path), mode)
+                 packages += 1

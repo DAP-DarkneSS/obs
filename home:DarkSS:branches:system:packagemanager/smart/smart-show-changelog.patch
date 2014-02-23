@@ -1,0 +1,166 @@
+Index: smart/interfaces/gtk/packageinfo.py
+===================================================================
+--- smart/interfaces/gtk/packageinfo.py	(revisão 833)
++++ smart/interfaces/gtk/packageinfo.py	(cópia de trabalho)
+@@ -128,7 +128,26 @@
+         label = gtk.Label(_("Content"))
+         self._notebook.append_page(sw, label)
+ 
++        sw = gtk.ScrolledWindow()
++        sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_ALWAYS)
++        sw.set_shadow_type(gtk.SHADOW_IN)
++        sw.set_border_width(5)
++        sw.show()
+ 
++        self._change = gtk.TextView()
++        self._change.set_editable(False)
++        self._change.set_cursor_visible(False)
++        self._change.set_left_margin(5)
++        self._change.set_right_margin(5)
++        self._change.show()
++        buffer = self._change.get_buffer()
++        buffer.create_tag("changetime", font_desc=boldfont)
++        buffer.create_tag("changelog", font_desc=font)
++        sw.add(self._change)
++
++        label = gtk.Label(_("Changelog"))
++        self._notebook.append_page(sw, label)
++
+         self._relations = GtkPackageView()
+         self._relations.set_border_width(5)
+         self._relations.getTreeView().set_headers_visible(False)
+@@ -273,7 +292,31 @@
+                 contbuf.insert_with_tags_by_name(iter, path+"\n", "content")
+ 
+         elif num == 3:
++            # Update changelog
+ 
++            contbuf = self._change.get_buffer()
++            contbuf.set_text("")
++            if not pkg: return
++
++            iter = contbuf.get_end_iter()
++            for loader in pkg.loaders:
++                if loader.getInstalled():
++                    break
++            else:
++                loader = pkg.loaders.keys()[0]
++            info = loader.getInfo(pkg)
++            changelog = info.getChangeLog()
++
++            for i in range(len(changelog)/2):
++                contbuf.insert_with_tags_by_name(iter, changelog[2*i]+"\n", "changetime")
++                changesplit = changelog[2*i+1].split("\n")
++                changedetails = changesplit[0] + "\n"
++                for i in range(1, len(changesplit)):
++                    changedetails += "  " + changesplit[i] + "\n"
++                contbuf.insert_with_tags_by_name(iter, changedetails, "changelog")
++
++        elif num == 4:
++
+             # Update relations
+ 
+             if not pkg:
+@@ -282,7 +325,7 @@
+ 
+             self._setRelations(pkg)
+ 
+-        elif num == 4:
++        elif num == 5:
+ 
+             # Update URLs
+ 
+Index: smart/cache.py
+===================================================================
+--- smart/cache.py	(revisão 833)
++++ smart/cache.py	(cópia de trabalho)
+@@ -149,6 +149,9 @@
+     def getPathList(self):
+         return []
+ 
++    def getChangeLog(self):
++        return []
++
+     def pathIsDir(self, path):
+         return None
+ 
+Index: smart/commands/info.py
+===================================================================
+--- smart/commands/info.py	(revisão 833)
++++ smart/commands/info.py	(cópia de trabalho)
+@@ -46,6 +46,8 @@
+                       help=_("show URLs"))
+     parser.add_option("--paths", action="store_true",
+                       help=_("show path list"))
++    parser.add_option("--changelog", action="store_true",
++                      help=_("show change log"))
+     opts, args = parser.parse_args(argv)
+     opts.args = args
+     return opts
+@@ -157,4 +159,21 @@
+                 print "", entry
+         print
+ 
++        if opts.changelog:
++            print "     ", _("Changelog:")
++            for loader in pkg.loaders:
++                if loader.getInstalled():
++                    break
++            else:
++                loader = pkg.loaders.keys()[0]
++            info = loader.getInfo(pkg)
++            changelog = info.getChangeLog()
++            for i in range(len(changelog)/2):
++                print "       ", "%s" % changelog[2*i]
++                changesplit = changelog[2*i+1].split("\n")
++                print "       ", "%s" % changesplit[0]
++                for i in range(1, len(changesplit)):
++                    print "         ", "%s" % changesplit[i]
++            print 
++
+ # vim:ts=4:sw=4:et
+Index: smart/backends/rpm/header.py
+===================================================================
+--- smart/backends/rpm/header.py	(revisão 833)
++++ smart/backends/rpm/header.py	(cópia de trabalho)
+@@ -30,6 +30,8 @@
+ import locale
+ import stat
+ import os
++from datetime import datetime
++import time
+ 
+ try:
+     import rpmhelper
+@@ -64,6 +66,7 @@
+         PackageInfo.__init__(self, package, order)
+         self._loader = loader
+         self._path = None
++        self._change = None
+ 
+     def getReferenceURLs(self):
+         url = self._h[rpm.RPMTAG_URL]
+@@ -125,6 +128,23 @@
+             s = ""
+         return s
+ 
++    def getChangeLog(self):
++        if self._change is None:
++            logname = self._h[rpm.RPMTAG_CHANGELOGNAME]
++            logtime = self._h[rpm.RPMTAG_CHANGELOGTIME]
++            change = self._h[rpm.RPMTAG_CHANGELOGTEXT]
++            if type(logname) != list:
++                logname = [logname]
++            if type(logtime) != list:
++                logtime = [logtime]              
++            if type(change) != list:
++                change = [change]
++            self._change = {}
++            for i in range(len(change)):
++                self._change[2*i] = datetime.fromtimestamp(logtime[i]).strftime("%Y-%m-%d")+"  "+ logname[i]
++                self._change[2*i+1] = "  " + change[i]
++        return self._change
++
+     def getPathList(self):
+         if self._path is None:
+             paths = self._h[rpm.RPMTAG_OLDFILENAMES]

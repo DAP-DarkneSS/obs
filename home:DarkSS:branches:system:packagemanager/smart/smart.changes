@@ -1,0 +1,724 @@
+-------------------------------------------------------------------
+Fri Dec 17 04:01:07 UTC 2010 - andreas.hanke@gmx-topmail.de
+
+- add smart-gtk-progress-nothread.diff to work around issues with
+  glib >= 2.24 (https://bugs.launchpad.net/smart/+bug/592503)
+- use xdg-su instead of X-KDE-SubstituteID in .desktop files to make
+  them work outside KDE and GNOME (#540627)
+- drop .channel files for abandoned distributions 10.0 through 11.0,
+  install the right ones for 11.1 through 11.3, fix factory baseurl
+
+-------------------------------------------------------------------
+Wed Jun 16 13:00:53 UTC 2010 - pascal.bleser@opensuse.org
+
+- fix dependency in qt package: depend on python-qt instead of
+  python-qt3 (thanks to Jonathan Rocker for pointing that out)
+
+-------------------------------------------------------------------
+Fri Mar 12 17:16:50 UTC 2010 - pascal.bleser@opensuse.org
+
+- renamed -gui package to -gui-gtk (obsoletes+provides)
+
+- added -gui-qt subpackage
+
+- changed .desktop files to invoke smart --interface=gtk and
+  smart --interface=qt respectively, instead of smart --gui (which
+  would use the default GUI as configured in smart, with a fallback
+  on gtk)
+
+- dropped the interactive-newer and disable_deb_tests patches, as
+  they are not needed any more as of smart 1.3
+
+-------------------------------------------------------------------
+Wed Feb 17 19:52:00 UTC 2010 - pascal.bleser@opensuse.org
+
+- update to 1.3
+
+-------------------------------------------------------------------
+Fri May  8 20:07:45 CEST 2009 - pascal.bleser@opensuse.org
+
+- remove "import md5" in zyppchannelsync: not needed, and was
+  causing deprecation warnings
+
+-------------------------------------------------------------------
+Mon Dec 22 21:41:16 CET 2008 - pascal.bleser@opensuse.org
+
+- add channels for 11.1
+- move make test to %check section (but still disabled)
+
+-------------------------------------------------------------------
+Sat Nov 22 19:53:27 CET 2008 - cthiel@suse.de
+
+- remove ksmarttray on suse_version < 1010
+- added smart-1.1-python26.patch to fix DeprecationWarnings
+
+-------------------------------------------------------------------
+Tue Sep 30 17:02:27 CEST 2008 - cthiel@suse.de
+
+- temp. disable testsuite
+
+-------------------------------------------------------------------
+Wed Sep 10 14:22:37 CEST 2008 - cthiel@suse.de
+
+- update to version 1.1
+  * The curl-based fetcher backend was handling 404 errors improperly.
+  * Handling of signed up apt-deb channels has been improved so that a
+    behavior similar to that of APT may be obtained.
+- removed smart-order-test-packages.patch and smart--cast-test-sizes.patch,
+  both included upstream
+
+-------------------------------------------------------------------
+Mon Aug 18 18:52:16 CEST 2008 - cthiel@suse.de
+
+- enable testsuite
+
+-------------------------------------------------------------------
+Fri Aug 15 21:27:53 CEST 2008 - cthiel@suse.de
+
+- update smart to version 1.0
+  * Fixed "Pragma: no-cache" entry which would be sent by curl when there
+    was a proxy environment variable set up.
+  * Now send a proper User-Agent header with smart/<version>.
+  * In the aptchannelsync plugin, ignore cdrom entries since they're not yet
+    parsed correctly into a removable media entry.
+  * Implemented support for dpkg's Breaks conflict relation.
+  * Add PackageInfo.getReferenceURLs() to RPM metadata channels, patch by
+    Anders F Björklund.
+  * Applying a modified version of the patch in bug #248063, to allow
+    customizing the sizes of icons in the interface for helping visually
+    impaired users.
+  * 'channel' command tests earlier if sysconfig is in readonly mode, by
+    Mauricio Teixeira.
+  * In the debian ElementSorter, do not enforce early removal of conflicts
+    when packages have the same name, since in these cases a normal upgrade
+    is the usual intention from the packager.  Thanks to Andreas Hasenack
+    for isolating and debugging the problem.
+  * Limit file descriptor closing to 4096, since on certain platform
+    versions the rlimit-obtained value can be really large, by Anders F.
+    Björklund.
+  * Prevent fstab parsing from breaking on certain bad files.
+  * Fixed race condition in the fetcher that could lead to infinite looping.
+  * Fixed channel parsing bug reported by Cliff Wells: line parsing should
+    only look for one "=" when splitting.
+  * detectsys plugin now allows setting which channel types to detect
+    individually.
+  * Fixed a minor issue on the upgrade command (reported by Bogdano).
+  * Introduced a new dry-run option to the deb backend.
+  * Updated hu and it translations.
+  * Update ksmarttray/admin, by Mauricio Teixeira.
+  * Make sure setup.py gets correct lib or lib64 depending on the platform,
+    by Mauricio Teixeira.
+  * Fixes restart download on failed resume, reported by Dag and Thimm, and
+    fixed by Mauricio Teixeira.
+  * Fixed bug in aptchannelsync plugin when dealing with the sources.list.d
+    directory, and added a few tests for it.
+  * Now RPM packages of color 2 (x86_64, etc) are considered of higher
+    precedence when compared to packages of color 1, as suggested by Pascal
+    Bleser and Christoph Thiel.
+  * "Detect in local path" dialog in the GUI was unable to select a
+    directory properly.  Reported by Hajma, fixed by Mauricio Teixeira.
+  * Now progress shows "Stalled" for download ETA > 99h, by Neil Bird.
+  * Integrated several of the OpenSuSE patches, provided by
+    by Pascal Bleser and Christoph Thiel.
+
+-------------------------------------------------------------------
+Wed Jul 16 11:24:08 CEST 2008 - cthiel@suse.de
+
+- adding 11.0 channels (bnc#408972)
+
+-------------------------------------------------------------------
+Sun Apr 20 00:32:00 CEST 2008 - guru@unixtech.be
+
+- add zyppchannelsync
+
+-------------------------------------------------------------------
+Mon Apr 14 11:08:54 CEST 2008 - cthiel@suse.de
+
+- update smart-trunk.patch (to r913)
+  * ksmarttray update
+  * translation update
+
+-------------------------------------------------------------------
+Thu Mar 20 21:34:33 CET 2008 - guru@unixtech.be
+
+- changed public key server to subkeys.pgp.net
+
+-------------------------------------------------------------------
+Sat Jan 26 01:15:25 CET 2008 - guru@unixtech.be
+
+- added patch to fix terminal width determination on serial and xen consoles
+
+-------------------------------------------------------------------
+Thu Dec  6 17:27:12 CET 2007 - cthiel@suse.de
+
+- readded smart-trunk.patch (r899)
+  * improved x86_64 support: packages of color 2 (x86_64, etc) are
+    considered of higher precedence when compared to packages of color 1.
+- removed the following patches, as they (or equivalents) have been mereged
+  upstream:
+   * smart-broken-repo-without-summary-or-description-workaround.patch
+   * patch smart-yast2-media.patch,
+   * smart-yast2_compressed-packages.patch
+   * smart-channelsync.patch
+   * smart-better-x86_64-support.patch
+   * smart-fix-archscore-add-disable-biarch-option.patch   
+
+-------------------------------------------------------------------
+Fri Oct 12 01:34:08 CEST 2007 - ro@suse.de
+
+- fix build (there is room between 1030 and 1040)
+
+-------------------------------------------------------------------
+Sun Oct  7 20:00:00 CET 2007 - guru@unixtech.be
+
+- use fully qualified path to smart and ksmarttray in the .desktop files,
+  fixes 10.3's KDE not being able to do so without it
+
+-------------------------------------------------------------------
+Sun Oct  7 19:00:00 CET 2007 - guru@unixtech.be
+
+- added patch to fix strict aliasing in C modules
+- added debuginfo support
+- added Provides for smart-addons to play nice with smart packages from
+  other repositories
+- added -fstack-protector
+- added passing CFLAGS to build the rpm-helper
+- added -j to make ksmarttray
+- invoke kde_post_install after suse_update_desktop_files or it may error
+  out on 10.3 because of X-SuSE-translate having already been set once by
+  kde_post_install
+- beautified the spec file
+
+-------------------------------------------------------------------
+Fri Oct  5 22:44:37 CEST 2007 - cthiel@suse.de
+
+- added smart-interactive-newer.patch by Pascal Bleser, to support "newer"
+  in --shell mode
+- dropped smart-channel-mirrors.patch
+
+-------------------------------------------------------------------
+Fri Oct  5 19:49:44 CEST 2007 - cthiel@suse.de
+
+- update to version 0.52
+  * Added a more practical message before "Configuration is in readonly
+    mode".
+  * Added Russian translations, by Aleksey Klimov.
+  * Applied patch from Peter Warasin fixing the fallback encoding in the RPM
+    pm module.
+  * Made apt-deb channels not break up when the uncompressed version of the
+    package isn't available in the MD5Sum list, which is the case in a few
+    repositories.
+  * Only allow one initialization of the Smart library at a time, enforced
+    by a lock.
+  * Implemented smart.initialized() function, to test if Smart was already
+    initialized before and not yet deinitialized.
+  * In the deb backend, catch OSError on the waitpid, check if it was caused
+    by an EINTR error, and retry in these cases.
+  * Implemented cache-loaded and cache-loaded-pre-link hooks, with proper
+    testing.
+  * The debian tag loader would load an incorrect architecture if asked to. 
+    This change fixes that, and adds a test to ensure that it continues to
+    be the case.
+  * Command query --show-all will now show requires properly (instead of
+    only pre-requires).
+  * Check for access rights in /etc/auto.master, rather than checking for
+    file existence (patch from Ubuntu).
+
+-------------------------------------------------------------------
+Tue Sep 18 11:31:42 CEST 2007 - cthiel@suse.de
+
+- updated default channels to include openSUSE 10.3
+
+-------------------------------------------------------------------
+Tue Sep 18 10:49:47 CEST 2007 - cthiel@suse.de
+
+- added "compressed" option to yast2 channels (defaults to packages.gz, but
+  autodetects legacy packages metadata)
+
+-------------------------------------------------------------------
+Thu Sep  6 14:29:28 CEST 2007 - cthiel@suse.de
+
+- support compressed packages.gz in yast2 channels (#308080)
+
+-------------------------------------------------------------------
+Wed Aug 29 20:09:54 CEST 2007 - cthiel@suse.de
+
+- updated smart-fix-archscore-add-disable-biarch-option.patch and
+  smart-better-x86_64-support.patch to include improvements by Maciej
+  Kowalczyk
+- updated smart-trunk.patch to r880
+
+-------------------------------------------------------------------
+Tue Aug  7 17:16:01 CEST 2007 - cthiel@suse.de
+
+- added smart-channelsync.patch: adds .repo support
+
+-------------------------------------------------------------------
+Tue Aug  7 13:12:21 CEST 2007 - cthiel@suse.de
+
+- readded smart-trunk.patch (r877), implements cache-loaded and
+  cache-loaded-pre-link hooks
+
+-------------------------------------------------------------------
+Tue Aug  7 09:40:11 CEST 2007 - cthiel@suse.de
+
+- fixed gpg key importing (#296793)
+
+-------------------------------------------------------------------
+Mon Jul 16 14:29:53 CEST 2007 - cthiel@suse.de
+
+- correctly install smart/commands/newer.py
+- fix .desktop files
+
+-------------------------------------------------------------------
+Thu Jun  7 16:04:49 CEST 2007 - sbrabec@suse.cz
+
+- Removed invalid desktop Category "Application" (#254654).
+
+-------------------------------------------------------------------
+Mon May 21 12:25:42 CEST 2007 - cthiel@suse.de
+
+- update to version 0.51
+  * Fixed a few minor leaks in the C cache implementation.
+  * Added Hungarian translation, by Kalman Kemenczy.
+  * Adding Swedish translation, by Daniel Nylander.
+  * New smart.deinit() function.
+  * Fixed deb backend when using package files with Python 2.5.
+  * Fixing problem with "+auto.master" style of lines in automount media
+    discovering, as reported in bug #269 (and by Jeff Johnson ten years
+    ago).
+  * Allow deb backend to run inside a thread.
+
+-------------------------------------------------------------------
+Sat May 19 09:55:52 CEST 2007 - coolo@suse.de
+
+- remove X-SuSE-translate from desktop file
+
+-------------------------------------------------------------------
+Wed Mar  7 12:58:51 CET 2007 - cthiel@suse.de
+
+- added channels.tar.bz2, which includes preconfigured openSUSE channels for smart.
+
+-------------------------------------------------------------------
+Thu Mar  1 13:27:59 CET 2007 - cthiel@suse.de
+
+- updated smart-trunk.patch to r857
+- added smart-show-changelog.patch by Mauricio Teixeira and Davodet Olivier
+  (http://tracker.labix.org/issue244)
+- added smart-fix-archscore-add-disable-biarch-option.patch,
+  smart-broken-repo-without-summary-or-description-workaround.diff and
+  smart-better-x86_64-support.patch by Pascal Bleser (fixes #242782)
+- added experimental command "newer" by Pascal Bleser
+
+-------------------------------------------------------------------
+Wed Jan 31 19:16:44 CET 2007 - cthiel@suse.de
+
+- readded smart-trunk.patch (r856)
+
+-------------------------------------------------------------------
+Tue Jan 16 11:39:40 CET 2007 - cthiel@suse.de
+
+- update to final 0.50 release
+  o Changed the transaction algorithm to make Smart able to survive massive
+    whole-distribution upgrades with good results, and in acceptable
+    timings.
+  o Changed the way that priorities are considered by the transaction
+    mechanism, so that tracking individual packages from arbitrary
+    repositories is actually much more predictable and manageable.
+  o Fixed leak that made packages never get deallocated when loading from a
+    disk cache.
+  o New '--dump' option to install/remove/upgrade commands. It outputs the
+    list of packages for requested transaction.
+  o Support for ETA during downloads in graphical and text modes
+  o Swedish translation
+  o Traditional Chinese translation
+  o Spanish translation
+  o Several bugs fixed
+  o More tests
+
+-------------------------------------------------------------------
+Sun Dec 17 13:41:49 CET 2006 - cthiel@suse.de
+
+- update smart-trunk.patch to r844, to pull in the latests translations and
+  fixes from upstream
+
+-------------------------------------------------------------------
+Mon Dec 11 20:04:14 CET 2006 - cthiel@suse.de
+
+- updated smart-trunk.patch to r839
+
+-------------------------------------------------------------------
+Mon Dec  4 16:48:31 CET 2006 - cthiel@suse.de
+
+- updated smart-channel-mirrors.patch
+
+-------------------------------------------------------------------
+Sun Dec  3 17:37:50 CET 2006 - cthiel@suse.de
+
+- updated smart-trunk.patch to r833
+
+-------------------------------------------------------------------
+Fri Nov 17 11:27:52 CET 2006 - cthiel@suse.de
+
+- updated smart-channel-mirrors.patch (from Pascal Bleser)
+
+-------------------------------------------------------------------
+Wed Nov 15 13:02:17 CET 2006 - cthiel@suse.de
+
+- updated smart-trunk.patch to r812
+- remove smart-cElementTree.patch, got applied upstream
+
+-------------------------------------------------------------------
+Sun Nov 12 18:54:41 CET 2006 - cthiel@suse.de
+
+- removed smart-python25.patch, updated smart-cElementTree.patch
+
+-------------------------------------------------------------------
+Sun Nov 12 17:23:27 CET 2006 - cthiel@suse.de
+
+- readded smart-trunk.patch to track trunk again
+  * diff from r796 (0.50rc1) to r810
+
+-------------------------------------------------------------------
+Wed Nov  8 18:23:32 CET 2006 - cthiel@suse.de
+
+- readded some parts of smart-python25.patch, to fix smart on 10.2+
+
+-------------------------------------------------------------------
+Tue Nov  7 15:24:19 CET 2006 - cthiel@suse.de
+
+- update to 0.50rc1
+  * obsoltes smart-0.42-pycurl.patch, smart-0.42-pycurl-TIMECONDITION.patch,
+    smart-python25.patch, smart-rpm-force.patch, smart-yast-del.patch and
+    smart-yast.patch
+  * includes improved transaction algorithm which makes it able to survive
+    massive whole-distribution upgrades with good results
+  * changes the way that priorities are considered by the transaction
+    mechanism, so that tracking individual packages from arbitrary
+    repositories is actually much more predictable and manageable.
+  * implementes ETA reporting during downloads for graphic and textual
+    interfaces.
+  * numerous bugfixes
+- reenable smart-channel-mirrors.patch, pulled in latests version from
+  Pascal Bleser
+
+-------------------------------------------------------------------
+Mon Oct 23 23:21:33 CEST 2006 - cthiel@suse.de
+
+- fix distro.py
+
+-------------------------------------------------------------------
+Sat Oct 21 13:31:51 CEST 2006 - cthiel@suse.de
+
+- remove multi-version flag for kernel-source from distro.py (#210950)
+
+-------------------------------------------------------------------
+Sat Oct 14 22:51:47 CEST 2006 - cthiel@suse.de
+
+- build rpmhelper module even on x86_64 (refixes #208534)
+
+-------------------------------------------------------------------
+Thu Oct  5 23:59:59 CEST 2006 - cthiel@suse.de
+
+- use python 2.5's xml.etree instead of python-elementtree (fixes #208409)
+
+-------------------------------------------------------------------
+Thu Oct  5 23:49:51 CEST 2006 - cthiel@suse.de
+
+- make fetcher work with pycurl on python 2.5 (fixes #208386)
+
+-------------------------------------------------------------------
+Tue Oct  3 11:59:08 CEST 2006 - cthiel@suse.de
+
+- fix build
+
+-------------------------------------------------------------------
+Mon Oct  2 14:19:53 CEST 2006 - cthiel@suse.de
+
+- only build rpmhelper module on dists < 10.1 on x86_64 (fixes #208534)
+
+-------------------------------------------------------------------
+Tue Sep 26 23:34:38 CEST 2006 - cthiel@suse.de
+
+- improved smart-yast-media.patch (fixes #207681)
+
+-------------------------------------------------------------------
+Sat Sep 23 16:48:27 CEST 2006 - aj@suse.de
+
+- Fix build with python 2.5.
+
+-------------------------------------------------------------------
+Wed Sep 20 17:06:12 CEST 2006 - cthiel@suse.de
+
+- added smart-yast-del.patch by Andreas Hanke <andreas.hanke@gmx-topmail.de>
+- added smart-yast-media.patch by Ludwig Nussel <lnussel@suse.de> (fixes #206983)
+
+-------------------------------------------------------------------
+Mon Sep  4 20:11:39 CEST 2006 - cthiel@suse.de
+
+- renamed smart-yast-r739.patch to smart-yast.patch and updated it to r742
+  * smart/backends/rpm/yast2.py
+    - deal with packages with empty description
+    - show warning on corrupted Req/Prov (closes issue150)
+
+-------------------------------------------------------------------
+Thu Aug 31 19:31:27 CEST 2006 - cthiel@suse.de
+
+- set rpm-force to false, to make smart respect file conflicts (#202924)
+
+-------------------------------------------------------------------
+Tue Aug 29 10:07:26 CEST 2006 - cthiel@suse.de
+
+- added smart-yast-r739.patch
+  * smart/backends/rpm/yast2.py
+    - handle "+Ins" tag (skip it for now)
+    - simple interpretation of rich text format (<p>/<li>)
+    - wrap lines on column 76
+
+-------------------------------------------------------------------
+Wed Aug 16 18:53:50 CEST 2006 - cthiel@suse.de
+
+- reduce BuildRequires
+- disable smart-channel-mirrors.patch, as it seems to break smart's cache
+  behavior
+
+-------------------------------------------------------------------
+Tue Aug 15 19:11:44 CEST 2006 - cthiel@suse.de
+
+- added smart-0.42-pycurl-TIMECONDITION.patch to reset TIMECONDITION to NONE
+  rather than IFUNMODSINCE
+
+-------------------------------------------------------------------
+Tue Aug 15 11:02:04 CEST 2006 - cthiel@suse.de
+
+- distro.py: don't flag kernel-* packages as multi-version, i.e. don't
+  enable smart to install more than one kernel in parallel (#198080)
+- remove requires to python-curl
+
+-------------------------------------------------------------------
+Mon Aug 14 10:26:39 CEST 2006 - cthiel@suse.de
+
+- make it impossible to disable the rpm-sys channel (#199127)
+
+-------------------------------------------------------------------
+Sun Aug  6 14:06:31 CEST 2006 - cthiel@suse.de
+
+- added smart-0.42-pycurl.patch to make smart follow location redirects when
+  using python-curl
+
+-------------------------------------------------------------------
+Sat Aug  5 17:17:19 CEST 2006 - cthiel@suse.de
+
+- require python-curl, on suse_version > 1010
+
+-------------------------------------------------------------------
+Sat Aug  5 00:48:07 CEST 2006 - cthiel@suse.de
+
+- fixed typo in distro.py 
+
+-------------------------------------------------------------------
+Fri Aug  4 23:35:09 CEST 2006 - cthiel@suse.de
+
+- added smart-ksmarttray.patch to call smart-update by absolute path
+
+-------------------------------------------------------------------
+Fri Aug  4 22:57:56 CEST 2006 - cthiel@suse.de
+
+- improved smart-rpm-check-signatures.patch
+- set default keyserver to pgp.mit.edu
+
+-------------------------------------------------------------------
+Fri Aug  4 17:53:01 CEST 2006 - cthiel@suse.de
+
+- added smart-ksmarttray-runsmart.patch by Steve Boddy
+
+-------------------------------------------------------------------
+Wed Jul 12 21:43:40 CEST 2006 - cthiel@suse.de
+
+- added smart-rpm-check-signatures.patch by Andrea Arcangeli
+
+-------------------------------------------------------------------
+Mon Jun 26 07:35:34 CEST 2006 - cthiel@suse.de
+
+- update to final 0.42 release
+
+-------------------------------------------------------------------
+Thu Jun 22 19:16:25 CEST 2006 - cthiel@suse.de
+
+- turn rpm-check-signatures=true into a weak default option
+
+-------------------------------------------------------------------
+Fri Jun 16 18:50:59 CEST 2006 - cthiel@suse.de
+
+- updated to svn trunk (r730)
+
+-------------------------------------------------------------------
+Fri Jun 16 15:05:05 CEST 2006 - cthiel@suse.de
+
+- added rudimental manpage (#184409)
+
+-------------------------------------------------------------------
+Fri Jun 16 13:51:24 CEST 2006 - cthiel@suse.de
+
+- prevent smart from crashing in smart/channels/yast2.py (#185562)
+
+-------------------------------------------------------------------
+Fri Jun 16 12:45:05 CEST 2006 - cthiel@suse.de
+
+- updated to svn trunk (r727)
+- moved smart-ksmarttray.desktop into ksmarttray subpackage (#185163)
+
+-------------------------------------------------------------------
+Thu Jun 15 12:12:42 CEST 2006 - cthiel@suse.de
+
+- updated to svn trunk (r725)
+
+-------------------------------------------------------------------
+Thu Jun 15 12:06:06 CEST 2006 - cthiel@suse.de
+
+- disable no-rpm-readHeaderFromFD on SUSE Linux >= 10.1, 
+  as it's no needed there.
+
+-------------------------------------------------------------------
+Wed Jun 14 14:11:06 CEST 2006 - cthiel@suse.de
+
+- updated to svn trunk (r722) for pretesting the upcoming smart 0.42
+- the following patches have been merged upstream
+  * smart-0.41-channel-editor.patch
+  * smart-0.41.patch (partly)
+  * smart-fix-none-obsoleteversion.patch
+  * smart-fix-obsoleteversion-type-error.patch
+  * smart-fix-search-with-empty-description.patch
+  * smart-ksmarttray-guard.patch
+  * smart-mirror-workaround.patch
+  * smart-YaST2.patch
+
+-------------------------------------------------------------------
+Fri Jun  9 07:41:20 CEST 2006 - cthiel@suse.de
+
+- set rpm-check-signatures=true, to enable rpm signatures checks by default
+
+-------------------------------------------------------------------
+Wed Jun  7 16:17:01 CEST 2006 - cthiel@suse.de
+
+- added one patch from Pascal Bleser
+  * smart-fix-none-obsoleteversion.patch
+- require the same RPM release in subpackages
+- call kde_post_install for ksmarttray subpackage
+
+-------------------------------------------------------------------
+Wed Jun  7 15:51:58 CEST 2006 - cthiel@suse.de
+
+- added smart-0.41-channel-editor.patch (#169678)
+
+-------------------------------------------------------------------
+Sat Jun  3 01:03:53 CEST 2006 - cthiel@suse.de
+
+- updated smart-trunk.patch (r704)
+- updated smart-YaST2.patch (r704)
+- added 4 patches from Pascal Bleser:
+  * smart-channel-mirrors.patch
+  * smart-mirror-workaround.patch
+  * smart-fix-obsoleteversion-type-error.patch
+  * smart-fix-search-with-empty-description.patch
+- added smart-ksmarttray.desktop
+
+-------------------------------------------------------------------
+Wed Apr 26 19:57:18 CEST 2006 - cthiel@suse.de
+
+- new subpackage ksmarttray
+- included KDE service menus
+
+-------------------------------------------------------------------
+Wed Apr 26 15:37:23 CEST 2006 - cthiel@suse.de
+
+- updated smart-YaST2.patch (r698)
+- split of smart-trunk.patch from smart-YaST2.patch
+
+-------------------------------------------------------------------
+Sat Mar  4 13:35:40 CET 2006 - cthiel@suse.de
+
+- updated to reflect python changes due to #149809
+
+-------------------------------------------------------------------
+Mon Feb 20 21:49:52 CET 2006 - cthiel@suse.de
+
+- updated smart-YaST2.patch (r696)
+
+-------------------------------------------------------------------
+Wed Feb 15 12:11:51 CET 2006 - stbinner@suse.de
+
+- fix Name in .desktop file
+
+-------------------------------------------------------------------
+Mon Feb 13 15:48:56 CET 2006 - cthiel@suse.de
+
+- updated smart-YaST2.patch (fixes #149845)
+
+-------------------------------------------------------------------
+Sun Feb  5 13:25:02 CET 2006 - cthiel@suse.de
+
+- fix requires (added python-xml)
+
+-------------------------------------------------------------------
+Wed Jan 25 21:41:41 CET 2006 - mls@suse.de
+
+- converted neededforbuild to BuildRequires
+
+-------------------------------------------------------------------
+Wed Jan 18 15:06:39 CET 2006 - cthiel@suse.de
+
+- updated smart-YaST2.patch
+
+-------------------------------------------------------------------
+Wed Jan 11 09:52:11 CET 2006 - cthiel@suse.de
+
+- make sure not to package cElementTree, because we use the system one
+  anyway
+
+-------------------------------------------------------------------
+Thu Jan  5 16:04:32 CET 2006 - cthiel@suse.de
+
+- added smart-YaST2.patch: experimental support for YaST2 repositories by
+  Mauricio Teixeira
+
+-------------------------------------------------------------------
+Wed Dec 21 21:39:22 CET 2005 - cthiel@suse.de
+
+- update to version 0.41
+- removed smart-trunk.patch
+
+-------------------------------------------------------------------
+Wed Dec 21 13:25:38 CET 2005 - cthiel@suse.de
+
+- fix requires
+
+-------------------------------------------------------------------
+Tue Nov 22 17:42:08 CET 2005 - cthiel@suse.de
+
+- added directory /etc/smart to filelist
+
+-------------------------------------------------------------------
+Tue Nov 22 15:29:22 CET 2005 - cthiel@suse.de
+
+- branched smart-gui
+- added distro.py
+- added desktop file
+- added patch to the protectedread code from SVN (smart-trunk.patch)
+
+-------------------------------------------------------------------
+Wed Nov  2 11:44:32 CET 2005 - cthiel@suse.de
+
+- added various patches
+
+-------------------------------------------------------------------
+Mon Oct 17 23:17:54 CEST 2005 - cthiel@suse.de
+
+- fix a "TypeError: unsubscriptable object" with "exotic" packages
+
+-------------------------------------------------------------------
+Sun Oct 16 21:03:01 CEST 2005 - cthiel@suse.de
+
+- initial package (version 0.40),
+  based on the work of Pascal Bleser <pascal.bleser@skynet.be>
+

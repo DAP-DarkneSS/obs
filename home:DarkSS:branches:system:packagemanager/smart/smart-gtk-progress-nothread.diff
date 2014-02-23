@@ -1,0 +1,32 @@
+=== modified file 'smart/interfaces/gtk/progress.py'
+--- smart/interfaces/gtk/progress.py	2010-02-03 12:16:20 +0000
++++ smart/interfaces/gtk/progress.py	2010-05-12 18:33:12 +0000
+@@ -181,9 +181,9 @@
+     def tick(self):
+         while not self._stopticking:
+             self.lock()
+-            if self._threadsafe:
+-                while gtk.events_pending():
+-                    gtk.main_iteration()
++            #if self._threadsafe:
++                #while gtk.events_pending():
++                    #gtk.main_iteration()
+             self.unlock()
+             time.sleep(INTERVAL)
+         self._ticking = False
+@@ -268,9 +268,12 @@
+             if self._hassub:
+                 self._treeview.queue_draw()
+ 
+-        if not self._threadsafe:
+-            while gtk.events_pending():
+-                gtk.main_iteration()
++        while gtk.events_pending():
++            gtk.main_iteration()
++
++        #if not self._threadsafe:
++            #while gtk.events_pending():
++                #gtk.main_iteration()
+ 
+ gobject.type_register(GtkProgress)
+ 

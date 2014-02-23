@@ -1,0 +1,3 @@
+addFilter("W: python-naming-policy-not-applied .*")
+addFilter("W: files-duplicate /usr/lib.*/python.*/site-packages/smart/.*")
+addFilter("W: name-repeated-in-summary .*")

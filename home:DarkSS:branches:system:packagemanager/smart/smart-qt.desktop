@@ -1,0 +1,11 @@
+[Desktop Entry]
+Categories=System;Utility;Settings;PackageManager;
+Encoding=UTF-8
+Terminal=false
+Icon=smart
+Exec=xdg-su -c "/usr/bin/smart --interface=qt"
+Type=Application
+StartupNotify=true
+Name=Smart
+GenericName=Package Manager
+Comment=Install packages from various sources
