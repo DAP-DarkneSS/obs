@@ -2,6 +2,7 @@
 # spec file for package qutim
 #
 # Copyright (c) 2012 Sergei Lopatin <magist3r@gmail.com>
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,13 +17,13 @@
 #
 
 Name:           qutim
-Version:        0.3.1
+Version:        0.3.2
 Release:        1.0
 License:        GPL-3.0+
 Summary:        QutIM instant messenger
 Url:            http://qutim.org/
 Group:          Productivity/Networking/Instant Messenger
-Source:         %{name}-%{version}.tar.bz2
+Source:         http://qutim.org/dwnl/68/%{name}-%{version}.tar.xz
 # PATCH-FIX-UPSTREAM fix-compilation-on-new-versions-of-cmake.patch -- fixes build with cmake 2.8.12
 Patch0:         fix-compilation-on-new-versions-of-cmake.patch
 Requires:       libjreen1 >= 1.1.0
@@ -36,6 +37,7 @@ BuildRequires:  libQtWebKit-devel >= 4.6
 BuildRequires:  libjreen-devel >= 1.1.0
 BuildRequires:  libqca2-devel >= 2.0
 BuildRequires:  libqt4-devel >= 4.6
+BuildRequires:  libqxt-devel
 BuildRequires:  phonon-devel
 BuildRequires:  doxygen
 BuildRequires:  libpurple-devel
@@ -135,7 +137,6 @@ cmake \
     ..
 
 make %{?_smp_flags}
-#make
 popd #build
 
 %install
@@ -145,7 +146,7 @@ pushd build
 popd #build
 
 # Link duplicate files
-%fdupes %{buildroot}/%{_datadir}/apps
+%fdupes %{buildroot}/%{_datadir}
 
 %post
 /sbin/ldconfig
@@ -153,8 +154,6 @@ popd #build
 %postun
 /sbin/ldconfig
 
-%clean
-rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
@@ -168,8 +167,8 @@ rm -rf %{buildroot}
 %{_datadir}/applications/%{name}.desktop
 
 #lib
-%{_libdir}/libqutim.so.*
-%{_libdir}/libqutim-adiumwebview.so.*
+%{_libdir}/libqutim*.so.*
+%{_libdir}/libvreen.so.*
 
 #app icons
 %{_datadir}/icons/*
@@ -183,8 +182,8 @@ rm -rf %{buildroot}
 %{_libdir}/qutim/plugins/liboscaridentify.so
 %{_libdir}/qutim/plugins/liboscarxstatus.so
 %{_libdir}/qutim/plugins/libvkontakte.so
-%{_libdir}/qutim/plugins/libvkontaktewall.so
-%{_libdir}/qutim/plugins/libvphotoalbum.so
+# %%{_libdir}/qutim/plugins/libvkontaktewall.so
+# %%{_libdir}/qutim/plugins/libvphotoalbum.so
 %{_libdir}/qutim/plugins/libquetzal.so
 
 #plugins
@@ -194,14 +193,19 @@ rm -rf %{buildroot}
 %{_libdir}/qutim/plugins/libadiumchat.so
 %{_libdir}/qutim/plugins/libadiumsrvicons.so
 %{_libdir}/qutim/plugins/libauthdialog.so
+%{_libdir}/qutim/plugins/libautopaster.so
+%{_libdir}/qutim/plugins/libautoreply.so
 %{_libdir}/qutim/plugins/libbearermanager.so
 %{_libdir}/qutim/plugins/libchatnotificationsbackend.so
 %{_libdir}/qutim/plugins/libchatspellchecker.so
+%{_libdir}/qutim/plugins/libcomparators.so
+%{_libdir}/qutim/plugins/libcontactmodel.so
 %{_libdir}/qutim/plugins/libcontactinfo.so
 %{_libdir}/qutim/plugins/libdataformsbackend.so
 %{_libdir}/qutim/plugins/libemoticonssettings.so
 %{_libdir}/qutim/plugins/libfiletransfer.so
 %{_libdir}/qutim/plugins/libfiletransfersettings.so
+%{_libdir}/qutim/plugins/libformula.so
 %{_libdir}/qutim/plugins/libidledetector.so
 %{_libdir}/qutim/plugins/libidlestatuschanger.so
 %{_libdir}/qutim/plugins/libjoinchatdialog.so
@@ -218,14 +222,15 @@ rm -rf %{buildroot}
 %{_libdir}/qutim/plugins/libmobilenotificationssettings.so
 %{_libdir}/qutim/plugins/liboldsoundtheme.so
 %{_libdir}/qutim/plugins/libpassword.so
-%{_libdir}/qutim/plugins/libplaincontactsmodel.so
+# %%{_libdir}/qutim/plugins/libplaincontactsmodel.so
 %{_libdir}/qutim/plugins/libplistconfig.so
 %{_libdir}/qutim/plugins/libproxysettings.so
 %{_libdir}/qutim/plugins/libqticons.so
 %{_libdir}/qutim/plugins/libsearchdialog.so
 %{_libdir}/qutim/plugins/libservicechooser.so
 %{_libdir}/qutim/plugins/libsessionhelper.so
-%{_libdir}/qutim/plugins/libseparatedcontactsmodel.so
+%{_libdir}/qutim/plugins/libscreenshoter.so
+# %%{_libdir}/qutim/plugins/libseparatedcontactsmodel.so
 %{_libdir}/qutim/plugins/libshortcutsettings.so
 %{_libdir}/qutim/plugins/libsimpleaboutdialog.so
 %{_libdir}/qutim/plugins/libsimpleactionbox.so
@@ -240,7 +245,7 @@ rm -rf %{buildroot}
 %{_libdir}/qutim/plugins/libtextchat.so
 %{_libdir}/qutim/plugins/libtorycontactlistwidget.so
 %{_libdir}/qutim/plugins/libtrayicon.so
-%{_libdir}/qutim/plugins/libtreecontactsmodel.so
+# %%{_libdir}/qutim/plugins/libtreecontactsmodel.so
 %{_libdir}/qutim/plugins/libxsettingsdialog.so
 %{_libdir}/qutim/plugins/liblinuxintegration.so
 %{_libdir}/qutim/plugins/libphononsound.so
@@ -271,8 +276,8 @@ rm -rf %{buildroot}
 %files devel
 %defattr(-,root,root)
 %{_includedir}/*
-%{_libdir}/libqutim.so
-%{_libdir}/libqutim-adiumwebview.so
+%{_libdir}/libqutim*.so
+%{_libdir}/libvreen*.so
 %{_datadir}/cmake/Modules
 
 %files plugin-aspeller

@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Feb 23 08:23:47 UTC 2014 - dap.darkness@gmail.com
+
+- Version 0.3.2:
+  * no upstream changelog.
+- clean section was removed.
+
+-------------------------------------------------------------------
 Mon Oct 28 00:06:51 UTC 2013 - hrvoje.senjan@gmail.com
 
 - Added fix-compilation-on-new-versions-of-cmake.patch, fixes build
