@@ -1,0 +1,61 @@
+-------------------------------------------------------------------
+Mon Oct 28 00:06:51 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Added fix-compilation-on-new-versions-of-cmake.patch, fixes build
+  with cmake >= 2.8.12
+- Added doxygen and libpurple-devel BuildRequires
+
+-------------------------------------------------------------------
+Mon Aug  5 17:55:25 UTC 2013 - hrvoje.senjan@gmail.com
+
+- enable CMAKE_SKIP_INSTALL_RPATH option so RPATH is ommited from
+  install tree
+
+-------------------------------------------------------------------
+Mon Jan 14 10:10:20 UTC 2013 - aj@ajaissle.de
+
+- Fix openSUSE 12.2 build (take libotr2-devel for suse >= 1230)
+
+-------------------------------------------------------------------
+Mon Jan  7 13:10:43 UTC 2013 - idonmez@suse.com
+
+- Depend on libotr2-devel to fix the build
+
+-------------------------------------------------------------------
+Mon May 28 08:09:47 UTC 2012 - magist3r@gmail.com
+
+- Changes in spec file:
+  * Moved plugins from qutim-plugins package to main package
+  * Added OTR plugin
+  * Added phononsound plugin as a default sound engine
+  * Some spec fixes
+
+-------------------------------------------------------------------
+Mon Apr 16 07:50:47 UTC 2012 - aj@suse.de
+
+- Cleanup spec file:
+  * run through spec-cleaner
+  * Remove duplicate changelog lines
+  * Run fdupes.
+
+-------------------------------------------------------------------
+Sun Apr 15 11:08:26 UTC 2012 - magist3r@gmail.com
+
+- Version 0.3.1:
+    * Added PGP support
+	* Added OTR support
+	* Added ability to disable showing of ContactList on startup
+	* Added ability of starting up in minimized mode
+	* Added filtration in ServiceChooser and PluginChooser
+	* Added "melva" chat style
+	* Added metacontacts synchronization for Jabber accounts
+	* Improved support for Adium Chat Styles
+	* Improved quotering support
+	* Fixed switching from autoresize to normal TextEdit
+	* Fixed several crashes
+
+
+-------------------------------------------------------------------
+Thu Apr 12 05:43:30 UTC 2012 - magist3r@gmail.com
+
+- initial packaging of version 0.3
