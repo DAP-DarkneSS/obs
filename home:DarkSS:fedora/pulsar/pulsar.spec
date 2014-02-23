@@ -1,7 +1,7 @@
 #
 # spec file for package pulsar
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 %define majver 0.92
-%define subver 9
+%define subver 10
 
 Name:           pulsar
 Version:        %{majver}.%{subver}
@@ -60,12 +60,12 @@ QMAKE_CFLAGS+="%{optflags}" \
 QMAKE_CXXFLAGS+="%{optflags}" \
 ../%{name}.pro
 
-make %{?_smp_mflags}
+make V=1 %{?_smp_mflags}
 
 %install
 mkdir -p %{buildroot}
 cd build
-make INSTALL_ROOT=%{buildroot} install
+make V=1 INSTALL_ROOT=%{buildroot} install
 
 mkdir -p %{buildroot}%{_datadir}/%{name}/translations/
 %{__install} src/translations/%{name}*.qm %{buildroot}%{_datadir}/%{name}/translations/
