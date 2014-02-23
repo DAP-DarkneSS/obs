@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.60-582-gb51ed17
+%define LEECHCRAFT_VERSION 0.6.60-722-g719fac7
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -342,7 +342,9 @@ Requires:       %{name}-choroid
 Requires:       %{name}-gmailnotifier
 Requires:       %{name}-historyholder
 Requires:       %{name}-kinotify
+%if 0%{?suse_version} >= 1230
 Requires:       %{name}-lhtr
+%endif
 Requires:       %{name}-netstoremanager
 Requires:       %{name}-netstoremanager-googledrive
 Requires:       %{name}-newlife
@@ -363,7 +365,9 @@ Summary:        Meta package for pattern leechcraft_office
 Group:          Metapackages
 Requires:       %{name}-blogique
 Requires:       %{name}-blogique-hestia
+%if 0%{?suse_version} >= 1230
 Requires:       %{name}-lhtr
+%endif
 Requires:       %{name}-monocle
 Requires:       %{name}-monocle-dik
 Requires:       %{name}-monocle-fxb
@@ -1011,7 +1015,9 @@ Summary:        LeechCraft Blogging client Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-blogique-subplugin = %{version}
+%if 0%{?suse_version} >= 1230
 Recommends:     %{name}-lhtr
+%endif
 
 %description blogique
 This package provides a modular Blogging client plugin for LeechCraft.
@@ -1485,6 +1491,7 @@ Requires:       %{name}-sb = %{version}
 This package provides another Network Monitor plugin for Leechcraft.
 
 
+%if 0%{?suse_version} >= 1230
 %package lhtr
 Summary:        LeechCraft HTML WYSIWYG editor Module
 Group:          Productivity/Networking/Other
@@ -1495,6 +1502,7 @@ Recommends:     %{name}-poshuku
 This package provides a HTML WYSIWYG editor plugin for Leechcraft.
 
 It can be usable with mail and blog modules.
+%endif
 
 
 %package liznoo
@@ -2431,8 +2439,12 @@ cmake ../src \
         -DENABLE_LAUGHTY=True \
         -DENABLE_LAUNCHY=True \
         -DENABLE_LEMON=True \
+%if 0%{?suse_version} >= 1230
         -DENABLE_LHTR=True \
                 -DWITH_LHTR_HTML=True \
+%else
+        -DENABLE_LHTR=False \
+%endif
         -DENABLE_LIZNOO=True \
 %if %{lmp}
         -DENABLE_LMP=True \
@@ -3072,11 +3084,13 @@ EOF
 %{_datadir}/%{name}/qml/lemon/
 %{_datadir}/%{name}/translations/%{name}_lemon_*.qm
 
+%if 0%{?suse_version} >= 1230
 %files lhtr
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lhtr.so
 %{_datadir}/%{name}/translations/%{name}_lhtr_*.qm
 %{_datadir}/%{name}/settings/lhtrsettings.xml
+%endif
 
 %files liznoo
 %defattr(-,root,root)
