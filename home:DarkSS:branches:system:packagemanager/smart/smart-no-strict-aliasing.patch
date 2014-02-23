@@ -1,6 +1,6 @@
 --- setup.py.orig	2007-09-14 17:35:36.000000000 +0200
 +++ setup.py	2007-09-14 17:35:37.000000000 +0200
-@@ -62,14 +62,16 @@
+@@ -64,16 +64,18 @@
  config_h = sysconfig.get_config_h_filename()
  config_h_vars = sysconfig.parse_config_h(open(config_h))
  
@@ -15,6 +15,8 @@
                 Extension("smart.backends.deb.cdebver",
 -                         ["smart/backends/deb/cdebver.c"]),
 +                         ["smart/backends/deb/cdebver.c"], extra_compile_args=aliasing_cflags),
+                Extension("smart.backends.deb._base",
+                          ["smart/backends/deb/_base.c"]),
                 Extension("smart.util.ctagfile",
 -                         ["smart/util/ctagfile.c"]),
 +                         ["smart/util/ctagfile.c"], extra_compile_args=aliasing_cflags),

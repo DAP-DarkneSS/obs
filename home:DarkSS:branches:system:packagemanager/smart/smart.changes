@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Feb 23 12:31:01 UTC 2014 - dap.darkness@gmail.com
+
+- update to version 1.4.1:
+  * no upstream changelog;
+  * bnc#794452 is resolved.
+
+-------------------------------------------------------------------
 Fri Dec 17 04:01:07 UTC 2010 - andreas.hanke@gmx-topmail.de
 
 - add smart-gtk-progress-nothread.diff to work around issues with

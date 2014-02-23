@@ -42,7 +42,7 @@ Patch4:         smart-ksmarttray.patch
 Patch9:         smart-no-strict-aliasing.patch
 Url:            https://launchpad.net/smart
 Group:          System/Packages
-License:        GPL v2 or later
+License:        GPL-2.0+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if %{suse_version} <= 1010
 Requires:       python-elementtree
@@ -66,7 +66,7 @@ Authors:
     Gustavo Niemeyer <gustavo@niemeyer.net>
 
 %package gui-gtk
-License:        GPL v2 or later
+License:        GPL-2.0+
 Summary:        GTK2 Graphical User Interface for smart
 Group:          System/Packages
 Requires:       %{name} = %{version}-%{release}
@@ -85,7 +85,7 @@ Authors:
     Gustavo Niemeyer <gustavo@niemeyer.net>
 
 %package gui-qt3
-License:        GPL v2 or later
+License:        GPL-2.0+
 Summary:        QT3 Graphical User Interface for smart
 Group:          System/Packages
 Requires:       %{name} = %{version}-%{release}
@@ -105,7 +105,7 @@ Authors:
 
 %if %{suse_version} > 1010
 %package ksmarttray
-License:        GPL v2 or later
+License:        GPL-2.0+
 Summary:        KDE System Tray for the Smart Package Manager
 Group:          System/Packages
 Requires:       %{name} = %{version}-%{release}
@@ -214,8 +214,6 @@ kde_post_install
 %__make test
 %endif
 
-%clean
-%__rm -rf "%{buildroot}"
 
 %files -f %{name}.lang
 %defattr(-,root,root)
