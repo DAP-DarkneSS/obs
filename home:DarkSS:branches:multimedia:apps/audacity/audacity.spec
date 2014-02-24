@@ -1,7 +1,7 @@
 #
 # spec file for package audacity
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -54,7 +54,7 @@ BuildRequires:  pkgconfig(mad)
 %if %{with twolame}
 BuildRequires:  pkgconfig(twolame)
 %endif
-Version:        2.0.4
+Version:        2.0.5
 Release:        0
 Summary:        A Free, Cross-Platform Digital Audio Editor
 License:        GPL-2.0+
