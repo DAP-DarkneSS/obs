@@ -17,7 +17,7 @@
 
 
 Name:           simplescreenrecorder
-Version:        0.2.0
+Version:        0.2.1
 Release:        0
 License:        GPL-3.0+
 Summary:        A feature-rich screen recorder that supports X11 and OpenGL
@@ -112,6 +112,15 @@ make %{?_smp_mflags}
 %install
 %make_install
 %suse_update_desktop_file %{name}
+
+
+%post
+%desktop_database_post
+%icon_theme_cache_post
+
+%postun
+%desktop_database_postun
+%icon_theme_cache_postun
 
 
 %files
