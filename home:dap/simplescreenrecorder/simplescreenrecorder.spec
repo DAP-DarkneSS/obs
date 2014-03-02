@@ -17,7 +17,7 @@
 
 
 Name:           simplescreenrecorder
-Version:        0.2.1
+Version:        0.2.1+git.2014.03.02
 Release:        0
 License:        GPL-3.0+
 Summary:        A feature-rich screen recorder that supports X11 and OpenGL
@@ -99,10 +99,9 @@ This package provides SimpleScreenRecorder's optional library.
 
 %build
 %ifarch %ix86 x86_64
-%configure --enable-jack
+%configure
 %else
 %configure \
-           --enable-jack \
            --disable-x86-asm \
            --disable-glinjectlib
 %endif
