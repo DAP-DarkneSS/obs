@@ -1,0 +1,6 @@
+-------------------------------------------------------------------
+Sun Mar  2 11:11:55 UTC 2014 - dap.darkness@gmail.com
+
+- Initial build.
+- Added colobot-mission-locale.diff to prevent "stack smashing".
+  See more at https://github.com/colobot/colobot/issues/288
