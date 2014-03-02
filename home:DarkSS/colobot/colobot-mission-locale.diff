@@ -1,0 +1,1330 @@
+diff --git a/src/common/restext.cpp b/src/common/restext.cpp
+index d61fa63..c5d0ceb 100644
+--- a/src/common/restext.cpp
++++ b/src/common/restext.cpp
+@@ -776,9 +776,7 @@ struct KeyDesc
+ 
+ bool SearchKey(const char *cmd, InputSlot &key)
+ {
+-    int     i;
+-
+-    for ( i=0 ; i<22 ; i++ )
++    for (int i = 0; i < 22 ;i++)
+     {
+         if ( strstr(cmd, keyTable[i].name) == cmd )
+         {
+@@ -791,14 +789,11 @@ bool SearchKey(const char *cmd, InputSlot &key)
+ 
+ // Replaces the commands "\key name;" in a text.
+ 
+-static void PutKeyName(char* dst, const char* src)
++static void PutKeyName(std::string& dst, const char* src)
+ {
+-    InputSlot key;
+-    char    name[50];
+-    int     s, d, n;
+-    unsigned int res;
++    dst.clear();
+ 
+-    s = d = 0;
++    int s = 0;
+     while ( src[s] != 0 )
+     {
+         if ( src[s+0] == '\\' &&
+@@ -807,18 +802,16 @@ static void PutKeyName(char* dst, const char* src)
+              src[s+3] == 'y'  &&
+              src[s+4] == ' '  )
+         {
++            InputSlot key;
+             if ( SearchKey(src+s+5, key) )
+             {
+-                res = CRobotMain::GetInstancePointer()->GetInputBinding(key).primary;
++                unsigned int res = CRobotMain::GetInstancePointer()->GetInputBinding(key).primary;
+                 if (res != KEY_INVALID)
+                 {
+-                    if ( GetResource(RES_KEY, res, name) )
++                    std::string keyName;
++                    if ( GetResource(RES_KEY, res, keyName) )
+                     {
+-                        n = 0;
+-                        while ( name[n] != 0 )
+-                        {
+-                            dst[d++] = name[n++];
+-                        }
++                        dst.append(keyName);
+                         while ( src[s++] != ';' );
+                         continue;
+                     }
+@@ -826,9 +819,8 @@ static void PutKeyName(char* dst, const char* src)
+             }
+         }
+ 
+-        dst[d++] = src[s++];
++        dst.append(1, src[s++]);
+     }
+-    dst[d++] = 0;
+ }
+ 
+ // Returns the translated text of a resource that needs key substitution
+@@ -905,13 +897,13 @@ static const char* GetResourceBase(ResType type, int num)
+ 
+ // Returns the text of a resource.
+ 
+-bool GetResource(ResType type, int num, char* text)
++bool GetResource(ResType type, int num, std::string& text)
+ {
+     const char *tmpl = GetResourceBase(type, num);
+ 
+     if (!tmpl)
+     {
+-        text[0] = 0;
++        text.clear();
+         return false;
+     }
+ 
+diff --git a/src/common/restext.h b/src/common/restext.h
+index e4659e2..b5a3415 100644
+--- a/src/common/restext.h
++++ b/src/common/restext.h
+@@ -157,5 +157,5 @@ enum ResTextType
+ 
+ void     SetGlobalGamerName(std::string name);
+ bool     SearchKey(const char *cmd, InputSlot& slot);
+-bool     GetResource(ResType type, int num, char* text);
++bool     GetResource(ResType type, int num, std::string& text);
+ 
+diff --git a/src/common/stringutils.cpp b/src/common/stringutils.cpp
+index 953abba..37169a5 100644
+--- a/src/common/stringutils.cpp
++++ b/src/common/stringutils.cpp
+@@ -17,6 +17,40 @@
+ 
+ #include "common/stringutils.h"
+ 
++#include <cstdarg>
++#include <vector>
++
++
++static std::string VFormat(const char *fmt, va_list ap)
++{
++    size_t size = 1024;
++    char stackbuf[1024];
++    std::vector<char> dynamicbuf;
++    char *buf = &stackbuf[0];
++
++    while (1)
++    {
++        int needed = vsnprintf (buf, size, fmt, ap);
++
++        if (needed <= static_cast<int>(size) && needed >= 0)
++        {
++            return std::string(buf, static_cast<size_t>(needed));
++        }
++
++        size = (needed > 0) ? (needed+1) : (size*2);
++        dynamicbuf.resize(size);
++        buf = &dynamicbuf[0];
++    }
++}
++
++std::string StrUtils::Format(const char *fmt, ...)
++{
++    va_list ap;
++    va_start(ap, fmt);
++    std::string buf = VFormat(fmt, ap);
++    va_end(ap);
++    return buf;
++}
+ 
+ std::string StrUtils::Replace(const std::string &str, const std::string &oldStr, const std::string &newStr)
+ {
+diff --git a/src/common/stringutils.h b/src/common/stringutils.h
+index c60bfb0..e80163a 100644
+--- a/src/common/stringutils.h
++++ b/src/common/stringutils.h
+@@ -31,11 +31,11 @@
+ /** If given, \a ok is set to true/false on success/failure.
+     Warning: To avoid unnecessary problems, *always* give full template qualifier e.g. ToString\<int\> */
+ template<class T>
+-std::string ToString(T value, bool *ok = NULL)
++std::string ToString(T value, bool *ok = nullptr)
+ {
+   std::ostringstream s;
+   s << value;
+-  if (ok != NULL)
++  if (ok != nullptr)
+     *ok = !s.fail();
+   return s.str();
+ }
+@@ -44,17 +44,20 @@
+ /** If given, \a ok is set to true/false on success/failure.
+     Warning: To avoid unnecessary problems, *always* give full template qualifier e.g. FromString\<int\> */
+ template<class T>
+-T FromString(const std::string &str, bool *ok = NULL)
++T FromString(const std::string &str, bool *ok = nullptr)
+ {
+   std::istringstream s;
+   s.str(str);
+   T value;
+   s >> value;
+-  if (ok != NULL)
++  if (ok != nullptr)
+     *ok = !s.fail();
+   return value;
+ }
+ 
++//! Replacement for sprintf()
++std::string Format(const char *fmt, ...);
++
+ //! Returns a string with every occurence of \a oldStr in \a str replaced to \a newStr
+ std::string Replace(const std::string &str, const std::string &oldStr, const std::string &newStr);
+ 
+diff --git a/src/object/auto/auto.cpp b/src/object/auto/auto.cpp
+index 0aeaa0a..9e593a9 100644
+--- a/src/object/auto/auto.cpp
++++ b/src/object/auto/auto.cpp
+@@ -175,7 +175,6 @@ bool CAuto::CreateInterface(bool bSelect)
+     Ui::CWindow*    pw;
+     Math::Point     pos, dim, ddim;
+     float       ox, oy, sx, sy;
+-    char        name[100];
+ 
+     pw = static_cast<Ui::CWindow*>(m_interface->SearchControl(EVENT_WINDOW0));
+     if ( pw != nullptr )
+@@ -195,6 +194,7 @@ bool CAuto::CreateInterface(bool bSelect)
+     pw = static_cast<Ui::CWindow*>(m_interface->SearchControl(EVENT_WINDOW0));
+     if ( pw == 0 )  return false;
+ 
++    std::string name;
+     m_object->GetTooltipName(name);
+     pos.x = 0.0f;
+     pos.y = 64.0f/480.0f;
+diff --git a/src/object/brain.cpp b/src/object/brain.cpp
+index 1b1565a..b27acd1 100644
+--- a/src/object/brain.cpp
++++ b/src/object/brain.cpp
+@@ -1238,7 +1238,6 @@ bool CBrain::CreateInterface(bool bSelect)
+     Ui::CLabel*      pl;
+     Math::Point      pos, dim, ddim;
+     float       ox, oy, sx, sy;
+-    char        name[100];
+ 
+     pw = static_cast< Ui::CWindow* >(m_interface->SearchControl(EVENT_WINDOW0));
+     if ( pw != 0 )
+@@ -1259,13 +1258,14 @@ bool CBrain::CreateInterface(bool bSelect)
+     pw = static_cast< Ui::CWindow* >(m_interface->SearchControl(EVENT_WINDOW0));
+     if ( pw == 0 )  return false;
+ 
+-    m_object->GetTooltipName(name);
++    std::string tooltipLabel;
++    m_object->GetTooltipName(tooltipLabel);
+     pos.x = 0.0f;
+     pos.y = 64.0f/480.0f;
+     ddim.x = 540.0f/640.0f;
+     if ( !m_main->GetShowMap() )  ddim.x = 640.0f/640.0f;
+     ddim.y = 16.0f/480.0f;
+-    pw->CreateLabel(pos, ddim, 0, EVENT_LABEL0, name);
++    pw->CreateLabel(pos, ddim, 0, EVENT_LABEL0, tooltipLabel);
+ 
+     dim.x = 33.0f/640.0f;
+     dim.y = 33.0f/480.0f;
+@@ -1674,8 +1674,10 @@ bool CBrain::CreateInterface(bool bSelect)
+         pos.y = oy+sy*1.2f;
+         ddim.x = dim.x*2.2f;
+         ddim.y = dim.y*0.4f;
+-        GetResource(RES_TEXT, RT_INTERFACE_REC, name);
+-        pl = pw->CreateLabel(pos, ddim, 0, EVENT_LABEL1, name);
++
++        std::string recordLabel;
++        GetResource(RES_TEXT, RT_INTERFACE_REC, recordLabel);
++        pl = pw->CreateLabel(pos, ddim, 0, EVENT_LABEL1, recordLabel);
+         pl->SetFontSize(9.0f);
+ 
+         pos.x = ox+sx*7.0f;
+diff --git a/src/object/object.cpp b/src/object/object.cpp
+index 5a709e6..f1de424 100644
+--- a/src/object/object.cpp
++++ b/src/object/object.cpp
+@@ -7263,10 +7263,10 @@ int  CObject::GetDefRank()
+ 
+ // Getes the object name for the tooltip.
+ 
+-bool CObject::GetTooltipName(char* name)
++bool CObject::GetTooltipName(std::string& name)
+ {
+     GetResource(RES_OBJECT, m_type, name);
+-    return ( name[0] != 0 );
++    return !name.empty();
+ }
+ 
+ 
+diff --git a/src/object/object.h b/src/object/object.h
+index e8b83d9..b5c0385 100644
+--- a/src/object/object.h
++++ b/src/object/object.h
+@@ -639,7 +639,7 @@ class CObject
+     void        SetDefRank(int rank);
+     int         GetDefRank();
+ 
+-    bool        GetTooltipName(char* name);
++    bool        GetTooltipName(std::string& name);
+ 
+     void        AddDeselList(CObject* pObj);
+     CObject*    SubDeselList();
+diff --git a/src/object/robotmain.cpp b/src/object/robotmain.cpp
+index 26fa827..35ffe97 100644
+--- a/src/object/robotmain.cpp
++++ b/src/object/robotmain.cpp
+@@ -690,7 +690,7 @@ bool rPoint(CBotVar* pThis, CBotVar* var, CBotVar* pResult, int& Exception)
+     m_movieInfoIndex = -1;
+ 
+     m_tooltipPos = Math::Point(0.0f, 0.0f);
+-    m_tooltipName[0] = 0;
++    m_tooltipName.clear();
+     m_tooltipTime = 0.0f;
+ 
+     m_endingWinRank   = 0;
+@@ -3025,7 +3025,7 @@ bool CRobotMain::DeleteObject()
+ void CRobotMain::HiliteClear()
+ {
+     ClearTooltip();
+-    m_tooltipName[0] = 0;  // really removes the tooltip
++    m_tooltipName.clear();  // really removes the tooltip
+ 
+     if (!m_hilite) return;
+ 
+@@ -3059,11 +3059,11 @@ void CRobotMain::HiliteObject(Math::Point pos)
+ 
+     CObject* obj = m_short->DetectShort(pos);
+ 
+-    std::string nameStr;
+-    if (m_dialog->GetTooltip() && m_interface->GetTooltip(pos, nameStr))
++    std::string interfaceTooltipName;
++    if (m_dialog->GetTooltip() && m_interface->GetTooltip(pos, interfaceTooltipName))
+     {
+         m_tooltipPos = pos;
+-        strcpy(m_tooltipName, nameStr.c_str());
++        m_tooltipName = interfaceTooltipName;
+         m_tooltipTime = 0.0f;
+         if (obj == nullptr) return;
+     }
+@@ -3086,13 +3086,13 @@ void CRobotMain::HiliteObject(Math::Point pos)
+         }
+     }
+ 
+-    char name[100];
+     if (obj != nullptr)
+     {
+-        if (m_dialog->GetTooltip() && obj->GetTooltipName(name))
++        std::string objectTooltipName;
++        if (m_dialog->GetTooltip() && obj->GetTooltipName(objectTooltipName))
+         {
+             m_tooltipPos = pos;
+-            strcpy(m_tooltipName, name);
++            m_tooltipName = objectTooltipName;
+             m_tooltipTime = 0.0f;
+         }
+ 
+@@ -3117,15 +3117,14 @@ void CRobotMain::HiliteFrame(float rTime)
+ 
+     ClearTooltip();
+ 
+-    if (m_tooltipTime >= 0.2f &&
+-        m_tooltipName[0] != 0)
++    if (m_tooltipTime >= 0.2f && !m_tooltipName.empty())
+     {
+         CreateTooltip(m_tooltipPos, m_tooltipName);
+     }
+ }
+ 
+ //! Creates a tooltip
+-void CRobotMain::CreateTooltip(Math::Point pos, const char* text)
++void CRobotMain::CreateTooltip(Math::Point pos, const std::string& text)
+ {
+     Math::Point corner;
+     corner.x = pos.x+0.022f;
+@@ -3949,7 +3948,9 @@ void CRobotMain::CreateScene(bool soluce, bool fixScene, bool resetObject)
+ 
+         m_dialog->BuildResumeName(m_title, base, rank);
+         m_dialog->BuildResumeName(m_resume, base, rank);
+-        GetResource(RES_TEXT, RT_SCRIPT_NEW, m_scriptName);
++        std::string scriptNameStr;
++        GetResource(RES_TEXT, RT_SCRIPT_NEW, scriptNameStr);
++        strcpy(m_scriptName, scriptNameStr.c_str());
+         m_scriptFile[0] = 0;
+ 
+         m_beginObject         = false;
+@@ -7504,7 +7505,7 @@ void CRobotMain::StartMusic()
+ void CRobotMain::ClearInterface()
+ {
+     HiliteClear();  // removes setting evidence
+-    m_tooltipName[0] = 0;  // really removes the tooltip
++    m_tooltipName.clear();  // really removes the tooltip
+ }
+ 
+ void CRobotMain::SetNumericLocale()
+diff --git a/src/object/robotmain.h b/src/object/robotmain.h
+index 035698c..76535de 100644
+--- a/src/object/robotmain.h
++++ b/src/object/robotmain.h
+@@ -398,7 +398,7 @@ class CRobotMain : public CSingleton<CRobotMain>
+     void        HiliteClear();
+     void        HiliteObject(Math::Point pos);
+     void        HiliteFrame(float rTime);
+-    void        CreateTooltip(Math::Point pos, const char* text);
++    void        CreateTooltip(Math::Point pos, const std::string& text);
+     void        ClearTooltip();
+     CObject*    DetectObject(Math::Point pos);
+     void        ChangeCamera();
+@@ -506,7 +506,7 @@ class CRobotMain : public CSingleton<CRobotMain>
+     char            m_mapFilename[100];
+ 
+     Math::Point     m_tooltipPos;
+-    char            m_tooltipName[100];
++    std::string     m_tooltipName;
+     float           m_tooltipTime;
+ 
+     char            m_infoFilename[SATCOM_MAX][100]; // names of text files
+diff --git a/src/script/script.cpp b/src/script/script.cpp
+index ca6ce25..5cd21f9 100644
+--- a/src/script/script.cpp
++++ b/src/script/script.cpp
+@@ -22,6 +22,7 @@
+ #include "common/global.h"
+ #include "common/iman.h"
+ #include "common/restext.h"
++#include "common/stringutils.h"
+ 
+ #include "graphics/engine/terrain.h"
+ #include "graphics/engine/water.h"
+@@ -3898,9 +3899,9 @@ bool CScript::Continue(const Event &event)
+ 
+                 if ( m_error != 0 && m_errMode == ERM_STOP )
+                 {
+-                    char    s[100];
++                    std::string s;
+                     GetError(s);
+-                    m_main->GetDisplayText()->DisplayText(s, m_object, 10.0f, Ui::TT_ERROR);
++                    m_main->GetDisplayText()->DisplayText(s.c_str(), m_object, 10.0f, Ui::TT_ERROR);
+                 }
+                 m_engine->SetPause(true);  // gives pause
+                 return true;
+@@ -3931,9 +3932,9 @@ bool CScript::Continue(const Event &event)
+ 
+         if ( m_error != 0 && m_errMode == ERM_STOP )
+         {
+-            char    s[100];
++            std::string s;
+             GetError(s);
+-            m_main->GetDisplayText()->DisplayText(s, m_object, 10.0f, Ui::TT_ERROR);
++            m_main->GetDisplayText()->DisplayText(s.c_str(), m_object, 10.0f, Ui::TT_ERROR);
+         }
+         return true;
+     }
+@@ -3973,9 +3974,9 @@ bool CScript::Step(const Event &event)
+ 
+         if ( m_error != 0 && m_errMode == ERM_STOP )
+         {
+-            char    s[100];
++            std::string s;
+             GetError(s);
+-            m_main->GetDisplayText()->DisplayText(s, m_object, 10.0f, Ui::TT_ERROR);
++            m_main->GetDisplayText()->DisplayText(s.c_str(), m_object, 10.0f, Ui::TT_ERROR);
+         }
+         return true;
+     }
+@@ -4347,27 +4348,27 @@ int CScript::GetError()
+ 
+ // Returns the text of the error.
+ 
+-void CScript::GetError(char* buffer)
++void CScript::GetError(std::string& error)
+ {
+     if ( m_error == 0 )
+     {
+-        buffer[0] = 0;
++        error.clear();
+     }
+     else
+     {
+         if ( m_error == ERR_OBLIGATORYTOKEN )
+         {
+-            char s[100];
++            std::string s;
+             GetResource(RES_ERR, m_error, s);
+-            sprintf(buffer, s, m_token);
++            error = StrUtils::Format(s.c_str(), m_token);
+         }
+         else if ( m_error < 1000 )
+         {
+-            GetResource(RES_ERR, m_error, buffer);
++            GetResource(RES_ERR, m_error, error);
+         }
+         else
+         {
+-            GetResource(RES_CBOT, m_error, buffer);
++            GetResource(RES_CBOT, m_error, error);
+         }
+     }
+ }
+@@ -4385,7 +4386,9 @@ void CScript::New(Ui::CEdit* edit, const char* name)
+     char    *sf;
+     int     cursor1, cursor2, len, i, j;
+ 
+-    GetResource(RES_TEXT, RT_SCRIPT_NEW, res);
++    std::string resStr;
++    GetResource(RES_TEXT, RT_SCRIPT_NEW, resStr);
++    strcpy(res, resStr.c_str());
+     if ( name[0] == 0 )  strcpy(text, res);
+     else                 strcpy(text, name);
+ 
+diff --git a/src/script/script.h b/src/script/script.h
+index 7fd5555..3641dd9 100644
+--- a/src/script/script.h
++++ b/src/script/script.h
+@@ -74,7 +74,7 @@ class CScript
+     bool        IntroduceVirus();
+ 
+     int         GetError();
+-    void        GetError(char* buffer);
++    void        GetError(std::string& error);
+ 
+     void        New(Ui::CEdit* edit, const char* name);
+     bool        SendScript(const char* text);
+diff --git a/src/ui/button.cpp b/src/ui/button.cpp
+index 348382d..810d365 100644
+--- a/src/ui/button.cpp
++++ b/src/ui/button.cpp
+@@ -60,12 +60,7 @@ bool CButton::Create(Math::Point pos, Math::Point dim, int icon, EventType event
+ 
+     if ( icon == -1 )
+     {
+-        char    name[100];
+-        char*   p;
+-
+-        GetResource(RES_EVENT, eventType, name);
+-        p = strchr(name, '\\');
+-        if ( p != 0 )  *p = 0;
++        std::string name = GetResourceName(eventType);
+         SetName(name);
+     }
+ 
+diff --git a/src/ui/check.cpp b/src/ui/check.cpp
+index 362c930..6a92554 100644
+--- a/src/ui/check.cpp
++++ b/src/ui/check.cpp
+@@ -47,16 +47,11 @@
+ 
+ bool CCheck::Create(Math::Point pos, Math::Point dim, int icon, EventType eventType)
+ {
+-    char    name[100];
+-    char*   p;
+-
+     if ( eventType == EVENT_NULL )  eventType = GetUniqueEventType();
+ 
+     CControl::Create(pos, dim, icon, eventType);
+ 
+-    GetResource(RES_EVENT, eventType, name);
+-    p = strchr(name, '\\');
+-    if ( p != 0 )  *p = 0;
++    std::string name = GetResourceName(eventType);
+     SetName(name);
+ 
+     return true;
+diff --git a/src/ui/color.cpp b/src/ui/color.cpp
+index 623ff89..cbbc0dc 100644
+--- a/src/ui/color.cpp
++++ b/src/ui/color.cpp
+@@ -64,12 +64,7 @@ bool CColor::Create(Math::Point pos, Math::Point dim, int icon, EventType eventT
+ 
+     if ( icon == -1 )
+     {
+-        char    name[100];
+-        char*   p;
+-
+-        GetResource(RES_EVENT, eventType, name);
+-        p = strchr(name, '\\');
+-        if ( p != 0 )  *p = 0;
++        std::string name = GetResourceName(eventType);
+         SetName(name);
+     }
+ 
+diff --git a/src/ui/control.cpp b/src/ui/control.cpp
+index bed84dd..501350e 100644
+--- a/src/ui/control.cpp
++++ b/src/ui/control.cpp
+@@ -57,9 +57,6 @@
+ 
+ bool CControl::Create(Math::Point pos, Math::Point dim, int icon, EventType eventType)
+ {
+-    char text[200];
+-    std::string str_text;
+-
+     if ( eventType == EVENT_NULL )
+         eventType = GetUniqueEventType();
+ 
+@@ -72,17 +69,17 @@ bool CControl::Create(Math::Point pos, Math::Point dim, int icon, EventType even
+     pos.y = m_pos.y + m_dim.y;
+     GlintCreate(pos);
+ 
++    std::string text;
+     GetResource(RES_EVENT, m_eventType, text);
+-    str_text = std::string(text);
+-    auto p = str_text.find("\\");
+-    if ( p == std::string::npos )
++    auto p = text.find("\\");
++    if (p == std::string::npos)
+     {
+         if ( icon != -1 )
+-            m_tooltip = str_text;
++            m_tooltip = text;
+     }
+     else
+     {
+-        m_tooltip = str_text.substr(p + 1);
++        m_tooltip = text.substr(p + 1);
+     }
+ 
+     return true;
+@@ -837,5 +834,18 @@ bool CControl::Detect(Math::Point pos)
+               pos.y <= m_pos.y + m_dim.y );
+ }
+ 
++std::string CControl::GetResourceName(EventType eventType)
++{
++    std::string name;
++    GetResource(RES_EVENT, eventType, name);
++    auto index = name.find('\\');
++    if (index != std::string::npos)
++    {
++        name = name.substr(0, index);
++    }
++    return name;
++}
++
++
+ }
+ 
+diff --git a/src/ui/control.h b/src/ui/control.h
+index aee7d1c..1ca07cf 100644
+--- a/src/ui/control.h
++++ b/src/ui/control.h
+@@ -112,6 +112,8 @@ class CControl
+             void    DrawShadow(Math::Point pos, Math::Point dim, float deep=1.0f);
+     virtual bool    Detect(Math::Point pos);
+ 
++    std::string     GetResourceName(EventType eventType);
++
+ protected:
+     Gfx::CEngine*     m_engine;
+     Gfx::CParticle*   m_particle;
+diff --git a/src/ui/displayinfo.cpp b/src/ui/displayinfo.cpp
+index 3aa3d73..bd20452 100644
+--- a/src/ui/displayinfo.cpp
++++ b/src/ui/displayinfo.cpp
+@@ -972,7 +972,6 @@ void ObjectAdd(ObjectList list[], ObjectType type)
+ void ObjectWrite(FILE* file, ObjectList list[], int i)
+ {
+     char        line[100];
+-    char        res[100];
+     char*       p;
+ 
+     if ( list[i].total < 10 )
+@@ -984,12 +983,14 @@ void ObjectWrite(FILE* file, ObjectList list[], int i)
+         sprintf(line, "\\c;%dx \\n;\\l;", list[i].total);
+     }
+ 
++    std::string res;
+     GetResource(RES_OBJECT, list[i].type, res);
+-    if ( res[0] == 0 )  return;
+-    strcat(line, res);
++    if (res.empty())  return;
++    strcat(line, res.c_str());
+ 
+     strcat(line, "\\u ");
+-    p = const_cast<char*>(GetHelpFilename(list[i].type).c_str());
++    std::string helpFilename = GetHelpFilename(list[i].type);
++    p = const_cast<char*>(helpFilename.c_str());
+     if ( p[0] == 0 )  return;
+     strcat(line, p+7);  // skip "help\?\"
+     p = strstr(line, ".txt");
+@@ -1006,7 +1007,7 @@ void CDisplayInfo::CreateObjectsFile()
+     CObject*    pObj;
+     ObjectType  type;
+     ObjectList  list[200];
+-    char        line[100];
++    std::string line;
+     int         i;
+     bool        bRadar, bAtLeast;
+ 
+@@ -1038,7 +1039,7 @@ void CDisplayInfo::CreateObjectsFile()
+     if ( bRadar )
+     {
+         GetResource(RES_TEXT, RT_SATCOM_LIST, line);
+-        fputs(line, file);
++        fputs(line.c_str(), file);
+         bAtLeast = false;
+         for ( i=0 ; i<200 ; i++ )
+         {
+@@ -1054,13 +1055,12 @@ void CDisplayInfo::CreateObjectsFile()
+         if ( !bAtLeast )
+         {
+             GetResource(RES_TEXT, RT_SATCOM_NULL, line);
+-            fputs(line, file);
++            fputs(line.c_str(), file);
+         }
+ 
+-        strcpy(line, "\n");
+-        fputs(line, file);
++        fputs("\n", file);
+         GetResource(RES_TEXT, RT_SATCOM_BOT, line);
+-        fputs(line, file);
++        fputs(line.c_str(), file);
+         bAtLeast = false;
+         for ( i=0 ; i<200 ; i++ )
+         {
+@@ -1101,13 +1101,12 @@ void CDisplayInfo::CreateObjectsFile()
+         if ( !bAtLeast )
+         {
+             GetResource(RES_TEXT, RT_SATCOM_NULL, line);
+-            fputs(line, file);
++            fputs(line.c_str(), file);
+         }
+ 
+-        strcpy(line, "\n");
+-        fputs(line, file);
++        fputs("\n", file);
+         GetResource(RES_TEXT, RT_SATCOM_BUILDING, line);
+-        fputs(line, file);
++        fputs(line.c_str(), file);
+         bAtLeast = false;
+         for ( i=0 ; i<200 ; i++ )
+         {
+@@ -1142,13 +1141,12 @@ void CDisplayInfo::CreateObjectsFile()
+         if ( !bAtLeast )
+         {
+             GetResource(RES_TEXT, RT_SATCOM_NULL, line);
+-            fputs(line, file);
++            fputs(line.c_str(), file);
+         }
+ 
+-        strcpy(line, "\n");
+-        fputs(line, file);
++        fputs("\n", file);
+         GetResource(RES_TEXT, RT_SATCOM_FRET, line);
+-        fputs(line, file);
++        fputs(line.c_str(), file);
+         bAtLeast = false;
+         for ( i=0 ; i<200 ; i++ )
+         {
+@@ -1170,13 +1168,12 @@ void CDisplayInfo::CreateObjectsFile()
+         if ( !bAtLeast )
+         {
+             GetResource(RES_TEXT, RT_SATCOM_NULL, line);
+-            fputs(line, file);
++            fputs(line.c_str(), file);
+         }
+ 
+-        strcpy(line, "\n");
+-        fputs(line, file);
++        fputs("\n", file);
+         GetResource(RES_TEXT, RT_SATCOM_ALIEN, line);
+-        fputs(line, file);
++        fputs(line.c_str(), file);
+         bAtLeast = false;
+         for ( i=0 ; i<200 ; i++ )
+         {
+@@ -1195,19 +1192,18 @@ void CDisplayInfo::CreateObjectsFile()
+         if ( !bAtLeast )
+         {
+             GetResource(RES_TEXT, RT_SATCOM_NULL, line);
+-            fputs(line, file);
++            fputs(line.c_str(), file);
+         }
+     }
+     else
+     {
+         GetResource(RES_TEXT, RT_SATCOM_ERROR1, line);
+-        fputs(line, file);
++        fputs(line.c_str(), file);
+         GetResource(RES_TEXT, RT_SATCOM_ERROR2, line);
+-        fputs(line, file);
++        fputs(line.c_str(), file);
+     }
+ 
+-    strcpy(line, "\n");
+-    fputs(line, file);
++    fputs("\n", file);
+ 
+     fclose(file);
+ }
+diff --git a/src/ui/displaytext.cpp b/src/ui/displaytext.cpp
+index d88674a..5b3144d 100644
+--- a/src/ui/displaytext.cpp
++++ b/src/ui/displaytext.cpp
+@@ -127,9 +127,6 @@ void CDisplayText::DisplayError(Error err, CObject* pObj, float time)
+ void CDisplayText::DisplayError(Error err, Math::Vector goal, float height,
+                                 float dist, float time)
+ {
+-    TextType    type;
+-    char        text[100];
+-
+     if ( err == ERR_OK )  return;
+ 
+ #if 0
+@@ -148,7 +145,7 @@ void CDisplayText::DisplayError(Error err, Math::Vector goal, float height,
+         type = TT_WARNING;
+     }
+ #else
+-    type = TT_WARNING;
++    TextType type = TT_WARNING;
+     if ( err >= INFO_FIRST )
+     {
+         type = TT_INFO;
+@@ -164,8 +161,9 @@ void CDisplayText::DisplayError(Error err, Math::Vector goal, float height,
+     }
+ #endif
+ 
++    std::string text;
+     GetResource(RES_ERR, err, text);
+-    DisplayText(text, goal, height, dist, time, type);
++    DisplayText(text.c_str(), goal, height, dist, time, type);
+ }
+ 
+ // Displays text.
+diff --git a/src/ui/edit.cpp b/src/ui/edit.cpp
+index a187688..271a8e7 100644
+--- a/src/ui/edit.cpp
++++ b/src/ui/edit.cpp
+@@ -1798,8 +1798,10 @@ bool CEdit::ReadText(std::string filename, int addSize)
+                     res = main->GetInputBinding(slot).primary;
+                     if ( res != 0 )
+                     {
+-                        if ( GetResource(RES_KEY, res, iName) )
++                        std::string iNameStr;
++                        if ( GetResource(RES_KEY, res, iNameStr) )
+                         {
++                            strcpy(iName, iNameStr.c_str());
+                             m_text[j] = ' ';
+                             m_format[j] = font;
+                             j ++;
+@@ -1817,9 +1819,13 @@ bool CEdit::ReadText(std::string filename, int addSize)
+                             res = main->GetInputBinding(slot).secondary;
+                             if ( res != 0 )
+                             {
+-                                if ( GetResource(RES_KEY, res, iName) )
++                                if ( GetResource(RES_KEY, res, iNameStr) )
+                                 {
+-                                    GetResource(RES_TEXT, RT_KEY_OR, text);
++                                    strcpy(iName, iNameStr.c_str());
++
++                                    std::string textStr;
++                                    GetResource(RES_TEXT, RT_KEY_OR, textStr);
++                                    strcpy(text, textStr.c_str());
+                                     n = 0;
+                                     while ( text[n] != 0 )
+                                     {
+diff --git a/src/ui/group.cpp b/src/ui/group.cpp
+index 908ac19..64495e0 100644
+--- a/src/ui/group.cpp
++++ b/src/ui/group.cpp
+@@ -52,12 +52,7 @@ bool CGroup::Create(Math::Point pos, Math::Point dim, int icon, EventType eventT
+ 
+     if ( icon == -1 )
+     {
+-        char    name[100];
+-        char*   p;
+-
+-        GetResource(RES_EVENT, eventType, name);
+-        p = strchr(name, '\\');
+-        if ( p != 0 )  *p = 0;
++        std::string name = GetResourceName(eventType);
+         SetName(name);
+     }
+ 
+diff --git a/src/ui/image.cpp b/src/ui/image.cpp
+index 9a14789..8f9b5ca 100644
+--- a/src/ui/image.cpp
++++ b/src/ui/image.cpp
+@@ -58,12 +58,7 @@ bool CImage::Create(Math::Point pos, Math::Point dim, int icon, EventType eventT
+ 
+     if ( icon == -1 )
+     {
+-        char    name[100];
+-        char*   p;
+-
+-        GetResource(RES_EVENT, eventType, name);
+-        p = strchr(name, '\\');
+-        if ( p != 0 )  *p = 0;
++        std::string name = GetResourceName(eventType);
+         SetName(name);
+     }
+ 
+diff --git a/src/ui/key.cpp b/src/ui/key.cpp
+index 1f8cff5..aacc8d8 100644
+--- a/src/ui/key.cpp
++++ b/src/ui/key.cpp
+@@ -19,16 +19,19 @@
+ #include "ui/key.h"
+ 
+ #include "common/global.h"
++#include "common/stringutils.h"
+ 
+ #include <cstring>
+ 
+ namespace Ui {
+ 
+ 
+-void GetKeyName(char* name, unsigned int key)
++static void GetKeyName(std::string& name, unsigned int key)
+ {
+     if (!GetResource(RES_KEY, key, name))
+-        sprintf(name, "Code %d", key);
++    {
++        name = StrUtils::Format("Code %d", key);
++    }
+ }
+ 
+ 
+@@ -51,9 +54,9 @@ bool CKey::Create(Math::Point pos, Math::Point dim, int icon, EventType eventMsg
+ 
+     CControl::Create(pos, dim, icon, eventMsg);
+ 
+-    char name[100];
++    std::string name;
+     GetResource(RES_EVENT, eventMsg, name);
+-    SetName(std::string(name));
++    SetName(name);
+ 
+     return true;
+ }
+@@ -176,19 +179,24 @@ void CKey::Draw()
+ 
+     float h = m_engine->GetText()->GetHeight(m_fontType, m_fontSize) / 2.0f;
+ 
+-    char text[100];
+-    GetKeyName(text, m_binding.primary);
++    std::string keyName;
++    GetKeyName(keyName, m_binding.primary);
+     if (m_binding.secondary != KEY_INVALID)
+     {
+-        GetResource(RES_TEXT, RT_KEY_OR, text+strlen(text));
+-        GetKeyName(text+strlen(text), m_binding.secondary);
++        std::string orText;
++        GetResource(RES_TEXT, RT_KEY_OR, orText);
++        keyName.append(orText);
++
++        std::string secondaryKeyName;
++        GetKeyName(secondaryKeyName, m_binding.secondary);
++        keyName.append(secondaryKeyName);
+     }
+ 
+     Math::Point pos;
+     pos.x = m_pos.x + m_dim.x * 0.5f;
+     pos.y = m_pos.y + m_dim.y * 0.5f;
+     pos.y -= h;
+-    m_engine->GetText()->DrawText(std::string(text), m_fontType, m_fontSize, pos, m_dim.x, Gfx::TEXT_ALIGN_CENTER, 0);
++    m_engine->GetText()->DrawText(keyName, m_fontType, m_fontSize, pos, m_dim.x, Gfx::TEXT_ALIGN_CENTER, 0);
+ 
+     m_dim = iDim;
+ 
+@@ -199,7 +207,7 @@ void CKey::Draw()
+     pos.x = m_pos.x + (214.0f / 640.0f);
+     pos.y = m_pos.y + m_dim.y * 0.5f;
+     pos.y -= h;
+-    m_engine->GetText()->DrawText(std::string(m_name), m_fontType, m_fontSize, pos, m_dim.x, Gfx::TEXT_ALIGN_LEFT, 0);
++    m_engine->GetText()->DrawText(m_name, m_fontType, m_fontSize, pos, m_dim.x, Gfx::TEXT_ALIGN_LEFT, 0);
+ }
+ 
+ void CKey::SetBinding(InputBinding b)
+diff --git a/src/ui/maindialog.cpp b/src/ui/maindialog.cpp
+index 407f8da..e07e40c 100644
+--- a/src/ui/maindialog.cpp
++++ b/src/ui/maindialog.cpp
+@@ -26,7 +26,7 @@
+ #include "common/misc.h"
+ #include "common/profile.h"
+ #include "common/restext.h"
+-#include "common/logger.h"
++#include "common/stringutils.h"
+ 
+ #include "object/robotmain.h"
+ 
+@@ -215,7 +215,7 @@ void CMainDialog::ChangePhase(Phase phase)
+     CImage*         pi;
+     Math::Point         pos, dim, ddim;
+     float           ox, oy, sx, sy;
+-    char            name[100];
++    std::string     name;
+     char*           gamer;
+     int             res, i, j;
+ 
+@@ -458,10 +458,10 @@ void CMainDialog::ChangePhase(Phase phase)
+         }
+         else
+         {
+-            strcpy(name, gamer);
++            name = gamer;
+         }
+-        pe->SetText(name);
+-        pe->SetCursor(strlen(name), 0);
++        pe->SetText(name.c_str());
++        pe->SetCursor(name.length(), 0);
+         pe->SetFocus(true);
+ 
+         pos.x = 380.0f/640.0f;
+@@ -4019,7 +4019,7 @@ void CMainDialog::UpdatePerso()
+     CColor*         pc;
+     CSlider*        ps;
+     Gfx::Color   color;
+-    char            name[100];
++    std::string  name;
+     int             i;
+ 
+     pw = static_cast<CWindow*>(m_interface->SearchControl(EVENT_WINDOW5));
+@@ -4434,8 +4434,9 @@ void CMainDialog::IOReadList()
+     // invalid index
+     if ( m_phase == PHASE_WRITE  || m_phase == PHASE_WRITEs )
+     {
+-        GetResource(RES_TEXT, RT_IO_NEW, name);
+-        pl->SetItemName(m_saveList.size(), name);
++        std::string nameStr;
++        GetResource(RES_TEXT, RT_IO_NEW, nameStr);
++        pl->SetItemName(m_saveList.size(), nameStr.c_str());
+     }
+ 
+     pl->SetSelect(m_saveList.size());
+@@ -6026,7 +6027,7 @@ void CMainDialog::StartAbort()
+     CWindow*    pw;
+     CButton*    pb;
+     Math::Point     pos, dim;
+-    char        name[100];
++    std::string name;
+ 
+     StartDialog(Math::Point(0.3f, 0.8f), true, false, false);
+     m_bDialogDelete = false;
+@@ -6105,7 +6106,7 @@ void CMainDialog::StartDeleteObject()
+     CWindow*    pw;
+     CButton*    pb;
+     Math::Point     pos, dim;
+-    char        name[100];
++    std::string name;
+ 
+     StartDialog(Math::Point(0.7f, 0.3f), false, true, true);
+     m_bDialogDelete = true;
+@@ -6139,21 +6140,22 @@ void CMainDialog::StartDeleteGame(char *gamer)
+     CWindow*    pw;
+     CButton*    pb;
+     Math::Point     pos, dim;
+-    char        name[100];
+-    char        text[100];
+ 
+     StartDialog(Math::Point(0.7f, 0.3f), false, true, true);
+     m_bDialogDelete = true;
+ 
+     pw = static_cast<CWindow*>(m_interface->SearchControl(EVENT_WINDOW9));
+-    if ( pw == 0 )  return;
++    if (pw == nullptr)
++        return;
++
++    std::string name;
+ 
+     pos.x = 0.00f;
+     pos.y = 0.50f;
+     dim.x = 1.00f;
+     dim.y = 0.05f;
+     GetResource(RES_TEXT, RT_DIALOG_DELGAME, name);
+-    sprintf(text, name, gamer);
++    std::string text = StrUtils::Format(name.c_str(), gamer);
+     pw->CreateLabel(pos, dim, -1, EVENT_DIALOG_LABEL, text);
+ 
+     pb = static_cast<CButton*>(pw->SearchControl(EVENT_DIALOG_OK));
+@@ -6175,12 +6177,14 @@ void CMainDialog::StartQuit()
+     CWindow*    pw;
+     CButton*    pb;
+     Math::Point     pos, dim;
+-    char        name[100];
+ 
+     StartDialog(Math::Point(0.6f, 0.3f), false, true, true);
+ 
+     pw = static_cast<CWindow*>(m_interface->SearchControl(EVENT_WINDOW9));
+-    if ( pw == 0 )  return;
++    if (pw == nullptr)
++        return;
++
++    std::string name;
+ 
+     pos.x = 0.00f;
+     pos.y = 0.50f;
+@@ -6208,7 +6212,6 @@ void CMainDialog::StartDialog(Math::Point dim, bool bFire, bool bOK, bool bCance
+     CWindow*    pw;
+     CButton*    pb;
+     Math::Point     pos, ddim;
+-    char        name[100];
+ 
+     StartSuspend();
+ 
+@@ -6247,6 +6250,8 @@ void CMainDialog::StartDialog(Math::Point dim, bool bFire, bool bOK, bool bCance
+ 
+     m_bDialogFire = bFire;
+ 
++    std::string name;
++
+     pos.x = (1.0f-dim.x)/2.0f;
+     pos.y = (1.0f-dim.y)/2.0f;
+     pw = m_interface->CreateWindows(pos, dim, bFire?12:8, EVENT_WINDOW9);
+diff --git a/src/ui/mainshort.cpp b/src/ui/mainshort.cpp
+index d33482c..f6dce4b 100644
+--- a/src/ui/mainshort.cpp
++++ b/src/ui/mainshort.cpp
+@@ -97,7 +97,6 @@ bool CMainShort::CreateShortcuts()
+     ObjectType  type;
+     Math::Point     pos, dim;
+     int         i, rank, icon;
+-    char        name[100];
+ 
+     if ( m_main->GetFixScene() )  return false;
+ 
+@@ -208,10 +207,11 @@ bool CMainShort::CreateShortcuts()
+         m_shortcuts[rank] = pObj;
+ 
+         pc = m_interface->SearchControl(table_sc_em[rank]);
+-        if ( pc != 0 )
++        if ( pc != nullptr )
+         {
+-            pObj->GetTooltipName(name);
+-            pc->SetTooltip(name);
++            std::string tooltipName;
++            pObj->GetTooltipName(tooltipName);
++            pc->SetTooltip(tooltipName);
+         }
+         rank ++;
+ 
+diff --git a/src/ui/studio.cpp b/src/ui/studio.cpp
+index e44a465..ba28a0a 100644
+--- a/src/ui/studio.cpp
++++ b/src/ui/studio.cpp
+@@ -97,7 +97,6 @@ bool CStudio::EventProcess(const Event &event)
+     CWindow*    pw;
+     CEdit*      edit;
+     CSlider*    slider;
+-    char        res[100];
+ 
+     if ( m_dialog != SD_NULL )  // dialogue exists?
+     {
+@@ -184,17 +183,17 @@ bool CStudio::EventProcess(const Event &event)
+ 
+     if ( event.type == EVENT_STUDIO_COMPILE )  // compile?
+     {
+-        char    buffer[100];
+-
+         if ( m_script->GetScript(edit) )  // compile
+         {
++            std::string res;
+             GetResource(RES_TEXT, RT_STUDIO_COMPOK, res);
+             SetInfoText(res, false);
+         }
+         else
+         {
+-            m_script->GetError(buffer);
+-            SetInfoText(buffer, false);
++            std::string error;
++            m_script->GetError(error);
++            SetInfoText(error, false);
+         }
+     }
+ 
+@@ -218,9 +217,9 @@ bool CStudio::EventProcess(const Event &event)
+             }
+             else
+             {
+-                char    buffer[100];
+-                m_script->GetError(buffer);
+-                SetInfoText(buffer, false);
++                std::string error;
++                m_script->GetError(error);
++                SetInfoText(error, false);
+             }
+         }
+     }
+@@ -344,7 +343,6 @@ bool CStudio::EventFrame(const Event &event)
+     CList*      list;
+     float       time;
+     int         cursor1, cursor2, iCursor1, iCursor2;
+-    char        res[100];
+ 
+     m_time += event.rTime;
+     m_fixInfoTextTime -= event.rTime;
+@@ -363,6 +361,7 @@ bool CStudio::EventFrame(const Event &event)
+         m_bRunning = false;
+         UpdateFlux();  // stop
+         AdjustEditScript();
++        std::string res;
+         GetResource(RES_TEXT, RT_STUDIO_PROGSTOP, res);
+         SetInfoText(res, false);
+ 
+@@ -558,7 +557,6 @@ void CStudio::StartEditScript(CScript *script, std::string name, int rank)
+     CButton*    button;
+     CSlider*    slider;
+     CList*      list;
+-    char        res[100];
+ 
+     m_script = script;
+     m_rank   = rank;
+@@ -575,28 +573,33 @@ void CStudio::StartEditScript(CScript *script, std::string name, int rank)
+     m_script->SetStepMode(!m_bRealTime);
+ 
+     button = static_cast< CButton* >(m_interface->SearchControl(EVENT_BUTTON_QUIT));
+-    if ( button != 0 )
+-    {
++    if (button != nullptr)
+         button->ClearState(STATE_VISIBLE);
+-    }
+ 
+     pos = m_editFinalPos = m_editActualPos = m_main->GetWindowPos();
+     dim = m_editFinalDim = m_editActualDim = m_main->GetWindowDim();
+     pw = m_interface->CreateWindows(pos, dim, 8, EVENT_WINDOW3);
+-    if ( pw == nullptr )  return;
++    if (pw == nullptr)
++        return;
++
+     pw->SetState(STATE_SHADOW);
+     pw->SetRedim(true);  // before SetName!
+     pw->SetMovable(true);
+     pw->SetClosable(true);
++
++    std::string res;
+     GetResource(RES_TEXT, RT_STUDIO_TITLE, res);
+     pw->SetName(res);
++
+     pw->SetMinDim(Math::Point(0.49f, 0.50f));
+     pw->SetMaximized(m_bEditMaximized);
+     pw->SetMinimized(m_bEditMinimized);
+     m_main->SetEditFull(m_bEditMaximized);
+ 
+     edit = pw->CreateEdit(pos, dim, 0, EVENT_STUDIO_EDIT);
+-    if ( edit == 0 )  return;
++    if (edit == nullptr)
++        return;
++
+     edit->SetState(STATE_SHADOW);
+     edit->SetInsideScroll(false);
+ //? if ( m_bRunning )  edit->SetEdit(false);
+@@ -851,7 +854,6 @@ bool CStudio::StopEditScript(bool bCancel)
+     CWindow*    pw;
+     CEdit*      edit;
+     CButton*    button;
+-    char        buffer[100];
+ 
+     pw = static_cast< CWindow* >(m_interface->SearchControl(EVENT_WINDOW3));
+     if ( pw == nullptr )  return false;
+@@ -863,8 +865,9 @@ bool CStudio::StopEditScript(bool bCancel)
+         {
+             if ( !m_script->GetScript(edit) )  // compile
+             {
+-                m_script->GetError(buffer);
+-                SetInfoText(buffer, false);
++                std::string error;
++                m_script->GetError(error);
++                SetInfoText(error, false);
+                 return false;
+             }
+         }
+@@ -892,8 +895,6 @@ bool CStudio::StopEditScript(bool bCancel)
+ 
+ void CStudio::SetInfoText(std::string text, bool bClickable)
+ {
+-    char        res[100];
+-
+     if ( bClickable && m_fixInfoTextTime > 0.0f )  return;
+     if ( !bClickable )  m_fixInfoTextTime = 8.0f;
+ 
+@@ -911,6 +912,7 @@ void CStudio::SetInfoText(std::string text, bool bClickable)
+ 
+     if ( bClickable )
+     {
++        std::string res;
+         GetResource(RES_TEXT, RT_STUDIO_LISTTT, res);
+         list->SetTooltip(res);
+         list->SetState(STATE_ENABLE);
+@@ -1029,7 +1031,7 @@ void CStudio::StartDialog(StudioDialog type)
+     CList*      pli;
+     CEdit*      pe;
+     Math::Point     pos, dim;
+-    char        name[100];
++    std::string name;
+ 
+     m_dialog = type;
+ 
+@@ -1476,8 +1478,6 @@ void CStudio::UpdateDialogPublic()
+     CWindow*    pw;
+     CCheck*     pc;
+     CLabel*     pl;
+-    char        name[100];
+-    //char        text[MAX_FNAME+100];
+ 
+     pw = static_cast< CWindow* >(m_interface->SearchControl(EVENT_WINDOW9));
+     if ( pw == nullptr )  return;
+@@ -1497,7 +1497,7 @@ void CStudio::UpdateDialogPublic()
+     pl = static_cast< CLabel* >(pw->SearchControl(EVENT_DIALOG_LABEL1));
+     if ( pl != 0 )
+     {
+-        GetResource(RES_TEXT, RT_IO_LIST, name);
++        //? GetResource(RES_TEXT, RT_IO_LIST, name);
+         pl->SetName(SearchDirectory(false).c_str(), false);
+     }
+ }
+diff --git a/src/ui/window.cpp b/src/ui/window.cpp
+index 6e082e6..ed18ce4 100644
+--- a/src/ui/window.cpp
++++ b/src/ui/window.cpp
+@@ -788,7 +788,7 @@ bool CWindow::GetFixed()
+ 
+ void CWindow::AdjustButtons()
+ {
+-    char    res[100];
++    std::string res;
+ 
+     if ( m_buttonFull != 0 )
+     {
+@@ -796,13 +796,13 @@ void CWindow::AdjustButtons()
+         {
+             m_buttonFull->SetIcon(54);
+             GetResource(RES_TEXT, RT_WINDOW_STANDARD, res);
+-            m_buttonFull->SetTooltip(std::string(res));
++            m_buttonFull->SetTooltip(res);
+         }
+         else
+         {
+             m_buttonFull->SetIcon(52);
+             GetResource(RES_TEXT, RT_WINDOW_MAXIMIZED, res);
+-            m_buttonFull->SetTooltip(std::string(res));
++            m_buttonFull->SetTooltip(res);
+         }
+     }
+ 
+@@ -812,13 +812,13 @@ void CWindow::AdjustButtons()
+         {
+             m_buttonReduce->SetIcon(54);
+             GetResource(RES_TEXT, RT_WINDOW_STANDARD, res);
+-            m_buttonReduce->SetTooltip(std::string(res));
++            m_buttonReduce->SetTooltip(res);
+         }
+         else
+         {
+             m_buttonReduce->SetIcon(51);
+             GetResource(RES_TEXT, RT_WINDOW_MINIMIZED, res);
+-            m_buttonReduce->SetTooltip(std::string(res));
++            m_buttonReduce->SetTooltip(res);
+         }
+     }
+ 
+@@ -826,7 +826,7 @@ void CWindow::AdjustButtons()
+     {
+         m_buttonClose->SetIcon(11);  // x
+         GetResource(RES_TEXT, RT_WINDOW_CLOSE, res);
+-        m_buttonClose->SetTooltip(std::string(res));
++        m_buttonClose->SetTooltip(res);
+     }
+ }
+ 
