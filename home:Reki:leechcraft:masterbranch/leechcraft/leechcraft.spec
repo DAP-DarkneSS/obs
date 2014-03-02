@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.60-781-ge88d758
+%define LEECHCRAFT_VERSION 0.6.60-817-gdf2a6a7
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -52,8 +52,10 @@ Patch0:         azoth-entry-activates.patch
 # PATCH-FIX-OPENSUSE vs. "the value is not usable in a constant expression".
 %if 0%{?suse_version} <= 1230
 Patch4:         leechcraft-azoth-gcc47.patch
+# PATCH-FIX-OPENSUSE vs. names constructor error.
+Patch5:         leechcraft-monocle-gcc47.patch
 %endif
-Patch5:         lhtr.patch
+Patch6:         lhtr.patch
 
 
 %if 0%{?suse_version} > 1230
@@ -2357,8 +2359,9 @@ It allows to get current user tune via mpris protocol.
 # %%endif
 %if 0%{?suse_version} <= 1220
 %patch4 -p1
-%endif
 %patch5 -p1
+%endif
+%patch6 -p1
 
 # Mine ;)
 rm src/core/resources/images/leechcraft.svg
