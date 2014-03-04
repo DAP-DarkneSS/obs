@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.60-817-gdf2a6a7
+%define LEECHCRAFT_VERSION 0.6.60-855-gb8cb6ae
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -2357,7 +2357,7 @@ It allows to get current user tune via mpris protocol.
 # %%if 0%%{?suse_version} > 1230
 # %%patch3
 # %%endif
-%if 0%{?suse_version} <= 1220
+%if 0%{?suse_version} <= 1230
 %patch4 -p1
 %patch5 -p1
 %endif
