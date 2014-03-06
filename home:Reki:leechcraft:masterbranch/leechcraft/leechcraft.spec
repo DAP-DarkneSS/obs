@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.60-855-gb8cb6ae
+%define LEECHCRAFT_VERSION 0.6.60-893-g5d8ea63
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -106,6 +106,8 @@ BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(taglib)
 %if 0%{?suse_version} > 1230
 BuildRequires:  pkgconfig(gstreamer-app-1.0)
+BuildConflicts: gstreamer-0_10-devel
+BuildConflicts: gstreamer-0_10-plugins-base-devel
 %else
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
 %endif
@@ -158,6 +160,7 @@ Recommends:     %{name}-blogique
 Recommends:     %{name}-dolozhee
 Recommends:     %{name}-lackman
 Recommends:     %{name}-scrobbler
+Suggests:       %{name}-lastfmscrobble
 Recommends:     %{name}-monocle
 Recommends:     %{name}-netstoremanager
 Recommends:     %{name}-newlife
@@ -319,6 +322,7 @@ Requires:       %{name}-touchstreams
 Requires:       %{name}-vgrabber
 Requires:       %{name}-vtyulc
 Recommends:     %{name}-scrobbler
+Suggests:       %{name}-lastfmscrobble
 Recommends:     %{name}-meta_tools
 
 %description meta_media
@@ -1538,6 +1542,7 @@ Requires:       %{name} = %{version}
 Recommends:     %{name}-lyricsprovider
 Recommends:     %{name}-gacts = %{version}
 Recommends:     %{name}-scrobbler
+Suggests:       %{name}-lastfmscrobble
 Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
 %if 0%{?suse_version} > 1230
