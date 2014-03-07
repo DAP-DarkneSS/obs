@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.60-893-g5d8ea63
+%define LEECHCRAFT_VERSION 0.6.60-909-g2b72ce4
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -104,12 +104,16 @@ BuildRequires:  pkgconfig(purple)
 %endif
 BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(taglib)
-%if 0%{?suse_version} > 1230
+%if 0%{?suse_version} > 1310
 BuildRequires:  pkgconfig(gstreamer-app-1.0)
 BuildConflicts: gstreamer-0_10-devel
 BuildConflicts: gstreamer-0_10-plugins-base-devel
+BuildConflicts: libgstapp-0_10
+BuildConflicts: libgstinterfaces-0_10
+BuildConflicts: libgstreamer-0_10
 %else
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
+BuildConflicts: libgstreamer-1_0-0
 %endif
 BuildRequires:  pkgconfig(hunspell)
 BuildRequires:  pkgconfig(kqoauth)
@@ -1545,7 +1549,7 @@ Recommends:     %{name}-scrobbler
 Suggests:       %{name}-lastfmscrobble
 Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
-%if 0%{?suse_version} > 1230
+%if 0%{?suse_version} > 1310
 Requires:       gstreamer-plugins-base >= 1.0
 Requires:       gstreamer-plugins-good >= 1.0
 Recommends:     gstreamer-plugins-bad >= 1.0
@@ -1557,6 +1561,7 @@ Recommends:     gstreamer-0_10-plugins-fluendo_mp3
 %endif
 Provides:       %{name}-audioplayer
 Provides:       %{name}-soundnotifications = %{version}
+Provides:       %{name}-lmp = 0.6.60.1394113585
 
 %description lmp
 This package provides a audio player plugin for LeechCraft.
@@ -2456,7 +2461,7 @@ cmake ../src \
         -DENABLE_LIZNOO=True \
 %if %{lmp}
         -DENABLE_LMP=True \
-%if 0%{?suse_version} > 1230
+%if 0%{?suse_version} > 1310
         -DUSE_GSTREAMER_10=True \
 %endif
                 -DENABLE_LMP_GRAFFITI=True \
