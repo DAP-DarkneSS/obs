@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Sun Mar  9 11:10:45 UTC 2014 - dap.darkness@gmail.com
+
+- update to 0.7.6+git.2014.03.09
+  * Added QPair include just in case.
+  * Avoid keeping the source QDomDocument in QXmppElement.
+    Serialize the node instead of keeping QDomElement
+    with a ref to the original QDomDOcument.
+  * QXmppElement::sourceDomElement().
+  * Namespace-based matching for known elements.
+  * Cover non-'x' extensions in tests.
+  * Support other extensions besides 'x' in QXmppMessage.
+  * Fixes to support Qt5.
+  * Re-order member initialization (silences GCC warning).
+  * Fixed possible memory leak in QXmppTransferManager.
+  * Added missing assert for connecting signal in QXmppStream.
+  * Fixed C-style pointer cast.
+  * Fixed uninitialized pointers in QXmppOutgoingClientPrivate.
+  * Fixed uninitialized pointer in QXmppCallPrivate.
+  * Fixed uninitialized pointer in QXmppRtpAudioChannelPrivate.
+  * Fixed uninitialized member in QXmppOutgoingClient.
+  * Fix QXmppServer incoming connections with Qt5 (issue 175).
+
+-------------------------------------------------------------------
 Mon Aug 19 17:07:28 UTC 2013 - dap.darkness@gmail.com
 
 - Full VoIP support was enabled.
