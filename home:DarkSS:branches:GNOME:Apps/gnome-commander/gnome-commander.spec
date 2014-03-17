@@ -17,15 +17,15 @@
 
 
 Name:           gnome-commander
-Version:        1.2.8.17
+Version:        1.4.0
 Release:        0
 Summary:        Nice and Fast File Manager for the GNOME Desktop
 License:        GPL-2.0+
 Group:          Productivity/File utilities
 Url:            http://www.nongnu.org/gcmd/
-Source:         http://download.gnome.org/sources/gnome-commander/1.2/%{name}-%{version}.tar.xz
+Source:         http://download.gnome.org/sources/gnome-commander/1.4/%{name}-%{version}.tar.xz
 BuildRequires:  chmlib-devel
-BuildRequires:  fdupes
+# BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  gnome-doc-utils-devel
 BuildRequires:  intltool
@@ -38,6 +38,9 @@ BuildRequires:  python-devel
 BuildRequires:  taglib-devel
 BuildRequires:  translation-update-upstream
 BuildRequires:  update-desktop-files
+BuildRequires:  pkgconfig(unique-1.0)
+BuildConflicts: brp-check-suse
+BuildConflicts: post-build-checks
 Recommends:     %{name}-lang
 # For xdg-su
 Recommends:     xdg-utils
@@ -49,9 +52,11 @@ In addition to basic file manager functions, the program is also an FTP
 client and can browse SMB networks.
 
 %lang_package
+Requires:       %{name}
+
 %prep
 %setup -q
-translation-update-upstream
+# translation-update-upstream
 
 %build
 %configure\
@@ -66,10 +71,18 @@ find %{buildroot}%{_libdir} -name '*.la' -delete -print
 # Change sr@Latn to sr@latin
 mv %{buildroot}%{_datadir}/locale/sr@Latn %{buildroot}%{_datadir}/locale/sr@latin
 %find_lang %{name} %{?no_lang_C}
-%fdupes %{buildroot}
-
-%clean
-rm -rf %{buildroot}
+# calling /usr/lib/rpm/brp-suse.d/brp-25-symlink
+# ERROR: link target doesn't exist
+# (neither in build root nor in installed system):
+# /usr/share/gnome/help/gnome-commander/de/figures/gnome-
+# commander_options_network.png -> /usr/share/gnome/help/gnome
+# -commander/C/figures/gnome-commander_options_network.png
+# %%fdupes %%{buildroot}
+# calling /usr/lib/rpm/brp-suse.d/brp-25-symlink
+# ERROR: /usr/share/gnome/help/gnome-commander/C/figures/
+# gnome-commander_options_network.png points to itself
+# (as ../../C/figures/gnome-commander_options_network.png)
+rm %{buildroot}%{_datadir}/gnome/help/gnome-commander/C/figures/gnome-commander_options_network.png
 
 %if 0%{?suse_version} > 1130
 

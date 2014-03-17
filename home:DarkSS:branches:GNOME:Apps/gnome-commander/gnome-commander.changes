@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Mon Mar 17 19:17:14 UTC 2014 - dap.darkness@gmail.com
+
+- Update to version 1.4.0:
+  + Support for tabs
+  + Revamped bookmarks dialog
+  + Revamped file properties dialog
+  + One instance mode
+  + New colour theme: green tiger
+  + User defined LS_COLORS colours
+  + Possibility to select/deselect files only
+  + Support for automatic width counters in advanced file rename
+  + Enhanced file name matching in quick search
+  + Open terminal with administrator privileges 
+  + Prompt to confirm drag & drop operations
+  + Right click popup menu for copying in internal viewer
+  + --config-dir command line option for customized location of config files
+  + Several speed improvements including C++ rework and code cleanups
+  + New python plugin: 'apply_patch'
+  + Dropped broken MIME type configuration
+  + Dropped support for cvs plugin
+- clean section was removed.
+
+-------------------------------------------------------------------
 Sun Jan 19 17:44:11 UTC 2014 - zaitor@opensuse.org
 
 - Update to version 1.2.8.17:
