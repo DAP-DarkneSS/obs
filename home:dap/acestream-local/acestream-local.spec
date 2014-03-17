@@ -1,7 +1,7 @@
 #
 # spec file for package acestream-local
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2013-2014 Perlow Dmitriy A. aka DarkneSS.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -12,17 +12,18 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via
+# Please submit bugfixes or comments via [Russian]
 # http://forum.torrentstream.org/index.php?topic=1464.0
 #
+
 
 Name:           acestream-local
 Version:        2.0.0
 Release:        0
-License:        SUSE-NonFree
 Summary:        ACE Stream engine and multimedia player based on VLC
-Url:            http://torrentstream.org
+License:        SUSE-NonFree
 Group:          Productivity/Multimedia/Video/Players
+Url:            http://www.acestream.org
 Source1:        http://torrentstream.org/downloads/linux/test/acestream-local_%{version}_amd64.deb
 Source2:        http://torrentstream.org/downloads/linux/test/acestream-local_%{version}_i386.deb
 
@@ -33,9 +34,18 @@ BuildRequires:  fdupes
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  kde4-filesystem
 BuildRequires:  liba52-0
+BuildRequires:  libavcodec55
+BuildRequires:  libavformat55
 BuildRequires:  update-desktop-files
+Requires:       libQtWebKit4
 Requires:       liba52-0
+Requires:       libavcodec55
+Requires:       libavformat55
+Requires:       libavutil51
+Requires:       liblua5_1
+Requires:       libopenssl1_0_0
 Recommends:     %{name}-lang
+ExclusiveArch:  %{ix86} x86_64
 
 %description
 This package contains the ACE Stream engine, ACE Stream player,
@@ -50,11 +60,12 @@ ACE Stream libs, ACE Stream mozilla plugin.
 %install
 %ifarch x86_64
 dpkg -X %{SOURCE1} %{buildroot}
-%__mv %{buildroot}/usr/{lib,lib64}
-%else
+mv %{buildroot}%{_prefix}/{lib,lib64}
+%endif
+%ifarch %{ix86}
 dpkg -X %{SOURCE2} %{buildroot}
 %endif
-%__mv %{buildroot}%{_libdir}/python2.7/{dist-packages,site-packages}
+mv %{buildroot}%{_libdir}/python2.7/{dist-packages,site-packages}
 
 %find_lang acestreamplayer
 %suse_update_desktop_file acestreamplayer
@@ -63,7 +74,14 @@ chrpath --delete %{buildroot}%{_bindir}/acestreamplayer
 chrpath --delete %{buildroot}%{_libdir}/libtsplayer.so.5
 dos2unix -q %{buildroot}/doc/acestreamplayer/copyright
 %fdupes -s %{buildroot}%{_datadir}
-ln -s %{_libdir}/liba52.so.0 %{buildroot}%{_libdir}/liba52-0.7.4.so
+ln -s        %{_libdir}/liba52.so.0 \
+ %{buildroot}%{_libdir}/liba52-0.7.4.so
+ln -s        %{_libdir}/libavcodec.so.55  \
+ %{buildroot}%{_libdir}/libavcodec.so.53
+ln -s        %{_libdir}/libavformat.so.55 \
+ %{buildroot}%{_libdir}/libavformat.so.53
+ln -s        %{_libdir}/liblua.so.5.1 \
+ %{buildroot}%{_libdir}/liblua5.1.so.0
 
 %post -p /sbin/ldconfig
 
@@ -91,6 +109,9 @@ ln -s %{_libdir}/liba52.so.0 %{buildroot}%{_libdir}/liba52-0.7.4.so
 %{_mandir}/man*/acestreamplayer*.gz
 %exclude %{_datadir}/menu
 %{_libdir}/liba52-0.7.4.so
+%{_libdir}/libavcodec.so.53
+%{_libdir}/libavformat.so.53
+%{_libdir}/liblua5.1.so.0
 
 %files lang -f acestreamplayer.lang
 
