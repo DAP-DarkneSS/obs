@@ -17,7 +17,7 @@
 
 
 Name:           i-nex
-Version:        0.6.2
+Version:        0.6.4
 Release:        1
 Summary:        System information tool
 
@@ -25,9 +25,6 @@ License:        GPL-3.0+
 Url:            http://i-nex.linux.pl
 Group:          System/X11/Utilities
 Source0:        https://github.com/eloaders/I-Nex/archive/%{version}.tar.gz
-# PATCH-FIX-OPENSUSE to prevent "ld: cannot find -lprocps".
-# https://answers.launchpad.net/i-nex/+question/243221/+index
-Patch0:         i-nex-json-no-static.diff
 
 BuildRequires:  ImageMagick
 %if 0%{?suse_version} <= 1210
@@ -114,7 +111,6 @@ I-Nex arch independent data.
 
 %prep
 %setup -q -n I-Nex-%{version}
-%patch0
 # A hack to be able to run the program via the name execution.
 #+ some info tools are under *sbin
 cat > %{name}.sh <<HERE
@@ -133,7 +129,14 @@ HERE
          -e '/^Icon=/s|=.*|=%{name}|' debian/%{name}.desktop > %{name}.desktop
 
 %build
-make V=1 %{?_smp_mflags} additional_confflags+="%{optflags}"
+cd src
+%configure
+cd ..
+make \
+     %{?_smp_mflags} \
+     STATIC=false \
+     V=1 \
+     additional_confflags+="%{optflags}"
 
 %install
 make V=1 DESTDIR=%{buildroot} install
@@ -145,7 +148,7 @@ make V=1 DESTDIR=%{buildroot} install
 rm -rf %{buildroot}%{_datadir}/doc/%{name}
 
 # Let's use system's `pastebinit`.
-rm -rf %{buildroot}%{_datadir}/%{name}
+rm -rf %{buildroot}%{_datadir}/%{name}/pastebinit
 
 %if 0%{?suse_version}
 %suse_update_desktop_file -r %{name} 'System;HardwareSettings;'
@@ -156,34 +159,25 @@ rm -rf %{buildroot}%{_datadir}/%{name}
 
 %post   data
 %desktop_database_post
-%icon_theme_cache_post
 
 %postun data
 %desktop_database_postun
-%icon_theme_cache_postun
 
 
 %files
 %defattr(-,root,root,-)
-%doc debian/changelog* debian/copyright I-Nex.LICENSE
+%doc docs/copyright docs/I-Nex.LICENSE src/COPYING
 %{_bindir}/%{name}-*
+%doc %{_mandir}/man*/%{name}*
 
 
 %files  data
 %defattr(-,root,root,-)
-%{_bindir}/check_kernel
 %{_bindir}/%{name}
 %{_bindir}/%{name}.gambas
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}*
-%if 0%{?suse_version}
-%{_datadir}/icons/hicolor/*/apps/%{name}.xpm
-%else
-# Fedora is really strange, so…
-%{_datadir}/icons/hicolor/16x16/apps/i-nex.xpm
-%{_datadir}/icons/hicolor/22x22/apps/i-nex.xpm
-%{_datadir}/icons/hicolor/32x32/apps/i-nex.xpm
-%{_datadir}/icons/hicolor/48x48/apps/i-nex.xpm
-%endif
+%doc debian/changelog* changelogs/changelog*
+%doc src/AUTHORS src/ChangeLog src/README
 
 %changelog
