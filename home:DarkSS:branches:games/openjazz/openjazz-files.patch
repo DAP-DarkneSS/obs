@@ -1,0 +1,14 @@
+Index: openjazz-0.0.130725/Makefile.am
+===================================================================
+--- openjazz-0.0.130725.orig/Makefile.am
++++ openjazz-0.0.130725/Makefile.am
+@@ -1,7 +1,8 @@
+ # -*- Makefile -*-
+ 
+ AM_CPPFLAGS = -DUSE_MODPLUG -DUSE_SOCKETS -DSCALE -I${top_srcdir}/src \
+-              ${libSDL_CFLAGS} ${libmodplug_CFLAGS}
++              ${libSDL_CFLAGS} ${libmodplug_CFLAGS} \
++              -DLOWERCASE_FILENAMES -DDATAPATH=\"/usr/share/openjazz/\"
+ AM_CFLAGS   = -Wall
+ AM_CXXFLAGS = -Wall
+ 

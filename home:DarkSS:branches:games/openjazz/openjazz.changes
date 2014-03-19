@@ -1,0 +1,31 @@
+-------------------------------------------------------------------
+Sat Aug 24 23:57:58 UTC 2013 - prusnak@opensuse.org
+
+- updated to 250713
+
+-------------------------------------------------------------------
+Sun Jan 13 16:33:18 UTC 2013 - joop.boonen@opensuse.org
+
+- Added BuildRequires zlib-devel as it's not automatically
+  installed for openSUSE > 12.2
+
+-------------------------------------------------------------------
+Wed Oct  3 17:04:46 UTC 2012 - mailaender@opensuse.org
+
+- update to 190812
+
+-------------------------------------------------------------------
+Fri Aug  3 09:48:39 UTC 2012 - prusnak@opensuse.org
+
+- updated to 300712
+
+-------------------------------------------------------------------
+Sun May  2 18:19:48 UTC 2010 - prusnak@suse.cz
+
+- updated to latest snapshot
+
+-------------------------------------------------------------------
+Tue Jan 26 14:06:36 CET 2010 - prusnak@suse.cz
+
+- created package (SVN rev 16)
+
