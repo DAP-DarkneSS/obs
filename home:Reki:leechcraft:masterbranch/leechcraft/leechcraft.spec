@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.60-909-g2b72ce4
+%define LEECHCRAFT_VERSION 0.6.60-1095-g2f6f1cd
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -58,6 +58,7 @@ Patch5:         leechcraft-monocle-gcc47.patch
 Patch6:         lhtr.patch
 
 
+BuildRequires:  Qross-devel
 %if 0%{?suse_version} > 1230
 BuildRequires:  boost-devel >= 1.50
 %else
@@ -115,6 +116,7 @@ BuildConflicts: libgstreamer-0_10
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
 BuildConflicts: libgstreamer-1_0-0
 %endif
+BuildRequires:  libqxmpp-devel >= 0.7.6.1394366045
 BuildRequires:  pkgconfig(hunspell)
 BuildRequires:  pkgconfig(kqoauth)
 BuildRequires:  pkgconfig(libcurl)
@@ -134,7 +136,6 @@ BuildRequires:  pkgconfig(libvlc)
 BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt4)
 BuildRequires:  pkgconfig(qca2)
-BuildRequires:  pkgconfig(qxmpp) >= 0.7.4
 BuildRequires:  pkgconfig(udev)
 BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xdamage)
@@ -142,7 +143,6 @@ BuildRequires:  pkgconfig(xkbfile)
 BuildRequires:  pkgconfig(xrender)
 
 
-BuildRequires:  Qross-devel
 BuildRequires:  boost-devel >= 1.50
 BuildRequires:  jbig2dec-devel
 # BuildRequires:  libchromaprint-devel
@@ -251,6 +251,7 @@ Requires:       %{name}-launchy
 Requires:       %{name}-lemon
 Requires:       %{name}-liznoo
 Requires:       %{name}-mellonetray
+Requires:       %{name}-ooronee
 Requires:       %{name}-sb2
 Requires:       %{name}-tpi
 Requires:       %{name}-vrooby
@@ -866,8 +867,7 @@ This package provides a Twitter Client plugin for LeechCraft.
 Summary:        LeechCraft Azoth - XMPP Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
-Requires:       libqxmpp0 >= 0.7.4
-Recommends:     libqxmpp0 >= 0.7.6
+Requires:       libqxmpp0 >= 0.7.6.1394366045
 Provides:       %{name}-azoth-protocolplugin
 
 %description azoth-xoox
@@ -1060,6 +1060,15 @@ This package provides a LiveJournal subplugin for LeechCraft Blogique.
 It provides LiveJournal support.
 
 
+%package certmgr
+Summary:        LeechCraft SSL certificates Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description certmgr
+This package provides an SSL certificates manager plugin.
+
+
 %package choroid
 Summary:        LeechCraft Image viewer Module
 Group:          Productivity/Networking/Other
@@ -1192,6 +1201,7 @@ Recommends:     %{name}-launchy
 Recommends:     %{name}-lemon
 Recommends:     %{name}-liznoo
 Recommends:     %{name}-mellonetray
+Requires:       %{name}-ooronee
 Recommends:     %{name}-sb2
 Recommends:     %{name}-tpi
 Recommends:     %{name}-vrooby
@@ -1561,7 +1571,6 @@ Recommends:     gstreamer-0_10-plugins-fluendo_mp3
 %endif
 Provides:       %{name}-audioplayer
 Provides:       %{name}-soundnotifications = %{version}
-Provides:       %{name}-lmp = 0.6.60.1394113585
 
 %description lmp
 This package provides a audio player plugin for LeechCraft.
@@ -1833,6 +1842,23 @@ Currently it supports
 update interval and custom storage parameters, Akregator's settings.
  * Firefox: history, bookmarks, RSS feeds (aka Live bookmarks).
  * Liferea: feeds list.
+
+
+%package ooronee
+Summary:        LeechCraft Text and Images Handler Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-sb2 = %{version}
+Recommends:     %{name}-blasq
+Recommends:     %{name}-imgaste
+Recommends:     %{name}-pogooglue
+Recommends:     %{name}-seekthru
+
+%description ooronee
+This package provides a quark handling text and images
+dropped on it for Leechcraft.
+
+The dropped data is then sent to a data filter chosen by the user.
+See more at http://leechcraft.org/concepts-data-filters
 
 
 %package otlozhu
@@ -2418,6 +2444,7 @@ cmake ../src \
         -DENABLE_BLASQ_VANGOG=False \
 %endif
         -DENABLE_BLOGIQUE=True \
+        -DENABLE_CERTMGR=True \
         -DENABLE_CHOROID=True \
         -DENABLE_CPULOAD=True \
         -DENABLE_DEVMON=True \
@@ -2471,7 +2498,7 @@ cmake ../src \
 %else
         -DENABLE_LMP=False \
 %endif
-        -DENABLE_MEDIACALLS=True \
+        -DENABLE_MEDIACALLS=False \
 %if %{mellonetray}
         -DENABLE_MELLONETRAY=True \
 %else
@@ -2485,6 +2512,7 @@ cmake ../src \
         -DENABLE_NACHEKU=False \
         -DENABLE_NEWLIFE=True \
         -DENABLE_NETSTOREMANAGER=True \
+        -DENABLE_OORONEE=True \
         -DENABLE_OTLOZHU=True \
         -DENABLE_PINTAB=True \
 %if %{poleemery}
@@ -2894,6 +2922,11 @@ EOF
 %{_datadir}/%{name}/translations/%{name}_blogique_metida*.qm
 # %%{_datadir}/%%{name}/qml/blogique/metida/
 
+%files certmgr
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_certmgr.so
+%{_datadir}/%{name}/settings/certmgrsettings.xml
+
 %files choroid
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_choroid.so
@@ -3225,6 +3258,12 @@ EOF
 %defattr(-,root,root)
 %{translations_dir}/%{name}_newlife*.qm
 %{plugin_dir}/*%{name}_newlife.so
+
+%files ooronee
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_ooronee.so
+%{_datadir}/%{name}/settings/ooroneesettings.xml
+%{_datadir}/%{name}/qml/ooronee
 
 %files otlozhu
 %defattr(-,root,root)
