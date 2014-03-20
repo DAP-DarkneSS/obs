@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Mar 19 17:17:00 UTC 2014 - dap.darkness@gmail.com
+
+- updated to 160214
+- switched to using of _service file
+- added include_modplug.patch to prevent
+  "fatal error: modplug.h: No such file or directory"
+
+-------------------------------------------------------------------
 Sat Aug 24 23:57:58 UTC 2013 - prusnak@opensuse.org
 
 - updated to 250713

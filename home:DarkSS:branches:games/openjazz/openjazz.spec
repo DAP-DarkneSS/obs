@@ -1,7 +1,7 @@
 #
 # spec file for package openjazz
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,9 +16,9 @@
 #
 
 
-%define date 250713
+%define date 160214
 Name:           openjazz
-Version:        0.0.130725
+Version:        0.0.140216
 Release:        0
 Summary:        Remake of the classic Jazz Jackrabbit games
 License:        GPL-2.0+
@@ -26,6 +26,7 @@ Group:          Amusements/Games/Action/Arcade
 Url:            http://www.alister.eu/jazz/oj/
 Source:         http://www.alister.eu/jazz/oj/OpenJazz-src-%{date}.zip
 Patch0:         %{name}-files.patch
+Patch1:         include_modplug.patch
 BuildRequires:  SDL-devel
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -43,6 +44,7 @@ To play, you will need the files from one of the original games.
 %prep
 %setup -q -c
 %patch0 -p1
+%patch1
 dos2unix gpl.txt
 
 %build
