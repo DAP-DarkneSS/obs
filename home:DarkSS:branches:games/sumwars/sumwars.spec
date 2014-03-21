@@ -1,7 +1,7 @@
 #
 # spec file for package sumwars
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 # Copyright (c) 2013 Asterios Dramis <asterios.dramis@gmail.com>.
 #
 # All modifications and additions to the file contributed by third parties
@@ -18,15 +18,14 @@
 
 
 Name:           sumwars
-Version:        0.5.6
+Version:        0.5.7+hg.2014.03.17
 Release:        0
 Summary:        Summoning Wars Role-Playing Game
 License:        GPL-3.0+
 Group:          Amusements/Games/RPG
 Url:            http://www.sumwars.org/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}-src.tar.bz2
-# PATCH-FIX-OPENSUSE no-copy-dt-needed-entries.patch asterios.dramis@gmail.com -- Fix linking with --no-copy-dt-needed-entries
-Patch0:         no-copy-dt-needed-entries.patch
+
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 %if 0%{?suse_version} > 1210
@@ -83,7 +82,6 @@ single-player and a multiplayer mode for about 2 to 8 players.
 
 %prep
 %setup -q
-%patch0
 
 # Make sure bundled libraries are not used
 rm -rf src/enet/
@@ -92,12 +90,11 @@ rm -rf src/tinyxml/
 %build
 mkdir build
 cd build
-export CFLAGS="%{optflags}"
-export CXXFLAGS="%{optflags}"
 cmake ../ \
     -DCMAKE_INSTALL_PREFIX=%{_prefix} \
     -DSUMWARS_DOC_DIR=%{_docdir}/%{name} \
-    -DCMAKE_BUILD_TYPE=release \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_CXX_FLAGS="%{optflags} -fno-strict-aliasing" \
     -DSUMWARS_NO_TINYXML=ON \
     -DSUMWARS_NO_ENET=ON \
     -DSUMWARS_BUILD_TOOLS=OFF
@@ -137,9 +134,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications packaging/sumwar
 %fdupes -s %{buildroot}
 
 %post
+%desktop_database_post
 %icon_theme_cache_post
 
 %postun
+%desktop_database_postun
 %icon_theme_cache_postun
 
 %files
@@ -150,6 +149,7 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications packaging/sumwar
 %dir %{_datadir}/%{name}/translation/
 %lang(de) %{_datadir}/%{name}/translation/de/
 %lang(en) %{_datadir}/%{name}/translation/en/
+%lang(es) %{_datadir}/%{name}/translation/es/
 %lang(it) %{_datadir}/%{name}/translation/it/
 %lang(pl) %{_datadir}/%{name}/translation/pl/
 %lang(pt) %{_datadir}/%{name}/translation/pt/

@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sun Mar  9 09:22:07 UTC 2014 - dap.darkness@gmail.com
+
+- Updated to 0.5.7+hg.2014.03.17 to build with Ogre 1.9:
+  * es locale was added;
+  * no upstream changelog.
+- Added desktop_database_post(un) macros.
+- CMake build type was set to RelWithDebInfo.
+- Set C*LAGS via cmake option not export.
+- Removed no-copy-dt-needed-entries.patch as unneeded.
+
+-------------------------------------------------------------------
 Sun Jun 30 12:11:38 UTC 2013 - asterios.dramis@gmail.com
 
 - Updated no-copy-dt-needed-entries.patch to fix compilation also with newer
