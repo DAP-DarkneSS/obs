@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.60-1095-g2f6f1cd
+%define LEECHCRAFT_VERSION 0.6.60-1127-gb42e2f2
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -116,7 +116,7 @@ BuildConflicts: libgstreamer-0_10
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
 BuildConflicts: libgstreamer-1_0-0
 %endif
-BuildRequires:  libqxmpp-devel >= 0.7.6.1394366045
+BuildRequires:  libqxmpp-devel >= 0.7.6.1395514264
 BuildRequires:  pkgconfig(hunspell)
 BuildRequires:  pkgconfig(kqoauth)
 BuildRequires:  pkgconfig(libcurl)
@@ -867,7 +867,7 @@ This package provides a Twitter Client plugin for LeechCraft.
 Summary:        LeechCraft Azoth - XMPP Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
-Requires:       libqxmpp0 >= 0.7.6.1394366045
+Requires:       libqxmpp0 >= 0.7.6.1395514264
 Provides:       %{name}-azoth-protocolplugin
 
 %description azoth-xoox
