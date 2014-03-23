@@ -1,0 +1,14 @@
+--- src/CheckUpdatesThread.cpp.orig	2013-05-30 19:01:32.000000000 +0300
++++ src/CheckUpdatesThread.cpp	2014-03-23 21:06:34.697930160 +0300
+@@ -6,9 +6,8 @@
+     this->parent = parent;manager = new QNetworkAccessManager();
+     connect(manager, SIGNAL(finished(QNetworkReply*)),
+             this, SLOT(replyFinished(QNetworkReply*)));
+-    // Check two destinations to have more reliability
+-    manager->get(QNetworkRequest(QUrl("http://cloud.github.com/downloads/Y-Vladimir/SmartDeblur/updates.xml")));
+-    manager->get(QNetworkRequest(QUrl("http://yuzhikov.com/updates.xml")));
++    // Don't check for non-opensource updates for Win&Mac.
++    manager->get(QNetworkRequest(QUrl("file:///usr/share/doc/packages/SmartDeblur/updates.xml")));
+ 
+ }
+ 

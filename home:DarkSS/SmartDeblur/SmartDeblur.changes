@@ -1,0 +1,7 @@
+-------------------------------------------------------------------
+Fri Mar 21 18:33:33 UTC 2014 - dap.darkness@gmail.com
+
+- Initial build.
+- Added SmartDeblur-nonoss-updates.patch not to check
+  for non-opensource updates for Windows & Mac OS only.
+
