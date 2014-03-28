@@ -24,7 +24,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.60-817-gdf2a6a7
+%define LEECHCRAFT_VERSION 0.6.60-1224-g628f02a
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -63,7 +63,7 @@ BuildRequires:  pkgconfig(qca2)
 BuildRequires:  pkgconfig(QJson)
 BuildRequires:  qscintilla-devel
 BuildRequires:  pkgconfig(QtCore) >= 4.8
-BuildRequires:  pkgconfig(qxmpp) >= 0.7.4
+BuildRequires:  pkgconfig(qxmpp) >= 0.8.0
 BuildRequires:  lm_sensors-devel
 BuildRequires:  libspectre-devel
 BuildRequires:  libtidy-devel
@@ -94,6 +94,7 @@ Obsoletes:      %{name}-nacheku
 Obsoletes:      %{name}-otlozhu
 Obsoletes:      %{name}-poleemery
 Obsoletes:      %{name}-syncer
+Obsoletes:      %{name}-textogroose
 
 %description
 This package provides core executable of Leechcraft.
@@ -541,6 +542,7 @@ It supportes various protocols provided by Purple library.
 Summary:        LeechCraft Azoth - XMPP Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
+Requires:       libqxmpp0 >= 0.8.0
 Provides:       %{name}-azoth-protocolplugin
 
 %description azoth-xoox
@@ -705,6 +707,15 @@ Provides:       %{name}-blogique-subplugin = %{version}
 This package provides a LiveJournal subplugin for LeechCraft Blogique.
 
 It provides LiveJournal support.
+
+
+%package certmgr
+Summary:        LeechCraft SSL certificates Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description certmgr
+This package provides an SSL certificates manager plugin.
 
 
 %package choroid
@@ -1397,6 +1408,19 @@ update interval and custom storage parameters, Akregator's settings.
  * Liferea: feeds list.
 
 
+%package ooronee
+Summary:        LeechCraft Text and Images Handler Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-sb2 = %{version}
+
+%description ooronee
+This package provides a quark handling text and images
+dropped on it for Leechcraft.
+
+The dropped data is then sent to a data filter chosen by the user.
+See more at http://leechcraft.org/concepts-data-filters
+
+
 %package otlozhu
 Summary:        LeechCraft ToDo manager Module
 Group:          Productivity/Networking/Other
@@ -1776,21 +1800,6 @@ It allows to show the list of currently opened tabs
 and allows to quickly navigate between them.
 
 
-%package textogroose
-Summary:        LeechCraft Script-Based Lyrics Module
-Group:          Productivity/Networking/Other
-Requires:       %{name}-http = %{version}
-Requires:       %{name}-summaryrepresentation = %{version}
-Requires:       %{name}-qrosp
-Provides:       %{name}-lyricsprovider
-
-%description textogroose
-This package provides a lyrics finder plugin for LeechCraft.
-
-Textogroose is a kind of supplement to DeadLyrics for sites
-too complex to be described by DeadLyrics rules.
-
-
 %package touchstreams
 Summary:        LeechCraft VK.com Streaming Module
 Group:          Productivity/Networking/Other
@@ -1914,6 +1923,7 @@ cmake ../src \
         -DENABLE_BLASQ=True \
         -DENABLE_BLASQ_SPEGNERSI=False \
         -DENABLE_BLOGIQUE=True \
+        -DENABLE_CERTMGR=True \
         -DENABLE_CHOROID=True \
         -DENABLE_CPULOAD=True \
         -DENABLE_DEVMON=True \
@@ -1949,7 +1959,7 @@ cmake ../src \
                 -DENABLE_LMP_LIBGUESS=True \
                 -DENABLE_LMP_MPRIS=True \
                 -DENABLE_LMP_MTPSYNC=True \
-        -DENABLE_MEDIACALLS=True \
+        -DENABLE_MEDIACALLS=False \
         -DENABLE_MELLONETRAY=True \
         -DENABLE_MONOCLE=True \
 %ifarch x86_64
@@ -1963,6 +1973,7 @@ cmake ../src \
         -DENABLE_NACHEKU=False \
         -DENABLE_NEWLIFE=True \
         -DENABLE_NETSTOREMANAGER=True \
+        -DENABLE_OORONEE=True \
         -DENABLE_OTLOZHU=True \
         -DENABLE_OTLOZHU_SYNC=False \
         -DENABLE_PINTAB=True \
@@ -1981,6 +1992,7 @@ cmake ../src \
         -DENABLE_SYNCER=False \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
+        -DENABLE_TEXTOGROOSE=False \
         -DENABLE_TORRENT=True \
                 -DENABLE_BITTORRENT_GEOIP=True \
         -DENABLE_TOUCHSTREAMS=True \
@@ -2299,6 +2311,12 @@ cd build
 %{_datadir}/%{name}/translations/%{name}_blogique_metida*.qm
 # %%{_datadir}/%%{name}/qml/blogique/metida/
 
+%files certmgr
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_certmgr.so
+%{_datadir}/%{name}/settings/certmgrsettings.xml
+%{_datadir}/%{name}/translations/%{name}_certmgr*.qm
+
 %files choroid
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_choroid.so
@@ -2606,6 +2624,12 @@ cd build
 %{translations_dir}/%{name}_newlife*.qm
 %{plugin_dir}/*%{name}_newlife.so
 
+%files ooronee
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_ooronee.so
+%{_datadir}/%{name}/settings/ooroneesettings.xml
+%{_datadir}/%{name}/qml/ooronee
+
 %files otlozhu
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_otlozhu.so
@@ -2747,10 +2771,6 @@ cd build
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_tabslist.so
 %{translations_dir}/leechcraft_tabslist*
-
-%files textogroose
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_textogroose.so
 
 %files touchstreams
 %defattr(-,root,root)
