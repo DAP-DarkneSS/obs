@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Thu Mar 27 17:09:56 UTC 2014 - dap.darkness@gmail.com
+
+- update to 0.8.0
+  * Add organizations info interface to QXmppVCardIq.
+  * Remove deprecated QXmppPresence::Status type.
+- Source URL was put back.
+- Url tag and Source URL were updated to qxmpp.org.
+
+-------------------------------------------------------------------
+Sun Mar  9 14:12:49 UTC 2014 - dap.darkness@gmail.com
+
+- Source URL was temporary deleted to pass factory-auto.
+
+-------------------------------------------------------------------
 Sun Mar  9 11:10:45 UTC 2014 - dap.darkness@gmail.com
 
 - update to 0.7.6+git.2014.03.09
