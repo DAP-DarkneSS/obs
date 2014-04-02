@@ -1,4 +1,46 @@
 -------------------------------------------------------------------
+Wed Apr  2 20:29:08 UTC 2014 - dap.darkness@gmail.com
+
+- 0.1.0
+  * Added a bookmark bar.
+  * Added plea for money.
+- 0.0.32
+  * Added new menu icons for 'New Editor' and 'New Admin Editor'.
+  * Source highlighting dropdown list
+    now display language names properly.
+  * Source highlighting dropdown list now definitely sorted.
+  * Added 'Bug Reporting' link to help file as suggested.
+- 0.0.31
+  * Added 'live' preview of style scheme to prefs,
+    'Cancel' resets style and 'Apply' sets style.
+  * Added local search path to styles
+    so now also looks in ~/.gnome2/gedit/styles.
+  * Added "Theme" to prefs.
+- 0.0.28
+  * If glib networking is installed if selecting "Open Man page"
+    or "Search in GTK-Docs" can't find anything appropriate
+    a google search is performed.
+- 0.0.27
+  * Example tools now use releative paths.
+  * External tools can now use releative paths to command script.
+- 0.0.26
+  * Greyed out 'Back' button in find/replace when using regex
+    as can't ( yet! ) do a backward regex search.
+  * Made Regex search optional and remembered.
+  * Replace unprintable characters in file with "".
+    (allows opening some files with binary data like .csv ).
+  * Scan and convert encoding to UTF8 now MUCH better.
+- 0.0.25
+  * Search 'wrap' and 'replace all' settings saved on exit.
+  * Search in all files setting saved on exit.
+  * Added Search in all files.
+
+-------------------------------------------------------------------
+Sun Dec  8 17:24:06 UTC 2013 - dap.darkness@gmail.com
+- pkgconfig(gtk+-2.0) >= 2.24.0 became required
+  to prevent openSUSE 11.4 build failing.
+
+-------------------------------------------------------------------
 Thu Dec  5 17:17:31 UTC 2013 - dap.darkness@gmail.com
 
 - Initial build.

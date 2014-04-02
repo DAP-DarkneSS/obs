@@ -1,7 +1,7 @@
 #
 # spec file for package kkedit
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           kkedit
-Version:        0.0.24
+Version:        0.1.0
 Release:        0
 Summary:        Source code text editor
 License:        GPL-3.0
@@ -29,6 +29,7 @@ BuildRequires:  aspell-devel
 BuildRequires:  ctags
 BuildRequires:  gcc-c++
 BuildRequires:  update-desktop-files
+BuildRequires:  pkgconfig(gtk+-2.0) >= 2.24.0
 BuildRequires:  pkgconfig(gtksourceview-2.0)
 BuildRequires:  pkgconfig(unique-1.0)
 BuildRequires:  pkgconfig(webkit-1.0)
