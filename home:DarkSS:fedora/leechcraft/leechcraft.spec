@@ -24,7 +24,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION '0.6.65 RC1 (0.6.60-1309-gfecab0b)'
+%define LEECHCRAFT_VERSION 0.6.65
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -79,6 +79,7 @@ BuildRequires:  phonon-devel
 BuildRequires:  qwt-devel
 BuildRequires:  speex-devel
 BuildRequires:  taglib-devel
+BuildRequires:  wt-devel >= 3.3
 BuildRequires:  xz
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
 BuildRequires:  pkgconfig(libguess)
