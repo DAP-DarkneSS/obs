@@ -17,7 +17,7 @@
 
 
 Name:           leechcraft-doc
-Version:        0.6.60
+Version:        0.6.65
 Release:        0
 Summary:        Modular Internet Client Documentation
 License:        BSL-1.0

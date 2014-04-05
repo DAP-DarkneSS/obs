@@ -28,7 +28,7 @@
 %endif
 
 Name:           leechcraft
-Version:        0.6.60
+Version:        0.6.65
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
@@ -38,10 +38,8 @@ Source0:        http://dist.leechcraft.org/LeechCraft/%{version}/leechcraft-%{ve
 # PATCH-FIX-OPENSUSE to prevent oS 12.2' gcc build issue:
 # "error: the value of 'w' is not usable in a constant expression".
 Patch1:         leechcraft-azoth-gcc47.patch
-# PATCH-FIX-UPSTREAM to prevent arm6-7 build issue:
-# "error: no matching function for call to 'max(double&, qreal)'";
-# https://github.com/0xd34df00d/leechcraft/commit/ef3fdc
-Patch2:         leechcraft-0.6.60-monocle-arm.patch
+# PATCH-FIX-OPENSUSE vs. names constructor error.
+Patch3:         leechcraft-monocle-gcc47.patch
 
 BuildRequires:  Qross-devel
 %if 0%{?suse_version} > 1230
@@ -66,6 +64,9 @@ BuildRequires:  liblastfm-devel
 BuildRequires:  libotr-devel
 BuildRequires:  libqscintilla-devel
 BuildRequires:  libqt4-sql
+%if 0%{?suse_version} > 1310
+BuildRequires:  libqxt-devel
+%endif
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
 %if 0%{?suse_version} == 1310
@@ -121,7 +122,7 @@ BuildRequires:  pkgconfig(libvlc)
 BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt4)
 BuildRequires:  pkgconfig(qca2)
-BuildRequires:  pkgconfig(qxmpp) >= 0.7.4
+BuildRequires:  pkgconfig(qxmpp) >= 0.8
 BuildRequires:  pkgconfig(udev)
 BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xdamage)
@@ -164,6 +165,8 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-visualnotifications = %{version}
 Recommends:     %{name}-soundnotifications = %{version}
+Provides:       %{name}-shellopen = %{version}
+Obsoletes:      %{name}-shellopen < %{version}
 
 %description advancednotifications
 This package provides an advanced notifications plugin for Leechcraft.
@@ -302,6 +305,7 @@ This package provides an Adium styles support plugin for LeechCraft Azoth.
 %if 0%{?suse_version} > 1310
 %package azoth-astrality
 Summary:        LeechCraft Azoth - Telepathy Module
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 Requires:       telepathy-haze
@@ -319,7 +323,6 @@ Features:
  * Standard one-to-one chats.
  * Nick resolution.
 %endif
-
 
 %package azoth-autoidler
 Summary:        LeechCraft Azoth - Automatic Change of Status Module
@@ -550,6 +553,7 @@ Summary:        LeechCraft Azoth - Spell Checker Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
+Requires:       %{name}-rosenthal = %{version}
 
 %description azoth-rosenthal
 This package provides a spell checker plugin for LeechCraft Azoth.
@@ -637,8 +641,7 @@ Summary:        LeechCraft Azoth - XMPP Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
-Requires:       libqxmpp0 >= 0.7.4
-Recommends:     libqxmpp0 >= 0.7.6
+Requires:       libqxmpp0 >= 0.8
 Provides:       %{name}-azoth-protocolplugin
 
 %description azoth-xoox
@@ -794,7 +797,9 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-blogique-subplugin = %{version}
+%if 0%{?suse_version} >= 1230
 Recommends:     %{name}-lhtr
+%endif
 
 %description blogique
 This package provides a modular Blogging client plugin for LeechCraft.
@@ -827,6 +832,29 @@ Provides:       %{name}-blogique-subplugin = %{version}
 This package provides a LiveJournal subplugin for LeechCraft Blogique.
 
 It provides LiveJournal support.
+
+
+%package certmgr
+Summary:        LeechCraft SSL certificates Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description certmgr
+This package provides an SSL certificates manager plugin.
+
+
+%package cpuload
+Summary:        LeechCraft CPU Usage Monitoring Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-sb2 = %{version}
+
+%description cpuload
+This package provides a quark for monitoring the CPU usage
+for LeechCraft SB2. Monitoring memory and swap will also
+be probably added later. For now it uses /proc/stat.
 
 
 %package cstp
@@ -930,6 +958,7 @@ Summary:        LeechCraft Window Manager Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Provides:       %{name}-fenet-compton = %{version}
+Recommends:     %{name}-cpuload
 Recommends:     %{name}-hotsensors
 Recommends:     %{name}-kbswitch
 Recommends:     %{name}-krigstask
@@ -938,6 +967,7 @@ Recommends:     %{name}-launchy
 Recommends:     %{name}-lemon
 Recommends:     %{name}-liznoo
 Recommends:     %{name}-mellonetray
+Requires:       %{name}-ooronee
 Recommends:     %{name}-sb2
 Recommends:     %{name}-tpi
 Recommends:     %{name}-vrooby
@@ -1233,6 +1263,7 @@ Requires:       %{name}-sb = %{version}
 This package provides another Network Monitor plugin for Leechcraft.
 
 
+%if 0%{?suse_version} >= 1230
 %package lhtr
 Summary:        LeechCraft HTML WYSIWYG editor Module
 License:        BSL-1.0
@@ -1244,7 +1275,7 @@ Recommends:     %{name}-poshuku
 This package provides a HTML WYSIWYG editor plugin for Leechcraft.
 
 It can be usable with mail and blog modules.
-
+%endif
 
 %package liznoo
 Summary:        LeechCraft Power managment module
@@ -1278,6 +1309,7 @@ Requires:       %{name} = %{version}
 Recommends:     %{name}-lyricsprovider
 Recommends:     %{name}-gacts = %{version}
 Recommends:     %{name}-scrobbler
+Suggests:       %{name}-lastfmscrobble
 Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
 %if %{lmp_gstreamer_1_0}
@@ -1565,6 +1597,24 @@ update interval and custom storage parameters, Akregator's settings.
  * Liferea: feeds list.
 
 
+%package ooronee
+Summary:        LeechCraft Text and Images Handler Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-sb2 = %{version}
+Recommends:     %{name}-blasq
+Recommends:     %{name}-imgaste
+Recommends:     %{name}-pogooglue
+Recommends:     %{name}-seekthru
+
+%description ooronee
+This package provides a quark handling text and images
+dropped on it for Leechcraft.
+
+The dropped data is then sent to a data filter chosen by the user.
+See more at http://leechcraft.org/concepts-data-filters
+
+
 %package otlozhu
 Summary:        LeechCraft ToDo manager Module
 License:        BSL-1.0
@@ -1786,12 +1836,25 @@ It provides support for the Read it Later service.
 
 %package qrosp
 Summary:        LeechCraft Qross Module
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       libqrosspython1
 
 %description qrosp
 This package contains a scripting support plugin for Leechcraft.
+
+
+%package rosenthal
+Summary:        LeechCraft - Spell Checker Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description rosenthal
+This package provides a spell checker plugin for LeechCraft.
+
+It is based on Hunspell or Myspell dictionaries.
 
 
 %package sb2
@@ -1879,20 +1942,6 @@ with a suitable plugin like Aggregator.
  * Show results in HTML format with a suitable plugin like Poshuku.
 
 
-%package shellopen
-Summary:        LeechCraft Shellopen Module
-License:        BSL-1.0
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description shellopen
-This package provides an opening files with external apps for LeechCraft.
-
-It allows to open files and handle entities with external applications.
-For example, you may choose to open a video file with your favorite media
-player instead of LC's one.
-
-
 %package summary
 Summary:        LeechCraft Summary info Module
 License:        BSL-1.0
@@ -1965,10 +2014,11 @@ and allows to quickly navigate between them.
 
 %package textogroose
 Summary:        LeechCraft Script-Based Lyrics Module
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name}-http = %{version}
-Requires:       %{name}-summaryrepresentation = %{version}
 Requires:       %{name}-qrosp
+Requires:       %{name}-summaryrepresentation = %{version}
 Provides:       %{name}-lyricsprovider
 
 %description textogroose
@@ -2081,7 +2131,9 @@ It allows to get current user tune via mpris protocol.
 %if 0%{?suse_version} <= 1220
 %patch1 -p1
 %endif
-%patch2 -p1
+%if 0%{?suse_version} <= 1230
+%patch3 -p1
+%endif
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -2103,8 +2155,11 @@ cmake ../src \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DSTRICT_LICENSING=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
+        -DENABLE_AGGREGATOR=True \
+                -DENABLE_AGGREGATOR_WEBACCESS=False \
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
+                -DENABLE_AZOTH_ACETAMIDE=True \
 %if 0%{?suse_version} > 1310
                 -DENABLE_AZOTH_ASTRALITY=True \
 %else
@@ -2113,18 +2168,30 @@ cmake ../src \
                 -DENABLE_AZOTH_OTROID=True \
                 -DENABLE_AZOTH_SHX=True \
                 -DENABLE_AZOTH_VELVETBIRD=True \
+                -DENABLE_AZOTH_WOODPECKER=True \
                 -DENABLE_AZOTH_ZHEET=True \
-                -DENABLE_MEDIACALLS=True \
+                -DENABLE_MEDIACALLS=False \
         -DENABLE_BLACKDASH=False \
+        -DENABLE_BLASQ=True \
+                -DENABLE_BLASQ_VANGOG=True \
         -DENABLE_BLOGIQUE=True \
+        -DENABLE_CERTMGR=True \
         -DENABLE_CHOROID=False \
+        -DENABLE_CPULOAD=True \
+        -DENABLE_DEVMON=True \
+        -DENABLE_DLNIWE=False \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_DUMBEEP=True \
                 -DDUMBEEP_WITH_PHONON=True \
         -DENABLE_GACTS=True \
+%if 0%{?suse_version} > 1310
+                -DWITH_GACTS_BUNDLED_QXT=False \
+%else
                 -DWITH_GACTS_BUNDLED_QXT=True \
+%endif
         -DENABLE_GLANCE=True \
         -DENABLE_GMAILNOTIFIER=True \
+        -DENABLE_HARBINGER=True \
         -DENABLE_HOTSENSORS=False \
         -DENABLE_HOTSTREAMS=True \
 %if 0%{?suse_version} > 1230
@@ -2132,15 +2199,22 @@ cmake ../src \
 %else
         -DENABLE_HTTHARE=False \
 %endif
+        -DENABLE_IMGASTE=True \
         -DENABLE_KBSWITCH=True \
         -DENABLE_KNOWHOW=True \
+        -DENABLE_KRIGSTASK=True \
         -DENABLE_LACKMAN=True \
         -DENABLE_LADS=False \
         -DENABLE_LASTFMSCROBBLE=True \
+        -DENABLE_LAUGHTY=True \
         -DENABLE_LAUNCHY=True \
         -DENABLE_LEMON=True \
+%if 0%{?suse_version} >= 1230
         -DENABLE_LHTR=True \
                 -DWITH_LHTR_HTML=True \
+%else
+        -DENABLE_LHTR=False \
+%endif
         -DENABLE_LIZNOO=True \
         -DENABLE_LMP=True \
                 -DENABLE_LMP_GRAFFITI=True \
@@ -2154,6 +2228,7 @@ cmake ../src \
 %if 0%{?lmp_gstreamer_1_0}
                 -DUSE_GSTREAMER_10=True \
 %endif
+        -DENABLE_MELLONETRAY=True \
         -DENABLE_MONOCLE=True \
 %if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
@@ -2170,6 +2245,7 @@ cmake ../src \
         -DENABLE_NACHEKU=False \
         -DENABLE_NETSTOREMANAGER=True \
         -DENABLE_NEWLIFE=True \
+        -DENABLE_OORONEE=True \
         -DENABLE_OTLOZHU=True \
                 -DENABLE_OTLOZHU_SYNC=False \
         -DENABLE_PINTAB=True \
@@ -2180,9 +2256,10 @@ cmake ../src \
                 -DUSE_POSHUKU_CLEANWEB_PCRE=True \
         -DENABLE_QROSP=True \
         -DENABLE_SB2=True \
+        -DENABLE_SCROBLIBRE=True \
         -DENABLE_SECMAN=True \
         -DENABLE_SHAITAN=False \
-        -DENABLE_SHELLOPEN=True \
+        -DENABLE_SHELLOPEN=False \
         -DENABLE_SNAILS=False \
         -DENABLE_SYNCER=False \
         -DENABLE_TABSESSMANAGER=True \
@@ -2263,7 +2340,8 @@ cd build
 %files aggregator
 %defattr(-,root,root)
 %{settings_dir}/aggregatorsettings.xml
-%{translations_dir}/%{name}_aggregator*.qm
+%{translations_dir}/%{name}_aggregator_??.qm
+%{translations_dir}/%{name}_aggregator_??_??.qm
 %{plugin_dir}/*%{name}_aggregator.so
 
 %files aggregator-bodyfetch
@@ -2418,7 +2496,6 @@ cd build
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_azoth_rosenthal.so
 %{translations_dir}/%{name}_azoth_rosenthal*
-%{settings_dir}/azothrosenthalsettings.xml
 
 %files azoth-shx
 %defattr(-,root,root)
@@ -2522,6 +2599,17 @@ cd build
 %{_libdir}/%{name}/plugins/lib%{name}_blogique_metida.so
 %{_datadir}/%{name}/settings/blogiquemetidasettings.xml
 %{_datadir}/%{name}/translations/%{name}_blogique_metida*.qm
+
+%files certmgr
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_certmgr.so
+%{_datadir}/%{name}/settings/certmgrsettings.xml
+%{_datadir}/%{name}/translations/%{name}_certmgr*.qm
+
+%files cpuload
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_cpuload.so
+%{_datadir}/%{name}/qml/cpuload
 
 %files cstp
 %defattr(-,root,root)
@@ -2691,11 +2779,13 @@ cd build
 %{_datadir}/%{name}/qml/lemon/
 %{_datadir}/%{name}/translations/%{name}_lemon_*.qm
 
+%if 0%{?suse_version} >= 1230
 %files lhtr
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lhtr.so
 %{_datadir}/%{name}/translations/%{name}_lhtr_*.qm
 %{_datadir}/%{name}/settings/lhtrsettings.xml
+%endif
 
 %files liznoo
 %defattr(-,root,root)
@@ -2805,6 +2895,12 @@ cd build
 %{translations_dir}/%{name}_newlife*.qm
 %{plugin_dir}/*%{name}_newlife.so
 
+%files ooronee
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_ooronee.so
+%{_datadir}/%{name}/settings/ooroneesettings.xml
+%{_datadir}/%{name}/qml/ooronee
+
 %files otlozhu
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_otlozhu.so
@@ -2887,6 +2983,12 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_qrosp.so
 
+%files rosenthal
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_rosenthal.so
+%{_datadir}/%{name}/translations/%{name}_rosenthal*
+%{_datadir}/%{name}/settings/rosenthalsettings.xml
+
 %files sb2
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_sb2.so
@@ -2914,11 +3016,6 @@ cd build
 %{settings_dir}/seekthrusettings.xml
 %{translations_dir}/%{name}_seekthru*.qm
 %{plugin_dir}/*%{name}_seekthru.so
-
-%files shellopen
-%defattr(-,root,root)
-%{translations_dir}/%{name}_shellopen*.qm
-%{plugin_dir}/*%{name}_shellopen.so
 
 %files summary
 %defattr(-,root,root)

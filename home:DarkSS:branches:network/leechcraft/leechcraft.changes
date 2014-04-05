@@ -1,4 +1,35 @@
 -------------------------------------------------------------------
+Sat Apr  5 11:56:18 UTC 2014 - dap.darkness@gmail.com
+
+- 0.6.65 release:
+  * LMP audio player ReplayGain support;
+  * Azoth, the IM client, server history support (XEP-0313);
+  * XMPP Message Carbons support (XEP-0280);
+  * Monocle, the document reader, now supports annotated documents;
+  * PDF seamless scrolling without freezing the UI;
+  * The LHTR visual hypertext editor now gained
+    support for the image sources plugins (Blasq);
+  * HTML editor now supports syntax highlighting;
+  * Aggregator now supports renaming feeds;
+  * LackMan now supports vim-style navigation
+    and using Space key to toggle packages;
+  * MusicZombie now fetches all information about a single artist
+    in one request;
+  * New Life now supports importing history from Opera;
+  * Popishu text editor now supports the recoverable tabs concept;
+  * SB2 now supports hiding quarks by default;
+  * /etc/os-release is now properly parsed.
+- New plugins were enabled:
+  * CertMgr is the new SSL manager;
+  * CPU load is a monitoring quark;
+  * Ooronee handles images and text dropped onto it;
+  * Rosenthal is a core spell checker.
+- Deleted leechcraft-0.6.60-monocle-arm.patch as merged.
+- Added leechcraft-monocle-gcc47.patch
+  to prevent names constructor error.
+- Shellopen plugin amd mediacalls became obsoleted.
+
+-------------------------------------------------------------------
 Fri Mar  7 17:53:34 UTC 2014 - dap.darkness@gmail.com
 
 - Removed velvetbird bcond because of purple
