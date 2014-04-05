@@ -1,7 +1,7 @@
 #
 # spec file for package wt
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,25 +16,40 @@
 #
 
 
-
 Name:           wt
-Url:            http://www.webtoolkit.eu/wt/
+Version:        3.3.2
+Release:        0
+Summary:        Web Toolkit
 License:        GPL-2.0
 Group:          Development/Libraries/C and C++
-Version:        3.2.0
-Release:        1
-Summary:        Web Toolkit
-Source0:        %{name}-%{version}.tar.bz2
-Requires:       FastCGI openssl
-BuildRequires:  gcc-c++
-BuildRequires:  FastCGI-devel openssl-devel
+Url:            http://www.webtoolkit.eu/wt/
+Source0:        https://downloads.sourceforge.net/project/witty/wt/%{version}/wt-%{version}.tar.gz
 
+BuildRequires:  FastCGI-devel
+%if 0%{?suse_version} < 1220
+BuildRequires:  Mesa-devel
+%endif
 # wt will build with boost-devel < 1.36.0 but it won't work
 BuildRequires:  boost-devel >= 1.36.0
-
-BuildRequires:  graphviz postgresql-devel
-BuildRequires:  cmake libqt4-devel pkgconfig
+BuildRequires:  cmake
+BuildRequires:  doxygen
 BuildRequires:  fdupes
+%if 0%{?suse_version} >= 1220
+BuildRequires:  firebird-devel
+%endif
+BuildRequires:  gcc-c++
+BuildRequires:  graphviz
+%if 0%{?suse_version} >= 1230
+BuildRequires:  libharu-devel
+%endif
+BuildRequires:  libqt4-devel
+BuildRequires:  openssl-devel
+BuildRequires:  pango-devel
+BuildRequires:  pkgconfig
+BuildRequires:  postgresql-devel
+
+Requires:       FastCGI
+Requires:       openssl
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -49,10 +64,12 @@ code.
 %package        devel
 Summary:        Web Toolkit - Development Files
 Group:          Development/Libraries/C and C++
-Requires:       FastCGI-devel openssl-devel Xerces-c-devel
+Requires:       %{name} = %{version}
+Requires:       FastCGI-devel
+Requires:       Xerces-c-devel
 Requires:       boost-devel >= 1.34.1
 Requires:       mxml-devel >= 2.3
-Requires:       %{name} = %{version}
+Requires:       openssl-devel
 
 %description devel
 Development files for the Wt library.
@@ -87,53 +104,60 @@ code.
 %build
 %define WTSRVDIR /srv/wt
 # path to runtime session data
-%define WTRUNDIR %{WTSRVDIR}/run 
+%define WTRUNDIR %{WTSRVDIR}/run
 # webserve user and group
-%define WTRUNUSER wwwrun 
-%define WTRUNGROUP www 
+%define WTRUNUSER wwwrun
+%define WTRUNGROUP www
 mkdir wt-build
 cd wt-build
-CFLAGS=$RPM_OPT_FLAGS CXXFLAGS="$RPM_OPT_FLAGS" \
 cmake .. \
+    -DCMAKE_C_FLAGS="%{optflags}" \
+    -DCMAKE_CXX_FLAGS="%{optflags}" \
     -DCMAKE_INSTALL_PREFIX="/usr" \
-    -DWT_CMAKE_FINDER_INSTALL_DIR="share/cmake/Modules" \
     -DLIB_INSTALL_DIR=%{_lib} \
     -DCONNECTOR_HTTP=ON \
     -DCONNECTOR_FCGI=ON \
+%if 0%{?suse_version} < 1220
+    -DWT_NO_BOOST_RANDOM=ON \
+%endif
+    -DENABLE_EXT=True \
     -DWEBGROUP="%{WTRUNGROUP}" -DWEBUSER="%{WTRUNUSER}" \
     -DRUNDIR="%{WTRUNDIR}" \
-    -DBUILD_EXAMPLES=OFF
-# FIXME: Examples are temporarily disabled to avoid a boost bug that produces
-# some errors while compiling the tests.
-make %{?_smp_mflags}
+    -DBUILD_EXAMPLES=ON
+make V=1 %{?_smp_mflags}
 
 %install
 cd wt-build
-make DESTDIR="$RPM_BUILD_ROOT" install
+make V=1 DESTDIR="%{buildroot}" install
 # hack for broken cmake configs on archs with /lib64
 %ifarch ppc64 s390x
-mv $RPM_BUILD_ROOT/usr/lib/* $RPM_BUILD_ROOT/usr/%{_lib} || true
-rm -Rf $RPM_BUILD_ROOT/usr/lib
+mv %{buildroot}/usr/lib/* %{buildroot}/usr/%{_lib} || true
+rm -Rf %{buildroot}/usr/lib
 %endif
 # end hack
-mkdir -p $RPM_BUILD_ROOT/%{_docdir}/%{name}
-mkdir -p $RPM_BUILD_ROOT/%{WTSRVDIR}
-mkdir -p $RPM_BUILD_ROOT/%{WTRUNDIR}
-mkdir $RPM_BUILD_ROOT/%{_docdir}/%{name}-devel/
-cp -rv ../doc/* $RPM_BUILD_ROOT/%{_docdir}/%{name}-devel/
-mv -v $RPM_BUILD_ROOT/%{_datadir}/Wt $RPM_BUILD_ROOT/%{_datadir}/wt
+mkdir -p %{buildroot}/%{_docdir}/%{name}
+mkdir -p %{buildroot}/%{WTSRVDIR}
+mkdir -p %{buildroot}/%{WTRUNDIR}
+mkdir %{buildroot}/%{_docdir}/%{name}-devel/
+cp -rv ../doc/* %{buildroot}/%{_docdir}/%{name}-devel/
+mv -v %{buildroot}/%{_datadir}/Wt %{buildroot}/%{_datadir}/wt
 
 # We mustn't package .orig files
-find $RPM_BUILD_ROOT/%{_includedir}/Wt -name '*.orig' -delete
+find %{buildroot}/%{_includedir}/Wt -name '*.orig' -delete
 
 # Remove the installdox script used for the installation of documentation.
-rm $RPM_BUILD_ROOT/%{_docdir}/%{name}-devel/reference/html/installdox
+rm %{buildroot}/%{_docdir}/%{name}-devel/examples/html/installdox
 
 # Remove shell scripts used for generating some images.
-rm $RPM_BUILD_ROOT/%{_datadir}/wt/resources/themes/*/*/generate.sh
+rm %{buildroot}/%{_datadir}/wt/resources/themes/*/*/generate.sh
 
-%fdupes $RPM_BUILD_ROOT/%{_docdir}
-%fdupes $RPM_BUILD_ROOT/%{_datadir}
+# Move cmake module to the correct location.
+install -v -m 0755 -d %{buildroot}/%{_datadir}/cmake/Modules
+mv -v %{buildroot}/%{_prefix}/cmake/*.cmake \
+      %{buildroot}/%{_datadir}/cmake/Modules
+
+%fdupes %{buildroot}/%{_docdir}
+%fdupes %{buildroot}/%{_datadir}
 
 %post -p /sbin/ldconfig
 
@@ -142,11 +166,11 @@ rm $RPM_BUILD_ROOT/%{_datadir}/wt/resources/themes/*/*/generate.sh
 %files
 %defattr(-,root,root)
 %{_libdir}/*.so.%{version}
-%doc Changelog INSTALL LICENSE
+%doc Changelog LICENSE
 %dir %{WTSRVDIR}
-%dir /etc/wt
+%dir %{_sysconfdir}/wt
 %{_datadir}/wt
-%config(noreplace) /etc/wt/wt_config.xml
+%config(noreplace) %{_sysconfdir}/wt/wt_config.xml
 %attr(-,%{WTRUNUSER},%{WTRUNGROUP}) %{WTRUNDIR}
 
 %files devel

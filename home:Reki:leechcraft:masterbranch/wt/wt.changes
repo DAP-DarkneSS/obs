@@ -1,4 +1,42 @@
 -------------------------------------------------------------------
+Thu Apr  3 17:17:02 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 3.3.2:
+  * WRasterImage: now also support skia as backend.
+  * Namespace Wt::Signals was created.
+  * Checkboxes are rendered when CheckStateRole is present.
+  * Client SSL certificates can be queried from WResources.
+  * Fixed regression in resource continations.
+  * Added binary WebGL VBO buffers.
+  * Layouts: various bug fixes and improvements.
+  * Render: added support for repeating table headers.
+  * Render: added support for explicit page breaks and % widths.
+  * Fix popup widgets confusing preferred size calculations.
+  * New API for payment with an implementation for PayPal.
+  * layouts: fix various issues.
+  * WTextEdit: fix behaviour inside a WPanel.
+  * Render: code reorganizations for java port.
+  * QueryModel: added stableResultRow() method.
+  * Dbo/Exception: add support for SQLSTATE code information.
+  * Mail/Client: log configuration that will be used on first use.
+  * WAnchor: use <a> tag even if no link has been provided.
+  * WDoubleSpinBox: fix formatting.
+  * WSlider: add more hooks for custom styles.
+- Added SourceUrl.
+- doxygen, firebird-devel, libharu-devel and pango-devel
+  became required to build because of cmake warnings.
+- Rpm_opt_flags became set via cmake option.
+- DWT_CMAKE_FINDER_INSTALL_DIR cmake option became broken
+  and was replaced by manual file moving.
+- DBUILD_EXAMPLES cmake option was enabled
+  because of FIXME comment at spec-file.
+- DENABLE_EXT cmake option was enabled
+  to satisfy leechcraft requirements.
+- Don't package INSTALL file.
+- RPM_BUILD_ROOT macro was replaced by buildroot.
+- Let make be verbose: V=1.
+
+-------------------------------------------------------------------
 Sat Feb 11 09:12:27 UTC 2012 - poletti.marco@gmail.com
 
 - Update to 3.2.0:
