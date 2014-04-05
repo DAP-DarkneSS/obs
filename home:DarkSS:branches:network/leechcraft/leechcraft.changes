@@ -1,4 +1,36 @@
 -------------------------------------------------------------------
+Fri Mar  7 17:53:34 UTC 2014 - dap.darkness@gmail.com
+
+- Removed velvetbird bcond because of purple
+  already built for all OBS archs.
+- Added leechcraft-0.6.60-monocle-arm.patch to prevent
+  arm6-7 build failures, upstream url:
+  https://github.com/0xd34df00d/leechcraft/commit/ef3fdc
+- Added gstreamer-1_0 define against oS >= 13.2 and
+  versioned gst "BuildConflicts" to build lmp with the
+  same gst as QtWebKit was built to prevent runtime freeze.
+
+-------------------------------------------------------------------
+Sun Feb 23 14:57:17 UTC 2014 - dap.darkness@gmail.com
+
+- New plugins were enabled:
+  * Azoth Astrality: telepathy framework (Factory);
+  * Qrosp: scripting support;
+  * Textogroose: scripted lyrics finder.
+
+-------------------------------------------------------------------
+Mon Jan  6 20:36:26 UTC 2014 - dap.darkness@gmail.com
+
+- New mupdf version broke building again
+  and upstream decided not to fix it.
+
+-------------------------------------------------------------------
+Sat Jan  4 11:49:37 UTC 2014 - dmueller@suse.com
+
+- add velvetbird buildconditional to consolidate and correct
+  arch dependencies (fixes build)
+
+-------------------------------------------------------------------
 Mon Dec 30 16:18:59 UTC 2013 - dap.darkness@gmail.com
 
 - 0.6.60 release:

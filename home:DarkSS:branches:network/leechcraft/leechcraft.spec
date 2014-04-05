@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -21,6 +21,12 @@
 %define settings_dir %{_datadir}/%{name}/settings
 %define azoth_dir %{_datadir}/%{name}/azoth
 
+%if 0%{?suse_version} > 1310
+%define lmp_gstreamer_1_0 1
+%else
+%define lmp_gstreamer_1_0 0
+%endif
+
 Name:           leechcraft
 Version:        0.6.60
 Release:        0
@@ -32,7 +38,12 @@ Source0:        http://dist.leechcraft.org/LeechCraft/%{version}/leechcraft-%{ve
 # PATCH-FIX-OPENSUSE to prevent oS 12.2' gcc build issue:
 # "error: the value of 'w' is not usable in a constant expression".
 Patch1:         leechcraft-azoth-gcc47.patch
+# PATCH-FIX-UPSTREAM to prevent arm6-7 build issue:
+# "error: no matching function for call to 'max(double&, qreal)'";
+# https://github.com/0xd34df00d/leechcraft/commit/ef3fdc
+Patch2:         leechcraft-0.6.60-monocle-arm.patch
 
+BuildRequires:  Qross-devel
 %if 0%{?suse_version} > 1230
 BuildRequires:  boost-devel >= 1.50
 %else
@@ -57,12 +68,15 @@ BuildRequires:  libqscintilla-devel
 BuildRequires:  libqt4-sql
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
-%if 0%{?suse_version} > 1230
+%if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
 BuildRequires:  mupdf-devel-static
 %endif
 %endif
 BuildRequires:  qwt6-devel
+%if 0%{?suse_version} > 1310
+BuildRequires:  pkgconfig(TelepathyQt4)
+%endif
 BuildRequires:  pkgconfig(QJson) >= 0.8.1
 BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(QtWebKit)
@@ -74,15 +88,19 @@ BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libpcre)
 BuildRequires:  pkgconfig(libspectre)
 BuildRequires:  pkgconfig(phonon)
-%ifarch %ix86 x86_64 ppc ppc64 armv7l armv7hl
 BuildRequires:  pkgconfig(purple)
-%endif
 BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(taglib)
-%if 0%{?suse_version} > 1230
+%if 0%{?lmp_gstreamer_1_0}
 BuildRequires:  pkgconfig(gstreamer-app-1.0)
+BuildConflicts: gstreamer-0_10-devel
+BuildConflicts: gstreamer-0_10-plugins-base-devel
+BuildConflicts: libgstapp-0_10
+BuildConflicts: libgstinterfaces-0_10
+BuildConflicts: libgstreamer-0_10
 %else
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
+BuildConflicts: libgstreamer-1_0-0
 %endif
 BuildRequires:  pkgconfig(hunspell)
 BuildRequires:  pkgconfig(kqoauth)
@@ -91,7 +109,7 @@ BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libguess)
 %endif
 BuildRequires:  pkgconfig(libmsn)
-%if 0%{?suse_version} > 1230
+%if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
 BuildRequires:  pkgconfig(libopenjpeg)
 %endif
@@ -184,6 +202,7 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-aggregator
+Recommends:     %{name}-qrosp
 
 %description aggregator-bodyfetch
 This package provides a body fetch plugin for LeechCraft Aggregator.
@@ -278,6 +297,28 @@ Provides:       %{name}-azoth-chatstyler
 
 %description azoth-adiumstyles
 This package provides an Adium styles support plugin for LeechCraft Azoth.
+
+
+%if 0%{?suse_version} > 1310
+%package azoth-astrality
+Summary:        LeechCraft Azoth - Telepathy Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-azoth = %{version}
+Requires:       telepathy-haze
+Requires:       telepathy-mission-control
+Provides:       %{name}-azoth-protocolplugin
+
+%description azoth-astrality
+This package provides a telepathy plugin for LeechCraft Azoth.
+
+It supportes various protocols provided by telepathy framework.
+
+Features:
+ * Telepathy account creation.
+ * In-band account registration.
+ * Standard one-to-one chats.
+ * Nick resolution.
+%endif
 
 
 %package azoth-autoidler
@@ -565,7 +606,6 @@ The following protocol features are supported:
  * Grouping contacts.
 
 
-%ifarch %ix86 x86_64 ppc ppc64 armv7l
 %package azoth-velvetbird
 Summary:        LeechCraft Azoth - LibPurple Module
 License:        BSL-1.0
@@ -577,7 +617,7 @@ Provides:       %{name}-azoth-protocolplugin
 This package provides a LibPurple plugin for LeechCraft Azoth.
 
 It supportes various protocols provided by Purple library.
-%endif
+
 
 %package azoth-woodpecker
 Summary:        LeechCraft Twitter Client Module
@@ -1240,7 +1280,7 @@ Recommends:     %{name}-gacts = %{version}
 Recommends:     %{name}-scrobbler
 Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
-%if 0%{?suse_version} > 1230
+%if %{lmp_gstreamer_1_0}
 Requires:       gstreamer-plugins-base >= 1.0
 Requires:       gstreamer-plugins-good >= 1.0
 Recommends:     gstreamer-plugins-bad >= 1.0
@@ -1372,7 +1412,7 @@ This package contains a MOBI subplugin for LeechCraft Monocle.
 This package provides MOBI documents support for Document viewer Module.
 
 
-%if 0%{suse_version} > 1230
+%if 0%{suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
 %package monocle-mu
 Summary:        LeechCraft Monocle - Another PDF Module
@@ -1398,6 +1438,10 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-monocle = %{version}
 Provides:       %{name}-monocle-subplugin
+%if 0%{suse_version} > 1310
+Provides:       %{name}-monocle-mu = %{version}
+Obsoletes:      %{name}-monocle-mu < %{version}
+%endif
 
 %description monocle-pdf
 This package contains a pdf subplugin for LeechCraft Monocle.
@@ -1740,6 +1784,16 @@ This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
 It provides support for the Read it Later service.
 
 
+%package qrosp
+Summary:        LeechCraft Qross Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       libqrosspython1
+
+%description qrosp
+This package contains a scripting support plugin for Leechcraft.
+
+
 %package sb2
 Summary:        LeechCraft SideBar2 Module
 License:        BSL-1.0
@@ -1909,6 +1963,21 @@ It allows to show the list of currently opened tabs
 and allows to quickly navigate between them.
 
 
+%package textogroose
+Summary:        LeechCraft Script-Based Lyrics Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-http = %{version}
+Requires:       %{name}-summaryrepresentation = %{version}
+Requires:       %{name}-qrosp
+Provides:       %{name}-lyricsprovider
+
+%description textogroose
+This package provides a lyrics finder plugin for LeechCraft.
+
+Textogroose is a kind of supplement to DeadLyrics for sites
+too complex to be described by DeadLyrics rules.
+
+
 %if 0%{?suse_version} > 1230
 %package touchstreams
 Summary:        LeechCraft VK.com Streaming Module
@@ -2012,6 +2081,7 @@ It allows to get current user tune via mpris protocol.
 %if 0%{?suse_version} <= 1220
 %patch1 -p1
 %endif
+%patch2 -p1
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -2035,14 +2105,14 @@ cmake ../src \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
+%if 0%{?suse_version} > 1310
+                -DENABLE_AZOTH_ASTRALITY=True \
+%else
                 -DENABLE_AZOTH_ASTRALITY=False \
+%endif
                 -DENABLE_AZOTH_OTROID=True \
                 -DENABLE_AZOTH_SHX=True \
-%ifarch %ix86 x86_64 ppc ppc64 armv7l armv7hl
                 -DENABLE_AZOTH_VELVETBIRD=True \
-%else
-                -DENABLE_AZOTH_VELVETBIRD=False \
-%endif
                 -DENABLE_AZOTH_ZHEET=True \
                 -DENABLE_MEDIACALLS=True \
         -DENABLE_BLACKDASH=False \
@@ -2081,11 +2151,11 @@ cmake ../src \
 %endif
                 -DENABLE_LMP_MPRIS=True \
                 -DENABLE_LMP_MTPSYNC=True \
-%if 0%{?suse_version} > 1230
+%if 0%{?lmp_gstreamer_1_0}
                 -DUSE_GSTREAMER_10=True \
 %endif
         -DENABLE_MONOCLE=True \
-%if 0%{?suse_version} > 1230
+%if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
                 -DENABLE_MONOCLE_MU=True \
                 -DMUPDF_VERSION=0x0102 \
@@ -2108,7 +2178,7 @@ cmake ../src \
         -DENABLE_POPISHU=True \
         -DENABLE_POSHUKU_AUTOSEARCH=True \
                 -DUSE_POSHUKU_CLEANWEB_PCRE=True \
-        -DENABLE_QROSP=False \
+        -DENABLE_QROSP=True \
         -DENABLE_SB2=True \
         -DENABLE_SECMAN=True \
         -DENABLE_SHAITAN=False \
@@ -2117,7 +2187,7 @@ cmake ../src \
         -DENABLE_SYNCER=False \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
-        -DENABLE_TEXTOGROOSE=False \
+        -DENABLE_TEXTOGROOSE=True \
         -DENABLE_TORRENT=True \
                 -DENABLE_BITTORRENT_GEOIP=True \
 %if 0%{?suse_version} > 1230
@@ -2237,6 +2307,13 @@ cd build
 %{plugin_dir}/*%{name}_azoth_adiumstyles*
 %{_datadir}/%{name}/azoth/styles/adium
 %{_datadir}/%{name}/translations/%{name}_azoth_adiumstyles_*.qm
+
+%if 0%{?suse_version} > 1310
+%files azoth-astrality
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_azoth_astrality.so
+%{_datadir}/%{name}/translations/%{name}_azoth_astrality_*.qm
+%endif
 
 %files azoth-autoidler
 %defattr(-,root,root)
@@ -2361,11 +2438,9 @@ cd build
 %{_datadir}/%{name}/settings/azothvadersettings.xml
 %{plugin_dir}/*%{name}_azoth_vader.so
 
-%ifarch %ix86 x86_64 ppc ppc64 armv7l armv7hl
 %files azoth-velvetbird
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_velvetbird.so
-%endif
 
 %files azoth-woodpecker
 %defattr(-,root,root)
@@ -2679,7 +2754,7 @@ cd build
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_fxb.so
 %{_datadir}/applications/%{name}-monocle-fxb.desktop
 
-%if 0%{?suse_version} > 1230
+%if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
 %files monocle-mu
 %defattr(-,root,root)
@@ -2808,6 +2883,10 @@ cd build
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_poshuku_onlinebookmarks_readitlater.*
 
+%files qrosp
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_qrosp.so
+
 %files sb2
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_sb2.so
@@ -2860,6 +2939,10 @@ cd build
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_tabslist.so
 %{translations_dir}/leechcraft_tabslist*
+
+%files textogroose
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_textogroose.so
 
 %if 0%{?suse_version} > 1230
 %files touchstreams
