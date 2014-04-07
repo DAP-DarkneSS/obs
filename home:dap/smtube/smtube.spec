@@ -1,6 +1,7 @@
 # vim: set sw=4 ts=4 et nu:
 
 # Copyright (c) 2012 Pascal Bleser <pascal.bleser@opensuse.org>
+# Copyright (c) 2014 Packman team: http://packman.links2linux.org/
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -14,7 +15,7 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 
 Name:               smtube
-Version:            1.5
+Version:            2.1
 Release:            0.pm.1
 Summary:            Small Youtube Browser
 Source:             http://prdownloads.sourceforge.net/smplayer/smtube-%{version}.tar.bz2
@@ -28,6 +29,7 @@ BuildRequires:      gcc-c++ make pkgconfig
 BuildRequires:      update-desktop-files
 BuildRequires:      hicolor-icon-theme
 Requires:           smplayer >= 0.8.0
+Recommends:         smplayer-lang
 # just to make the build fail if not avail:
 BuildRequires:      smplayer >= 0.8.0
 
@@ -79,8 +81,6 @@ pushd "%{buildroot}%{_datadir}/%{name}/translations"
 done
 popd
 
-%clean
-%{?buildroot:%__rm -rf "%{buildroot}"}
 
 %files
 %defattr(-,root,root)

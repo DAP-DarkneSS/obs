@@ -1,8 +1,10 @@
---- src/smtube.pro.orig	2012-04-15 13:54:11.754613662 +0200
-+++ src/smtube.pro	2012-04-15 13:57:36.540606375 +0200
-@@ -76,3 +76,5 @@
- win32 {
-     RC_FILE = smtube.rc
- }
-+
-+QMAKE_CXXFLAGS += $(OPTFLAGS)
+--- src/smtube.pro.orig	2014-03-09 03:24:02.000000000 +0300
++++ src/smtube.pro	2014-04-07 22:07:41.450245560 +0300
+@@ -112,6 +112,7 @@
+                translations/smtube_it.ts
+ 
+ unix {
++    QMAKE_CXXFLAGS += $(OPTFLAGS)
+     UI_DIR = .ui
+     MOC_DIR = .moc
+     OBJECTS_DIR = .obj

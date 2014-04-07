@@ -1,4 +1,41 @@
 -------------------------------------------------------------------
+Mon Apr  7 19:20:14 UTC 2014 - dap.darkness@gmail.com
+
+- update to 2.1:
+  * Add the Italian, French, Czech, Malay, Swedish,
+    Turkish, Finnish, Georgian, Portuguese (Brazil),
+    Ukrainian, Norwegian, Hebrew, Croatian, Bulgarian,
+    Vietnamese and Indonesian translation.
+  * When saving DASH 1080, be sure the video and audio files
+    have the same name.
+  * Increase speed when downloading DASH streams.
+  * If there's no 1080p video in the normal format, try
+    to download the 1080p video in the DASH format. That
+    actually downloads two files, a mp4 with the video only
+    and a m4a with the audio.
+  * Add an option to record audio.
+  * Use the user's country for default region.
+  * Add two actions to increase or reduce the font size
+    (shortcuts Ctrl+Plus and Ctrl+Minus).
+  * Add mpv to the list of players.
+  * Add an option to add URL to the SMPlayer playlist.
+  * Keys work now in the video list.
+  * Ask the user to update the youtube code
+    when an unknown signature is found.
+  * The quality for recording has now more options and allows
+    to save the video in webm format as well.
+  * Possibility to select the playback quality
+    (for players other than smplayer).
+  * Add support for the new signatures of Youtube.
+  * Add options in the configuration dialog to select the
+    preferred region and period of time for the standard feeds.
+  * Save the recording list.
+  * Add a button to open the recording dialog.
+- Updated smtube-optflags.patch.
+- Removed clean section.
+- Let lang subpackage become recommended.
+
+-------------------------------------------------------------------
 Fri Oct 19 08:17:08 UTC 2012 - pascal.bleser@opensuse.org
 
 - update to 1.2:
