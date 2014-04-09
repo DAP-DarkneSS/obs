@@ -1,9 +1,66 @@
 -------------------------------------------------------------------
-Thu Jan 16 17:00:12 UTC 2014 - dap.darkness@gmail.com
+Sat Apr  5 11:56:18 UTC 2014 - dap.darkness@gmail.com
 
-- Added leechcraft-qt-moc-boost.patch to prevent
-  'AUTOMOC: Parse error at "BOOST_JOIN"'. See more at
-  https://bugreports.qt-project.org/browse/QTBUG-22829
+- 0.6.65 release:
+  * LMP audio player ReplayGain support;
+  * Azoth, the IM client, server history support (XEP-0313);
+  * XMPP Message Carbons support (XEP-0280);
+  * Monocle, the document reader, now supports annotated documents;
+  * PDF seamless scrolling without freezing the UI;
+  * The LHTR visual hypertext editor now gained
+    support for the image sources plugins (Blasq);
+  * HTML editor now supports syntax highlighting;
+  * Aggregator now supports renaming feeds;
+  * LackMan now supports vim-style navigation
+    and using Space key to toggle packages;
+  * MusicZombie now fetches all information about a single artist
+    in one request;
+  * New Life now supports importing history from Opera;
+  * Popishu text editor now supports the recoverable tabs concept;
+  * SB2 now supports hiding quarks by default;
+  * /etc/os-release is now properly parsed.
+- New plugins were enabled:
+  * Aggregator WebAccess provides web interface for feed reader;
+  * CertMgr is the new SSL manager;
+  * CPU load is a monitoring quark;
+  * Ooronee handles images and text dropped onto it;
+  * Rosenthal is a core spell checker.
+- Deleted leechcraft-0.6.60-monocle-arm.patch as merged.
+- Added leechcraft-monocle-gcc47.patch
+  to prevent names constructor error.
+- Shellopen plugin amd mediacalls became obsoleted.
+
+-------------------------------------------------------------------
+Fri Mar  7 17:53:34 UTC 2014 - dap.darkness@gmail.com
+
+- Removed velvetbird bcond because of purple
+  already built for all OBS archs.
+- Added leechcraft-0.6.60-monocle-arm.patch to prevent
+  arm6-7 build failures, upstream url:
+  https://github.com/0xd34df00d/leechcraft/commit/ef3fdc
+- Added gstreamer-1_0 define against oS >= 13.2 and
+  versioned gst "BuildConflicts" to build lmp with the
+  same gst as QtWebKit was built to prevent runtime freeze.
+
+-------------------------------------------------------------------
+Sun Feb 23 14:57:17 UTC 2014 - dap.darkness@gmail.com
+
+- New plugins were enabled:
+  * Azoth Astrality: telepathy framework (Factory);
+  * Qrosp: scripting support;
+  * Textogroose: scripted lyrics finder.
+
+-------------------------------------------------------------------
+Mon Jan  6 20:36:26 UTC 2014 - dap.darkness@gmail.com
+
+- New mupdf version broke building again
+  and upstream decided not to fix it.
+
+-------------------------------------------------------------------
+Sat Jan  4 11:49:37 UTC 2014 - dmueller@suse.com
+
+- add velvetbird buildconditional to consolidate and correct
+  arch dependencies (fixes build)
 
 -------------------------------------------------------------------
 Mon Dec 30 16:18:59 UTC 2013 - dap.darkness@gmail.com

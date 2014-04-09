@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION '0.6.65 RC1 (0.6.60-1309-gfecab0b)'
+%define LEECHCRAFT_VERSION 0.6.65-91-g9273b13
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -89,6 +89,9 @@ BuildRequires:  mupdf-devel-static
 %endif
 %endif
 BuildRequires:  qwt6-devel
+%if 0%{?suse_version} > 1310
+BuildRequires:  pkgconfig(TelepathyQt4)
+%endif
 BuildRequires:  pkgconfig(QJson) >= 0.8.1
 BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(QtWebKit)
@@ -98,11 +101,9 @@ BuildRequires:  libGeoIP-devel
 BuildRequires:  pkgconfig(libmtp)
 BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libpcre)
-BuildRequires:  pkgconfig(libspectre)
+# BuildRequires:  pkgconfig(libspectre)
 BuildRequires:  pkgconfig(phonon)
-%ifarch %ix86 x86_64 ppc ppc64 armv7l armv7hl
 BuildRequires:  pkgconfig(purple)
-%endif
 BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(taglib)
 %if 0%{?suse_version} > 1310
@@ -151,6 +152,7 @@ BuildRequires:  liblaretz-devel
 BuildRequires:  mupdf-devel-static
 BuildRequires:  openjpeg-devel
 BuildRequires:  telepathy-qt4-devel
+BuildRequires:  wt-devel >= 3.3
 BuildRequires:  pkgconfig(libguess)
 BuildRequires:  pkgconfig(libvlc)
 
@@ -286,7 +288,6 @@ Requires:       %{name}-azoth-modnok
 Requires:       %{name}-azoth-murm
 Requires:       %{name}-azoth-nativeemoticons
 Requires:       %{name}-azoth-otroid
-Requires:       %{name}-azoth-p100q
 Requires:       %{name}-azoth-rosenthal
 Requires:       %{name}-azoth-shx
 Requires:       %{name}-azoth-standardstyles
@@ -475,6 +476,17 @@ work, a script provider like Qrosp should be installed. Please refer to the
 guide to writing recipes if you are interested in writing your own ones.
 
 
+%package aggregator-webaccess
+Summary:        LeechCraft Aggregator - Web Interface Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-aggregator = %{version}
+
+%description aggregator-webaccess
+WebAccess provides a basic web interface for the
+Aggregator feed reader, so one can read news
+articles from a mobile device or another machine.
+
+
 %package anhero
 Summary:        LeechCraft Crash handler Module
 Group:          Productivity/Networking/Other
@@ -509,6 +521,7 @@ Requires:       %{name}-azoth-chatstyler = %{version}
 Requires:       %{name}-azoth-protocolplugin
 Requires:       %{name}-securestorage = %{version}
 Suggests:       %{name}-azoth-standardstyles
+Obsoletes:      %{name}-azoth-p100q
 
 %description azoth
 This package provides a modular IM client for LeechCraft.
@@ -768,15 +781,15 @@ Requires:       %{name}-azoth = %{version}
 This package provides support Off-the-Record messaging for LeechCraft Azoth.
 
 
-%package azoth-p100q
-Summary:        LeechCraft Azoth - Psto.net service Module
-Group:          Productivity/Networking/Other
-Requires:       %{name}-azoth = %{version}
-
-%description azoth-p100q
-This package contains a psto.net plugin for LeechCraft Azoth.
-
-It provides the enhanced experience with the psto.net microblogging service.
+# %%package azoth-p100q
+# Summary:        LeechCraft Azoth - Psto.net service Module
+# Group:          Productivity/Networking/Other
+# Requires:       %%{name}-azoth = %%{version}
+# 
+# %%description azoth-p100q
+# This package contains a psto.net plugin for LeechCraft Azoth.
+# 
+# It provides the enhanced experience with the psto.net microblogging service.
 
 
 %package azoth-rosenthal
@@ -1201,7 +1214,7 @@ Recommends:     %{name}-launchy
 Recommends:     %{name}-lemon
 Recommends:     %{name}-liznoo
 Recommends:     %{name}-mellonetray
-Requires:       %{name}-ooronee
+Recommends:     %{name}-ooronee
 Recommends:     %{name}-sb2
 Recommends:     %{name}-tpi
 Recommends:     %{name}-vrooby
@@ -1609,6 +1622,17 @@ This package provides a tags editor plugin for LeechCraft.
 It allows to manipulate audio file tags.
 
 
+%package lmp-httstream
+Summary:        LeechCraft Tags Manipulating Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+
+%description lmp-httstream
+This package provides a streamer plugin for LeechCraft player.
+
+It allows to stream music from LMP via HTTP.
+
+
 %package lmp-mp3tunes
 Summary:        LeechCraft mp3tunes.com Module
 Group:          Productivity/Networking/Other
@@ -1719,17 +1743,15 @@ via the Poppler backend.
 Summary:        LeechCraft Monocle - PostScript Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Requires:       %{name}-monocle = %{version}
+Requires:       %{name}-monocle-pdf = %{version}
+Requires:       ghostscript
 Provides:       %{name}-monocle-subplugin
-# A workaround for https://bugzilla.novell.com/show_bug.cgi?id=828751
-Conflicts:      lcms2 >= 2.5
-Conflicts:      liblcms2-2 >= 2.5
 
 %description monocle-postrus
 This package contains a PostRus subplugin for LeechCraft Monocle.
 
 This package provides PostScript documents support for Document viewer Module
-via the libSpectre backend.
+via the ghostscript utils and Pdf plugin.
 
 
 %package monocle-seen
@@ -2423,25 +2445,28 @@ cmake ../src \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DSTRICT_LICENSING=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
+        -DENABLE_AGGREGATOR=True \
+                -DENABLE_AGGREGATOR_WEBACCESS=True \
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
-        -DENABLE_AZOTH_ACETAMIDE=True \
-        -DENABLE_AZOTH_ASTRALITY=True \
-        -DENABLE_AZOTH_OTROID=True \
-        -DENABLE_AZOTH_SHX=True \
-        -DENABLE_AZOTH_VELVETBIRD=True \
+                -DENABLE_AZOTH_ACETAMIDE=True \
+                -DENABLE_AZOTH_ASTRALITY=True \
+                -DENABLE_AZOTH_OTROID=True \
+                -DENABLE_AZOTH_SHX=True \
+                -DENABLE_AZOTH_VELVETBIRD=True \
 %if %{woodpecker}
-        -DENABLE_AZOTH_WOODPECKER=True \
+                -DENABLE_AZOTH_WOODPECKER=True \
 %else
-        -DENABLE_AZOTH_WOODPECKER=False \
+                -DENABLE_AZOTH_WOODPECKER=False \
 %endif
-        -DENABLE_AZOTH_ZHEET=True \
+                -DENABLE_AZOTH_ZHEET=True \
+                -DENABLE_MEDIACALLS=False \
         -DENABLE_BLACKDASH=False \
         -DENABLE_BLASQ=True \
 %if %{vangog}
-        -DENABLE_BLASQ_VANGOG=True \
+                -DENABLE_BLASQ_VANGOG=True \
 %else
-        -DENABLE_BLASQ_VANGOG=False \
+                -DENABLE_BLASQ_VANGOG=False \
 %endif
         -DENABLE_BLOGIQUE=True \
         -DENABLE_CERTMGR=True \
@@ -2458,17 +2483,21 @@ cmake ../src \
         -DENABLE_FENET=False \
 %endif
         -DENABLE_GACTS=True \
+%if 0%{?suse_version} > 1310
+                -DWITH_GACTS_BUNDLED_QXT=False \
+%else
                 -DWITH_GACTS_BUNDLED_QXT=True \
+%endif
         -DENABLE_GLANCE=True \
         -DENABLE_GMAILNOTIFIER=True \
         -DENABLE_HARBINGER=True \
+        -DENABLE_HOTSENSORS=True \
+        -DENABLE_HOTSTREAMS=True \
 %if 0%{?suse_version} > 1230
         -DENABLE_HTTHARE=True \
 %else
         -DENABLE_HTTHARE=False \
 %endif
-        -DENABLE_HOTSENSORS=True \
-        -DENABLE_HOTSTREAMS=True \
         -DENABLE_IMGASTE=True \
         -DENABLE_KBSWITCH=True \
         -DENABLE_KNOWHOW=True \
@@ -2492,13 +2521,13 @@ cmake ../src \
         -DUSE_GSTREAMER_10=True \
 %endif
                 -DENABLE_LMP_GRAFFITI=True \
+                -DENABLE_LMP_HTTSTREAM=True \
                 -DENABLE_LMP_LIBGUESS=True \
                 -DENABLE_LMP_MPRIS=True \
                 -DENABLE_LMP_MTPSYNC=True \
 %else
         -DENABLE_LMP=False \
 %endif
-        -DENABLE_MEDIACALLS=False \
 %if %{mellonetray}
         -DENABLE_MELLONETRAY=True \
 %else
@@ -2510,17 +2539,17 @@ cmake ../src \
         -DENABLE_MUSICZOMBIE=True \
                 -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
         -DENABLE_NACHEKU=False \
-        -DENABLE_NEWLIFE=True \
         -DENABLE_NETSTOREMANAGER=True \
+        -DENABLE_NEWLIFE=True \
         -DENABLE_OORONEE=True \
         -DENABLE_OTLOZHU=True \
         -DENABLE_PINTAB=True \
+        -DENABLE_POGOOGLUE=True \
 %if %{poleemery}
         -DENABLE_POLEEMERY=True \
 %else
         -DENABLE_POLEEMERY=False \
 %endif
-        -DENABLE_POGOOGLUE=True \
         -DENABLE_POPISHU=True \
         -DENABLE_POSHUKU_AUTOSEARCH=True \
                 -DUSE_POSHUKU_CLEANWEB_PCRE=True \
@@ -2534,6 +2563,7 @@ cmake ../src \
         -DENABLE_SYNCER=True \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
+        -DENABLE_TEXTOGROOSE=True \
         -DENABLE_TORRENT=True \
                 -DENABLE_BITTORRENT_GEOIP=True \
         -DENABLE_TOUCHSTREAMS=True \
@@ -2655,7 +2685,8 @@ EOF
 %files aggregator
 %defattr(-,root,root)
 %{settings_dir}/aggregatorsettings.xml
-%{translations_dir}/%{name}_aggregator*.qm
+%{translations_dir}/%{name}_aggregator_??.qm
+%{translations_dir}/%{name}_aggregator_??_??.qm
 %{plugin_dir}/*%{name}_aggregator.so
 
 %files aggregator-bodyfetch
@@ -2663,6 +2694,12 @@ EOF
 %{plugin_dir}/*%{name}_aggregator_bodyfetch.so
 %dir %{_datadir}/%{name}/scripts
 %{_datadir}/%{name}/scripts/aggregator/
+
+%files aggregator-webaccess
+%defattr(-,root,root)
+%{plugin_dir}/*%{name}_aggregator_webaccess.so
+%{settings_dir}/aggregatorwebaccesssettings.xml
+%{translations_dir}/%{name}_aggregator_webaccess*.qm
 
 %files anhero
 %defattr(-,root,root)
@@ -2798,11 +2835,11 @@ EOF
 %{_libdir}/%{name}/plugins/*%{name}_azoth_otroid.so
 %{_datadir}/%{name}/translations/%{name}_azoth_otroid*.qm
 
-%files azoth-p100q
-%defattr(-,root,root)
-%{settings_dir}/azothp100qsettings.xml
-%{plugin_dir}/*%{name}_azoth_p100q.so
-%{translations_dir}/leechcraft_azoth_p100q*
+# %%files azoth-p100q
+# %%defattr(-,root,root)
+# %%{settings_dir}/azothp100qsettings.xml
+# %%{plugin_dir}/*%%{name}_azoth_p100q.so
+# %%{translations_dir}/leechcraft_azoth_p100q*
 
 %files azoth-rosenthal
 %defattr(-,root,root)
@@ -3149,6 +3186,7 @@ EOF
 %files lmp
 %defattr(-,root,root)
 %{settings_dir}/lmpsettings.xml
+%{settings_dir}/lmpfilterrgsettings.xml
 %{_datadir}/%{name}/translations/%{name}_lmp_??.qm
 %{_datadir}/%{name}/translations/%{name}_lmp_??_??.qm
 %{plugin_dir}/*%{name}_lmp.so
@@ -3166,6 +3204,11 @@ EOF
 %{plugin_dir}/*%{name}_lmp_graffiti.so
 %{_datadir}/%{name}/translations/%{name}_lmp_graffiti_??.qm
 %{_datadir}/%{name}/translations/%{name}_lmp_graffiti_??_??.qm
+
+%files lmp-httstream
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_lmp_httstream.so
+%{_datadir}/%{name}/settings/lmphttstreamfiltersettings.xml
 
 %files lmp-mp3tunes
 %defattr(-,root,root)
