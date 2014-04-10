@@ -1,0 +1,8 @@
+<services>
+  <service name="download_url">
+    <param name="protocol">http</param>
+    <param name="host">www.stuff-o-matic.com</param>
+    <param name="path">/ptb/download/file.php?platform=source</param>
+    <param name="filename">plee-the-bear-0.7.0.tar.gz</param>
+  </service>
+</services>
