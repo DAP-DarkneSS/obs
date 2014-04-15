@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-91-g9273b13
+%define LEECHCRAFT_VERSION 0.6.65-186-g1e48aa7
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -476,6 +476,7 @@ work, a script provider like Qrosp should be installed. Please refer to the
 guide to writing recipes if you are interested in writing your own ones.
 
 
+%if 0%{?suse_version} >= 1230
 %package aggregator-webaccess
 Summary:        LeechCraft Aggregator - Web Interface Module
 Group:          Productivity/Networking/Other
@@ -485,6 +486,7 @@ Requires:       %{name}-aggregator = %{version}
 WebAccess provides a basic web interface for the
 Aggregator feed reader, so one can read news
 articles from a mobile device or another machine.
+%endif
 
 
 %package anhero
@@ -1598,6 +1600,19 @@ Features:
  * Support for automatic podcast playing (with a plugin like Aggregator).
 
 
+%package lmp-brainslugz
+Summary:        LeechCraft Collection Checker Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lastfmscrobble = %{version}
+Requires:       %{name}-lmp = %{version}
+Requires:       %{name}-musiczombie = %{version}
+
+%description lmp-brainslugz
+This package provides a collection checker plugin for LeechCraft.
+
+It allows to check collection completeness.
+
+
 %package lmp-dumbsync
 Summary:        LeechCraft Media syncing Module
 Group:          Productivity/Networking/Other
@@ -2446,7 +2461,11 @@ cmake ../src \
         -DSTRICT_LICENSING=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
+%if 0%{?suse_version} >= 1230
                 -DENABLE_AGGREGATOR_WEBACCESS=True \
+%else
+                -DENABLE_AGGREGATOR_WEBACCESS=False \
+%endif
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
                 -DENABLE_AZOTH_ACETAMIDE=True \
@@ -2520,6 +2539,7 @@ cmake ../src \
 %if 0%{?suse_version} > 1310
         -DUSE_GSTREAMER_10=True \
 %endif
+                -DENABLE_LMP_BRAINSLUGZ=True \
                 -DENABLE_LMP_GRAFFITI=True \
                 -DENABLE_LMP_HTTSTREAM=True \
                 -DENABLE_LMP_LIBGUESS=True \
@@ -2695,11 +2715,13 @@ EOF
 %dir %{_datadir}/%{name}/scripts
 %{_datadir}/%{name}/scripts/aggregator/
 
+%if 0%{?suse_version} >= 1230
 %files aggregator-webaccess
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_aggregator_webaccess.so
 %{settings_dir}/aggregatorwebaccesssettings.xml
 %{translations_dir}/%{name}_aggregator_webaccess*.qm
+%endif
 
 %files anhero
 %defattr(-,root,root)
@@ -3191,6 +3213,13 @@ EOF
 %{_datadir}/%{name}/translations/%{name}_lmp_??_??.qm
 %{plugin_dir}/*%{name}_lmp.so
 %{_datadir}/applications/%{name}-lmp*.desktop
+%dir %{_datadir}/%{name}/qml/lmp
+
+%files lmp-brainslugz
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_lmp_brainslugz.so
+%dir %{_datadir}/%{name}/qml/lmp
+%{_datadir}/%{name}/qml/lmp/brainslugz
 
 %files lmp-dumbsync
 %defattr(-,root,root)
