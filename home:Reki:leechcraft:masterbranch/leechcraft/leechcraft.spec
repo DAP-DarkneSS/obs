@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-186-g1e48aa7
+%define LEECHCRAFT_VERSION 0.6.65-265-g9545e77
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -1600,6 +1600,7 @@ Features:
  * Support for automatic podcast playing (with a plugin like Aggregator).
 
 
+%if 0%{?suse_version} >= 1230
 %package lmp-brainslugz
 Summary:        LeechCraft Collection Checker Module
 Group:          Productivity/Networking/Other
@@ -1611,6 +1612,7 @@ Requires:       %{name}-musiczombie = %{version}
 This package provides a collection checker plugin for LeechCraft.
 
 It allows to check collection completeness.
+%endif
 
 
 %package lmp-dumbsync
@@ -2116,6 +2118,15 @@ This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
 It provides support for the Read it Later service.
 
 
+%package poshuku-speeddial
+Summary:        LeechCraft Poshuku - Speed Dial Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-poshuku = %{version}
+
+%description poshuku-speeddial
+This package provides a Speed Dial support plugin for LeechCraft Poshuku.
+
+
 %package qrosp
 Summary:        LeechCraft Qross Module
 Group:          Productivity/Networking/Other
@@ -2539,7 +2550,11 @@ cmake ../src \
 %if 0%{?suse_version} > 1310
         -DUSE_GSTREAMER_10=True \
 %endif
+%if 0%{?suse_version} >= 1230
                 -DENABLE_LMP_BRAINSLUGZ=True \
+%else
+                -DENABLE_LMP_BRAINSLUGZ=False \
+%endif
                 -DENABLE_LMP_GRAFFITI=True \
                 -DENABLE_LMP_HTTSTREAM=True \
                 -DENABLE_LMP_LIBGUESS=True \
@@ -2571,8 +2586,10 @@ cmake ../src \
         -DENABLE_POLEEMERY=False \
 %endif
         -DENABLE_POPISHU=True \
-        -DENABLE_POSHUKU_AUTOSEARCH=True \
-                -DUSE_POSHUKU_CLEANWEB_PCRE=True \
+        -DENABLE_POSHUKU=True \
+                -DENABLE_POSHUKU_AUTOSEARCH=True \
+                        -DUSE_POSHUKU_CLEANWEB_PCRE=True \
+                -DENABLE_POSHUKU_SPEEDDIAL=True \
         -DENABLE_QROSP=True \
         -DENABLE_SB2=True \
         -DENABLE_SCROBLIBRE=True \
@@ -3215,11 +3232,13 @@ EOF
 %{_datadir}/applications/%{name}-lmp*.desktop
 %dir %{_datadir}/%{name}/qml/lmp
 
+%if 0%{?suse_version} >= 1230
 %files lmp-brainslugz
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lmp_brainslugz.so
 %dir %{_datadir}/%{name}/qml/lmp
 %{_datadir}/%{name}/qml/lmp/brainslugz
+%endif
 
 %files lmp-dumbsync
 %defattr(-,root,root)
@@ -3423,6 +3442,10 @@ EOF
 %files poshuku-onlinebookmarks-readitlater
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_poshuku_onlinebookmarks_readitlater.*
+
+%files poshuku-speeddial
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_poshuku_speeddial.so
 
 %files qrosp
 %defattr(-,root,root)
