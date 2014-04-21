@@ -1,0 +1,198 @@
+-------------------------------------------------------------------
+Thu Feb 28 22:49:23 UTC 2013 - fisiu@opensuse.org
+
+- Add bino-1.4.2-openal-fix.patch for openSUSE < 12.2
+
+-------------------------------------------------------------------
+Sat Feb  9 16:30:11 UTC 2013 - fisiu@opensuse.org
+
+- Update to 1.4.2:
+  * Fix compatibility with the latest FFmpeg versions.
+- Drop bino.desktop: use shipped version.
+- Drop bino-backport-qvariant.patch: 11.2 is EOL
+
+-------------------------------------------------------------------
+Thu Oct 18 22:01:57 UTC 2012 - pascal.bleser@opensuse.org
+
+- update to 1.4.1:
+
+-------------------------------------------------------------------
+Sun Jun 24 19:15:25 UTC 2012 - pascal.bleser@opensuse.org
+
+- update to 1.4.0:
+  * support for the new output mode "Left/right view alternating", also known
+    as "frame sequential". This is intended for 120Hz active stereo projectors
+    and displays when "OpenGL stereo" is not available.
+  * Better support for audio control. Volume, mute, and delay can be adjusted,
+    and the output device can be selected.
+  * Support for scripting via script files or named pipes.
+  * Much improved support for older graphics cards.
+  * Support for video output via SDI on NVIDIA Quadro cards.
+  * Automatic support for high precision color input and output (30 bits per
+    pixel).
+  * Single-frame stepping via the '.' key.
+  * An adjustable zoom mode for videos that are wider than the screen.
+  * Support for opening multiple input devices, and for requesting MJPEG data
+    from input devices.
+  * Support for the MPO, JPS, and PNS file formats for stereoscopic images.
+  * Support for DLP 3-D Ready Sync.
+  * Various user interface tweaks, including support for multimedia keyboards
+    and a "Recent Files" section in the File menu.
+
+-------------------------------------------------------------------
+Sun May 13 07:00:38 UTC 2012 - pascal.bleser@opensuse.org
+
+- update to 1.3.4:
+  * video output: improve quality==0 path
+  * documentation: add section about audio/video synchronization
+  * video output: make the GL_EXT_texture_sRGB extension optional; now Bino
+    runs even on Intel Atom N450 integrated graphics; of course it cannot
+    playback 720p or even 576p video, but it runs
+  * video output: fix handling of exceptions in render thread
+  * documentation: add a section about performance tweaking
+  * use cheap GL_RGB8 textures for storing linear RGB data when quality is 0
+  * choose RGB linearization/delinearization method based on quality parameter
+  * add a new parameter 'quality' for rendering quality / performance tradeoff
+  * fix parallax and subtitle parallax adjustment, and take eye swap into
+    account
+  * relax check for OpenGL version and extensions, to allow older
+    implementations
+
+-------------------------------------------------------------------
+Tue May 01 22:25:32 UTC 2012 - pascal.bleser@opensuse.org
+
+- update to 1.3.3:
+  * full scripting support
+  * better support for older graphics cards
+  * support for using two cameras at once
+  * support for video output via SDI on NVIDIA Quadro cards
+  * additionally, several bugs were fixed
+
+-------------------------------------------------------------------
+Sun Mar 18 14:38:26 UTC 2012 - pascal.bleser@opensuse.org
+
+- update to 1.3.2:
+  * several bugs were fixed and compatibility with different systems and
+    graphics drivers was improved
+  * support for single-frame stepping was added
+
+-------------------------------------------------------------------
+Thu Mar 15 18:57:54 UTC 2012 - pascal.bleser@opensuse.org
+
+- update to 1.3.1:
+  * the internal structure was reworked completely, and needs to be tested for
+    compatibility with graphics drivers
+  * a new output mode, "Left/right view alternating" (also known as "frame
+    sequential"), has been added for "3-D Ready" projectors
+- changes from 1.3.0:
+  * better support for audio control
+  * support for high precision color input and output with 30 bits per pixel
+  * support for the MPO file format
+  * adjustable zoom mode
+  * support for multimedia keyboards
+  * various user interface tweaks
+
+-------------------------------------------------------------------
+Fri Oct 14 21:59:50 UTC 2011 - pascal.bleser@opensuse.org
+
+- update to 1.2.1:
+  * fixes a few bugs, most importantly a frame size problem with some 1080p
+    videos
+  * Czech translation has been re-enabled
+
+- changes from 1.2.0:
+  * flexible fullscreen mode with support for multiple screens
+  * support for remote controls via LIRC
+  * support for camera devices
+  * a loop mode
+  * user interface improvements
+
+-------------------------------------------------------------------
+Sat Aug 20 12:03:10 UTC 2011 - pascal.bleser@opensuse.org
+
+- update to 1.1.3:
+  * fixes several problems with multi screen support
+  * fixes issues with subtitle rendering
+
+- changes from 1.1.2:
+  * several updates and user interface improvements were made
+
+-------------------------------------------------------------------
+Tue May 24 05:15:49 UTC 2011 - pascal.bleser@opensuse.org
+
+- update to 1.1.1:
+  * adds support for remote controls via LIRC
+  * adds a flexible fullscreen mode with support for multiple screens
+  * some usability improvements were made
+
+-------------------------------------------------------------------
+Tue May 10 07:05:15 UTC 2011 - pascal.bleser@opensuse.org
+
+- update to 1.1.0:
+  * support for camera devices
+  * support for selecting the screen to use in fullscreen mode
+  * a loop mode
+
+-------------------------------------------------------------------
+Thu Apr 28 15:06:25 UTC 2011 - pascal.bleser@opensuse.org
+
+- update to 1.0.0: first stable release: supports all common 3D video formats,
+  3D output methods, and subtitle formats
+
+-------------------------------------------------------------------
+Mon Apr 18 19:33:14 UTC 2011 - pascal.bleser@opensuse.org
+
+- update to 0.9.3:
+  * adds support for subtitles in all formats (bitmap, text, SRT, or SSA/ASS)
+  * a new stereo-3D output format for 3D TVs is available (HDMI frame packing)
+
+-------------------------------------------------------------------
+Tue Mar 08 13:41:08 UTC 2011 - pascal.bleser@opensuse.org
+
+- update to 0.9.2:
+  * fixes various minor problems
+  * improves compatibility with some video formats, especially Ogg/Theora
+
+-------------------------------------------------------------------
+Sun Feb 27 23:37:30 UTC 2011 - pascal.bleser@opensuse.org
+
+- update to 0.9.1:
+  * fix UTF-8 interpretation of strings
+  * new logo
+  * Media object: use fixed temporary buffers for audio
+  * Media object: improve packet buffering
+  * use multithreading to read, decode, and display video data in parallel, for
+    better performance
+
+-------------------------------------------------------------------
+Wed Feb 23 18:46:26 UTC 2011 - pascal.bleser@opensuse.org
+
+- update to 0.9.0:
+  * support for green/magenta and amber/blue anaglyph glasses was added
+  * the implementation of the Dubois anaglyph method was improved
+  * all playback parameters can now be changed at any time, including selection
+    of video and audio streams and of 3D input and output modes
+  * seeking now works with more file formats
+
+-------------------------------------------------------------------
+Mon Jan 17 23:20:35 UTC 2011 - pascal.bleser@opensuse.org
+
+- update to 0.8.1:
+  * bugfixes
+  * GUI improvements
+
+-------------------------------------------------------------------
+Sat Jan  8 23:16:09 UTC 2011 - pascal.bleser@opensuse.org
+
+- update to 0.8:
+  * adds adjustable ghostbusting to reduce crosstalk artifacts
+  * adds parallax adjustment
+  * adds mouse-based seeking
+  * adds initial support for choosing an audio stream
+  * improved compatibility with many video types
+
+-------------------------------------------------------------------
+Sat Dec 18 23:17:58 UTC 2010 - pascal.bleser@opensuse.org
+
+- initial package (0.7)
+

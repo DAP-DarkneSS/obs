@@ -1,0 +1,35 @@
+From 2f7a9ff7f2444c0f4d477a5aaf980b887871e1c4 Mon Sep 17 00:00:00 2001
+From: Martin Lambers <marlam@marlam.de>
+Date: Tue, 29 Jan 2013 10:31:51 +0000
+Subject: Audio output: include AL/alext.h
+
+This is for older versions of OpenAL, e.g. the one on Ubuntu 12.04, to provide
+ALC_ALL_DEVICES_SPECIFIER. Reported by Vittorio Giovara.
+---
+diff --git a/src/audio_output.h b/src/audio_output.h
+index 99d8367..1203f4a 100644
+--- a/src/audio_output.h
++++ b/src/audio_output.h
+@@ -1,7 +1,7 @@
+ /*
+  * This file is part of bino, a 3D video player.
+  *
+- * Copyright (C) 2010, 2011, 2012
++ * Copyright (C) 2010, 2011, 2012, 2013
+  * Martin Lambers <marlam@marlam.de>
+  * Gabriele Greco <gabrielegreco@gmail.com>
+  * Frédéric Devernay <Frederic.Devernay@inrialpes.fr>
+@@ -29,9 +29,11 @@
+ #if !defined(__APPLE__) || defined(HAVE_AL_AL_H)
+ #  include <AL/al.h>
+ #  include <AL/alc.h>
++#  include <AL/alext.h>
+ #else
+ #  include <OpenAL/al.h>
+ #  include <OpenAL/alc.h>
++#  include <OpenAL/alext.h>
+ #endif
+ 
+ #include "dispatch.h"
+--
+cgit v0.9.0.2
