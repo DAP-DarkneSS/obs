@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-265-g9545e77
+%define LEECHCRAFT_VERSION 0.6.65-291-ge4e315c
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -55,7 +55,6 @@ Patch4:         leechcraft-azoth-gcc47.patch
 # PATCH-FIX-OPENSUSE vs. names constructor error.
 Patch5:         leechcraft-monocle-gcc47.patch
 %endif
-Patch6:         lhtr.patch
 
 
 BuildRequires:  Qross-devel
@@ -2445,7 +2444,6 @@ It allows to get current user tune via mpris protocol.
 %patch4 -p1
 %patch5 -p1
 %endif
-%patch6 -p1
 
 # Mine ;)
 rm src/core/resources/images/leechcraft.svg
@@ -3446,6 +3444,7 @@ EOF
 %files poshuku-speeddial
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_poshuku_speeddial.so
+%{_datadir}/%{name}/settings/poshukuspeeddialsettings.xml
 
 %files qrosp
 %defattr(-,root,root)
