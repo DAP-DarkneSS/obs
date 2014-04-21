@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Mon Apr 21 20:31:08 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 1.4.4:
+  * fixes a few bugs;
+  * restores compatibility with the latest FFmpeg versions.
+- Deleted bino-1.4.2-openal-fix.patch (seems to be unneeded).
+- URL tag was updated.
+- --with-equalizer requires equalizer-devel that requires
+  vmmlib that I failed to package.
+- Deleted clean section.
+- Switched to download_files service using.
+
+-------------------------------------------------------------------
 Thu Feb 28 22:49:23 UTC 2013 - fisiu@opensuse.org
 
 - Add bino-1.4.2-openal-fix.patch for openSUSE < 12.2

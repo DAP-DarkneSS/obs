@@ -1,5 +1,6 @@
 # vim: set sw=4 ts=4 et nu:
 # Copyright (c) 2012 Pascal Bleser <pascal.bleser@opensuse.org>
+# Copyright (c) 2014 Packman team: http://packman.links2linux.org/
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -13,12 +14,11 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 
 Name:           bino
-Version:        1.4.2
+Version:        1.4.4
 Release:        0
 Summary:        Video Player with 3D and Multi-Display Video Support
 Source:         http://download-mirror.savannah.gnu.org/releases/bino/bino-%{version}.tar.xz
-Patch1:         bino-1.4.2-openal-fix.patch
-URL:            http://www.nongnu.org/bino/
+URL:            http://bino3d.org
 Group:          Productivity/Multimedia/Video/Players
 License:        GPL-2.0+
 BuildRoot:      %{_tmppath}/build-%{name}-%{version}
@@ -34,7 +34,6 @@ BuildRequires:  gcc-c++ make glibc-devel pkgconfig
 BuildRequires:  autoconf automake libtool
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  update-desktop-files
-BuildRequires:  equalizer-devel
 BuildRequires:  xz
 Requires:       %install_info_prereq
 
@@ -46,9 +45,6 @@ Bino is a video player with two special features:
 
 %prep
 %setup -q
-%if 0%{?suse_version} < 1220
-%patch1 -p1
-%endif
 
 %build
 %if 0%{?suse_version} >= 1230
@@ -56,7 +52,6 @@ Bino is a video player with two special features:
 export LDFLAGS="%{optflags} -zmuldefs"
 %endif
 %configure \
-    --with-equalizer \
     --disable-silent-rules 
 
 %__make %{?_smp_flags}
@@ -75,8 +70,6 @@ export LDFLAGS="%{optflags} -zmuldefs"
 %postun
 %install_info_delete --info-dir="%{_infodir}" "%{_infodir}/bino".info*
 
-%clean
-%{?buildroot:%__rm -rf "%{buildroot}"}
 
 %files -f "%{name}.lang"
 %defattr(-,root,root)
