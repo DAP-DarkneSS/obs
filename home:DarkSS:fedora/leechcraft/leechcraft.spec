@@ -65,7 +65,7 @@ BuildRequires:  qscintilla-devel
 BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(qxmpp) >= 0.8.0
 BuildRequires:  lm_sensors-devel
-BuildRequires:  libspectre-devel
+# BuildRequires:  libspectre-devel
 BuildRequires:  libtidy-devel
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
 BuildRequires:  systemd-devel
@@ -168,6 +168,17 @@ work, a script provider like Qrosp should be installed. Please refer to the
 guide to writing recipes if you are interested in writing your own ones.
 
 
+%package aggregator-webaccess
+Summary:        LeechCraft Aggregator - Web Interface Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-aggregator = %{version}
+
+%description aggregator-webaccess
+WebAccess provides a basic web interface for the
+Aggregator feed reader, so one can read news
+articles from a mobile device or another machine.
+
+
 %package anhero
 Summary:        LeechCraft Crash handler Module
 Group:          Productivity/Networking/Other
@@ -200,6 +211,7 @@ Requires:       %{name} = %{version}
 Requires:       %{name}-azoth-chatstyler = %{version}
 Requires:       %{name}-azoth-protocolplugin
 Requires:       %{name}-securestorage = %{version}
+Obsoletes:      %{name}-azoth-p100q
 
 %description azoth
 This package provides a modular IM client for LeechCraft.
@@ -458,15 +470,15 @@ Requires:       %{name}-azoth = %{version}
 This package provides support Off-the-Record messaging for LeechCraft Azoth.
 
 
-%package azoth-p100q
-Summary:        LeechCraft Azoth - Psto.net service Module
-Group:          Productivity/Networking/Other
-Requires:       %{name}-azoth = %{version}
-
-%description azoth-p100q
-This package contains a psto.net plugin for LeechCraft Azoth.
-
-It provides the enhanced experience with the psto.net microblogging service.
+# %%package azoth-p100q
+# Summary:        LeechCraft Azoth - Psto.net service Module
+# Group:          Productivity/Networking/Other
+# Requires:       %%{name}-azoth = %%{version}
+# 
+# %%description azoth-p100q
+# This package contains a psto.net plugin for LeechCraft Azoth.
+# 
+# It provides the enhanced experience with the psto.net microblogging service.
 
 
 %package azoth-rosenthal
@@ -1176,6 +1188,19 @@ Features:
  * Support for automatic podcast playing (with a plugin like Aggregator).
 
 
+%package lmp-brainslugz
+Summary:        LeechCraft Collection Checker Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lastfmscrobble = %{version}
+Requires:       %{name}-lmp = %{version}
+Requires:       %{name}-musiczombie = %{version}
+
+%description lmp-brainslugz
+This package provides a collection checker plugin for LeechCraft.
+
+It allows to check collection completeness.
+
+
 %package lmp-dumbsync
 Summary:        LeechCraft Media syncing Module
 Group:          Productivity/Networking/Other
@@ -1196,6 +1221,17 @@ Requires:       %{name}-lmp = %{version}
 This package provides a tags editor plugin for LeechCraft.
 
 It allows to manipulate audio file tags.
+
+
+%package lmp-httstream
+Summary:        LeechCraft Tags Manipulating Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+
+%description lmp-httstream
+This package provides a streamer plugin for LeechCraft player.
+
+It allows to stream music from LMP via HTTP.
 
 
 %package lmp-mp3tunes
@@ -1307,16 +1343,15 @@ via the Poppler backend.
 Summary:        LeechCraft Monocle - PostScript Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Requires:       %{name}-monocle = %{version}
+Requires:       %{name}-monocle-pdf = %{version}
+Requires:       ghostscript
 Provides:       %{name}-monocle-subplugin
-# A workaround for https://bugzilla.novell.com/show_bug.cgi?id=828751
-Conflicts:      lcms2 >= 2.5
 
 %description monocle-postrus
 This package contains a PostRus subplugin for LeechCraft Monocle.
 
 This package provides PostScript documents support for Document viewer Module
-via the libSpectre backend.
+via the ghostscript utils and Pdf plugin.
 
 
 %package monocle-seen
@@ -1634,6 +1669,15 @@ This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
 It provides support for the Read it Later service.
 
 
+%package poshuku-speeddial
+Summary:        LeechCraft Poshuku - Speed Dial Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-poshuku = %{version}
+
+%description poshuku-speeddial
+This package provides a Speed Dial support plugin for LeechCraft Poshuku.
+
+
 %package rosenthal
 Summary:        LeechCraft - Spell Checker Module
 Group:          Productivity/Networking/Other
@@ -1911,6 +1955,8 @@ cmake ../src \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DSTRICT_LICENSING=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
+        -DENABLE_AGGREGATOR=True \
+                -DENABLE_AGGREGATOR_WEBACCESS=True \
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
         -DENABLE_AZOTH_ACETAMIDE=True \
@@ -1956,6 +2002,7 @@ cmake ../src \
         -DENABLE_LIZNOO=True \
         -DENABLE_LMP=True \
         -DUSE_GSTREAMER_10=False \
+                -DENABLE_LMP_BRAINSLUGZ=True \
                 -DENABLE_LMP_GRAFFITI=True \
                 -DENABLE_LMP_LIBGUESS=True \
                 -DENABLE_LMP_MPRIS=True \
@@ -1981,8 +2028,10 @@ cmake ../src \
         -DENABLE_POLEEMERY=True \
         -DENABLE_POGOOGLUE=True \
         -DENABLE_POPISHU=True \
-        -DENABLE_POSHUKU_AUTOSEARCH=True \
-                -DUSE_POSHUKU_CLEANWEB_PCRE=True \
+        -DENABLE_POSHUKU=True \
+                -DENABLE_POSHUKU_AUTOSEARCH=True \
+                        -DUSE_POSHUKU_CLEANWEB_PCRE=True \
+                -DENABLE_POSHUKU_SPEEDDIAL=True \
         -DENABLE_QROSP=False \
         -DENABLE_SB2=True \
         -DENABLE_SCROBLIBRE=True \
@@ -2060,7 +2109,8 @@ cd build
 %files aggregator
 %defattr(-,root,root)
 %{settings_dir}/aggregatorsettings.xml
-%{translations_dir}/%{name}_aggregator*.qm
+%{translations_dir}/%{name}_aggregator_??.qm
+%{translations_dir}/%{name}_aggregator_??_??.qm
 %{plugin_dir}/*%{name}_aggregator.so
 
 %files aggregator-bodyfetch
@@ -2068,6 +2118,12 @@ cd build
 %{plugin_dir}/*%{name}_aggregator_bodyfetch.so
 %dir %{_datadir}/%{name}/scripts
 %{_datadir}/%{name}/scripts/aggregator/
+
+%files aggregator-webaccess
+%defattr(-,root,root)
+%{plugin_dir}/*%{name}_aggregator_webaccess.so
+%{settings_dir}/aggregatorwebaccesssettings.xml
+%{translations_dir}/%{name}_aggregator_webaccess*.qm
 
 %files anhero
 %defattr(-,root,root)
@@ -2203,11 +2259,11 @@ cd build
 %{_libdir}/%{name}/plugins/*%{name}_azoth_otroid.so
 %{_datadir}/%{name}/translations/%{name}_azoth_otroid*.qm
 
-%files azoth-p100q
-%defattr(-,root,root)
-%{settings_dir}/azothp100qsettings.xml
-%{plugin_dir}/*%{name}_azoth_p100q.so
-%{translations_dir}/leechcraft_azoth_p100q*
+# %%files azoth-p100q
+# %%defattr(-,root,root)
+# %%{settings_dir}/azothp100qsettings.xml
+# %%{plugin_dir}/*%%{name}_azoth_p100q.so
+# %%{translations_dir}/leechcraft_azoth_p100q*
 
 %files azoth-rosenthal
 %defattr(-,root,root)
@@ -2528,10 +2584,21 @@ cd build
 %files lmp
 %defattr(-,root,root)
 %{settings_dir}/lmpsettings.xml
+%{settings_dir}/lmpfilterrgsettings.xml
 %{_datadir}/%{name}/translations/%{name}_lmp_??.qm
 %{_datadir}/%{name}/translations/%{name}_lmp_??_??.qm
 %{plugin_dir}/*%{name}_lmp.so
 %{_datadir}/applications/%{name}-lmp*.desktop
+%dir %{_datadir}/%{name}/qml/lmp
+%{_datadir}/%{name}/qml/lmp/*.qml
+%exclude %{_datadir}/%{name}/qml/lmp/brainslugz
+
+%files lmp-brainslugz
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_lmp_brainslugz.so
+%dir %{_datadir}/%{name}/qml/lmp
+%{_datadir}/%{name}/qml/lmp/brainslugz
+%{_datadir}/%{name}/translations/%{name}_lmp_brainslugz_*.qm
 
 %files lmp-dumbsync
 %defattr(-,root,root)
@@ -2545,6 +2612,11 @@ cd build
 %{plugin_dir}/*%{name}_lmp_graffiti.so
 %{_datadir}/%{name}/translations/%{name}_lmp_graffiti_??.qm
 %{_datadir}/%{name}/translations/%{name}_lmp_graffiti_??_??.qm
+
+%files lmp-httstream
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_lmp_httstream.so
+%{_datadir}/%{name}/settings/lmphttstreamfiltersettings.xml
 
 %files lmp-mp3tunes
 %defattr(-,root,root)
@@ -2714,6 +2786,11 @@ cd build
 %files poshuku-onlinebookmarks-readitlater
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_poshuku_onlinebookmarks_readitlater.*
+
+%files poshuku-speeddial
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_poshuku_speeddial.so
+%{_datadir}/%{name}/settings/poshukuspeeddialsettings.xml
 
 %files rosenthal
 %defattr(-,root,root)

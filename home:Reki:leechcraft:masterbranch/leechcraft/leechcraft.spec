@@ -30,7 +30,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-291-ge4e315c
+%define LEECHCRAFT_VERSION 0.6.65-380-gffa0f72
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -3229,6 +3229,10 @@ EOF
 %{plugin_dir}/*%{name}_lmp.so
 %{_datadir}/applications/%{name}-lmp*.desktop
 %dir %{_datadir}/%{name}/qml/lmp
+%{_datadir}/%{name}/qml/lmp/*.qml
+%if 0%{?suse_version} >= 1230
+%exclude %{_datadir}/%{name}/qml/lmp/brainslugz
+%endif
 
 %if 0%{?suse_version} >= 1230
 %files lmp-brainslugz
@@ -3236,6 +3240,7 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_lmp_brainslugz.so
 %dir %{_datadir}/%{name}/qml/lmp
 %{_datadir}/%{name}/qml/lmp/brainslugz
+%{_datadir}/%{name}/translations/%{name}_lmp_brainslugz_*.qm
 %endif
 
 %files lmp-dumbsync
