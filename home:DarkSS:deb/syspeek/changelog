@@ -1,0 +1,31 @@
+syspeek (0.3~bzr12~webupd8~trusty2) trusty; urgency=medium
+
+  * Latest bzr code
+  * Removed partition chooser in Preferences > Disk, it doesn't work
+  * Work-aroud for not being able to enable/disable cpu/memory/disk/network more than 2 times per session
+
+ -- Alin Andrei <webupd8@gmail.com>  Fri, 25 Apr 2014 19:24:12 +0200 
+
+syspeek (0.2~bzr12~oneiric1) oneiric; urgency=low
+
+  * Oneiric build.
+
+ -- Georg Schmidl <georg.schmidl@vicox.net>  Sun, 23 Oct 2011 19:43:03 +0200 
+
+syspeek (0.2~natty2) natty; urgency=low
+
+  * Added ubuntu-mono-light icons.
+
+ -- Georg Schmidl <georg.schmidl@vicox.net>  Sat, 11 Jun 2011 17:41:38 +0200
+
+syspeek (0.2~natty1) natty; urgency=low
+
+  * New upstream release.
+
+ -- Georg Schmidl <georg.schmidl@vicox.net>  Thu, 09 Jun 2011 00:12:48 +0200
+
+syspeek (0.1~natty1) natty; urgency=low
+
+  * Initial release.
+
+ -- Georg Schmidl <georg.schmidl@vicox.net>  Tue, 07 Jun 2011 21:55:05 +0200
