@@ -1,0 +1,6 @@
+-------------------------------------------------------------------
+Mon May 12 16:41:19 UTC 2014 - dap.darkness@gmail.com
+
+- Initial build.
+- Added syspeek-file-not-found.patch &
+  syspeek-kde.patch to fix tray menu entries.

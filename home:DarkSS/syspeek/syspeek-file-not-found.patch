@@ -1,0 +1,11 @@
+--- syspeek/indicator.py.orig	2014-04-25 21:57:41.000000000 +0300
++++ syspeek/indicator.py	2014-05-12 20:52:46.374003240 +0300
+@@ -299,7 +299,7 @@
+ 	def __init__(self, indicator):
+ 		self.indicator = indicator
+ 		self.builder = gtk.Builder()
+-		self.builder.add_from_file(pkg_resources.resource_filename('syspeek.ui','PreferencesDialog.ui'))
++		self.builder.add_from_file('/usr/share/syspeek/PreferencesDialog.ui')
+ 		self.dialog = self.builder.get_object('preferences_dialog')
+ 		self.dialog.set_title(DISPLAY_NAME + ' ' + _('Preferences'))
+ 		self.builder.connect_signals({

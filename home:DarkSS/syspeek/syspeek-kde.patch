@@ -1,0 +1,10 @@
+--- syspeek/indicator.py.orig	2014-04-25 21:57:41.000000000 +0300
++++ syspeek/indicator.py	2014-05-12 20:59:04.153003240 +0300
+@@ -260,6 +260,7 @@
+ 
+ 	def system_monitor(self, widget):
+ 		os.spawnlp(os.P_NOWAIT, 'gnome-system-monitor', 'gnome-system-monitor')
++		os.spawnlp(os.P_NOWAIT, 'ksysguard', 'ksysguard')
+ 		os.wait3(os.WNOHANG)
+ 
+ 	def preferences_dialog(self, widget):
