@@ -1,3 +1,10 @@
+syspeek (0.3~bzr13) unstable; urgency=medium
+
+  * Settings became openable
+  * System monitor openable became openable at KDE
+
+ -- Dmitriy Perlow <dap.darkness@gmail.com>  Mon, 12 May 2014 22:27:47 +0300
+
 syspeek (0.3~bzr12~webupd8~trusty2) trusty; urgency=medium
 
   * Latest bzr code

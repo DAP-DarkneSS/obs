@@ -1,7 +1,7 @@
 Source: syspeek
 Section: gnome
 Priority: extra
-Maintainer: Georg Schmidl <georg.schmidl@vicox.net>
+Maintainer: Dmitriy Perlow <dap.darkness@gmail.com>
 Build-Depends: debhelper (>= 7),
 	python (>=2.7),
 	python-support,
