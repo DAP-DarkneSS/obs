@@ -21,6 +21,8 @@
 %define settings_dir %{_datadir}/%{name}/settings
 %define azoth_dir %{_datadir}/%{name}/azoth
 
+%define so_ver 0_6_65
+
 %define fenet 1
 %define lmp 1
 %define mellonetray 1
@@ -30,7 +32,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-380-gffa0f72
+%define LEECHCRAFT_VERSION 0.6.65-711-g8177be6
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -54,6 +56,8 @@ Patch0:         azoth-entry-activates.patch
 Patch4:         leechcraft-azoth-gcc47.patch
 # PATCH-FIX-OPENSUSE vs. names constructor error.
 Patch5:         leechcraft-monocle-gcc47.patch
+# PATCH-FIX-OPENSUSE vs. names constructor error.
+Patch6:         leechcraft-gcc47.patch
 %endif
 
 
@@ -116,7 +120,7 @@ BuildConflicts: libgstreamer-0_10
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
 BuildConflicts: libgstreamer-1_0-0
 %endif
-BuildRequires:  libqxmpp-devel >= 0.7.6.1395514264
+BuildRequires:  libqxmpp-devel >= 0.8.0.1398262192
 BuildRequires:  pkgconfig(hunspell)
 BuildRequires:  pkgconfig(kqoauth)
 BuildRequires:  pkgconfig(libcurl)
@@ -881,7 +885,7 @@ This package provides a Twitter Client plugin for LeechCraft.
 Summary:        LeechCraft Azoth - XMPP Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
-Requires:       libqxmpp0 >= 0.7.6.1395514264
+Requires:       libqxmpp0 >= 0.8.0.1398262192
 Provides:       %{name}-azoth-protocolplugin
 
 %description azoth-xoox
@@ -1150,6 +1154,22 @@ The search interface is available via LeechCraft Summary.
 Summary:        LeechCraft Development Files
 Group:          Development/Libraries/Other
 Requires:       %{name} = %{version}
+Requires:       cmake
+Requires:       lib%{name}-util-db%{sover}        = %{version}
+Requires:       lib%{name}-util-gui%{sover}       = %{version}
+Requires:       lib%{name}-util-models%{sover}    = %{version}
+Requires:       lib%{name}-util-network%{sover}   = %{version}
+Requires:       lib%{name}-util-qml%{sover}       = %{version}
+Requires:       lib%{name}-util-shortcuts%{sover} = %{version}
+Requires:       lib%{name}-util-sll%{sover}       = %{version}
+Requires:       lib%{name}-util-svcauth%{sover}   = %{version}
+Requires:       lib%{name}-util-sys%{sover}       = %{version}
+Requires:       lib%{name}-util-tags%{sover}      = %{version}
+Requires:       lib%{name}-util-x11%{sover}       = %{version}
+Requires:       lib%{name}-util-xdg%{sover}       = %{version}
+Requires:       lib%{name}-util-xpc%{sover}       = %{version}
+Requires:       lib%{name}-util-xsd%{sover}       = %{version}
+Requires:       pkgconfig(QtWebKit)
 
 %description devel
 This package provides files required for development for LeechCraft.
@@ -1672,6 +1692,15 @@ Requires:       %{name}-devmon = %{version}
 
 %description lmp-mtpsync
 This package allows to sync with MTP devices via LeechCraft.
+
+
+%package lmp-potorchu
+Summary:        LeechCraft Visualization Effects Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+
+%description lmp-potorchu
+This package provides visualization effects for LeechCraft audio player.
 %endif
 
 
@@ -2425,11 +2454,135 @@ Summary:        LeechCraft Current user tune Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
-
 %description xtazy
 This package provides a tune wrapper plugin for LeechCraft.
 
 It allows to get current user tune via mpris protocol.
+
+
+%package -n lib%{name}-util-db%{sover}
+Summary:        Database utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-db%{sover}
+A library providing some useful and commonly used database-related
+classes and functions.
+
+
+%package -n lib%{name}-util-gui%{sover}
+Summary:        GUI utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-gui%{sover}
+A library providing some useful and commonly used GUI-related
+widgets, classes and functions.
+
+
+%package -n lib%{name}-util-models%{sover}
+Summary:        MVC utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-models%{sover}
+A library providing some useful and commonly used models (as in MVC),
+as well as model-related classes and functions.
+
+
+%package -n lib%{name}-util-network%{sover}
+Summary:        Network utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-network%{sover}
+A library providing some useful and commonly used
+network classes and functions.
+
+
+%package -n lib%{name}-util-qml%{sover}
+Summary:        QML utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-qml%{sover}
+A library providing some useful and commonly used QML items as well as
+QML-related classes and functions.
+
+
+%package -n lib%{name}-util-shortcuts%{sover}
+Summary:        Shortcuts utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-shortcuts%{sover}
+A library easing shortcuts usage in LeechCraft, particularly the
+configurable shortcuts subsystem.
+
+
+%package -n lib%{name}-util-sll%{sover}
+Summary:        Standard LeechCraft Library
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-sll%{sover}
+A library providing some useful classes and algorithms, not directly
+related to any other library.
+
+
+%package -n lib%{name}-util-svcauth%{sover}
+Summary:        Authenticators library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-svcauth%{sover}
+A library providing authenticators for various services like VKontakte.
+
+
+%package -n lib%{name}-util-sys%{sover}
+Summary:        System utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-sys%{sover}
+A library providing some useful and commonly used system-related
+classes and functions, like OS version parser, paths utilities or MIME
+detector.
+
+
+%package -n lib%{name}-util-tags%{sover}
+Summary:        Tags utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-tags%{sover}
+A library providing some useful classes and functions commonly used
+with the LeechCraft tags subsystem.
+
+
+%package -n lib%{name}-util-x11%{sover}
+Summary:        X11 utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-x11%{sover}
+A library providing X11 wrappers for LeechCraft.
+
+
+%package -n lib%{name}-util-xdg%{sover}
+Summary:        XDG utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-xdg%{sover}
+A library providing XDG parsers and other support methods and classes
+for LeechCraft.
+
+
+%package -n lib%{name}-util-xpc%{sover}
+Summary:        Cross-plugin communication utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-xpc%{sover}
+A library providing some useful and commonly used primitives for
+communications between different plugins in LeechCraft.
+
+
+%package -n lib%{name}-util-xsd%{sover}
+Summary:        XSD utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-xsd%{sover}
+A library providing some useful classes to be used with the
+XmlSettingsDialog LeechCraft subsystem.
 
 
 %prep
@@ -2443,6 +2596,7 @@ It allows to get current user tune via mpris protocol.
 %if 0%{?suse_version} <= 1230
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 %endif
 
 # Mine ;)
@@ -2558,6 +2712,7 @@ cmake ../src \
                 -DENABLE_LMP_LIBGUESS=True \
                 -DENABLE_LMP_MPRIS=True \
                 -DENABLE_LMP_MTPSYNC=True \
+                -DENABLE_LMP_POTORCHU=True \
 %else
         -DENABLE_LMP=False \
 %endif
@@ -2676,6 +2831,90 @@ EOF
 
 %postun -p /sbin/ldconfig
 
+%post -n lib%{name}-util-db%{sover}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-db%{sover}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-gui%{sover}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-gui%{sover}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-models%{sover}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-models%{sover}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-network%{sover}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-network%{sover}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-qml%{sover}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-qml%{sover}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-shortcuts%{sover}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-shortcuts%{sover}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-sll%{sover}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-sll%{sover}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-svcauth%{sover}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-svcauth%{sover}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-sys%{sover}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-sys%{sover}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-tags%{sover}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-tags%{sover}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-x11%{sover}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-x11%{sover}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-xdg%{sover}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-xdg%{sover}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-xpc%{sover}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-xpc%{sover}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-xsd%{sover}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-xsd%{sover}
+/sbin/ldconfig
+
 %files
 %defattr(-,root,root)
 %doc CHANGELOG LICENSE README
@@ -2698,7 +2937,8 @@ EOF
 %{translations_dir}/leechcraft_??_??.qm
 %dir %{_libdir}/%{name}
 %dir %{plugin_dir}
-%{_libdir}/*%{name}-*.so.*
+%{_libdir}/lib%{name}-util.so.*
+%{_libdir}/lib%{name}-xsd.so.*
 %doc %{_mandir}/man1/%{name}*.1.gz
 %{_datadir}/%{name}/global_icons/
 %dir %{_datadir}/%{name}/themes
@@ -2871,6 +3111,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_otroid.so
 %{_datadir}/%{name}/translations/%{name}_azoth_otroid*.qm
+%{_datadir}/%{name}/settings/azothotroidsettings.xml
 
 # %%files azoth-p100q
 # %%defattr(-,root,root)
@@ -3034,7 +3275,8 @@ EOF
 %defattr(-,root,root)
 %{_datadir}/%{name}/cmake
 %{_includedir}/%{name}
-%{_libdir}/*%{name}-*.so
+%{_libdir}/lib%{name}-util*.so
+%{_libdir}/lib%{name}-xsd.so
 %{_datadir}/cmake/Modules/InitLCPlugin.cmake
 
 %files devmon
@@ -3260,6 +3502,8 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_lmp_httstream.so
 %{_datadir}/%{name}/settings/lmphttstreamfiltersettings.xml
+%{_datadir}/%{name}/translations/%{name}_lmp_httstream_??.qm
+%{_datadir}/%{name}/translations/%{name}_lmp_httstream_??_??.qm
 
 %files lmp-mp3tunes
 %defattr(-,root,root)
@@ -3269,6 +3513,10 @@ EOF
 %files lmp-mtpsync
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_lmp_mtpsync.so
+
+%files lmp-potorchu
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_lmp_potorchu.so
 %endif
 
 %if %{mellonetray}
@@ -3562,6 +3810,62 @@ EOF
 %{_datadir}/%{name}/settings/xtazysettings.xml
 %{_libdir}/%{name}/plugins/*%{name}_xtazy.so
 %{_datadir}/%{name}/translations/%{name}_xtazy*
+
+%files -n lib%{name}-util-db%{sover}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-db*.so.*
+
+%files -n lib%{name}-util-gui%{sover}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-gui*.so.*
+
+%files -n lib%{name}-util-models%{sover}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-models*.so.*
+
+%files -n lib%{name}-util-network%{sover}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-network*.so.*
+
+%files -n lib%{name}-util-qml%{sover}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-qml*.so.*
+
+%files -n lib%{name}-util-shortcuts%{sover}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-shortcuts*.so.*
+
+%files -n lib%{name}-util-sll%{sover}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-sll*.so.*
+
+%files -n lib%{name}-util-svcauth%{sover}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-svcauth*.so.*
+
+%files -n lib%{name}-util-sys%{sover}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-sys*.so.*
+
+%files -n lib%{name}-util-tags%{sover}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-tags*.so.*
+
+%files -n lib%{name}-util-x11%{sover}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-x11*.so.*
+
+%files -n lib%{name}-util-xdg%{sover}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-xdg*.so.*
+
+%files -n lib%{name}-util-xpc%{sover}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-xpc*.so.*
+
+%files -n lib%{name}-util-xsd%{sover}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-xsd*.so.*
 
 #-------------------------patterns----------------------------#
 %files meta_browser
