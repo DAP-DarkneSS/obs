@@ -1,7 +1,7 @@
 #
 # spec file for package kaffeinety
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,13 +17,13 @@
 
 
 Name:           kaffeinety
-Version:        0.0.1
+Version:        0.0.3
 Release:        0
 License:        GPL-2.0+
 Summary:        A screen saver suppressor
 Url:            http://kde-apps.org/content/show.php?content=159860
 Group:          System/GUI/KDE
-Source0:        http://kde-apps.org/CONTENT/content-files/159860-KaffeineTY.zip
+Source0:        http://kde-apps.org/CONTENT/content-files/159860-kaffeinety-%{version}.tar.gz
 
 BuildRequires:  kdebase4-workspace-devel >= 4.8.0
 BuildRequires:  unzip
@@ -44,7 +44,7 @@ By default, it enable for flash run in fullscreen model on chromium
 and firefox browser by: chromium{exe}|plugin-container
 
 %prep
-%setup -q -n KaffeineTY
+%setup -q -n %{name}
 
 %build
 %cmake_kde4 -d build

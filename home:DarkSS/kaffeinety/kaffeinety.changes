@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Wed May 14 15:07:23 UTC 2014 - dap.darkness@gmail.com
+
+- Version 0.0.3:
+  * Fix bugs;
+  * Auto disable when the low battery detect.
+- Source validator service seems not to work with download_files,
+  so let it be removed.
+
+-------------------------------------------------------------------
 Sun Aug  4 19:04:57 UTC 2013 - dap.darkness@gmail.com
 
 - Initial build.

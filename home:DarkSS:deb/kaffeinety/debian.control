@@ -1,0 +1,19 @@
+Source: kaffeinety
+Section: unknown
+Priority: optional
+Maintainer: Dmitriy Perlow <dap.darkness@gmail.com>
+Build-Depends: kdelibs5-dev, build-essential, kde-workspace-dev, cmake, debhelper, cdbs
+
+Package: kaffeinety
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: A screen saver suppressor
+ KaffeineTY - a application to temporarily prevents dim screen action
+ of power management and screensaver for KDE environment.
+ CONFIGURE IT:
+  * go to: System settings > Power Management > KaffeineTY
+  * enter name of application you want to run it without dim screen
+    and screensaver action in 'Parameter'
+  * syntax: name1{titleoptional1}|name2{titleoptional2}|....
+ By default, it enable for flash run in fullscreen model on chromium
+ and firefox browser by: chromium{exe}|plugin-container;
