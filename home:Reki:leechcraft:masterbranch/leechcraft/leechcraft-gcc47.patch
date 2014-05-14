@@ -1,0 +1,32 @@
+diff --git a/src/util/sll/slotclosure.h b/src/util/sll/slotclosure.h
+index ca14e2a..f1ebfb4 100644
+--- a/src/util/sll/slotclosure.h
++++ b/src/util/sll/slotclosure.h
+@@ -61,7 +61,26 @@ namespace Util
+ 					  , FireDestrPolicy<SlotClosureBase>
+ 	{
+ 	public:
+-		using SlotClosureBase::SlotClosureBase;
++		SlotClosure (const std::function<void ()>& func, QObject *parent)
++		: SlotClosureBase { func, parent }
++		{
++		}
++
++		SlotClosure (const std::function<void ()>& func,
++				QObject *sender,
++				const char *signal,
++				QObject *parent)
++		: SlotClosureBase { func, sender, signal, parent }
++		{
++		}
++
++		SlotClosure (const std::function<void ()>& func,
++				QObject *sender,
++				const std::initializer_list<const char*>& signalsList,
++				QObject *parent)
++		: SlotClosureBase { func, sender, signalsList, parent }
++		{
++		}
+ 	public:
+ 		void run () override
+ 		{
