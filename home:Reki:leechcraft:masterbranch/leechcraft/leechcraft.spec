@@ -32,7 +32,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-711-g8177be6
+%define LEECHCRAFT_VERSION 0.6.65-731-g63db4ec
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -1155,20 +1155,20 @@ Summary:        LeechCraft Development Files
 Group:          Development/Libraries/Other
 Requires:       %{name} = %{version}
 Requires:       cmake
-Requires:       lib%{name}-util-db%{sover}        = %{version}
-Requires:       lib%{name}-util-gui%{sover}       = %{version}
-Requires:       lib%{name}-util-models%{sover}    = %{version}
-Requires:       lib%{name}-util-network%{sover}   = %{version}
-Requires:       lib%{name}-util-qml%{sover}       = %{version}
-Requires:       lib%{name}-util-shortcuts%{sover} = %{version}
-Requires:       lib%{name}-util-sll%{sover}       = %{version}
-Requires:       lib%{name}-util-svcauth%{sover}   = %{version}
-Requires:       lib%{name}-util-sys%{sover}       = %{version}
-Requires:       lib%{name}-util-tags%{sover}      = %{version}
-Requires:       lib%{name}-util-x11%{sover}       = %{version}
-Requires:       lib%{name}-util-xdg%{sover}       = %{version}
-Requires:       lib%{name}-util-xpc%{sover}       = %{version}
-Requires:       lib%{name}-util-xsd%{sover}       = %{version}
+Requires:       lib%{name}-util-db%{so_ver}        = %{version}
+Requires:       lib%{name}-util-gui%{so_ver}       = %{version}
+Requires:       lib%{name}-util-models%{so_ver}    = %{version}
+Requires:       lib%{name}-util-network%{so_ver}   = %{version}
+Requires:       lib%{name}-util-qml%{so_ver}       = %{version}
+Requires:       lib%{name}-util-shortcuts%{so_ver} = %{version}
+Requires:       lib%{name}-util-sll%{so_ver}       = %{version}
+Requires:       lib%{name}-util-svcauth%{so_ver}   = %{version}
+Requires:       lib%{name}-util-sys%{so_ver}       = %{version}
+Requires:       lib%{name}-util-tags%{so_ver}      = %{version}
+Requires:       lib%{name}-util-x11-%{so_ver}       = %{version}
+Requires:       lib%{name}-util-xdg%{so_ver}       = %{version}
+Requires:       lib%{name}-util-xpc%{so_ver}       = %{version}
+Requires:       lib%{name}-util-xsd%{so_ver}       = %{version}
 Requires:       pkgconfig(QtWebKit)
 
 %description devel
@@ -2460,127 +2460,127 @@ This package provides a tune wrapper plugin for LeechCraft.
 It allows to get current user tune via mpris protocol.
 
 
-%package -n lib%{name}-util-db%{sover}
+%package -n lib%{name}-util-db%{so_ver}
 Summary:        Database utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-db%{sover}
+%description -n lib%{name}-util-db%{so_ver}
 A library providing some useful and commonly used database-related
 classes and functions.
 
 
-%package -n lib%{name}-util-gui%{sover}
+%package -n lib%{name}-util-gui%{so_ver}
 Summary:        GUI utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-gui%{sover}
+%description -n lib%{name}-util-gui%{so_ver}
 A library providing some useful and commonly used GUI-related
 widgets, classes and functions.
 
 
-%package -n lib%{name}-util-models%{sover}
+%package -n lib%{name}-util-models%{so_ver}
 Summary:        MVC utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-models%{sover}
+%description -n lib%{name}-util-models%{so_ver}
 A library providing some useful and commonly used models (as in MVC),
 as well as model-related classes and functions.
 
 
-%package -n lib%{name}-util-network%{sover}
+%package -n lib%{name}-util-network%{so_ver}
 Summary:        Network utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-network%{sover}
+%description -n lib%{name}-util-network%{so_ver}
 A library providing some useful and commonly used
 network classes and functions.
 
 
-%package -n lib%{name}-util-qml%{sover}
+%package -n lib%{name}-util-qml%{so_ver}
 Summary:        QML utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-qml%{sover}
+%description -n lib%{name}-util-qml%{so_ver}
 A library providing some useful and commonly used QML items as well as
 QML-related classes and functions.
 
 
-%package -n lib%{name}-util-shortcuts%{sover}
+%package -n lib%{name}-util-shortcuts%{so_ver}
 Summary:        Shortcuts utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-shortcuts%{sover}
+%description -n lib%{name}-util-shortcuts%{so_ver}
 A library easing shortcuts usage in LeechCraft, particularly the
 configurable shortcuts subsystem.
 
 
-%package -n lib%{name}-util-sll%{sover}
+%package -n lib%{name}-util-sll%{so_ver}
 Summary:        Standard LeechCraft Library
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-sll%{sover}
+%description -n lib%{name}-util-sll%{so_ver}
 A library providing some useful classes and algorithms, not directly
 related to any other library.
 
 
-%package -n lib%{name}-util-svcauth%{sover}
+%package -n lib%{name}-util-svcauth%{so_ver}
 Summary:        Authenticators library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-svcauth%{sover}
+%description -n lib%{name}-util-svcauth%{so_ver}
 A library providing authenticators for various services like VKontakte.
 
 
-%package -n lib%{name}-util-sys%{sover}
+%package -n lib%{name}-util-sys%{so_ver}
 Summary:        System utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-sys%{sover}
+%description -n lib%{name}-util-sys%{so_ver}
 A library providing some useful and commonly used system-related
 classes and functions, like OS version parser, paths utilities or MIME
 detector.
 
 
-%package -n lib%{name}-util-tags%{sover}
+%package -n lib%{name}-util-tags%{so_ver}
 Summary:        Tags utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-tags%{sover}
+%description -n lib%{name}-util-tags%{so_ver}
 A library providing some useful classes and functions commonly used
 with the LeechCraft tags subsystem.
 
 
-%package -n lib%{name}-util-x11%{sover}
+%package -n lib%{name}-util-x11-%{so_ver}
 Summary:        X11 utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-x11%{sover}
+%description -n lib%{name}-util-x11-%{so_ver}
 A library providing X11 wrappers for LeechCraft.
 
 
-%package -n lib%{name}-util-xdg%{sover}
+%package -n lib%{name}-util-xdg%{so_ver}
 Summary:        XDG utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-xdg%{sover}
+%description -n lib%{name}-util-xdg%{so_ver}
 A library providing XDG parsers and other support methods and classes
 for LeechCraft.
 
 
-%package -n lib%{name}-util-xpc%{sover}
+%package -n lib%{name}-util-xpc%{so_ver}
 Summary:        Cross-plugin communication utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-xpc%{sover}
+%description -n lib%{name}-util-xpc%{so_ver}
 A library providing some useful and commonly used primitives for
 communications between different plugins in LeechCraft.
 
 
-%package -n lib%{name}-util-xsd%{sover}
+%package -n lib%{name}-util-xsd%{so_ver}
 Summary:        XSD utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-xsd%{sover}
+%description -n lib%{name}-util-xsd%{so_ver}
 A library providing some useful classes to be used with the
 XmlSettingsDialog LeechCraft subsystem.
 
@@ -2831,88 +2831,88 @@ EOF
 
 %postun -p /sbin/ldconfig
 
-%post -n lib%{name}-util-db%{sover}
+%post -n lib%{name}-util-db%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-db%{sover}
+%postun -n lib%{name}-util-db%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-gui%{sover}
+%post -n lib%{name}-util-gui%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-gui%{sover}
+%postun -n lib%{name}-util-gui%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-models%{sover}
+%post -n lib%{name}-util-models%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-models%{sover}
+%postun -n lib%{name}-util-models%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-network%{sover}
+%post -n lib%{name}-util-network%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-network%{sover}
+%postun -n lib%{name}-util-network%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-qml%{sover}
+%post -n lib%{name}-util-qml%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-qml%{sover}
+%postun -n lib%{name}-util-qml%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-shortcuts%{sover}
+%post -n lib%{name}-util-shortcuts%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-shortcuts%{sover}
+%postun -n lib%{name}-util-shortcuts%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-sll%{sover}
+%post -n lib%{name}-util-sll%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-sll%{sover}
+%postun -n lib%{name}-util-sll%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-svcauth%{sover}
+%post -n lib%{name}-util-svcauth%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-svcauth%{sover}
+%postun -n lib%{name}-util-svcauth%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-sys%{sover}
+%post -n lib%{name}-util-sys%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-sys%{sover}
+%postun -n lib%{name}-util-sys%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-tags%{sover}
+%post -n lib%{name}-util-tags%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-tags%{sover}
+%postun -n lib%{name}-util-tags%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-x11%{sover}
+%post -n lib%{name}-util-x11-%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-x11%{sover}
+%postun -n lib%{name}-util-x11-%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-xdg%{sover}
+%post -n lib%{name}-util-xdg%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-xdg%{sover}
+%postun -n lib%{name}-util-xdg%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-xpc%{sover}
+%post -n lib%{name}-util-xpc%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-xpc%{sover}
+%postun -n lib%{name}-util-xpc%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-xsd%{sover}
+%post -n lib%{name}-util-xsd%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-xsd%{sover}
+%postun -n lib%{name}-util-xsd%{so_ver}
 /sbin/ldconfig
 
 %files
@@ -3811,59 +3811,59 @@ EOF
 %{_libdir}/%{name}/plugins/*%{name}_xtazy.so
 %{_datadir}/%{name}/translations/%{name}_xtazy*
 
-%files -n lib%{name}-util-db%{sover}
+%files -n lib%{name}-util-db%{so_ver}
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-db*.so.*
 
-%files -n lib%{name}-util-gui%{sover}
+%files -n lib%{name}-util-gui%{so_ver}
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-gui*.so.*
 
-%files -n lib%{name}-util-models%{sover}
+%files -n lib%{name}-util-models%{so_ver}
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-models*.so.*
 
-%files -n lib%{name}-util-network%{sover}
+%files -n lib%{name}-util-network%{so_ver}
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-network*.so.*
 
-%files -n lib%{name}-util-qml%{sover}
+%files -n lib%{name}-util-qml%{so_ver}
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-qml*.so.*
 
-%files -n lib%{name}-util-shortcuts%{sover}
+%files -n lib%{name}-util-shortcuts%{so_ver}
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-shortcuts*.so.*
 
-%files -n lib%{name}-util-sll%{sover}
+%files -n lib%{name}-util-sll%{so_ver}
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-sll*.so.*
 
-%files -n lib%{name}-util-svcauth%{sover}
+%files -n lib%{name}-util-svcauth%{so_ver}
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-svcauth*.so.*
 
-%files -n lib%{name}-util-sys%{sover}
+%files -n lib%{name}-util-sys%{so_ver}
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-sys*.so.*
 
-%files -n lib%{name}-util-tags%{sover}
+%files -n lib%{name}-util-tags%{so_ver}
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-tags*.so.*
 
-%files -n lib%{name}-util-x11%{sover}
+%files -n lib%{name}-util-x11-%{so_ver}
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-x11*.so.*
 
-%files -n lib%{name}-util-xdg%{sover}
+%files -n lib%{name}-util-xdg%{so_ver}
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-xdg*.so.*
 
-%files -n lib%{name}-util-xpc%{sover}
+%files -n lib%{name}-util-xpc%{so_ver}
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-xpc*.so.*
 
-%files -n lib%{name}-util-xsd%{sover}
+%files -n lib%{name}-util-xsd%{so_ver}
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-xsd*.so.*
 
