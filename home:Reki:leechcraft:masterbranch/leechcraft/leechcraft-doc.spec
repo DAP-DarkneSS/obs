@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft-doc
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,18 +17,19 @@
 
 
 Name:           leechcraft-doc
-Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-731-g63db4ec
+Version:        0.6.65
 Release:        0
-License:        BSL-1.0
 Summary:        Modular Internet Client Documentation
-Url:            http://leechcraft.org
+License:        BSL-1.0
 Group:          Development/Libraries/Other
-Source0:        leechcraft-%{version}.tar.xz
+Url:            http://leechcraft.org
+Source0:        http://dist.leechcraft.org/LeechCraft/%{version}/leechcraft-%{version}.tar.xz
 
 BuildRequires:  doxygen >= 1.8.3.1
 BuildRequires:  fdupes
 BuildRequires:  graphviz
+BuildRequires:  graphviz-gnome
+BuildRequires:  xz
 BuildArch:      noarch
 
 %description
@@ -104,13 +105,22 @@ cp -r * %{buildroot}%{_docdir}/leechcraft-monocle-doc
 %files
 %defattr(-,root,root)
 %doc %{_docdir}/leechcraft-doc
+%if 0%{?suse_version} <= 1210
+%exclude %{_docdir}/leechcraft-doc/installdox
+%endif
 
 %files -n leechcraft-azoth-doc
 %defattr(-,root,root)
 %doc %{_docdir}/leechcraft-azoth-doc
+%if 0%{?suse_version} <= 1210
+%exclude %{_docdir}/leechcraft-azoth-doc/installdox
+%endif
 
 %files -n leechcraft-monocle-doc
 %defattr(-,root,root)
 %doc %{_docdir}/leechcraft-monocle-doc
+%if 0%{?suse_version} <= 1210
+%exclude %{_docdir}/leechcraft-monocle-doc/installdox
+%endif
 
 %changelog

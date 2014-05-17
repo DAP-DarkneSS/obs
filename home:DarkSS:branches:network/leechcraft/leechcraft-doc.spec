@@ -28,6 +28,7 @@ Source0:        http://dist.leechcraft.org/LeechCraft/%{version}/leechcraft-%{ve
 BuildRequires:  doxygen >= 1.8.3.1
 BuildRequires:  fdupes
 BuildRequires:  graphviz
+BuildRequires:  graphviz-gnome
 BuildRequires:  xz
 BuildArch:      noarch
 
