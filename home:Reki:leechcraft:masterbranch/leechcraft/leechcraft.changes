@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat May 17 09:25:32 UTC 2014 - dap.darkness@gmail.com
+
+- New plugin was enabled for Factory:
+  * Aggregator WebAccess is a news reader web interface module.
+
+-------------------------------------------------------------------
 Sat Apr  5 11:56:18 UTC 2014 - dap.darkness@gmail.com
 
 - 0.6.65 release:
@@ -20,7 +26,6 @@ Sat Apr  5 11:56:18 UTC 2014 - dap.darkness@gmail.com
   * SB2 now supports hiding quarks by default;
   * /etc/os-release is now properly parsed.
 - New plugins were enabled:
-  * Aggregator WebAccess provides web interface for feed reader;
   * CertMgr is the new SSL manager;
   * CPU load is a monitoring quark;
   * Ooronee handles images and text dropped onto it;

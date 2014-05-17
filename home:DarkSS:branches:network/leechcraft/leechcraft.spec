@@ -76,6 +76,9 @@ BuildRequires:  mupdf-devel-static
 %endif
 BuildRequires:  qwt6-devel
 %if 0%{?suse_version} > 1310
+BuildRequires:  wt-devel >= 3.3
+%endif
+%if 0%{?suse_version} > 1310
 BuildRequires:  pkgconfig(TelepathyQt4)
 %endif
 BuildRequires:  pkgconfig(QJson) >= 0.8.1
@@ -218,6 +221,19 @@ Fetching is done according to little scripts called recipes. For this to
 work, a script provider like Qrosp should be installed. Please refer to the
 guide to writing recipes if you are interested in writing your own ones.
 
+
+%if 0%{?suse_version} >= 1310
+%package aggregator-webaccess
+Summary:        LeechCraft Aggregator - Web Interface Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-aggregator = %{version}
+
+%description aggregator-webaccess
+WebAccess provides a basic web interface for the
+Aggregator feed reader, so one can read news
+articles from a mobile device or another machine.
+%endif
 
 %package anhero
 Summary:        LeechCraft Crash handler Module
@@ -2156,7 +2172,11 @@ cmake ../src \
         -DSTRICT_LICENSING=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
+%if 0%{?suse_version} > 1310
+                -DENABLE_AGGREGATOR_WEBACCESS=True \
+%else
                 -DENABLE_AGGREGATOR_WEBACCESS=False \
+%endif
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
                 -DENABLE_AZOTH_ACETAMIDE=True \
@@ -2349,6 +2369,14 @@ cd build
 %{plugin_dir}/*%{name}_aggregator_bodyfetch.so
 %dir %{_datadir}/%{name}/scripts
 %{_datadir}/%{name}/scripts/aggregator/
+
+%if 0%{?suse_version} > 1310
+%files aggregator-webaccess
+%defattr(-,root,root)
+%{plugin_dir}/*%{name}_aggregator_webaccess.so
+%{settings_dir}/aggregatorwebaccesssettings.xml
+%{translations_dir}/%{name}_aggregator_webaccess*.qm
+%endif
 
 %files anhero
 %defattr(-,root,root)
