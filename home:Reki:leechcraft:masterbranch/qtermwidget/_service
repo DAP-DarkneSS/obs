@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<services>
+  <service name="tar_scm">
+    <!--<param name="revision">58b30e7421c7d083b14b77349d4c9d533aaed9d5</param>-->
+    <param name="scm">git</param>
+    <param name="url">https://github.com/qterminal/qtermwidget.git</param>
+    <param name="version">0.5.0</param>
+  </service>
+  <service name="recompress">
+    <param name="file">*.tar</param>
+    <param name="compression">bz2</param>
+  </service>
+  <service name="set_version"/>
+</services>

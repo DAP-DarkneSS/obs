@@ -1,0 +1,15 @@
+-------------------------------------------------------------------
+Wed May 14 21:51:33 UTC 2014 - sfalken@opensuse.org
+
+- Fixed path error on %postun section 
+
+-------------------------------------------------------------------
+Wed May 14 15:32:12 UTC 2014 - andrea@opensuse.org
+
+- Spec file clean up
+
+-------------------------------------------------------------------
+Wed May 14 03:09:18 UTC 2014 - sfalken@opensuse.org
+
+- Updated %files sections, to reflect new files since last build 
+
