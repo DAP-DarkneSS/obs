@@ -32,7 +32,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-731-g63db4ec
+%define LEECHCRAFT_VERSION 0.6.65-841-gf10d3be
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -154,6 +154,7 @@ BuildRequires:  jbig2dec-devel
 BuildRequires:  liblaretz-devel
 BuildRequires:  mupdf-devel-static
 BuildRequires:  openjpeg-devel
+BuildRequires:  qtermwidget-devel
 BuildRequires:  telepathy-qt4-devel
 BuildRequires:  wt-devel >= 3.3
 BuildRequires:  pkgconfig(libguess)
@@ -375,14 +376,13 @@ Recommends:     %{name}-meta_tools
 %description meta_websurf
 This package is installed if a pattern is selected to have a working update path
 
+%if 0%{?suse_version} >= 1230
 %package meta_office
 Summary:        Meta package for pattern leechcraft_office
 Group:          Metapackages
 Requires:       %{name}-blogique
 Requires:       %{name}-blogique-hestia
-%if 0%{?suse_version} >= 1230
 Requires:       %{name}-lhtr
-%endif
 Requires:       %{name}-monocle
 Requires:       %{name}-monocle-dik
 Requires:       %{name}-monocle-fxb
@@ -393,6 +393,7 @@ Requires:       %{name}-popishu
 Recommends:     %{name}-meta_tools
 Recommends:     %{name}-monocle-mu
 Recommends:     %{name}-otlozhu
+%endif
 
 %description meta_office
 This package is installed if a pattern is selected to have a working update path
@@ -1222,6 +1223,17 @@ This package provides a dumb sound notifier plugin for LeechCraft.
 It also uses Phonon as a backend or something like aplay/mplayer.
 
 
+%package eleeminator
+Summary:        LeechCraft Eleeminator Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Provides:       %{name}-shaitan = %{version}
+Obsoletes:      %{name}-shaitan < %{version}
+
+%description eleeminator
+This package provides a terminal plugin for Leechcraft.
+
+
 %if %{fenet}
 %package fenet
 Summary:        LeechCraft Window Manager Module
@@ -1647,6 +1659,18 @@ This package provides a audio syncing plugin for LeechCraft.
 It allows to sync with Flash-like media players.
 
 
+%package lmp-fradj
+Summary:        LeechCraft FrAdj Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+
+%description lmp-fradj
+This package provides a 10-band equalizer for now.
+
+n-band (with configurable n) equalizer is planned
+in somewhat near future.
+
+
 %package lmp-graffiti
 Summary:        LeechCraft Tags Manipulating Module
 Group:          Productivity/Networking/Other
@@ -1717,6 +1741,7 @@ for LeechCraft SB2.
 %endif
 
 
+%if 0%{?suse_version} >= 1230
 %package monocle
 Summary:        LeechCraft Document viewer Module
 Group:          Productivity/Networking/Other
@@ -1811,6 +1836,7 @@ This package contains a Djvu subplugin for LeechCraft Monocle.
 
 This package provides Djvu documents support for Document viewer Module
 via the DjvuLibre backend.
+%endif
 
 
 %package musiczombie
@@ -2256,14 +2282,14 @@ with a suitable plugin like Aggregator.
  * Show results in HTML format with a suitable plugin like Poshuku.
 
 
-%package shaitan
-Summary:        LeechCraft Shaitan Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-Requires:       xterm
-
-%description shaitan
-This package provides a terminal plugin for Leechcraft.
+# %%package shaitan
+# Summary:        LeechCraft Shaitan Module
+# Group:          Productivity/Networking/Other
+# Requires:       %%{name} = %%{version}
+# Requires:       xterm
+# 
+# %%description shaitan
+# This package provides a terminal plugin for Leechcraft.
 
 
 #%%package snails
@@ -2622,6 +2648,7 @@ cmake ../src \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DSTRICT_LICENSING=True \
+        -DWITH_QWT=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
 %if 0%{?suse_version} >= 1230
@@ -2659,6 +2686,7 @@ cmake ../src \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_DUMBEEP=True \
                 -DDUMBEEP_WITH_PHONON=True \
+        -DENABLE_ELEEMINATOR=True \
 %if %{fenet}
         -DENABLE_FENET=True \
 %else
@@ -2707,6 +2735,7 @@ cmake ../src \
 %else
                 -DENABLE_LMP_BRAINSLUGZ=False \
 %endif
+                -DENABLE_LMP_FRADJ=True \
                 -DENABLE_LMP_GRAFFITI=True \
                 -DENABLE_LMP_HTTSTREAM=True \
                 -DENABLE_LMP_LIBGUESS=True \
@@ -2721,9 +2750,13 @@ cmake ../src \
 %else
         -DENABLE_MELLONETRAY=False \
 %endif
+%if 0%{?suse_version} >= 1230
         -DENABLE_MONOCLE=True \
         -DENABLE_MONOCLE_MU=True \
                 -DMUPDF_VERSION=0x0102 \
+%else
+        -DENABLE_MONOCLE=False \
+%endif
         -DENABLE_MUSICZOMBIE=True \
                 -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
         -DENABLE_NACHEKU=False \
@@ -2747,7 +2780,7 @@ cmake ../src \
         -DENABLE_SB2=True \
         -DENABLE_SCROBLIBRE=True \
         -DENABLE_SECMAN=True \
-        -DENABLE_SHAITAN=True \
+        -DENABLE_SHAITAN=False \
         -DENABLE_SHELLOPEN=False \
         -DENABLE_SNAILS=False \
         -DENABLE_SYNCER=True \
@@ -2804,9 +2837,11 @@ cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_messenger
 This file marks the pattern meta_messenger to be installed.
 EOF
 
+%if 0%{?suse_version} >= 1230
 cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_office
 This file marks the pattern meta_office to be installed.
 EOF
+%endif
 
 cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_tools
 This file marks the pattern meta_tools to be installed.
@@ -3298,6 +3333,12 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_dumbeep.so
 %{_datadir}/%{name}/settings/dumbeepsettings.xml
 
+%files eleeminator
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_eleeminator.so
+%{_datadir}/%{name}/translations/%{name}_eleeminator_??.qm
+%{_datadir}/%{name}/translations/%{name}_eleeminator_??_??.qm
+
 %if %{fenet}
 %files fenet
 %defattr(-,root,root)
@@ -3492,6 +3533,12 @@ EOF
 %{_datadir}/%{name}/translations/%{name}_lmp_dumbsync_??.qm
 %{_datadir}/%{name}/translations/%{name}_lmp_dumbsync_??_??.qm
 
+%files lmp-fradj
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_lmp_fradj.so
+%{_datadir}/%{name}/translations/%{name}_lmp_fradj_??.qm
+%{_datadir}/%{name}/translations/%{name}_lmp_fradj_??_??.qm
+
 %files lmp-graffiti
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_lmp_graffiti.so
@@ -3527,6 +3574,7 @@ EOF
 %{_datadir}/%{name}/translations/%{name}_mellonetray_*.qm
 %endif
 
+%if 0%{?suse_version} >= 1230
 %files monocle
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle.so
@@ -3560,6 +3608,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_seen.so
 %{_datadir}/applications/%{name}-monocle-seen.desktop
+%endif
 
 %files musiczombie
 %defattr(-,root,root)
@@ -3737,9 +3786,9 @@ EOF
 %{translations_dir}/%{name}_seekthru*.qm
 %{plugin_dir}/*%{name}_seekthru.so
 
-%files shaitan
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_shaitan.so
+# %%files shaitan
+# %%defattr(-,root,root)
+# %%{_libdir}/%%{name}/plugins/lib%%{name}_shaitan.so
 
 %files summary
 %defattr(-,root,root)
@@ -3888,10 +3937,12 @@ EOF
 %dir %{_docdir}/%{name}/
 %{_docdir}/%{name}/meta_messenger
 
+%if 0%{?suse_version} >= 1230
 %files meta_office
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}/
 %{_docdir}/%{name}/meta_office
+%endif
 
 %files meta_tools
 %defattr(-,root,root)
