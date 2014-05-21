@@ -1,0 +1,143 @@
+-------------------------------------------------------------------
+Sun Sep  8 18:55:27 UTC 2013 - fisiu@opensuse.org
+
+- Rebuild package to fix PM#86.
+
+-------------------------------------------------------------------
+Sun Apr  7 10:20:15 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Update to 0.9.6 
+  + Fix keyframes when cutting a clip / undoing a clip cut
+  + Warn before overwriting .mlt stabilized file
+  + Fix monitor confusion (clip monitor sometimes playing timeline)
+  + Fix the Mono to Stereo effect UI
+  + Fix proxy of playlist having wrong aspect ratio in some locales
+  + Fix transition widget not correctly updated when resizing a 
+    transition
+  + Fix DVD chapters broken when using an intro movie
+  + Fix error message (No matching profile) poping up in render 
+    widget when everything was ok
+  + Fix clip keyframes not showing on project load
+  + Fix bug when moving guide (was not moving to the correct place)
+  + Fix project corruption (wrong character) caused by some clip's 
+    metadata
+  + Fix possible crash on track deletion
+  + Fix timeline corruption when using spacer tool or overwrite edit 
+    mode
+  + Fix possible crash when editing speed effect
+  + Fix transition losing all its properties when moved
+  + Fix crash when pressing del when editing animation in title 
+    widget
+  + Fix crash when doing quick clip resize
+  + Fix corruption when groups where overlapping
+  + Fix corruption when adding a title clip where a transition already 
+    existed
+  + Fix timeline preview corruption with some transitions
+
+-------------------------------------------------------------------
+Tue Feb  5 14:51:21 UTC 2013 - reddwarf@opensuse.org
+
+- Add missing BR: pkgconfig(libv4l2)
+
+-------------------------------------------------------------------
+Wed Jan 30 13:05:05 UTC 2013 - reddwarf@opensuse.org
+
+- Do not recommend recordmydesktop. It's not used any more.
+- Update the minimum mlt version
+- Reenable V4L support. The legal problem has been fixed.
+
+-------------------------------------------------------------------
+Wed Jan 30 12:49:09 UTC 2013 - nico.kruber@gmail.com
+
+- Update to 0.9.4
+  + Rewritten DVD Wizard
+  + Improved clip markers
+  + Rewritten Screen Capture
+  + Support for multiple streams clips
+  + Clip analysis feature
+  + Stability and Performance improvements
+    - 8 features introduced
+    - 124 bugs fixed
+
+-------------------------------------------------------------------
+Fri Nov 30 10:32:21 UTC 2012 - reddwarf@opensuse.org
+
+- Make it work with versioned melt binaries
+- Add kdenlive-0.9.2-no_avformat.patch to support systems without
+  the avformat plugin
+
+-------------------------------------------------------------------
+Thu Aug 16 11:05:12 UTC 2012 - reddwarf@opensuse.org
+
+- Recommend a package with the avformat module
+
+-------------------------------------------------------------------
+Mon Aug 13 00:30:29 UTC 2012 - reddwarf@opensuse.org
+
+- Require libmltX-modules and libmltX-data
+
+-------------------------------------------------------------------
+Sun Aug 12 16:40:32 UTC 2012 - reddwarf@opensuse.org
+
+- Add kdenlive-0.9.2-mlt_datadir.patch to use the correct MLT data
+  dir by default
+
+-------------------------------------------------------------------
+Fri Jun  1 13:31:00 UTC 2012 - reddwarf@opensuse.org
+
+- Disable V4L support (bnc#765082). GPL-2.0 only, incompatible
+  with GPL-3.0+ parts.
+
+-------------------------------------------------------------------
+Thu May 31 12:01:52 UTC 2012 - reddwarf@opensuse.org
+
+- Update to 0.9.2
+  + Fix freeze when reloading previously missing clip
+  + Fade effects lost when moving / resizing clip
+  + Undoing change in clip crop start breaking clip
+  + Make disabling of track effects possible
+  + Fix slideshow clips not working
+  + Fix crash on composite transition
+  + Fix crash when opening stop motion widget
+  + Fix rendering of projects created in another locale
+  + Fix Firewire capture
+
+-------------------------------------------------------------------
+Tue May 15 12:04:17 UTC 2012 - reddwarf@opensuse.org
+
+- Update to 0.9
+  * Improved effects workflow
+  * Automatic audio alignment
+  * Easy import of online resources
+  * Usability improvements
+    - Recording can now be monitored through the audio and color
+      scopes, audio normalization can analyse audio for better
+      results
+    - Allow audio only recording
+    - Clips can be sorted by date
+    - New effects from MLT / frei0r: video stabilizers,
+      IIR Blur, etc
+    - Offline editing (Backup the project with proxy clips only to
+      work on less powerful computers)
+  * Read the ChangeLog file for a more complete list of changes
+- Add %icon_theme_cache_post and %desktop_database_post macros and
+  its dependencies as BuildRequires
+- Update the BuildRequires
+- Updates source tag with new URL
+- Recommend genisoimage instead of mkisofs
+
+-------------------------------------------------------------------
+Fri May  4 09:53:15 UTC 2012 - reddwarf@opensuse.org
+
+- Change license from GPL-2.0+ to GPL-2.0 (bnc#760651)
+
+-------------------------------------------------------------------
+Mon Feb 27 14:22:39 UTC 2012 - saschpe@suse.de
+
+- Set SPDX-style license
+
+-------------------------------------------------------------------
+Sun Aug 23 17:29:59 UTC 2009 - reddwarf@opensuse.org
+
+- Initial package
+

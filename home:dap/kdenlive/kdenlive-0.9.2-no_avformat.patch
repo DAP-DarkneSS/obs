@@ -1,0 +1,110 @@
+Index: src/renderwidget.cpp
+===================================================================
+--- src/renderwidget.cpp.orig
++++ src/renderwidget.cpp
+@@ -1280,53 +1280,47 @@ void RenderWidget::refreshView()
+                 }
+                 
+                 // Make sure the selected profile uses an installed avformat codec / format
+-                if (!formatsList.isEmpty()) {
+-                    QString format;
+-                    if (std.startsWith("f=")) format = std.section("f=", 1, 1);
+-                    else if (std.contains(" f=")) format = std.section(" f=", 1, 1);
+-                    if (!format.isEmpty()) {
+-                        format = format.section(' ', 0, 0).toLower();
+-                        if (!formatsList.contains(format)) {
+-                            kDebug() << "***** UNSUPPORTED F: " << format;
+-                            //sizeItem->setHidden(true);
+-                            //sizeItem-item>setFlags(Qt::ItemIsSelectable);
+-                            dupItem->setToolTip(i18n("Unsupported video format: %1", format));
+-                            dupItem->setIcon(brokenIcon);
+-                            dupItem->setForeground(disabled);
+-                        }
++                QString format;
++                if (std.startsWith("f=")) format = std.section("f=", 1, 1);
++                else if (std.contains(" f=")) format = std.section(" f=", 1, 1);
++                if (!format.isEmpty()) {
++                    format = format.section(' ', 0, 0).toLower();
++                    if (formatsList.isEmpty() || !formatsList.contains(format)) {
++                        kDebug() << "***** UNSUPPORTED F: " << format;
++                        //sizeItem->setHidden(true);
++                        //sizeItem-item>setFlags(Qt::ItemIsSelectable);
++                        dupItem->setToolTip(i18n("Unsupported video format: %1", format));
++                        dupItem->setIcon(brokenIcon);
++                        dupItem->setForeground(disabled);
+                     }
+                 }
+-                if (!acodecsList.isEmpty()) {
+-                    QString format;
+-                    if (std.startsWith("acodec=")) format = std.section("acodec=", 1, 1);
+-                    else if (std.contains(" acodec=")) format = std.section(" acodec=", 1, 1);
+-                    if (!format.isEmpty()) {
+-                        format = format.section(' ', 0, 0).toLower();
+-                        if (!acodecsList.contains(format)) {
+-                            kDebug() << "*****  UNSUPPORTED ACODEC: " << format;
+-                            //sizeItem->setHidden(true);
+-                            //sizeItem->setFlags(Qt::ItemIsSelectable);
+-                            dupItem->setToolTip(i18n("Unsupported audio codec: %1", format));
+-                            dupItem->setIcon(brokenIcon);
+-                            dupItem->setForeground(disabled);
+-                            dupItem->setBackground(disabledbg);
+-                        }
++                QString acodec;
++                if (std.startsWith("acodec=")) acodec = std.section("acodec=", 1, 1);
++                else if (std.contains(" acodec=")) acodec = std.section(" acodec=", 1, 1);
++                if (!acodec.isEmpty()) {
++                    acodec = acodec.section(' ', 0, 0).toLower();
++                    if (acodecsList.isEmpty() || !acodecsList.contains(acodec)) {
++                        kDebug() << "*****  UNSUPPORTED ACODEC: " << acodec;
++                        //sizeItem->setHidden(true);
++                        //sizeItem->setFlags(Qt::ItemIsSelectable);
++                        dupItem->setToolTip(i18n("Unsupported audio codec: %1", acodec));
++                        dupItem->setIcon(brokenIcon);
++                        dupItem->setForeground(disabled);
++                        dupItem->setBackground(disabledbg);
+                     }
+                 }
+-                if (!vcodecsList.isEmpty()) {
+-                    QString format;
+-                    if (std.startsWith("vcodec=")) format = std.section("vcodec=", 1, 1);
+-                    else if (std.contains(" vcodec=")) format = std.section(" vcodec=", 1, 1);
+-                    if (!format.isEmpty()) {
+-                        format = format.section(' ', 0, 0).toLower();
+-                        if (!vcodecsList.contains(format)) {
+-                            kDebug() << "*****  UNSUPPORTED VCODEC: " << format;
+-                            //sizeItem->setHidden(true);
+-                            //sizeItem->setFlags(Qt::ItemIsSelectable);
+-                            dupItem->setToolTip(i18n("Unsupported video codec: %1", format));
+-                            dupItem->setIcon(brokenIcon);
+-                            dupItem->setForeground(disabled);
+-                        }
++                QString vcodec;
++                if (std.startsWith("vcodec=")) vcodec = std.section("vcodec=", 1, 1);
++                else if (std.contains(" vcodec=")) vcodec = std.section(" vcodec=", 1, 1);
++                if (!vcodec.isEmpty()) {
++                    vcodec = vcodec.section(' ', 0, 0).toLower();
++                    if (vcodecsList.isEmpty() || !vcodecsList.contains(vcodec)) {
++                        kDebug() << "*****  UNSUPPORTED VCODEC: " << vcodec;
++                        //sizeItem->setHidden(true);
++                        //sizeItem->setFlags(Qt::ItemIsSelectable);
++                        dupItem->setToolTip(i18n("Unsupported video codec: %1", vcodec));
++                        dupItem->setIcon(brokenIcon);
++                        dupItem->setForeground(disabled);
+                     }
+                 }
+                 if (std.contains(" profile=") || std.startsWith("profile=")) {
+Index: export/profiles.xml
+===================================================================
+--- export/profiles.xml.orig
++++ export/profiles.xml
+@@ -8,6 +8,10 @@
+   <profile name="NTSC 720 30p" standard="NTSC" args="f=mpegts acodec=mp2 ab=384k ar=48000 ac=2 vcodec=mpeg2video s=1280x720 vb=19700k g=15 trellis=1 mlt_profile=hdv_720_30p pass=%passes" />
+ </group>
+ 
++<group name="Raw DV" renderer="libdv" type="av" extension="dv">
++  <profile name="libdv" />
++</group>
++
+ <group name="Raw DV" renderer="avformat" type="av" extension="dv">
+   <profile name="DV PAL 4:3" standard="PAL" args="f=dv pix_fmt=yuv420p s=720x576 mlt_profile=dv_pal" />
+   <profile name="DV PAL 16:9" standard="PAL" args="f=dv pix_fmt=yuv420p s=720x576 mlt_profile=dv_pal_wide" />
