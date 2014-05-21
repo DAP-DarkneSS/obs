@@ -21,7 +21,7 @@
 %define qt_version 4.5
 
 Name:           kdenlive
-Version:        0.9.6
+Version:        0.9.8
 Release:        0
 Summary:        Non-linear video editor
 License:        GPL-3.0+

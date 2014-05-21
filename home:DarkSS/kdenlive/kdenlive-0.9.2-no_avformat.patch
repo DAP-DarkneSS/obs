@@ -1,7 +1,7 @@
-Index: src/renderwidget.cpp
+Index: src/widgets/renderwidget.cpp
 ===================================================================
---- src/renderwidget.cpp.orig
-+++ src/renderwidget.cpp
+--- src/widgets/renderwidget.cpp.orig
++++ src/widgets/renderwidget.cpp
 @@ -1280,53 +1280,47 @@ void RenderWidget::refreshView()
                  }
                  
@@ -97,14 +97,14 @@ Index: export/profiles.xml
 ===================================================================
 --- export/profiles.xml.orig
 +++ export/profiles.xml
-@@ -8,6 +8,10 @@
-   <profile name="NTSC 720 30p" standard="NTSC" args="f=mpegts acodec=mp2 ab=384k ar=48000 ac=2 vcodec=mpeg2video s=1280x720 vb=19700k g=15 trellis=1 mlt_profile=hdv_720_30p pass=%passes" />
- </group>
+@@ -59,6 +59,10 @@
+     <profile name="Apple Quicktime" bitrates="400,1000,2000" defaultbitrate="2000"
+       extension="mov" args="acodec=aac ab=128k ac=2 ar=48000 vcodec=mpeg4 vb=%bitrate+'k' aspect=%dar pass=%passes" />
+   </group>
++ 
++  <group name="Raw DV" renderer="libdv" type="av" extension="dv">
++    <profile name="libdv" />
++  </group>
  
-+<group name="Raw DV" renderer="libdv" type="av" extension="dv">
-+  <profile name="libdv" />
-+</group>
-+
- <group name="Raw DV" renderer="avformat" type="av" extension="dv">
-   <profile name="DV PAL 4:3" standard="PAL" args="f=dv pix_fmt=yuv420p s=720x576 mlt_profile=dv_pal" />
-   <profile name="DV PAL 16:9" standard="PAL" args="f=dv pix_fmt=yuv420p s=720x576 mlt_profile=dv_pal_wide" />
+   <group name="Raw DV" renderer="avformat" type="av" extension="dv">
+     <profile name="DV PAL 4:3"         standard="PAL"  args="properties=dv_pal/DV             mlt_profile=dv_pal" />

@@ -2,7 +2,7 @@ Index: src/CMakeLists.txt
 ===================================================================
 --- src/CMakeLists.txt.orig
 +++ src/CMakeLists.txt
-@@ -11,6 +11,24 @@ endif(APPLE)
+@@ -11,6 +11,24 @@
  macro_optional_find_package(Nepomuk)
  macro_optional_find_package(QJSON)
  
@@ -24,23 +24,25 @@ Index: src/CMakeLists.txt
 +  add_definitions(-DMLT_MELTBIN=\\\"\"${MLT_MELTBIN}\"\\\")
 +endif(NOT MLT_MELTBIN_failed)
 +
- option(WITH_V4L "Build capture support with Video4Linux" ON)
  option(WITH_JogShuttle "Build Jog/Shuttle support" ON)
  
+ set(FFMPEG_SUFFIX "" CACHE STRING "FFmpeg custom suffix")
+
 Index: src/mainwindow.cpp
 ===================================================================
 --- src/mainwindow.cpp.orig
 +++ src/mainwindow.cpp
-@@ -2183,10 +2183,10 @@ void MainWindow::parseProfiles(const QSt
+@@ -2359,11 +2359,11 @@
      }
  
-     if (KdenliveSettings::mltpath().isEmpty())
+     if (KdenliveSettings::mltpath().isEmpty()) {
 -        KdenliveSettings::setMltpath(QString(MLT_PREFIX) + QString("/share/mlt/profiles/"));
 +        KdenliveSettings::setMltpath(QString(MLT_DATADIR) + QString("/profiles/"));
+     }
  
      if (KdenliveSettings::rendererpath().isEmpty() || KdenliveSettings::rendererpath().endsWith("inigo")) {
 -        QString meltPath = QString(MLT_PREFIX) + QString("/bin/melt");
 +        QString meltPath = QString(MLT_MELTBIN);
-         if (!QFile::exists(meltPath))
+         if (!QFile::exists(meltPath)) {
              meltPath = KStandardDirs::findExe("melt");
-         KdenliveSettings::setRendererpath(meltPath);
+         }
