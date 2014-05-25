@@ -16,6 +16,8 @@
 #
 
 
+%define qt_ver 4
+
 %define pack_summ Qt4 terminal widget
 
 %define pack_desc QTermWidget is an opensource project based on KDE4 \
@@ -31,14 +33,15 @@ code dealing with user interface parts and session management was \
 removed (maybe later I bring it back somehow), and the result is quite \
 useful, I suppose.
 
-Name:           qtermwidget
-Version:        0.4.0
+Name:           qtermwidget-qt%{qt_ver}
+Version:        git
 Release:        0
 Summary:        %{pack_summ}
 License:        GPL-2.0+
 Group:          Development/Libraries/C and C++
 Url:            https://github.com/qterminal/qtermwidget
-Source:         https://github.com/qterminal/qtermwidget/archive/%{version}.tar.gz
+Source:         qtermwidget-%{version}.tar.xz
+# https://github.com/qterminal/qtermwidget/archive/%%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(QtGui) >= 4.7
@@ -46,12 +49,12 @@ BuildRequires:  pkgconfig(QtGui) >= 4.7
 %description
 %{pack_desc}
 
-%package -n libqtermwidget0
+%package -n libqtermwidget%{qt_ver}-0
 Summary:        %{pack_summ}
 Group:          Development/Libraries/C and C++
 Requires:       %{name}-data >= %{version}
 
-%description -n libqtermwidget0
+%description -n libqtermwidget%{qt_ver}-0
 %{pack_desc}
 
 %package data
@@ -66,13 +69,13 @@ Data files for qtermwidget library.
 %package devel
 Summary:        QTermWidget — devel package
 Group:          Development/Libraries/C and C++
-Requires:       libqtermwidget0 = %{version}
+Requires:       libqtermwidget%{qt_ver}-0 = %{version}
 
 %description devel
 Development environment for qtermwidget library.
 
 %prep
-%setup -q
+%setup -q -n qtermwidget-%{version}
 
 %build
 mkdir build && cd build
@@ -91,23 +94,26 @@ make V=1 %{?_smp_mflags}
 cd build
 make V=1 install DESTDIR=%{buildroot}
 
-%post -n libqtermwidget0 -p /sbin/ldconfig
+%post -n libqtermwidget%{qt_ver}-0 -p /sbin/ldconfig
 
-%postun -n libqtermwidget0 -p /sbin/ldconfig
+%postun -n libqtermwidget%{qt_ver}-0 -p /sbin/ldconfig
 
-%files -n libqtermwidget0
+%files -n libqtermwidget%{qt_ver}-0
 %defattr(-,root,root)
 %doc AUTHORS COPYING Changelog README
-%{_libdir}/lib%{name}*.so.*
+%{_libdir}/libqtermwidget*.so.*
 
 %files data
 %defattr(-,root,root)
-%{_datadir}/%{name}*
+%{_datadir}/qtermwidget*
 
 %files devel
 %defattr(-,root,root)
-%{_includedir}/%{name}*
-%{_libdir}/lib%{name}*.so
-%{_libdir}/qt4/plugins/designer/lib%{name}*plugin.so
+%{_includedir}/qtermwidget*
+%{_libdir}/libqtermwidget*.so
+%{_libdir}/qt4/plugins/designer/libqtermwidget*plugin.so
+%{_libdir}/pkgconfig/qtermwidget*.pc
+%{_datadir}/cmake/qtermwidget*
+
 
 %changelog
