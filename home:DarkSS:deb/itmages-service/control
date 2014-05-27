@@ -1,0 +1,14 @@
+Source: itmages-service
+Section: libs
+Priority: extra
+Maintainer: Dmitry Kor <rmPIC30@gmail.com>
+Standards-Version: 3.9.1
+Build-Depends: debhelper (>= 7), cdbs, python-support
+Homepage: https://launchpad.net/~itmages
+
+Package: itmages-service
+Depends: python2.7, python-pycurl, python2.7-dbus, python2.7-gobject, python-lxml, python-support, ${misc:Depends}, ${python:Depends}
+Architecture: any
+Description: ITmages service is a service that runs all the time in the system, and
+ service requests on bus DBus, offering to work with image hosting ITmages.
+ Using ITmages service you no longer need to write a uploader, and deal with a hosting API. Just use DBus.
