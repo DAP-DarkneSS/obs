@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Wed Apr 2 10:50:43 UTC 2014 - tittiatcoke@gmail.com
+
+- Update to 14.3.0
+  * The control for fullscreen mode has been rewritten and improved.
+  * Some presets have been added to the audio equalizer.
+  * (Experimental) Possibility to play (non-protected) blu-ray discs.
+  * Better support for multimedia keys. This can help control SMPlayer
+    with a remote control.
+  * New option in the playlist preferences for adding automatically 
+    other files in the folder to the playlist.
+  * The option "Move the window when the video area is dragged" has
+    been fixed.
+  * Better support for Youtube.
+  * Many bugfixes.
+
+-------------------------------------------------------------------
 Wed Aug 14 15:23:43 UTC 2013 - dap.darkness@gmail.com
 
 - Update to 0.8.6:

@@ -7,7 +7,7 @@
 # http://sourceforge.net/tracker/?group_id=185512
 # or http://bugs.opensuse.org/
 
-Name:           smplayer
+Name:           smplayer-qt5
 Version:        14.3.0
 Release:        0
 License:        GPL-2.0+
@@ -24,13 +24,30 @@ Patch9:         smplayer-add_kde_protocols_to_desktop_file.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  hicolor-icon-theme
-BuildRequires:  libkde4-devel
-BuildRequires:  libqt4-devel >= 4.2.0
 BuildRequires:  libstdc++-devel
 BuildRequires:  make
 BuildRequires:  update-desktop-files
+BuildRequires:  zlib-devel
+BuildRequires:  pkgconfig(Qt5Concurrent)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5PrintSupport)
+BuildRequires:  pkgconfig(Qt5Script)
+BuildRequires:  pkgconfig(Qt5Sql)
+BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt5Xml)
+%if 0%{?suse_version} > 1310
+BuildRequires:  libQt5Gui-private-headers-devel
+%else
+BuildRequires:  libqt5-qtbase-private-headers-devel
+%endif
+BuildRequires:  libqt5-qttools-devel
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5WebKitWidgets)
 # requires at least this version for closed caption channel support:
 Requires:       MPlayer >= 1.0rc4_r32607
+Conflicts:      smplayer
 Provides:       smplayer-core = %{version}
 Recommends:     smplayer-skins
 Suggests:       smplayer-themes
@@ -53,11 +70,7 @@ you left it, and with the same settings: audio track, subtitles, volume...
 %patch4
 %patch9
 %__perl -n -e 'print $1,"\n" if /^\+{3}\s+(.+?)\s+/' < "%{PATCH4}" | while read f; do
-%if 0%{?suse_version} >= 1210
-    %__sed -i 's/@@DEFAULT@@/pulse/g' "$f"
-%else
-    %__sed -i 's/@@DEFAULT@@/alsa/g' "$f"
-%endif
+%__sed -i 's/@@DEFAULT@@/pulse/g' "$f"
 done
 
 pushd src
@@ -81,22 +94,18 @@ done
     MAKEFLAGS="%{?_smp_flags}" \
     CONF_PREFIX="" \
     PREFIX="%{_prefix}" \
-    KDE_PREFIX="%{_prefix}" \
     DOC_PATH="%{_docdir}/%{name}" \
-    KDE_SUPPORT=1 \
-    KDE_INCLUDE_PATH="/usr/include" \
-    KDE_LIB_PATH="{%_libdir}"
+    QMAKE="%{_libqt5_bindir}/qmake" \
+    LRELEASE="%{_libqt5_bindir}/lrelease"
 
 %install
 %__make \
     MAKEFLAGS="" \
     CONF_PREFIX="%{buildroot}" \
     PREFIX="%{buildroot}%{_prefix}" \
-    KDE_PREFIX="%{buildroot}%{_prefix}" \
     DOC_PATH="%{buildroot}%{_docdir}/%{name}" \
-    KDE_SUPPORT=1 \
-    KDE_INCLUDE_PATH="/usr/include" \
-    KDE_LIB_PATH="%{_libdir}" \
+    QMAKE="%{_libqt5_bindir}/qmake" \
+    LRELEASE="%{_libqt5_bindir}/lrelease" \
     install
 
 %__rm -rf "%{buildroot}%{_docdir}/%{name}"
@@ -149,7 +158,7 @@ popd #docs
 %doc %{_mandir}/man1/smplayer.1%{ext_man}
 %lang(en_US) %{_datadir}/smplayer/translations/smplayer_en_US.qm
 
-%files lang -f %{name}.lang
+%files lang -f smplayer.lang
 %defattr(-,root,root)
 
 %changelog

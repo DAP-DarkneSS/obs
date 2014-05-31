@@ -14,7 +14,7 @@
 # Please submit bugfixes or comments via https://bugs.links2linux.org
 
 Name:           smplayer
-Version:        0.8.6
+Version:        14.3.0
 Release:        0
 License:        GPL-2.0+
 Summary:        Complete Frontend for MPlayer
@@ -24,7 +24,6 @@ Group:          Productivity/Multimedia/Video/Players
 Source:         http://prdownloads.sourceforge.net/smplayer/smplayer-%{version}.tar.bz2
 Patch1:         smplayer-makeflags.patch
 Patch2:         smplayer-disable-debug.patch
-Patch3:         smplayer-fix_logging_format.patch
 Patch4:         smplayer-default_ao.patch
 Patch8:         smplayer-simple-resize.patch
 # FIX-UPSTREAM to play network shared video correctly: #PM-48
@@ -39,6 +38,7 @@ BuildRequires:  make
 BuildRequires:  update-desktop-files
 # requires at least this version for closed caption channel support:
 Requires:       MPlayer >= 1.0rc4_r32607
+Provides:       smplayer-core = %{version}
 Recommends:     smplayer-skins
 Suggests:       smplayer-themes
 
@@ -57,7 +57,6 @@ you left it, and with the same settings: audio track, subtitles, volume...
 %setup -q -n "smplayer-%{version}"
 %patch1
 %patch2
-%patch3
 %patch4
 %patch9
 %__perl -n -e 'print $1,"\n" if /^\+{3}\s+(.+?)\s+/' < "%{PATCH4}" | while read f; do
