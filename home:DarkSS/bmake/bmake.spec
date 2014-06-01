@@ -1,20 +1,31 @@
-# $Id$
-# Authority: cheusov
-# Upstream: NetBSD
+#
+# spec file for package bmake
+#
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
 
-Summary: The NetBSD make(1) tool
-Name: bmake
-Version: 20111010
-Release: 1%{?dist}
-License: BSD with advertising
-Group: Development/Tools
-URL: ftp://ftp.NetBSD.org/pub/NetBSD/misc/sjg/
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
+#
 
-Source0: ftp://ftp.NetBSD.org/pub/NetBSD/misc/sjg/bmake-%{version}.tar.gz
-Source1: Linux.sys.mk
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
-#Requires: pkgsrc-mk-files
+Name:           bmake
+Version:        20140214
+Release:        0
+Summary:        The NetBSD make(1) tool
+License:        BSD-2-Clause and BSD-3-Clause and BSD-4-Clause
+Group:          Development/Tools
+Url:            ftp://ftp.NetBSD.org/pub/NetBSD/misc/sjg/
+Source0:        ftp://ftp.NetBSD.org/pub/NetBSD/misc/sjg/bmake-%{version}.tar.gz
+Source1:        Linux.sys.mk
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 bmake, the NetBSD make(1) tool, is a program designed to simplify the
@@ -27,7 +38,7 @@ bmake is similar to GNU make, even though the syntax for the advanced features
 supported in Makefiles is very different.
 
 %prep
-%setup -n %{name}
+%setup -q -n %{name}
 
 %build
 unset MAKEFLAGS
@@ -38,35 +49,15 @@ unset MAKEFLAGS
     --mksrc none
 
 %install
-%{__rm} -rf %{buildroot}
-%{__install} -Dp -m0644 bmake.1 %{buildroot}%{_mandir}/man1/bmake.1
-%{__install} -Dp -m0755 Linux/bmake %{buildroot}%{_bindir}/bmake
-%{__install} -Dp -m0644 %{SOURCE1} %{buildroot}%{_datadir}/mk/sys.mk
+install -Dp -m0644 bmake.1 %{buildroot}%{_mandir}/man1/bmake.1
+install -Dp -m0755 Linux/bmake %{buildroot}%{_bindir}/bmake
+install -Dp -m0644 %{SOURCE1} %{buildroot}%{_datadir}/mk/sys.mk
 
 %files
+%defattr(-,root,root)
 %doc ChangeLog README
 %doc %{_mandir}/man1/bmake.1*
 %{_bindir}/bmake
 %{_datadir}/mk/
 
 %changelog
-* Mon Jan 02 2012 Aleksey Cheusov <cheusov@NetBSD.org> 20111010-1
-- Update to 20111010 and adapted to Repoforge.
-
-* Tue Dec 08 2009 Vitaly Lipatov <lav@altlinux.ru> 20081111-alt4
-- add pkgsrc-mk-files require
-
-* Wed Jul 29 2009 Vitaly Lipatov <lav@altlinux.ru> 20081111-alt3
-- create dir for bmake macros
-
-* Thu Jul 23 2009 Aleksey Cheusov <vle@gmx.net> 20081111-alt2
-- Now bmake doesn't depend on mk-files
-
-* Sun Jul 12 2009 Vitaly Lipatov <lav@altlinux.ru> 20081111-alt1
-- initial build for ALT Linux Sisyphus
-
-* Mon Feb 23 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 20080515-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
-
-* Wed Jul 2 2008 Julio M. Merino Vidal <jmmv@NetBSD.org> - 20080515-1
-- Initial release for Fedora.
