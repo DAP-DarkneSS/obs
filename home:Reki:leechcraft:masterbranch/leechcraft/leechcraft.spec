@@ -32,7 +32,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-841-gf10d3be
+%define LEECHCRAFT_VERSION 0.6.65-1064-gcf4d260
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -104,6 +104,7 @@ BuildRequires:  libGeoIP-devel
 BuildRequires:  pkgconfig(libmtp)
 BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libpcre)
+BuildRequires:  pkgconfig(libprojectM)
 # BuildRequires:  pkgconfig(libspectre)
 BuildRequires:  pkgconfig(phonon)
 BuildRequires:  pkgconfig(purple)
@@ -154,9 +155,12 @@ BuildRequires:  jbig2dec-devel
 BuildRequires:  liblaretz-devel
 BuildRequires:  mupdf-devel-static
 BuildRequires:  openjpeg-devel
-BuildRequires:  qtermwidget-devel
+BuildRequires:  qtermwidget-qt4-devel >= 0.4.0.1400918638
 BuildRequires:  telepathy-qt4-devel
 BuildRequires:  wt-devel >= 3.3
+%if 0%{?suse_version} <= 1310
+BuildRequires:  pkgconfig(QtMultimediaKit)
+%endif
 BuildRequires:  pkgconfig(libguess)
 BuildRequires:  pkgconfig(libvlc)
 
@@ -393,10 +397,10 @@ Requires:       %{name}-popishu
 Recommends:     %{name}-meta_tools
 Recommends:     %{name}-monocle-mu
 Recommends:     %{name}-otlozhu
-%endif
 
 %description meta_office
 This package is installed if a pattern is selected to have a working update path
+%endif
 
 %package meta_tools
 Summary:        Meta package for pattern leechcraft_websurf
@@ -1885,14 +1889,25 @@ Supported services:
  * Google Drive
 
 
+%package netstoremanager-dropbox
+Summary:        LeechCraft DropBox storage Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-cstp = %{version}
+Requires:       %{name}-netstoremanager = %{version}
+Provides:       %{name}-netstoremanager-subplugin
+
+%description netstoremanager-dropbox
+This package provides a DropBox subplugin for Leechcraft NetStoreManager.
+
+
 %package netstoremanager-googledrive
-Summary:        LeechCraft Network file storages Module
+Summary:        LeechCraft Google Drive storage Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-netstoremanager = %{version}
 Provides:       %{name}-netstoremanager-subplugin
 
 %description netstoremanager-googledrive
-This package provides a Google Drive sunplugin for Leechcraft NetStoreManager.
+This package provides a Google Drive subplugin for Leechcraft NetStoreManager.
 
 
 #%%package netstoremanager-yandexdisk
@@ -2669,7 +2684,11 @@ cmake ../src \
                 -DENABLE_AZOTH_WOODPECKER=False \
 %endif
                 -DENABLE_AZOTH_ZHEET=True \
+%if 0%{?suse_version} <= 1310
+                -DENABLE_MEDIACALLS=True \
+%else
                 -DENABLE_MEDIACALLS=False \
+%endif
         -DENABLE_BLACKDASH=False \
         -DENABLE_BLASQ=True \
 %if %{vangog}
@@ -2761,6 +2780,8 @@ cmake ../src \
                 -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
         -DENABLE_NACHEKU=False \
         -DENABLE_NETSTOREMANAGER=True \
+                -DENABLE_NETSTOREMANAGER_DROPBOX=True \
+                -DENABLE_NETSTOREMANAGER_GOOGLEDRIVE=True \
         -DENABLE_NEWLIFE=True \
         -DENABLE_OORONEE=True \
         -DENABLE_OTLOZHU=True \
@@ -3628,6 +3649,11 @@ EOF
 %{_datadir}/%{name}/translations/%{name}_netstoremanager_??.qm
 %{_datadir}/%{name}/translations/%{name}_netstoremanager_??_??.qm
 
+%files netstoremanager-dropbox
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_netstoremanager_dbox.so
+%{_datadir}/%{name}/settings/nsmdropboxsettings.xml
+
 %files netstoremanager-googledrive
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_netstoremanager_googledrive.so
@@ -3661,6 +3687,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_otlozhu.so
 %{_datadir}/%{name}/translations/%{name}_otlozhu_*.qm
+%{_datadir}/%{name}/settings/otlozhusettings.xml
 
 %files pintab
 %defattr(-,root,root)
