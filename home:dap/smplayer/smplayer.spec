@@ -1,6 +1,8 @@
-# vim: set sw=4 ts=4 et:
-
+#
+# spec file for package smplayer
+#
 # Copyright (c) 2012 Pascal Bleser <pascal.bleser@opensuse.org>
+# Copyright (c) 2014 Packman team: http://packman.links2linux.org/
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -12,6 +14,8 @@
 # published by the Open Source Initiative.
 
 # Please submit bugfixes or comments via https://bugs.links2linux.org
+#
+
 
 Name:           smplayer
 Version:        14.3.0
@@ -20,7 +24,6 @@ License:        GPL-2.0+
 Summary:        Complete Frontend for MPlayer
 Url:            http://smplayer.sourceforge.net/
 Group:          Productivity/Multimedia/Video/Players
-
 Source:         http://prdownloads.sourceforge.net/smplayer/smplayer-%{version}.tar.bz2
 Patch1:         smplayer-makeflags.patch
 Patch2:         smplayer-disable-debug.patch
@@ -28,11 +31,18 @@ Patch4:         smplayer-default_ao.patch
 Patch8:         smplayer-simple-resize.patch
 # FIX-UPSTREAM to play network shared video correctly: #PM-48
 Patch9:         smplayer-add_kde_protocols_to_desktop_file.patch
+# TODO: Please remove Patch10 if version changes.
+# https://bugzilla.novell.com/show_bug.cgi?id=879726
+# https://www.assembla.com/code/smplayer/subversion/commit/6208
+# https://www.assembla.com/code/smplayer/subversion/commit/6209
+# https://www.assembla.com/code/smplayer/subversion/commit/6212
+# FIX-UPSTREAM to prevent mouse seeking issue:
+Patch10:        smplayer-4.13.0-mousewheel_seeking.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libkde4-devel
-BuildRequires:  libqt4-devel >= 4.7
+BuildRequires:  libqt4-devel >= 4.2.0
 BuildRequires:  libstdc++-devel
 BuildRequires:  make
 BuildRequires:  update-desktop-files
@@ -59,6 +69,7 @@ you left it, and with the same settings: audio track, subtitles, volume...
 %patch2
 %patch4
 %patch9
+%patch10
 %__perl -n -e 'print $1,"\n" if /^\+{3}\s+(.+?)\s+/' < "%{PATCH4}" | while read f; do
 %if 0%{?suse_version} >= 1210
     %__sed -i 's/@@DEFAULT@@/pulse/g' "$f"
@@ -66,12 +77,8 @@ you left it, and with the same settings: audio track, subtitles, volume...
     %__sed -i 's/@@DEFAULT@@/alsa/g' "$f"
 %endif
 done
-#'
 
 pushd src
-#% patch5
-#% patch6
-#% patch7
 %patch8
 popd
 
@@ -149,9 +156,9 @@ popd #docs
 %{_bindir}/smplayer
 %{_datadir}/applications/smplayer.desktop
 %{_datadir}/applications/smplayer_enqueue.desktop
+%dir %{_datadir}/icons/*/*
+%dir %{_datadir}/icons/*/*/apps
 %{_datadir}/icons/*/*/apps/smplayer.*
-%dir %{_datadir}/icons/hicolor/512x512
-%dir %{_datadir}/icons/hicolor/512x512/apps
 %dir %{_datadir}/smplayer
 %config %{_datadir}/smplayer/input.conf
 %dir %{_datadir}/smplayer/shortcuts

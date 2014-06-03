@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jun  2 03:57:58 UTC 2014 - dap.darkness@gmail.com
+
+- Added smplayer-4.13.0-mousewheel_seeking.patch vs. bnc#879726.
+- Fixed up license headers of spec files.
+- Synced spec file with KDE:Extra.
+
+-------------------------------------------------------------------
 Wed Apr 2 10:50:43 UTC 2014 - tittiatcoke@gmail.com
 
 - Update to 14.3.0

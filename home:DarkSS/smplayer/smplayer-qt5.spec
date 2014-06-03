@@ -2,10 +2,19 @@
 # spec file for package smplayer
 #
 # Copyright (c) 2006-2012 Ricardo Villalba aka rvm (GPLv2)
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
-# Please submit bugfixes or comments via
-# http://sourceforge.net/tracker/?group_id=185512
-# or http://bugs.opensuse.org/
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
+#
 
 Name:           smplayer-qt5
 Version:        14.3.0
@@ -21,6 +30,13 @@ Patch4:         smplayer-default_ao.patch
 Patch8:         smplayer-simple-resize.patch
 # FIX-UPSTREAM to play network shared video correctly: #PM-48
 Patch9:         smplayer-add_kde_protocols_to_desktop_file.patch
+# TODO: Please remove Patch10 if version changes.
+# https://bugzilla.novell.com/show_bug.cgi?id=879726
+# https://www.assembla.com/code/smplayer/subversion/commit/6208
+# https://www.assembla.com/code/smplayer/subversion/commit/6209
+# https://www.assembla.com/code/smplayer/subversion/commit/6212
+# FIX-UPSTREAM to prevent mouse seeking issue:
+Patch10:        smplayer-4.13.0-mousewheel_seeking.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  hicolor-icon-theme
@@ -69,6 +85,7 @@ you left it, and with the same settings: audio track, subtitles, volume...
 %patch2
 %patch4
 %patch9
+%patch10
 %__perl -n -e 'print $1,"\n" if /^\+{3}\s+(.+?)\s+/' < "%{PATCH4}" | while read f; do
 %__sed -i 's/@@DEFAULT@@/pulse/g' "$f"
 done
