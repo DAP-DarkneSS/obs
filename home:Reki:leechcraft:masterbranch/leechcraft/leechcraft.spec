@@ -32,7 +32,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-1064-gcf4d260
+%define LEECHCRAFT_VERSION 0.6.65-1080-ge679226
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -158,7 +158,7 @@ BuildRequires:  openjpeg-devel
 BuildRequires:  qtermwidget-qt4-devel >= 0.4.0.1400918638
 BuildRequires:  telepathy-qt4-devel
 BuildRequires:  wt-devel >= 3.3
-%if 0%{?suse_version} <= 1310
+%if 0%{?suse_version} <= 1310 || 0%{?suse_version} >= 1230
 BuildRequires:  pkgconfig(QtMultimediaKit)
 %endif
 BuildRequires:  pkgconfig(libguess)
@@ -2684,7 +2684,7 @@ cmake ../src \
                 -DENABLE_AZOTH_WOODPECKER=False \
 %endif
                 -DENABLE_AZOTH_ZHEET=True \
-%if 0%{?suse_version} <= 1310
+%if 0%{?suse_version} <= 1310 || 0%{?suse_version} >= 1230
                 -DENABLE_MEDIACALLS=True \
 %else
                 -DENABLE_MEDIACALLS=False \
@@ -2796,6 +2796,7 @@ cmake ../src \
         -DENABLE_POSHUKU=True \
                 -DENABLE_POSHUKU_AUTOSEARCH=True \
                         -DUSE_POSHUKU_CLEANWEB_PCRE=True \
+                -DENABLE_POSHUKU_QRD=False \
                 -DENABLE_POSHUKU_SPEEDDIAL=True \
         -DENABLE_QROSP=True \
         -DENABLE_SB2=True \
