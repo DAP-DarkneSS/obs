@@ -32,7 +32,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-1080-ge679226
+%define LEECHCRAFT_VERSION 0.6.65-1166-g47d4934
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -41,8 +41,6 @@ Group:          Productivity/Networking/Other
 Source0:        %{name}-%{version}.tar.xz
 Source1:        %{name}.svg
 
-# PATCH-FEATURE-OPENSUSE to use environment settings to activate entries.
-Patch0:         azoth-entry-activates.patch
 # PATCH-FEATURE-OPENSUSE to update vlc plugin code base.
 # Patch1:         leechcraft-vlc-plusplus.patch
 # PATCH-FIX-OPENSUSE to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
@@ -158,10 +156,11 @@ BuildRequires:  openjpeg-devel
 BuildRequires:  qtermwidget-qt4-devel >= 0.4.0.1400918638
 BuildRequires:  telepathy-qt4-devel
 BuildRequires:  wt-devel >= 3.3
-%if 0%{?suse_version} <= 1310 || 0%{?suse_version} >= 1230
+%if 0%{?suse_version} <= 1310 && 0%{?suse_version} >= 1230
 BuildRequires:  pkgconfig(QtMultimediaKit)
 %endif
 BuildRequires:  pkgconfig(libguess)
+BuildRequires:  pkgconfig(libqrencode)
 BuildRequires:  pkgconfig(libvlc)
 
 
@@ -2187,6 +2186,17 @@ This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
 It provides support for the Read it Later service.
 
 
+%package poshuku-qrd
+Summary:        LeechCraft Poshuku - QR coDe Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-poshuku = %{version}
+
+%description poshuku-qrd
+This package provides a QR coDe support plugin for LeechCraft Poshuku.
+
+It shows the URL of a web page as a QR code.
+
+
 %package poshuku-speeddial
 Summary:        LeechCraft Poshuku - Speed Dial Module
 Group:          Productivity/Networking/Other
@@ -2628,7 +2638,6 @@ XmlSettingsDialog LeechCraft subsystem.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1
 # %%patch1 -p1
 # %%patch2
 # %%if 0%%{?suse_version} > 1230
@@ -2663,6 +2672,7 @@ cmake ../src \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DSTRICT_LICENSING=True \
+        -DWITH_PCRE=True \
         -DWITH_QWT=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
@@ -2684,7 +2694,7 @@ cmake ../src \
                 -DENABLE_AZOTH_WOODPECKER=False \
 %endif
                 -DENABLE_AZOTH_ZHEET=True \
-%if 0%{?suse_version} <= 1310 || 0%{?suse_version} >= 1230
+%if 0%{?suse_version} <= 1310 && 0%{?suse_version} >= 1230
                 -DENABLE_MEDIACALLS=True \
 %else
                 -DENABLE_MEDIACALLS=False \
@@ -2795,8 +2805,7 @@ cmake ../src \
         -DENABLE_POPISHU=True \
         -DENABLE_POSHUKU=True \
                 -DENABLE_POSHUKU_AUTOSEARCH=True \
-                        -DUSE_POSHUKU_CLEANWEB_PCRE=True \
-                -DENABLE_POSHUKU_QRD=False \
+                -DENABLE_POSHUKU_QRD=True \
                 -DENABLE_POSHUKU_SPEEDDIAL=True \
         -DENABLE_QROSP=True \
         -DENABLE_SB2=True \
@@ -3586,6 +3595,8 @@ EOF
 %files lmp-potorchu
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_lmp_potorchu.so
+%{_datadir}/%{name}/translations/%{name}_lmp_potorchu_??.qm
+%{_datadir}/%{name}/translations/%{name}_lmp_potorchu_??_??.qm
 %endif
 
 %if %{mellonetray}
@@ -3770,6 +3781,10 @@ EOF
 %files poshuku-onlinebookmarks-readitlater
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_poshuku_onlinebookmarks_readitlater.*
+
+%files poshuku-qrd
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_poshuku_qrd.so
 
 %files poshuku-speeddial
 %defattr(-,root,root)
