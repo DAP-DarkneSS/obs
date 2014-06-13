@@ -32,7 +32,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-1166-g47d4934
+%define LEECHCRAFT_VERSION 0.6.65-1202-g938ff67
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -208,7 +208,9 @@ dependencies and performs several other housekeeping tasks.
 %package meta_full
 Summary:        Meta package for pattern leechcraft_full
 Group:          Metapackages
+%if 0%{?suse_version} >= 1230
 Requires:       leechcraft-meta_browser
+%endif
 Requires:       leechcraft-meta_media
 Requires:       leechcraft-meta_messenger
 Requires:       leechcraft-meta_office
@@ -218,6 +220,7 @@ Requires:       leechcraft-meta_websurf
 %description meta_full
 This package is installed if a pattern is selected to have a working update path
 
+%if 0%{?suse_version} >= 1230
 %package meta_browser
 Summary:        Meta package for pattern leechcraft_browser
 Group:          Metapackages
@@ -247,6 +250,7 @@ Recommends:     %{name}-meta_tools
 
 %description meta_browser
 This package is installed if a pattern is selected to have a working update path
+%endif
 
 %package meta_desktop
 Summary:        Meta package for pattern leechcraft_browser
@@ -2039,6 +2043,7 @@ Features:
  * Support for multiple documents at once.
 
 
+%if 0%{?suse_version} >= 1230
 %package poshuku
 Summary:        LeechCraft Web Browser Module
 Group:          Productivity/Networking/Other
@@ -2204,6 +2209,7 @@ Requires:       %{name}-poshuku = %{version}
 
 %description poshuku-speeddial
 This package provides a Speed Dial support plugin for LeechCraft Poshuku.
+%endif
 
 
 %package qrosp
@@ -2317,16 +2323,16 @@ with a suitable plugin like Aggregator.
 # This package provides a terminal plugin for Leechcraft.
 
 
-#%%package snails
-#Summary:        LeechCraft Email client Module
-#Group:          Productivity/Networking/Other
-#BuildRequires:  libvmime-devel
-#Requires:      %%{name} = %%{version}
-#
-#%%description snails
-#This package contains a Email client plugin for LeechCraft.
-#
-#It provides basic Email client functionality and supports SMTP and IMAP4.
+# %%package snails
+# Summary:        LeechCraft Email client Module
+# Group:          Productivity/Networking/Other
+# BuildRequires:  pkgconfig(vmime) > 0.9.3
+# Requires:       %%{name} = %%{version}
+# 
+# %%description snails
+# This package contains a Email client plugin for LeechCraft.
+# 
+# It provides basic Email client functionality and supports SMTP and IMAP4.
 
 
 %package summary
@@ -2803,10 +2809,14 @@ cmake ../src \
         -DENABLE_POLEEMERY=False \
 %endif
         -DENABLE_POPISHU=True \
+%if 0%{?suse_version} >= 1230
         -DENABLE_POSHUKU=True \
                 -DENABLE_POSHUKU_AUTOSEARCH=True \
                 -DENABLE_POSHUKU_QRD=True \
                 -DENABLE_POSHUKU_SPEEDDIAL=True \
+%else
+        -DENABLE_POSHUKU=False \
+%endif
         -DENABLE_QROSP=True \
         -DENABLE_SB2=True \
         -DENABLE_SCROBLIBRE=True \
@@ -2852,9 +2862,11 @@ mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
 #-------------------------patterns----------------------------#
 %__install -d %{buildroot}%{_docdir}/%{name}
 
+%if 0%{?suse_version} >= 1230
 cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_browser
 This file marks the pattern meta_browser to be installed.
 EOF
+%endif
 
 cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_desktop
 This file marks the pattern meta_desktop to be installed.
@@ -3725,6 +3737,7 @@ EOF
 %{translations_dir}/%{name}_popishu_*.qm
 %{plugin_dir}/*%{name}_popishu.so
 
+%if 0%{?suse_version} >= 1230
 %files poshuku
 %defattr(-,root,root)
 %dir %{_datadir}/%{name}/installed
@@ -3790,6 +3803,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_poshuku_speeddial.so
 %{_datadir}/%{name}/settings/poshukuspeeddialsettings.xml
+%endif
 
 %files qrosp
 %defattr(-,root,root)
@@ -3960,10 +3974,12 @@ EOF
 %{_libdir}/lib%{name}-util-xsd*.so.*
 
 #-------------------------patterns----------------------------#
+%if 0%{?suse_version} >= 1230
 %files meta_browser
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}/
 %{_docdir}/%{name}/meta_browser
+%endif
 
 %files meta_desktop
 %defattr(-,root,root)
