@@ -1,4 +1,25 @@
 -------------------------------------------------------------------
+Sat Jun 14 19:41:11 UTC 2014 - dap.darkness@gmail.com
+
+- Upstream version 0.6.6:
+  * Added services: pastebin.mate-desktop.org & lpaste.net.
+  * Updated configurations nopaste sites.
+  * Removed initially added options for sending the results:
+    Dmesg, cpuinfo, lsusb, lspci on service Cerbero.
+  * Adding the option to save the report locally Validate,
+    without sending to Cerbero.
+  * Checking is installed xdpyinfo.
+  * Removed the default text for text fields.
+  * Adding detection system NETRUNNER + Sticker.
+  * Updated script detection system configurations [Tab System].
+  * Removed immediately send a report to Cerbero
+    and open in your default browser.
+  * Adding a dialog box with the ability to copy an address
+    for a report on Cerbero or open it in your default browser.
+  * Added counting downloads from the repository.
+  * Improved detection of graphics cards on most distributions.
+
+-------------------------------------------------------------------
 Mon Mar 17 17:15:51 UTC 2014 - dap.darkness@gmail.com
 
 
