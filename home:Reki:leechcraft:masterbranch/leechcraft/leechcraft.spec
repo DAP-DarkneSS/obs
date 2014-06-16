@@ -21,7 +21,7 @@
 %define settings_dir %{_datadir}/%{name}/settings
 %define azoth_dir %{_datadir}/%{name}/azoth
 
-%define so_ver 0_6_65
+%define so_ver 0_6_70
 
 %define fenet 1
 %define lmp 1
@@ -32,7 +32,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-1202-g938ff67
+%define LEECHCRAFT_VERSION 0.6.65-1262-g3431027
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -2323,16 +2323,16 @@ with a suitable plugin like Aggregator.
 # This package provides a terminal plugin for Leechcraft.
 
 
-# %%package snails
-# Summary:        LeechCraft Email client Module
-# Group:          Productivity/Networking/Other
-# BuildRequires:  pkgconfig(vmime) > 0.9.3
-# Requires:       %%{name} = %%{version}
-# 
-# %%description snails
-# This package contains a Email client plugin for LeechCraft.
-# 
-# It provides basic Email client functionality and supports SMTP and IMAP4.
+%package snails
+Summary:        LeechCraft Email client Module
+Group:          Productivity/Networking/Other
+BuildRequires:  libvmime-devel >= 0.9.2+git.1402265403
+Requires:       %{name} = %{version}
+
+%description snails
+This package contains a Email client plugin for LeechCraft.
+
+It provides basic Email client functionality and supports SMTP and IMAP4.
 
 
 %package summary
@@ -2678,6 +2678,7 @@ cmake ../src \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DSTRICT_LICENSING=True \
+        -DWITH_DBUS_LOADERS=True \
         -DWITH_PCRE=True \
         -DWITH_QWT=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
@@ -2823,7 +2824,7 @@ cmake ../src \
         -DENABLE_SECMAN=True \
         -DENABLE_SHAITAN=False \
         -DENABLE_SHELLOPEN=False \
-        -DENABLE_SNAILS=False \
+        -DENABLE_SNAILS=True \
         -DENABLE_SYNCER=True \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
@@ -3846,6 +3847,14 @@ EOF
 # %%files shaitan
 # %%defattr(-,root,root)
 # %%{_libdir}/%%{name}/plugins/lib%%{name}_shaitan.so
+
+%files snails
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_snails.so
+%{_datadir}/%{name}/settings/snailssettings.xml
+%{_datadir}/%{name}/translations/%{name}_snails_??.qm
+%{_datadir}/%{name}/translations/%{name}_snails_??_??.qm
+%{_datadir}/%{name}/snails
 
 %files summary
 %defattr(-,root,root)
