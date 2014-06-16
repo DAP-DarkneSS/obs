@@ -1,9 +1,9 @@
 diff --git a/src/util/sll/slotclosure.h b/src/util/sll/slotclosure.h
-index ca14e2a..f1ebfb4 100644
+index 2c9bbfc..a85a8ce 100644
 --- a/src/util/sll/slotclosure.h
 +++ b/src/util/sll/slotclosure.h
-@@ -61,7 +61,26 @@ namespace Util
- 					  , FireDestrPolicy<SlotClosureBase>
+@@ -63,7 +63,26 @@ namespace Util
+ 					  , public FireDestrPolicy<SlotClosureBase>
  	{
  	public:
 -		using SlotClosureBase::SlotClosureBase;
