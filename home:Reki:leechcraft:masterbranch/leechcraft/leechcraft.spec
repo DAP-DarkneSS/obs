@@ -32,7 +32,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-1262-g3431027
+%define LEECHCRAFT_VERSION 0.6.65-1294-g42aeb09
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -57,6 +57,7 @@ Patch5:         leechcraft-monocle-gcc47.patch
 # PATCH-FIX-OPENSUSE vs. names constructor error.
 Patch6:         leechcraft-gcc47.patch
 %endif
+Patch7:         leechcraft-cache-debuginfo.patch
 
 
 BuildRequires:  Qross-devel
@@ -2654,6 +2655,7 @@ XmlSettingsDialog LeechCraft subsystem.
 %patch5 -p1
 %patch6 -p1
 %endif
+%patch7 -p1
 
 # Mine ;)
 rm src/core/resources/images/leechcraft.svg
