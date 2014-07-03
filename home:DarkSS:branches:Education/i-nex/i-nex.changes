@@ -1,4 +1,31 @@
 -------------------------------------------------------------------
+Thu Jul  3 14:52:44 UTC 2014 - dap.darkness@gmail.com
+
+- Upstream version 7.0.0:
+  * Fixes in detection of GPU ChkPrm;
+  * Fix About license position;
+  * Add report-ng code to screenfetch;
+  * Print all data to one file as JSON format;
+  * Some ASOUND Fixes;
+  * Speed up Drives detection;
+  * Update Autotools;
+  * Remove Old CPU Logos, Remove Global class
+    and move GPU Logos to Finfosys.class;
+  * Update AMD Database;
+  * Update Intel Database;
+  * Not print Raw EDID in logfile;
+  * Replace ' to \";
+  * Remove Break if CPU has found And print help log;
+  * Update Atom Database;
+  * Update AMD Database;
+  * Update Intel Database;
+  * Fix Bug, Detect AMD APU As Sempron;
+  * Fix opacity;
+  * Fix Thermal Zone in IDB D425KT;
+  * Add ipinfo.io GUI to Network card;
+  * Update Kubuntu & OpenSUSE stickers.
+
+-------------------------------------------------------------------
 Sat Jun 14 19:41:11 UTC 2014 - dap.darkness@gmail.com
 
 - Upstream version 0.6.6:
