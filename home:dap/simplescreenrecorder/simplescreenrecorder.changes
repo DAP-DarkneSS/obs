@@ -1,4 +1,22 @@
 -------------------------------------------------------------------
+Thu Jul  3 14:34:04 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 0.3.0:
+  * Added profile support.
+  * New, more flexible OpenGL recording system
+    (glinject-next branch merged).
+  * More robust sound notifications.
+  * Show progress dialog while flushing the encoders.
+  * Improved hotkey support using XInput2.
+  * Improved synchronizer.
+  * Native support for mono microphones (plughw no longer needed).
+  * Added source detection for ALSA.
+  * Partially rewritten output backend.
+  * Improved mouse following algorithm.
+  * New icon.
+  * Bugfixes.
+
+-------------------------------------------------------------------
 Tue Mar  4 18:36:15 UTC 2014 - dap.darkness@gmail.com
 
 - Update to 0.2.2:
