@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jul  4 14:16:30 UTC 2014 - dap.darkness@gmail.com
+
+- Added Qrosspython-cmake3.patch vs. cmake3 compatibility issue:
+  https://github.com/0xd34df00d/Qross/commit/9053d214840
+
+-------------------------------------------------------------------
 Tue Feb  4 15:13:55 UTC 2014 - dap.darkness@gmail.com
 
 - src/bindings/csharp directory and other broken bingings

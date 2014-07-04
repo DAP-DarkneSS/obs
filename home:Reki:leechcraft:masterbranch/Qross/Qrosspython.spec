@@ -39,6 +39,9 @@ Group:          System/Libraries
 # really only src/bindings/python works now, see more at
 # https://bugzilla.novell.com/show_bug.cgi?id=861882
 Source0:        Qross-%{version}.tar.xz
+# https://github.com/0xd34df00d/Qross/commit/9053d214840
+# PATCH-FIX-UPSTREAM vs. cmake3 compatibility issue.
+Patch0:         Qrosspython-cmake3.patch
 
 BuildRequires:  Qross-devel
 BuildRequires:  python-sip-devel
@@ -67,6 +70,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n Qross-%{version}/src/bindings/python/qrosspython
+%patch0 -p1
 
 
 %build
