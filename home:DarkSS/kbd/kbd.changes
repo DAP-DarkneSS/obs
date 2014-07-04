@@ -1,4 +1,42 @@
 -------------------------------------------------------------------
+Fri Jul  4 14:36:42 UTC 2014 - dap.darkness@gmail.com
+
+- Update to version 2.0.2-rc2:
+  * libkeymap: fix kmap on big-endian machines
+  * Add lk_fpopen
+  * Fix runtime warinings
+  * Add functions to get the total number of elements
+  * Add functions to convert ksyms
+  * docs: Add header for libkeymap
+  * eurlatgr - new Linux console font
+  * Hide syms array
+  * Add information about the total number of elements
+  * Change lk_add_diacr declaration
+  * Add function to obtain items from the diacritical table
+  * Change the API for working with the diacritical table
+  * Change API for working with list of functions
+  * Add functions to check diacr/func existance
+  * Add pancyrillic font
+  * Add license block
+  * po: Update translations (from translationproject.org)
+  * Add a missing word to an error message.
+  * Add the handling of plurals to the extraction of
+  * translatable strings.
+  * Properly pluralize some progress messages.
+  * vlock: implement PAM account and password management
+  * vlock: rename ERROR_TIMEOUT macro to LONG_DELAY
+  * vlock: introduce short delays after non-fatal PAM errors
+  * Added Latvian keymap
+  * Add README.eurlatgr
+  * eurlatgr: fix U+2191 / U+2192
+  * eurlatgr: readd accidentally dropped remappings
+  * Remove old and obsolete fi.map
+  * Add new fi.map combining fi-latin1 and fi-latin9
+  * Remove now redundant fi-latin1 and fi-latin9 maps
+  * eurlatgr: add U+27E8/U+27E9 for man(1)
+  * libkeymap: include stdarg.h where used
+
+-------------------------------------------------------------------
 Sun Nov  3 17:51:09 UTC 2013 - dap.darkness@gmail.com
 
 - Update to version 2.0.1:

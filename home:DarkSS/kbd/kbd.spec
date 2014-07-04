@@ -1,7 +1,7 @@
 #
 # spec file for package kbd
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           kbd
-Version:        2.0.1
+Version:        2.0.2
 Release:        0
 Summary:        Keyboard and Font Utilities
 License:        GPL-2.0+
@@ -25,9 +25,9 @@ Group:          System/Console
 # git: git://git.altlinux.org/people/legion/packages/kbd.git
 Url:            ftp://ftp.altlinux.org/pub/people/legion/kbd/
 %if 0
-Source:         ftp://ftp.kernel.org/pub/linux/utils/kbd/kbd-%{version}.tar.xz
+Source:         ftp://ftp.kernel.org/pub/linux/utils/kbd/kbd-%{version}-rc2.tar.xz
 %else
-Source:         %{name}-%{version}-repack.tar.bz2
+Source:         %{name}-%{version}-rc2-repack.tar.bz2
 %endif
 Source1:        kbd_fonts.tar.bz2
 Source2:        suse-add.tar.bz2
@@ -83,7 +83,7 @@ Authors:
 %define kbd /usr/share/kbd
 
 %prep
-%setup -q -a 1 -a 2 -n kbd-%{version}
+%setup -q -a 1 -a 2 -n kbd-%{version}-rc2
 %patch0 -p1
 %patch2
 %patch3
