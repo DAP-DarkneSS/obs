@@ -1,4 +1,23 @@
 -------------------------------------------------------------------
+Tue Jul  8 18:51:04 UTC 2014 - dap.darkness@gmail.com
+
+- new upstream version <1.3.2>
+  * Fixed: Provided password was not used unconditionally.
+  * Fixed: Playlist not updated when a dropped item was rejected.
+  * Fixed: Settings were not saved upon system shutdown/logout.
+  * Fixed: Could not find translation(s) in default location.
+  * Fixed: Music dir was not always found automatically.
+  * Added: Use embedded cover art (mp3 ogg mpc mp4 flac wv ape).
+  * Added: Player and Browser now respond to 'media keys'.
+  * Added: Support for *.cue playlist files in folder view.
+  * Added: 'Reset status' to playlist context menu.
+  * Added: '-l none' to cmd parameters to force internal locale.
+  * Added: More extensions are accepted for D&D operations.
+  * Other: Some cosmetic tweaks, as usual.
+- added copyright&license header.
+- removed clean section.
+
+-------------------------------------------------------------------
 Sat Dec 14 16:04:00 UTC 2013 - dap.darkness@gmail.com
 
 - new upstream version <1.3.1>

@@ -1,7 +1,22 @@
-# norootforbuild
+#
+# spec file for package QMPlay2
+#
+# Copyright (c) 2014 Packman team: http://packman.links2linux.org/
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+# Please submit bugfixes or comments via https://bugs.links2linux.org/
+#
 
 Name:		quimup
-Version:	1.3.1
+Version:	1.3.2
 Release:	1
 
 License:	GPL-3.0+
@@ -17,6 +32,7 @@ Patch0:		quimup-gcc47.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 BuildRequires:	libmpdclient-devel libqt4-devel update-desktop-files
+BuildRequires:  pkgconfig(taglib)
 
 Requires:	mpd
 
@@ -58,13 +74,9 @@ QMAKE_CXXFLAGS+="%{optflags}" \
 %suse_update_desktop_file -r %{name} AudioVideo Player
 
 
-%clean
-%__rm -rf %{buildroot}
-
-
 %files
 %defattr(-,root,root)
-%doc COPYING changelog description FAQ.txt README todo
+%doc COPYING changelog description FAQ.txt README
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
