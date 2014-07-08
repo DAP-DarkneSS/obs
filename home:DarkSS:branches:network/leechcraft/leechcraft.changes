@@ -1,4 +1,25 @@
 -------------------------------------------------------------------
+Mon Jul  7 16:23:44 UTC 2014 - dap.darkness@gmail.com
+
+- 0.6.65-380-gffa0f72.tar.xz git snapshot:
+  * monocle-postrus became installable out of box (doesn't
+    require libspectre now and so isn't affected by bnc#828751).
+- New plugins were enabled:
+  * LMP BrainSlugz is a audio collection checker;
+  * LMP HttStream is a music streamer over http;
+  * Poshuku SpeedDial is a speed dial for browser.
+- Disabled plugins:
+  * azoth-p100q became obsoleted;
+  * azoth-otroid can't be built for oS 12.2-;
+  * bittorrent requires libtorrent-rasterbar >= 0.16 (oS 13.1+).
+
+-------------------------------------------------------------------
+Sat Jun  7 12:56:23 UTC 2014 - dap.darkness@gmail.com
+
+- udev → libudev, the latest is really needed
+  and Factory's udev doesn't require it any more.
+
+-------------------------------------------------------------------
 Sat May 17 09:25:32 UTC 2014 - dap.darkness@gmail.com
 
 - New plugin was enabled for Factory:

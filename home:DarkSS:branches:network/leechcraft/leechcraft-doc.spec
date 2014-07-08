@@ -17,13 +17,15 @@
 
 
 Name:           leechcraft-doc
-Version:        0.6.65
+Version:        0.6.65+git.380.gffa0f72
 Release:        0
 Summary:        Modular Internet Client Documentation
 License:        BSL-1.0
 Group:          Development/Libraries/Other
 Url:            http://leechcraft.org
-Source0:        http://dist.leechcraft.org/LeechCraft/%{version}/leechcraft-%{version}.tar.xz
+Source0:        http://dist.leechcraft.org/LeechCraft/0.6.70/leechcraft-0.6.65-380-gffa0f72.tar.xz
+# http://dist.leechcraft.org/LeechCraft/%%{version}/leechcraft-%%{version}.tar.xz
+# TODO: for stable releases.
 
 BuildRequires:  doxygen >= 1.8.3.1
 BuildRequires:  fdupes
@@ -67,7 +69,8 @@ to corresponding packages (like leechcraft-doc). This documentation
 is also available online at http://doc.leechcraft.org/monocle/
 
 %prep
-%setup -q -n leechcraft-%{version}
+# TODO: just leechcraft-%%{version} for stable releases.
+%setup -q -n leechcraft-0.6.65-380-gffa0f72
 
 %build
 cd doc/doxygen/core

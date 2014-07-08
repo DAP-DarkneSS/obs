@@ -28,13 +28,15 @@
 %endif
 
 Name:           leechcraft
-Version:        0.6.65
+Version:        0.6.65+git.380.gffa0f72
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
-Source0:        http://dist.leechcraft.org/LeechCraft/%{version}/leechcraft-%{version}.tar.xz
+Source0:        http://dist.leechcraft.org/LeechCraft/0.6.70/leechcraft-0.6.65-380-gffa0f72.tar.xz
+# http://dist.leechcraft.org/LeechCraft/%%{version}/leechcraft-%%{version}.tar.xz
+# TODO: for stable releases.
 # PATCH-FIX-OPENSUSE to prevent oS 12.2' gcc build issue:
 # "error: the value of 'w' is not usable in a constant expression".
 Patch1:         leechcraft-azoth-gcc47.patch
@@ -61,7 +63,9 @@ BuildRequires:  jbig2dec-devel
 %endif
 BuildRequires:  libjpeg-devel
 BuildRequires:  liblastfm-devel
+%if 0%{?suse_version} > 1220
 BuildRequires:  libotr-devel
+%endif
 BuildRequires:  libqscintilla-devel
 BuildRequires:  libqt4-sql
 %if 0%{?suse_version} > 1310
@@ -86,11 +90,12 @@ BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(QtWebKit)
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(ddjvuapi)
+%if 0%{?suse_version} >= 1310
 BuildRequires:  pkgconfig(geoip)
+%endif
 BuildRequires:  pkgconfig(libmtp)
 BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libpcre)
-BuildRequires:  pkgconfig(libspectre)
 BuildRequires:  pkgconfig(phonon)
 BuildRequires:  pkgconfig(purple)
 BuildRequires:  pkgconfig(speex)
@@ -118,7 +123,10 @@ BuildRequires:  pkgconfig(libmsn)
 BuildRequires:  pkgconfig(libopenjpeg)
 %endif
 %endif
-BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
+%if 0%{?suse_version} >= 1310
+BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.16
+%endif
+BuildRequires:  pkgconfig(libudev)
 %if 0%{?suse_version} > 1230
 BuildRequires:  pkgconfig(libvlc)
 %endif
@@ -126,7 +134,6 @@ BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt4)
 BuildRequires:  pkgconfig(qca2)
 BuildRequires:  pkgconfig(qxmpp) >= 0.8
-BuildRequires:  pkgconfig(udev)
 BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xkbfile)
@@ -134,6 +141,9 @@ BuildRequires:  pkgconfig(xrender)
 
 Requires:       oxygen-icon-theme
 
+%if 0%{?suse_version} < 1310
+Obsoletes:      %{name}-bittorrent
+%endif
 Obsoletes:      %{name}-choroid
 Obsoletes:      %{name}-eiskaltdcpp
 Obsoletes:      %{name}-hotsensors
@@ -272,6 +282,7 @@ Requires:       %{name}-azoth-chatstyler = %{version}
 Requires:       %{name}-azoth-protocolplugin
 Requires:       %{name}-securestorage = %{version}
 Suggests:       %{name}-azoth-standardstyles
+Obsoletes:      %{name}-azoth-p100q
 
 %description azoth
 This package provides a modular IM client for LeechCraft.
@@ -542,6 +553,7 @@ This package provides an emoticons plugin for LeechCraft Azoth.
 It allows to use emoticons packs in Psi+, Kopete and own format.
 
 
+%if 0%{?suse_version} > 1220
 %package azoth-otroid
 Summary:        LeechCraft Azoth - Off-the-Record Module
 License:        BSL-1.0
@@ -550,19 +562,7 @@ Requires:       %{name}-azoth = %{version}
 
 %description azoth-otroid
 This package provides support Off-the-Record messaging for LeechCraft Azoth.
-
-
-%package azoth-p100q
-Summary:        LeechCraft Azoth - Psto.net service Module
-License:        BSL-1.0
-Group:          Productivity/Networking/Other
-Requires:       %{name}-azoth = %{version}
-
-%description azoth-p100q
-This package contains a psto.net plugin for LeechCraft Azoth.
-
-It provides the enhanced experience with the psto.net microblogging service.
-
+%endif
 
 %package azoth-rosenthal
 Summary:        LeechCraft Azoth - Spell Checker Module
@@ -716,6 +716,7 @@ The following protocol features are currently supported:
  * Blacklist management.
 
 
+%if 0%{?suse_version} >= 1310
 %package bittorrent
 Summary:        LeechCraft BitTorrent client Module
 License:        BSL-1.0
@@ -744,7 +745,7 @@ Features
  * IP filter to block/unblock unwanted peers.
  * Support for extension protocol
 etc.
-
+%endif
 
 %package blasq
 Summary:        LeechCraft Image storages Module
@@ -983,7 +984,7 @@ Recommends:     %{name}-launchy
 Recommends:     %{name}-lemon
 Recommends:     %{name}-liznoo
 Recommends:     %{name}-mellonetray
-Requires:       %{name}-ooronee
+Recommends:     %{name}-ooronee
 Recommends:     %{name}-sb2
 Recommends:     %{name}-tpi
 Recommends:     %{name}-vrooby
@@ -1368,6 +1369,21 @@ This package provides a audio syncing plugin for LeechCraft.
 It allows to sync with Flash-like media players.
 
 
+%if 0%{?suse_version} >= 1230
+%package lmp-brainslugz
+Summary:        LeechCraft Collection Checker Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lastfmscrobble = %{version}
+Requires:       %{name}-lmp = %{version}
+Requires:       %{name}-musiczombie = %{version}
+
+%description lmp-brainslugz
+This package provides a collection checker plugin for LeechCraft.
+
+It allows to check collection completeness.
+%endif
+
 %package lmp-graffiti
 Summary:        LeechCraft Tags Manipulating Module
 License:        BSL-1.0
@@ -1378,6 +1394,18 @@ Requires:       %{name}-lmp = %{version}
 This package provides a tags editor plugin for LeechCraft.
 
 It allows to manipulate audio file tags.
+
+
+%package lmp-httstream
+Summary:        LeechCraft Music Streamer Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+
+%description lmp-httstream
+This package provides a streamer plugin for LeechCraft player.
+
+It allows to stream music from LMP via HTTP.
 
 
 %package lmp-mp3tunes
@@ -1502,18 +1530,15 @@ via the Poppler backend.
 Summary:        LeechCraft Monocle - PostScript Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-Requires:       %{name}-monocle = %{version}
+Requires:       %{name}-monocle-pdf = %{version}
+Requires:       ghostscript
 Provides:       %{name}-monocle-subplugin
-# A workaround for https://bugzilla.novell.com/show_bug.cgi?id=828751
-Conflicts:      lcms2 >= 2.5
-Conflicts:      liblcms2-2 >= 2.5
 
 %description monocle-postrus
 This package contains a PostRus subplugin for LeechCraft Monocle.
 
 This package provides PostScript documents support for Document viewer Module
-via the libSpectre backend.
+via ghostscript utils and any Monocle Pdf plugin.
 
 
 
@@ -1850,6 +1875,16 @@ This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
 It provides support for the Read it Later service.
 
 
+%package poshuku-speeddial
+Summary:        LeechCraft Poshuku - Speed Dial Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-poshuku = %{version}
+
+%description poshuku-speeddial
+This package provides a Speed Dial support plugin for LeechCraft Poshuku.
+
+
 %package qrosp
 Summary:        LeechCraft Qross Module
 License:        BSL-1.0
@@ -2143,7 +2178,8 @@ It allows to get current user tune via mpris protocol.
 
 
 %prep
-%setup -q
+# TODO: just -q for stable releases.
+%setup -q -n leechcraft-0.6.65-380-gffa0f72
 %if 0%{?suse_version} <= 1220
 %patch1 -p1
 %endif
@@ -2170,6 +2206,9 @@ cmake ../src \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DSTRICT_LICENSING=True \
+        -DWITH_DBUS_LOADERS=True \
+        -DWITH_PCRE=True \
+        -DWITH_QWT=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
 %if 0%{?suse_version} > 1310
@@ -2185,12 +2224,15 @@ cmake ../src \
 %else
                 -DENABLE_AZOTH_ASTRALITY=False \
 %endif
+%if 0%{?suse_version} > 1220
                 -DENABLE_AZOTH_OTROID=True \
+%else
+                -DENABLE_AZOTH_OTROID=False \
+%endif
                 -DENABLE_AZOTH_SHX=True \
                 -DENABLE_AZOTH_VELVETBIRD=True \
                 -DENABLE_AZOTH_WOODPECKER=True \
                 -DENABLE_AZOTH_ZHEET=True \
-                -DENABLE_MEDIACALLS=False \
         -DENABLE_BLACKDASH=False \
         -DENABLE_BLASQ=True \
                 -DENABLE_BLASQ_VANGOG=True \
@@ -2237,7 +2279,13 @@ cmake ../src \
 %endif
         -DENABLE_LIZNOO=True \
         -DENABLE_LMP=True \
+%if 0%{?suse_version} >= 1230
+                -DENABLE_LMP_BRAINSLUGZ=True \
+%else
+                -DENABLE_LMP_BRAINSLUGZ=False \
+%endif
                 -DENABLE_LMP_GRAFFITI=True \
+                -DENABLE_LMP_HTTSTREAM=True \
 %if 0%{?suse_version} > 1230
                 -DENABLE_LMP_LIBGUESS=True \
 %else
@@ -2269,10 +2317,11 @@ cmake ../src \
         -DENABLE_OTLOZHU=True \
                 -DENABLE_OTLOZHU_SYNC=False \
         -DENABLE_PINTAB=True \
-        -DENABLE_POGOOGLUE=True \
         -DENABLE_POLEEMERY=False \
         -DENABLE_POPISHU=True \
-        -DENABLE_POSHUKU_AUTOSEARCH=True \
+        -DENABLE_POSHUKU=True \
+                -DENABLE_POSHUKU_AUTOSEARCH=True \
+                -DENABLE_POSHUKU_SPEEDDIAL=True \
                 -DUSE_POSHUKU_CLEANWEB_PCRE=True \
         -DENABLE_QROSP=True \
         -DENABLE_SB2=True \
@@ -2285,8 +2334,12 @@ cmake ../src \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
         -DENABLE_TEXTOGROOSE=True \
+%if 0%{?suse_version} >= 1310
         -DENABLE_TORRENT=True \
                 -DENABLE_BITTORRENT_GEOIP=True \
+%else
+        -DENABLE_TORRENT=False \
+%endif
 %if 0%{?suse_version} > 1230
         -DENABLE_TOUCHSTREAMS=True \
 %else
@@ -2509,16 +2562,12 @@ cd build
 %{plugin_dir}/*%{name}_azoth_nativeemoticons.so
 %{_datadir}/%{name}/translations/%{name}_azoth_nativeemoticons_*.qm
 
+%if 0%{?suse_version} > 1220
 %files azoth-otroid
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_otroid.so
 %{_datadir}/%{name}/translations/%{name}_azoth_otroid*.qm
-
-%files azoth-p100q
-%defattr(-,root,root)
-%{settings_dir}/azothp100qsettings.xml
-%{plugin_dir}/*%{name}_azoth_p100q.so
-%{translations_dir}/leechcraft_azoth_p100q*
+%endif
 
 %files azoth-rosenthal
 %defattr(-,root,root)
@@ -2571,12 +2620,14 @@ cd build
 %{translations_dir}/%{name}_azoth_zheet*
 %{plugin_dir}/*%{name}_azoth_zheet.so
 
+%if 0%{?suse_version} >= 1310
 %files bittorrent
 %defattr(-,root,root)
 %{settings_dir}/torrentsettings.xml
 %{translations_dir}/%{name}_bittorrent_*.qm
 %{plugin_dir}/*%{name}_bittorrent.so
 %{_datadir}/applications/%{name}-bittorrent.desktop
+%endif
 
 %files blasq
 %defattr(-,root,root)
@@ -2824,10 +2875,25 @@ cd build
 %files lmp
 %defattr(-,root,root)
 %{settings_dir}/lmpsettings.xml
+%{settings_dir}/lmpfilterrgsettings.xml
 %{_datadir}/%{name}/translations/%{name}_lmp_??.qm
 %{_datadir}/%{name}/translations/%{name}_lmp_??_??.qm
 %{plugin_dir}/*%{name}_lmp.so
 %{_datadir}/applications/%{name}-lmp*.desktop
+%dir %{_datadir}/%{name}/qml/lmp
+%{_datadir}/%{name}/qml/lmp/*.qml
+%if 0%{?suse_version} >= 1230
+%exclude %{_datadir}/%{name}/qml/lmp/brainslugz
+%endif
+
+%if 0%{?suse_version} >= 1230
+%files lmp-brainslugz
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_lmp_brainslugz.so
+%dir %{_datadir}/%{name}/qml/lmp
+%{_datadir}/%{name}/qml/lmp/brainslugz
+%{_datadir}/%{name}/translations/%{name}_lmp_brainslugz_*.qm
+%endif
 
 %files lmp-dumbsync
 %defattr(-,root,root)
@@ -2841,6 +2907,11 @@ cd build
 %{plugin_dir}/*%{name}_lmp_graffiti.so
 %{_datadir}/%{name}/translations/%{name}_lmp_graffiti_??.qm
 %{_datadir}/%{name}/translations/%{name}_lmp_graffiti_??_??.qm
+
+%files lmp-httstream
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_lmp_httstream.so
+%{_datadir}/%{name}/settings/lmphttstreamfiltersettings.xml
 
 %files lmp-mp3tunes
 %defattr(-,root,root)
@@ -3006,6 +3077,11 @@ cd build
 %files poshuku-onlinebookmarks-readitlater
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_poshuku_onlinebookmarks_readitlater.*
+
+%files poshuku-speeddial
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_poshuku_speeddial.so
+%{_datadir}/%{name}/settings/poshukuspeeddialsettings.xml
 
 %files qrosp
 %defattr(-,root,root)
