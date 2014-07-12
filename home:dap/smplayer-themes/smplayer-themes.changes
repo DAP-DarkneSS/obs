@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sat Jul 12 16:57:44 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 20140607:
+  * no upstream changelog.
+- Switched to download_files service.
+- Removed clean section.
+
+-------------------------------------------------------------------
 Wed Apr 2 10:53:54 UTC 2014 - tittiatcoke@gmail.com
 
 - Update to 20131003
