@@ -1,7 +1,7 @@
---- src/smtube.pro.orig	2014-03-09 03:24:02.000000000 +0300
-+++ src/smtube.pro	2014-04-07 22:07:41.450245560 +0300
-@@ -112,6 +112,7 @@
-                translations/smtube_it.ts
+--- src/smtube.pro.orig	2014-07-11 23:30:36.000000000 +0300
++++ src/smtube.pro	2014-07-12 19:29:54.179528320 +0300
+@@ -115,6 +115,7 @@
+                translations/smtube_sk.ts
  
  unix {
 +    QMAKE_CXXFLAGS += $(OPTFLAGS)

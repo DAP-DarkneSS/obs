@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sat Jul 12 16:22:46 UTC 2014 - dap.darkness@gmail.com
+
+- update to 14.7.0:
+  * Fix the option Record audio.
+  * New translations: Albanian, Slovak and English UK.
+- Mplayer, smplayer or vlc can be used.
+- smtube-optflags.patch was updated.
+
+-------------------------------------------------------------------
 Mon Apr  7 19:20:14 UTC 2014 - dap.darkness@gmail.com
 
 - update to 2.1:

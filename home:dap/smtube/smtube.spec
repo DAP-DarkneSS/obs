@@ -15,7 +15,7 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 
 Name:               smtube
-Version:            2.1
+Version:            14.7.0
 Release:            0.pm.1
 Summary:            Small Youtube Browser
 Source:             http://prdownloads.sourceforge.net/smplayer/smtube-%{version}.tar.bz2
@@ -28,10 +28,10 @@ BuildRequires:      libqt4-devel
 BuildRequires:      gcc-c++ make pkgconfig
 BuildRequires:      update-desktop-files
 BuildRequires:      hicolor-icon-theme
-Requires:           smplayer >= 0.8.0
-Recommends:         smplayer-lang
-# just to make the build fail if not avail:
-BuildRequires:      smplayer >= 0.8.0
+Recommends:         MPlayer
+Recommends:         smplayer >= 0.8.0
+Recommends:         vlc
+
 
 %description
 This is a youtube browser for smplayer. You can browse, search, download and
