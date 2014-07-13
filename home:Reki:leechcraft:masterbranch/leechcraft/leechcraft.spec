@@ -32,7 +32,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-1294-g42aeb09
+%define LEECHCRAFT_VERSION 0.6.65-1675-gf80a846
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -127,6 +127,7 @@ BuildRequires:  pkgconfig(libcurl)
 %if 0%{?suse_version} > 1230
 BuildRequires:  pkgconfig(libguess)
 %endif
+BuildRequires:  pkgconfig(libidn)
 BuildRequires:  pkgconfig(libmsn)
 %if 0%{?suse_version} > 1230
 %ifarch %ix86 x86_64 %arm
@@ -559,6 +560,7 @@ Requires:       %{name}-azoth = %{version}
 Provides:       %{name}-acetamine = %{version}
 Obsoletes:      %{name}-acetamine < %{version}
 Provides:       %{name}-azoth-protocolplugin
+Recommends:     %{name}-azoth-mucommands
 
 %description azoth-acetamide
 This package provides an IRC protocol plugin for LeechCraft Azoth.
@@ -764,6 +766,19 @@ see nice rendered formulas instead of raw LaTeX code, even if their client
 doesn't have a LaTeX formatter.
 
 
+%package azoth-mucommands
+Summary:        LeechCraft Azoth - Conference-oriented Commands Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-azoth-protocolplugin = %{version}
+Suggests:       %{name}-xoox
+Recommends:     %{name}-acetamide
+Recommends:     %{name}-xoox
+
+%description azoth-mucommands
+This package provides some common conference-oriented commands like
+/vcard, /time, /last, /subject, /kick, /ban and so on for LeechCraft Azoth.
+
+
 %package azoth-murm
 Summary:        LeechCraft Azoth - VKontakte Module
 Group:          Productivity/Networking/Other
@@ -896,6 +911,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
 Requires:       libqxmpp0 >= 0.8.0.1398262192
 Provides:       %{name}-azoth-protocolplugin
+Recommends:     %{name}-azoth-mucommands
 
 %description azoth-xoox
 This package provides a XMPP protocol plugin for LeechCraft Azoth.
@@ -2070,7 +2086,7 @@ Currently it features:
 %package poshuku-autosearch
 Summary:        LeechCraft Poshuku - Autosearch Module
 Group:          Productivity/Networking/Other
-Requires:       %{name}-poshuku
+Requires:       %{name}-poshuku = %{version}
 
 %description poshuku-autosearch
 This package provides an autosearch plugin for LeechCraft Poshuku.
@@ -2079,7 +2095,7 @@ This package provides an autosearch plugin for LeechCraft Poshuku.
 %package poshuku-cleanweb
 Summary:        LeechCraft Poshuku - Ad Filter Module
 Group:          Productivity/Networking/Other
-Requires:       %{name}-poshuku
+Requires:       %{name}-poshuku = %{version}
 
 %description poshuku-cleanweb
 This package provides an ads filter compatibility for LeechCraft Poshuku.
@@ -2093,6 +2109,17 @@ Features:
  * User filters: blocking arbitrary images.
  * Support for replacing Adobe Flash objects with a "Load flash" button.
  * Whitelists for Flash blocker.
+
+
+%package poshuku-dcac
+Summary:        LeechCraft Poshuku - DC/AC Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-poshuku = %{version}
+
+%description poshuku-dcac
+This package provides DC/AC plugin for LeechCraft Poshuku.
+
+It allows to invert colors on web pages.
 
 
 %package poshuku-fatape
@@ -2694,6 +2721,7 @@ cmake ../src \
         -DENABLE_AZOTH=True \
                 -DENABLE_AZOTH_ACETAMIDE=True \
                 -DENABLE_AZOTH_ASTRALITY=True \
+                -DENABLE_AZOTH_MUCOMMANDS=True \
                 -DENABLE_AZOTH_OTROID=True \
                 -DENABLE_AZOTH_SHX=True \
                 -DENABLE_AZOTH_VELVETBIRD=True \
@@ -2814,7 +2842,9 @@ cmake ../src \
         -DENABLE_POPISHU=True \
 %if 0%{?suse_version} >= 1230
         -DENABLE_POSHUKU=True \
+                -DENABLE_IDN=True \
                 -DENABLE_POSHUKU_AUTOSEARCH=True \
+                -DENABLE_POSHUKU_DCAC=True \
                 -DENABLE_POSHUKU_QRD=True \
                 -DENABLE_POSHUKU_SPEEDDIAL=True \
 %else
@@ -3176,6 +3206,10 @@ EOF
 %{settings_dir}/azothmodnoksettings.xml
 %{translations_dir}/leechcraft_azoth_modnok*
 %{azoth_dir}/lc_azoth_modnok_latexconvert.sh
+
+%files azoth-mucommands
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_azoth_mucommands.so
 
 %files azoth-murm
 %defattr(-,root,root)
@@ -3761,6 +3795,13 @@ EOF
 %{translations_dir}/%{name}_poshuku_cleanweb*.qm
 %{plugin_dir}/*%{name}_poshuku_cleanweb.so
 
+%files poshuku-dcac
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_poshuku_dcac.so
+%{_datadir}/%{name}/translations/%{name}_poshuku_dcac_??.qm
+%{_datadir}/%{name}/translations/%{name}_poshuku_dcac_??_??.qm
+%{_datadir}/%{name}/settings/poshukudcacsettings.xml
+
 %files poshuku-fatape
 %defattr(-,root,root)
 %{settings_dir}/poshukufatapesettings.xml
@@ -3801,11 +3842,15 @@ EOF
 %files poshuku-qrd
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_poshuku_qrd.so
+%{_datadir}/%{name}/translations/%{name}_poshuku_qrd_??.qm
+%{_datadir}/%{name}/translations/%{name}_poshuku_qrd_??_??.qm
 
 %files poshuku-speeddial
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_poshuku_speeddial.so
 %{_datadir}/%{name}/settings/poshukuspeeddialsettings.xml
+%{_datadir}/%{name}/translations/%{name}_poshuku_speeddial_??.qm
+%{_datadir}/%{name}/translations/%{name}_poshuku_speeddial_??_??.qm
 %endif
 
 %files qrosp
