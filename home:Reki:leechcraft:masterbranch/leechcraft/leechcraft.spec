@@ -32,7 +32,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-1675-gf80a846
+%define LEECHCRAFT_VERSION 0.6.65-1710-g79bfd1a
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -57,7 +57,10 @@ Patch5:         leechcraft-monocle-gcc47.patch
 # PATCH-FIX-OPENSUSE vs. names constructor error.
 Patch6:         leechcraft-gcc47.patch
 %endif
-Patch7:         leechcraft-cache-debuginfo.patch
+# PATCH-FIX-OPENSUSE vs. error: "function 'virtual…' defaulted
+# on its first declaration with an exception-specification
+# that differs from the implicit declaration".
+Patch7:         leechcraft-snails-gcc47.patch
 
 
 BuildRequires:  Qross-devel
@@ -3210,6 +3213,8 @@ EOF
 %files azoth-mucommands
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_mucommands.so
+%{_datadir}/%{name}/translations/%{name}_azoth_mucommands_??.qm
+%{_datadir}/%{name}/translations/%{name}_azoth_mucommands_??_??.qm
 
 %files azoth-murm
 %defattr(-,root,root)
