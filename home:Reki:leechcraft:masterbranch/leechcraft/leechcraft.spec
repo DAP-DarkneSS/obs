@@ -32,7 +32,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-1710-g79bfd1a
+%define LEECHCRAFT_VERSION 0.6.65-1823-ga1dac8f
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -3423,6 +3423,7 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_eleeminator.so
 %{_datadir}/%{name}/translations/%{name}_eleeminator_??.qm
 %{_datadir}/%{name}/translations/%{name}_eleeminator_??_??.qm
+%{_datadir}/%{name}/settings/eleeminatorsettings.xml
 
 %if %{fenet}
 %files fenet
