@@ -16,7 +16,7 @@
 #
 
 Name:           QMPlay2
-Version:        14.02.17
+Version:        14.07.27
 Release:        0
 License:        GPL-3.0
 Summary:        A Qt based media player, streamer and downloader
@@ -41,6 +41,7 @@ BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(taglib)
 Recommends:     %{name}-kde-integration
+Recommends:     youtube-dl
 
 %description
 %{name} is a video player, it can play and stream all formats supported by
@@ -85,6 +86,8 @@ mv %{buildroot}/%{_datadir}/qmplay2/modules/*.so %{buildroot}%{_libdir}/%{name}
 rm -rf %{buildroot}/%{_datadir}/qmplay2/modules
 ln -s %{_libdir}/%{name} %{buildroot}/%{_datadir}/qmplay2/modules
 
+# Deleting useless links.
+rm -rf %{buildroot}/%{_datadir}/icons/hicolor
 # Setting icon to 'pixmaps' instead of 'icons'.
 mv %{buildroot}/%{_datadir}/{icons,pixmaps}
 
@@ -111,5 +114,6 @@ mv %{buildroot}/%{_datadir}/{icons,pixmaps}
 %files devel
 %defattr(-,root,root)
 %{_libdir}/libqmplay2.so
+%{_includedir}/%{name}
 
 %changelog

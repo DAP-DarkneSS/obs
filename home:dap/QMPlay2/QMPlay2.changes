@@ -1,4 +1,39 @@
 -------------------------------------------------------------------
+Mon Jul 28 17:35:46 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 14.07.27 (changes since 14.03.05):
+  * icons can be loaded from the system icon set;
+  * added new icons,
+  * any video site support through via `youtube-dl`;
+  * noise, sharpness, and levels of zoom filters support in VDPAU;
+  * ability to block widgets
+    (removes the header row and blocks the toolbar);
+  * ability to load modules from a directory settings
+    (about/.qmplay2/Modules);
+  * ability to customize colors and Wallpaper (as in QMPlay1);
+  * reading/recording-playing improvements;
+  * changed the way to save window position;
+  * thread switching was improved;
+  * MPRIS2 support;
+  * image files, OGG support;
+  * minor fixes in HttpReader;
+  * VDPAU improvement;
+  * service HTTPS improvement;
+  * other small changes;
+  * bug fixes.
+
+-------------------------------------------------------------------
+Thu Mar  6 17:59:27 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 14.03.05 (changes since 14.02.17):
+  * Improvement of the functionality of the YouTube
+    service in the framework of the program "youtube-dl"
+    (the path must be entered in the options);
+  * The name of the disk AudioCD appears as an album;
+  * OSD update bug was fixed;
+  * Tags editing bug was fixed.
+
+-------------------------------------------------------------------
 Mon Feb 17 17:55:56 UTC 2014 - dap.darkness@gmail.com
 
 - Update to 14.02.17 (changes since 14.01.10):
