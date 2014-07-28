@@ -1,4 +1,69 @@
 -------------------------------------------------------------------
+Mon Jul 28 18:50:12 UTC 2014 - dap.darkness@gmail.com
+
+- Updated to 1.7.5:
+  * new -2 parameter: convert mono and multichannel audio to stereo
+    (upmix / downmix), using proper channel mappings;
+  * '-r cd' preset now implies '-b 16 -r 44100 -2'
+    (includes automatic conversion to stereo where applicable);
+  * new -z parameter: produce machine-parsable output;
+  * added support for AIFF and CAF (Core Audio File);
+  * directories are now accepted as input: caudec will
+    automatically find all eligible files within those directories
+    (use in conjunction with 'ignoreUnsupportedFiles');
+  * new 'ignoreUnsupportedFiles' configuration parameter: set to
+    true to prevent caudec from aborting when some of the input
+    files are unsupported (false by default);
+  * -t (testing file integrity) can now be used with all lossless
+    codecs, using hash metadata (-H);
+  * added SHA256 and SHA512 hashing;
+  * renamed 'CRC' to 'CRC32'; backward compatibility with files
+    tagged with 'CRC=' is maintained;
+  * check internal MD5 hash whenever possible,
+    to detect potential codec bugs;
+  * new 'enableColors' configuration parameter: true by default,
+    set to 'false' to disable coloring of human-readable output;
+  * new 'brightColors' configuration parameter: true by default,
+    set to 'false' to use darker colors
+    (enableColors needs to be true);
+  * -G parameter (apply gain) and -S parameter (compute Soundcheck
+    data) can now take an arbitrary value
+    (signed number from -99.99 to +99.99);
+  * significantly sped up computing album gain;
+  * check the output of replaygain tools more thoroughly;
+  * caudec -g: process multiline metadata;
+  * various fixes when computing Replaygain with Ogg Vorbis,
+    MP3 and AAC files;
+  * new dependencies: SoX (mandatory) and ffmpeg
+    (ALAC, AAC and Monkey's Audio);
+  * removed shntool and alac dependencies;
+  * let SoX output Microsoft-compliant WAV files (fixes some
+    compatibility issues with multichannel files);
+  * added support for eyeD3 version 0.6.x and 0.7.x; the former is
+    recommended however, as the latter is broken;
+  * workaround for broken eyeD3 0.7.1: set front cover artwork in MP3 files, if available;
+  * better handling of Windows binaries with Wine; search home
+    directory to find Wine user directories automatically;
+  * don't store empty hash metadata, when hashing fails;
+  * better detection of the number of CPU cores;
+  * improved example command line that caudec outputs
+    when fed too many files;
+  * removed confusing 'm4a' codec name (with -c);
+  * fixed lossyTAK regression;
+  * lossyWV: use --merge-blocks (better compression);
+  * better ramdisk space management
+    (various fixes and improvements);
+  * new ramdisk space usage monitoring function:
+    print a warning if the estimation was too low;
+  * better comparison of version numbers when checking for new
+    versions online;
+  * only strip out ENCODING metadata field when transcoding;
+  * more compact display of statistics in human-readable output:
+    removed unnecessary; values;
+  * many, many more fixes;
+  * read more at http://caudec.net/documentation/changelog/#v1.7.5
+
+-------------------------------------------------------------------
 Tue Mar 26 20:03:17 UTC 2013 - dap.darkness@gmail.com
 
 - Initial package.

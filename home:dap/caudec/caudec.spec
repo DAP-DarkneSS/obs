@@ -10,7 +10,7 @@
 #
 
 Name:           caudec
-Version:        1.6.2
+Version:        1.7.5
 Release:        0
 License:        GPL-3.0+
 Summary:        A multi-process audio transcoder
@@ -22,7 +22,6 @@ BuildArch:      noarch
 
 BuildRoot:      %{_tmppath}/build-%{name}-%{version}
 
-Recommends:     alac_decoder
 Recommends:     apetag
 Recommends:     cksfv
 Recommends:     flac
@@ -33,21 +32,19 @@ Recommends:     mp3gain
 Recommends:     nero-aac
 Recommends:     opus
 Recommends:     python-eyeD3
-Recommends:     sox
 Recommends:     vorbis-tools
 Recommends:     vorbisgain
+Recommends:     wavegain
 Recommends:     wavpack
 Recommends:     wget
 Recommends:     wine
 
 Requires:       bash
 Requires:       bc
-Requires:       coreutils
 Requires:       findutils
-Requires:       grep
 Requires:       procps
 Requires:       sed
-Requires:       shntool
+Requires:       sox
 Requires:       util-linux
 
 %description
@@ -63,14 +60,14 @@ and per codec).
 
 %install
 mkdir -p %{buildroot}%{_bindir}
-%{__install} %{name} %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{_sysconfdir}
-%{__install} %{name}rc %{buildroot}%{_sysconfdir}
+install -m 0755 %{name} APEv2 %{buildroot}%{_bindir}
+install -D %{name}rc %{buildroot}%{_sysconfdir}/%{name}rc
 
 %files
 %defattr(-,root,root)
-%doc LICENSE CHANGES README
+%doc LICENSE* CHANGES README
 %{_bindir}/%{name}
+%{_bindir}/APEv2
 %{_sysconfdir}/%{name}rc
 
 %changelog
