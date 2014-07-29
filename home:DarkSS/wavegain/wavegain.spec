@@ -27,6 +27,8 @@ Source:         http://www.rarewares.org/files/others/%{name}-%{version}srcs.zip
 BuildRequires:  dos2unix
 BuildRequires:  unzip
 BuildRequires:  pkgconfig(sndfile)
+# x86 asm, so
+ExcludeArch:    %arm
 
 %description
 %{name} is a ReplayGain for wave files. It normalizes sound files.
