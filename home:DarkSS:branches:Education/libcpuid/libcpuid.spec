@@ -1,7 +1,7 @@
 #
 # spec file for package libcpuid
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,14 +17,17 @@
 
 
 Name:           libcpuid
-Version:        0.1.0+git.2014.01.21
+Version:        0.1.0+git.2014.07.23
 Release:        0
 Summary:        Provides CPU identification for x86
 License:        BSD-2-Clause
 Group:          Development/Libraries/C and C++
-Url:            https://github.com/eloaders/libcpuid
+Url:            https://github.com/anrieff/libcpuid
 Source0:        libcpuid-%{version}.tar.gz
 
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libtool
 BuildRequires:  pkgconfig
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -57,6 +60,8 @@ Libcpuid provides CPU identification for the x86 (and x86_64).
 
 
 %build
+libtoolize
+autoreconf --install
 %configure
 make V=1 %{?_smp_mflags}
 
