@@ -17,7 +17,7 @@
 
 
 Name:           i-nex
-Version:        7.0.0
+Version:        7.2.1
 Release:        1
 Summary:        System information tool
 
@@ -27,6 +27,8 @@ Group:          System/X11/Utilities
 Source0:        https://github.com/eloaders/I-Nex/archive/%{version}.tar.gz
 
 BuildRequires:  ImageMagick
+BuildRequires:  autoconf
+BuildRequires:  automake
 %if 0%{?suse_version} <= 1210
 BuildRequires:  freeglut
 %else
@@ -53,7 +55,7 @@ BuildRequires:  net-tools
 BuildRequires:  openSUSE-release
 %endif
 BuildRequires:  pkgconfig
-BuildRequires:  pkgconfig(libcpuid)
+BuildRequires:  pkgconfig(libcpuid) >= 0.2.1
 BuildRequires:  pkgconfig(libprocps)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(gl)
@@ -123,13 +125,14 @@ HERE
 #using system's pastebinit
 %__sed -i \
        '\|/usr/share/i-nex/pastebinit/|s|/usr/share/i-nex/pastebinit/||' \
-       src/i-nex/.src/Reports/MPastebinit.module
-%__cp src/i-nex/logo/i-nex.0.4.x.png $RPM_SOURCE_DIR/%{name}.png
+       I-Nex/i-nex/.src/Reports/MPastebinit.module
+%__cp I-Nex/i-nex/logo/i-nex.0.4.x.png $RPM_SOURCE_DIR/%{name}.png
 %{__sed} -e 's|env LIBOVERLAY_SCROLLBAR=0 /usr/bin/i-nex.gambas|i-nex|' \
          -e '/^Icon=/s|=.*|=%{name}|' debian/%{name}.desktop > %{name}.desktop
 
 %build
-cd src
+cd I-Nex
+autoreconf -fiv
 %configure
 cd ..
 make \
@@ -166,7 +169,7 @@ rm -rf %{buildroot}%{_datadir}/%{name}/pastebinit
 
 %files
 %defattr(-,root,root,-)
-%doc docs/copyright docs/I-Nex.LICENSE src/COPYING
+%doc docs/copyright docs/I-Nex.LICENSE I-Nex/COPYING
 %{_bindir}/%{name}-*
 %doc %{_mandir}/man*/%{name}*
 
@@ -178,6 +181,6 @@ rm -rf %{buildroot}%{_datadir}/%{name}/pastebinit
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}*
 %doc debian/changelog* changelogs/changelog*
-%doc src/AUTHORS src/ChangeLog src/README
+%doc I-Nex/AUTHORS I-Nex/ChangeLog I-Nex/README
 
 %changelog
