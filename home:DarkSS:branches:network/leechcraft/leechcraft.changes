@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Wed Jul 30 14:38:58 UTC 2014 - dap.darkness@gmail.com
+
+- 0.6.70 release:
+  * Poshuku browser IDN support was enabled;
+  * utilities library was split into different so files
+    and subpackages.
+- New plugins were enabled:
+  * Azoth MuCommands provides conference-oriented commands;
+  * LMP FrAdj is a 10-band equalizer;
+  * Poshuku DCAC provides DC/AC for browser;
+  * Poshuku QRd provides QR codes for browser.
+- leechcraft-azoth-gcc47.patch was updated.
+- Added leechcraft-gcc47.patch vs. names constructor error.
+
+-------------------------------------------------------------------
 Mon Jul  7 16:23:44 UTC 2014 - dap.darkness@gmail.com
 
 - 0.6.65-380-gffa0f72.tar.xz git snapshot:
