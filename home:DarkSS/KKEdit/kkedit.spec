@@ -17,7 +17,7 @@
 
 
 Name:           kkedit
-Version:        0.1.0
+Version:        0.2.2
 Release:        0
 Summary:        Source code text editor
 License:        GPL-3.0
@@ -27,8 +27,10 @@ Source0:        http://keithhedger.hostingsiteforfree.com/zips/kkedit/KKEdit-%{v
 
 BuildRequires:  aspell-devel
 BuildRequires:  ctags
+BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  update-desktop-files
+BuildRequires:  pkgconfig(gmodule-2.0) >= 2.32.4
 BuildRequires:  pkgconfig(gtk+-2.0) >= 2.24.0
 BuildRequires:  pkgconfig(gtksourceview-2.0)
 BuildRequires:  pkgconfig(unique-1.0)
@@ -65,6 +67,15 @@ be added anywhere, selecting a bookmark from the menu will switch to
 that tab and move to the appropriate line. Just type a line number
 into the edit box on the toolbar to jump straight to that line.
 
+
+%package        devel
+Summary:        KKEdit development files
+Summary:        Development/Libraries/C and C++
+
+%description    devel
+KKEdit include headers and example external tools.
+
+
 %prep
 %setup -q -n KKEdit-%{version}
 
@@ -81,15 +92,34 @@ make %{?_smp_mflags}
 sed -i %{buildroot}%{_datadir}/applications/KKEdit.desktop \
     -e "s/\/usr\/share\/KKEdit\/pixmaps\/KKEdit.png/KKEdit/"
 %suse_update_desktop_file -r KKEdit 'Utility;TextEditor;GTK;'
+%suse_update_desktop_file -r KKEditRoot 'Utility;TextEditor;GTK;'
 # Let's use %%doc macro.
 rm -rf %{buildroot}%{_datadir}/KKEdit
+%fdupes -s %{buildroot}%{_datadir}
+
+
+%post
+%desktop_database_post
+%icon_theme_cache_post
+
+%postun
+%desktop_database_postun
+%icon_theme_cache_postun
+
 
 %files
 %defattr(-,root,root)
-%doc Exampl* ChangeLog
+%doc ChangeLog
 %doc KKEdit/resources/docs/* KKEdit/resources/help
 %{_bindir}/%{name}
-%{_datadir}/applications/KKEdit.desktop
-%{_datadir}/pixmaps/KKEdit.png
+%{_bindir}/KKEdit*
+%{_datadir}/applications/KKEdit*.desktop
+%{_datadir}/pixmaps/KKEdit*.png
+%{_datadir}/icons/hicolor/*/apps/KKEdit*.png
+
+%files          devel
+%defattr(-,root,root)
+%doc KKEdit/resources/Exampl*
+%{_includedir}/%{name}*
 
 %changelog
