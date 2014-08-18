@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Mon Aug 18 14:57:45 UTC 2014 - dap.darkness@gmail.com
+
+- Upstream version 7.4.0:
+  * no upstream changelog.
+
+-------------------------------------------------------------------
+Fri Aug  1 15:41:58 UTC 2014 - dap.darkness@gmail.com
+
+- Upstream version 7.2.1:
+  * Changing Permission for files;
+  * Repairs version detection;
+  * Speed up GPU Detection;
+  * Replace gzip -9 to COMPRESS;
+  * Libcpuid instruction fixes;
+  * Fixes copyright install;
+  * Fixes ubuntu peckaging. use I-Nex dir. remove src;
+  * Fixes for make -j option
+  * Improving the detection of processor cache
+  * Some fixes for Detect Drives UUID using blkid;
+  * Removing unnecessary feature detection
+    slowing logo for distribution.
+
+-------------------------------------------------------------------
 Thu Jul  3 14:52:44 UTC 2014 - dap.darkness@gmail.com
 
 - Upstream version 7.0.0:

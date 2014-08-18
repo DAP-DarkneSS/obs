@@ -17,7 +17,7 @@
 
 
 Name:           i-nex
-Version:        7.2.1
+Version:        7.4.0
 Release:        1
 Summary:        System information tool
 
@@ -155,6 +155,7 @@ rm -rf %{buildroot}%{_datadir}/%{name}/pastebinit
 
 %if 0%{?suse_version}
 %suse_update_desktop_file -r %{name} 'System;HardwareSettings;'
+%suse_update_desktop_file -r %{name}-library 'System;HardwareSettings;'
 %endif
 
 %fdupes -s %{buildroot}%{_datadir}
@@ -178,7 +179,7 @@ rm -rf %{buildroot}%{_datadir}/%{name}/pastebinit
 %defattr(-,root,root,-)
 %{_bindir}/%{name}
 %{_bindir}/%{name}.gambas
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/%{name}*.desktop
 %{_datadir}/pixmaps/%{name}*
 %doc debian/changelog* changelogs/changelog*
 %doc I-Nex/AUTHORS I-Nex/ChangeLog I-Nex/README
