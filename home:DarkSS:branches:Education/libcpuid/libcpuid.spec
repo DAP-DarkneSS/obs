@@ -17,7 +17,7 @@
 
 
 Name:           libcpuid
-Version:        0.1.0+git.2014.07.23
+Version:        0.1.0+git.2014.08.04
 Release:        0
 Summary:        Provides CPU identification for x86
 License:        BSD-2-Clause

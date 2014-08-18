@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Aug 18 15:06:16 UTC 2014 - dap.darkness@gmail.com
+
+- Updated to resolve "W: file-contains-current-date".
+
+-------------------------------------------------------------------
 Thu Jul 31 15:07:19 UTC 2014 - dap.darkness@gmail.com
 
 - Updated from https://github.com/anrieff/libcpuid
