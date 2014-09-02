@@ -1,4 +1,28 @@
 -------------------------------------------------------------------
+Tue Sep  2 15:25:05 UTC 2014 - dap.darkness@gmail.com
+
+- 0.0.17.1:
+  * New features:
+    - oFono/Connman supprted as well as ModemManager/NetworkManager;
+    - KDE addressbook contacts export (not sure if it works fine
+      though, additional testing needed);
+    - Preferred backends can be selected from GUI;
+    - Operations timeouts can be adjusted from GUI;
+    - Autocompletion for names of contacts in New SMS dialog and
+      names of commands in USSD window added;
+    - GNOME-style help added, thanks to Mario Blättermann (it is
+      not finished at moment, but much better than nothing);
+    - Appdata file added;
+  * Fixes:
+    - Deadlock on connections handling (at least hope so);
+    - Traffic history for a first day of month;
+    - Sending USSD codes with first symbol '#';
+    - 3GPP location format (thanks to Graham Inggs);
+    - Lots of other fixes.
+- Added desktop_database_post(un) and new dependencies.
+- Removed merged patches.
+
+-------------------------------------------------------------------
 Fri Jul 25 19:33:05 UTC 2014 - seanpwatson@live.com
 
 - Patch to change .desktop exec no needed in Factory

@@ -1,7 +1,7 @@
 #
 # spec file for package modem-manager-gui
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -15,17 +15,21 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
+
 Name:           modem-manager-gui
-Version:        0.0.16
+Version:        0.0.17.1
 Release:        0
-License:        GPL-3.0+
 Summary:        Modem Manager GUI
-Url:            http://linuxonly.ru/cms/page.php?7
+License:        GPL-3.0+
 Group:          Hardware/Mobile
+Url:            http://linuxonly.ru/cms/page.php?7
 Source:         http://download.tuxfamily.org/gsf/source/modem-manager-gui-%{version}.tar.gz
 
 BuildRequires:  fdupes
 BuildRequires:  gdbm-devel
+BuildRequires:  itstool >= 1.2
+BuildRequires:  man
+BuildRequires:  po4a
 BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(glib-2.0) >= 2.32.1
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.4.0
@@ -34,11 +38,6 @@ Recommends:     %{name}-lang
 Suggests:       evolution-data-server >= 3.4.1
 Suggests:       libcanberra0 >= 0.28
 Suggests:       libnotify-tools >= 0.7.5
-
-# PATCH-UPSTREAM from Mageia package.
-Patch1:         modem-manager-gui-0.0.16-notifications-icon.patch
-# PATCH-FIX-UPSTREAM to prevent gcc warnings.
-Patch2:         modem-manager-gui-0.0.16-fix-gcc-warnings.patch
 
 %description
 This program is simple graphical interface for Modem Manager
@@ -56,8 +55,6 @@ Current features:
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
 
 %build
 %configure
@@ -69,6 +66,12 @@ make install INSTALLPREFIX=%{buildroot}
 %suse_update_desktop_file -r %{name} 'Internet;Monitor;'
 %fdupes -s %{buildroot}%{_datadir}
 
+%post
+%desktop_database_post
+
+%postun
+%desktop_database_postun
+
 %files
 %defattr(-,root,root,-)
 %doc LICENSE
@@ -79,7 +82,14 @@ make install INSTALLPREFIX=%{buildroot}
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%{_mandir}/man1/%{name}.1.*
+%{_mandir}/man*/%{name}.1.*
+%dir %{_mandir}/en_US
+%dir %{_mandir}/en_US/man1
+%dir %{_mandir}/uz@Latn
+%dir %{_mandir}/uz@Latn/man1
+%{_mandir}/*/man*/%{name}.1.*
+%dir %{_datadir}/appdata
+%{_datadir}/appdata/%{name}.appdata.xml
 
 %files lang -f %{name}.lang
 
