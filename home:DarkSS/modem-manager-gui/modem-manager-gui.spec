@@ -36,11 +36,9 @@ Suggests:       libcanberra0 >= 0.28
 Suggests:       libnotify-tools >= 0.7.5
 
 # PATCH-UPSTREAM from Mageia package.
-Patch1:         modem-manager-gui-0.0.16-mageia-mm.patch
-# PATCH-UPSTREAM from Mageia package.
-Patch2:         modem-manager-gui-0.0.16-notifications-icon.patch
+Patch1:         modem-manager-gui-0.0.16-notifications-icon.patch
 # PATCH-FIX-UPSTREAM to prevent gcc warnings.
-Patch3:         modem-manager-gui-0.0.16-fix-gcc-warnings.patch
+Patch2:         modem-manager-gui-0.0.16-fix-gcc-warnings.patch
 
 %description
 This program is simple graphical interface for Modem Manager
@@ -60,7 +58,6 @@ Current features:
 %setup -q
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 %configure
