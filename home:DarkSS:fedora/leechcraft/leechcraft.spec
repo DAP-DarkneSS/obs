@@ -22,9 +22,11 @@
 %define settings_dir %{_datadir}/%{name}/settings
 %define azoth_dir %{_datadir}/%{name}/azoth
 
+%define so_ver 0_6_70
+
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65
+%define LEECHCRAFT_VERSION 0.6.70
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -65,7 +67,7 @@ BuildRequires:  qscintilla-devel
 BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(qxmpp) >= 0.8.0
 BuildRequires:  lm_sensors-devel
-# BuildRequires:  libspectre-devel
+# BuildRequires:  pkgconfig(libprojectM)
 BuildRequires:  libtidy-devel
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
 BuildRequires:  systemd-devel
@@ -83,6 +85,7 @@ BuildRequires:  wt-devel >= 3.3
 BuildRequires:  xz
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
 BuildRequires:  pkgconfig(libguess)
+BuildRequires:  pkgconfig(libqrencode)
 %if %{vlc}
 BuildRequires:  pkgconfig(libvlc)
 %endif
@@ -94,6 +97,7 @@ Obsoletes:      %{name}-dlniwe
 Obsoletes:      %{name}-nacheku
 Obsoletes:      %{name}-otlozhu
 Obsoletes:      %{name}-poleemery
+Obsoletes:      %{name}-shaitan
 Obsoletes:      %{name}-syncer
 Obsoletes:      %{name}-textogroose
 
@@ -226,6 +230,16 @@ Unlike other multiprotocol clients which tend to implement only those
 features that are present in all the protocols, Azoth is modelled after the
 XMPP protocol, aiming to provide extensive and full support for XMPP while
 remaining usable for other protocols.
+
+
+%package azoth-abbrev
+Summary:        LeechCraft Azoth - Abbreviations Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-azoth-protocolplugin = %{version}
+
+%description azoth-abbrev
+This package provides abbreviations via commands like /abbrev, /unabbrev
+and /listabbrevs for LeechCraft Azoth.
 
 
 %package azoth-acetamide
@@ -439,6 +453,16 @@ see nice rendered formulas instead of raw LaTeX code, even if their client
 doesn't have a LaTeX formatter.
 
 
+%package azoth-mucommands
+Summary:        LeechCraft Azoth - Conference-oriented Commands Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-azoth-protocolplugin = %{version}
+
+%description azoth-mucommands
+This package provides some common conference-oriented commands like
+/vcard, /time, /last, /subject, /kick, /ban and so on for LeechCraft Azoth.
+
+
 %package azoth-murm
 Summary:        LeechCraft Azoth - VKontakte Module
 Group:          Productivity/Networking/Other
@@ -468,17 +492,6 @@ Requires:       %{name}-azoth = %{version}
 
 %description azoth-otroid
 This package provides support Off-the-Record messaging for LeechCraft Azoth.
-
-
-# %%package azoth-p100q
-# Summary:        LeechCraft Azoth - Psto.net service Module
-# Group:          Productivity/Networking/Other
-# Requires:       %%{name}-azoth = %%{version}
-# 
-# %%description azoth-p100q
-# This package contains a psto.net plugin for LeechCraft Azoth.
-# 
-# It provides the enhanced experience with the psto.net microblogging service.
 
 
 %package azoth-rosenthal
@@ -798,6 +811,22 @@ The search interface is available via LeechCraft Summary.
 Summary:        LeechCraft Development Files
 Group:          Development/Libraries/Other
 Requires:       %{name} = %{version}
+Requires:       cmake
+Requires:       lib%{name}-util-db%{so_ver}        = %{version}
+Requires:       lib%{name}-util-gui%{so_ver}       = %{version}
+Requires:       lib%{name}-util-models%{so_ver}    = %{version}
+Requires:       lib%{name}-util-network%{so_ver}   = %{version}
+Requires:       lib%{name}-util-qml%{so_ver}       = %{version}
+Requires:       lib%{name}-util-shortcuts%{so_ver} = %{version}
+Requires:       lib%{name}-util-sll%{so_ver}       = %{version}
+Requires:       lib%{name}-util-svcauth%{so_ver}   = %{version}
+Requires:       lib%{name}-util-sys%{so_ver}       = %{version}
+Requires:       lib%{name}-util-tags%{so_ver}      = %{version}
+Requires:       lib%{name}-util-x11-%{so_ver}       = %{version}
+Requires:       lib%{name}-util-xdg%{so_ver}       = %{version}
+Requires:       lib%{name}-util-xpc%{so_ver}       = %{version}
+Requires:       lib%{name}-util-xsd%{so_ver}       = %{version}
+Requires:       pkgconfig(QtWebKit)
 
 %description devel
 This package provides files required for development for LeechCraft.
@@ -1212,6 +1241,18 @@ This package provides a audio syncing plugin for LeechCraft.
 It allows to sync with Flash-like media players.
 
 
+%package lmp-fradj
+Summary:        LeechCraft FrAdj Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+
+%description lmp-fradj
+This package provides a 10-band equalizer for now.
+
+n-band (with configurable n) equalizer is planned
+in somewhat near future.
+
+
 %package lmp-graffiti
 Summary:        LeechCraft Tags Manipulating Module
 Group:          Productivity/Networking/Other
@@ -1257,6 +1298,15 @@ Requires:       %{name}-devmon = %{version}
 
 %description lmp-mtpsync
 This package allows to sync with MTP devices via LeechCraft.
+
+
+# %%package lmp-potorchu
+# Summary:        LeechCraft Visualization Effects Module
+# Group:          Productivity/Networking/Other
+# Requires:       %%{name}-lmp = %%{version}
+# 
+# %%description lmp-potorchu
+# This package provides visualization effects for LeechCraft audio player.
 
 
 %package mellonetray
@@ -1402,14 +1452,25 @@ Supported services:
  * Google Drive
 
 
+%package netstoremanager-dropbox
+Summary:        LeechCraft DropBox storage Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-cstp = %{version}
+Requires:       %{name}-netstoremanager = %{version}
+Provides:       %{name}-netstoremanager-subplugin
+
+%description netstoremanager-dropbox
+This package provides a DropBox subplugin for Leechcraft NetStoreManager.
+
+
 %package netstoremanager-googledrive
-Summary:        LeechCraft Network file storages Module
+Summary:        LeechCraft Google Drive storage Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-netstoremanager = %{version}
 Provides:       %{name}-netstoremanager-subplugin
 
 %description netstoremanager-googledrive
-This package provides a Google Drive sunplugin for Leechcraft NetStoreManager.
+This package provides a Google Drive subplugin for Leechcraft NetStoreManager.
 
 
 %package networkmonitor
@@ -1494,16 +1555,6 @@ This package provides an instant search plugin for LeechCraft.
 It allows to search instantly selected text in Google.
 
 
-%package poleemery
-Summary:        LeechCraft Poleemery - Finances manager Module
-Group:          Productivity/Networking/Other
-BuildRequires:  qwt6-devel >= 6.1
-Requires:       %{name} = %{version}
-
-%description poleemery
-This package provides a personal finances manager plugin for LeechCraft.
-
-
 %package popishu
 Summary:        LeechCraft Text editor Module
 Group:          Productivity/Networking/Other
@@ -1547,7 +1598,7 @@ Currently it features:
 %package poshuku-autosearch
 Summary:        LeechCraft Poshuku - Autosearch Module
 Group:          Productivity/Networking/Other
-Requires:       %{name}-poshuku
+Requires:       %{name}-poshuku = %{version}
 
 %description poshuku-autosearch
 This package provides an autosearch plugin for LeechCraft Poshuku.
@@ -1556,7 +1607,7 @@ This package provides an autosearch plugin for LeechCraft Poshuku.
 %package poshuku-cleanweb
 Summary:        LeechCraft Poshuku - Ad Filter Module
 Group:          Productivity/Networking/Other
-Requires:       %{name}-poshuku
+Requires:       %{name}-poshuku = %{version}
 
 %description poshuku-cleanweb
 This package provides an ads filter compatibility for LeechCraft Poshuku.
@@ -1570,6 +1621,17 @@ Features:
  * User filters: blocking arbitrary images.
  * Support for replacing Adobe Flash objects with a "Load flash" button.
  * Whitelists for Flash blocker.
+
+
+%package poshuku-dcac
+Summary:        LeechCraft Poshuku - DC/AC Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-poshuku = %{version}
+
+%description poshuku-dcac
+This package provides DC/AC plugin for LeechCraft Poshuku.
+
+It allows to invert colors on web pages.
 
 
 %package poshuku-fatape
@@ -1667,6 +1729,17 @@ Provides:       %{name}-readitlater = %{version}
 This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
 
 It provides support for the Read it Later service.
+
+
+%package poshuku-qrd
+Summary:        LeechCraft Poshuku - QR coDe Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-poshuku = %{version}
+
+%description poshuku-qrd
+This package provides a QR coDe support plugin for LeechCraft Poshuku.
+
+It shows the URL of a web page as a QR code.
 
 
 %package poshuku-speeddial
@@ -1767,16 +1840,6 @@ Features:
  * Support search results in RSS/Atom format and subscribe to them
 with a suitable plugin like Aggregator.
  * Show results in HTML format with a suitable plugin like Poshuku.
-
-
-%package shaitan
-Summary:        LeechCraft Shaitan Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-Requires:       xterm
-
-%description shaitan
-This package provides a terminal plugin for Leechcraft.
 
 
 %package summary
@@ -1932,6 +1995,131 @@ This package provides a tune wrapper plugin for LeechCraft.
 It allows to get current user tune via mpris protocol.
 
 
+%package -n lib%{name}-util-db%{so_ver}
+Summary:        Database utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-db%{so_ver}
+A library providing some useful and commonly used database-related
+classes and functions.
+
+
+%package -n lib%{name}-util-gui%{so_ver}
+Summary:        GUI utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-gui%{so_ver}
+A library providing some useful and commonly used GUI-related
+widgets, classes and functions.
+
+
+%package -n lib%{name}-util-models%{so_ver}
+Summary:        MVC utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-models%{so_ver}
+A library providing some useful and commonly used models (as in MVC),
+as well as model-related classes and functions.
+
+
+%package -n lib%{name}-util-network%{so_ver}
+Summary:        Network utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-network%{so_ver}
+A library providing some useful and commonly used
+network classes and functions.
+
+
+%package -n lib%{name}-util-qml%{so_ver}
+Summary:        QML utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-qml%{so_ver}
+A library providing some useful and commonly used QML items as well as
+QML-related classes and functions.
+
+
+%package -n lib%{name}-util-shortcuts%{so_ver}
+Summary:        Shortcuts utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-shortcuts%{so_ver}
+A library easing shortcuts usage in LeechCraft, particularly the
+configurable shortcuts subsystem.
+
+
+%package -n lib%{name}-util-sll%{so_ver}
+Summary:        Standard LeechCraft Library
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-sll%{so_ver}
+A library providing some useful classes and algorithms, not directly
+related to any other library.
+
+
+%package -n lib%{name}-util-svcauth%{so_ver}
+Summary:        Authenticators library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-svcauth%{so_ver}
+A library providing authenticators for various services like VKontakte.
+
+
+%package -n lib%{name}-util-sys%{so_ver}
+Summary:        System utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-sys%{so_ver}
+A library providing some useful and commonly used system-related
+classes and functions, like OS version parser, paths utilities or MIME
+detector.
+
+
+%package -n lib%{name}-util-tags%{so_ver}
+Summary:        Tags utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-tags%{so_ver}
+A library providing some useful classes and functions commonly used
+with the LeechCraft tags subsystem.
+
+
+%package -n lib%{name}-util-x11-%{so_ver}
+Summary:        X11 utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-x11-%{so_ver}
+A library providing X11 wrappers for LeechCraft.
+
+
+%package -n lib%{name}-util-xdg%{so_ver}
+Summary:        XDG utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-xdg%{so_ver}
+A library providing XDG parsers and other support methods and classes
+for LeechCraft.
+
+
+%package -n lib%{name}-util-xpc%{so_ver}
+Summary:        Cross-plugin communication utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-xpc%{so_ver}
+A library providing some useful and commonly used primitives for
+communications between different plugins in LeechCraft.
+
+
+%package -n lib%{name}-util-xsd%{so_ver}
+Summary:        XSD utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n lib%{name}-util-xsd%{so_ver}
+A library providing some useful classes to be used with the
+XmlSettingsDialog LeechCraft subsystem.
+
+
 %prep
 %setup -q -n %{name}-%{version}
 
@@ -1954,18 +2142,23 @@ cmake ../src \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DSTRICT_LICENSING=True \
+        -DWITH_DBUS_LOADERS=True \
+        -DWITH_PCRE=True \
+        -DWITH_QWT=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
                 -DENABLE_AGGREGATOR_WEBACCESS=True \
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
-        -DENABLE_AZOTH_ACETAMIDE=True \
-        -DENABLE_AZOTH_ASTRALITY=True \
-        -DENABLE_AZOTH_OTROID=True \
-        -DENABLE_AZOTH_SHX=True \
-        -DENABLE_AZOTH_VELVETBIRD=True \
-        -DENABLE_AZOTH_WOODPECKER=False \
-        -DENABLE_AZOTH_ZHEET=True \
+                -DENABLE_AZOTH_ABBREV=True \
+                -DENABLE_AZOTH_ACETAMIDE=True \
+                -DENABLE_AZOTH_ASTRALITY=True \
+                -DENABLE_AZOTH_MUCOMMANDS=True \
+                -DENABLE_AZOTH_OTROID=True \
+                -DENABLE_AZOTH_SHX=True \
+                -DENABLE_AZOTH_VELVETBIRD=True \
+                -DENABLE_AZOTH_WOODPECKER=False \
+                -DENABLE_AZOTH_ZHEET=True \
         -DENABLE_BLACKDASH=False \
         -DENABLE_BLASQ=True \
         -DENABLE_BLASQ_SPEGNERSI=False \
@@ -1978,6 +2171,7 @@ cmake ../src \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_DUMBEEP=True \
                 -DDUMBEEP_WITH_PHONON=True \
+        -DENABLE_ELEEMINATOR=False \
         -DENABLE_FENET=True \
         -DENABLE_GACTS=True \
                 -DWITH_GACTS_BUNDLED_QXT=True \
@@ -2003,10 +2197,12 @@ cmake ../src \
         -DENABLE_LMP=True \
         -DUSE_GSTREAMER_10=False \
                 -DENABLE_LMP_BRAINSLUGZ=True \
+                -DENABLE_LMP_FRADJ=True \
                 -DENABLE_LMP_GRAFFITI=True \
                 -DENABLE_LMP_LIBGUESS=True \
                 -DENABLE_LMP_MPRIS=True \
                 -DENABLE_LMP_MTPSYNC=True \
+                -DENABLE_LMP_POTORCHU=False \
         -DENABLE_MEDIACALLS=False \
         -DENABLE_MELLONETRAY=True \
         -DENABLE_MONOCLE=True \
@@ -2021,22 +2217,25 @@ cmake ../src \
         -DENABLE_NACHEKU=False \
         -DENABLE_NEWLIFE=True \
         -DENABLE_NETSTOREMANAGER=True \
+                -DENABLE_NETSTOREMANAGER_DROPBOX=True \
+                -DENABLE_NETSTOREMANAGER_GOOGLEDRIVE=True \
         -DENABLE_OORONEE=True \
         -DENABLE_OTLOZHU=True \
         -DENABLE_OTLOZHU_SYNC=False \
         -DENABLE_PINTAB=True \
-        -DENABLE_POLEEMERY=True \
+        -DENABLE_POLEEMERY=False \
         -DENABLE_POGOOGLUE=True \
         -DENABLE_POPISHU=True \
         -DENABLE_POSHUKU=True \
                 -DENABLE_POSHUKU_AUTOSEARCH=True \
-                        -DUSE_POSHUKU_CLEANWEB_PCRE=True \
+                -DENABLE_POSHUKU_DCAC=True \
+                -DENABLE_POSHUKU_QRD=True \
                 -DENABLE_POSHUKU_SPEEDDIAL=True \
         -DENABLE_QROSP=False \
         -DENABLE_SB2=True \
         -DENABLE_SCROBLIBRE=True \
         -DENABLE_SECMAN=True \
-        -DENABLE_SHAITAN=True \
+        -DENABLE_SHAITAN=False \
         -DENABLE_SHELLOPEN=False \
         -DENABLE_SNAILS=False \
         -DENABLE_SYNCER=False \
@@ -2064,9 +2263,96 @@ make %{?_smp_mflags} VERBOSE=1
 cd build
 %make_install
 
+# Unneeded here Qt5 build' files:
+rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
+
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
+
+%post -n lib%{name}-util-db%{so_ver}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-db%{so_ver}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-gui%{so_ver}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-gui%{so_ver}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-models%{so_ver}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-models%{so_ver}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-network%{so_ver}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-network%{so_ver}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-qml%{so_ver}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-qml%{so_ver}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-shortcuts%{so_ver}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-shortcuts%{so_ver}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-sll%{so_ver}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-sll%{so_ver}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-svcauth%{so_ver}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-svcauth%{so_ver}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-sys%{so_ver}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-sys%{so_ver}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-tags%{so_ver}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-tags%{so_ver}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-x11-%{so_ver}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-x11-%{so_ver}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-xdg%{so_ver}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-xdg%{so_ver}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-xpc%{so_ver}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-xpc%{so_ver}
+/sbin/ldconfig
+
+%post -n lib%{name}-util-xsd%{so_ver}
+/sbin/ldconfig
+
+%postun -n lib%{name}-util-xsd%{so_ver}
+/sbin/ldconfig
 
 %files
 %defattr(-,root,root)
@@ -2088,7 +2374,8 @@ cd build
 %{translations_dir}/leechcraft_??_??.qm
 %dir %{_libdir}/%{name}
 %dir %{plugin_dir}
-%{_libdir}/*%{name}-*.so.*
+%{_libdir}/lib%{name}-util.so.*
+%{_libdir}/lib%{name}-xsd.so.*
 %doc %{_mandir}/man1/%{name}*.1.gz
 %{_datadir}/%{name}/global_icons/
 %dir %{_datadir}/%{name}/themes
@@ -2147,6 +2434,12 @@ cd build
 %{translations_dir}/%{name}_azoth_??.qm
 %{translations_dir}/%{name}_azoth_??_??.qm
 %{plugin_dir}/*%{name}_azoth.so
+
+%files azoth-abbrev
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_azoth_abbrev.so
+%{_datadir}/%{name}/translations/%{name}_azoth_abbrev_??.qm
+%{_datadir}/%{name}/translations/%{name}_azoth_abbrev_??_??.qm
 
 %files azoth-acetamide
 %defattr(-,root,root)
@@ -2243,6 +2536,12 @@ cd build
 %{translations_dir}/leechcraft_azoth_modnok*
 %{azoth_dir}/lc_azoth_modnok_latexconvert.sh
 
+%files azoth-mucommands
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_azoth_mucommands.so
+%{_datadir}/%{name}/translations/%{name}_azoth_mucommands_??.qm
+%{_datadir}/%{name}/translations/%{name}_azoth_mucommands_??_??.qm
+
 %files azoth-murm
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_murm.so
@@ -2258,12 +2557,7 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_otroid.so
 %{_datadir}/%{name}/translations/%{name}_azoth_otroid*.qm
-
-# %%files azoth-p100q
-# %%defattr(-,root,root)
-# %%{settings_dir}/azothp100qsettings.xml
-# %%{plugin_dir}/*%%{name}_azoth_p100q.so
-# %%{translations_dir}/leechcraft_azoth_p100q*
+%{_datadir}/%{name}/settings/azothotroidsettings.xml
 
 %files azoth-rosenthal
 %defattr(-,root,root)
@@ -2317,10 +2611,6 @@ cd build
 %{translations_dir}/%{name}_bittorrent_*.qm
 %{plugin_dir}/*%{name}_bittorrent.so
 %{_datadir}/applications/%{name}-bittorrent.desktop
-
-#%%files blackdash
-#%%defattr(-,root,root)
-#%%{plugin_dir}/*%%{name}_blackdash.so
 
 %files blasq
 %defattr(-,root,root)
@@ -2406,7 +2696,8 @@ cd build
 %defattr(-,root,root)
 %{_datadir}/%{name}/cmake
 %{_includedir}/%{name}
-%{_libdir}/*%{name}-*.so
+%{_libdir}/lib%{name}-util*.so
+%{_libdir}/lib%{name}-xsd.so
 %{_datadir}/cmake/Modules/InitLCPlugin.cmake
 
 %files devmon
@@ -2557,12 +2848,6 @@ cd build
 %{_datadir}/%{name}/translations/%{name}_launchy_*.qm
 %{_datadir}/%{name}/qml/launchy/
 
-#%%files lcftp
-#%%defattr(-,root,root)
-#%%{plugin_dir}/*%%{name}_lcftp.so
-#%%{settings_dir}/lcftpsettings.xml
-#%%{translations_dir}/leechcraft_lcftp*
-
 %files lemon
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lemon.so
@@ -2607,6 +2892,12 @@ cd build
 %{_datadir}/%{name}/translations/%{name}_lmp_dumbsync_??.qm
 %{_datadir}/%{name}/translations/%{name}_lmp_dumbsync_??_??.qm
 
+%files lmp-fradj
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_lmp_fradj.so
+%{_datadir}/%{name}/translations/%{name}_lmp_fradj_??.qm
+%{_datadir}/%{name}/translations/%{name}_lmp_fradj_??_??.qm
+
 %files lmp-graffiti
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_lmp_graffiti.so
@@ -2617,6 +2908,8 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_lmp_httstream.so
 %{_datadir}/%{name}/settings/lmphttstreamfiltersettings.xml
+%{_datadir}/%{name}/translations/%{name}_lmp_httstream_??.qm
+%{_datadir}/%{name}/translations/%{name}_lmp_httstream_??_??.qm
 
 %files lmp-mp3tunes
 %defattr(-,root,root)
@@ -2626,6 +2919,12 @@ cd build
 %files lmp-mtpsync
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_lmp_mtpsync.so
+
+# %%files lmp-potorchu
+# %%defattr(-,root,root)
+# %%{_libdir}/%%{name}/plugins/*%%{name}_lmp_potorchu.so
+# %%{_datadir}/%%{name}/translations/%%{name}_lmp_potorchu_??.qm
+# %%{_datadir}/%%{name}/translations/%%{name}_lmp_potorchu_??_??.qm
 
 %files mellonetray
 %defattr(-,root,root)
@@ -2647,6 +2946,7 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_fxb.so
 %{_datadir}/applications/%{name}-monocle-fxb.desktop
+%{_datadir}/%{name}/settings/monoclefxbsettings.xml
 
 %ifarch i586 i686
 %files monocle-mu
@@ -2658,6 +2958,7 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_pdf.so
 %{_datadir}/applications/%{name}-monocle-pdf.desktop
+%{_datadir}/%{name}/settings/monoclepdfsettings.xml
 
 %files monocle-postrus
 %defattr(-,root,root)
@@ -2680,6 +2981,11 @@ cd build
 %{_datadir}/%{name}/settings/netstoremanagersettings.xml
 %{_datadir}/%{name}/translations/%{name}_netstoremanager_??.qm
 %{_datadir}/%{name}/translations/%{name}_netstoremanager_??_??.qm
+
+%files netstoremanager-dropbox
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_netstoremanager_dbox.so
+%{_datadir}/%{name}/settings/nsmdropboxsettings.xml
 
 %files netstoremanager-googledrive
 %defattr(-,root,root)
@@ -2707,6 +3013,7 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_otlozhu.so
 %{_datadir}/%{name}/translations/%{name}_otlozhu_*.qm
+%{_datadir}/%{name}/settings/otlozhusettings.xml
 
 %files pintab
 %defattr(-,root,root)
@@ -2717,12 +3024,6 @@ cd build
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_pogooglue*
 %{translations_dir}/leechcraft_pogooglue*
-
-%files poleemery
-%defattr(-,root,root)
-%{_datadir}/%{name}/settings/poleemerysettings.xml
-%{_datadir}/%{name}/translations/%{name}_poleemery_*.qm
-%{_libdir}/%{name}/plugins/*%{name}_poleemery*
 
 %files popishu
 %defattr(-,root,root)
@@ -2749,6 +3050,13 @@ cd build
 %{settings_dir}/poshukucleanwebsettings.xml
 %{translations_dir}/%{name}_poshuku_cleanweb*.qm
 %{plugin_dir}/*%{name}_poshuku_cleanweb.so
+
+%files poshuku-dcac
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_poshuku_dcac.so
+%{_datadir}/%{name}/translations/%{name}_poshuku_dcac_??.qm
+%{_datadir}/%{name}/translations/%{name}_poshuku_dcac_??_??.qm
+%{_datadir}/%{name}/settings/poshukudcacsettings.xml
 
 %files poshuku-fatape
 %defattr(-,root,root)
@@ -2787,10 +3095,18 @@ cd build
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_poshuku_onlinebookmarks_readitlater.*
 
+%files poshuku-qrd
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_poshuku_qrd.so
+%{_datadir}/%{name}/translations/%{name}_poshuku_qrd_??.qm
+%{_datadir}/%{name}/translations/%{name}_poshuku_qrd_??_??.qm
+
 %files poshuku-speeddial
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_poshuku_speeddial.so
 %{_datadir}/%{name}/settings/poshukuspeeddialsettings.xml
+%{_datadir}/%{name}/translations/%{name}_poshuku_speeddial_??.qm
+%{_datadir}/%{name}/translations/%{name}_poshuku_speeddial_??_??.qm
 
 %files rosenthal
 %defattr(-,root,root)
@@ -2825,10 +3141,6 @@ cd build
 %{settings_dir}/seekthrusettings.xml
 %{translations_dir}/%{name}_seekthru*.qm
 %{plugin_dir}/*%{name}_seekthru.so
-
-%files shaitan
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_shaitan.so
 
 %files summary
 %defattr(-,root,root)
@@ -2879,17 +3191,75 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_vrooby.so
 %{_datadir}/%{name}/translations/%{name}_vrooby_*.qm
+%{_datadir}/%{name}/qml/vrooby
 
 %files xproxy
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_xproxy.so
 %{_datadir}/%{name}/settings/xproxysettings.xml
 %{_datadir}/%{name}/translations/%{name}_xproxy_*.qm
+%{_datadir}/%{name}/scripts/xproxy
 
 %files xtazy
 %defattr(-,root,root)
 %{_datadir}/%{name}/settings/xtazysettings.xml
 %{_libdir}/%{name}/plugins/*%{name}_xtazy.so
 %{_datadir}/%{name}/translations/%{name}_xtazy*
+
+%files -n lib%{name}-util-db%{so_ver}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-db*.so.*
+
+%files -n lib%{name}-util-gui%{so_ver}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-gui*.so.*
+
+%files -n lib%{name}-util-models%{so_ver}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-models*.so.*
+
+%files -n lib%{name}-util-network%{so_ver}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-network*.so.*
+
+%files -n lib%{name}-util-qml%{so_ver}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-qml*.so.*
+
+%files -n lib%{name}-util-shortcuts%{so_ver}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-shortcuts*.so.*
+
+%files -n lib%{name}-util-sll%{so_ver}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-sll*.so.*
+
+%files -n lib%{name}-util-svcauth%{so_ver}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-svcauth*.so.*
+
+%files -n lib%{name}-util-sys%{so_ver}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-sys*.so.*
+
+%files -n lib%{name}-util-tags%{so_ver}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-tags*.so.*
+
+%files -n lib%{name}-util-x11-%{so_ver}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-x11*.so.*
+
+%files -n lib%{name}-util-xdg%{so_ver}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-xdg*.so.*
+
+%files -n lib%{name}-util-xpc%{so_ver}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-xpc*.so.*
+
+%files -n lib%{name}-util-xsd%{so_ver}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}-util-xsd*.so.*
 
 %changelog
