@@ -32,7 +32,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.65-1823-ga1dac8f
+%define LEECHCRAFT_VERSION 0.6.70-635-gb265537
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -138,11 +138,11 @@ BuildRequires:  pkgconfig(libopenjpeg)
 %endif
 %endif
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
-%if 0%{?suse_version} > 1230
+%if 0%{?suse_version} >= 1310
 BuildRequires:  pkgconfig(libvlc)
-%endif
 BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt4)
+%endif
 BuildRequires:  pkgconfig(qca2)
 BuildRequires:  pkgconfig(udev)
 BuildRequires:  pkgconfig(xcomposite)
@@ -156,9 +156,7 @@ BuildRequires:  jbig2dec-devel
 # BuildRequires:  libchromaprint-devel
 # BuildRequires:  libffmpeg-devel
 BuildRequires:  liblaretz-devel
-BuildRequires:  mupdf-devel-static
 BuildRequires:  openjpeg-devel
-BuildRequires:  qtermwidget-qt4-devel >= 0.4.0.1400918638
 BuildRequires:  telepathy-qt4-devel
 BuildRequires:  wt-devel >= 3.3
 %if 0%{?suse_version} <= 1310 && 0%{?suse_version} >= 1230
@@ -190,6 +188,9 @@ Obsoletes:      %{name}-dlniwe
 Obsoletes:      %{name}-eiskaltdcpp
 Obsoletes:      %{name}-iconset-oxygen
 Obsoletes:      %{name}-iconset-tango
+%if 0%{?suse_version} <= 1230
+Obsoletes:      %{name}-liznoo
+%endif
 Obsoletes:      %{name}-nacheku
 Obsoletes:      %{name}-tabpp
 
@@ -267,7 +268,9 @@ Requires:       %{name}-krigstask
 Requires:       %{name}-laughty
 Requires:       %{name}-launchy
 Requires:       %{name}-lemon
+%if 0%{?suse_version} >= 1310
 Requires:       %{name}-liznoo
+%endif
 Requires:       %{name}-mellonetray
 Requires:       %{name}-ooronee
 Requires:       %{name}-sb2
@@ -398,8 +401,10 @@ Requires:       %{name}-lhtr
 Requires:       %{name}-monocle
 Requires:       %{name}-monocle-dik
 Requires:       %{name}-monocle-fxb
+%if 0%{?suse_version} >= 1310
 Requires:       %{name}-monocle-pdf
 Requires:       %{name}-monocle-postrus
+%endif
 Requires:       %{name}-monocle-seen
 Requires:       %{name}-popishu
 Recommends:     %{name}-meta_tools
@@ -554,6 +559,19 @@ Unlike other multiprotocol clients which tend to implement only those
 features that are present in all the protocols, Azoth is modelled after the
 XMPP protocol, aiming to provide extensive and full support for XMPP while
 remaining usable for other protocols.
+
+
+%package azoth-abbrev
+Summary:        LeechCraft Azoth - Abbreviations Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-azoth-protocolplugin = %{version}
+Suggests:       %{name}-xoox
+Recommends:     %{name}-acetamide
+Recommends:     %{name}-xoox
+
+%description azoth-abbrev
+This package provides abbreviations via commands like /abbrev, /unabbrev
+and /listabbrevs for LeechCraft Azoth.
 
 
 %package azoth-acetamide
@@ -1253,6 +1271,7 @@ It also uses Phonon as a backend or something like aplay/mplayer.
 %package eleeminator
 Summary:        LeechCraft Eleeminator Module
 Group:          Productivity/Networking/Other
+BuildRequires:  pkgconfig(qtermwidget4) >= 0.5.1
 Requires:       %{name} = %{version}
 Provides:       %{name}-shaitan = %{version}
 Obsoletes:      %{name}-shaitan < %{version}
@@ -1598,6 +1617,7 @@ It can be usable with mail and blog modules.
 %endif
 
 
+%if 0%{?suse_version} >= 1310
 %package liznoo
 Summary:        LeechCraft Power managment module
 Group:          Productivity/Networking/Other
@@ -1619,6 +1639,7 @@ reconnect properly on startup.
  * Allows user to easily sleep/hibernate the system.
  * Notifies user when device starts discharging or charging.
  * Notifies user on low power level.
+%endif
 
 
 %if %{lmp}
@@ -1774,6 +1795,11 @@ Summary:        LeechCraft Document viewer Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-monocle-subplugin
+%if 0%{?suse_version} == 1230
+Obsoletes:      %{name}-monocle-mu
+Obsoletes:      %{name}-monocle-pdf
+Obsoletes:      %{name}-monocle-postrus
+%endif
 
 %description monocle
 This package provides a modular Document viewer plugin for LeechCraft.
@@ -1807,6 +1833,7 @@ This package contains a MOBI subplugin for LeechCraft Monocle.
 This package provides MOBI documents support for Document viewer Module.
 
 
+%if 0%{?suse_version} >= 1310
 %package monocle-mu
 Summary:        LeechCraft Monocle - Another PDF Module
 Group:          Productivity/Networking/Other
@@ -1849,6 +1876,7 @@ This package contains a PostRus subplugin for LeechCraft Monocle.
 
 This package provides PostScript documents support for Document viewer Module
 via the ghostscript utils and Pdf plugin.
+%endif
 
 
 %package monocle-seen
@@ -2357,7 +2385,7 @@ with a suitable plugin like Aggregator.
 %package snails
 Summary:        LeechCraft Email client Module
 Group:          Productivity/Networking/Other
-BuildRequires:  libvmime-devel >= 0.9.2+git.1402265403
+BuildRequires:  pkgconfig(vmime) >= 0.9.2
 Requires:       %{name} = %{version}
 
 %description snails
@@ -2722,10 +2750,12 @@ cmake ../src \
 %endif
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
+                -DENABLE_AZOTH_ABBREV=True \
                 -DENABLE_AZOTH_ACETAMIDE=True \
                 -DENABLE_AZOTH_ASTRALITY=True \
                 -DENABLE_AZOTH_MUCOMMANDS=True \
                 -DENABLE_AZOTH_OTROID=True \
+                -DENABLE_AZOTH_SARIN=False \
                 -DENABLE_AZOTH_SHX=True \
                 -DENABLE_AZOTH_VELVETBIRD=True \
 %if %{woodpecker}
@@ -2793,7 +2823,11 @@ cmake ../src \
 %else
         -DENABLE_LHTR=False \
 %endif
+%if 0%{?suse_version} >= 1310
         -DENABLE_LIZNOO=True \
+%else
+        -DENABLE_LIZNOO=False \
+%endif
 %if %{lmp}
         -DENABLE_LMP=True \
 %if 0%{?suse_version} > 1310
@@ -2821,8 +2855,16 @@ cmake ../src \
 %endif
 %if 0%{?suse_version} >= 1230
         -DENABLE_MONOCLE=True \
+%if 0%{?suse_version} >= 1310
         -DENABLE_MONOCLE_MU=True \
                 -DMUPDF_VERSION=0x0102 \
+        -DENABLE_MONOCLE_PDF=True \
+        -DENABLE_MONOCLE_POSTRUS=True \
+%else
+        -DENABLE_MONOCLE_MU=False \
+        -DENABLE_MONOCLE_PDF=False \
+        -DENABLE_MONOCLE_POSTRUS=False \
+%endif
 %else
         -DENABLE_MONOCLE=False \
 %endif
@@ -2871,16 +2913,8 @@ cmake ../src \
         -DENABLE_TWIFEE=False \
         -DENABLE_VTYULC=True \
         -DENABLE_VROOBY=True \
+        -DENABLE_WKPLUGINS=False \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
-
-# gcc 4.7 optimization.
-# Disabled because of https://bugzilla.novell.com/show_bug.cgi?id=774180
-#
-# %%if %%{?suse_version} > 1230
-#         -DCMAKE_CXX_FLAGS="%%{optflags} -flto" \
-#         -DCMAKE_SHARED_LINKER_FLAGS="%%{optflags} -flto" \
-#         -DCMAKE_EXE_LINKER_FLAGS="%%{optflags} -flto" \
-# %%endif
 
 %build
 cd build
@@ -2889,6 +2923,9 @@ make %{?_smp_mflags} VERBOSE=1
 %install
 cd build
 %make_install
+
+# Unneeded here Qt5 build' files:
+rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 
 # Mine ;)
 rm -rf %{buildroot}%{_datadir}/icons/hicolor/*/apps/*leechcraft*
@@ -3114,6 +3151,12 @@ EOF
 %{translations_dir}/%{name}_azoth_??.qm
 %{translations_dir}/%{name}_azoth_??_??.qm
 %{plugin_dir}/*%{name}_azoth.so
+
+%files azoth-abbrev
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_azoth_abbrev.so
+%{_datadir}/%{name}/translations/%{name}_azoth_abbrev_??.qm
+%{_datadir}/%{name}/translations/%{name}_azoth_abbrev_??_??.qm
 
 %files azoth-acetamide
 %defattr(-,root,root)
@@ -3582,11 +3625,13 @@ EOF
 %{_datadir}/%{name}/settings/lhtrsettings.xml
 %endif
 
+%if 0%{?suse_version} >= 1310
 %files liznoo
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_liznoo.so
 %{_datadir}/%{name}/settings/liznoosettings.xml
 %{_datadir}/%{name}/translations/%{name}_liznoo_*.qm
+%endif
 
 %if %{lmp}
 %files lmp
@@ -3677,7 +3722,9 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_fxb.so
 %{_datadir}/applications/%{name}-monocle-fxb.desktop
+%{_datadir}/%{name}/settings/monoclefxbsettings.xml
 
+%if 0%{?suse_version} >= 1310
 %files monocle-mu
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_mu.so
@@ -3686,11 +3733,13 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_pdf.so
 %{_datadir}/applications/%{name}-monocle-pdf.desktop
+%{_datadir}/%{name}/settings/monoclepdfsettings.xml
 
 %files monocle-postrus
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_postrus.so
 %{_datadir}/applications/%{name}-monocle-postrus.desktop
+%endif
 
 %files monocle-seen
 %defattr(-,root,root)
@@ -3966,12 +4015,14 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_vrooby.so
 %{_datadir}/%{name}/translations/%{name}_vrooby_*.qm
+%{_datadir}/%{name}/qml/vrooby
 
 %files xproxy
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_xproxy.so
 %{_datadir}/%{name}/settings/xproxysettings.xml
 %{_datadir}/%{name}/translations/%{name}_xproxy_*.qm
+%{_datadir}/%{name}/scripts/xproxy
 
 %files xtazy
 %defattr(-,root,root)

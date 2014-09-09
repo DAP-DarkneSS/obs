@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Wed Jul 30 14:38:58 UTC 2014 - dap.darkness@gmail.com
+
+- 0.6.70 release.
+
+-------------------------------------------------------------------
+Mon Jul  7 16:23:44 UTC 2014 - dap.darkness@gmail.com
+
+- 0.6.65-380-gffa0f72 git snapshot.
+
+-------------------------------------------------------------------
 Mon Apr 28 10:25:32 UTC 2014 - schwab@linux-m68k.org
 
 - Add graphviz-gnome to build requires for png support

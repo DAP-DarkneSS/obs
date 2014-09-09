@@ -24,3 +24,16 @@ index cae3b05..e0d7cce 100644
  					{
  						const auto& e = Util::MakeNotification ("Azoth",
  								tr ("Using the juick.com service is discouraged. Please consider "
+diff --git a/src/plugins/azoth/interfaces/azoth/iprovidecommands.h b/src/plugins/azoth/interfaces/azoth/iprovidecommands.h
+index 6339ff2..f92b019 100644
+--- a/src/plugins/azoth/interfaces/azoth/iprovidecommands.h
++++ b/src/plugins/azoth/interfaces/azoth/iprovidecommands.h
+@@ -66,6 +66,8 @@ namespace Azoth
+ 		{
+ 		}
+ 
++		~CommandException () noexcept {}
++
+ 		const QString& GetError () const
+ 		{
+ 			return Error_;
