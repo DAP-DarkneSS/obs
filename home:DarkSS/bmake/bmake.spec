@@ -17,7 +17,7 @@
 
 
 Name:           bmake
-Version:        20140214
+Version:        20140620
 Release:        0
 Summary:        The NetBSD make(1) tool
 License:        BSD-2-Clause and BSD-3-Clause and BSD-4-Clause
@@ -42,16 +42,20 @@ supported in Makefiles is very different.
 
 %build
 unset MAKEFLAGS
+env CFLAGS="%{optflags}" \
 ./boot-strap -o Linux \
     --prefix="%{_prefix}" \
     --sysconfdir="%{_sysconfdir}" \
     --with-default-sys-path="%{_datadir}/mk" \
-    --mksrc none
+    --mksrc none op=build
 
 %install
 install -Dp -m0644 bmake.1 %{buildroot}%{_mandir}/man1/bmake.1
 install -Dp -m0755 Linux/bmake %{buildroot}%{_bindir}/bmake
 install -Dp -m0644 %{SOURCE1} %{buildroot}%{_datadir}/mk/sys.mk
+
+%check
+./boot-strap op=test
 
 %files
 %defattr(-,root,root)

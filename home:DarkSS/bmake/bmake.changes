@@ -1,6 +1,47 @@
 -------------------------------------------------------------------
+Sat Sep 13 15:22:25 FET 2014 - vle@gmx.net
+
+- Update to 20140620.
+- Enabled unit tests.
+
+-------------------------------------------------------------------
 Sun Jun  1 14:48:33 UTC 2014 - dap.darkness@gmail.com
 
 - Imported from repoforge.
 - SUSEficated.
+
+-------------------------------------------------------------------
+Mon Jan  2 00:00:00 UTC 2012 - cheusov@NetBSD.org
+
+- Update to 20111010 and adapted to Repoforge.
+
+-------------------------------------------------------------------
+Tue Dec  8 00:00:00 UTC 2009 - lav@altlinux.ru
+
+- add pkgsrc-mk-files require
+
+-------------------------------------------------------------------
+Wed Jul 29 00:00:00 UTC 2009 - lav@altlinux.ru
+
+- create dir for bmake macros
+
+-------------------------------------------------------------------
+Thu Jul 23 00:00:00 UTC 2009 - vle@gmx.net
+
+- Now bmake doesn't depend on mk-files
+
+-------------------------------------------------------------------
+Sun Jul 12 00:00:00 UTC 2009 - lav@altlinux.ru
+
+- initial build for ALT Linux Sisyphus
+
+-------------------------------------------------------------------
+Mon Feb 23 00:00:00 UTC 2009 - rel-eng@lists.fedoraproject.org
+
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
+-------------------------------------------------------------------
+Wed Jul  2 00:00:00 UTC 2008 - jmmv@NetBSD.org
+
+- Initial release for Fedora.
 
