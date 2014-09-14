@@ -26,7 +26,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70
+%define LEECHCRAFT_VERSION 0.6.70-705-g4c90c17
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -1995,6 +1995,18 @@ This package provides a tune wrapper plugin for LeechCraft.
 It allows to get current user tune via mpris protocol.
 
 
+%package zalil
+Summary:        LeechCraft Files Uploader Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+
+%description zalil
+This package provides a file uploader plugin for LeechCraft.
+
+It allows to upload files to accountless filebin services.
+
+
 %package -n lib%{name}-util-db%{so_ver}
 Summary:        Database utility library for LeechCraft
 Group:          Productivity/Networking/Other
@@ -2253,6 +2265,7 @@ cmake ../src \
         -DENABLE_VTYULC=False \
 %endif
         -DENABLE_VROOBY=True \
+        -DENABLE_ZALIL=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
 %build
@@ -3205,6 +3218,10 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %{_datadir}/%{name}/settings/xtazysettings.xml
 %{_libdir}/%{name}/plugins/*%{name}_xtazy.so
 %{_datadir}/%{name}/translations/%{name}_xtazy*
+
+%files zalil
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_zalil.so
 
 %files -n lib%{name}-util-db%{so_ver}
 %defattr(-,root,root)
