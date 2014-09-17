@@ -1,0 +1,40 @@
+-------------------------------------------------------------------
+Wed Sep 17 15:58:24 UTC 2014 - dap.darkness@gmail.com
+
+- Updated to 0.4.0-42-g0b430bf for bugfixes:
+  * #64 No drag & drop support;
+  * #57 Linux emulation does not seem to support Ctrl+Arrows;
+  * #25 Compilation problems.
+- Project was renamed from qtermwidget to qtermwidget-qt4,
+  see more at https://build.opensuse.org/request/show/249051
+
+-------------------------------------------------------------------
+Mon Aug 25 14:56:14 UTC 2014 - dap.darkness@gmail.com
+
+- A minor fixing up to submit to Factory.
+
+-------------------------------------------------------------------
+Wed Aug 20 15:09:19 UTC 2014 - dap.darkness@gmail.com
+
+- Updated to 0.4.0-37-gebf7d6c to build leechcraft-eleeminator.
+
+-------------------------------------------------------------------
+Sun May 25 18:26:31 UTC 2014 - dap.darkness@gmail.com
+
+- Minor fixing up.
+
+-------------------------------------------------------------------
+Wed May 14 21:51:33 UTC 2014 - sfalken@opensuse.org
+
+- Fixed path error on %postun section 
+
+-------------------------------------------------------------------
+Wed May 14 15:32:12 UTC 2014 - andrea@opensuse.org
+
+- Spec file clean up
+
+-------------------------------------------------------------------
+Wed May 14 03:09:18 UTC 2014 - sfalken@opensuse.org
+
+- Updated %files sections, to reflect new files since last build 
+
