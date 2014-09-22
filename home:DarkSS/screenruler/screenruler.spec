@@ -1,24 +1,47 @@
-Summary:	GNOME screen ruler
-Name:		screenruler
-Version:	0.96
-Release:	3%{?dist}
-License:	GPLv2+
-Group:		Applications/Engineering
-URL:		https://launchpad.net/screenruler/
-Source0:	http://launchpad.net/screenruler/trunk/0.9.6/+download/%{name}-0.9.6.tar.gz
-Source1:	screenruler.desktop
-Patch0:		screenruler-ruby19.patch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires:	desktop-file-utils
-Requires:	ruby
-Requires:	rubygem-gtk2 rubygem-cairo rubygem-gettext
-Obsoletes:	gruler < 0.85
-Provides:	gruler = %{version}-%{release}
+#
+# spec file for package screenruler
+#
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
 
-BuildArch:	noarch
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
+#
+
+
+Name:           screenruler
+Version:        0.9.6
+Release:        0
+Summary:        GNOME screen ruler
+License:        GPL-2.0+
+Group:          Applications/Engineering
+Url:            https://launchpad.net/screenruler/
+Source0:        http://launchpad.net/screenruler/trunk/0.9.6/+download/%{name}-0.9.6.tar.gz
+Source1:        screenruler.desktop
+#PATCH-FIX-UNKNOWN for ruby 1.9 users.
+Patch0:         screenruler-ruby19.patch
+
+BuildRequires:  fdupes
+BuildRequires:  update-desktop-files
+Requires:       ruby
+Requires:       rubygem-atk
+Requires:       rubygem-cairo
+Requires:       rubygem-gettext
+Requires:       rubygem-glib2
+Requires:       rubygem-gtk2
+Requires:       rubygem-pango
+Provides:       gruler
+BuildArch:      noarch
 
 %description
-Screenruler is a small GNOME based utility that allows you to measure objects 
+Screenruler is a small GNOME based utility that allows you to measure objects
 on your desktop. It can be used to take both horizontal and vertical
 measurement in 6 different metrics: pixels, centimeters, inches, picas, points,
 and as a percentage of the ruler’s length.
@@ -30,7 +53,6 @@ and as a percentage of the ruler’s length.
 %build
 
 %install
-rm -rf %{buildroot}
 
 mkdir -p %{buildroot}
 
@@ -52,19 +74,12 @@ cp -pr utils *.rb screenruler*.* *.glade %{buildroot}%{_datadir}/%{name}/
 cd %{buildroot}%{_datadir}/pixmaps
  ln -s ./screenruler-icon-32x32.png screenruler-icon.png
 
-desktop-file-install \
-%if 0%{?fedora} && 0%{?fedora} < 19
-	--vendor="fedora"				\
-%endif
-	--dir=${RPM_BUILD_ROOT}%{_datadir}/applications		\
-	%{SOURCE1}
-
-%clean
-rm -rf %{buildroot}
+%suse_update_desktop_file -i %{name}
+%fdupes -s %{buildroot}%{_datadir}
 
 %files
 %defattr(-, root, root, -)
-%doc AUTHORS COPYING 
+%doc AUTHORS COPYING
 %{_bindir}/screenruler
 %{_datadir}/screenruler/
 %{_datadir}/pixmaps/screenruler-icon*.png
