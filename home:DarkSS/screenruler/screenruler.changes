@@ -1,0 +1,31 @@
+-------------------------------------------------------------------
+Mon Jun 10 00:00:00 UTC 2013 - dakingun@gmail.com
+
+- Update to the latest upstream release
+- Patch to wirk with ruby-1.9 (Russell Harrison, BZ #831501)
+
+-------------------------------------------------------------------
+Mon Feb 25 00:00:00 UTC 2013 - toshio@fedoraproject.org
+
+- Remove --vendor from desktop-file-install for F19+ https://fedorahosted.org/fesco/ticket/1077
+
+-------------------------------------------------------------------
+Sun Mar 20 00:00:00 UTC 2011 - dakingun@gmail.com
+
+- Update to 0.9 bzr snapshot
+
+-------------------------------------------------------------------
+Wed Oct  1 00:00:00 UTC 2008 - dakingun@gmail.com
+
+- Spec clean-ups from package review
+
+-------------------------------------------------------------------
+Mon Sep 22 00:00:00 UTC 2008 - dakingun@gmail.com
+
+- Follow upstream renaming to Screenruler
+
+-------------------------------------------------------------------
+Mon Jan 14 00:00:00 UTC 2008 - dakingun@gmail.com
+
+- Initial package
+

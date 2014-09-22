@@ -1,0 +1,26 @@
+--- ruler_window.rb	2011-11-15 08:38:44.000000000 -0500
++++ ruler_window.rb.new	2013-06-10 16:23:36.109921296 -0400
+@@ -16,7 +16,8 @@
+  #  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  ###############################################################################
+ 
+-require 'glade_window', 'ruler_popup_menu', 'canvas', 'unique_timeout'
++require 'glade_window', 'canvas', 'unique_timeout'
++require_relative 'ruler_popup_menu'
+ 
+ Unit = Struct.new('Unit', :name, :tick_pattern, :units_per_pattern_repetition, :per_inch)
+ 
+--- screenruler.rb	2011-11-18 21:13:00.000000000 -0500
++++ screenruler.rb.new	2013-06-10 16:39:27.076879708 -0400
+@@ -48,7 +48,10 @@
+ puts _('Loading libraries...')
+ 
+ require 'addons_ruby'									# for multi-file 'require'
+-require 'gtk2', 'settings', 'addons_gtk', 'ruler_window', 'preferences_window', 'help_window'
++require 'gtk2', 'settings', 'addons_gtk'
++require_relative 'ruler_window'
++require_relative 'preferences_window'
++require_relative 'help_window'
+ 
+ ###################################################################
+ # Main

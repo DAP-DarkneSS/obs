@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Screenruler
+GenericName=GNOME Screen Ruler
+Comment=Screen ruler
+Exec=screenruler
+Icon=screenruler-icon
+Terminal=false
+Type=Application
+Categories=Utility;
