@@ -17,7 +17,7 @@
 
 
 Name:           simplescreenrecorder
-Version:        0.3.0
+Version:        0.3.1
 Release:        0
 License:        GPL-3.0+
 Summary:        A feature-rich screen recorder that supports X11 and OpenGL
