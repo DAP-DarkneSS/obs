@@ -21,7 +21,7 @@
 %define settings_dir %{_datadir}/%{name}/settings
 %define azoth_dir %{_datadir}/%{name}/azoth
 
-%define so_ver 0_6_70
+%define so_ver 0_6_75
 
 %define fenet 1
 %define lmp 1
@@ -32,7 +32,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-635-gb265537
+%define LEECHCRAFT_VERSION 0.6.70-1053-g1b9b86d
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -144,7 +144,9 @@ BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt4)
 %endif
 BuildRequires:  pkgconfig(qca2)
+BuildRequires:  pkgconfig(qtermwidget4) >= 0.5.1
 BuildRequires:  pkgconfig(udev)
+BuildRequires:  pkgconfig(vmime) >= 0.9.2
 BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xkbfile)
@@ -158,7 +160,9 @@ BuildRequires:  jbig2dec-devel
 BuildRequires:  liblaretz-devel
 BuildRequires:  openjpeg-devel
 BuildRequires:  telepathy-qt4-devel
+%if 0%{?suse_version} >= 1310
 BuildRequires:  wt-devel >= 3.3
+%endif
 %if 0%{?suse_version} <= 1310 && 0%{?suse_version} >= 1230
 BuildRequires:  pkgconfig(QtMultimediaKit)
 %endif
@@ -291,7 +295,9 @@ Requires:       %{name}-azoth-acetamide
 Requires:       %{name}-azoth-adiumstyles
 Requires:       %{name}-azoth-astrality
 Requires:       %{name}-azoth-autoidler
+%if 0%{?suse_version} >= 1310
 Requires:       %{name}-azoth-autopaste
+%endif
 Requires:       %{name}-azoth-birthdaynotifier
 Requires:       %{name}-azoth-chathistory
 Requires:       %{name}-azoth-depester
@@ -497,7 +503,7 @@ work, a script provider like Qrosp should be installed. Please refer to the
 guide to writing recipes if you are interested in writing your own ones.
 
 
-%if 0%{?suse_version} >= 1230
+%if 0%{?suse_version} >= 1310
 %package aggregator-webaccess
 Summary:        LeechCraft Aggregator - Web Interface Module
 Group:          Productivity/Networking/Other
@@ -634,6 +640,7 @@ This package provides a status changing plugin for LeechCraft Azoth.
 It allows to automatically change of status due to inactivity period.
 
 
+%if 0%{?suse_version} >= 1310
 %package azoth-autopaste
 Summary:        LeechCraft Azoth - Autopaste Module
 Group:          Productivity/Networking/Other
@@ -643,6 +650,7 @@ Requires:       %{name}-azoth = %{version}
 This package provides an autopaste plugin for LeechCraft Azoth.
 
 It allows to paste long messages to pastebins automatically.
+%endif
 
 
 %package azoth-birthdaynotifier
@@ -787,6 +795,7 @@ see nice rendered formulas instead of raw LaTeX code, even if their client
 doesn't have a LaTeX formatter.
 
 
+%if 0%{?suse_version} >= 1230
 %package azoth-mucommands
 Summary:        LeechCraft Azoth - Conference-oriented Commands Module
 Group:          Productivity/Networking/Other
@@ -798,6 +807,7 @@ Recommends:     %{name}-xoox
 %description azoth-mucommands
 This package provides some common conference-oriented commands like
 /vcard, /time, /last, /subject, /kick, /ban and so on for LeechCraft Azoth.
+%endif
 
 
 %package azoth-murm
@@ -1211,7 +1221,7 @@ Requires:       lib%{name}-util-sll%{so_ver}       = %{version}
 Requires:       lib%{name}-util-svcauth%{so_ver}   = %{version}
 Requires:       lib%{name}-util-sys%{so_ver}       = %{version}
 Requires:       lib%{name}-util-tags%{so_ver}      = %{version}
-Requires:       lib%{name}-util-x11-%{so_ver}       = %{version}
+Requires:       lib%{name}-util-x11-%{so_ver}      = %{version}
 Requires:       lib%{name}-util-xdg%{so_ver}       = %{version}
 Requires:       lib%{name}-util-xpc%{so_ver}       = %{version}
 Requires:       lib%{name}-util-xsd%{so_ver}       = %{version}
@@ -1271,7 +1281,6 @@ It also uses Phonon as a backend or something like aplay/mplayer.
 %package eleeminator
 Summary:        LeechCraft Eleeminator Module
 Group:          Productivity/Networking/Other
-BuildRequires:  pkgconfig(qtermwidget4) >= 0.5.1
 Requires:       %{name} = %{version}
 Provides:       %{name}-shaitan = %{version}
 Obsoletes:      %{name}-shaitan < %{version}
@@ -2385,7 +2394,6 @@ with a suitable plugin like Aggregator.
 %package snails
 Summary:        LeechCraft Email client Module
 Group:          Productivity/Networking/Other
-BuildRequires:  pkgconfig(vmime) >= 0.9.2
 Requires:       %{name} = %{version}
 
 %description snails
@@ -2576,6 +2584,20 @@ This package provides a tune wrapper plugin for LeechCraft.
 It allows to get current user tune via mpris protocol.
 
 
+%if 0%{?suse_version} >= 1310
+%package zalil
+Summary:        LeechCraft Files Uploader Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+
+%description zalil
+This package provides a file uploader plugin for LeechCraft.
+
+It allows to upload files to accountless filebin services.
+%endif
+
+
 %package -n lib%{name}-util-db%{so_ver}
 Summary:        Database utility library for LeechCraft
 Group:          Productivity/Networking/Other
@@ -2743,7 +2765,7 @@ cmake ../src \
         -DWITH_QWT=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
-%if 0%{?suse_version} >= 1230
+%if 0%{?suse_version} >= 1310
                 -DENABLE_AGGREGATOR_WEBACCESS=True \
 %else
                 -DENABLE_AGGREGATOR_WEBACCESS=False \
@@ -2753,10 +2775,20 @@ cmake ../src \
                 -DENABLE_AZOTH_ABBREV=True \
                 -DENABLE_AZOTH_ACETAMIDE=True \
                 -DENABLE_AZOTH_ASTRALITY=True \
+%if 0%{?suse_version} >= 1310
+                -DENABLE_AZOTH_AUTOPASTE=True \
+%else
+                -DENABLE_AZOTH_AUTOPASTE=False \
+%endif
+%if 0%{?suse_version} >= 1230
                 -DENABLE_AZOTH_MUCOMMANDS=True \
+%else
+                -DENABLE_AZOTH_MUCOMMANDS=False \
+%endif
                 -DENABLE_AZOTH_OTROID=True \
                 -DENABLE_AZOTH_SARIN=False \
                 -DENABLE_AZOTH_SHX=True \
+                -DENABLE_AZOTH_TRACOLOR=False \
                 -DENABLE_AZOTH_VELVETBIRD=True \
 %if %{woodpecker}
                 -DENABLE_AZOTH_WOODPECKER=True \
@@ -2914,6 +2946,11 @@ cmake ../src \
         -DENABLE_VTYULC=True \
         -DENABLE_VROOBY=True \
         -DENABLE_WKPLUGINS=False \
+%if 0%{?suse_version} >= 1310
+        -DENABLE_ZALIL=True \
+%else
+        -DENABLE_ZALIL=False \
+%endif
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
 %build
@@ -3121,7 +3158,7 @@ EOF
 %dir %{_datadir}/%{name}/scripts
 %{_datadir}/%{name}/scripts/aggregator/
 
-%if 0%{?suse_version} >= 1230
+%if 0%{?suse_version} >= 1310
 %files aggregator-webaccess
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_aggregator_webaccess.so
@@ -3182,11 +3219,13 @@ EOF
 %{settings_dir}/azothautoidlersettings.xml
 %{translations_dir}/leechcraft_azoth_autoidler*
 
+%if 0%{?suse_version} >= 1310
 %files azoth-autopaste
 %defattr(-,root,root)
 %{settings_dir}/azothautopastesettings.xml
 %{translations_dir}/%{name}_azoth_autopaste*
 %{plugin_dir}/*%{name}_azoth_autopaste.so
+%endif
 
 %files azoth-birthdaynotifier
 %defattr(-,root,root)
@@ -3253,11 +3292,13 @@ EOF
 %{translations_dir}/leechcraft_azoth_modnok*
 %{azoth_dir}/lc_azoth_modnok_latexconvert.sh
 
+%if 0%{?suse_version} >= 1230
 %files azoth-mucommands
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_mucommands.so
 %{_datadir}/%{name}/translations/%{name}_azoth_mucommands_??.qm
 %{_datadir}/%{name}/translations/%{name}_azoth_mucommands_??_??.qm
+%endif
 
 %files azoth-murm
 %defattr(-,root,root)
@@ -4029,6 +4070,12 @@ EOF
 %{_datadir}/%{name}/settings/xtazysettings.xml
 %{_libdir}/%{name}/plugins/*%{name}_xtazy.so
 %{_datadir}/%{name}/translations/%{name}_xtazy*
+
+%if 0%{?suse_version} >= 1310
+%files zalil
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_zalil.so
+%endif
 
 %files -n lib%{name}-util-db%{so_ver}
 %defattr(-,root,root)
