@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Tue Oct  7 16:05:13 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 14.10.07 (changes since 14.07.27):
+  * the action of ASS subtitles restoring
+    from Matroska container in FFMpeg 2.4.x;
+  * metadata changes support for using FFMpeg 2.4.x;
+  * saving equalizer settings video;
+  * added to the playlist directories sorting;
+  * improved work with YouTube;
+  * added support for pleer.com;
+  * improved OpenGL operation;
+  * bug fixes.
+
+-------------------------------------------------------------------
 Mon Jul 28 17:35:46 UTC 2014 - dap.darkness@gmail.com
 
 - Update to 14.07.27 (changes since 14.03.05):
