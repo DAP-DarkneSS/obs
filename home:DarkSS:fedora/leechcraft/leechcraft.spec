@@ -26,7 +26,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-705-g4c90c17
+%define LEECHCRAFT_VERSION 0.6.70-1161-ge2e519f
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -53,6 +53,7 @@ BuildRequires:  libcurl-devel
 BuildRequires:  pkgconfig(ddjvuapi)
 BuildRequires:  libjpeg-devel
 BuildRequires:  liblastfm-devel
+BuildRequires:  pkgconfig(libidn)
 BuildRequires:  libmsn-devel
 BuildRequires:  libmtp-devel
 BuildRequires:  libnl3-devel
@@ -2168,6 +2169,7 @@ cmake ../src \
                 -DENABLE_AZOTH_MUCOMMANDS=True \
                 -DENABLE_AZOTH_OTROID=True \
                 -DENABLE_AZOTH_SHX=True \
+                -DENABLE_AZOTH_TRACOLOR=False \
                 -DENABLE_AZOTH_VELVETBIRD=True \
                 -DENABLE_AZOTH_WOODPECKER=False \
                 -DENABLE_AZOTH_ZHEET=True \
@@ -2227,10 +2229,10 @@ cmake ../src \
         -DENABLE_MUSICZOMBIE=True \
                 -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
         -DENABLE_NACHEKU=False \
-        -DENABLE_NEWLIFE=True \
         -DENABLE_NETSTOREMANAGER=True \
                 -DENABLE_NETSTOREMANAGER_DROPBOX=True \
                 -DENABLE_NETSTOREMANAGER_GOOGLEDRIVE=True \
+        -DENABLE_NEWLIFE=True \
         -DENABLE_OORONEE=True \
         -DENABLE_OTLOZHU=True \
         -DENABLE_OTLOZHU_SYNC=False \
@@ -2239,6 +2241,7 @@ cmake ../src \
         -DENABLE_POGOOGLUE=True \
         -DENABLE_POPISHU=True \
         -DENABLE_POSHUKU=True \
+                -DENABLE_IDN=True \
                 -DENABLE_POSHUKU_AUTOSEARCH=True \
                 -DENABLE_POSHUKU_DCAC=True \
                 -DENABLE_POSHUKU_QRD=True \
