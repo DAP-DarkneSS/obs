@@ -32,7 +32,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-1053-g1b9b86d
+%define LEECHCRAFT_VERSION 0.6.70-1320-ge96a983
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -88,6 +88,7 @@ BuildRequires:  libqscintilla-devel
 BuildRequires:  libqt4-sql
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
+# BuildRequires:  llvm-clang
 %if 0%{?suse_version} > 1230
 %ifarch %ix86 x86_64 %arm
 BuildRequires:  mupdf-devel-static
@@ -102,7 +103,9 @@ BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(QtWebKit)
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(ddjvuapi)
+%if 0%{?suse_version} > 1230
 BuildRequires:  libGeoIP-devel
+%endif
 BuildRequires:  pkgconfig(libmtp)
 BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libpcre)
@@ -137,8 +140,8 @@ BuildRequires:  pkgconfig(libmsn)
 BuildRequires:  pkgconfig(libopenjpeg)
 %endif
 %endif
-BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
 %if 0%{?suse_version} >= 1310
+BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
 BuildRequires:  pkgconfig(libvlc)
 BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt4)
@@ -310,7 +313,9 @@ Requires:       %{name}-azoth-keeso
 Requires:       %{name}-azoth-lastseen
 Requires:       %{name}-azoth-metacontacts
 Requires:       %{name}-azoth-modnok
+%if 0%{?suse_version} >= 1310
 Requires:       %{name}-azoth-murm
+%endif
 Requires:       %{name}-azoth-nativeemoticons
 Requires:       %{name}-azoth-otroid
 Requires:       %{name}-azoth-rosenthal
@@ -366,7 +371,9 @@ Requires:       %{name}-advancednotifications
 Requires:       %{name}-aggregator
 Requires:       %{name}-aggregator-bodyfetch
 Requires:       %{name}-auscrie
+%if 0%{?suse_version} > 1230
 Requires:       %{name}-bittorrent
+%endif
 Requires:       %{name}-blasq
 Requires:       %{name}-blasq-spegnersi
 Requires:       %{name}-blasq-deathnote
@@ -533,7 +540,9 @@ It shows backtraces and aids in sending bug reports.
 Summary:        LeechCraft Screenshoter Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+%if 0%{?suse_version} >= 1310
 Requires:       %{name}-imgaste = %{version}
+%endif
 
 %description auscrie
 This package provides a screenshooter plugin for LeechCraft.
@@ -810,6 +819,7 @@ This package provides some common conference-oriented commands like
 %endif
 
 
+%if 0%{?suse_version} >= 1310
 %package azoth-murm
 Summary:        LeechCraft Azoth - VKontakte Module
 Group:          Productivity/Networking/Other
@@ -819,6 +829,7 @@ Provides:       %{name}-azoth-protocolplugin
 %description azoth-murm
 This package provides a special protocol subplugin for extensive VKontakte
 messaging support plugin for LeechCraft Azoth.
+%endif
 
 
 %package azoth-nativeemoticons
@@ -998,6 +1009,7 @@ The following protocol features are currently supported:
  * Blacklist management.
 
 
+%if 0%{?suse_version} > 1230
 %package bittorrent
 Summary:        LeechCraft BitTorrent client Module
 Group:          Productivity/Networking/Other
@@ -1025,6 +1037,7 @@ Features
  * IP filter to block/unblock unwanted peers.
  * Support for extension protocol
 etc.
+%endif
 
 
 #%%package blackdash
@@ -1454,7 +1467,6 @@ Requires:       %{name} = %{version}
 %description htthare
 This package provides content from local filesystem over LANs (and
 possibly WANs, but by default only LAN interfaces are listened on).
-%endif
 
 
 %package imgaste
@@ -1464,6 +1476,7 @@ Requires:       %{name} = %{version}
 
 %description imgaste
 This module provides a simple image paster plugin from LeechCraft
+%endif
 
 
 %package kbswitch
@@ -2752,6 +2765,9 @@ find src -name '*.png' -or -name '*.css' -or -name '*.gif' -exec chmod 0644 {} +
 
 mkdir build && cd build
 
+# export CC=/usr/bin/clang
+# export CXX=/usr/bin/clang++
+
 cmake ../src \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
@@ -2784,6 +2800,11 @@ cmake ../src \
                 -DENABLE_AZOTH_MUCOMMANDS=True \
 %else
                 -DENABLE_AZOTH_MUCOMMANDS=False \
+%endif
+%if 0%{?suse_version} >= 1310
+                -DENABLE_AZOTH_MURM=True \
+%else
+                -DENABLE_AZOTH_MURM=False \
 %endif
                 -DENABLE_AZOTH_OTROID=True \
                 -DENABLE_AZOTH_SARIN=False \
@@ -2836,10 +2857,11 @@ cmake ../src \
         -DENABLE_HOTSTREAMS=True \
 %if 0%{?suse_version} > 1230
         -DENABLE_HTTHARE=True \
+        -DENABLE_IMGASTE=True \
 %else
         -DENABLE_HTTHARE=False \
+        -DENABLE_IMGASTE=False \
 %endif
-        -DENABLE_IMGASTE=True \
         -DENABLE_KBSWITCH=True \
         -DENABLE_KNOWHOW=True \
         -DENABLE_KRIGSTASK=True \
@@ -2938,8 +2960,12 @@ cmake ../src \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
         -DENABLE_TEXTOGROOSE=True \
+%if 0%{?suse_version} > 1230
         -DENABLE_TORRENT=True \
                 -DENABLE_BITTORRENT_GEOIP=True \
+%else
+        -DENABLE_TORRENT=False \
+%endif
         -DENABLE_TOUCHSTREAMS=True \
         -DENABLE_TPI=True \
         -DENABLE_TWIFEE=False \
@@ -3300,11 +3326,13 @@ EOF
 %{_datadir}/%{name}/translations/%{name}_azoth_mucommands_??_??.qm
 %endif
 
+%if 0%{?suse_version} >= 1310
 %files azoth-murm
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_murm.so
 %{_datadir}/%{name}/translations/%{name}_azoth_murm*.qm
 %{settings_dir}/azothmurmsettings.xml
+%endif
 
 %files azoth-nativeemoticons
 %defattr(-,root,root)
@@ -3377,12 +3405,14 @@ EOF
 %{translations_dir}/%{name}_azoth_zheet*
 %{plugin_dir}/*%{name}_azoth_zheet.so
 
+%if 0%{?suse_version} > 1230
 %files bittorrent
 %defattr(-,root,root)
 %{settings_dir}/torrentsettings.xml
 %{translations_dir}/%{name}_bittorrent_*.qm
 %{plugin_dir}/*%{name}_bittorrent.so
 %{_datadir}/applications/%{name}-bittorrent.desktop
+%endif
 
 #%%files blackdash
 #%%defattr(-,root,root)
@@ -3590,12 +3620,12 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_htthare.so
 %{_datadir}/%{name}/settings/httharesettings.xml
 %{_datadir}/%{name}/translations/%{name}_htthare_*.qm
-%endif
 
 %files imgaste
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_imgaste.so
 %{_datadir}/%{name}/translations/%{name}_imgaste_*.qm
+%endif
 
 %files kbswitch
 %defattr(-,root,root)
