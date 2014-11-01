@@ -12,18 +12,18 @@ index 8c11a81..f0efc85 100644
  					imjw->Join (accObj);
  					w->deleteLater ();
 diff --git a/src/plugins/azoth/plugins/xoox/clientconnection.cpp b/src/plugins/azoth/plugins/xoox/clientconnection.cpp
-index cae3b05..e0d7cce 100644
+index cd195c6..870753c 100644
 --- a/src/plugins/azoth/plugins/xoox/clientconnection.cpp
 +++ b/src/plugins/azoth/plugins/xoox/clientconnection.cpp
-@@ -998,7 +998,7 @@ namespace Xoox
- 			{
- 				new Util::DelayedExecutor
+@@ -1002,7 +1002,7 @@ namespace Xoox
  				{
--					[] () -> void
-+					[this] () -> void
+ 					new Util::DelayedExecutor
  					{
- 						const auto& e = Util::MakeNotification ("Azoth",
- 								tr ("Using the juick.com service is discouraged. Please consider "
+-						[]
++						[this]
+ 						{
+ 							const auto& e = Util::MakeNotification ("Azoth",
+ 									tr ("Using the juick.com service is discouraged. Please consider "
 diff --git a/src/plugins/azoth/interfaces/azoth/iprovidecommands.h b/src/plugins/azoth/interfaces/azoth/iprovidecommands.h
 index 6339ff2..f92b019 100644
 --- a/src/plugins/azoth/interfaces/azoth/iprovidecommands.h

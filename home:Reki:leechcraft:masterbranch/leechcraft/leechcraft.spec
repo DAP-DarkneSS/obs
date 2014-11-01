@@ -24,7 +24,11 @@
 %define so_ver 0_6_75
 
 %define fenet 1
+%if 0%{?suse_version} >= 1310
 %define lmp 1
+%else
+%define lmp 0
+%endif
 %define mellonetray 1
 %define poleemery 1
 %define woodpecker 1
@@ -32,7 +36,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-1320-ge96a983
+%define LEECHCRAFT_VERSION 0.6.70-1364-g57b77d8
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -115,6 +119,7 @@ BuildRequires:  pkgconfig(phonon)
 BuildRequires:  pkgconfig(purple)
 BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(taglib)
+%if %{lmp}
 %if 0%{?suse_version} > 1310
 BuildRequires:  pkgconfig(gstreamer-app-1.0)
 BuildConflicts: gstreamer-0_10-devel
@@ -125,6 +130,7 @@ BuildConflicts: libgstreamer-0_10
 %else
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
 BuildConflicts: libgstreamer-1_0-0
+%endif
 %endif
 BuildRequires:  libqxmpp-devel >= 0.8.0.1398262192
 BuildRequires:  pkgconfig(hunspell)
