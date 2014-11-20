@@ -36,7 +36,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-1364-g57b77d8
+%define LEECHCRAFT_VERSION 0.6.70-1601-ge8c853a
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -64,7 +64,7 @@ Patch6:         leechcraft-gcc47.patch
 # PATCH-FIX-OPENSUSE vs. error: "function 'virtual…' defaulted
 # on its first declaration with an exception-specification
 # that differs from the implicit declaration".
-Patch7:         leechcraft-snails-gcc47.patch
+# Patch7:         leechcraft-snails-gcc47.patch
 
 
 BuildRequires:  Qross-devel
@@ -90,6 +90,9 @@ BuildRequires:  liblastfm-devel
 BuildRequires:  libotr-devel
 BuildRequires:  libqscintilla-devel
 BuildRequires:  libqt4-sql
+%if 0%{?suse_version} > 1310
+BuildRequires:  libqxt-devel
+%endif
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
 # BuildRequires:  llvm-clang
@@ -154,7 +157,7 @@ BuildRequires:  pkgconfig(poppler-qt4)
 %endif
 BuildRequires:  pkgconfig(qca2)
 BuildRequires:  pkgconfig(qtermwidget4) >= 0.5.1
-BuildRequires:  pkgconfig(udev)
+BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(vmime) >= 0.9.2
 BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xdamage)
@@ -2410,15 +2413,17 @@ with a suitable plugin like Aggregator.
 # This package provides a terminal plugin for Leechcraft.
 
 
-%package snails
-Summary:        LeechCraft Email client Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description snails
-This package contains a Email client plugin for LeechCraft.
-
-It provides basic Email client functionality and supports SMTP and IMAP4.
+# %%if 0%%{?suse_version} <= 1310
+# %%package snails
+# Summary:        LeechCraft Email client Module
+# Group:          Productivity/Networking/Other
+# Requires:       %%{name} = %%{version}
+# 
+# %%description snails
+# This package contains a Email client plugin for LeechCraft.
+# 
+# It provides basic Email client functionality and supports SMTP and IMAP4.
+# %%endif
 
 
 %package summary
@@ -2754,7 +2759,7 @@ XmlSettingsDialog LeechCraft subsystem.
 %patch5 -p1
 %patch6 -p1
 %endif
-%patch7 -p1
+# %%patch7 -p1
 
 # Mine ;)
 rm src/core/resources/images/leechcraft.svg
@@ -2961,7 +2966,7 @@ cmake ../src \
         -DENABLE_SECMAN=True \
         -DENABLE_SHAITAN=False \
         -DENABLE_SHELLOPEN=False \
-        -DENABLE_SNAILS=True \
+        -DENABLE_SNAILS=False \
         -DENABLE_SYNCER=True \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
@@ -4027,13 +4032,15 @@ EOF
 # %%defattr(-,root,root)
 # %%{_libdir}/%%{name}/plugins/lib%%{name}_shaitan.so
 
-%files snails
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_snails.so
-%{_datadir}/%{name}/settings/snailssettings.xml
-%{_datadir}/%{name}/translations/%{name}_snails_??.qm
-%{_datadir}/%{name}/translations/%{name}_snails_??_??.qm
-%{_datadir}/%{name}/snails
+# %%if 0%%{?suse_version} <= 1310
+# %%files snails
+# %%defattr(-,root,root)
+# %%{_libdir}/%%{name}/plugins/lib%%{name}_snails.so
+# %%{_datadir}/%%{name}/settings/snailssettings.xml
+# %%{_datadir}/%%{name}/translations/%%{name}_snails_??.qm
+# %%{_datadir}/%%{name}/translations/%%{name}_snails_??_??.qm
+# %%{_datadir}/%%{name}/snails
+# %%endif
 
 %files summary
 %defattr(-,root,root)
