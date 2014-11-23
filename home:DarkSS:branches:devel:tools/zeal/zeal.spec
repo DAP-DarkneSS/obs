@@ -16,16 +16,23 @@
 #
 
 
+%define gittag 20141123
+
 Name:           zeal
 Summary:        Offline API documentation browser
-Version:        0.0+git.2014.08.25
+Version:        0.0+git.2014.11.23
 Release:        0
 License:        GPL-3.0
 URL:            http://zealdocs.org
-Source0:        zeal-%{version}.tar.gz
+Group:          Development/Tools/Other
+Source0:        https://github.com/jkozera/zeal/archive/%{gittag}.tar.gz
 
 BuildRequires:  fdupes
+%if 0%{?suse_version} > 1310
 BuildRequires:  libQt5Gui-private-headers-devel
+%else
+BuildRequires:  libqt5-qtbase-private-headers-devel
+%endif
 BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(Qt5Concurrent)
 BuildRequires:  pkgconfig(Qt5WebKitWidgets)
@@ -35,7 +42,6 @@ BuildRequires:  pkgconfig(appindicator-0.1)
 %endif
 BuildRequires:  pkgconfig(gtk+-2.0)
 BuildRequires:  pkgconfig(xcb-keysyms)
-BuildConflicts: post-build-checks
 
 %description
 Zeal is a simple offline API documentation browser inspired by Dash
@@ -48,7 +54,7 @@ Zeal is a simple offline API documentation browser inspired by Dash
    Editor plugins for details.
 
 %prep
-%setup -q -n %{name}-%{version}/%{name}
+%setup -q -n %{name}-%{gittag}/%{name}
 
 %build
 qmake-qt5 \
