@@ -36,7 +36,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-1601-ge8c853a
+%define LEECHCRAFT_VERSION 0.6.70-1648-g423c003
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -1237,15 +1237,15 @@ Requires:       lib%{name}-util-db%{so_ver}        = %{version}
 Requires:       lib%{name}-util-gui%{so_ver}       = %{version}
 Requires:       lib%{name}-util-models%{so_ver}    = %{version}
 Requires:       lib%{name}-util-network%{so_ver}   = %{version}
-Requires:       lib%{name}-util-qml%{so_ver}       = %{version}
+Requires:       lib%{name}-util-qml%{so_ver}_1     = %{version}
 Requires:       lib%{name}-util-shortcuts%{so_ver} = %{version}
 Requires:       lib%{name}-util-sll%{so_ver}       = %{version}
 Requires:       lib%{name}-util-svcauth%{so_ver}   = %{version}
 Requires:       lib%{name}-util-sys%{so_ver}       = %{version}
-Requires:       lib%{name}-util-tags%{so_ver}      = %{version}
+Requires:       lib%{name}-util-tags%{so_ver}_1    = %{version}
 Requires:       lib%{name}-util-x11-%{so_ver}      = %{version}
 Requires:       lib%{name}-util-xdg%{so_ver}       = %{version}
-Requires:       lib%{name}-util-xpc%{so_ver}       = %{version}
+Requires:       lib%{name}-util-xpc%{so_ver}_1     = %{version}
 Requires:       lib%{name}-util-xsd%{so_ver}       = %{version}
 Requires:       pkgconfig(QtWebKit)
 
@@ -2658,11 +2658,11 @@ A library providing some useful and commonly used
 network classes and functions.
 
 
-%package -n lib%{name}-util-qml%{so_ver}
+%package -n lib%{name}-util-qml%{so_ver}_1
 Summary:        QML utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-qml%{so_ver}
+%description -n lib%{name}-util-qml%{so_ver}_1
 A library providing some useful and commonly used QML items as well as
 QML-related classes and functions.
 
@@ -2703,11 +2703,11 @@ classes and functions, like OS version parser, paths utilities or MIME
 detector.
 
 
-%package -n lib%{name}-util-tags%{so_ver}
+%package -n lib%{name}-util-tags%{so_ver}_1
 Summary:        Tags utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-tags%{so_ver}
+%description -n lib%{name}-util-tags%{so_ver}_1
 A library providing some useful classes and functions commonly used
 with the LeechCraft tags subsystem.
 
@@ -2729,11 +2729,11 @@ A library providing XDG parsers and other support methods and classes
 for LeechCraft.
 
 
-%package -n lib%{name}-util-xpc%{so_ver}
+%package -n lib%{name}-util-xpc%{so_ver}_1
 Summary:        Cross-plugin communication utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-xpc%{so_ver}
+%description -n lib%{name}-util-xpc%{so_ver}_1
 A library providing some useful and commonly used primitives for
 communications between different plugins in LeechCraft.
 
@@ -3080,10 +3080,10 @@ EOF
 %postun -n lib%{name}-util-network%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-qml%{so_ver}
+%post -n lib%{name}-util-qml%{so_ver}_1
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-qml%{so_ver}
+%postun -n lib%{name}-util-qml%{so_ver}_1
 /sbin/ldconfig
 
 %post -n lib%{name}-util-shortcuts%{so_ver}
@@ -3110,10 +3110,10 @@ EOF
 %postun -n lib%{name}-util-sys%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-tags%{so_ver}
+%post -n lib%{name}-util-tags%{so_ver}_1
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-tags%{so_ver}
+%postun -n lib%{name}-util-tags%{so_ver}_1
 /sbin/ldconfig
 
 %post -n lib%{name}-util-x11-%{so_ver}
@@ -3128,10 +3128,10 @@ EOF
 %postun -n lib%{name}-util-xdg%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-xpc%{so_ver}
+%post -n lib%{name}-util-xpc%{so_ver}_1
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-xpc%{so_ver}
+%postun -n lib%{name}-util-xpc%{so_ver}_1
 /sbin/ldconfig
 
 %post -n lib%{name}-util-xsd%{so_ver}
@@ -3698,6 +3698,7 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_lemon.so
 %{_datadir}/%{name}/qml/lemon/
 %{_datadir}/%{name}/translations/%{name}_lemon_*.qm
+%{_datadir}/%{name}/settings/lemonsettings.xml
 
 %if 0%{?suse_version} >= 1230
 %files lhtr
@@ -4118,6 +4119,7 @@ EOF
 %files zalil
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_zalil.so
+%{_datadir}/%{name}/translations/%{name}_zalil_*.qm
 %endif
 
 %files -n lib%{name}-util-db%{so_ver}
@@ -4136,7 +4138,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-network*.so.*
 
-%files -n lib%{name}-util-qml%{so_ver}
+%files -n lib%{name}-util-qml%{so_ver}_1
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-qml*.so.*
 
@@ -4156,7 +4158,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-sys*.so.*
 
-%files -n lib%{name}-util-tags%{so_ver}
+%files -n lib%{name}-util-tags%{so_ver}_1
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-tags*.so.*
 
@@ -4168,7 +4170,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-xdg*.so.*
 
-%files -n lib%{name}-util-xpc%{so_ver}
+%files -n lib%{name}-util-xpc%{so_ver}_1
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-xpc*.so.*
 
