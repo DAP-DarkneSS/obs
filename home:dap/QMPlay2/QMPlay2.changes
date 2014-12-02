@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Tue Dec  2 15:36:22 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 14.12.01 (changes since 14.10.07):
+  * subtitles fonts loading from the directory,
+    that provides ASS/SSA subtitles;
+  * added "User-Agent" for HTTP connections
+    (ProstoPleer working again);
+  * minor bug fixing.
+
+-------------------------------------------------------------------
 Tue Oct  7 16:05:13 UTC 2014 - dap.darkness@gmail.com
 
 - Update to 14.10.07 (changes since 14.07.27):
