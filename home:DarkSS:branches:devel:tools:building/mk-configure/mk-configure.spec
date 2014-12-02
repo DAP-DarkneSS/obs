@@ -17,7 +17,7 @@
 
 
 Name:           mk-configure
-Version:        0.26.0
+Version:        0.29.0
 Release:        0
 Summary:        Lightweight replacement for GNU autotools
 License:        BSD-2-Clause and BSD-2-Clause and MIT and ISC
@@ -25,7 +25,11 @@ Group:          Development/Tools
 Url:            http://sourceforge.net/projects/mk-configure/
 Source:         http://prdownloads.sf.net/%{name}/%{name}-%{version}.tar.gz
 
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  bison
 BuildRequires:  bmake
+BuildRequires:  flex
 BuildRequires:  gcc-c++
 BuildRequires:  glib2-devel
 BuildRequires:  groff
@@ -70,22 +74,28 @@ bmake all
 %install
 %{env}
 bmake install DESTDIR=%{buildroot}
-rm -rf %{buildroot}%{_docdir}/%{name}
+rm -rf %{buildroot}%{_datadir}/doc/%{name}
 # E: wrong-script-interpreter (Badness: 533)
 chmod -x examples/hello_lua/foobar.in
+chmod -x examples/hello_scripts/hello_world3.in
+chmod -x examples/hello_subdirs/prog1/prog1.awk.in
 
 %check
 unset MAKEFLAGS
 env \
     LEXLIB=-lfl \
-    NOSUBDIR='hello_lex hello_superfs hello_progs subprojects hello_lua hello_lua2 hello_lua3 hello_yacc hello_calc2 tools hello_dictd' \
+    NOSUBDIR='hello_lex hello_superfs hello_progs subprojects hello_lua hello_lua2 hello_lua3 hello_yacc hello_calc2 tools hello_dictd hello_libdeps' \
     bmake \
     test
+bmake cleandir-examples
+bmake cleandir-tests
+# E: suse-filelist-forbidden-backup-file
+rm -rf examples/*/*/*~
 
 %files
 %defattr(-,root,root)
 %doc README doc/FAQ doc/LICENSE doc/NEWS doc/TODO
-%{_bindir}/*
+%attr(755,root,root) %{_bindir}/*
 %{_datadir}/mk-configure/
 %{_datadir}/mkc-mk/
 %{_mandir}/man1/*
