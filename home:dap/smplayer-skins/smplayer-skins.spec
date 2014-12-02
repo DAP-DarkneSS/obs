@@ -2,12 +2,22 @@
 # spec file for package smplayer-skins
 #
 # Copyright (c) 2006-2012 Ricardo Villalba aka rvm (GPLv2)
+# Copyright (c) 2014 Packman team: http://packman.links2linux.org/
 #
-# Please submit bugfixes or comments via http://sourceforge.net/tracker/?group_id=185512
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+# Please submit bugfixes or comments via https://bugs.links2linux.org
 #
 
 Name:           smplayer-skins
-Version:        20130605
+Version:        14.9.0
 Release:        0
 License:        GPL-2.0+
 Summary:        Skins for SMPlayer
@@ -18,10 +28,11 @@ Source:         http://downloads.sourceforge.net/project/smplayer/SMPlayer-skins
 BuildArch:      noarch
 
 BuildRequires:  fdupes
+BuildRequires:  libqt4-devel >= 4.2.0
 
 BuildRoot:      %{_tmppath}/build-%{name}-%{version}
 
-Requires:       smplayer >= 0.8.2
+Requires:       smplayer-core >= 14.9.0
 
 %description
 This package provides skin themes for SMPlayer.
@@ -36,9 +47,17 @@ the Qt toolkit, so it's multi-platform.
 %setup -q
 
 %build
+make \
+     V=1 \
+     %{?_smp_mflags}
 
 %install
-make %{?_smp_mflags} PREFIX=%{_prefix} DESTDIR=$RPM_BUILD_ROOT install
+make \
+     V=1 \
+     %{?_smp_mflags} \
+     PREFIX=%{_prefix} \
+     DESTDIR=%{buildroot} \
+     install
 %fdupes -s %{buildroot}%{_datadir}
 
 %files
