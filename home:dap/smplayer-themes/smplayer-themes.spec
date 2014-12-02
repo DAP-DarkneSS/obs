@@ -12,11 +12,12 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.links2linux.org
+#
 
 
 Name:           smplayer-themes
-Version:        20140607
+Version:        14.9.0
 Release:        1.pm.1
 Summary:        Icon Themes for SMPlayer
 Source:         http://prdownloads.sourceforge.net/smplayer/smplayer-themes-%{version}.tar.bz2
@@ -26,7 +27,8 @@ License:        GPL-2.0+
 BuildRoot:      %{_tmppath}/build-%{name}-%{version}
 BuildRequires:  make
 BuildRequires:  fdupes
-Requires:       smplayer-core
+BuildRequires:  libqt4-devel >= 4.2.0
+Requires:       smplayer-core >= 14.9.0
 BuildArch:      noarch
 
 %description
@@ -43,10 +45,17 @@ the Qt toolkit, so it's multi-platform.
 %setup -q
 
 %build
+make \
+     V=1 \
+     %{?_smp_mflags}
 
 %install
-%makeinstall PREFIX="%{_prefix}"
-
+make \
+     V=1 \
+     %{?_smp_mflags} \
+     PREFIX=%{_prefix} \
+     DESTDIR=%{buildroot} \
+     install
 %fdupes -s "%{buildroot}%{_datadir}/smplayer"
 
 %files
