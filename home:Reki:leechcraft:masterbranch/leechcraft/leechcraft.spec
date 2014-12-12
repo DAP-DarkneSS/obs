@@ -23,6 +23,11 @@
 
 %define so_ver 0_6_75
 
+%if 0%{?suse_version} >= 1320
+%define clang_compiler 1
+%else
+%define clang_compiler 0
+%endif
 %define fenet 1
 %if 0%{?suse_version} >= 1310
 %define lmp 1
@@ -36,7 +41,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-1648-g423c003
+%define LEECHCRAFT_VERSION 0.6.70-1869-g236179c
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -80,7 +85,12 @@ BuildRequires:  cmake > 2.8
 %endif
 BuildRequires:  fdupes
 BuildRequires:  file-devel
+%if %{clang_compiler}
+BuildRequires:  gcc49-c++
+BuildConflicts: gcc-c++
+%else
 BuildRequires:  gcc-c++ >= 4.7
+%endif
 BuildRequires:  hicolor-icon-theme
 %if 0%{?suse_version} > 1230
 BuildRequires:  jbig2dec-devel
@@ -95,8 +105,10 @@ BuildRequires:  libqxt-devel
 %endif
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
-# BuildRequires:  llvm-clang
-%if 0%{?suse_version} > 1230
+%if %{clang_compiler}
+BuildRequires:  llvm-clang
+%endif
+%if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
 BuildRequires:  mupdf-devel-static
 %endif
@@ -283,8 +295,8 @@ Requires:       %{name}-kbswitch
 Requires:       %{name}-krigstask
 Requires:       %{name}-laughty
 Requires:       %{name}-launchy
-Requires:       %{name}-lemon
 %if 0%{?suse_version} >= 1310
+Requires:       %{name}-lemon
 Requires:       %{name}-liznoo
 %endif
 Requires:       %{name}-mellonetray
@@ -1241,7 +1253,7 @@ Requires:       lib%{name}-util-qml%{so_ver}_1     = %{version}
 Requires:       lib%{name}-util-shortcuts%{so_ver} = %{version}
 Requires:       lib%{name}-util-sll%{so_ver}       = %{version}
 Requires:       lib%{name}-util-svcauth%{so_ver}   = %{version}
-Requires:       lib%{name}-util-sys%{so_ver}       = %{version}
+Requires:       lib%{name}-util-sys%{so_ver}_1     = %{version}
 Requires:       lib%{name}-util-tags%{so_ver}_1    = %{version}
 Requires:       lib%{name}-util-x11-%{so_ver}      = %{version}
 Requires:       lib%{name}-util-xdg%{so_ver}       = %{version}
@@ -1624,6 +1636,7 @@ This package provides a third-party application launcher plugin for Leechcraft.
 #FTP client with recursive downloads, uploads and two-panel interface.
 
 
+%if 0%{?suse_version} >= 1310
 %package lemon
 Summary:        LeechCraft Network Monitor Module
 Group:          Productivity/Networking/Other
@@ -1632,6 +1645,7 @@ Requires:       %{name}-sb = %{version}
 
 %description lemon
 This package provides another Network Monitor plugin for Leechcraft.
+%endif
 
 
 %if 0%{?suse_version} >= 1230
@@ -1864,7 +1878,7 @@ This package contains a MOBI subplugin for LeechCraft Monocle.
 This package provides MOBI documents support for Document viewer Module.
 
 
-%if 0%{?suse_version} >= 1310
+%if 0%{?suse_version} == 1310
 %package monocle-mu
 Summary:        LeechCraft Monocle - Another PDF Module
 Group:          Productivity/Networking/Other
@@ -1878,8 +1892,10 @@ This package contains another pdf subplugin for LeechCraft Monocle.
 
 This package provides PDF documents support for Document viewer Module
 via the mupdf backend.
+%endif
 
 
+%if 0%{?suse_version} >= 1310
 %package monocle-pdf
 Summary:        LeechCraft Monocle - PDF Module
 Group:          Productivity/Networking/Other
@@ -2413,17 +2429,17 @@ with a suitable plugin like Aggregator.
 # This package provides a terminal plugin for Leechcraft.
 
 
-# %%if 0%%{?suse_version} <= 1310
-# %%package snails
-# Summary:        LeechCraft Email client Module
-# Group:          Productivity/Networking/Other
-# Requires:       %%{name} = %%{version}
-# 
-# %%description snails
-# This package contains a Email client plugin for LeechCraft.
-# 
-# It provides basic Email client functionality and supports SMTP and IMAP4.
-# %%endif
+%if %{clang_compiler}
+%package snails
+Summary:        LeechCraft Email client Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description snails
+This package contains a Email client plugin for LeechCraft.
+
+It provides basic Email client functionality and supports SMTP and IMAP4.
+%endif
 
 
 %package summary
@@ -2693,11 +2709,11 @@ Group:          Productivity/Networking/Other
 A library providing authenticators for various services like VKontakte.
 
 
-%package -n lib%{name}-util-sys%{so_ver}
+%package -n lib%{name}-util-sys%{so_ver}_1
 Summary:        System utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-sys%{so_ver}
+%description -n lib%{name}-util-sys%{so_ver}_1
 A library providing some useful and commonly used system-related
 classes and functions, like OS version parser, paths utilities or MIME
 detector.
@@ -2776,8 +2792,10 @@ find src -name '*.png' -or -name '*.css' -or -name '*.gif' -exec chmod 0644 {} +
 
 mkdir build && cd build
 
-# export CC=/usr/bin/clang
-# export CXX=/usr/bin/clang++
+%if %{clang_compiler}
+export CC=/usr/bin/clang
+export CXX=/usr/bin/clang++
+%endif
 
 cmake ../src \
 %if "%{_lib}" == "lib64"
@@ -2881,7 +2899,11 @@ cmake ../src \
         -DENABLE_LASTFMSCROBBLE=True \
         -DENABLE_LAUGHTY=True \
         -DENABLE_LAUNCHY=True \
+%if 0%{?suse_version} >= 1310
         -DENABLE_LEMON=True \
+%else
+        -DENABLE_LEMON=False \
+%endif
 %if 0%{?suse_version} >= 1230
         -DENABLE_LHTR=True \
                 -DWITH_LHTR_HTML=True \
@@ -2920,13 +2942,16 @@ cmake ../src \
 %endif
 %if 0%{?suse_version} >= 1230
         -DENABLE_MONOCLE=True \
-%if 0%{?suse_version} >= 1310
+%if 0%{?suse_version} == 1310
         -DENABLE_MONOCLE_MU=True \
                 -DMUPDF_VERSION=0x0102 \
+%else
+        -DENABLE_MONOCLE_MU=False \
+%endif
+%if 0%{?suse_version} >= 1310
         -DENABLE_MONOCLE_PDF=True \
         -DENABLE_MONOCLE_POSTRUS=True \
 %else
-        -DENABLE_MONOCLE_MU=False \
         -DENABLE_MONOCLE_PDF=False \
         -DENABLE_MONOCLE_POSTRUS=False \
 %endif
@@ -2966,7 +2991,11 @@ cmake ../src \
         -DENABLE_SECMAN=True \
         -DENABLE_SHAITAN=False \
         -DENABLE_SHELLOPEN=False \
+%if %{clang_compiler}
+        -DENABLE_SNAILS=True \
+%else
         -DENABLE_SNAILS=False \
+%endif
         -DENABLE_SYNCER=True \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
@@ -3104,10 +3133,10 @@ EOF
 %postun -n lib%{name}-util-svcauth%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-sys%{so_ver}
+%post -n lib%{name}-util-sys%{so_ver}_1
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-sys%{so_ver}
+%postun -n lib%{name}-util-sys%{so_ver}_1
 /sbin/ldconfig
 
 %post -n lib%{name}-util-tags%{so_ver}_1
@@ -3693,12 +3722,14 @@ EOF
 #%%{settings_dir}/lcftpsettings.xml
 #%%{translations_dir}/leechcraft_lcftp*
 
+%if 0%{?suse_version} >= 1310
 %files lemon
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lemon.so
 %{_datadir}/%{name}/qml/lemon/
 %{_datadir}/%{name}/translations/%{name}_lemon_*.qm
 %{_datadir}/%{name}/settings/lemonsettings.xml
+%endif
 
 %if 0%{?suse_version} >= 1230
 %files lhtr
@@ -3807,11 +3838,13 @@ EOF
 %{_datadir}/applications/%{name}-monocle-fxb.desktop
 %{_datadir}/%{name}/settings/monoclefxbsettings.xml
 
-%if 0%{?suse_version} >= 1310
+%if 0%{?suse_version} == 1310
 %files monocle-mu
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_mu.so
+%endif
 
+%if 0%{?suse_version} >= 1310
 %files monocle-pdf
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_pdf.so
@@ -4033,15 +4066,15 @@ EOF
 # %%defattr(-,root,root)
 # %%{_libdir}/%%{name}/plugins/lib%%{name}_shaitan.so
 
-# %%if 0%%{?suse_version} <= 1310
-# %%files snails
-# %%defattr(-,root,root)
-# %%{_libdir}/%%{name}/plugins/lib%%{name}_snails.so
-# %%{_datadir}/%%{name}/settings/snailssettings.xml
-# %%{_datadir}/%%{name}/translations/%%{name}_snails_??.qm
-# %%{_datadir}/%%{name}/translations/%%{name}_snails_??_??.qm
-# %%{_datadir}/%%{name}/snails
-# %%endif
+%if %{clang_compiler}
+%files snails
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_snails.so
+%{_datadir}/%{name}/settings/snailssettings.xml
+%{_datadir}/%{name}/translations/%{name}_snails_??.qm
+%{_datadir}/%{name}/translations/%{name}_snails_??_??.qm
+%{_datadir}/%{name}/snails
+%endif
 
 %files summary
 %defattr(-,root,root)
@@ -4154,7 +4187,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-svcauth*.so.*
 
-%files -n lib%{name}-util-sys%{so_ver}
+%files -n lib%{name}-util-sys%{so_ver}_1
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-sys*.so.*
 
