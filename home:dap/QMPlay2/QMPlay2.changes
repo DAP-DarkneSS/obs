@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Sat Dec 27 21:53:31 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 14.12.23 (changes since 14.12.01):
+  * fixed playing stopping during operation `youtube-dl`,
+    as well as with protocols other than HTTP and HTTPS;
+  * ability to rewind streams network without reconnecting to the server;
+  * Support MPRIS2 songs titles, even if they do not contain a header;
+  * removed the ability to upgrade in systems other than Windows;
+  * automatic program updates `youtube-dl`;
+  * minor fixes search in YouTube;
+  * added cache for a class of parameters;
+  * improved caching.
+
+-------------------------------------------------------------------
 Tue Dec  2 15:36:22 UTC 2014 - dap.darkness@gmail.com
 
 - Update to 14.12.01 (changes since 14.10.07):
