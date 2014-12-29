@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sat Dec 29 20:53:31 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 14.12.28 (changes since 14.12.23):
+  * fixed fonts loading from folders with subtitles
+    (not recursively);
+  * the main toolbar can be split out from the main window;
+  * fixed crash if built with AVResample;
+  * fixed names displaying at YouTube playlist;
+  * minor bug fixing.
+
+-------------------------------------------------------------------
 Sat Dec 27 21:53:31 UTC 2014 - dap.darkness@gmail.com
 
 - Update to 14.12.23 (changes since 14.12.01):
