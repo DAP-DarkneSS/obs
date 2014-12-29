@@ -24,7 +24,7 @@
 %define so_ver 0_6_75
 
 %if 0%{?suse_version} >= 1320
-%define clang_compiler 1
+%define clang_compiler 0
 %else
 %define clang_compiler 0
 %endif
@@ -41,7 +41,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-1869-g236179c
+%define LEECHCRAFT_VERSION 0.6.70-2059-g35fbbf8
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -87,7 +87,8 @@ BuildRequires:  fdupes
 BuildRequires:  file-devel
 %if %{clang_compiler}
 BuildRequires:  gcc49-c++
-BuildConflicts: gcc-c++
+# BuildConflicts: gcc-c++
+# BuildConflicts: libgcc_s1
 %else
 BuildRequires:  gcc-c++ >= 4.7
 %endif
@@ -1248,7 +1249,7 @@ Requires:       cmake
 Requires:       lib%{name}-util-db%{so_ver}        = %{version}
 Requires:       lib%{name}-util-gui%{so_ver}       = %{version}
 Requires:       lib%{name}-util-models%{so_ver}    = %{version}
-Requires:       lib%{name}-util-network%{so_ver}   = %{version}
+Requires:       lib%{name}-util-network%{so_ver}_1   = %{version}
 Requires:       lib%{name}-util-qml%{so_ver}_1     = %{version}
 Requires:       lib%{name}-util-shortcuts%{so_ver} = %{version}
 Requires:       lib%{name}-util-sll%{so_ver}       = %{version}
@@ -2665,11 +2666,11 @@ A library providing some useful and commonly used models (as in MVC),
 as well as model-related classes and functions.
 
 
-%package -n lib%{name}-util-network%{so_ver}
+%package -n lib%{name}-util-network%{so_ver}_1
 Summary:        Network utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-network%{so_ver}
+%description -n lib%{name}-util-network%{so_ver}_1
 A library providing some useful and commonly used
 network classes and functions.
 
@@ -3103,10 +3104,10 @@ EOF
 %postun -n lib%{name}-util-models%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-network%{so_ver}
+%post -n lib%{name}-util-network%{so_ver}_1
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-network%{so_ver}
+%postun -n lib%{name}-util-network%{so_ver}_1
 /sbin/ldconfig
 
 %post -n lib%{name}-util-qml%{so_ver}_1
@@ -4167,7 +4168,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-models*.so.*
 
-%files -n lib%{name}-util-network%{so_ver}
+%files -n lib%{name}-util-network%{so_ver}_1
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-network*.so.*
 
