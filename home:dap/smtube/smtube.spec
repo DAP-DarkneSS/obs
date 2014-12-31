@@ -1,5 +1,6 @@
-# vim: set sw=4 ts=4 et nu:
-
+#
+# spec file for package smtube
+#
 # Copyright (c) 2012 Pascal Bleser <pascal.bleser@opensuse.org>
 # Copyright (c) 2014 Packman team: http://packman.links2linux.org/
 #
@@ -14,85 +15,79 @@
 
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 
-Name:               smtube
-Version:            14.7.0
-Release:            0.pm.1
-Summary:            Small Youtube Browser
-Source:             http://prdownloads.sourceforge.net/smplayer/smtube-%{version}.tar.bz2
-Patch1:             smtube-optflags.patch
-URL:                http://smplayer.sourceforge.net/
-Group:              Productivity/Multimedia/Video/Players
-License:            GPL-2.0+
-BuildRoot:          %{_tmppath}/build-%{name}-%{version}
-BuildRequires:      libqt4-devel
-BuildRequires:      gcc-c++ make pkgconfig
-BuildRequires:      update-desktop-files
-BuildRequires:      hicolor-icon-theme
-Recommends:         MPlayer
-Recommends:         smplayer >= 0.8.0
-Recommends:         vlc
 
+Name:           smtube
+Version:        14.12.0
+Release:        0
+Summary:        Small Youtube Browser
+License:        GPL-2.0
+Group:          Productivity/Multimedia/Video/Players
+URL:            http://smplayer.sourceforge.net/smtube.php
+Source0:        http://downloads.sourceforge.net/smplayer/SMTube/%{version}/%{name}-%{version}.tar.bz2
+# Fix 'File is compiled without RPM_OPT_FLAGS'
+Patch0:         %{name}-src_%{name}.pro.patch
+%if 0%{?suse_version}
+BuildRequires:  fdupes
+BuildRequires:  hicolor-icon-theme
+BuildRequires:  update-desktop-files
+%endif
+BuildRequires:  dos2unix
+BuildRequires:  gcc-c++
+BuildRequires:  libqt4-devel
+BuildRequires:  pkgconfig
+Recommends:     MPlayer
+Recommends:     smplayer
+Recommends:     vlc
 
 %description
-This is a youtube browser for smplayer. You can browse, search, download and
-play youtube videos. The videos are currently played in smplayer but in the
-future it may be added the possibility to use other players.
+SMTube allows to search, play and download Youtube videos.
+Videos are played back with a media player (by default SMPlayer)
+instead of a flash player, this allows better performance,
+particularly with HD content. SMTube also allows to download the videos,
+with the quality you choose. Several videos can be downloaded at a time.
 
-The code has been taken from UMPlayer (http://www.umplayer.com), with some
-modifications to make it a stand-alone application and added a few
-improvements.
+SMTube is included in SMPlayer's menus, to run it just select Youtube browser
+in the Options menu in the SMPlayer main window, or just press F11.
 
 %lang_package
 
 %prep
 %setup -q
-%patch1
+%patch0
 
-%__sed -i 's/\r$//' *.txt
+# Fix paths
+sed -i -e 's|/usr/local|/usr|' \
+    -i -e 's|/share/doc/|/share/doc/packages/|' Makefile
+
+# Some docs have the DOS line ends
+dos2unix Changelog *.txt
 
 %build
-%__make \
-    PREFIX="%{_prefix}" \
-    DATA_PATH="%{_datadir}/%{name}" \
-    DOC_PATH="%{_docdir}/%{name}" \
-    KDE_PREFIX="%{_prefix}" \
-    OPTFLAGS="%{optflags}"
+make %{?_smp_mflags} \
+     PREFIX="%{_prefix}" \
+     DATA_PATH="%{_datadir}/%{name}" \
+     DOC_PATH="%{_docdir}/%{name}" \
+     KDE_PREFIX="%{_prefix}" \
+     OPTFLAGS="%{optflags}"
 
 %install
-%__make \
-    PREFIX="%{_prefix}" \
-    DATA_PATH="%{_datadir}/%{name}" \
-    DOC_PATH="%{_docdir}/%{name}" \
-    KDE_PREFIX="%{_prefix}" \
-    OPTFLAGS="%{optflags}" \
-    DESTDIR="%{buildroot}" \
-    install
+%make_install
+%find_lang %name --with-qt
 
-%suse_update_desktop_file -r "%{name}" AudioVideo Player
-
-L="$PWD/%{name}.lang"
-echo -n >"$L"
-pushd "%{buildroot}%{_datadir}/%{name}/translations"
-/bin/ls -1 *.qm | while read qm; do
-    l="${qm%.qm}"
-    l="${l#smtube_}"
-    [ "$l" = "en" ] && continue
-    echo "%lang($l) %{_datadir}/%{name}/translations/$qm" >>"$L"
-done
-popd
-
+%if 0%{?suse_version}
+    %suse_update_desktop_file %{name}
+    %fdupes -s %{buildroot}%{_prefix}
+%endif
 
 %files
-%defattr(-,root,root)
-%doc Changelog Copying*txt Readme.txt Release_notes.txt
-%{_bindir}/smtube
-%{_datadir}/applications/smtube.desktop
-%{_datadir}/icons/*/*/apps/smtube.*
-%dir %{_datadir}/smtube
-%dir %{_datadir}/%{name}/translations
-%lang(en) %{_datadir}/%{name}/translations/smtube_en.qm
+%defattr(-,root,root,-)
+%doc Changelog *.txt
+%{_bindir}/%{name}
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %files lang -f %{name}.lang
-%defattr(-,root,root)
+%defattr(-,root,root,-)
+%{_datadir}/%{name}
 
 %changelog

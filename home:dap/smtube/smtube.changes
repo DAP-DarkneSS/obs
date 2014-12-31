@@ -1,4 +1,43 @@
 -------------------------------------------------------------------
+Wed Dec 31 12:03:46 UTC 2014 - dap.darkness@gmail.com
+
+- update to 14.12.0:
+  * New options to set a proxy.
+
+-------------------------------------------------------------------
+Thu Nov 20 21:34:57 UTC 2014 - nemysis@gmx.ch
+
+- Remove sed for smtube_nqo.ts
+- Use %{_datadir}/icons/hicolor/*/apps/%{name}.png
+  instead of %{_datadir}/icons/hicolor/
+
+-------------------------------------------------------------------
+Tue Nov 18 21:35:35 UTC 2014 - nemysis@gmx.ch
+
+- Change URL
+- Use for Release 0
+- Change Source0 Web URL
+- Use smtube-src_smtube.pro.patch instead of
+  smtube-optflags.patch and add description
+- Use check for openSUSE %if 0%{?suse_version}
+- Add BuildRequires for dos2unix and fdupes
+- Remove BuildRequires for make
+- Change description
+- Fix paths
+- Remove not working Translation to not get
+  error: Installed (but unpackaged) file(s) found:
+  smtube_nqo.qm
+- Simplify installation handling, use normal build
+- Use default make %{?_smp_mflags} and %make_install
+- Use simple %find_lang %name --with-qt
+
+-------------------------------------------------------------------
+Thu Aug 28 16:06:18 UTC 2014 - dap.darkness@gmail.com
+
+- update to 14.8.0:
+  * Fix playback (for players other than smplayer).
+
+-------------------------------------------------------------------
 Sat Jul 12 16:22:46 UTC 2014 - dap.darkness@gmail.com
 
 - update to 14.7.0:
