@@ -1,7 +1,7 @@
 #
 # spec file for package libqxmpp
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,13 +17,13 @@
 
 
 Name:           libqxmpp
-Version:        0.7.6
+Version:        0.8.1
 Release:        0
 Summary:        Qt XMPP Library
 License:        LGPL-2.0+
 Group:          System/Libraries
 Url:            https://code.google.com/p/qxmpp/
-Source0:        https://qxmpp.googlecode.com/files/qxmpp-%{version}.tar.gz
+Source0:        https://qxmpp.googlecode.com/files/qxmpp-%{version}.tar.bz2
 Source1:        baselibs.conf
 BuildRequires:  fdupes
 BuildRequires:  libqt4-devel
@@ -103,7 +103,7 @@ make %{?_smp_mflags}
 
 %files -n %{name}0
 %defattr(-,root,root)
-%doc AUTHORS CHANGELOG LICENSE.LGPL README
+%doc AUTHORS CHANGELOG LICENSE.LGPL README*
 %{_libdir}/%{name}.so.*
 
 %files -n %{name}-devel
