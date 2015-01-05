@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -29,11 +29,7 @@
 %define clang_compiler 0
 %endif
 %define fenet 1
-%if 0%{?suse_version} >= 1310
 %define lmp 1
-%else
-%define lmp 0
-%endif
 %define mellonetray 1
 %define poleemery 1
 %define woodpecker 1
@@ -41,7 +37,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 'Happy new year!'
+%define LEECHCRAFT_VERSION 0.6.70-2063-g359188b
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -50,39 +46,9 @@ Group:          Productivity/Networking/Other
 Source0:        %{name}-%{version}.tar.xz
 Source1:        %{name}.svg
 
-# PATCH-FEATURE-OPENSUSE to update vlc plugin code base.
-# Patch1:         leechcraft-vlc-plusplus.patch
-# PATCH-FIX-OPENSUSE to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
-# Patch2:         leechcraft-vlc-qt-moc-boost.patch
-# PATCH-FIX-OPENSUSE to prevent 'AUTOMOC: Parse error at "BOOST_JOIN"'
-# %%if 0%%{?suse_version} > 1230
-# Patch3:         leechcraft-qt-moc-boost.patch
-# %%endif
-# PATCH-FIX-OPENSUSE vs. "the value is not usable in a constant expression".
-%if 0%{?suse_version} <= 1230
-Patch4:         leechcraft-azoth-gcc47.patch
-# PATCH-FIX-OPENSUSE vs. names constructor error.
-Patch5:         leechcraft-monocle-gcc47.patch
-# PATCH-FIX-OPENSUSE vs. names constructor error.
-Patch6:         leechcraft-gcc47.patch
-%endif
-# PATCH-FIX-OPENSUSE vs. error: "function 'virtual…' defaulted
-# on its first declaration with an exception-specification
-# that differs from the implicit declaration".
-# Patch7:         leechcraft-snails-gcc47.patch
-
-
 BuildRequires:  Qross-devel
-%if 0%{?suse_version} > 1230
 BuildRequires:  boost-devel >= 1.50
-%else
-BuildRequires:  boost-devel
-%endif
-%ifarch x86_64
 BuildRequires:  cmake > 2.8.10
-%else
-BuildRequires:  cmake > 2.8
-%endif
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 %if %{clang_compiler}
@@ -93,9 +59,7 @@ BuildRequires:  gcc49-c++
 BuildRequires:  gcc-c++ >= 4.7
 %endif
 BuildRequires:  hicolor-icon-theme
-%if 0%{?suse_version} > 1230
 BuildRequires:  jbig2dec-devel
-%endif
 BuildRequires:  libjpeg-devel
 BuildRequires:  liblastfm-devel
 BuildRequires:  libotr-devel
@@ -123,9 +87,7 @@ BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(QtWebKit)
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(ddjvuapi)
-%if 0%{?suse_version} > 1230
 BuildRequires:  libGeoIP-devel
-%endif
 BuildRequires:  pkgconfig(libmtp)
 BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libpcre)
@@ -152,22 +114,16 @@ BuildRequires:  libqxmpp-devel >= 0.8.0.1398262192
 BuildRequires:  pkgconfig(hunspell)
 BuildRequires:  pkgconfig(kqoauth)
 BuildRequires:  pkgconfig(libcurl)
-%if 0%{?suse_version} > 1230
 BuildRequires:  pkgconfig(libguess)
-%endif
 BuildRequires:  pkgconfig(libidn)
 BuildRequires:  pkgconfig(libmsn)
-%if 0%{?suse_version} > 1230
 %ifarch %ix86 x86_64 %arm
 BuildRequires:  pkgconfig(libopenjpeg)
 %endif
-%endif
-%if 0%{?suse_version} >= 1310
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
 BuildRequires:  pkgconfig(libvlc)
 BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt4)
-%endif
 BuildRequires:  pkgconfig(qca2)
 BuildRequires:  pkgconfig(qtermwidget4) >= 0.5.1
 BuildRequires:  pkgconfig(libudev)
@@ -185,10 +141,8 @@ BuildRequires:  jbig2dec-devel
 BuildRequires:  liblaretz-devel
 BuildRequires:  openjpeg-devel
 BuildRequires:  telepathy-qt4-devel
-%if 0%{?suse_version} >= 1310
 BuildRequires:  wt-devel >= 3.3
-%endif
-%if 0%{?suse_version} <= 1310 && 0%{?suse_version} >= 1230
+%if 0%{?suse_version} <= 1310
 BuildRequires:  pkgconfig(QtMultimediaKit)
 %endif
 BuildRequires:  pkgconfig(libguess)
@@ -213,16 +167,6 @@ Recommends:     %{name}-poshuku
 Recommends:     %{name}-secman-simplestorage
 Recommends:     %{name}-visualnotifications
 
-Obsoletes:      %{name}-dlniwe
-Obsoletes:      %{name}-eiskaltdcpp
-Obsoletes:      %{name}-iconset-oxygen
-Obsoletes:      %{name}-iconset-tango
-%if 0%{?suse_version} <= 1230
-Obsoletes:      %{name}-liznoo
-%endif
-Obsoletes:      %{name}-nacheku
-Obsoletes:      %{name}-tabpp
-
 %description
 This package provides core executable of Leechcraft.
 LeechCraft is a free modular "Internet client" application.
@@ -243,9 +187,7 @@ dependencies and performs several other housekeeping tasks.
 %package meta_full
 Summary:        Meta package for pattern leechcraft_full
 Group:          Metapackages
-%if 0%{?suse_version} >= 1230
 Requires:       leechcraft-meta_browser
-%endif
 Requires:       leechcraft-meta_media
 Requires:       leechcraft-meta_messenger
 Requires:       leechcraft-meta_office
@@ -255,7 +197,6 @@ Requires:       leechcraft-meta_websurf
 %description meta_full
 This package is installed if a pattern is selected to have a working update path
 
-%if 0%{?suse_version} >= 1230
 %package meta_browser
 Summary:        Meta package for pattern leechcraft_browser
 Group:          Metapackages
@@ -285,7 +226,6 @@ Recommends:     %{name}-meta_tools
 
 %description meta_browser
 This package is installed if a pattern is selected to have a working update path
-%endif
 
 %package meta_desktop
 Summary:        Meta package for pattern leechcraft_browser
@@ -296,10 +236,8 @@ Requires:       %{name}-kbswitch
 Requires:       %{name}-krigstask
 Requires:       %{name}-laughty
 Requires:       %{name}-launchy
-%if 0%{?suse_version} >= 1310
 Requires:       %{name}-lemon
 Requires:       %{name}-liznoo
-%endif
 Requires:       %{name}-mellonetray
 Requires:       %{name}-ooronee
 Requires:       %{name}-sb2
@@ -320,9 +258,7 @@ Requires:       %{name}-azoth-acetamide
 Requires:       %{name}-azoth-adiumstyles
 Requires:       %{name}-azoth-astrality
 Requires:       %{name}-azoth-autoidler
-%if 0%{?suse_version} >= 1310
 Requires:       %{name}-azoth-autopaste
-%endif
 Requires:       %{name}-azoth-birthdaynotifier
 Requires:       %{name}-azoth-chathistory
 Requires:       %{name}-azoth-depester
@@ -335,9 +271,7 @@ Requires:       %{name}-azoth-keeso
 Requires:       %{name}-azoth-lastseen
 Requires:       %{name}-azoth-metacontacts
 Requires:       %{name}-azoth-modnok
-%if 0%{?suse_version} >= 1310
 Requires:       %{name}-azoth-murm
-%endif
 Requires:       %{name}-azoth-nativeemoticons
 Requires:       %{name}-azoth-otroid
 Requires:       %{name}-azoth-rosenthal
@@ -393,9 +327,7 @@ Requires:       %{name}-advancednotifications
 Requires:       %{name}-aggregator
 Requires:       %{name}-aggregator-bodyfetch
 Requires:       %{name}-auscrie
-%if 0%{?suse_version} > 1230
 Requires:       %{name}-bittorrent
-%endif
 Requires:       %{name}-blasq
 Requires:       %{name}-blasq-spegnersi
 Requires:       %{name}-blasq-deathnote
@@ -408,9 +340,7 @@ Requires:       %{name}-choroid
 Requires:       %{name}-gmailnotifier
 Requires:       %{name}-historyholder
 Requires:       %{name}-kinotify
-%if 0%{?suse_version} >= 1230
 Requires:       %{name}-lhtr
-%endif
 Requires:       %{name}-netstoremanager
 Requires:       %{name}-netstoremanager-googledrive
 Requires:       %{name}-newlife
@@ -426,7 +356,6 @@ Recommends:     %{name}-meta_tools
 %description meta_websurf
 This package is installed if a pattern is selected to have a working update path
 
-%if 0%{?suse_version} >= 1230
 %package meta_office
 Summary:        Meta package for pattern leechcraft_office
 Group:          Metapackages
@@ -436,10 +365,8 @@ Requires:       %{name}-lhtr
 Requires:       %{name}-monocle
 Requires:       %{name}-monocle-dik
 Requires:       %{name}-monocle-fxb
-%if 0%{?suse_version} >= 1310
 Requires:       %{name}-monocle-pdf
 Requires:       %{name}-monocle-postrus
-%endif
 Requires:       %{name}-monocle-seen
 Requires:       %{name}-popishu
 Recommends:     %{name}-meta_tools
@@ -448,7 +375,6 @@ Recommends:     %{name}-otlozhu
 
 %description meta_office
 This package is installed if a pattern is selected to have a working update path
-%endif
 
 %package meta_tools
 Summary:        Meta package for pattern leechcraft_websurf
@@ -532,7 +458,6 @@ work, a script provider like Qrosp should be installed. Please refer to the
 guide to writing recipes if you are interested in writing your own ones.
 
 
-%if 0%{?suse_version} >= 1310
 %package aggregator-webaccess
 Summary:        LeechCraft Aggregator - Web Interface Module
 Group:          Productivity/Networking/Other
@@ -542,7 +467,6 @@ Requires:       %{name}-aggregator = %{version}
 WebAccess provides a basic web interface for the
 Aggregator feed reader, so one can read news
 articles from a mobile device or another machine.
-%endif
 
 
 %package anhero
@@ -562,9 +486,7 @@ It shows backtraces and aids in sending bug reports.
 Summary:        LeechCraft Screenshoter Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-%if 0%{?suse_version} >= 1310
 Requires:       %{name}-imgaste = %{version}
-%endif
 
 %description auscrie
 This package provides a screenshooter plugin for LeechCraft.
@@ -615,8 +537,6 @@ and /listabbrevs for LeechCraft Azoth.
 Summary:        LeechCraft Azoth - IRC Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
-Provides:       %{name}-acetamine = %{version}
-Obsoletes:      %{name}-acetamine < %{version}
 Provides:       %{name}-azoth-protocolplugin
 Recommends:     %{name}-azoth-mucommands
 
@@ -671,7 +591,6 @@ This package provides a status changing plugin for LeechCraft Azoth.
 It allows to automatically change of status due to inactivity period.
 
 
-%if 0%{?suse_version} >= 1310
 %package azoth-autopaste
 Summary:        LeechCraft Azoth - Autopaste Module
 Group:          Productivity/Networking/Other
@@ -681,7 +600,6 @@ Requires:       %{name}-azoth = %{version}
 This package provides an autopaste plugin for LeechCraft Azoth.
 
 It allows to paste long messages to pastebins automatically.
-%endif
 
 
 %package azoth-birthdaynotifier
@@ -826,7 +744,6 @@ see nice rendered formulas instead of raw LaTeX code, even if their client
 doesn't have a LaTeX formatter.
 
 
-%if 0%{?suse_version} >= 1230
 %package azoth-mucommands
 Summary:        LeechCraft Azoth - Conference-oriented Commands Module
 Group:          Productivity/Networking/Other
@@ -838,10 +755,8 @@ Recommends:     %{name}-xoox
 %description azoth-mucommands
 This package provides some common conference-oriented commands like
 /vcard, /time, /last, /subject, /kick, /ban and so on for LeechCraft Azoth.
-%endif
 
 
-%if 0%{?suse_version} >= 1310
 %package azoth-murm
 Summary:        LeechCraft Azoth - VKontakte Module
 Group:          Productivity/Networking/Other
@@ -851,7 +766,6 @@ Provides:       %{name}-azoth-protocolplugin
 %description azoth-murm
 This package provides a special protocol subplugin for extensive VKontakte
 messaging support plugin for LeechCraft Azoth.
-%endif
 
 
 %package azoth-nativeemoticons
@@ -872,17 +786,6 @@ Requires:       %{name}-azoth = %{version}
 
 %description azoth-otroid
 This package provides support Off-the-Record messaging for LeechCraft Azoth.
-
-
-# %%package azoth-p100q
-# Summary:        LeechCraft Azoth - Psto.net service Module
-# Group:          Productivity/Networking/Other
-# Requires:       %%{name}-azoth = %%{version}
-# 
-# %%description azoth-p100q
-# This package contains a psto.net plugin for LeechCraft Azoth.
-# 
-# It provides the enhanced experience with the psto.net microblogging service.
 
 
 %package azoth-rosenthal
@@ -961,8 +864,6 @@ Summary:        LeechCraft Twitter Client Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Recommends:     libkqoauth0 >= 0.98
-Provides:       %{name}-woodpecker = %{version}
-Obsoletes:      %{name}-woodpecker < %{version}
 
 %description azoth-woodpecker
 This package provides a Twitter Client plugin for LeechCraft.
@@ -1031,7 +932,6 @@ The following protocol features are currently supported:
  * Blacklist management.
 
 
-%if 0%{?suse_version} > 1230
 %package bittorrent
 Summary:        LeechCraft BitTorrent client Module
 Group:          Productivity/Networking/Other
@@ -1059,7 +959,6 @@ Features
  * IP filter to block/unblock unwanted peers.
  * Support for extension protocol
 etc.
-%endif
 
 
 #%%package blackdash
@@ -1134,9 +1033,7 @@ Summary:        LeechCraft Blogging client Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-blogique-subplugin = %{version}
-%if 0%{?suse_version} >= 1230
 Recommends:     %{name}-lhtr
-%endif
 
 %description blogique
 This package provides a modular Blogging client plugin for LeechCraft.
@@ -1480,7 +1377,6 @@ Requires:       %{name}-lmp = %{version}
 This package provides a radio streams provider plugin for LeechCraft.
 
 
-%if 0%{?suse_version} > 1230
 %package htthare
 Summary:        LeechCraft Http Server Module
 Group:          Productivity/Networking/Other
@@ -1498,7 +1394,6 @@ Requires:       %{name} = %{version}
 
 %description imgaste
 This module provides a simple image paster plugin from LeechCraft
-%endif
 
 
 %package kbswitch
@@ -1506,8 +1401,6 @@ Summary:        LeechCraft keyboard switcher Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       setxkbmap
-Provides:       %{name}-keyboardcraft = %{version}
-Obsoletes:      %{name}-keyboardcraft < %{version}
 
 %description kbswitch
 This module allow change keyboard layouts from LeechCraft
@@ -1637,7 +1530,6 @@ This package provides a third-party application launcher plugin for Leechcraft.
 #FTP client with recursive downloads, uploads and two-panel interface.
 
 
-%if 0%{?suse_version} >= 1310
 %package lemon
 Summary:        LeechCraft Network Monitor Module
 Group:          Productivity/Networking/Other
@@ -1646,10 +1538,8 @@ Requires:       %{name}-sb = %{version}
 
 %description lemon
 This package provides another Network Monitor plugin for Leechcraft.
-%endif
 
 
-%if 0%{?suse_version} >= 1230
 %package lhtr
 Summary:        LeechCraft HTML WYSIWYG editor Module
 Group:          Productivity/Networking/Other
@@ -1660,10 +1550,8 @@ Recommends:     %{name}-poshuku
 This package provides a HTML WYSIWYG editor plugin for Leechcraft.
 
 It can be usable with mail and blog modules.
-%endif
 
 
-%if 0%{?suse_version} >= 1310
 %package liznoo
 Summary:        LeechCraft Power managment module
 Group:          Productivity/Networking/Other
@@ -1685,7 +1573,6 @@ reconnect properly on startup.
  * Allows user to easily sleep/hibernate the system.
  * Notifies user when device starts discharging or charging.
  * Notifies user on low power level.
-%endif
 
 
 %if %{lmp}
@@ -1725,7 +1612,6 @@ Features:
  * Support for automatic podcast playing (with a plugin like Aggregator).
 
 
-%if 0%{?suse_version} >= 1230
 %package lmp-brainslugz
 Summary:        LeechCraft Collection Checker Module
 Group:          Productivity/Networking/Other
@@ -1737,7 +1623,6 @@ Requires:       %{name}-musiczombie = %{version}
 This package provides a collection checker plugin for LeechCraft.
 
 It allows to check collection completeness.
-%endif
 
 
 %package lmp-dumbsync
@@ -1835,17 +1720,11 @@ for LeechCraft SB2.
 %endif
 
 
-%if 0%{?suse_version} >= 1230
 %package monocle
 Summary:        LeechCraft Document viewer Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-monocle-subplugin
-%if 0%{?suse_version} == 1230
-Obsoletes:      %{name}-monocle-mu
-Obsoletes:      %{name}-monocle-pdf
-Obsoletes:      %{name}-monocle-postrus
-%endif
 
 %description monocle
 This package provides a modular Document viewer plugin for LeechCraft.
@@ -1896,7 +1775,6 @@ via the mupdf backend.
 %endif
 
 
-%if 0%{?suse_version} >= 1310
 %package monocle-pdf
 Summary:        LeechCraft Monocle - PDF Module
 Group:          Productivity/Networking/Other
@@ -1924,7 +1802,6 @@ This package contains a PostRus subplugin for LeechCraft Monocle.
 
 This package provides PostScript documents support for Document viewer Module
 via the ghostscript utils and Pdf plugin.
-%endif
 
 
 %package monocle-seen
@@ -1969,7 +1846,6 @@ Summary:        LeechCraft Network file storages Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-netstoremanager-subplugin
-Obsoletes:      %{name}-netstoremanager-yandexdisk
 
 %description netstoremanager
 This package provides a network storage plugin for Leechcraft.
@@ -2083,8 +1959,6 @@ It is a GTD-inspired ToDo manager.
 Summary:        LeechCraft Pinning tabs Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Provides:       %{name}-poshuku-pintab = %{version}
-Obsoletes:      %{name}-poshuku-pintab < %{version}
 
 %description pintab
 This package provides a pinning tab module for LeechCraft.
@@ -2097,8 +1971,6 @@ Summary:        LeechCraft Poshuku - quick google search Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Recommends:     %{name}-poshuku = %{version}
-Obsoletes:      %{name}-poshuku-pogooglue < %{version}
-Provides:       %{name}-poshuku-pogooglue = %{version}
 
 %description pogooglue
 This package provides an instant search plugin for LeechCraft.
@@ -2139,13 +2011,11 @@ Features:
  * Support for multiple documents at once.
 
 
-%if 0%{?suse_version} >= 1230
 %package poshuku
 Summary:        LeechCraft Web Browser Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-webbrowser
-Obsoletes:      poshuku-wyfv
 Recommends:     %{name}-imgaste = %{version}
 
 %description poshuku
@@ -2276,8 +2146,6 @@ or Del.icio.us.
 Summary:        LeechCraft Poshuku - Onlinebookmarks Delicious Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-poshuku-onlinebookmarks = %{version}
-Obsoletes:      %{name}-delicious < %{version}
-Provides:       %{name}-delicious = %{version}
 
 %description poshuku-onlinebookmarks-delicious
 This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
@@ -2289,8 +2157,6 @@ It provides support for the the Del.icio.us service.
 Summary:        LeechCraft Poshuku - Onlinebookmarks ReadItLater Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-poshuku-onlinebookmarks = %{version}
-Obsoletes:      %{name}-readitlater < %{version}
-Provides:       %{name}-readitlater = %{version}
 
 %description poshuku-onlinebookmarks-readitlater
 This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
@@ -2316,7 +2182,6 @@ Requires:       %{name}-poshuku = %{version}
 
 %description poshuku-speeddial
 This package provides a Speed Dial support plugin for LeechCraft Poshuku.
-%endif
 
 
 %package qrosp
@@ -2345,8 +2210,6 @@ Summary:        LeechCraft SideBar2 Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-sb = %{version}
-Obsoletes:      %{name}-sidebar < %{version}
-Provides:       %{name}-sidebar = %{version}
 
 %description sb2
 This package provides another side bar plugin for Leechcraft.
@@ -2580,8 +2443,6 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Recommends:     %{name}-liznoo
 Recommends:     vlc-codecs
-Provides:       %{name}-vlc = %{version}
-Obsoletes:      %{name}-vlc < %{version}
 
 %description vtyulc
 This package provides a video player plugin for LeechCraft.
@@ -2625,7 +2486,6 @@ This package provides a tune wrapper plugin for LeechCraft.
 It allows to get current user tune via mpris protocol.
 
 
-%if 0%{?suse_version} >= 1310
 %package zalil
 Summary:        LeechCraft Files Uploader Module
 Group:          Productivity/Networking/Other
@@ -2636,7 +2496,6 @@ Requires:       %{name} = %{version}
 This package provides a file uploader plugin for LeechCraft.
 
 It allows to upload files to accountless filebin services.
-%endif
 
 
 %package -n lib%{name}-util-db%{so_ver}
@@ -2766,21 +2625,6 @@ XmlSettingsDialog LeechCraft subsystem.
 
 %prep
 %setup -q -n %{name}-%{version}
-# %%patch1 -p1
-# %%patch2
-# %%if 0%%{?suse_version} > 1230
-# %%patch3
-# %%endif
-%if 0%{?suse_version} <= 1230
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%endif
-# %%patch7 -p1
-
-# Mine ;)
-rm src/core/resources/images/leechcraft.svg
-%{__install} %{SOURCE1} src/core/resources/images
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -2811,31 +2655,15 @@ cmake ../src \
         -DWITH_QWT=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
-%if 0%{?suse_version} >= 1310
                 -DENABLE_AGGREGATOR_WEBACCESS=True \
-%else
-                -DENABLE_AGGREGATOR_WEBACCESS=False \
-%endif
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
                 -DENABLE_AZOTH_ABBREV=True \
                 -DENABLE_AZOTH_ACETAMIDE=True \
                 -DENABLE_AZOTH_ASTRALITY=True \
-%if 0%{?suse_version} >= 1310
                 -DENABLE_AZOTH_AUTOPASTE=True \
-%else
-                -DENABLE_AZOTH_AUTOPASTE=False \
-%endif
-%if 0%{?suse_version} >= 1230
                 -DENABLE_AZOTH_MUCOMMANDS=True \
-%else
-                -DENABLE_AZOTH_MUCOMMANDS=False \
-%endif
-%if 0%{?suse_version} >= 1310
                 -DENABLE_AZOTH_MURM=True \
-%else
-                -DENABLE_AZOTH_MURM=False \
-%endif
                 -DENABLE_AZOTH_OTROID=True \
                 -DENABLE_AZOTH_SARIN=False \
                 -DENABLE_AZOTH_SHX=True \
@@ -2847,7 +2675,7 @@ cmake ../src \
                 -DENABLE_AZOTH_WOODPECKER=False \
 %endif
                 -DENABLE_AZOTH_ZHEET=True \
-%if 0%{?suse_version} <= 1310 && 0%{?suse_version} >= 1230
+%if 0%{?suse_version} <= 1310
                 -DENABLE_MEDIACALLS=True \
 %else
                 -DENABLE_MEDIACALLS=False \
@@ -2885,13 +2713,8 @@ cmake ../src \
         -DENABLE_HARBINGER=True \
         -DENABLE_HOTSENSORS=True \
         -DENABLE_HOTSTREAMS=True \
-%if 0%{?suse_version} > 1230
         -DENABLE_HTTHARE=True \
         -DENABLE_IMGASTE=True \
-%else
-        -DENABLE_HTTHARE=False \
-        -DENABLE_IMGASTE=False \
-%endif
         -DENABLE_KBSWITCH=True \
         -DENABLE_KNOWHOW=True \
         -DENABLE_KRIGSTASK=True \
@@ -2900,32 +2723,16 @@ cmake ../src \
         -DENABLE_LASTFMSCROBBLE=True \
         -DENABLE_LAUGHTY=True \
         -DENABLE_LAUNCHY=True \
-%if 0%{?suse_version} >= 1310
         -DENABLE_LEMON=True \
-%else
-        -DENABLE_LEMON=False \
-%endif
-%if 0%{?suse_version} >= 1230
         -DENABLE_LHTR=True \
                 -DWITH_LHTR_HTML=True \
-%else
-        -DENABLE_LHTR=False \
-%endif
-%if 0%{?suse_version} >= 1310
         -DENABLE_LIZNOO=True \
-%else
-        -DENABLE_LIZNOO=False \
-%endif
 %if %{lmp}
         -DENABLE_LMP=True \
 %if 0%{?suse_version} > 1310
         -DUSE_GSTREAMER_10=True \
 %endif
-%if 0%{?suse_version} >= 1230
                 -DENABLE_LMP_BRAINSLUGZ=True \
-%else
-                -DENABLE_LMP_BRAINSLUGZ=False \
-%endif
                 -DENABLE_LMP_FRADJ=True \
                 -DENABLE_LMP_GRAFFITI=True \
                 -DENABLE_LMP_HTTSTREAM=True \
@@ -2941,7 +2748,6 @@ cmake ../src \
 %else
         -DENABLE_MELLONETRAY=False \
 %endif
-%if 0%{?suse_version} >= 1230
         -DENABLE_MONOCLE=True \
 %if 0%{?suse_version} == 1310
         -DENABLE_MONOCLE_MU=True \
@@ -2949,16 +2755,8 @@ cmake ../src \
 %else
         -DENABLE_MONOCLE_MU=False \
 %endif
-%if 0%{?suse_version} >= 1310
         -DENABLE_MONOCLE_PDF=True \
         -DENABLE_MONOCLE_POSTRUS=True \
-%else
-        -DENABLE_MONOCLE_PDF=False \
-        -DENABLE_MONOCLE_POSTRUS=False \
-%endif
-%else
-        -DENABLE_MONOCLE=False \
-%endif
         -DENABLE_MUSICZOMBIE=True \
                 -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
         -DENABLE_NACHEKU=False \
@@ -2976,16 +2774,12 @@ cmake ../src \
         -DENABLE_POLEEMERY=False \
 %endif
         -DENABLE_POPISHU=True \
-%if 0%{?suse_version} >= 1230
         -DENABLE_POSHUKU=True \
                 -DENABLE_IDN=True \
                 -DENABLE_POSHUKU_AUTOSEARCH=True \
                 -DENABLE_POSHUKU_DCAC=True \
                 -DENABLE_POSHUKU_QRD=True \
                 -DENABLE_POSHUKU_SPEEDDIAL=True \
-%else
-        -DENABLE_POSHUKU=False \
-%endif
         -DENABLE_QROSP=True \
         -DENABLE_SB2=True \
         -DENABLE_SCROBLIBRE=True \
@@ -3001,23 +2795,15 @@ cmake ../src \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
         -DENABLE_TEXTOGROOSE=True \
-%if 0%{?suse_version} > 1230
         -DENABLE_TORRENT=True \
                 -DENABLE_BITTORRENT_GEOIP=True \
-%else
-        -DENABLE_TORRENT=False \
-%endif
         -DENABLE_TOUCHSTREAMS=True \
         -DENABLE_TPI=True \
         -DENABLE_TWIFEE=False \
         -DENABLE_VTYULC=True \
         -DENABLE_VROOBY=True \
         -DENABLE_WKPLUGINS=False \
-%if 0%{?suse_version} >= 1310
         -DENABLE_ZALIL=True \
-%else
-        -DENABLE_ZALIL=False \
-%endif
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
 %build
@@ -3031,19 +2817,12 @@ cd build
 # Unneeded here Qt5 build' files:
 rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 
-# Mine ;)
-rm -rf %{buildroot}%{_datadir}/icons/hicolor/*/apps/*leechcraft*
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
-%{__install} %{SOURCE1} %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}_main.svg
-
 #-------------------------patterns----------------------------#
 %__install -d %{buildroot}%{_docdir}/%{name}
 
-%if 0%{?suse_version} >= 1230
 cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_browser
 This file marks the pattern meta_browser to be installed.
 EOF
-%endif
 
 cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_desktop
 This file marks the pattern meta_desktop to be installed.
@@ -3057,11 +2836,9 @@ cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_messenger
 This file marks the pattern meta_messenger to be installed.
 EOF
 
-%if 0%{?suse_version} >= 1230
 cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_office
 This file marks the pattern meta_office to be installed.
 EOF
-%endif
 
 cat <<EOF >> %{buildroot}%{_docdir}/%{name}/meta_tools
 This file marks the pattern meta_tools to be installed.
@@ -3179,11 +2956,9 @@ EOF
 %{_bindir}/lc_plugin_wrapper
 %{settings_dir}/coresettings.xml
 %{_datadir}/applications/%{name}.desktop
-# Mine ;)
-%attr(644,root,root) %{_datadir}/icons/hicolor/scalable/apps/*%{name}*
-# %%{_datadir}/icons/hicolor/*/*/*
-# %%dir %%{_datadir}/icons/hicolor/14x14
-# %%dir %%{_datadir}/icons/hicolor/14x14/apps
+%{_datadir}/icons/hicolor/*/*/*
+%dir %{_datadir}/icons/hicolor/14x14
+%dir %{_datadir}/icons/hicolor/14x14/apps
 %dir %{_datadir}/%{name}
 %dir %{settings_dir}
 %dir %{translations_dir}
@@ -3225,13 +3000,11 @@ EOF
 %dir %{_datadir}/%{name}/scripts
 %{_datadir}/%{name}/scripts/aggregator/
 
-%if 0%{?suse_version} >= 1310
 %files aggregator-webaccess
 %defattr(-,root,root)
 %{plugin_dir}/*%{name}_aggregator_webaccess.so
 %{settings_dir}/aggregatorwebaccesssettings.xml
 %{translations_dir}/%{name}_aggregator_webaccess*.qm
-%endif
 
 %files anhero
 %defattr(-,root,root)
@@ -3286,13 +3059,11 @@ EOF
 %{settings_dir}/azothautoidlersettings.xml
 %{translations_dir}/leechcraft_azoth_autoidler*
 
-%if 0%{?suse_version} >= 1310
 %files azoth-autopaste
 %defattr(-,root,root)
 %{settings_dir}/azothautopastesettings.xml
 %{translations_dir}/%{name}_azoth_autopaste*
 %{plugin_dir}/*%{name}_azoth_autopaste.so
-%endif
 
 %files azoth-birthdaynotifier
 %defattr(-,root,root)
@@ -3359,21 +3130,17 @@ EOF
 %{translations_dir}/leechcraft_azoth_modnok*
 %{azoth_dir}/lc_azoth_modnok_latexconvert.sh
 
-%if 0%{?suse_version} >= 1230
 %files azoth-mucommands
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_mucommands.so
 %{_datadir}/%{name}/translations/%{name}_azoth_mucommands_??.qm
 %{_datadir}/%{name}/translations/%{name}_azoth_mucommands_??_??.qm
-%endif
 
-%if 0%{?suse_version} >= 1310
 %files azoth-murm
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_azoth_murm.so
 %{_datadir}/%{name}/translations/%{name}_azoth_murm*.qm
 %{settings_dir}/azothmurmsettings.xml
-%endif
 
 %files azoth-nativeemoticons
 %defattr(-,root,root)
@@ -3385,12 +3152,6 @@ EOF
 %{_libdir}/%{name}/plugins/*%{name}_azoth_otroid.so
 %{_datadir}/%{name}/translations/%{name}_azoth_otroid*.qm
 %{_datadir}/%{name}/settings/azothotroidsettings.xml
-
-# %%files azoth-p100q
-# %%defattr(-,root,root)
-# %%{settings_dir}/azothp100qsettings.xml
-# %%{plugin_dir}/*%%{name}_azoth_p100q.so
-# %%{translations_dir}/leechcraft_azoth_p100q*
 
 %files azoth-rosenthal
 %defattr(-,root,root)
@@ -3446,14 +3207,12 @@ EOF
 %{translations_dir}/%{name}_azoth_zheet*
 %{plugin_dir}/*%{name}_azoth_zheet.so
 
-%if 0%{?suse_version} > 1230
 %files bittorrent
 %defattr(-,root,root)
 %{settings_dir}/torrentsettings.xml
 %{translations_dir}/%{name}_bittorrent_*.qm
 %{plugin_dir}/*%{name}_bittorrent.so
 %{_datadir}/applications/%{name}-bittorrent.desktop
-%endif
 
 #%%files blackdash
 #%%defattr(-,root,root)
@@ -3655,7 +3414,6 @@ EOF
 %{plugin_dir}/*%{name}_hotstreams.so
 %{_datadir}/%{name}/translations/%{name}_hotstreams_*.qm
 
-%if 0%{?suse_version} > 1230
 %files htthare
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_htthare.so
@@ -3666,7 +3424,6 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_imgaste.so
 %{_datadir}/%{name}/translations/%{name}_imgaste_*.qm
-%endif
 
 %files kbswitch
 %defattr(-,root,root)
@@ -3723,30 +3480,24 @@ EOF
 #%%{settings_dir}/lcftpsettings.xml
 #%%{translations_dir}/leechcraft_lcftp*
 
-%if 0%{?suse_version} >= 1310
 %files lemon
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lemon.so
 %{_datadir}/%{name}/qml/lemon/
 %{_datadir}/%{name}/translations/%{name}_lemon_*.qm
 %{_datadir}/%{name}/settings/lemonsettings.xml
-%endif
 
-%if 0%{?suse_version} >= 1230
 %files lhtr
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lhtr.so
 %{_datadir}/%{name}/translations/%{name}_lhtr_*.qm
 %{_datadir}/%{name}/settings/lhtrsettings.xml
-%endif
 
-%if 0%{?suse_version} >= 1310
 %files liznoo
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_liznoo.so
 %{_datadir}/%{name}/settings/liznoosettings.xml
 %{_datadir}/%{name}/translations/%{name}_liznoo_*.qm
-%endif
 
 %if %{lmp}
 %files lmp
@@ -3759,18 +3510,14 @@ EOF
 %{_datadir}/applications/%{name}-lmp*.desktop
 %dir %{_datadir}/%{name}/qml/lmp
 %{_datadir}/%{name}/qml/lmp/*.qml
-%if 0%{?suse_version} >= 1230
 %exclude %{_datadir}/%{name}/qml/lmp/brainslugz
-%endif
 
-%if 0%{?suse_version} >= 1230
 %files lmp-brainslugz
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_lmp_brainslugz.so
 %dir %{_datadir}/%{name}/qml/lmp
 %{_datadir}/%{name}/qml/lmp/brainslugz
 %{_datadir}/%{name}/translations/%{name}_lmp_brainslugz_*.qm
-%endif
 
 %files lmp-dumbsync
 %defattr(-,root,root)
@@ -3822,7 +3569,6 @@ EOF
 %{_datadir}/%{name}/translations/%{name}_mellonetray_*.qm
 %endif
 
-%if 0%{?suse_version} >= 1230
 %files monocle
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle.so
@@ -3845,7 +3591,6 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_mu.so
 %endif
 
-%if 0%{?suse_version} >= 1310
 %files monocle-pdf
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_pdf.so
@@ -3856,13 +3601,11 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_postrus.so
 %{_datadir}/applications/%{name}-monocle-postrus.desktop
-%endif
 
 %files monocle-seen
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_seen.so
 %{_datadir}/applications/%{name}-monocle-seen.desktop
-%endif
 
 %files musiczombie
 %defattr(-,root,root)
@@ -3946,7 +3689,6 @@ EOF
 %{translations_dir}/%{name}_popishu_*.qm
 %{plugin_dir}/*%{name}_popishu.so
 
-%if 0%{?suse_version} >= 1230
 %files poshuku
 %defattr(-,root,root)
 %dir %{_datadir}/%{name}/installed
@@ -4023,7 +3765,6 @@ EOF
 %{_datadir}/%{name}/settings/poshukuspeeddialsettings.xml
 %{_datadir}/%{name}/translations/%{name}_poshuku_speeddial_??.qm
 %{_datadir}/%{name}/translations/%{name}_poshuku_speeddial_??_??.qm
-%endif
 
 %files qrosp
 %defattr(-,root,root)
@@ -4149,12 +3890,10 @@ EOF
 %{_libdir}/%{name}/plugins/*%{name}_xtazy.so
 %{_datadir}/%{name}/translations/%{name}_xtazy*
 
-%if 0%{?suse_version} >= 1310
 %files zalil
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_zalil.so
 %{_datadir}/%{name}/translations/%{name}_zalil_*.qm
-%endif
 
 %files -n lib%{name}-util-db%{so_ver}
 %defattr(-,root,root)
@@ -4213,12 +3952,10 @@ EOF
 %{_libdir}/lib%{name}-util-xsd*.so.*
 
 #-------------------------patterns----------------------------#
-%if 0%{?suse_version} >= 1230
 %files meta_browser
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}/
 %{_docdir}/%{name}/meta_browser
-%endif
 
 %files meta_desktop
 %defattr(-,root,root)
@@ -4235,12 +3972,10 @@ EOF
 %dir %{_docdir}/%{name}/
 %{_docdir}/%{name}/meta_messenger
 
-%if 0%{?suse_version} >= 1230
 %files meta_office
 %defattr(-,root,root)
 %dir %{_docdir}/%{name}/
 %{_docdir}/%{name}/meta_office
-%endif
 
 %files meta_tools
 %defattr(-,root,root)
