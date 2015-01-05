@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft
 #
-# Copyright (c) 2014 LeechCraft Team.
+# Copyright (c) 2015 LeechCraft Team.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -22,11 +22,11 @@
 %define settings_dir %{_datadir}/%{name}/settings
 %define azoth_dir %{_datadir}/%{name}/azoth
 
-%define so_ver 0_6_70
+%define so_ver 0_6_75
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-1161-ge2e519f
+%define LEECHCRAFT_VERSION 0.6.70-2137-g4b808e9
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -63,12 +63,17 @@ BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt4)
 BuildRequires:  libpurple-devel
 BuildRequires:  pkgconfig(qca2)
+%if 0%{?fedora} >= 21
+BuildRequires:  pkgconfig(qtermwidget4) >= 0.5.1
+%endif
 BuildRequires:  pkgconfig(QJson)
 BuildRequires:  qscintilla-devel
 BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(qxmpp) >= 0.8.0
 BuildRequires:  lm_sensors-devel
-# BuildRequires:  pkgconfig(libprojectM)
+%if 0%{?fedora} >= 21
+BuildRequires:  pkgconfig(libprojectM)
+%endif
 BuildRequires:  libtidy-devel
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
 BuildRequires:  systemd-devel
@@ -84,7 +89,19 @@ BuildRequires:  speex-devel
 BuildRequires:  taglib-devel
 BuildRequires:  wt-devel >= 3.3
 BuildRequires:  xz
+%if 0%{?fedora} >= 21
+BuildRequires:  pkgconfig(gstreamer-app-1.0)
+BuildConflicts: gstreamer
+BuildConflicts: gstreamer-devel
+BuildConflicts: gstreamer-plugins-base
+BuildConflicts: gstreamer-plugins-base-devel
+%else
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
+BuildConflicts: gstreamer1
+BuildConflicts: gstreamer1-devel
+BuildConflicts: gstreamer1-plugins-base
+BuildConflicts: gstreamer1-plugins-base-devel
+%endif
 BuildRequires:  pkgconfig(libguess)
 BuildRequires:  pkgconfig(libqrencode)
 %if %{vlc}
@@ -816,16 +833,16 @@ Requires:       cmake
 Requires:       lib%{name}-util-db%{so_ver}        = %{version}
 Requires:       lib%{name}-util-gui%{so_ver}       = %{version}
 Requires:       lib%{name}-util-models%{so_ver}    = %{version}
-Requires:       lib%{name}-util-network%{so_ver}   = %{version}
-Requires:       lib%{name}-util-qml%{so_ver}       = %{version}
+Requires:       lib%{name}-util-network%{so_ver}_1   = %{version}
+Requires:       lib%{name}-util-qml%{so_ver}_1     = %{version}
 Requires:       lib%{name}-util-shortcuts%{so_ver} = %{version}
 Requires:       lib%{name}-util-sll%{so_ver}       = %{version}
 Requires:       lib%{name}-util-svcauth%{so_ver}   = %{version}
-Requires:       lib%{name}-util-sys%{so_ver}       = %{version}
-Requires:       lib%{name}-util-tags%{so_ver}      = %{version}
-Requires:       lib%{name}-util-x11-%{so_ver}       = %{version}
+Requires:       lib%{name}-util-sys%{so_ver}_1     = %{version}
+Requires:       lib%{name}-util-tags%{so_ver}_1    = %{version}
+Requires:       lib%{name}-util-x11-%{so_ver}      = %{version}
 Requires:       lib%{name}-util-xdg%{so_ver}       = %{version}
-Requires:       lib%{name}-util-xpc%{so_ver}       = %{version}
+Requires:       lib%{name}-util-xpc%{so_ver}_1     = %{version}
 Requires:       lib%{name}-util-xsd%{so_ver}       = %{version}
 Requires:       pkgconfig(QtWebKit)
 
@@ -866,6 +883,19 @@ Provides:       %{name}-soundnotifications = %{version}
 This package provides a dumb sound notifier plugin for LeechCraft.
 
 It also uses Phonon as a backend or something like aplay/mplayer.
+
+
+%if 0%{?fedora} >= 21
+%package eleeminator
+Summary:        LeechCraft Eleeminator Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Provides:       %{name}-shaitan = %{version}
+Obsoletes:      %{name}-shaitan < %{version}
+
+%description eleeminator
+This package provides a terminal plugin for Leechcraft.
+%endif
 
 
 %package fenet
@@ -1301,13 +1331,15 @@ Requires:       %{name}-devmon = %{version}
 This package allows to sync with MTP devices via LeechCraft.
 
 
-# %%package lmp-potorchu
-# Summary:        LeechCraft Visualization Effects Module
-# Group:          Productivity/Networking/Other
-# Requires:       %%{name}-lmp = %%{version}
-# 
-# %%description lmp-potorchu
-# This package provides visualization effects for LeechCraft audio player.
+%if 0%{?fedora} >= 21
+%package lmp-potorchu
+Summary:        LeechCraft Visualization Effects Module
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+
+%description lmp-potorchu
+This package provides visualization effects for LeechCraft audio player.
+%endif
 
 
 %package mellonetray
@@ -2035,20 +2067,20 @@ A library providing some useful and commonly used models (as in MVC),
 as well as model-related classes and functions.
 
 
-%package -n lib%{name}-util-network%{so_ver}
+%package -n lib%{name}-util-network%{so_ver}_1
 Summary:        Network utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-network%{so_ver}
+%description -n lib%{name}-util-network%{so_ver}_1
 A library providing some useful and commonly used
 network classes and functions.
 
 
-%package -n lib%{name}-util-qml%{so_ver}
+%package -n lib%{name}-util-qml%{so_ver}_1
 Summary:        QML utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-qml%{so_ver}
+%description -n lib%{name}-util-qml%{so_ver}_1
 A library providing some useful and commonly used QML items as well as
 QML-related classes and functions.
 
@@ -2079,21 +2111,21 @@ Group:          Productivity/Networking/Other
 A library providing authenticators for various services like VKontakte.
 
 
-%package -n lib%{name}-util-sys%{so_ver}
+%package -n lib%{name}-util-sys%{so_ver}_1
 Summary:        System utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-sys%{so_ver}
+%description -n lib%{name}-util-sys%{so_ver}_1
 A library providing some useful and commonly used system-related
 classes and functions, like OS version parser, paths utilities or MIME
 detector.
 
 
-%package -n lib%{name}-util-tags%{so_ver}
+%package -n lib%{name}-util-tags%{so_ver}_1
 Summary:        Tags utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-tags%{so_ver}
+%description -n lib%{name}-util-tags%{so_ver}_1
 A library providing some useful classes and functions commonly used
 with the LeechCraft tags subsystem.
 
@@ -2115,11 +2147,11 @@ A library providing XDG parsers and other support methods and classes
 for LeechCraft.
 
 
-%package -n lib%{name}-util-xpc%{so_ver}
+%package -n lib%{name}-util-xpc%{so_ver}_1
 Summary:        Cross-plugin communication utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-xpc%{so_ver}
+%description -n lib%{name}-util-xpc%{so_ver}_1
 A library providing some useful and commonly used primitives for
 communications between different plugins in LeechCraft.
 
@@ -2185,7 +2217,11 @@ cmake ../src \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_DUMBEEP=True \
                 -DDUMBEEP_WITH_PHONON=True \
+%if 0%{?fedora} >= 21
+        -DENABLE_ELEEMINATOR=True \
+%else
         -DENABLE_ELEEMINATOR=False \
+%endif
         -DENABLE_FENET=True \
         -DENABLE_GACTS=True \
                 -DWITH_GACTS_BUNDLED_QXT=True \
@@ -2209,14 +2245,22 @@ cmake ../src \
                 -DWITH_LHTR_HTML=True \
         -DENABLE_LIZNOO=True \
         -DENABLE_LMP=True \
+%if 0%{?fedora} >= 21
+        -DUSE_GSTREAMER_10=True \
+%else
         -DUSE_GSTREAMER_10=False \
+%endif
                 -DENABLE_LMP_BRAINSLUGZ=True \
                 -DENABLE_LMP_FRADJ=True \
                 -DENABLE_LMP_GRAFFITI=True \
                 -DENABLE_LMP_LIBGUESS=True \
                 -DENABLE_LMP_MPRIS=True \
                 -DENABLE_LMP_MTPSYNC=True \
+%if 0%{?fedora} >= 21
+                -DENABLE_LMP_POTORCHU=True \
+%else
                 -DENABLE_LMP_POTORCHU=False \
+%endif
         -DENABLE_MEDIACALLS=False \
         -DENABLE_MELLONETRAY=True \
         -DENABLE_MONOCLE=True \
@@ -2304,16 +2348,16 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %postun -n lib%{name}-util-models%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-network%{so_ver}
+%post -n lib%{name}-util-network%{so_ver}_1
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-network%{so_ver}
+%postun -n lib%{name}-util-network%{so_ver}_1
 /sbin/ldconfig
 
-%post -n lib%{name}-util-qml%{so_ver}
+%post -n lib%{name}-util-qml%{so_ver}_1
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-qml%{so_ver}
+%postun -n lib%{name}-util-qml%{so_ver}_1
 /sbin/ldconfig
 
 %post -n lib%{name}-util-shortcuts%{so_ver}
@@ -2334,16 +2378,16 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %postun -n lib%{name}-util-svcauth%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-sys%{so_ver}
+%post -n lib%{name}-util-sys%{so_ver}_1
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-sys%{so_ver}
+%postun -n lib%{name}-util-sys%{so_ver}_1
 /sbin/ldconfig
 
-%post -n lib%{name}-util-tags%{so_ver}
+%post -n lib%{name}-util-tags%{so_ver}_1
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-tags%{so_ver}
+%postun -n lib%{name}-util-tags%{so_ver}_1
 /sbin/ldconfig
 
 %post -n lib%{name}-util-x11-%{so_ver}
@@ -2358,10 +2402,10 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %postun -n lib%{name}-util-xdg%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-xpc%{so_ver}
+%post -n lib%{name}-util-xpc%{so_ver}_1
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-xpc%{so_ver}
+%postun -n lib%{name}-util-xpc%{so_ver}_1
 /sbin/ldconfig
 
 %post -n lib%{name}-util-xsd%{so_ver}
@@ -2731,6 +2775,15 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %{_libdir}/%{name}/plugins/lib%{name}_dumbeep.so
 %{_datadir}/%{name}/settings/dumbeepsettings.xml
 
+%if 0%{?fedora} >= 21
+%files eleeminator
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_eleeminator.so
+%{_datadir}/%{name}/translations/%{name}_eleeminator_??.qm
+%{_datadir}/%{name}/translations/%{name}_eleeminator_??_??.qm
+%{_datadir}/%{name}/settings/eleeminatorsettings.xml
+%endif
+
 %files fenet
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_fenet.so
@@ -2869,6 +2922,7 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %{_libdir}/%{name}/plugins/lib%{name}_lemon.so
 %{_datadir}/%{name}/qml/lemon/
 %{_datadir}/%{name}/translations/%{name}_lemon_*.qm
+%{_datadir}/%{name}/settings/lemonsettings.xml
 
 %files lhtr
 %defattr(-,root,root)
@@ -2936,11 +2990,13 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_lmp_mtpsync.so
 
-# %%files lmp-potorchu
-# %%defattr(-,root,root)
-# %%{_libdir}/%%{name}/plugins/*%%{name}_lmp_potorchu.so
-# %%{_datadir}/%%{name}/translations/%%{name}_lmp_potorchu_??.qm
-# %%{_datadir}/%%{name}/translations/%%{name}_lmp_potorchu_??_??.qm
+%if 0%{?fedora} >= 21
+%files lmp-potorchu
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/*%{name}_lmp_potorchu.so
+%{_datadir}/%{name}/translations/%{name}_lmp_potorchu_??.qm
+%{_datadir}/%{name}/translations/%{name}_lmp_potorchu_??_??.qm
+%endif
 
 %files mellonetray
 %defattr(-,root,root)
@@ -3225,6 +3281,7 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %files zalil
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_zalil.so
+%{_datadir}/%{name}/translations/%{name}_zalil_*.qm
 
 %files -n lib%{name}-util-db%{so_ver}
 %defattr(-,root,root)
@@ -3238,11 +3295,11 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-models*.so.*
 
-%files -n lib%{name}-util-network%{so_ver}
+%files -n lib%{name}-util-network%{so_ver}_1
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-network*.so.*
 
-%files -n lib%{name}-util-qml%{so_ver}
+%files -n lib%{name}-util-qml%{so_ver}_1
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-qml*.so.*
 
@@ -3258,11 +3315,11 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-svcauth*.so.*
 
-%files -n lib%{name}-util-sys%{so_ver}
+%files -n lib%{name}-util-sys%{so_ver}_1
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-sys*.so.*
 
-%files -n lib%{name}-util-tags%{so_ver}
+%files -n lib%{name}-util-tags%{so_ver}_1
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-tags*.so.*
 
@@ -3274,7 +3331,7 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-xdg*.so.*
 
-%files -n lib%{name}-util-xpc%{so_ver}
+%files -n lib%{name}-util-xpc%{so_ver}_1
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-xpc*.so.*
 
