@@ -1,7 +1,7 @@
 #
 # spec file for package simplescreenrecorder
 #
-# Copyright (c) 2014 Packman team: http://packman.links2linux.org/
+# Copyright (c) 2015 Packman team: http://packman.links2linux.org/
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           simplescreenrecorder
-Version:        0.3.1
+Version:        0.3.2
 Release:        0
 License:        GPL-3.0+
 Summary:        A feature-rich screen recorder that supports X11 and OpenGL
