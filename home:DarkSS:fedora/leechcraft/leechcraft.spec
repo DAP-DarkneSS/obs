@@ -26,7 +26,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-2137-g4b808e9
+%define LEECHCRAFT_VERSION 0.6.70-2140-g239ad76
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -71,9 +71,9 @@ BuildRequires:  qscintilla-devel
 BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(qxmpp) >= 0.8.0
 BuildRequires:  lm_sensors-devel
-%if 0%{?fedora} >= 21
-BuildRequires:  pkgconfig(libprojectM)
-%endif
+# %%if 0%%{?fedora} >= 22
+# BuildRequires:  pkgconfig(libprojectM) >= 2.1
+# %%endif
 BuildRequires:  libtidy-devel
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
 BuildRequires:  systemd-devel
@@ -1331,15 +1331,15 @@ Requires:       %{name}-devmon = %{version}
 This package allows to sync with MTP devices via LeechCraft.
 
 
-%if 0%{?fedora} >= 21
-%package lmp-potorchu
-Summary:        LeechCraft Visualization Effects Module
-Group:          Productivity/Networking/Other
-Requires:       %{name}-lmp = %{version}
-
-%description lmp-potorchu
-This package provides visualization effects for LeechCraft audio player.
-%endif
+# %%if 0%%{?fedora} >= 22
+# %%package lmp-potorchu
+# Summary:        LeechCraft Visualization Effects Module
+# Group:          Productivity/Networking/Other
+# Requires:       %%{name}-lmp = %%{version}
+# 
+# %%description lmp-potorchu
+# This package provides visualization effects for LeechCraft audio player.
+# %%endif
 
 
 %package mellonetray
@@ -2256,7 +2256,7 @@ cmake ../src \
                 -DENABLE_LMP_LIBGUESS=True \
                 -DENABLE_LMP_MPRIS=True \
                 -DENABLE_LMP_MTPSYNC=True \
-%if 0%{?fedora} >= 21
+%if 0%{?fedora} >= 99
                 -DENABLE_LMP_POTORCHU=True \
 %else
                 -DENABLE_LMP_POTORCHU=False \
@@ -2990,13 +2990,13 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/*%{name}_lmp_mtpsync.so
 
-%if 0%{?fedora} >= 21
-%files lmp-potorchu
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_lmp_potorchu.so
-%{_datadir}/%{name}/translations/%{name}_lmp_potorchu_??.qm
-%{_datadir}/%{name}/translations/%{name}_lmp_potorchu_??_??.qm
-%endif
+# %%if 0%%{?fedora} >= 22
+# %%files lmp-potorchu
+# %%defattr(-,root,root)
+# %%{_libdir}/%%{name}/plugins/*%%{name}_lmp_potorchu.so
+# %%{_datadir}/%%{name}/translations/%%{name}_lmp_potorchu_??.qm
+# %%{_datadir}/%%{name}/translations/%%{name}_lmp_potorchu_??_??.qm
+# %%endif
 
 %files mellonetray
 %defattr(-,root,root)

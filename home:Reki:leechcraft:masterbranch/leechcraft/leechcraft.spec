@@ -37,14 +37,13 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-2137-g4b808e9
+%define LEECHCRAFT_VERSION 0.6.70-2140-g239ad76
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
 Url:            http://leechcraft.org
 Group:          Productivity/Networking/Other
 Source0:        %{name}-%{version}.tar.xz
-Source1:        %{name}.svg
 
 BuildRequires:  Qross-devel
 BuildRequires:  boost-devel >= 1.50
@@ -148,6 +147,7 @@ BuildRequires:  pkgconfig(QtMultimediaKit)
 BuildRequires:  pkgconfig(libguess)
 BuildRequires:  pkgconfig(libqrencode)
 BuildRequires:  pkgconfig(libvlc)
+BuildConflicts: brp-extract-appdata
 
 
 Requires:       oxygen-icon-theme
@@ -1816,7 +1816,6 @@ This package contains a Djvu subplugin for LeechCraft Monocle.
 
 This package provides Djvu documents support for Document viewer Module
 via the DjvuLibre backend.
-%endif
 
 
 %package musiczombie
