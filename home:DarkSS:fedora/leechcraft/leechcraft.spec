@@ -78,10 +78,6 @@ BuildRequires:  libtidy-devel
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
 BuildRequires:  systemd-devel
 BuildRequires:  libxkbfile-devel
-%ifarch i586 i686
-BuildRequires:  mupdf-devel
-BuildRequires:  openjpeg-devel
-%endif
 BuildRequires:  pcre-devel
 BuildRequires:  phonon-devel
 BuildRequires:  qwt-devel
@@ -1391,29 +1387,14 @@ This package contains a MOBI subplugin for LeechCraft Monocle.
 This package provides MOBI documents support for Document viewer Module.
 
 
-%ifarch i586 i686
-%package monocle-mu
-Summary:        LeechCraft Monocle - Another PDF Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-Requires:       %{name}-monocle = %{version}
-Requires:       mupdf
-Provides:       %{name}-monocle-subplugin
-
-%description monocle-mu
-This package contains another pdf subplugin for LeechCraft Monocle.
-
-This package provides PDF documents support for Document viewer Module
-via the mupdf backend.
-%endif
-
-
 %package monocle-pdf
 Summary:        LeechCraft Monocle - PDF Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-monocle = %{version}
 Provides:       %{name}-monocle-subplugin
+Provides:       %{name}-monocle-mu
+Obsoletes:      %{name}-monocle-mu
 
 %description monocle-pdf
 This package contains a pdf subplugin for LeechCraft Monocle.
@@ -2264,12 +2245,7 @@ cmake ../src \
         -DENABLE_MEDIACALLS=False \
         -DENABLE_MELLONETRAY=True \
         -DENABLE_MONOCLE=True \
-%ifarch x86_64
         -DENABLE_MONOCLE_MU=False \
-%else
-        -DENABLE_MONOCLE_MU=True \
-        -DMUPDF_VERSION=0x0100 \
-%endif
         -DENABLE_MUSICZOMBIE=True \
                 -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
         -DENABLE_NACHEKU=False \
@@ -3019,12 +2995,6 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_fxb.so
 %{_datadir}/applications/%{name}-monocle-fxb.desktop
 %{_datadir}/%{name}/settings/monoclefxbsettings.xml
-
-%ifarch i586 i686
-%files monocle-mu
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_monocle_mu.so
-%endif
 
 %files monocle-pdf
 %defattr(-,root,root)
