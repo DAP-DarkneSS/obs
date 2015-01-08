@@ -1,0 +1,40 @@
+diff --git a/src/app/pausemanager.cpp b/src/app/pausemanager.cpp
+index b28565f..966c383 100644
+--- a/src/app/pausemanager.cpp
++++ b/src/app/pausemanager.cpp
+@@ -97,4 +97,5 @@ std::string CPauseManager::GetPauseName(PauseType pause)
+         case PAUSE_PHOTO:       return "Photo mode";
+         default: assert(false); // Should never happen
+     }
++    return "?";
+ }
+diff --git a/src/object/level/parserline.cpp b/src/object/level/parserline.cpp
+index e0e8097..c838b35 100644
+--- a/src/object/level/parserline.cpp
++++ b/src/object/level/parserline.cpp
+@@ -43,11 +43,6 @@ CLevelParserLine::~CLevelParserLine()
+     }
+ }
+ 
+-std::string CLevelParserLine::GetLine()
+-{
+-    assert(false); //TODO
+-}
+-
+ int CLevelParserLine::GetLineNumber()
+ {
+     return m_lineNumber;
+diff --git a/src/object/level/parserline.h b/src/object/level/parserline.h
+index 9881ac7..0af0f06 100644
+--- a/src/object/level/parserline.h
++++ b/src/object/level/parserline.h
+@@ -37,9 +37,6 @@ class CLevelParserLine
+     CLevelParserLine(std::string command);
+     ~CLevelParserLine();
+     
+-    //! Get line to be saved in level file
+-    std::string GetLine();
+-    
+     //! Get line number
+     int GetLineNumber();
+     
