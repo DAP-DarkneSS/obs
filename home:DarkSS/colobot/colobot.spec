@@ -1,7 +1,7 @@
 #
 # spec file for package colobot
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,25 +17,27 @@
 
 
 Name:           colobot
-Version:        0.1.2
+Version:        0.1.4
 Release:        0
 Summary:        A real-time strategy game with programmable bots
 License:        GPL-3.0+
 Group:          Amusements/Games/Strategy/Real Time
 Url:            http://colobot.info
 Source0:        https://github.com/colobot/colobot/archive/colobot-gold-%{version}-alpha.tar.gz
-# PATCH-FIX-UPSTREAM to prevent "stack smashing". See
-# more at https://github.com/colobot/colobot/issues/288
-Patch0:         colobot-mission-locale.diff
+# PATCH-FIX-UPSTREAM vs. "I: Program returns random data in a function",
+# see more at https://github.com/colobot/colobot/issues/425
+Patch1:         colobot-0.1.4-no-return-in-nonvoid-function.diff
 
 BuildRequires:  boost-devel
 BuildRequires:  chrpath
 BuildRequires:  cmake >= 2.8
 BuildRequires:  desktop-file-utils
+BuildRequires:  doxygen
 BuildRequires:  gcc-c++ >= 4.6
 BuildRequires:  gettext >= 0.18
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libSDL_ttf-devel >= 2.0
+BuildRequires:  libphysfs-devel
 BuildRequires:  libpng-devel >= 1.2
 BuildRequires:  po4a
 BuildRequires:  pkgconfig(SDL_image) >= 1.2
@@ -69,8 +71,7 @@ the right amount of accuracy, with the right mix of imagination.
 
 %prep
 %setup -q -n colobot-colobot-gold-%{version}-alpha
-%patch0 -p1
-
+%patch1 -p1
 
 %build
 mkdir -p build && cd build
@@ -86,13 +87,11 @@ cmake .. \
        -DCOLOBOT_INSTALL_LIB_DIR:PATH=%{_libdir}
 make V=1 %{?_smp_mflags}
 
-
 %install
 cd build
 make V=1 install DESTDIR=%{buildroot}
 chrpath -d %{buildroot}%{_bindir}/%{name}
 %find_lang %{name} %{?no_lang_C}
-
 
 %post
 %desktop_database_post
@@ -102,7 +101,6 @@ chrpath -d %{buildroot}%{_bindir}/%{name}
 %desktop_database_postun
 %icon_theme_cache_postun
 
-
 %files
 %defattr(-,root,root)
 %doc LICENSE.txt README.md
@@ -111,13 +109,7 @@ chrpath -d %{buildroot}%{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}*
 %{_mandir}/man*/%{name}*
-# directories not owned by a package:
-# /usr/share/man/fr/man6
-%if 0%{suse_version} <= 1220
-%dir %{_mandir}/*/man*
-%endif
 %{_mandir}/*/man*/%{name}*
-
 
 %files lang -f build/%{name}.lang
 

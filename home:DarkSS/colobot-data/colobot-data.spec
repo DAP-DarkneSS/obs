@@ -1,7 +1,7 @@
 #
 # spec file for package colobot-data
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           colobot-data
-Version:        0.1.2
+Version:        0.1.4
 Release:        0
 Summary:        A real-time strategy game with programmable bots
 License:        GPL-3.0+
@@ -27,7 +27,7 @@ Source0:        https://github.com/colobot/colobot-data/archive/colobot-gold-%{v
 
 BuildRequires:  cmake >= 2.8
 BuildRequires:  fdupes
-BuildRequires:  gcc-c++
+BuildRequires:  gcc-c++ >= 4.6
 Requires:       %{name} >= %{version}
 BuildArch:      noarch
 
@@ -49,22 +49,19 @@ the right amount of accuracy, with the right mix of imagination.
 %prep
 %setup -q -n colobot-data-colobot-gold-%{version}-alpha
 
-
 %build
 mkdir -p build && cd build
 cmake .. -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix}
 make V=1 %{?_smp_mflags}
-
 
 %install
 cd build
 make V=1 install DESTDIR=%{buildroot}
 %fdupes -s %{buildroot}
 
-
 %files
 %defattr(-,root,root)
-%doc LICENSE README*
+%doc LICENSE* README*
 %{_datadir}/games/colobot
 
 %changelog

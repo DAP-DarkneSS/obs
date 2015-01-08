@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Wed Jan  7 12:43:39 UTC 2015 - dap.darkness@gmail.com
+
+- 0.1.4:
+  * no upstream changelog.
+- Deleted colobot-mission-locale.diff as already merged.
+- Deleted _service file and added a tarball.
+- Added colobot-0.1.4-no-return-in-nonvoid-function.diff to prevent
+  "I: Program returns random data in a function", see more at
+  https://github.com/colobot/colobot/issues/425
+
+-------------------------------------------------------------------
 Sun Mar  2 11:11:55 UTC 2014 - dap.darkness@gmail.com
 
 - Initial build.

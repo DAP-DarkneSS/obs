@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Jan  7 12:43:39 UTC 2015 - dap.darkness@gmail.com
+
+- 0.1.4:
+  * no upstream changelog.
+- Deleted _service file and added a tarball.
+
+-------------------------------------------------------------------
 Sun Mar  2 11:11:55 UTC 2014 - dap.darkness@gmail.com
 
 - Initial build.
