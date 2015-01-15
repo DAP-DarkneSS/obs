@@ -37,7 +37,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-2140-g239ad76
+%define LEECHCRAFT_VERSION 0.6.70-2215-ga504dfa
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -3571,12 +3571,15 @@ EOF
 %files monocle
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle.so
-%{_datadir}/%{name}/translations/%{name}_monocle_*.qm
+%{_datadir}/%{name}/translations/%{name}_monocle_??.qm
+%{_datadir}/%{name}/translations/%{name}_monocle_??_??.qm
 %{_datadir}/%{name}/settings/monoclesettings.xml
 
 %files monocle-dik
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_dik.so
+%{_datadir}/%{name}/translations/%{name}_monocle_dik_??.qm
+%{_datadir}/%{name}/translations/%{name}_monocle_dik_??_??.qm
 
 %files monocle-fxb
 %defattr(-,root,root)
@@ -3600,11 +3603,15 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_postrus.so
 %{_datadir}/applications/%{name}-monocle-postrus.desktop
+%{_datadir}/%{name}/translations/%{name}_monocle_postrus_??.qm
+%{_datadir}/%{name}/translations/%{name}_monocle_postrus_??_??.qm
 
 %files monocle-seen
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_seen.so
 %{_datadir}/applications/%{name}-monocle-seen.desktop
+%{_datadir}/%{name}/translations/%{name}_monocle_seen_??.qm
+%{_datadir}/%{name}/translations/%{name}_monocle_seen_??_??.qm
 
 %files musiczombie
 %defattr(-,root,root)
