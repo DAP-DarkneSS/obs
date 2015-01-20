@@ -17,13 +17,15 @@
 
 
 Name:           simplescreenrecorder
-Version:        0.3.2
+Version:        0.3.3
 Release:        0
 License:        GPL-3.0+
 Summary:        A feature-rich screen recorder that supports X11 and OpenGL
 Url:            http://www.maartenbaert.be/simplescreenrecorder
 Group:          System/X11/Utilities
 Source:         https://github.com/MaartenBaert/ssr/archive/%{version}.tar.gz
+# PATH-FIX-UPSTREAM to fix --disable-x86-asm option
+Patch0:         ssr-0.3.3-fix-disable-x86-asm.diff
 
 BuildRequires:  cmake
 BuildRequires:  hicolor-icon-theme
@@ -95,6 +97,7 @@ This package provides SimpleScreenRecorder's optional library.
 
 %prep
 %setup -q -n ssr-%{version}
+%patch0 -p1
 
 
 %build
