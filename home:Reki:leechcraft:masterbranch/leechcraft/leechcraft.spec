@@ -37,7 +37,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-2215-ga504dfa
+%define LEECHCRAFT_VERSION 0.6.70-2267-g48c8bab
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -1589,11 +1589,10 @@ Recommends:     ffmpeg
 %if 0%{?suse_version} > 1310
 Requires:       gstreamer-plugins-base >= 1.0
 Requires:       gstreamer-plugins-good >= 1.0
-Recommends:     gstreamer-plugins-bad >= 1.0
+Recommends:     gstreamer-fluendo-mp3
 %else
 Requires:       gstreamer-0_10-plugins-base
 Requires:       gstreamer-0_10-plugins-good
-Recommends:     gstreamer-0_10-plugins-bad
 Recommends:     gstreamer-0_10-plugins-fluendo_mp3
 %endif
 Provides:       %{name}-audioplayer
@@ -3586,6 +3585,8 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_fxb.so
 %{_datadir}/applications/%{name}-monocle-fxb.desktop
 %{_datadir}/%{name}/settings/monoclefxbsettings.xml
+%{_datadir}/%{name}/translations/%{name}_monocle_fxb_??.qm
+%{_datadir}/%{name}/translations/%{name}_monocle_fxb_??_??.qm
 
 %if 0%{?suse_version} == 1310
 %files monocle-mu
@@ -3598,6 +3599,8 @@ EOF
 %{_libdir}/%{name}/plugins/lib%{name}_monocle_pdf.so
 %{_datadir}/applications/%{name}-monocle-pdf.desktop
 %{_datadir}/%{name}/settings/monoclepdfsettings.xml
+%{_datadir}/%{name}/translations/%{name}_monocle_pdf_??.qm
+%{_datadir}/%{name}/translations/%{name}_monocle_pdf_??_??.qm
 
 %files monocle-postrus
 %defattr(-,root,root)
