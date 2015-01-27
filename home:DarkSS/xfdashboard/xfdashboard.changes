@@ -1,0 +1,153 @@
+-------------------------------------------------------------------
+Sat Jan 24 00:00:00 UTC 2015 - nonamedotc@fedoraproject.org
+
+- Update to 0.3.8
+
+
+-------------------------------------------------------------------
+Sat Jan 17 00:00:00 UTC 2015 - nonamedotc@fedoraproject.org
+
+- Update to 0.3.6
+- Added libxfce4util-devel as BR for building settings manager
+
+
+-------------------------------------------------------------------
+Mon Jan 12 00:00:00 UTC 2015 - nonamedotc@fedoraproject.org
+
+- Update to 0.3.5
+
+
+-------------------------------------------------------------------
+Thu Nov 27 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Update to 0.3.4
+- Move additional themes provided to -themes subpackage
+
+
+-------------------------------------------------------------------
+Mon Oct 20 00:00:00 UTC 2014 - kevin@scrye.com
+
+- Update to 0.3.3
+
+
+-------------------------------------------------------------------
+Mon Sep  8 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Updated to latest upstream version
+- New features included
+
+
+-------------------------------------------------------------------
+Wed Sep  3 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Updated to latest upstream version
+
+
+-------------------------------------------------------------------
+Mon Aug 18 00:00:00 UTC 2014 - rel-eng@lists.fedoraproject.org
+
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
+
+-------------------------------------------------------------------
+Tue Jul 22 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Latest upstream version with bugfixes and enhancements
+- Removed ChangeLog from doc
+
+
+-------------------------------------------------------------------
+Sun Jul 20 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Updated to latest upstream version
+
+
+-------------------------------------------------------------------
+Sat Jul 12 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Initial build for F22
+
+
+-------------------------------------------------------------------
+Wed Jun 11 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Updated to latest upstream release
+- Added appdata file
+
+
+-------------------------------------------------------------------
+Wed Jun  4 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Updated to latest version
+- Added application icons
+
+
+-------------------------------------------------------------------
+Tue May 20 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Fixed URL
+- Updated to 0.1.91 - API change with this update
+- Removed TODO
+- Added BuildRequires for desktop-file-utils
+- desktop file added - will show in XFCE menu
+- desktop file for autostart added
+
+
+-------------------------------------------------------------------
+Fri May  2 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Update to 0.1.90
+- multiple bug fixes and improvements
+
+
+-------------------------------------------------------------------
+Sun Mar 23 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Updated to 0.1.6
+
+
+-------------------------------------------------------------------
+Sat Mar  8 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Updated to latest release containing new enhancements
+
+
+-------------------------------------------------------------------
+Tue Feb 25 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Patch for enabling workspace switching added
+- Upstream bug - issue#1 on github
+
+
+-------------------------------------------------------------------
+Mon Feb 24 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Updated to the latest upstream version
+- Includes theming support (provides a default theme)
+
+
+-------------------------------------------------------------------
+Tue Feb 11 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Updated to the latest upstream version
+
+
+-------------------------------------------------------------------
+Mon Feb 10 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Corrected flags used for building the package
+- Edited the description
+
+
+-------------------------------------------------------------------
+Sun Feb  2 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Corrected version used for packaging
+- Added the doc files
+
+
+-------------------------------------------------------------------
+Wed Jan 29 00:00:00 UTC 2014 - nonamedotc@fedoraproject.org
+
+- Initial build for Fedora
+
