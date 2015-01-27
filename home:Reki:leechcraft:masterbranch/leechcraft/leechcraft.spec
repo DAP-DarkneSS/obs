@@ -37,7 +37,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-2267-g48c8bab
+%define LEECHCRAFT_VERSION 0.6.70-2285-gf2c2389
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -2782,7 +2782,6 @@ cmake ../src \
         -DENABLE_SB2=True \
         -DENABLE_SCROBLIBRE=True \
         -DENABLE_SECMAN=True \
-        -DENABLE_SHAITAN=False \
         -DENABLE_SHELLOPEN=False \
 %if %{clang_compiler}
         -DENABLE_SNAILS=True \
