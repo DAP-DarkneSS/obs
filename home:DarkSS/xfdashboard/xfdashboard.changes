@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Thu Jan 29 16:12:32 UTC 2015 - dap.darkness@gmail.com
+
+- SUSEficated.
+- Added xfdashboard-0.3.8-desktop-category.diff
+  to fit openSUSE desktop files rules.
+- Added xfdashboard-0.3.8-voidreturn.diff
+  to fix serious compiler warnings.
+  https://github.com/gmc-holle/xfdashboard/issues/68
+
+-------------------------------------------------------------------
 Sat Jan 24 00:00:00 UTC 2015 - nonamedotc@fedoraproject.org
 
 - Update to 0.3.8
