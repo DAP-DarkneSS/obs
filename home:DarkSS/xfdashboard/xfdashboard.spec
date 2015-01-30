@@ -23,12 +23,18 @@ Summary:        GNOME shell like dashboard for Xfce
 License:        GPL-2.0+
 Url:            http://xfdashboard.froevel.de
 Source0:        https://github.com/gmc-holle/xfdashboard/archive/%{version}.tar.gz
-# https://github.com/gmc-holle/xfdashboard/pull/70
-# PATCH-FIX-OPENSUSE to fit openSUSE desktop files rules.
+
+# WARNING! Please don't add OnlyShowIn key to the desktop file
+# to save possibility to be run from under different desktop environments.
+
+# PATCH-FIX-OPENSUSE gh#gmc-holle/xfdashboard#70 xfdashboard-0.3.8-desktop-category.diff dap.darkness@gmail.com -- fixes not-sufficient desktop file category.
 Patch0:         xfdashboard-0.3.8-desktop-category.diff
-# https://github.com/gmc-holle/xfdashboard/issues/68#issuecomment-71727748
-# PATCH-FIX-UPDTREAM to fix serious compiler warnings.
+
+# PATCH-FIX-UPSTREAM gh#gmc-holle/xfdashboard#68 xfdashboard-0.3.8-void-return.diff dap.darkness@gmail.com -- prevents serious compiler warnings.
 Patch1:         xfdashboard-0.3.8-void-return.diff
+
+# PATCH-FIX-OPENSUSE xfdashboard-desktopfile-without-binary.diff dap.darkness@gmail.com -- fixes "W: desktopfile-without-binary".
+Patch2:         xfdashboard-desktopfile-without-binary.diff
 
 BuildRequires:  clutter-devel
 BuildRequires:  fdupes
@@ -41,7 +47,6 @@ BuildRequires:  pkgconfig(libwnck-1.0) >= 2.30
 BuildRequires:  pkgconfig(libxfconf-0)
 Requires(pre):  update-desktop-files
 Requires(post): update-desktop-files
-Recommends:     %{name}-autostart
 Recommends:     %{name}-themes
 
 %description
@@ -59,18 +64,11 @@ Requires:       %{name}
 %description themes
 Additional themes for use with Xfdashboard.
 
-%package autostart
-BuildArch:      noarch
-Summary:        Autostarts Xfdashboard
-Requires:       %{name}
-
-%description autostart
-Let Xfdashboard start automatically when openSUSE boots.
-
 %prep
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 export CFLAGS="%{optflags}"
@@ -98,15 +96,12 @@ make DESTDIR=%{buildroot} install %{?_smp_mflags} V=1
 %{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/%{name}-settings.desktop
+%{_sysconfdir}/xdg/autostart/%{name}-autostart.desktop
 %{_datadir}/icons/hicolor/*/*/%{name}.png
 %{_datadir}/themes/%{name}
 %if 0%{?suse_version} <= 1310
 %{_datadir}/appdata
 %endif
-
-%files autostart
-%defattr(-,root,root)
-%{_sysconfdir}/xdg/autostart/%{name}-autostart.desktop
 
 %files themes
 %defattr(-,root,root)

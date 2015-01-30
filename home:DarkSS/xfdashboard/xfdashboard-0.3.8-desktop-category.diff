@@ -1,5 +1,5 @@
 diff --git a/data/xfdashboard.desktop.in.in b/data/xfdashboard.desktop.in.in
-index 7679261..be75f5a 100644
+index 7679261..fd63ac0 100644
 --- a/data/xfdashboard.desktop.in.in
 +++ b/data/xfdashboard.desktop.in.in
 @@ -5,6 +5,6 @@ _Comment=Maybe a Gnome shell like dashboard for Xfce
@@ -7,7 +7,6 @@ index 7679261..be75f5a 100644
  Exec=@bindir@/xfdashboard
  Icon=xfdashboard
 -Categories=System;
--NotShowIn=GNOME;KDE;Unity;
 +Categories=System;Applet;
-+OnlyShowIn=XFCE;
+ NotShowIn=GNOME;KDE;Unity;
  Terminal=false

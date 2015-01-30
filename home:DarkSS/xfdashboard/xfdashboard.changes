@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Sat Jan 31 10:52:05 UTC 2015 - dap.darkness@gmail.com
+
+- Fixed patches descriptions again.
+- Autostart subpackage was merged into the main one.
+
+-------------------------------------------------------------------
+Fri Jan 30 15:45:02 UTC 2015 - dap.darkness@gmail.com
+
+- Fixed xfdashboard-0.3.8-desktop-category.diff
+  to pass pull request review.
+- Added xfdashboard-desktopfile-without-binary.diff
+  vs. "W: desktopfile-without-binary".
+- Fixed patches descriptions.
+
+-------------------------------------------------------------------
 Thu Jan 29 16:12:32 UTC 2015 - dap.darkness@gmail.com
 
 - SUSEficated.
