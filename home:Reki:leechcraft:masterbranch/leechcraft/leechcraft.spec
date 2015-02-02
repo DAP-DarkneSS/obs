@@ -37,7 +37,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-2285-gf2c2389
+%define LEECHCRAFT_VERSION 0.6.70-2352-g2c5c2b6
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -1393,7 +1393,16 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
 %description imgaste
-This module provides a simple image paster plugin from LeechCraft
+This module provides a simple image paster plugin from LeechCraft.
+
+
+%package intermutko
+Summary:        LeechCraft HTTP Accept-Language header Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description intermutko
+This module provides a HTTP Accept-Language header configurator.
 
 
 %package kbswitch
@@ -1403,7 +1412,7 @@ Requires:       %{name} = %{version}
 Requires:       setxkbmap
 
 %description kbswitch
-This module allow change keyboard layouts from LeechCraft
+This module allows change keyboard layouts from LeechCraft
 
 
 %package kinotify
@@ -2015,6 +2024,7 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-webbrowser
 Recommends:     %{name}-imgaste = %{version}
+Recommends:     %{name}-intermutko = %{version}
 
 %description poshuku
 This package provides a web browser plugin for LeechCraft.
@@ -2713,6 +2723,7 @@ cmake ../src \
         -DENABLE_HOTSTREAMS=True \
         -DENABLE_HTTHARE=True \
         -DENABLE_IMGASTE=True \
+        -DENABLE_INTERMUTKO=True \
         -DENABLE_KBSWITCH=True \
         -DENABLE_KNOWHOW=True \
         -DENABLE_KRIGSTASK=True \
@@ -3421,6 +3432,11 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_imgaste.so
 %{_datadir}/%{name}/translations/%{name}_imgaste_*.qm
+
+%files intermutko
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_intermutko.so
+%{_datadir}/%{name}/settings/intermutkosettings.xml
 
 %files kbswitch
 %defattr(-,root,root)
