@@ -37,7 +37,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-2352-g2c5c2b6
+%define LEECHCRAFT_VERSION 0.6.70-2375-ga2d9b04
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -3437,6 +3437,8 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_intermutko.so
 %{_datadir}/%{name}/settings/intermutkosettings.xml
+%{_datadir}/%{name}/translations/%{name}_intermutko_??.qm
+%{_datadir}/%{name}/translations/%{name}_intermutko_??_??.qm
 
 %files kbswitch
 %defattr(-,root,root)
