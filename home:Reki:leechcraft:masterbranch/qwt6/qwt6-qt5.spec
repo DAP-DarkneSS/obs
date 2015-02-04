@@ -1,5 +1,5 @@
 #
-# spec file for package qwt6
+# spec file for package qwt6-qt5
 #
 # Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
@@ -16,7 +16,10 @@
 #
 
 
-Name:           qwt6
+%define build_qt4 0
+%define build_qt5 1
+
+Name:           qwt6-qt5
 Version:        6.1.2
 Release:        0
 Summary:        Qt Widgets for Technical Applications
@@ -29,14 +32,21 @@ Source:         http://switch.dl.sourceforge.net/sourceforge/qwt/qwt-%{version}.
 Patch0:         qwt-rpath.patch
 
 BuildRequires:  freetype2-devel
-BuildRequires:  gcc-c++
 BuildRequires:  libpng-devel
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-BuildRequires:  qt-devel
 %if 0%{?suse_version} >= 1100
 BuildRequires:  fdupes
 %endif
-Requires:       libqwt6 = %{version}
+%if %build_qt4
+BuildRequires:  pkgconfig(QtCore)
+%endif
+%if %build_qt5
+BuildRequires:  pkgconfig(Qt5Concurrent)
+BuildRequires:  pkgconfig(Qt5Designer)
+BuildRequires:  pkgconfig(Qt5OpenGL)
+BuildRequires:  pkgconfig(Qt5PrintSupport)
+BuildRequires:  pkgconfig(Qt5Svg)
+%endif
+Requires:       libqwt-qt5_6 = %{version}
 
 %description
 The Qwt library contains GUI Components and utility classes which are
@@ -45,11 +55,11 @@ plot widget it provides scales, sliders, dials, compasses, thermometers,
 wheels and knobs to control or display values, arrays, or ranges of type
 double.
 
-%package -n libqwt6
+%package -n libqwt-qt5_6
 Summary:        Shared library for Qt Widgets
 Group:          Development/Libraries/C and C++
 
-%description -n libqwt6
+%description -n libqwt-qt5_6
 This package contains the shared library to run Technical Applications
 developed with/for Qwt.
 
@@ -60,6 +70,7 @@ Requires:       %{name} = %{version}
 Requires:       freetype2-devel
 Requires:       gcc-c++
 Requires:       libpng-devel
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Requires:       qt-devel
 %if 0%{?suse_version}
 Recommends:     %{name}-devel-doc
@@ -104,11 +115,21 @@ as is it created by doxygen.
 
 %build
 %if 0%{?fedora_version} || 0%{?rhel_version} || 0%{?centos_version}
+%if %build_qt4
 export PATH=%{_libdir}/qt4/bin/:$PATH
+%endif
+%if %build_qt5
+export PATH=%{_libdir}/qt5/bin/:$PATH
+%endif
 %endif
 
 # Now build the qwt6 library
+%if %build_qt4
 qmake \
+%endif
+%if %build_qt5
+qmake-qt5 \
+%endif
 	QMAKE_STRIP="" \
 	QWT_INSTALL_PREFIX=%{_prefix} \
 	CONFIG+=QwtDll CONFIG+=QwtDesigner CONFIG+=QwtExamples -after \
@@ -130,16 +151,27 @@ cp COPYING README %{buildroot}%{_docdir}/%{name}
 cp -r examples %{buildroot}%{_docdir}/%{name}/examples
 
 # Designer plugin
+%if %build_qt4
 mkdir -p %{buildroot}/%{_libdir}/qt4/plugins/designer
 mv -v %{buildroot}/%{_libdir}/libqwt_designer_plugin.so %{buildroot}/%{_libdir}/qt4/plugins/designer/
+%endif
+%if %build_qt5
+mkdir -p %{buildroot}/%{_libdir}/qt5/plugins/designer
+mv -v %{buildroot}/%{_libdir}/libqwt_designer_plugin.so %{buildroot}/%{_libdir}/qt5/plugins/designer/
+%endif
 
 %if 0%{?suse_version} >= 1100
 %fdupes %{buildroot}
 %endif
 
+%if %build_qt4
 %post -n libqwt6 -p /sbin/ldconfig
-
 %postun -n libqwt6 -p /sbin/ldconfig
+%endif
+%if %build_qt5
+%post -n libqwt-qt5_6 -p /sbin/ldconfig
+%postun -n libqwt-qt5_6 -p /sbin/ldconfig
+%endif
 
 %files
 %defattr(-,root,root)
@@ -147,14 +179,14 @@ mv -v %{buildroot}/%{_libdir}/libqwt_designer_plugin.so %{buildroot}/%{_libdir}/
 %dir %{_docdir}/%{name}
 %doc %{_docdir}/%{name}/*
 
-%files -n libqwt6
+%files -n libqwt-qt5_6
 %defattr(-,root,root)
 %{_libdir}/libqwt*
 %exclude %{_libdir}/libqwt*.so
 
 %files designer
 %defattr(-,root,root)
-%{_libdir}/qt4/plugins/designer/libqwt_designer_plugin.so
+%{_libdir}/qt5/plugins/designer/libqwt_designer_plugin.so
 
 %files devel
 %defattr(-,root,root)
