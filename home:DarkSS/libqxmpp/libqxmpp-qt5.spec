@@ -1,5 +1,5 @@
 #
-# spec file for package libqxmpp
+# spec file for package libqxmpp-qt5
 #
 # Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
@@ -16,10 +16,10 @@
 #
 
 
-%define build_qt4 1
-%define build_qt5 0
+%define build_qt4 0
+%define build_qt5 1
 
-Name:           libqxmpp
+Name:           libqxmpp-qt5
 Version:        0.8.2
 Release:        0
 Summary:        Qt XMPP Library
@@ -28,7 +28,6 @@ Group:          System/Libraries
 Url:            http://qxmpp.org
 Source0:        https://github.com/qxmpp-project/qxmpp/archive/v%{version}.tar.gz
 Source1:        baselibs.conf
-# PATCH-FEATURE-OPENSUSE to make Qt5 build.
 Patch0:         libqxmpp-qt5.patch
 
 BuildRequires:  fdupes
@@ -53,11 +52,11 @@ and the XMPP RFCs (RFC3920 and RFC3921) have been encapsulated into classes and
 functions. Therefore the user would not be bothered with these details. But it is
 always recommended to the advanced users to read and enjoy the low level details.
 
-%package -n %{name}0
+%package -n %{name}-0
 Summary:        Qt XMPP Library
 Group:          System/Libraries
 
-%description -n %{name}0
+%description -n %{name}-0
 QXmpp is a cross-platform C++ XMPP client library. It is based on Qt and C++.
 
 QXmpp is pretty intuitive and easy to use. It uses Qt extensively. Qt is the only
@@ -120,16 +119,17 @@ make V=1 %{?_smp_mflags}
 
 %install
 %makeinstall INSTALL_ROOT=%{buildroot}
+rm -rf %{buildroot}%{_prefix}/tests
 %fdupes %{buildroot}%{_datadir}/doc/qxmpp/
 
 %check
 make V=1 %{?_smp_mflags} check
 
-%post -n %{name}0 -p /sbin/ldconfig
+%post -n %{name}-0 -p /sbin/ldconfig
 
-%postun -n %{name}0 -p /sbin/ldconfig
+%postun -n %{name}-0 -p /sbin/ldconfig
 
-%files -n %{name}0
+%files -n %{name}-0
 %defattr(-,root,root)
 %doc AUTHORS CHANGELOG LICENSE.LGPL README*
 %{_libdir}/%{name}.so.*

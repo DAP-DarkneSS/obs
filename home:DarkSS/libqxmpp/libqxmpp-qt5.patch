@@ -1,0 +1,26 @@
+diff --git a/qxmpp.pri b/qxmpp.pri
+index e5dbb9c..8c8561d 100644
+--- a/qxmpp.pri
++++ b/qxmpp.pri
+@@ -8,7 +8,7 @@ QXMPP_INCLUDEPATH = $$PWD/src/base $$PWD/src/client $$PWD/src/server
+ CONFIG(debug, debug|release) {
+     QXMPP_LIBRARY_NAME = qxmpp_d
+ } else {
+-    QXMPP_LIBRARY_NAME = qxmpp
++    QXMPP_LIBRARY_NAME = qxmpp-qt5
+ }
+ 
+ # Determine library type (shared or staticlib)
+diff --git a/src/src.pro b/src/src.pro
+index 954738c..32204cd 100644
+--- a/src/src.pro
++++ b/src/src.pro
+@@ -40,7 +40,7 @@ HEADERS += $$INSTALL_HEADERS
+ 
+ # Installation
+ headers.files = $$INSTALL_HEADERS
+-headers.path = $$PREFIX/include/qxmpp
++headers.path = $$PREFIX/include/qxmpp-qt5
+ target.path = $$PREFIX/$$LIBDIR
+ INSTALLS += headers target
+ 

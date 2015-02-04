@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Fri Jan  9 19:38:51 UTC 2015 - dap.darkness@gmail.com
+
+- update to 0.8.2
+  * Refactor HTML documentation so that "make docs" works in
+    out-of-source builds.
+  * Add support for Opus audio codec.
+  * Enable error concealment for VPX video codec.
+  * Use QString() instead of "" for default methods arguments,
+    to enable building project which use QT_NO_CAST_FROM_ASCII.
+  * Add support for legacy SSL.
+  * Add XEP-0333: Chat Markers attributes to QXmppMessage.
+  * Add QXmppClient::socketErrorString
+    to retrieve socket error string.
+  * Add equality/inequality operators for QXmppVCardIq.
+  * Add "make check" command to run tests.
+-packaging
+  * Added libqxmpp-qt5.patch to implement Qt5 alternative.
+  * Switched to pkgconfig() at Requires section.
+  * Broken old distros: SLE11, openSUSE~11.4.
+  * Let make be verbose.
+  * Added check section.
+
+-------------------------------------------------------------------
 Thu Mar 27 17:09:56 UTC 2014 - dap.darkness@gmail.com
 
 - update to 0.8.0

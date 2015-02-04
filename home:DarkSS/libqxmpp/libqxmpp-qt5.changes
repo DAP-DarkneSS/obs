@@ -1,0 +1,6 @@
+-------------------------------------------------------------------
+Fri Jan  9 21:07:02 UTC 2015 - dap.darkness@gmail.com
+
+- Initial build.
+- Added libqxmpp-qt5.patch to implement Qt5 alternative.
+
