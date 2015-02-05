@@ -7,6 +7,12 @@ Wed Feb  4 18:46:59 UTC 2015 - dap.darkness@gmail.com
 - Removed Mandriva support.
 - Renamed qwt-6.1.0-rpath.patch to qwt-rpath.patch
   because upstream doesn't want merge it. Updated.
+
+-------------------------------------------------------------------
+Mon Aug 12 18:33:05 UTC 2013 - tittiatcoke@gmail.com
+
+- qwt6-designer is now conflicting with qwt-designer.
+
 -------------------------------------------------------------------
 Fri Aug  9 15:36:51 UTC 2013 - dap.darkness@gmail.com
 

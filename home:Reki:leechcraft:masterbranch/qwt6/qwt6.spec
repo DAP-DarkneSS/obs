@@ -82,6 +82,7 @@ This package contains example programs demonstrating the Qwt widgets.
 %package designer
 Summary:        Plugin for the Qt Interface designer
 Group:          Development/Tools/GUI Builders
+Conflicts:      qwt-designer
 Requires:       %{name}-devel = %{version}
 Requires:       qt-devel
 
