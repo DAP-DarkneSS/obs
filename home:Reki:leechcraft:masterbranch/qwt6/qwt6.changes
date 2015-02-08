@@ -3,7 +3,6 @@ Wed Feb  4 18:46:59 UTC 2015 - dap.darkness@gmail.com
 
 - Update to Qwt 6.1.2
   * fixes at QwtPlot, color maps, controls and scales.
-- Let make be verbose.
 - Removed Mandriva support.
 - Renamed qwt-6.1.0-rpath.patch to qwt-rpath.patch
   because upstream doesn't want merge it. Updated.

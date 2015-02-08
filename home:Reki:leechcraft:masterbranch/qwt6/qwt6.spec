@@ -120,10 +120,10 @@ qmake \
 	qwtmathmlspec.path=%{_datadir}/%{name}/features \
 	doc.path=%{_docdir}/%{name}-devel-doc
 
-make V=1 %{?_smp_mflags}
+make %{?_smp_mflags}
 
 %install
-make V=1 DESTDIR=%{buildroot} install INSTALL_ROOT=%{buildroot}
+make DESTDIR=%{buildroot} install INSTALL_ROOT=%{buildroot}
 
 # Documentation
 mkdir -p %{buildroot}%{_docdir}/%{name}
