@@ -29,6 +29,7 @@ then
 else
 
   cd $DGIT
+  git log $VOBS..HEAD | grep -i SOVER | less
   git diff $VOBS..HEAD --name-status | grep "^A" | less
   cd $DOBS
 
