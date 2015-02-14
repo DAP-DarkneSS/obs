@@ -37,7 +37,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-2444-ga113631
+%define LEECHCRAFT_VERSION 0.6.70-2488-gd586ae3
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -1155,7 +1155,7 @@ Requires:       lib%{name}-util-sys%{so_ver}_1     = %{version}
 Requires:       lib%{name}-util-tags%{so_ver}_1    = %{version}
 Requires:       lib%{name}-util-x11-%{so_ver}      = %{version}
 Requires:       lib%{name}-util-xdg%{so_ver}       = %{version}
-Requires:       lib%{name}-util-xpc%{so_ver}_1     = %{version}
+Requires:       lib%{name}-util-xpc%{so_ver}_2     = %{version}
 Requires:       lib%{name}-util-xsd%{so_ver}       = %{version}
 Requires:       pkgconfig(QtWebKit)
 
@@ -2613,11 +2613,11 @@ A library providing XDG parsers and other support methods and classes
 for LeechCraft.
 
 
-%package -n lib%{name}-util-xpc%{so_ver}_1
+%package -n lib%{name}-util-xpc%{so_ver}_2
 Summary:        Cross-plugin communication utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-xpc%{so_ver}_1
+%description -n lib%{name}-util-xpc%{so_ver}_2
 A library providing some useful and commonly used primitives for
 communications between different plugins in LeechCraft.
 
@@ -2943,10 +2943,10 @@ EOF
 %postun -n lib%{name}-util-xdg%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-xpc%{so_ver}_1
+%post -n lib%{name}-util-xpc%{so_ver}_2
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-xpc%{so_ver}_1
+%postun -n lib%{name}-util-xpc%{so_ver}_2
 /sbin/ldconfig
 
 %post -n lib%{name}-util-xsd%{so_ver}
@@ -3969,7 +3969,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-xdg*.so.*
 
-%files -n lib%{name}-util-xpc%{so_ver}_1
+%files -n lib%{name}-util-xpc%{so_ver}_2
 %defattr(-,root,root)
 %{_libdir}/lib%{name}-util-xpc*.so.*
 
