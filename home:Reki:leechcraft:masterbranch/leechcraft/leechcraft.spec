@@ -37,7 +37,7 @@
 
 Name:           leechcraft
 Version:        git
-%define LEECHCRAFT_VERSION 0.6.70-2488-gd586ae3
+%define LEECHCRAFT_VERSION 0.6.70-2540-gf9626bd
 Release:        0
 License:        BSL-1.0
 Summary:        Modular Internet Client
@@ -115,7 +115,6 @@ BuildRequires:  pkgconfig(kqoauth)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libguess)
 BuildRequires:  pkgconfig(libidn)
-BuildRequires:  pkgconfig(libmsn)
 %ifarch %ix86 x86_64 %arm
 BuildRequires:  pkgconfig(libopenjpeg)
 %endif
@@ -282,7 +281,6 @@ Requires:       %{name}-azoth-velvetbird
 Requires:       %{name}-azoth-woodpecker
 Requires:       %{name}-azoth-xoox
 Requires:       %{name}-azoth-xtazy
-Requires:       %{name}-azoth-zheet
 Requires:       %{name}-historyholder
 Requires:       %{name}-lackman
 Requires:       %{name}-newlife
@@ -504,6 +502,7 @@ Requires:       %{name}-azoth-protocolplugin
 Requires:       %{name}-securestorage = %{version}
 Suggests:       %{name}-azoth-standardstyles
 Obsoletes:      %{name}-azoth-p100q
+Obsoletes:      %{name}-azoth-zheet
 
 %description azoth
 This package provides a modular IM client for LeechCraft.
@@ -909,27 +908,6 @@ Requires:       %{name}-xtazy = %{version}
 This package provides a tune publishing plugin for LeechCraft Azoth.
 
 It allows to publish current user tune.
-
-
-%package azoth-zheet
-Summary:        LeechCraft Azoth - MSN Module
-Group:          Productivity/Networking/Other
-Requires:       %{name}-azoth = %{version}
-Provides:       %{name}-azoth-protocolplugin
-
-%description azoth-zheet
-This package provides a MSN protocol plugin for LeechCraft Azoth.
-
-MSN protocol is used in the Windows Live Messenger.
-
-The following protocol features are currently supported:
- * Message delivery receipts.
- * Attention requests (nudges).
- * Notifications about messages in mailbox.
- * Announcing own current tune and fetching others' one.
- * Multiple groups for each contact.
- * Authorization management.
- * Blacklist management.
 
 
 %package bittorrent
@@ -2682,7 +2660,7 @@ cmake ../src \
 %else
                 -DENABLE_AZOTH_WOODPECKER=False \
 %endif
-                -DENABLE_AZOTH_ZHEET=True \
+                -DENABLE_AZOTH_ZHEET=False \
 %if 0%{?suse_version} <= 1310
                 -DENABLE_MEDIACALLS=True \
 %else
@@ -3209,11 +3187,6 @@ EOF
 %{settings_dir}/azothxtazysettings.xml
 %{plugin_dir}/*%{name}_azoth_xtazy.so
 %{translations_dir}/%{name}_azoth_xtazy*
-
-%files azoth-zheet
-%defattr(-,root,root)
-%{translations_dir}/%{name}_azoth_zheet*
-%{plugin_dir}/*%{name}_azoth_zheet.so
 
 %files bittorrent
 %defattr(-,root,root)
