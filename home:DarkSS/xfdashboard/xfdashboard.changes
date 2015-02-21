@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Sat Feb 21 08:24:05 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 0.3.9:
+  * Notice: Raised minimum version of Glib to 2.32;
+  * New feature: XfdashboardDesktopAppInfo;
+  * New feature: XfdashboardApplicationDatabase;
+  * Removed feature: Removed hotkey tracker;
+  * Implement "activating" signal at XfdashboardTooltipAction;
+  * Rewrote XfdashboardSearchView;
+  * Added "GenericName" to application desktop file;
+  * Fixed compiler warnings, build system;
+  * Added translations:
+    + es;
+    + he;
+    + it_IT;
+    + sr.
+- Packaging:
+  * Removed xfdashboard-0.3.8-void-return.diff
+    as already provided via new release;
+  * Updated xfdashboard-desktopfile-without-binary.diff;
+  * Added lang subpackage.
+
+-------------------------------------------------------------------
 Sat Jan 31 10:52:05 UTC 2015 - dap.darkness@gmail.com
 
 - Fixed patches descriptions again.

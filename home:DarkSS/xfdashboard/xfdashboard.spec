@@ -17,7 +17,7 @@
 
 
 Name:           xfdashboard
-Version:        0.3.8
+Version:        0.3.9
 Release:        0
 Summary:        GNOME shell like dashboard for Xfce
 License:        GPL-2.0+
@@ -29,9 +29,6 @@ Source0:        https://github.com/gmc-holle/xfdashboard/archive/%{version}.tar.
 
 # PATCH-FIX-OPENSUSE gh#gmc-holle/xfdashboard#70 xfdashboard-0.3.8-desktop-category.diff dap.darkness@gmail.com -- fixes not-sufficient desktop file category.
 Patch0:         xfdashboard-0.3.8-desktop-category.diff
-
-# PATCH-FIX-UPSTREAM gh#gmc-holle/xfdashboard#68 xfdashboard-0.3.8-void-return.diff dap.darkness@gmail.com -- prevents serious compiler warnings.
-Patch1:         xfdashboard-0.3.8-void-return.diff
 
 # PATCH-FIX-OPENSUSE xfdashboard-desktopfile-without-binary.diff dap.darkness@gmail.com -- fixes "W: desktopfile-without-binary".
 Patch2:         xfdashboard-desktopfile-without-binary.diff
@@ -47,6 +44,7 @@ BuildRequires:  pkgconfig(libwnck-1.0) >= 2.30
 BuildRequires:  pkgconfig(libxfconf-0)
 Requires(pre):  update-desktop-files
 Requires(post): update-desktop-files
+Recommends:     %{name}-lang
 Recommends:     %{name}-themes
 
 %description
@@ -55,6 +53,8 @@ desktop. It can be configured to run to any keyboard shortcut and when executed
 provides an overview of applications currently open enabling the user to switch
 between different applications. The search feature works like Xfce's app finder
 which makes it convenient to search for and start applications.
+
+%lang_package
 
 %package themes
 BuildArch:      noarch
@@ -67,7 +67,6 @@ Additional themes for use with Xfdashboard.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 %patch2 -p1
 
 %build
@@ -78,6 +77,7 @@ make %{?_smp_mflags} V=1
 %install
 make DESTDIR=%{buildroot} install %{?_smp_mflags} V=1
 %fdupes -s %{buildroot}%{_datadir}/themes/%{name}-*
+%find_lang %{name} %{?no_lang_C}
 
 %post
 %icon_theme_cache_post
@@ -102,6 +102,8 @@ make DESTDIR=%{buildroot} install %{?_smp_mflags} V=1
 %if 0%{?suse_version} <= 1310
 %{_datadir}/appdata
 %endif
+
+%files lang -f %{name}.lang
 
 %files themes
 %defattr(-,root,root)
