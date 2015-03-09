@@ -1,4 +1,23 @@
 -------------------------------------------------------------------
+Sat Mar  7 21:57:02 UTC 2015 - astieger@suse.com
+
+- update to 3.0:
+  * Gtk3 interface
+  * GStreamer1.0 audio backend
+  * Thread safety improvements
+  * Stability improvements
+  * Rewritten Perspectives module
+  * Integration in sound indicator of Ubuntu
+  * Music library loading acceleration ~2 times
+  * More quick start of player
+  * Reduction in occupied RAM ~3 times
+  * More responsive interface
+  * Tag embedded covers and cue-sheets support
+  * Tag changing on fly
+  * Removed video player functional
+  * MPRIS2 supporting
+
+-------------------------------------------------------------------
 Wed Apr 10 10:24:28 UTC 2013 - dap.darkness@gmail.com
 
 - updated to upstream 2.6.10
