@@ -17,7 +17,7 @@
 #
 
 Name:           smplayer-skins
-Version:        14.9.0
+Version:        15.2.0
 Release:        0
 License:        GPL-2.0+
 Summary:        Skins for SMPlayer
