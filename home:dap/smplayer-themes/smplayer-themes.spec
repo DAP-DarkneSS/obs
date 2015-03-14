@@ -17,7 +17,7 @@
 
 
 Name:           smplayer-themes
-Version:        14.9.0
+Version:        14.12.0
 Release:        1.pm.1
 Summary:        Icon Themes for SMPlayer
 Source:         http://prdownloads.sourceforge.net/smplayer/smplayer-themes-%{version}.tar.bz2
