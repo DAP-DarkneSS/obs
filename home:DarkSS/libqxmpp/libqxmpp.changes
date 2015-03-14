@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sat Mar 14 12:40:23 UTC 2015 - dap.darkness@gmail.com
+
+- update to 0.8.3
+  * Add a QXmppClient::sslErrors signal to report SSL errors.
+  * Handle broken servers which send "bad-auth"
+    instead of "not-authorized".
+  * Fix a compilation issue with Qt 5.5 due to a missing include.
+  * Do not install test cases.
+  * Remove trailing comma after last item in enums.
+
+-------------------------------------------------------------------
 Fri Jan  9 19:38:51 UTC 2015 - dap.darkness@gmail.com
 
 - update to 0.8.2
@@ -15,6 +26,7 @@ Fri Jan  9 19:38:51 UTC 2015 - dap.darkness@gmail.com
   * Add equality/inequality operators for QXmppVCardIq.
   * Add "make check" command to run tests.
 -packaging
+  * Switched to tarball from github.
   * Added libqxmpp-qt5.patch to implement Qt5 alternative.
   * Switched to pkgconfig() at Requires section.
   * Broken old distros: SLE11, openSUSE~11.4.

@@ -1,7 +1,7 @@
 #
 # spec file for package libqxmpp-qt5
 #
-# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -20,7 +20,7 @@
 %define build_qt5 1
 
 Name:           libqxmpp-qt5
-Version:        0.8.2
+Version:        0.8.3
 Release:        0
 Summary:        Qt XMPP Library
 License:        LGPL-2.0+
@@ -35,7 +35,8 @@ BuildRequires:  fdupes
 BuildRequires:  pkgconfig(QtCore)
 %endif
 %if %build_qt5
-BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5Xml)
 %endif
 BuildRequires:  pkgconfig(opus)
 BuildRequires:  pkgconfig(speex)
@@ -119,7 +120,6 @@ make V=1 %{?_smp_mflags}
 
 %install
 %makeinstall INSTALL_ROOT=%{buildroot}
-rm -rf %{buildroot}%{_prefix}/tests
 %fdupes %{buildroot}%{_datadir}/doc/qxmpp/
 
 %check

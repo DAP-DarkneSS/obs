@@ -24,3 +24,15 @@ index 954738c..32204cd 100644
  target.path = $$PREFIX/$$LIBDIR
  INSTALLS += headers target
  
+diff --git a/qxmpp.pro b/qxmpp.pro
+index a309a48..ad5cbad 100644
+--- a/qxmpp.pro
++++ b/qxmpp.pro
+@@ -6,7 +6,6 @@ TEMPLATE = subdirs
+ SUBDIRS = src
+ android | ios {
+ } else {
+-    SUBDIRS += tests examples
+ }
+ 
+ !isEmpty(QXMPP_USE_DOXYGEN) {
