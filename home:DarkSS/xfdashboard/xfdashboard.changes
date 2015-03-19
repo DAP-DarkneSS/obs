@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Thu Mar 19 17:32:30 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 0.3.90:
+  * New feature: Implemented multi-monitor support. This also added
+    a new interface ID "secondary" to themes which specifies how
+    the stage for non-primary monitors looks like. (#14)
+  * Added an option "/components/applications-view/show-all-apps"
+    to settings which adds an "All applications" menu entry to
+    applications view and shows all installed applications in this
+    menu. It is disabled by default but configurable in settings.
+  * Replaced GTK+ stock icons with named icons
+  * Enforce X11 backend at Clutter to prevent start-up crashes when
+    using Clutter 1.21.4 or higher which uses GDK backend by default.
+    xfdashboard uses some X11 related function at Clutter (#73)
+  * Clear startup-notification when application enters main loop
+  * Fixed compiler warnings, build system and other smaller bug fixes
+  * Updated translations: 
+    + es (prflr88)
+    + he (GenghisKhan)
+    + it_IT (cri)
+    + sr (salepetronije)
+
+-------------------------------------------------------------------
 Sat Feb 21 08:24:05 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 0.3.9:
