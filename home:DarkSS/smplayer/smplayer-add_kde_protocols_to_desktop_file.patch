@@ -1,7 +1,10 @@
---- smplayer.desktop.orig	2012-10-20 13:37:56.632054279 +0200
-+++ smplayer.desktop	2012-10-20 13:38:08.412085132 +0200
-@@ -29,3 +29,4 @@
+--- smplayer.desktop.orig	2014-08-30 01:56:00.000000000 +0300
++++ smplayer.desktop	2014-09-07 15:28:13.132307160 +0300
+@@ -8,6 +8,7 @@
  Name=SMPlayer
  Type=Application
  X-KDE-StartupNotify=false
 +X-KDE-Protocols=http,ftp,smb
+ 
+ # Translations
+ Comment[ar]=واجهة-طرفية ممتازة للمشغل MPlayer

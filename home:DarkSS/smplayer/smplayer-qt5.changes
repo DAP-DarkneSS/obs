@@ -1,4 +1,78 @@
 -------------------------------------------------------------------
+Thu Feb  5 10:14:02 UTC 2015 - sor.alexei@meowr.ru
+
+- Update to 14.9.0.6690:
+  * Open https URLs with ffmpeg://
+  * (Themes and skins) Now if the resource file (*.rcc) is not
+    found the images will be loaded from PNGs files, as in previous
+    versions.
+    This will make easier for users to customize themes, since they
+    won't need to create the rcc files.
+  * (Qt 5) Fix the option pause when minimized.
+  * Add options in Preferences -> Network to set a proxy.
+  * (Bugfix) Prevent to pass the filename twice to mplayer when
+    using use_short_pathnames.
+  * Add support for mpv.
+    It took 25 days. 6983 lines were changed.
+    It's not complete yet, some things may not work yet, but
+    I think the most important things work.
+    Notice: it requires mpv 0.6.2 or greater.
+  * During the process of adding support for mpv, the options to
+    customize the non ASS font were removed.
+  * Add the Albanian translation.
+  * Add Notes_about_mpv.txt.
+  * Add an option to go back one frame (frame_back_step)
+    (mpv only).
+  * Add an option in Preferences -> General to set the template for
+    screenshots (mpv only).
+  * Replace the option 'Use SSA/ASS library' in the subtitles menu
+    with 'Use custom style'.
+  * Add an option to disable the scroll of the title in the
+    skingui.
+  * Add the possibility to select a secondary subtitle track, which
+    is displayed on top of the screen (mpv only).
+  * Move the Youtube options from the performance section to the
+    network section.
+  * Add an option to enable or disable the internal Youtube
+    support.
+  * Add an option to enable streaming sites (requires mpv and
+    youtube-dl).
+  * Add an option to change the size of the OSD.
+  * (Videopreview) Use -nofontconfig to prevent to create the font
+    cache.
+  * Fix for Youtube.
+  * (mpv) Don't use the pp filter if it's not available 
+  * Add a combobox in Preferences -> Performance to select the
+    hardware decoding option (mpv only).
+- Rebase smplayer-default_ao.patch, smplayer-simple-resize.patch.
+- Add smplayer-default_mpv.patch, require MPV instead of MPlayer.
+- Use %find_lang instead of a manual language detection, also
+  stop adding translated GPLv2+ text into the package.
+- Remove smplayer-disable-debug.patch in favour of
+  QMAKE_OPTS=DEFINES+=NO_DEBUG_ON_CONSOLE
+- Remove "KDE" from .desktop's as SMPlayer works outside KDE just
+  as good.
+- Refactor a regular expression which define an audio output.
+
+-------------------------------------------------------------------
+Sun Sep 14 09:49:52 UTC 2014 - dap.darkness@gmail.com
+
+- Let recommend lang subpackage:
+http://lists.links2linux.de/pipermail/packman/2014-September/013162.html
+
+-------------------------------------------------------------------
+Sun Sep  7 12:20:01 UTC 2014 - dap.darkness@gmail.com
+
+- Update to 14.9.0
+  * Fix for Youtube.
+  * New option to shut down the computer when playback has finished.
+  * The themes and skin icons are loaded from resource files (*.rcc).
+  * New fix for searching subtitles from opensubtitles.org that
+    should return more results.
+- Removed smplayer-4.13.0-mousewheel_seeking.patch as merged.
+- Updated smplayer-add_kde_protocols_to_desktop_file.patch.
+
+-------------------------------------------------------------------
 Mon Jun  2 03:57:58 UTC 2014 - dap.darkness@gmail.com
 
 - Added smplayer-4.13.0-mousewheel_seeking.patch vs. bnc#879726.
@@ -372,5 +446,3 @@ Wed May 14 00:00:00 UTC 2008 - guru@unixtech.be
 Tue May 13 00:00:00 UTC 2008 - guru@unixtech.be
 
 - new upstream version
-
-

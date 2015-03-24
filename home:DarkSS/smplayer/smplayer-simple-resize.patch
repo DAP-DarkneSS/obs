@@ -1,14 +1,11 @@
-Index: basegui.cpp
-===================================================================
---- basegui.cpp	(revision 3566)
-+++ basegui.cpp	(working copy)
-@@ -4040,6 +4040,8 @@
- 
+--- src/basegui.cpp.orig
++++ src/basegui.cpp
+@@ -4890,6 +4890,8 @@
+ void BaseGui::changeSizeFactor(int factor) {
  	// If fullscreen, don't resize!
  	if (pref->fullscreen) return;
 +	if (isMaximized())
 +		return;
  
- 	if ( (pref->resize_method==Preferences::Never) && (panel->isVisible()) ) {
- 		return;
-
+ 	if (!pref->use_mplayer_window) {
+ 		pref->size_factor = factor;
