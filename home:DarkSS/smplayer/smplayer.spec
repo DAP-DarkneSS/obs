@@ -19,14 +19,13 @@
 Name:           smplayer
 Version:        14.9.0.6690
 Release:        0
-Summary:        Complete frontend for MPV
+Summary:        Complete frontend for MPlayer (2) & MPV
 License:        GPL-2.0+
 Group:          Productivity/Multimedia/Video/Players
 Url:            http://smplayer.sourceforge.net/
 Source:         http://downloads.sf.net/%{name}/smplayer-%{version}.tar.bz2
 Patch1:         smplayer-makeflags.patch
 Patch2:         smplayer-default_ao.patch
-Patch3:         smplayer-default_mpv.patch
 Patch4:         smplayer-simple-resize.patch
 # FIX-UPSTREAM to play network shared video correctly: #PM-48
 Patch5:         smplayer-add_kde_protocols_to_desktop_file.patch
@@ -37,11 +36,12 @@ BuildRequires:  libqt4-devel >= 4.2.0
 BuildRequires:  libstdc++-devel
 BuildRequires:  make
 BuildRequires:  update-desktop-files
-# Either mpv >= 0.6.2 or MPlayer >= 1.0rc4_r32607.
-Requires:       mpv >= 0.6.2
+Requires:       MPlayer >= 1.0rc4_r32607
+Recommends:     mplayer2
+Recommends:     mpv >= 0.6.2
 Recommends:     smplayer-lang = %{version}
 Recommends:     smplayer-skins
-Suggests:       smplayer-themes
+Recommends:     smplayer-themes
 Provides:       smplayer-core = %{version}
 
 %description
@@ -67,7 +67,6 @@ sed -e '/^+\{3\}/!d;s|^+\{3\} \([^ ]*\).*$|\1|' < %{PATCH2} | xargs \
 %else
     sed -i 's/@@DEFAULT@@/alsa/g'
 %endif
-%patch3
 %patch4
 %patch5
 
