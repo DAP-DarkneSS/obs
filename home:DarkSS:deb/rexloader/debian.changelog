@@ -1,3 +1,7 @@
+rexloader (0.1a.svn.357.git.1426447812.78ef745) unstable; urgency=low
+  * Moved to GitHub.
+ -- Dmitriy Perlow <dap.darkness@gmail.com>  Sun, 15 Mar 2015 22:58:31 +0300
+
 rexloader (0.1a.rev.300) unstable; urgency=low
   * Hash calculator pugin was added.
  -- Dmitriy Perlow <dap.darkness@gmail.com>  Sat, 23 Feb 2013 22:54:25 +0300

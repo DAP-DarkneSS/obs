@@ -1,24 +1,32 @@
 #
-# PKGBUILD for package rexloader
+# PKGBUILD file for package rexloader
 #
-# Copyright (c) 2011-2013 Sarvaritdinov Ravil (source),
-# (c) 2013 Perlow Dmitriy A. (PKGBUILD)
+# Copyright (c) 2015 rexloader team.
 #
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
 # Please submit bugfixes or comments via
-# http://code.google.com/p/rexloader/issues/list
+# https://github.com/DAP-DarkneSS/rexloader/issues
 #
 
 pkgname=rexloader
-pkgver=0.1a.svn.314
+pkgver=git
 pkgrel=1
 pkgdesc="An advanced Qt download manager over http."
 arch=('i686' 'x86_64')
-url="http://code.google.com/p/rexloader/"
+url="https://github.com/DAP-DarkneSS/rexloader"
 license=('GPL')
 depends=('qt4' 'qtwebkit')
 makedepends=('bzip2' 'make' 'mesa-libgl')
 provides=('rexloader')
-source=("rexloader-${pkgver}.tar.bz2")
+source=("rexloader-${pkgver}.tar.xz")
 md5sums=('28c3efb5634db0579c1910e5c497d4d4')
 
 build() {
@@ -26,7 +34,7 @@ build() {
   mkdir build
   cd build
   qmake-qt4 ../REXLoader.pro
-  make -j2
+  make -j3
 }
 
 package() {

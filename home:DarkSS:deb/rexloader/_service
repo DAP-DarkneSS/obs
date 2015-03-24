@@ -1,9 +1,8 @@
 <services>
   <service name="tar_scm">
-    <param name="url">http://rexloader.googlecode.com/svn/trunk</param>
-    <param name="scm">svn</param>
-    <param name="filename">rexloader</param>
-    <param name="versionprefix">0.1a.svn</param>
+    <param name="url">git://github.com/DAP-DarkneSS/rexloader.git</param>
+    <param name="scm">git</param>
+    <param name="versionprefix">0.1a.svn.357.git</param>
   </service>
   <service name="recompress">
     <param name="file">*.tar</param>

@@ -1,11 +1,19 @@
 #
 # spec file for package rexloader
 #
-# Copyright (c) 2011-2012 Sarvaritdinov Ravil (source),
-# (c) 2012 Perlow Dmitriy A. (spec file)
+# Copyright (c) 2015 rexloader team.
 #
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
 # Please submit bugfixes or comments via
-# http://code.google.com/p/rexloader/issues/list
+# https://github.com/DAP-DarkneSS/rexloader/issues
 #
 
 Name:           rexloader
@@ -14,9 +22,9 @@ Release:        1
 Summary:        An advanced Qt download manager over http
 
 License:        GPL-3.0
-Url:            http://code.google.com/p/rexloader/
+Url:            https://github.com/DAP-DarkneSS/rexloader
 Group:          Productivity/Networking/Other
-Source0:        %{name}-%{version}.tar.bz2
+Source0:        %{name}-%{version}.tar.xz
 
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(QtWebKit)

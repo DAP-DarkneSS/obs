@@ -18,13 +18,13 @@
 
 
 Name:           rexloader
-Version:        0.1a.svn
+Version:        git
 Release:        0
 Summary:        An advanced Qt download manager over http or ftp
 License:        GPL-3.0
 Group:          Productivity/Networking/Other
-Url:            http://code.google.com/p/rexloader/
-Source0:        %{name}-%{version}.tar.bz2
+Url:            https://github.com/DAP-DarkneSS/rexloader
+Source0:        %{name}-%{version}.tar.xz
 Patch0:         ftploader-enable.diff
 
 BuildRequires:  libQtWebKit-devel
@@ -117,7 +117,7 @@ PREFIX=%{_prefix} \
 ../REXLoader.pro \
 QMAKE_CXXFLAGS+="%{optflags}"
 
-make %{?_smp_mflags}
+make V=1 -k %{?_smp_mflags}
 
 cd ../plugins/NoticeWindow
 
@@ -126,7 +126,7 @@ QMAKE_STRIP="" \
 NoticeWindow.pro \
 QMAKE_CXXFLAGS+="%{optflags}"
 
-make %{?_smp_mflags}
+make V=1 -k %{?_smp_mflags}
 
 
 %install
