@@ -1,0 +1,44 @@
+---
+ cinelerra/Makefile.am       |    1 -
+ cinelerra/main.C            |    3 ---
+ quicktime/ffmpeg/cmdutils.c |    1 -
+ 3 files changed, 5 deletions(-)
+
+Index: cinelerra-2.2git.2013.09.09/cinelerra/Makefile.am
+===================================================================
+--- cinelerra-2.2git.2013.09.09.orig/cinelerra/Makefile.am
++++ cinelerra-2.2git.2013.09.09/cinelerra/Makefile.am
+@@ -34,7 +34,6 @@ endif
+ endif
+ 	echo '#define COPYRIGHTTEXT1 "(C) 2006 Heroine Virtual Ltd."' >> versioninfo.h
+ 	echo '#define COPYRIGHTTEXT2 "(C) 2006-2013 The CinelerraCV Community"' >> versioninfo.h
+-	echo '#define COMPILEDATE "Compiled on $(BUILDDATE)"' >> versioninfo.h
+ 	echo '#define FFMPEG_EXTERNALTEXT "@FFMPEG_EXTERNALTEXT@"' >> versioninfo.h
+ 
+ SUBDIRS = data
+Index: cinelerra-2.2git.2013.09.09/cinelerra/main.C
+===================================================================
+--- cinelerra-2.2git.2013.09.09.orig/cinelerra/main.C
++++ cinelerra-2.2git.2013.09.09/cinelerra/main.C
+@@ -208,9 +208,6 @@ int main(int argc, char *argv[])
+ 		COPYRIGHTTEXT2 "\n"
+ #endif
+ 		FFMPEG_EXTERNALTEXT "\n"
+-#if defined(COMPILEDATE)
+-		COMPILEDATE "\n"
+-#endif
+ 		"\n"
+ 
+ PROGRAM_NAME " is free software, covered by the GNU General Public License,\n"
+Index: cinelerra-2.2git.2013.09.09/quicktime/ffmpeg/cmdutils.c
+===================================================================
+--- cinelerra-2.2git.2013.09.09.orig/quicktime/ffmpeg/cmdutils.c
++++ cinelerra-2.2git.2013.09.09/quicktime/ffmpeg/cmdutils.c
+@@ -208,7 +208,6 @@ void show_banner(void)
+ #if ENABLE_AVFILTER
+     fprintf(stderr, "  libavfilter version: " AV_STRINGIFY(LIBAVFILTER_VERSION) "\n");
+ #endif
+-    fprintf(stderr, "  built on " __DATE__ " " __TIME__);
+ #ifdef __GNUC__
+     fprintf(stderr, ", gcc: " __VERSION__ "\n");
+ #else

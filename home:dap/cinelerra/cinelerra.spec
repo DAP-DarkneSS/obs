@@ -25,6 +25,7 @@ Summary:        A non linear video editor and effects processor
 Url:            http://cinelerra.org/
 Group:          Productivity/Multimedia/Video/Editors and Convertors
 Source0:        %{name}-%{version}.tar.gz
+Patch1:         cinelerra-no-buildtime.patch
 # TODO Rewrite BuildRequires to pkgconfig(foo) style
 BuildRequires:  IlmBase-devel
 BuildRequires:  Mesa-devel
@@ -108,6 +109,7 @@ This packages provides files needed for compiling stuff
 
 %prep
 %setup -q
+%patch1 -p1
 
 %build
 ./autogen.sh
