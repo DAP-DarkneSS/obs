@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Sun Mar 29 10:42:19 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 15.03.28 (changes since 14.12.28):
+  * exit the window via the mouse in fullscreen mode causes
+    the closing of all widgets;
+  * option to select the default language for subtitles and audio;
+  * HttpReader FileReader and replaced by FFReader;
+  * support for additional YouTube formats;
+  * changes to the default windows configuration;
+  * changes in the "Information" window;
+  * amendments in the pgssub credits;
+  * ability to save groups;
+  * FFMpeg 2.6 support;
+  * minor bug fixing.
+
+-------------------------------------------------------------------
 Sat Dec 29 20:53:31 UTC 2014 - dap.darkness@gmail.com
 
 - Update to 14.12.28 (changes since 14.12.23):
