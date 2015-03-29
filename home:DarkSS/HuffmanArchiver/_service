@@ -1,0 +1,12 @@
+<services>
+  <service name="tar_scm">
+    <param name="url">git://github.com/DAP-DarkneSS/HuffmanArchiver.git</param>
+    <param name="scm">git</param>
+    <param name="versionprefix">0.0+git</param>
+  </service>
+  <service name="recompress">
+    <param name="file">*.tar</param>
+    <param name="compression">xz</param>
+  </service>
+  <service name="set_version"/>
+</services>
