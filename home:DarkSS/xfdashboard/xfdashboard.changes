@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Sun Mar 29 10:21:26 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 0.3.91:
+  * Fixed a bug that translations are not used in xfdashboard.
+  * Fixed a visual bug in XfdashboardStageInterface which caused
+    that clipping in XfdashboardViewpad did not work anymore and
+    overlapped other actors.
+  * Implemented a box layout manager called XfdashboardBoxLayout
+    which is derived from ClutterBoxLayout and inherits all
+    functions and properties. It only disregards text direction
+    settings to enforce a horizontal left-to-right layout of its
+    children always. (GH #66)
+  * Fixed warning about using deprecated functions when compiling
+    against GTK+ 3.14 or higher.
+
+-------------------------------------------------------------------
 Thu Mar 19 17:32:30 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 0.3.90:
