@@ -33,16 +33,17 @@ https://github.com/epam-llpd/linux_courses/tree/master/epam
 
 %prep
 %setup -q
+rm -rf build
 
 %build
 export CC=%{_bindir}/clang
 %cmake \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo
-scan-build make %{?_smp_mflags} V=1
+scan-build make %{?_smp_mflags} V=1 -k
 
 %install
-mkdir -p %{buildroot}/%{_bindir}
-install build/huffar %{buildroot}/%{_bindir}
+cd build
+%make_install V=1 -k
 
 %files
 %defattr(-,root,root)
