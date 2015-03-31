@@ -21,7 +21,7 @@
 %define settings_dir %{_datadir}/leechcraft/settings
 %define qml_dir %{_datadir}/leechcraft/qml
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-2896-g760d9dd
+%define LEECHCRAFT_VERSION 0.6.70-3061-g8e9fbf3
 
 %if 0%{?suse_version} >= 1320
 %define clang_compiler 0
@@ -3452,7 +3452,7 @@ EOF
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_launchy.so
 %{translations_dir}/*craft_launchy_*.qm
-%{qml_dir}/launchy/
+%{qml_dir}/launchy
 
 #%%files lcftp
 #%%defattr(-,root,root)
