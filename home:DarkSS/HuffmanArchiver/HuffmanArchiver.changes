@@ -1,4 +1,23 @@
 -------------------------------------------------------------------
+Sun Apr 12 22:31:23 UTC 2015 - dap.darkness@gmail.com
+
+- %check:
+  * `diff -u`: orig vs. compressed/extracted.
+
+-------------------------------------------------------------------
+Sat Apr 11 21:53:42 UTC 2015 - dap.darkness@gmail.com
+
+- %check:
+  * `valgring` memcheck.
+
+-------------------------------------------------------------------
+Fri Apr 10 22:00:48 UTC 2015 - dap.darkness@gmail.com
+
+- %check:
+  * main.c compressing;
+  * `ls -l (main.c compressed)`
+
+-------------------------------------------------------------------
 Mon Mar 30 20:47:02 UTC 2015 - dap.darkness@gmail.com
 
 - `make -k`

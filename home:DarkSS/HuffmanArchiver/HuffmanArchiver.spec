@@ -1,7 +1,7 @@
 #
 # spec file for package HuffmanArchiver
 #
-# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -26,6 +26,7 @@ Source0:        HuffmanArchiver-%{version}.tar.xz
 
 BuildRequires:  cmake
 BuildRequires:  llvm-clang
+BuildRequires:  valgrind
 
 %description
 A C99 Huffman archiver for EPAM Linux cource:
@@ -44,6 +45,34 @@ scan-build make %{?_smp_mflags} V=1 -k
 %install
 cd build
 %make_install V=1 -k
+
+%check
+valgrind \
+         --tool=memcheck \
+         --leak-check=full \
+         --track-fds=yes \
+         --track-origins=yes \
+         --show-reachable=yes \
+         -v \
+         %{buildroot}/%{_bindir}/huffar \
+         %{_builddir}/%{name}-%{version}/COPYING.LESSER \
+         -c \
+         /tmp/COPYING.LESSER.ha
+valgrind \
+         --tool=memcheck \
+         --leak-check=full \
+         --track-fds=yes \
+         --track-origins=yes \
+         --show-reachable=yes \
+         -v \
+         %{buildroot}/%{_bindir}/huffar \
+         /tmp/COPYING.LESSER.ha \
+         -x \
+         /tmp/COPYING.LESSER
+diff \
+     -u \
+     %{_builddir}/%{name}-%{version}/COPYING.LESSER \
+     /tmp/COPYING.LESSER
 
 %files
 %defattr(-,root,root)
