@@ -6,9 +6,9 @@ index 16b40aa..40db7f3 100644
  Type=Application
  _Name=Xfdashboard
  _Comment=Start xfdashboard as daemon in background
--TryExec=@bindir@/xfdashboard -d
+-TryExec=@bindir@/xfdashboard
 -Exec=@bindir@/xfdashboard -d
-+TryExec=xfdashboard -d
++TryExec=xfdashboard
 +Exec=xfdashboard -d
  Icon=xfdashboard
  NotShowIn=GNOME;KDE;Unity;
