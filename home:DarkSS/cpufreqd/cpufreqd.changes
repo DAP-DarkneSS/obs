@@ -1,0 +1,227 @@
+-------------------------------------------------------------------
+Sun Jan  6 00:00:00 FET 2013 - colin <colin> 2.4.2-6.mga3
+
++ Revision: 340070
+- Uncompress small text files and add directly to pkg svn
+- Fix up the initscript pidfile path to prevent systemd killing it after timeout (mga#8295)
+
+-------------------------------------------------------------------
+Mon Dec 31 00:00:00 FET 2012 - wally <wally> 2.4.2-5.mga3
+
++ Revision: 336588
+- fix build with new automake 1.13
+- clean .spec a bit
+
+-------------------------------------------------------------------
+Sat May 21 00:00:00 FET 2011 - ahmad <ahmad> 2.4.2-4.mga1
+
++ Revision: 99998
+- Replace a reference to Mandriva with Mageia
+
+-------------------------------------------------------------------
+Tue Mar  8 00:00:00 EET 2011 - ennael <ennael> 2.4.2-3.mga1
+
++ Revision: 66443
+- imported package cpufreqd
+
+
+-------------------------------------------------------------------
+Tue Dec  7 00:00:00 EET 2010 - ahmadsamir@mandriva.org
+
++ Revision: 614462
+- add patch from upstream to fix a buffer overflow with gcc-4.5
+
+-------------------------------------------------------------------
+Tue Nov 30 00:00:00 EET 2010 - oeriksson@mandriva.com
+
++ Revision: 603854
+- rebuild
+
+-------------------------------------------------------------------
+Mon Apr 26 00:00:00 EEST 2010 - tpg@mandriva.org
+
++ Revision: 539180
+- update to new version 2.4.2
+
+-------------------------------------------------------------------
+Mon Mar 29 00:00:00 EEST 2010 - tpg@mandriva.org
+
++ Revision: 528658
+- update to new version 2.4.1
+
+-------------------------------------------------------------------
+Mon Mar 15 00:00:00 EET 2010 - oeriksson@mandriva.com
+
++ Revision: 520044
+- rebuilt for 2010.1
+
+-------------------------------------------------------------------
+Sun Aug  9 00:00:00 EEST 2009 - oeriksson@mandriva.com
+
++ Revision: 413271
+- rebuild
+
+-------------------------------------------------------------------
+Sat Mar 21 00:00:00 EET 2009 - fhimpe@mandriva.org
+
++ Revision: 360065
+- Update to new version 2.3.4
+
+-------------------------------------------------------------------
+Sun Mar  8 00:00:00 EET 2009 - eandry@mandriva.org
+
++ Revision: 352712
+- use autoreconf
+- fix URL
+
+  + Antoine Ginies <aginies@mandriva.com>
+    - rebuild
+
+-------------------------------------------------------------------
+Sat Aug 23 00:00:00 EEST 2008 - fhimpe@mandriva.org
+
++ Revision: 275402
+- Adapt BuildRequires
+- Don't package COPYING file but some more interesting doc files
+- Update to version 2.3.3
+- Fix license
+
+-------------------------------------------------------------------
+Mon Jun 16 00:00:00 EEST 2008 - tv@mandriva.org
+
++ Revision: 220513
+- rebuild
+
+-------------------------------------------------------------------
+Fri Jan 11 00:00:00 EET 2008 - tv@mandriva.org
+
++ Revision: 149133
+- rebuild
+- kill re-definition of %%buildroot on Pixel's request
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+-------------------------------------------------------------------
+Thu Jul 19 00:00:00 EEST 2007 - fwang@mandriva.org
+
++ Revision: 53553
+- do not use versioned autotools
+- New version
+
+
+-------------------------------------------------------------------
+Mon Dec 18 00:00:00 EET 2006 - oblin@mandriva.com
+
++ Revision: 98675
+- do not require cpufreq, frequency scaling modules are now configured by DrakX/harddrake
+- Import cpufreqd
+
+-------------------------------------------------------------------
+Thu Aug 31 00:00:00 EEST 2006 - blino@mandriva.com
+
+- add lindvd in cpu intensive programs list
+
+-------------------------------------------------------------------
+Wed Aug 30 00:00:00 EEST 2006 - blino@mandriva.com
+
+- add LSB tags in initscript
+- return correct exit code on service status (#21197)
+
+-------------------------------------------------------------------
+Sat Jul 22 00:00:00 EEST 2006 - eandry@mandriva.org
+
+- New release 2.1.1
+- rediff patch 0 and 1
+
+-------------------------------------------------------------------
+Fri Jan 13 00:00:00 EET 2006 - misc@mandriva.org
+
+- New release 2.0.0
+- use mkrel
+- update patch1
+- do not include debug information in tarball
+
+-------------------------------------------------------------------
+Sat Dec 31 00:00:00 EET 2005 - Mandriva Linux Team <http://www.mandrivaexpert.com/> 1.2.3-3mdk
+
+- Rebuild
+
+-------------------------------------------------------------------
+Fri Aug 12 00:00:00 EEST 2005 - fcrozat@mandriva.com
+
+- Patch1: add more programs to full power mode
+
+-------------------------------------------------------------------
+Tue Jun 21 00:00:00 EEST 2005 - misc@mandriva.org
+
+- New release 1.2.3
+- fix rpmlint warning
+
+-------------------------------------------------------------------
+Sat Jan 29 00:00:00 EET 2005 - misc@mandrake.org
+
+- change priority of cpufreqd ( thanks to the reporter of #13304 )
+
+-------------------------------------------------------------------
+Wed Oct 27 00:00:00 EEST 2004 - misc@mandrake.org
+
+- New release 1.2.2
+
+-------------------------------------------------------------------
+Tue Oct 26 00:00:00 EEST 2004 - lenny@mandrakesoft.com
+
+- 1.2.1
+
+-------------------------------------------------------------------
+Wed Aug 25 00:00:00 EEST 2004 - misc@mandrake.org
+
+- Requires cpufreq
+
+-------------------------------------------------------------------
+Tue Aug 24 00:00:00 EEST 2004 - misc@mandrake.org
+
+- New release 1.2.0
+
+-------------------------------------------------------------------
+Sat May 29 00:00:00 EEST 2004 - misc@mandrake.org
+
+- [DIRM]
+- fix building problem
+
+-------------------------------------------------------------------
+Tue Mar 16 00:00:00 EET 2004 - misc@mandrake.org
+
+- 1.1.2
+- patch #1 merged upstream
+- moved cpufreq_defaults to /usr/share
+
+-------------------------------------------------------------------
+Tue Feb 24 00:00:00 EET 2004 - obiwan@mailmij.org
+
+- fix bug with pmu (patch1)
+- require autmake 1.4 not 1.7
+- script for adjusting config at startup (source2)
+
+-------------------------------------------------------------------
+Mon Feb  9 00:00:00 EET 2004 - misc@mandrake.org
+
+- 2.6 support in the init file, upstream addition
+
+-------------------------------------------------------------------
+Sun Feb  8 00:00:00 EET 2004 - misc@mandrake.org
+
+- 1.1.1
+
+-------------------------------------------------------------------
+Mon Jan  5 00:00:00 EET 2004 - misc@mandrake.org
+
+- 1.1
+- patch1 merged upstream
+- some adjustement to init file.
+
+-------------------------------------------------------------------
+Fri Dec 19 00:00:00 EET 2003 - misc@mandrake.org
+
+- add patch to not have /var/run/cpufreqd.pid world writable ( thanks msec )
+

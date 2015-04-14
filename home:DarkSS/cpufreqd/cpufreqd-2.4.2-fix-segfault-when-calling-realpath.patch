@@ -1,0 +1,35 @@
+From b5b23525edcc09898288360c48e92b4a6c9cb0ee Mon Sep 17 00:00:00 2001
+From: Perttu Luukko <perttu.luukko@iki.fi>
+Date: Sun, 13 Jun 2010 15:20:10 +0900
+Subject: [PATCH] Fix cpufreqd segfault when calling realpath
+
+The size is set at cpufreqd.h to 512.  man 3 realpath tells me that
+realpath wants a buffer of size PATH_MAX, so I modified cpufreqd.h to
+include limits.h if it is present and use PATH_MAX.
+
+Signed-off-by: Mattia Dongili <malattia@linux.it>
+---
+ src/cpufreqd.h |    8 +++++++-
+ 1 files changed, 7 insertions(+), 1 deletions(-)
+
+diff --git a/src/cpufreqd.h b/src/cpufreqd.h
+index 9733a5f..97b905a 100644
+--- a/src/cpufreqd.h
++++ b/src/cpufreqd.h
+@@ -54,6 +54,12 @@
+ #define DEFAULT_VERBOSITY	3
+ 
+ #define MAX_STRING_LEN		255
+-#define MAX_PATH_LEN		512
++
++#ifdef HAVE_LIMITS_H
++#include <limits.h>
++#define MAX_PATH_LEN PATH_MAX
++#else
++#define MAX_PATH_LEN 512
++#endif
+ 
+ #endif /* __CPUFREQD_H__ */
+-- 
+1.7.2.3
+

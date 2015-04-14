@@ -1,0 +1,11 @@
+--- cpufreqd-2.1.1/cpufreqd.conf.defaults	2006-06-17 19:59:22.000000000 +0200
++++ cpufreqd-2.1.1/cpufreqd.conf	2006-08-30 11:41:25.000000000 +0200
+@@ -132,7 +132,7 @@
+ # But don't heat too much.
+ [Rule]
+ name=Movie Watcher
+-programs=xine,mplayer,gmplayer
++programs=xine,mplayer,avidemux,gcc,totem,vlc,kaffeine,ogle,lindvd
+ battery_interval=0-100
+ acpi_temperature=0-60
+ cpu_interval=0-100
