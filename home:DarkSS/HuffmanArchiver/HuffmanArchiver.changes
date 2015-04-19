@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Sun Apr 19 21:03:06 UTC 2015 - dap.darkness@gmail.com
+
+- %check:
+  * Single symbol file processing.
+  * Blank file processing.
+
+-------------------------------------------------------------------
+Sat Apr 18 10:22:06 UTC 2015 - dap.darkness@gmail.com
+
+- Arm6 support:
+  * qemu/arm6 fails on valgrind.
+- Fedora & CentOS support.
+
+-------------------------------------------------------------------
+Wed Apr 15 12:08:57 UTC 2015 - dap.darkness@gmail.com
+
+- Better arm & ppc support:
+  * if no clang or if it's broken let's use gcc.
+- %check:
+  * Added 1Mbyte binary file checking.
+
+-------------------------------------------------------------------
 Sun Apr 12 22:31:23 UTC 2015 - dap.darkness@gmail.com
 
 - %check:
