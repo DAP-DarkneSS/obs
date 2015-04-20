@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -124,7 +124,6 @@ BuildRequires:  pkgconfig(libcurl)
 %if 0%{?suse_version} > 1230
 BuildRequires:  pkgconfig(libguess)
 %endif
-BuildRequires:  pkgconfig(libmsn)
 %if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
 BuildRequires:  pkgconfig(libopenjpeg)
@@ -141,6 +140,7 @@ BuildRequires:  pkgconfig(libvlc)
 BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt4)
 BuildRequires:  pkgconfig(qca2)
+BuildRequires:  pkgconfig(qtermwidget4) >= 0.5.1
 BuildRequires:  pkgconfig(qxmpp) >= 0.8
 BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xdamage)
@@ -291,6 +291,7 @@ Requires:       %{name}-azoth-protocolplugin
 Requires:       %{name}-securestorage = %{version}
 Suggests:       %{name}-azoth-standardstyles
 Obsoletes:      %{name}-azoth-p100q
+Obsoletes:      %{name}-azoth-zheet
 
 %description azoth
 This package provides a modular IM client for LeechCraft.
@@ -720,28 +721,6 @@ This package provides a tune publishing plugin for LeechCraft Azoth.
 It allows to publish current user tune.
 
 
-%package azoth-zheet
-Summary:        LeechCraft Azoth - MSN Module
-License:        BSL-1.0
-Group:          Productivity/Networking/Other
-Requires:       %{name}-azoth = %{version}
-Provides:       %{name}-azoth-protocolplugin
-
-%description azoth-zheet
-This package provides a MSN protocol plugin for LeechCraft Azoth.
-
-MSN protocol is used in the Windows Live Messenger.
-
-The following protocol features are currently supported:
- * Message delivery receipts.
- * Attention requests (nudges).
- * Notifications about messages in mailbox.
- * Announcing own current tune and fetching others' one.
- * Multiple groups for each contact.
- * Authorization management.
- * Blacklist management.
-
-
 %if 0%{?suse_version} >= 1310
 %package bittorrent
 Summary:        LeechCraft BitTorrent client Module
@@ -1010,6 +989,18 @@ Provides:       %{name}-soundnotifications = %{version}
 This package provides a dumb sound notifier plugin for LeechCraft.
 
 It also uses Phonon as a backend or something like aplay/mplayer.
+
+
+%package eleeminator
+Summary:        LeechCraft Eleeminator Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Provides:       %{name}-shaitan = %{version}
+Obsoletes:      %{name}-shaitan < %{version}
+
+%description eleeminator
+This package provides a terminal plugin for Leechcraft.
 
 
 %package fenet
@@ -2456,7 +2447,7 @@ cmake ../src \
                 -DENABLE_AZOTH_SHX=True \
                 -DENABLE_AZOTH_VELVETBIRD=True \
                 -DENABLE_AZOTH_WOODPECKER=True \
-                -DENABLE_AZOTH_ZHEET=True \
+                -DENABLE_AZOTH_ZHEET=False \
                 -DENABLE_MEDIACALLS=False \
         -DENABLE_BLACKDASH=False \
         -DENABLE_BLASQ=True \
@@ -2470,7 +2461,7 @@ cmake ../src \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_DUMBEEP=True \
                 -DDUMBEEP_WITH_PHONON=True \
-        -DENABLE_ELEEMINATOR=False \
+        -DENABLE_ELEEMINATOR=True \
         -DENABLE_FENET=True \
         -DENABLE_GACTS=True \
 %if 0%{?suse_version} > 1310
@@ -2950,11 +2941,6 @@ cd build
 %{plugin_dir}/*%{name}_azoth_xtazy.so
 %{translations_dir}/%{name}_azoth_xtazy*
 
-%files azoth-zheet
-%defattr(-,root,root)
-%{translations_dir}/%{name}_azoth_zheet*
-%{plugin_dir}/*%{name}_azoth_zheet.so
-
 %if 0%{?suse_version} >= 1310
 %files bittorrent
 %defattr(-,root,root)
@@ -3064,6 +3050,13 @@ cd build
 %defattr(-,root,root)
 %{_libdir}/%{name}/plugins/lib%{name}_dumbeep.so
 %{_datadir}/%{name}/settings/dumbeepsettings.xml
+
+%files eleeminator
+%defattr(-,root,root)
+%{_libdir}/%{name}/plugins/lib%{name}_eleeminator.so
+%{_datadir}/%{name}/translations/%{name}_eleeminator_??.qm
+%{_datadir}/%{name}/translations/%{name}_eleeminator_??_??.qm
+%{_datadir}/%{name}/settings/eleeminatorsettings.xml
 
 %files fenet
 %defattr(-,root,root)

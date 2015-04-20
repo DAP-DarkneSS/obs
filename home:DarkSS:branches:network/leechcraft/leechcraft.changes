@@ -1,4 +1,22 @@
 -------------------------------------------------------------------
+Mon Jan 26 20:16:06 UTC 2015 - dap.darkness@gmail.com
+
+- Disabled plugins:
+  * azoth-zheet; MSN support became obsoleted by MSFT.
+
+-------------------------------------------------------------------
+Sun Jan 25 00:46:18 UTC 2015 - crrodriguez@opensuse.org
+
+- Disable azoth-zheet (MSN support) in tumbleweed and later 
+  as MSN was discontinued by MSFT. 
+
+-------------------------------------------------------------------
+Wed Sep 10 15:35:22 UTC 2014 - dap.darkness@gmail.com
+
+- A new plugin was enabled:
+  * Eleeminator is a a terminal emulator.
+
+-------------------------------------------------------------------
 Wed Jul 30 14:38:58 UTC 2014 - dap.darkness@gmail.com
 
 - 0.6.70 release:
