@@ -1,0 +1,12 @@
+Source: huffmanarchiver
+Section: unknown
+Priority: optional
+Maintainer: Dmitriy Perlow <dap.darkness@gmail.com>
+Build-Depends: cdbs, build-essential, debhelper (>= 4.1.16), cmake
+
+Package: huffmanarchiver
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Huffman Archiver
+ A C99 Huffman archiver for EPAM Linux cource:
+ https://github.com/epam-llpd/linux_courses/tree/master/epam;
