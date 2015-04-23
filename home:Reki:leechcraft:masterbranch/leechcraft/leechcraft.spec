@@ -20,20 +20,22 @@
 %define translations_dir %{_datadir}/leechcraft/translations
 %define settings_dir %{_datadir}/leechcraft/settings
 %define qml_dir %{_datadir}/leechcraft/qml
+
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-3061-g8e9fbf3
+%define LEECHCRAFT_VERSION 0.6.70-3270-g5621455
+
+%if 0%{?suse_version} > 1310
+%define lmp_gstreamer_1_0 1
+%else
+%define lmp_gstreamer_1_0 0
+%endif
 
 %if 0%{?suse_version} >= 1320
 %define clang_compiler 0
 %else
 %define clang_compiler 0
 %endif
-%define fenet 1
-%define lmp 1
-%define mellonetray 1
 %define poleemery 1
-%define woodpecker 1
-%define vangog 1
 
 Name:           leechcraft
 Version:        git
@@ -51,9 +53,7 @@ BuildRequires:  cmake > 2.8.10
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 %if %{clang_compiler}
-BuildRequires:  gcc49-c++
-# BuildConflicts: gcc-c++
-# BuildConflicts: libgcc_s1
+BuildRequires:  gcc-c++ >= 4.9
 %else
 BuildRequires:  gcc-c++ >= 4.7
 %endif
@@ -69,15 +69,16 @@ BuildRequires:  libqxt-devel
 %endif
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
-%if %{clang_compiler}
-BuildRequires:  llvm-clang
-%endif
+BuildRequires:  llvm-clang >= 3.4
 %if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
 BuildRequires:  mupdf-devel-static
 %endif
 %endif
 BuildRequires:  qwt6-devel
+%if 0%{?suse_version} > 1310
+BuildRequires:  wt-devel >= 3.3
+%endif
 %if 0%{?suse_version} > 1310
 BuildRequires:  pkgconfig(TelepathyQt4)
 %endif
@@ -86,18 +87,17 @@ BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(QtWebKit)
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(ddjvuapi)
-BuildRequires:  libGeoIP-devel
+BuildRequires:  pkgconfig(geoip)
+BuildRequires:  pkgconfig(libidn)
 BuildRequires:  pkgconfig(libmtp)
 BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libpcre)
 BuildRequires:  pkgconfig(libprojectM)
-# BuildRequires:  pkgconfig(libspectre)
 BuildRequires:  pkgconfig(phonon)
 BuildRequires:  pkgconfig(purple)
 BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(taglib)
-%if %{lmp}
-%if 0%{?suse_version} > 1310
+%if 0%{?lmp_gstreamer_1_0}
 BuildRequires:  pkgconfig(gstreamer-app-1.0)
 BuildConflicts: gstreamer-0_10-devel
 BuildConflicts: gstreamer-0_10-plugins-base-devel
@@ -108,45 +108,37 @@ BuildConflicts: libgstreamer-0_10
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
 BuildConflicts: libgstreamer-1_0-0
 %endif
-%endif
 BuildRequires:  libqxmpp-devel >= 0.8.0.1398262192
 BuildRequires:  pkgconfig(hunspell)
 BuildRequires:  pkgconfig(kqoauth)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libguess)
-BuildRequires:  pkgconfig(libidn)
+%if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
 BuildRequires:  pkgconfig(libopenjpeg)
 %endif
-BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
+%endif
+BuildRequires:  pkgconfig(libqrencode)
+BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.16
+BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(libvlc)
 BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt4)
 BuildRequires:  pkgconfig(qca2)
 BuildRequires:  pkgconfig(qtermwidget4) >= 0.5.1
-BuildRequires:  pkgconfig(libudev)
-BuildRequires:  pkgconfig(vmime) >= 0.9.2
+BuildRequires:  pkgconfig(qxmpp) >= 0.8
 BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xkbfile)
 BuildRequires:  pkgconfig(xrender)
 
 
-BuildRequires:  boost-devel >= 1.50
-BuildRequires:  jbig2dec-devel
-# BuildRequires:  libchromaprint-devel
-# BuildRequires:  libffmpeg-devel
 BuildRequires:  liblaretz-devel
-BuildRequires:  openjpeg-devel
 BuildRequires:  telepathy-qt4-devel
 BuildRequires:  wt-devel >= 3.3
 %if 0%{?suse_version} <= 1310
 BuildRequires:  pkgconfig(QtMultimediaKit)
 %endif
-BuildRequires:  pkgconfig(libguess)
-BuildRequires:  pkgconfig(libqrencode)
-BuildRequires:  pkgconfig(libvlc)
-# BuildConflicts: brp-extract-appdata
 
 
 Requires:       oxygen-icon-theme
@@ -858,7 +850,6 @@ This package provides a LibPurple plugin for LeechCraft Azoth.
 It supportes various protocols provided by Purple library.
 
 
-%if %{woodpecker}
 %package azoth-woodpecker
 Summary:        LeechCraft Twitter Client Module
 Group:          Productivity/Networking/Other
@@ -867,7 +858,6 @@ Recommends:     libkqoauth0 >= 0.98
 
 %description azoth-woodpecker
 This package provides a Twitter Client plugin for LeechCraft.
-%endif
 
 
 %package azoth-xoox
@@ -983,9 +973,8 @@ This package provides a VKontakte image storage client subplugin
 for LeechCraft Blasq.
 
 
-%if %{vangog}
 %package blasq-vangog
-Summary:        LeechCraft Picasa - Flickr client Module
+Summary:        LeechCraft Blasq - Picasa client Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-blasq = %{version}
 Provides:       %{name}-blasq-subplugin = %{version}
@@ -993,7 +982,6 @@ Provides:       %{name}-blasq-subplugin = %{version}
 %description blasq-vangog
 This package provides a Picasa image storage client subplugin
 for LeechCraft Blasq.
-%endif
 
 
 %package blasq-spegnersi
@@ -1123,7 +1111,7 @@ Group:          Development/Libraries/Other
 Requires:       %{name} = %{version}
 Requires:       cmake
 Requires:       libleechcraft-util-db%{so_ver}        = %{version}
-Requires:       libleechcraft-util-gui%{so_ver}       = %{version}
+Requires:       libleechcraft-util-gui%{so_ver}_1     = %{version}
 Requires:       libleechcraft-util-models%{so_ver}    = %{version}
 Requires:       libleechcraft-util-network%{so_ver}_1 = %{version}
 Requires:       libleechcraft-util-qml%{so_ver}_1     = %{version}
@@ -1203,7 +1191,6 @@ Obsoletes:      %{name}-shaitan < %{version}
 This package provides a terminal plugin for Leechcraft.
 
 
-%if %{fenet}
 %package fenet
 Summary:        LeechCraft Window Manager Module
 Group:          Productivity/Networking/Other
@@ -1277,12 +1264,11 @@ Requires:       openbox
 %description fenet-openbox
 This package allows to start Leechcraft as a Desktop Environment with
 the Openbox Window Manager.
-%endif
 
 
 %package gacts
-License:        BSL-1.0 and (LGPL-2.1 or CPL-1.0)
 Summary:        LeechCraft Global actions Module
+License:        BSL-1.0 and (LGPL-2.1 or CPL-1.0)
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
@@ -1394,7 +1380,7 @@ Requires:       %{name} = %{version}
 Requires:       setxkbmap
 
 %description kbswitch
-This module allows change keyboard layouts from LeechCraft
+This module allows change keyboard layouts from LeechCraft.
 
 
 %package kinotify
@@ -1566,7 +1552,6 @@ reconnect properly on startup.
  * Notifies user on low power level.
 
 
-%if %{lmp}
 %package lmp
 Summary:        LeechCraft Media player Module
 Group:          Productivity/Networking/Other
@@ -1652,7 +1637,8 @@ It allows to manipulate audio file tags.
 
 
 %package lmp-httstream
-Summary:        LeechCraft Tags Manipulating Module
+Summary:        LeechCraft Music Streamer Module
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name}-lmp = %{version}
 
@@ -1680,8 +1666,8 @@ Features:
 %package lmp-mtpsync
 Summary:        LeechCraft MtpSync Module
 Group:          Productivity/Networking/Other
-Requires:       %{name}-lmp = %{version}
 Requires:       %{name}-devmon = %{version}
+Requires:       %{name}-lmp = %{version}
 
 %description lmp-mtpsync
 This package allows to sync with MTP devices via LeechCraft.
@@ -1694,10 +1680,8 @@ Requires:       %{name}-lmp = %{version}
 
 %description lmp-potorchu
 This package provides visualization effects for LeechCraft audio player.
-%endif
 
 
-%if %{mellonetray}
 %package mellonetray
 Summary:        LeechCraft Tray Area Module
 Group:          Productivity/Networking/Other
@@ -1707,7 +1691,6 @@ Requires:       %{name}-sb2 = %{version}
 %description mellonetray
 This package provides a tray area quark for third-party apps
 for LeechCraft SB2.
-%endif
 
 
 %package monocle
@@ -1749,6 +1732,7 @@ This package provides MOBI documents support for Document viewer Module.
 
 
 %if 0%{?suse_version} == 1310
+%ifarch %ix86 x86_64 %arm
 %package monocle-mu
 Summary:        LeechCraft Monocle - Another PDF Module
 Group:          Productivity/Networking/Other
@@ -1763,6 +1747,7 @@ This package contains another pdf subplugin for LeechCraft Monocle.
 This package provides PDF documents support for Document viewer Module
 via the mupdf backend.
 %endif
+%endif
 
 
 %package monocle-pdf
@@ -1771,6 +1756,10 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-monocle = %{version}
 Provides:       %{name}-monocle-subplugin
+%if 0%{suse_version} > 1310
+Provides:       %{name}-monocle-mu = %{version}
+Obsoletes:      %{name}-monocle-mu < %{version}
+%endif
 
 %description monocle-pdf
 This package contains a pdf subplugin for LeechCraft Monocle.
@@ -1782,7 +1771,6 @@ via the Poppler backend.
 %package monocle-postrus
 Summary:        LeechCraft Monocle - PostScript Module
 Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
 Requires:       %{name}-monocle-pdf = %{version}
 Requires:       ghostscript
 Provides:       %{name}-monocle-subplugin
@@ -1791,7 +1779,7 @@ Provides:       %{name}-monocle-subplugin
 This package contains a PostRus subplugin for LeechCraft Monocle.
 
 This package provides PostScript documents support for Document viewer Module
-via the ghostscript utils and Pdf plugin.
+via ghostscript utils and any Monocle Pdf plugin.
 
 
 %package monocle-seen
@@ -2368,8 +2356,8 @@ and allows to quickly navigate between them.
 Summary:        LeechCraft Script-Based Lyrics Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-http = %{version}
-Requires:       %{name}-summaryrepresentation = %{version}
 Requires:       %{name}-qrosp
+Requires:       %{name}-summaryrepresentation = %{version}
 Provides:       %{name}-lyricsprovider
 
 %description textogroose
@@ -2444,6 +2432,7 @@ This package provides a Vrooby plugin for LeechCraft.
 It allows to watch removable storage devices via d-bus and udisks.
 
 
+%if %{clang_compiler}
 %package xproxy
 Summary:        LeechCraft Proxy manager Module
 Group:          Productivity/Networking/Other
@@ -2453,6 +2442,7 @@ Requires:       %{name} = %{version}
 This package provides an advanced proxy manager for LeechCraft.
 
 It allows to configure and use proxy servers.
+%endif
 
 
 %package xtazy
@@ -2487,11 +2477,11 @@ A library providing some useful and commonly used database-related
 classes and functions.
 
 
-%package -n libleechcraft-util-gui%{so_ver}
+%package -n libleechcraft-util-gui%{so_ver}_1
 Summary:        GUI utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-gui%{so_ver}
+%description -n libleechcraft-util-gui%{so_ver}_1
 A library providing some useful and commonly used GUI-related
 widgets, classes and functions.
 
@@ -2604,7 +2594,7 @@ XmlSettingsDialog LeechCraft subsystem.
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -2617,14 +2607,15 @@ find src -name '*.png' -or -name '*.css' -or -name '*.gif' -exec chmod 0644 {} +
 
 mkdir build && cd build
 
-%if %{clang_compiler}
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
-%endif
 
 cmake ../src \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
+%endif
+%if %{clang_compiler}
+        -DUSE_CPP14=True
 %endif
         -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
@@ -2649,11 +2640,7 @@ cmake ../src \
                 -DENABLE_AZOTH_SHX=True \
                 -DENABLE_AZOTH_TRACOLOR=False \
                 -DENABLE_AZOTH_VELVETBIRD=True \
-%if %{woodpecker}
                 -DENABLE_AZOTH_WOODPECKER=True \
-%else
-                -DENABLE_AZOTH_WOODPECKER=False \
-%endif
                 -DENABLE_AZOTH_ZHEET=False \
 %if 0%{?suse_version} <= 1310
                 -DENABLE_MEDIACALLS=True \
@@ -2662,11 +2649,7 @@ cmake ../src \
 %endif
         -DENABLE_BLACKDASH=False \
         -DENABLE_BLASQ=True \
-%if %{vangog}
                 -DENABLE_BLASQ_VANGOG=True \
-%else
-                -DENABLE_BLASQ_VANGOG=False \
-%endif
         -DENABLE_BLOGIQUE=True \
         -DENABLE_CERTMGR=True \
         -DENABLE_CHOROID=True \
@@ -2677,11 +2660,7 @@ cmake ../src \
         -DENABLE_DUMBEEP=True \
                 -DDUMBEEP_WITH_PHONON=True \
         -DENABLE_ELEEMINATOR=True \
-%if %{fenet}
         -DENABLE_FENET=True \
-%else
-        -DENABLE_FENET=False \
-%endif
         -DENABLE_GACTS=True \
 %if 0%{?suse_version} > 1310
                 -DWITH_GACTS_BUNDLED_QXT=False \
@@ -2708,11 +2687,7 @@ cmake ../src \
         -DENABLE_LHTR=True \
                 -DWITH_LHTR_HTML=True \
         -DENABLE_LIZNOO=True \
-%if %{lmp}
         -DENABLE_LMP=True \
-%if 0%{?suse_version} > 1310
-        -DUSE_GSTREAMER_10=True \
-%endif
                 -DENABLE_LMP_BRAINSLUGZ=True \
                 -DENABLE_LMP_FRADJ=True \
                 -DENABLE_LMP_GRAFFITI=True \
@@ -2721,20 +2696,22 @@ cmake ../src \
                 -DENABLE_LMP_MPRIS=True \
                 -DENABLE_LMP_MTPSYNC=True \
                 -DENABLE_LMP_POTORCHU=True \
+%if 0%{?lmp_gstreamer_1_0}
+                -DUSE_GSTREAMER_10=True \
 %else
-        -DENABLE_LMP=False \
+                -DUSE_GSTREAMER_10=False \
 %endif
-%if %{mellonetray}
         -DENABLE_MELLONETRAY=True \
-%else
-        -DENABLE_MELLONETRAY=False \
-%endif
         -DENABLE_MONOCLE=True \
 %if 0%{?suse_version} == 1310
-        -DENABLE_MONOCLE_MU=True \
+%ifarch %ix86 x86_64 %arm
+                -DENABLE_MONOCLE_MU=True \
                 -DMUPDF_VERSION=0x0102 \
 %else
-        -DENABLE_MONOCLE_MU=False \
+                -DENABLE_MONOCLE_MU=False \
+%endif
+%else
+                -DENABLE_MONOCLE_MU=False \
 %endif
         -DENABLE_MONOCLE_PDF=True \
         -DENABLE_MONOCLE_POSTRUS=True \
@@ -2783,6 +2760,11 @@ cmake ../src \
         -DENABLE_VTYULC=True \
         -DENABLE_VROOBY=True \
         -DENABLE_WKPLUGINS=False \
+%if %{clang_compiler}
+        -DENABLE_XPROXY=True \
+%else
+        -DENABLE_XPROXY=False \
+%endif
         -DENABLE_ZALIL=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
@@ -2850,10 +2832,10 @@ EOF
 %postun -n libleechcraft-util-db%{so_ver}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-gui%{so_ver}
+%post -n libleechcraft-util-gui%{so_ver}_1
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-gui%{so_ver}
+%postun -n libleechcraft-util-gui%{so_ver}_1
 /sbin/ldconfig
 
 %post -n libleechcraft-util-models%{so_ver}
@@ -3161,13 +3143,11 @@ EOF
 %defattr(-,root,root)
 %{plugin_dir}/*craft_azoth_velvetbird.so
 
-%if %{woodpecker}
 %files azoth-woodpecker
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_azoth_woodpecker.so
 %{settings_dir}/azothwoodpeckersettings.xml
 %{translations_dir}/*craft_azoth_woodpecker_*.qm
-%endif
 
 %files azoth-xoox
 %defattr(-,root,root)
@@ -3216,12 +3196,10 @@ EOF
 %{plugin_dir}/lib%{name}_blasq_rappor.so
 %{translations_dir}/*craft_blasq_rappor*.qm
 
-%if %{vangog}
 %files blasq-vangog
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_blasq_vangog.so
 %{translations_dir}/*craft_blasq_vangog*.qm
-%endif
 
 %files blogique
 %defattr(-,root,root)
@@ -3312,7 +3290,6 @@ EOF
 %{translations_dir}/*craft_eleeminator_??_??.qm
 %{settings_dir}/eleeminatorsettings.xml
 
-%if %{fenet}
 %files fenet
 %defattr(-,root,root)
 %{plugin_dir}/*craft_fenet.so
@@ -3347,7 +3324,6 @@ EOF
 %dir %{_datadir}/leechcraft/fenet
 %dir %{_datadir}/leechcraft/fenet/wms
 %{_datadir}/leechcraft/fenet/wms/*openbox*
-%endif
 
 %files gacts
 %defattr(-,root,root)
@@ -3479,7 +3455,6 @@ EOF
 %{settings_dir}/liznoosettings.xml
 %{translations_dir}/*craft_liznoo_*.qm
 
-%if %{lmp}
 %files lmp
 %defattr(-,root,root)
 %{settings_dir}/lmpsettings.xml
@@ -3539,15 +3514,12 @@ EOF
 %{plugin_dir}/*craft_lmp_potorchu.so
 %{translations_dir}/*craft_lmp_potorchu_??.qm
 %{translations_dir}/*craft_lmp_potorchu_??_??.qm
-%endif
 
-%if %{mellonetray}
 %files mellonetray
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_mellonetray.so
 %{qml_dir}/mellonetray/
 %{translations_dir}/*craft_mellonetray_*.qm
-%endif
 
 %files monocle
 %defattr(-,root,root)
@@ -3571,9 +3543,11 @@ EOF
 %{translations_dir}/*craft_monocle_fxb_??_??.qm
 
 %if 0%{?suse_version} == 1310
+%ifarch %ix86 x86_64 %arm
 %files monocle-mu
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_monocle_mu.so
+%endif
 %endif
 
 %files monocle-pdf
@@ -3864,12 +3838,14 @@ EOF
 %{translations_dir}/*craft_vrooby_*.qm
 %{qml_dir}/vrooby
 
+%if %{clang_compiler}
 %files xproxy
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_xproxy.so
 %{settings_dir}/xproxysettings.xml
 %{translations_dir}/*craft_xproxy_*.qm
 %{_datadir}/leechcraft/scripts/xproxy
+%endif
 
 %files xtazy
 %defattr(-,root,root)
@@ -3888,7 +3864,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/*-util-db*.so.*
 
-%files -n libleechcraft-util-gui%{so_ver}
+%files -n libleechcraft-util-gui%{so_ver}_1
 %defattr(-,root,root)
 %{_libdir}/*-util-gui*.so.*
 

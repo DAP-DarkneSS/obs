@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Tue Apr 21 08:29:38 UTC 2015 - dap.darkness@gmail.com
+
+- Updated to 0.6.70-2742-gfaed6e2 git snapshot
+  to resolve openSUSE Factory build time issue.
+- More directories macro using to be ready for Qt5 release.
+- Dropped openSUSE < 13.1, removed useless patches:
+  * leechcraft-azoth-gcc47.patch
+  * leechcraft-monocle-gcc47.patch
+  * leechcraft-gcc47.patch
+- Removed useless obsoletings.
+- Let's recommend set of packages.
+- New plugins were enabled:
+  * azoth-abbrev provides abbreviations via commands like /abbrev
+    for LeechCraft Azoth;
+  * intermutko provides a HTTP Accept-Language header configurator;
+  * lmp-potorchu provides visualization effects
+    for LeechCraft audio player;
+  * zalil allows to upload files to accountless filebin services.
+- Useless Qt5' files removing.
+- SLE 12 support.
+
+-------------------------------------------------------------------
 Mon Jan 26 20:16:06 UTC 2015 - dap.darkness@gmail.com
 
 - Disabled plugins:

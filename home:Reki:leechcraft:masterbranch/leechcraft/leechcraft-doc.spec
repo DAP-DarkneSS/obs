@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft-doc
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           leechcraft-doc
-Version:        0.6.65
+Version:        0.6.70
 Release:        0
 Summary:        Modular Internet Client Documentation
 License:        BSL-1.0
@@ -72,17 +72,17 @@ is also available online at http://doc.leechcraft.org/monocle/
 %build
 cd doc/doxygen/core
 sed -i Doxyfile \
--e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
+-e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{version}/"
 doxygen Doxyfile
 
 cd ../azoth
 sed -i Doxyfile \
--e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
+-e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{version}/"
 doxygen Doxyfile
 
 cd ../monocle
 sed -i Doxyfile \
--e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{LEECHCRAFT_VERSION}/"
+-e "s/PROJECT_NUMBER .*/PROJECT_NUMBER         = %{version}/"
 doxygen Doxyfile
 
 %install
