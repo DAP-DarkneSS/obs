@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<office:document-meta xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" office:version="1.2" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <office:meta>
+  <meta:generator>Calligra/2.9.1</meta:generator>
+  <dc:title>openSUSE Build Server для разработчика</dc:title>
+  <dc:description>tips &amp; tricks</dc:description>
+  <dc:subject>openSUSE Build Server</dc:subject>
+  <meta:keyword>OBS, clang, valgrind</meta:keyword>
+  <meta:initial-creator>Unknown</meta:initial-creator>
+  <meta:editing-cycles>102</meta:editing-cycles>
+  <dc:date>2015-04-18T20:39:20</dc:date>
+  <meta:creation-date>2010-09-14T19:07:31</meta:creation-date>
+  <dc:language>ru</dc:language>
+  <dc:creator>Dmitriy DAP.DarkneSS Perlow</dc:creator>
+ </office:meta>
+</office:document-meta>
