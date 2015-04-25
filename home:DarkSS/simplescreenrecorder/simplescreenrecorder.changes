@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Thu Apr 23 19:08:16 UTC 2015 - dap.darkness@gmail.com
+
+- Packman → OBS;
+- _service → tarball;
+- `spec-cleaner`.
+- Added ssr-0.3.3-ffmpeg-pkgconfig.diff
+  to make build against openSUSE' ffmpeg possible
+  ( https://github.com/MaartenBaert/ssr/commit/5929b ).
+
+-------------------------------------------------------------------
 Sat Jan 17 21:21:39 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 0.3.3:

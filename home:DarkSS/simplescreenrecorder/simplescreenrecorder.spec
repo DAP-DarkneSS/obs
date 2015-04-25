@@ -1,7 +1,7 @@
 #
 # spec file for package simplescreenrecorder
 #
-# Copyright (c) 2015 Packman team: http://packman.links2linux.org/
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -12,20 +12,22 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via https://bugs.links2linux.org/
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
 
 Name:           simplescreenrecorder
 Version:        0.3.3
 Release:        0
-License:        GPL-3.0+
 Summary:        A feature-rich screen recorder that supports X11 and OpenGL
-Url:            http://www.maartenbaert.be/simplescreenrecorder
+License:        GPL-3.0+
 Group:          System/X11/Utilities
+Url:            http://www.maartenbaert.be/simplescreenrecorder
 Source:         https://github.com/MaartenBaert/ssr/archive/%{version}.tar.gz
 # PATH-FIX-UPSTREAM to fix --disable-x86-asm option
 Patch0:         ssr-0.3.3-fix-disable-x86-asm.diff
+# PATH-FIX-UPSTREAM to make build against openSUSE' ffmpeg possible
+Patch1:         ssr-0.3.3-ffmpeg-pkgconfig.diff
 
 BuildRequires:  cmake
 BuildRequires:  hicolor-icon-theme
@@ -37,6 +39,7 @@ BuildRequires:  pkgconfig(glu)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
@@ -87,9 +90,10 @@ Features:
 
 %ifarch %ix86 x86_64
 %package -n libssr-glinject
-License:        MIT
 Summary:        A feature-rich screen recorder library
+License:        MIT
 Group:          System/Libraries
+
 %description -n libssr-glinject
 This package provides SimpleScreenRecorder's optional library.
 %endif
@@ -98,6 +102,7 @@ This package provides SimpleScreenRecorder's optional library.
 %prep
 %setup -q -n ssr-%{version}
 %patch0 -p1
+%patch1 -p1
 
 
 %build
