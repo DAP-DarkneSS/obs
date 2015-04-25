@@ -1,7 +1,7 @@
 #
 # spec file for package modem-manager-gui
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -24,6 +24,9 @@ License:        GPL-3.0+
 Group:          Hardware/Mobile
 Url:            http://linuxonly.ru/cms/page.php?7
 Source:         http://download.tuxfamily.org/gsf/source/modem-manager-gui-%{version}.tar.gz
+
+# PATCH-FIX-UPSTREAM vs. evolution data server 3.16 libebook api break.
+Patch0:         modem-manager-gui-0.0.17.1-fix-libebook-api-break.patch
 
 BuildRequires:  fdupes
 BuildRequires:  gdbm-devel
@@ -55,6 +58,10 @@ Current features:
 
 %prep
 %setup -q
+# NOTE: if evolution-data-server >= 3.16.
+%if 0%{?suse_version} > 1320
+%patch0 -p1
+%endif
 
 %build
 %configure

@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sat Apr 25 21:22:41 UTC 2015 - dap.darkness@gmail.com
+
+- Added http://download.tuxfamily.org/gsf/patch/…-api-break.patch
+  ( modem-manager-gui-0.0.17.1-fix-libebook-api-break.patch )
+  because of API break in libebook library from Evolution data
+  server version 3.16. Resolves bnc#927724 (openSUSE Factory).
+
+-------------------------------------------------------------------
 Tue Sep  2 15:25:05 UTC 2014 - dap.darkness@gmail.com
 
 - 0.0.17.1:
@@ -20,7 +28,9 @@ Tue Sep  2 15:25:05 UTC 2014 - dap.darkness@gmail.com
     - 3GPP location format (thanks to Graham Inggs);
     - Lots of other fixes.
 - Added desktop_database_post(un) and new dependencies.
-- Removed merged patches.
+- Removed merged patches:
+  * modem-manager-gui-0.0.16-fix-gcc-warnings.patch
+  * modem-manager-gui-0.0.16-notifications-icon.patch
 
 -------------------------------------------------------------------
 Fri Jul 25 19:33:05 UTC 2014 - seanpwatson@live.com
