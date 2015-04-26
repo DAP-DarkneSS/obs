@@ -1,3 +1,10 @@
+-------------------------------------------------------------------
+Sun Apr 26 17:48:43 UTC 2015 - dap.darkness@gmail.com
+
+- Added script that stops pdnsd before computer sleeping
+  and starts after awakening via systemd.
+
+-------------------------------------------------------------------
 Sat Nov 17 08:57:45 UTC 2012 - dap.darkness@gmail.com
 
 - Initial build.
