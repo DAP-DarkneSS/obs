@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Apr 27 20:46:51 UTC 2015 - dap.darkness@gmail.com
+
+- Fixed up libssr-glinject subpackage description (request#303989).
+- Removed libssr-glinject static build (request#303989).
+- Let's only suggest libssr-glinject-32bit to not install 32bit
+  dependencies with default ssr installation.
+- Dropped openSUSE < 13.* support.
+
+-------------------------------------------------------------------
 Thu Apr 23 19:08:16 UTC 2015 - dap.darkness@gmail.com
 
 - Packman → OBS;

@@ -43,14 +43,13 @@ BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
-# Fix build on => 12.3
-%if 0%{?suse_version} > 1220
 BuildRequires:  libjpeg8-devel
-%endif
 %ifarch %ix86 x86_64
+# openGL apps:
 Recommends:     libssr-glinject
 %if %{_lib} == "lib64"
-Recommends:     libssr-glinject-32bit
+# 32bit openGL apps at 64bit system:
+Suggests:       libssr-glinject-32bit
 %endif
 %endif
 
@@ -90,12 +89,15 @@ Features:
 
 %ifarch %ix86 x86_64
 %package -n libssr-glinject
-Summary:        A feature-rich screen recorder library
+Summary:        Simple Screen Recorder openGL plugin
 License:        MIT
 Group:          System/Libraries
+Requires:       %{name} = %{version}
 
 %description -n libssr-glinject
-This package provides SimpleScreenRecorder's optional library.
+This package provides nice openGL apps screencasting support
+for Simple Screen Recorder. At 64bit system you may also
+install libssr-glinject-32bit for 32bit openGL apps support.
 %endif
 
 
@@ -118,6 +120,7 @@ make %{?_smp_mflags}
 
 %install
 %make_install
+find %{buildroot} -name *.la -delete
 %suse_update_desktop_file %{name}
 
 
@@ -143,7 +146,7 @@ make %{?_smp_mflags}
 %ifarch %ix86 x86_64
 %files -n libssr-glinject
 %defattr(-,root,root)
-%{_libdir}/libssr-glinject.*
+%{_libdir}/libssr-glinject.so
 %endif
 
 %changelog
