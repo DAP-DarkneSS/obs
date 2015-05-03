@@ -1,0 +1,14 @@
+--- lib/GsKit/base/GsLogging.cpp.orig	2014-12-01 17:53:47.000000000 +0300
++++ lib/GsKit/base/GsLogging.cpp	2015-05-04 00:12:32.162575720 +0300
+@@ -62,9 +62,8 @@
+ 
+     // Ads
+ 	textOut("<br>");
+-	std::string datestring = __DATE__;
+-	const std::string Teamyear = "by The Commander Genius Team " + datestring.substr(datestring.size()-4);
+-    textOut("Build date: " + datestring);
++	const std::string Teamyear = "by The Commander Genius Team";
++    textOut("Built at openSUSE Build Service");
+     textOut(Teamyear);
+     textOut("<br>");
+     textOut("BY FANS, FOR FANS. ALL \"COMMANDER KEEN\" GRAPHICS,<br>");
