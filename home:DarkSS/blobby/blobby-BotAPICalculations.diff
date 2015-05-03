@@ -1,0 +1,13 @@
+Index: src/CMakeLists.txt
+===================================================================
+--- src/CMakeLists.txt	(revision 1593)
++++ src/CMakeLists.txt	(working copy)
+@@ -51,7 +51,7 @@
+ #	RenderManagerGP2X.cpp RenderManagerGP2X.h
+ 	RenderManagerSDL.cpp RenderManagerSDL.h
+ 	ScriptedInputSource.cpp ScriptedInputSource.h
+-	BotAPICalculations.cpp BotAPICalculations.h
++# 	BotAPICalculations.cpp BotAPICalculations.h
+ 	SoundManager.cpp SoundManager.h
+ 	Vector.h
+ 	ReplayRecorder.cpp ReplayRecorder.h

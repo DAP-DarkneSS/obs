@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun May  3 18:06:01 UTC 2015 - dap.darkness@gmail.com
+
+- Updated to rev#1593 to resolve openSUSE:Factory build failures.
+- Fixed License tag: "either version 2 … or … any later version".
+- Added blobby-BotAPICalculations.diff vs. missing source.
+
+-------------------------------------------------------------------
 Mon Jun  2 14:16:54 UTC 2014 - mailaender@opensuse.org
 
 - update to 1.0

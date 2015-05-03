@@ -1,7 +1,7 @@
 #
 # spec file for package blobby
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,15 +17,19 @@
 
 
 Name:           blobby
-Version:        1.0
+Version:        1.0+svn1593
 Release:        0
 Summary:        2D Arcade Beach Volleyball Game
-License:        GPL-2.0
+License:        GPL-2.0+
 Group:          Amusements/Games/Action/Other
 Url:            http://blobby.sourceforge.net
-Source0:        http://sourceforge.net/projects/blobby/files/Blobby%20Volley%202%20%28Linux%29/1.0/%{name}2-linux-%{version}.tar.gz
+# svn checkout svn://svn.code.sf.net/p/blobby/code/trunk blobby-{version}
+# tar cfJ blobby-{version}.tar.xz blobby-{version} --exclude-vcs
+Source0:        %{name}-%{version}.tar.xz
 Source1:        %{name}.desktop
 Source2:        %{name}.png
+# PATCH-FIX-OPENSUSE vs. missing source.
+Patch0:         blobby-BotAPICalculations.diff
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 %if 0%{?suse_version} >= 1030
@@ -60,6 +64,7 @@ game in meantime.
 
 %prep
 %setup -q
+%patch0
 
 %build
 cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} .
