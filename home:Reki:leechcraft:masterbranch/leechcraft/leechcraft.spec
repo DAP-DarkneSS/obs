@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-3270-g5621455
+%define LEECHCRAFT_VERSION 0.6.70-3301-g08401c6
 
 %if 0%{?suse_version} > 1310
 %define lmp_gstreamer_1_0 1
@@ -31,9 +31,9 @@
 %endif
 
 %if 0%{?suse_version} >= 1320
-%define clang_compiler 0
+%define use_cpp14 0
 %else
-%define clang_compiler 0
+%define use_cpp14 0
 %endif
 %define poleemery 1
 
@@ -52,7 +52,7 @@ BuildRequires:  boost-devel >= 1.50
 BuildRequires:  cmake > 2.8.10
 BuildRequires:  fdupes
 BuildRequires:  file-devel
-%if %{clang_compiler}
+%if %{use_cpp14}
 BuildRequires:  gcc-c++ >= 4.9
 %else
 BuildRequires:  gcc-c++ >= 4.7
@@ -1114,7 +1114,7 @@ Requires:       libleechcraft-util-db%{so_ver}        = %{version}
 Requires:       libleechcraft-util-gui%{so_ver}_1     = %{version}
 Requires:       libleechcraft-util-models%{so_ver}    = %{version}
 Requires:       libleechcraft-util-network%{so_ver}_1 = %{version}
-Requires:       libleechcraft-util-qml%{so_ver}_1     = %{version}
+Requires:       libleechcraft-util-qml%{so_ver}_2     = %{version}
 Requires:       libleechcraft-util-shortcuts%{so_ver} = %{version}
 Requires:       libleechcraft-util-sll%{so_ver}       = %{version}
 Requires:       libleechcraft-util-svcauth%{so_ver}   = %{version}
@@ -2261,7 +2261,7 @@ with a suitable plugin like Aggregator.
  * Show results in HTML format with a suitable plugin like Poshuku.
 
 
-%if %{clang_compiler}
+%if %{use_cpp14}
 %package snails
 Summary:        LeechCraft Email client Module
 Group:          Productivity/Networking/Other
@@ -2432,7 +2432,7 @@ This package provides a Vrooby plugin for LeechCraft.
 It allows to watch removable storage devices via d-bus and udisks.
 
 
-%if %{clang_compiler}
+%if %{use_cpp14}
 %package xproxy
 Summary:        LeechCraft Proxy manager Module
 Group:          Productivity/Networking/Other
@@ -2504,11 +2504,11 @@ A library providing some useful and commonly used
 network classes and functions.
 
 
-%package -n libleechcraft-util-qml%{so_ver}_1
+%package -n libleechcraft-util-qml%{so_ver}_2
 Summary:        QML utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-qml%{so_ver}_1
+%description -n libleechcraft-util-qml%{so_ver}_2
 A library providing some useful and commonly used QML items as well as
 QML-related classes and functions.
 
@@ -2614,7 +2614,7 @@ cmake ../src \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
 %endif
-%if %{clang_compiler}
+%if %{use_cpp14}
         -DUSE_CPP14=True
 %endif
         -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
@@ -2743,7 +2743,7 @@ cmake ../src \
         -DENABLE_SCROBLIBRE=True \
         -DENABLE_SECMAN=True \
         -DENABLE_SHELLOPEN=False \
-%if %{clang_compiler}
+%if %{use_cpp14}
         -DENABLE_SNAILS=True \
 %else
         -DENABLE_SNAILS=False \
@@ -2760,7 +2760,7 @@ cmake ../src \
         -DENABLE_VTYULC=True \
         -DENABLE_VROOBY=True \
         -DENABLE_WKPLUGINS=False \
-%if %{clang_compiler}
+%if %{use_cpp14}
         -DENABLE_XPROXY=True \
 %else
         -DENABLE_XPROXY=False \
@@ -2850,10 +2850,10 @@ EOF
 %postun -n libleechcraft-util-network%{so_ver}_1
 /sbin/ldconfig
 
-%post -n libleechcraft-util-qml%{so_ver}_1
+%post -n libleechcraft-util-qml%{so_ver}_2
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-qml%{so_ver}_1
+%postun -n libleechcraft-util-qml%{so_ver}_2
 /sbin/ldconfig
 
 %post -n libleechcraft-util-shortcuts%{so_ver}
@@ -3769,7 +3769,7 @@ EOF
 %{translations_dir}/*craft_seekthru*.qm
 %{plugin_dir}/*craft_seekthru.so
 
-%if %{clang_compiler}
+%if %{use_cpp14}
 %files snails
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_snails.so
@@ -3838,7 +3838,7 @@ EOF
 %{translations_dir}/*craft_vrooby_*.qm
 %{qml_dir}/vrooby
 
-%if %{clang_compiler}
+%if %{use_cpp14}
 %files xproxy
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_xproxy.so
@@ -3876,7 +3876,7 @@ EOF
 %defattr(-,root,root)
 %{_libdir}/*-util-network*.so.*
 
-%files -n libleechcraft-util-qml%{so_ver}_1
+%files -n libleechcraft-util-qml%{so_ver}_2
 %defattr(-,root,root)
 %{_libdir}/*-util-qml*.so.*
 
