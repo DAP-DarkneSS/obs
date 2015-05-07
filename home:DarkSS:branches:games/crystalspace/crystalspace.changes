@@ -1,0 +1,255 @@
+-------------------------------------------------------------------
+Mon Jul  1 19:17:35 UTC 2013 - joop.boonen@opensuse.org
+
+- Update to version 2.0 
+
+-------------------------------------------------------------------
+Mon Jun  2 00:00:00 UTC 2008 - dominique-obs@leuenberger.net
+
+- Import into OBS
+  Spec file bases on the one of Hans
+
+-------------------------------------------------------------------
+Mon May 19 00:00:00 UTC 2008 - j.w.r.degoede@hhs.nl
+
+- Rebuild for new cegui
+- Work around redhat bugzilla bug 432185 on ppc by disabling python on ppc
+
+
+-------------------------------------------------------------------
+Sun Feb 17 00:00:00 UTC 2008 - j.w.r.degoede@hhs.nl
+
+- More fixes from review (bz 432033):
+  - Add Requires: cegui-devel and zlib-devel to -devel package
+  - Add INSTALL="install -p" to make install flags
+  - Change main package License to: GPLv2+ and GPLv2 and let all the sub-
+    packages inherent this, for details see the comments and the discussion
+    in the review (bz 432033)
+
+
+-------------------------------------------------------------------
+Thu Feb 14 00:00:00 UTC 2008 - j.w.r.degoede@hhs.nl
+
+- Fixes from review (bz 432033):
+  - Silence -utils package %%post script
+  - Fix docdir ownership
+  - Fix multilib conflicts in cs-config-1.2
+  - Add Requires: libGL-devel to -devel package
+- Disable building on ppc until redhat bug 432185 gets resolved
+- Move bindings completely to %%{_libdir} instead of only moving the .so files
+
+
+-------------------------------------------------------------------
+Wed Feb  6 00:00:00 UTC 2008 - j.w.r.degoede@hhs.nl
+
+- Initial Fedora package based on cleaned up version of spec included with
+  crystalspace
+
+
+-------------------------------------------------------------------
+Thu Aug 16 00:00:00 UTC 2007 - vknecht@users.sourceforge.net
+
+- Updated for 1.2 release.
+- Added 'fullversion' variable for doc directory naming.
+
+
+-------------------------------------------------------------------
+Sat Jul 21 00:00:00 UTC 2007 - vknecht@users.sourceforge.net
+
+- Updated for AWS stuff removal and lighter2 addition.
+- Updated for multiple install support (versioned directories and cs-config).
+
+
+-------------------------------------------------------------------
+Tue Oct 24 00:00:00 UTC 2006 - vknecht@users.sourceforge.net
+
+- Updated for SVN and new trunk version number.
+- Disabled stripping even in optimize mode, it erases .crystalspace section.
+- Disabled external debug info package generation.
+- Added BuildRequires directives.
+
+
+-------------------------------------------------------------------
+Sun Mar 19 00:00:00 UTC 2006 - vknecht@users.sourceforge.net
+
+- Added shared lib option. Note that this option makes the package unusable as
+  a SDK for now.
+
+
+-------------------------------------------------------------------
+Mon Oct 17 00:00:00 UTC 2005 - vknecht@users.sourceforge.net
+
+- Added demos subpackage, no stripping for debug build and SMP friendly macros
+  for make.
+
+
+-------------------------------------------------------------------
+Fri Sep 23 00:00:00 UTC 2005 - vknecht@users.sourceforge.net
+
+- Added 'startme' stuff.
+
+
+-------------------------------------------------------------------
+Sun Apr 24 00:00:00 UTC 2005 - vknecht@users.sourceforge.net
+
+- Removed csbumptest.cfg occurences.
+- Changed release numbering scheme so one knows the date of tested snapshot.
+- Put maps relighting in a for loop. Added terrain and terrainf to the list.
+- Changed occurences of %%{name} to %%{csprefix} where value is not dependent
+  upon package name.
+
+
+-------------------------------------------------------------------
+Fri Mar 25 00:00:00 UTC 2005 - resqu@gmx.ch
+
+- The CSWS library has been retired.
+
+
+-------------------------------------------------------------------
+Sun Feb 27 00:00:00 UTC 2005 - vknecht@users.sourceforge.net
+
+- Cleanup (using more wildcards, %%exclude and %%{_bindir}).
+
+
+-------------------------------------------------------------------
+Fri Feb 25 00:00:00 UTC 2005 - vknecht@users.sourceforge.net
+
+- Upgraded for new csplugincommon include directory.
+
+
+-------------------------------------------------------------------
+Wed Jan  5 00:00:00 UTC 2005 - vknecht@users.sourceforge.net
+
+- Made a separate package for utilities.
+
+
+-------------------------------------------------------------------
+Mon Dec 13 00:00:00 UTC 2004 - sunshine@sunshineco.com
+
+- The old-renderer has been retired.
+
+
+-------------------------------------------------------------------
+Sun Nov 28 00:00:00 UTC 2004 - sunsihne@sunshineco.com
+
+- Crystal Space now has its own domain: crystalspace3d.org.
+- New renderer is now default (configure with --enable-old-renderer for old).
+
+
+-------------------------------------------------------------------
+Mon Nov 22 00:00:00 UTC 2004 - vknecht@users.sourceforge.net
+
+- Moved cslight invokations to post-install step.
+- Changed cslight invokations to use null instead of null2d.
+
+
+-------------------------------------------------------------------
+Thu Nov  4 00:00:00 UTC 2004 - sunshine@sunshineco.com
+
+- Upgraded for new location of installed map files.
+- Improved the package descriptions.
+
+
+-------------------------------------------------------------------
+Sat Aug  7 00:00:00 UTC 2004 - vknecht@users.sourceforge.net
+
+- Upgraded for new headers installation directory.
+
+
+-------------------------------------------------------------------
+Fri Jul  9 00:00:00 UTC 2004 - vknecht@users.sourceforge.net
+
+- Simplified and re-enabled levels relighting.
+
+
+-------------------------------------------------------------------
+Thu Jul  8 00:00:00 UTC 2004 - vknecht@users.sourceforge.net
+
+- Adaptation for CS PACKAGE_NAME change.
+- Changed Group: to Development/C++
+- Disabled levels relighting since lightmaps aren't written where expected.
+
+
+-------------------------------------------------------------------
+Sun Jul  4 00:00:00 UTC 2004 - vknecht@users.sourceforge.net
+
+- Specified datadir, libdir and sysconfig switches at configure step.
+- Specified CS_CONFIGDIR in cslight commands.
+- Re-enabled levels relighting when building NR.
+
+
+-------------------------------------------------------------------
+Mon Jun 28 00:00:00 UTC 2004 - vknecht@users.sourceforge.net
+
+- Added conditional build flags to enable debug, NR and perl plugin.
+- Disabled relighting of levels when building NR. Crashes for me.
+
+
+-------------------------------------------------------------------
+Mon May 31 00:00:00 UTC 2004 - vknecht@users.sourceforge.net
+
+- Added %%files entries for .inc and .fun files in include/csutil/
+
+
+-------------------------------------------------------------------
+Tue May 11 00:00:00 UTC 2004 - vknecht@users.sourceforge.net
+
+- Prefixed source file name with URL.
+- Building is done by the make emulation layer, which will automatically
+  call system installed jam if present, or use CS provided jam.
+
+
+-------------------------------------------------------------------
+Sun May  9 00:00:00 UTC 2004 - vknecht@users.sourceforge.net
+
+- Building is done by jam provided with Crystal Space if not installed
+- Specified null2d canvas for levels relighting
+- Added %%{prefix}/include/ivaria/*.i to devel %%files section
+- Removed reference to include/csappframe/ dir
+
+
+-------------------------------------------------------------------
+Sat Feb 28 00:00:00 UTC 2004 - philip@wyett.net
+
+- Removed reference to 'include/imesh/thing/ dir.
+
+
+-------------------------------------------------------------------
+Tue Feb 10 00:00:00 UTC 2004 - sunshine@users.sourceforge.net
+
+- Unification and clean up of package descriptions.
+
+
+-------------------------------------------------------------------
+Mon Feb  9 00:00:00 UTC 2004 - vknecht@users.sourceforge.net
+
+- Using /usr for %%{prefix}
+- Fixed bogus doc package by using %%docdir instead of %%doc
+
+
+-------------------------------------------------------------------
+Sat Feb  7 00:00:00 UTC 2004 - vknecht@users.sourceforge.net
+
+- using jam to build and install
+- Update %%files section according to latest cvs snapshot
+- Use %%{prefix} instead of hardcoded /usr/local/crystal
+- splitted %%files section in multiple packages ('main', -devel, -doc)
+
+
+-------------------------------------------------------------------
+Tue Jan 14 00:00:00 UTC 2003 - sunshine@users.sourceforge.net
+
+- Upgraded for new Autoconf project configuration used by Crystal Space.
+
+
+-------------------------------------------------------------------
+Tue Dec 24 00:00:00 UTC 2002 - Che <newrpms.sunsite.dk>
+
+- Some adaptions for latest cvs tarball
+
+
+-------------------------------------------------------------------
+Thu Nov 14 00:00:00 UTC 2002 - Che <newrpms.sunsite.dk>
+
+- Initial rpm release
+
