@@ -1,7 +1,7 @@
 #
 # spec file for package haxe
 #
-# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -25,6 +25,15 @@ Group:          Development/Languages/Other
 Url:            http://www.haxe.org
 # from https://github.com/HaxeFoundation/haxe/archive/3.1.3.tar.gz
 Source0:        %{name}-%{version}.tar.gz
+# Tarball to download provides empty directories, so builds fail.
+# See more at https://github.com/HaxeFoundation/haxe/issues/4200
+# git clone git@github.com:HaxeFoundation/ocamllibs.git && cd ocamllibs
+# git archive --format=tar master | xz -z9e > ocamllibs.tar.xz
+Source1:        ocamllibs.tar.xz
+# git clone git@github.com:HaxeFoundation/haxelib.git && cd haxelib
+# git archive --format=tar master | xz -z9e > haxelib.tar.xz
+Source2:        haxelib.tar.xz
+BuildRequires:  fdupes
 BuildRequires:  nekovm
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
@@ -36,13 +45,16 @@ Haxe is an open-source high-level multiplatform programming language and compile
 
 %prep
 %setup -q
+cd libs && tar -xf %{SOURCE1} && cd ..
+cd extra/haxelib_src && tar -xf %{SOURCE2} && cd ../..
 sed -i 's,%{_libexecdir}/haxe/lib,%{_libdir}/haxe/lib,g' *.ml
 
 %build
-make %{?_smp_mflags} clean
-make %{?_smp_mflags}
+make V=1 %{?_smp_mflags} clean
+make V=1 %{?_smp_mflags} libs
+make V=1 %{?_smp_mflags}
 export HAXE_STD_PATH=$PWD/std
-make %{?_smp_mflags} tools
+make V=1 %{?_smp_mflags} tools
 
 %install
 mkdir -p %{buildroot}%{_libdir}/haxe/std
@@ -52,16 +64,13 @@ ln -s %{_libdir}/haxe %{buildroot}%{_bindir}/haxe
 echo "#!/bin/sh" > %{buildroot}%{_bindir}/haxelib
 echo 'exec haxe -cp %{_libdir}/haxe/extra/haxelib_src/src --run tools.haxelib.Main "$@"' >> %{buildroot}%{_bindir}/haxelib
 cp -R std/* %{buildroot}%{_libdir}/haxe/std
-
-%post
-
-%postun
+%fdupes -s %{buildroot}/%{_libdir}/haxe/std
 
 %files
 %defattr(-,root,root)
 %doc README.md
 %{_bindir}/haxe
-%{_bindir}/haxelib
+%attr(755,root,root) %{_bindir}/haxelib
 %{_libdir}/haxe
 
 %changelog
