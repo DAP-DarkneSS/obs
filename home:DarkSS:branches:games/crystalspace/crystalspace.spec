@@ -1,7 +1,7 @@
 #
 # spec file for package crystalspace
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,8 +16,10 @@
 #
 
 
+%define csfiles crystalspace-2.1
+
 Name:           crystalspace
-Version:        2.0
+Version:        2.0+2015.05.10
 Release:        0
 # most of crystalspace is LGPLv2+, but the sndsys class (and its plugins) and
 # the ceguitest demo are GPLv2+. The snsdsys class being GLPv2+ effectively
@@ -28,11 +30,8 @@ Summary:        Crystal Space is a free 3D engine
 License:        GPL-2.0+ and GPL-2.0
 Group:          Development/Libraries/C and C++
 Url:            http://www.crystalspace3d.org/
-Source0:        http://sourceforge.net/projects/crystal/files/crystal/2.0/crystalspace-src-2.0.tar.bz2
-# PATCH-FIX-UPSTREAM crystalspace-2.0-gcc47.patch
-Patch0:         crystalspace-2.0-gcc47.patch
-# PATCH-FIX-UPSTREAM crystalspace-2.0-ode012.patch
-Patch1:         crystalspace-2.0-ode012.patch
+Source0:        http://crystalspace3d.org/cvs-snapshots/bzip2/cs-2015-05-10.023014.tar.bz2
+
 BuildRequires:  SDL-devel
 BuildRequires:  alsa-lib-devel
 BuildRequires:  assimp-devel
@@ -110,22 +109,20 @@ Documentation (manual and public API reference)
 for Crystal Space free 3D SDK.
 
 %prep
-%setup -q -n %{name}-src-%{version}
-%patch0 -p1
-%patch1 -p1
+%setup -q -n CS
 
 %build
 export CFLAGS="%{optflags}"
 export CXXFLAGS="%{optflags}"
 %configure --enable-shared --enable-mode=debug --disable-separate-debug-info \
   --enable-cpu-specific-optimizations=no --disable-meta-info-embedding
-make %{?_smp_mflags}
+make V=1 %{?_smp_mflags}
 
 %install
-make DESTDIR=%{buildroot} install
+make V=1 DESTDIR=%{buildroot} install
 
-mv %{buildroot}%{_datadir}/%{name}-%{version}/bindings \
-  %{buildroot}%{_libdir}/%{name}-%{version}
+mv %{buildroot}%{_datadir}/%{csfiles}/bindings \
+  %{buildroot}%{_libdir}/%{csfiles}
 
 %post -p /sbin/ldconfig
 
@@ -138,63 +135,59 @@ done
 
 %files
 %defattr(-,root,root,-)
-%doc %dir %{_datadir}/doc/%{name}-%{version}
-%doc %{_datadir}/doc/%{name}-%{version}/LICENSE
-%doc %{_datadir}/doc/%{name}-%{version}/README
-%doc %{_datadir}/doc/%{name}-%{version}/history*
-%config(noreplace) %{_sysconfdir}/%{name}-%{version}
+%doc %dir %{_datadir}/doc/%{csfiles}
+%doc %{_datadir}/doc/%{csfiles}/LICENSE
+%doc %{_datadir}/doc/%{csfiles}/README
+%doc %{_datadir}/doc/%{csfiles}/history*
+%config(noreplace) %{_sysconfdir}/%{csfiles}
 %{_libdir}/*.so
-%{_libdir}/%{name}-%{version}
-%{_datadir}/%{name}-%{version}
-%exclude %{_datadir}/%{name}-%{version}/data/config-app/autoexec.cfg
-%exclude %{_datadir}/%{name}-%{version}/data/config-app/g2dtest.cfg
-%exclude %{_datadir}/%{name}-%{version}/data/config-app/heightmapgen.cfg
-%exclude %{_datadir}/%{name}-%{version}/data/config-app/lighter2.cfg
-%exclude %{_datadir}/%{name}-%{version}/data/config-app/startme.cfg
-%exclude %{_datadir}/%{name}-%{version}/data/config-app/walktest.cfg
-%exclude %{_datadir}/%{name}-%{version}/data/config-app/waterdemo.cfg
-%exclude %{_datadir}/%{name}-%{version}/conversion
-%exclude %{_datadir}/%{name}-%{version}/build
-%exclude %{_datadir}/%{name}-%{version}/data/startme.zip
-%exclude %{_datadir}/%{name}-%{version}/data/ceguitest
-%exclude %{_datadir}/%{name}-%{version}/data/maps
-%exclude %{_libdir}/%{name}-%{version}/bindings
+%{_libdir}/%{csfiles}
+%{_datadir}/%{csfiles}
+%exclude %{_datadir}/%{csfiles}/data/config-app/autoexec.cfg
+%exclude %{_datadir}/%{csfiles}/data/config-app/g2dtest.cfg
+%exclude %{_datadir}/%{csfiles}/data/config-app/heightmapgen.cfg
+%exclude %{_datadir}/%{csfiles}/data/config-app/lighter2.cfg
+%exclude %{_datadir}/%{csfiles}/data/config-app/startme.cfg
+%exclude %{_datadir}/%{csfiles}/data/config-app/walktest.cfg
+%exclude %{_datadir}/%{csfiles}/data/config-app/waterdemo.cfg
+%exclude %{_datadir}/%{csfiles}/conversion
+%exclude %{_datadir}/%{csfiles}/build
+%exclude %{_datadir}/%{csfiles}/data/startme.zip
+%exclude %{_datadir}/%{csfiles}/data/ceguitest
+%exclude %{_datadir}/%{csfiles}/data/maps
+%exclude %{_libdir}/%{csfiles}/bindings
 %{_libdir}/python2.7
 
 %files utils
 %defattr(-,root,root,-)
-%{_datadir}/%{name}-%{version}/data/config-app/autoexec.cfg
-%{_datadir}/%{name}-%{version}/data/config-app/heightmapgen.cfg
-%{_datadir}/%{name}-%{version}/data/config-app/lighter2.cfg
-%{_datadir}/%{name}-%{version}/data/config-app/walktest.cfg
+%{_datadir}/%{csfiles}/data/config-app/autoexec.cfg
+%{_datadir}/%{csfiles}/data/config-app/heightmapgen.cfg
+%{_datadir}/%{csfiles}/data/config-app/lighter2.cfg
+%{_datadir}/%{csfiles}/data/config-app/walktest.cfg
 %{_bindir}/*
 %exclude %{_bindir}/cs-config*
-%exclude %{_bindir}/ceguitest*
-%exclude %{_bindir}/startme*
-%{_datadir}/%{name}-%{version}/data/maps
-%{_datadir}/%{name}-%{version}/conversion
+%{_datadir}/%{csfiles}/data/maps
+%{_datadir}/%{csfiles}/conversion
 
 %files demos
 %defattr(-,root,root,-)
-%{_datadir}/%{name}-%{version}/data/config-app/g2dtest.cfg
-%{_datadir}/%{name}-%{version}/data/config-app/startme.cfg
-%{_datadir}/%{name}-%{version}/data/config-app/waterdemo.cfg
-%{_bindir}/ceguitest*
-%{_bindir}/startme*
-%{_datadir}/%{name}-%{version}/data/startme.zip
-%{_datadir}/%{name}-%{version}/data/ceguitest
+%{_datadir}/%{csfiles}/data/config-app/g2dtest.cfg
+%{_datadir}/%{csfiles}/data/config-app/startme.cfg
+%{_datadir}/%{csfiles}/data/config-app/waterdemo.cfg
+%{_datadir}/%{csfiles}/data/startme.zip
+%{_datadir}/%{csfiles}/data/ceguitest
 
 %files doc
 %defattr(-,root,root,-)
-%doc %dir %{_datadir}/doc/%{name}-%{version}
-%doc %{_datadir}/doc/%{name}-%{version}/html
+%doc %dir %{_datadir}/doc/%{csfiles}
+%doc %{_datadir}/doc/%{csfiles}/html
 
 %files devel
 %defattr(-,root,root,-)
 %{_bindir}/cs-config*
 # (vk) Scripting related files are here for now
-%{_libdir}/%{name}-%{version}/bindings
-%{_datadir}/%{name}-%{version}/build
-%{_includedir}/%{name}-%{version}
+%{_libdir}/%{csfiles}/bindings
+%{_datadir}/%{csfiles}/build
+%{_includedir}/%{csfiles}
 
 %changelog

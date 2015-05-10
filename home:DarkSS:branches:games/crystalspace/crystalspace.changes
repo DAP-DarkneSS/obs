@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Thu May  7 16:22:49 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 2.1 development snapshot 2015-05-10
+  to resolve build issues.
+- Removed merged patches:
+  * crystalspace-2.0-gcc47.patch
+  * crystalspace-2.0-ode012.patch
+- Switched from tarball to _service.
+- Let make be verbose.
+
+-------------------------------------------------------------------
 Mon Jul  1 19:17:35 UTC 2013 - joop.boonen@opensuse.org
 
 - Update to version 2.0 
