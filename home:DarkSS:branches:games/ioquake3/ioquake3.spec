@@ -1,7 +1,7 @@
 #
 # spec file for package ioquake3
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -24,8 +24,8 @@
 %endif
 
 Name:           ioquake3
-BuildRequires:  SDL-devel
 BuildRequires:  curl-devel
+BuildRequires:  pkgconfig(sdl2)
 %if 0%{?suse_version} <= 1220
 BuildRequires:  libopenal1
 %endif
@@ -45,16 +45,18 @@ BuildRequires:  openal
 BuildRequires:  loki_setup
 BuildRequires:  xdg-utils
 %endif
-Url:            http://icculus.org/quake3/
+Url:            http://ioquake3.org
 # don't forget to change the version in the win32 spec file as well!
-Version:        1.36
+Version:        1.36+git2015.04.30
 Release:        0
 Summary:        Quake III
 License:        GPL-2.0+
 Group:          Amusements/Games/3D/Shoot
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-Source:         ioquake3-%{version}.tar.bz2
-Patch0:         ioquake3-1.36-strcpy.diff
+# git clone git@github.com:ioquake/ioq3.git && cd ioq3
+# git archive --prefix="ioquake3-{version}/" --format=tar \
+# master | xz -z9e > ioquake3-{version}.tar.xz
+Source:         ioquake3-%{version}.tar.xz
 %if %{with installer}
 Recommends:     openal
 %endif
@@ -104,7 +106,6 @@ Authors:
 %endif
 %prep
 %setup -q
-%patch0 -p1
 rm -rf code/SDL12 code/libs code/AL
 
 %build
@@ -188,7 +189,7 @@ echo 'copy pak[0-8].pk3 to /usr/lib/ioquake3/baseq3/'
 %if !%{with installeronly}
 %files
 %defattr(-,root,root)
-%doc COPYING.txt README id-readme.txt
+%doc COPYING.txt README* id-readme.txt
 %doc voip-readme.txt
 %{_bindir}/ioq*
 %{_prefix}/lib/ioquake3

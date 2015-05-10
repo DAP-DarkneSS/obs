@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun May 10 19:23:38 UTC 2015 - dap.darkness@gmail.com
+
+- Updated from git#2292bf5bb2e3178674492d4dfd46b63515d0abe1
+  to resolve *64 build issue.
+- Removed merged ioquake3-1.36-strcpy.diff.
+
+-------------------------------------------------------------------
 Wed Dec 26 11:42:04 UTC 2012 - joop.boonen@opensuse.org
 
 - openal-devel is now called openal-soft-devel 
