@@ -1,0 +1,57 @@
+-------------------------------------------------------------------
+Thu Feb 20 21:21:35 UTC 2014 - dimstar@opensuse.org
+
+- Add fixed texture.png and inject into source directory
+  (bnc#864176).
+
+-------------------------------------------------------------------
+Tue May 15 20:18:32 UTC 2012 - joop.boonen@opensuse.org
+
+- Added a gcc 4.7 patch
+- Added the URL of the web page
+- Cleaned the spec file up
+
+-------------------------------------------------------------------
+Sat Jul  2 15:50:30 UTC 2011 - jengelh@medozas.de
+
+- Use %_smp_mflags for parallel building
+- Strip %clean section (not needed on BS)
+
+-------------------------------------------------------------------
+Wed Jul 21 00:00:00 IRKST 2010 - highwaystar.ru@gmail.com
+
+- upgrade to version 0.0.6.2
+- fixed link error with --as-needed build
+- fixed some rpmlint warnings in spec file
+- .changes file added
+
+-------------------------------------------------------------------
+Fri Nov 28 00:00:00 IRKT 2008 - dominique-rpm@leuenberger.net
+
+- Upgrade to 0.0.6.1 stable.
+
+-------------------------------------------------------------------
+Sun Oct  5 00:00:00 IRKST 2008 - dominique-rpm@leuenberger.net
+
+- Add call to suse_update_desktop_file for new Factory checks
+
+-------------------------------------------------------------------
+Sun Jan 13 00:00:00 IRKT 2008 - dominique-rpm@leuenberger.net
+
+- Upgrade to 0.0.5.1 stable.
+
+-------------------------------------------------------------------
+Thu Dec  6 00:00:00 IRKT 2007 - dominique-rpm@leuenberger.net
+
+- Upgraded to 0.0.5stable
+
+-------------------------------------------------------------------
+Thu Oct 26 00:00:00 IRKST 2006 - dominique-rpm@leuenberger.net
+
+- Upgraded to the 0.0.4stable branch
+
+-------------------------------------------------------------------
+Fri Oct 20 00:00:00 IRKST 2006 - dominique-rpm@leuenberger.net
+
+- Initial release of 0.0.4beta
+
