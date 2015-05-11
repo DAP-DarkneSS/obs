@@ -1,0 +1,21 @@
+From: Markus Koschany <apo@gambaru.de>
+Date: Mon, 2 Jun 2014 23:50:54 +0200
+Subject: no pedantic errors
+
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 1a0590d..31c8130 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -199,7 +199,7 @@ dnl ===========================================================================
+ dnl Set the compiler and the linker options
+ dnl ===========================================================================
+ dnl Set C / C++ compiler options
+-CPPFLAGS="-Wall -Wmissing-braces -Wparentheses -pedantic-errors $CPPFLAGS"
++CPPFLAGS="-Wall -Wmissing-braces -Wparentheses $CPPFLAGS"
+ 
+ dnl Set more C / C++ compiler options
+ CPPFLAGS="-I$with_gl_prefix/include $enable_gprof $enable_debug $CPPFLAGS"
