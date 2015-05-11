@@ -1,7 +1,7 @@
 #
 # spec file for package pioneer
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           pioneer
-Version:        20141115
+Version:        20150509
 Release:        0
 Summary:        A game of lonely space adventure
 License:        GPL-3.0
@@ -27,25 +27,27 @@ Source:         https://github.com/pioneerspacesim/%{name}/archive/%{version}.ta
 Source1:        pioneer.png
 Source2:        pioneer.desktop
 BuildRequires:  automake
-BuildRequires:  gcc-c++
 BuildRequires:  fdupes
-BuildRequires:  pkg-config
-BuildRequires:  pkgconfig(sigc++-1.2)
-BuildRequires:  pkgconfig(sigc++-2.0)
+BuildRequires:  gcc-c++
 BuildRequires:  make
+BuildRequires:  pkg-config
 BuildRequires:  pkgconfig(SDL2_image)
-BuildRequires:  pkgconfig(sdl2)
+BuildRequires:  pkgconfig(assimp) >= 3.0
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gl)
+BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libpng)
+BuildRequires:  pkgconfig(sdl2)
+BuildRequires:  pkgconfig(sigc++-1.2)
+BuildRequires:  pkgconfig(sigc++-2.0)
 BuildRequires:  pkgconfig(vorbis)
 BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(assimp) >= 3.0
 %if 0%{?suse_version}
 BuildRequires:  update-desktop-files
 %endif
 BuildRequires:  hicolor-icon-theme
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+Requires:       %{name}-data = %{version}
 
 %description
 Pioneer is a space adventure game set in our galaxy at the turn of the 31st century.
@@ -55,6 +57,15 @@ existence you can think of. Look for fame or fortune by exploring the millions o
 star systems. Turn to a life of crime as a pirate, smuggler or bounty hunter. Forge
 and break alliances with the various factions fighting for power, freedom or self-
 determination. The universe is whatever you make of it.
+
+%package data
+Summary:        Pioneer: art and other architecture independent data
+Group:          Amusements/Games/3D/Simulation
+Requires:       %{name} = %{version}
+BuildArch:      noarch
+
+%description data
+Pioneer is a space adventure game set in our galaxy at the turn of the 31st century.
 
 %prep
 %setup -q
@@ -88,8 +99,11 @@ find "%{buildroot}%{_datadir}/%{name}" -type f -name ".gitignore" -exec rm {} \;
 %files
 %defattr(-,root,root,-)
 %{_bindir}/*
-%{_datadir}/%{name}
 %{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %{_datadir}/applications/%{name}.desktop
+
+%files data
+%defattr(-,root,root,-)
+%{_datadir}/%{name}
 
 %changelog

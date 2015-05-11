@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Mon May 11 19:47:20 UTC 2015 - dap.darkness@gmail.com
+
+- Updated to 20150509:
+  * too many words.
+- Introduced noarch data subpackage.
+- Tarball was replaced by _service.
+
+-------------------------------------------------------------------
 Sun Nov 16 19:20:10 UTC 2014 - mailaender@opensuse.org
 
 - initial packaging
