@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Mon Oct 28 19:08:11 UTC 2013 - sbahling@suse.com
+
+- Remove doc subpackage
+
+-------------------------------------------------------------------
+Mon Oct 28 18:00:17 UTC 2013 - sbahling@suse.com
+
+- Update spec file. 
+  * Use new cabal-rpm template
+  * Builds for SUSE Linux Enterprise 11
+
+-------------------------------------------------------------------
 Thu Aug  1 16:16:24 UTC 2013 - dap.darkness@gmail.com
 
 - Update to upstream version 0.6.5:
