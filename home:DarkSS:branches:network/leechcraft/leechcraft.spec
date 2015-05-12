@@ -16,12 +16,13 @@
 #
 
 
-%define plugin_dir %{_libdir}/%{name}/plugins
-%define translations_dir %{_datadir}/%{name}/translations
-%define settings_dir %{_datadir}/%{name}/settings
-%define azoth_dir %{_datadir}/%{name}/azoth
+%define plugin_dir %{_libdir}/leechcraft/plugins
+%define translations_dir %{_datadir}/leechcraft/translations
+%define settings_dir %{_datadir}/leechcraft/settings
+%define qml_dir %{_datadir}/leechcraft/qml
 
-%define so_ver 0_6_70
+%define so_ver 0_6_75
+%define LEECHCRAFT_VERSION 0.6.70-2742-gfaed6e2
 
 %if 0%{?suse_version} > 1310
 %define lmp_gstreamer_1_0 1
@@ -30,62 +31,53 @@
 %endif
 
 Name:           leechcraft
-Version:        0.6.70
+Version:        0.6.70+git.2742.gfaed6e2
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
-Source0:        http://dist.leechcraft.org/LeechCraft/%{version}/leechcraft-%{version}.tar.xz
 
-# PATCH-FIX-OPENSUSE to prevent oS 12.2' gcc build issue:
-# "error: the value of 'w' is not usable in a constant expression".
-Patch1:         leechcraft-azoth-gcc47.patch
-# PATCH-FIX-OPENSUSE vs. names constructor error.
-Patch3:         leechcraft-monocle-gcc47.patch
-# PATCH-FIX-OPENSUSE vs. names constructor error.
-Patch4:         leechcraft-gcc47.patch
+Source0:        http://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
 
 BuildRequires:  Qross-devel
-%if 0%{?suse_version} > 1230
 BuildRequires:  boost-devel >= 1.50
-%else
-BuildRequires:  boost-devel
-%endif
-%ifarch x86_64
 BuildRequires:  cmake > 2.8.10
-%else
-BuildRequires:  cmake > 2.8
-%endif
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 BuildRequires:  gcc-c++ >= 4.7
 BuildRequires:  hicolor-icon-theme
-%if 0%{?suse_version} > 1230
+%if 0%{?suse_version} == 1310
+%ifarch %ix86 x86_64 %arm
 BuildRequires:  jbig2dec-devel
 %endif
-BuildRequires:  libjpeg-devel
-BuildRequires:  liblastfm-devel
-%if 0%{?suse_version} > 1220
-BuildRequires:  libotr-devel
 %endif
+BuildRequires:  libjpeg-devel
+%if 0%{?suse_version} != 1315
+BuildRequires:  liblastfm-devel
+%endif
+BuildRequires:  libotr-devel
 BuildRequires:  libqscintilla-devel
 BuildRequires:  libqt4-sql
-%if 0%{?suse_version} > 1310
+%if 0%{?suse_version} >= 1320
 BuildRequires:  libqxt-devel
 %endif
 BuildRequires:  libsensors4-devel
+%if 0%{?suse_version} != 1315
 BuildRequires:  libtidy-devel
+%endif
 %if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
 BuildRequires:  mupdf-devel-static
 %endif
 %endif
+%if 0%{?suse_version} != 1315
 BuildRequires:  qwt6-devel
-%if 0%{?suse_version} > 1310
+%endif
+%if 0%{?suse_version} > 1315
 BuildRequires:  wt-devel >= 3.3
 %endif
-%if 0%{?suse_version} > 1310
+%if 0%{?suse_version} > 1315
 BuildRequires:  pkgconfig(TelepathyQt4)
 %endif
 BuildRequires:  pkgconfig(QJson) >= 0.8.1
@@ -93,16 +85,14 @@ BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(QtWebKit)
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(ddjvuapi)
-%if 0%{?suse_version} >= 1310
 BuildRequires:  pkgconfig(geoip)
-%endif
-%if 0%{?suse_version} >= 1230
 BuildRequires:  pkgconfig(libidn)
-%endif
 BuildRequires:  pkgconfig(libmtp)
 BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libpcre)
+%if 0%{?suse_version} != 1315
 BuildRequires:  pkgconfig(libprojectM)
+%endif
 BuildRequires:  pkgconfig(phonon)
 BuildRequires:  pkgconfig(purple)
 BuildRequires:  pkgconfig(speex)
@@ -121,20 +111,16 @@ BuildConflicts: libgstreamer-1_0-0
 BuildRequires:  pkgconfig(hunspell)
 BuildRequires:  pkgconfig(kqoauth)
 BuildRequires:  pkgconfig(libcurl)
-%if 0%{?suse_version} > 1230
 BuildRequires:  pkgconfig(libguess)
-%endif
 %if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
 BuildRequires:  pkgconfig(libopenjpeg)
 %endif
 %endif
 BuildRequires:  pkgconfig(libqrencode)
-%if 0%{?suse_version} >= 1310
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.16
-%endif
 BuildRequires:  pkgconfig(libudev)
-%if 0%{?suse_version} > 1230
+%if 0%{?suse_version} != 1315
 BuildRequires:  pkgconfig(libvlc)
 %endif
 BuildRequires:  pkgconfig(poppler-cpp)
@@ -148,10 +134,22 @@ BuildRequires:  pkgconfig(xkbfile)
 BuildRequires:  pkgconfig(xrender)
 
 Requires:       oxygen-icon-theme
+Recommends:     %{name}-advancednotifications
+Recommends:     %{name}-azoth-acetamide
+Recommends:     %{name}-azoth-xoox
+Recommends:     %{name}-bittorrent
+Recommends:     %{name}-blogique
+Recommends:     %{name}-dolozhee
+Recommends:     %{name}-lackman
+Recommends:     %{name}-scrobbler
+Suggests:       %{name}-lastfmscrobble
+Recommends:     %{name}-monocle
+Recommends:     %{name}-netstoremanager
+Recommends:     %{name}-newlife
+Recommends:     %{name}-poshuku
+Recommends:     %{name}-secman-simplestorage
+Recommends:     %{name}-visualnotifications
 
-%if 0%{?suse_version} < 1310
-Obsoletes:      %{name}-bittorrent
-%endif
 Obsoletes:      %{name}-choroid
 Obsoletes:      %{name}-eiskaltdcpp
 Obsoletes:      %{name}-hotsensors
@@ -240,7 +238,7 @@ work, a script provider like Qrosp should be installed. Please refer to the
 guide to writing recipes if you are interested in writing your own ones.
 
 
-%if 0%{?suse_version} >= 1310
+%if 0%{?suse_version} > 1315
 %package aggregator-webaccess
 Summary:        LeechCraft Aggregator - Web Interface Module
 License:        BSL-1.0
@@ -308,13 +306,25 @@ XMPP protocol, aiming to provide extensive and full support for XMPP while
 remaining usable for other protocols.
 
 
+%package azoth-abbrev
+Summary:        LeechCraft Azoth - Abbreviations Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-azoth-protocolplugin = %{version}
+Suggests:       %{name}-xoox
+Recommends:     %{name}-acetamide
+Recommends:     %{name}-xoox
+
+%description azoth-abbrev
+This package provides abbreviations via commands like /abbrev, /unabbrev
+and /listabbrevs for LeechCraft Azoth.
+
+
 %package azoth-acetamide
 Summary:        LeechCraft Azoth - IRC Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
-Provides:       %{name}-acetamine = %{version}
-Obsoletes:      %{name}-acetamine < %{version}
 Provides:       %{name}-azoth-protocolplugin
 Recommends:     %{name}-azoth-mucommands
 
@@ -339,7 +349,7 @@ Provides:       %{name}-azoth-chatstyler
 This package provides an Adium styles support plugin for LeechCraft Azoth.
 
 
-%if 0%{?suse_version} > 1310
+%if 0%{?suse_version} > 1315
 %package azoth-astrality
 Summary:        LeechCraft Azoth - Telepathy Module
 License:        BSL-1.0
@@ -539,7 +549,6 @@ see nice rendered formulas instead of raw LaTeX code, even if their client
 doesn't have a LaTeX formatter.
 
 
-%if 0%{?suse_version} >= 1230
 %package azoth-mucommands
 Summary:        LeechCraft Azoth - Conference-oriented Commands Module
 License:        BSL-1.0
@@ -552,7 +561,7 @@ Recommends:     %{name}-xoox
 %description azoth-mucommands
 This package provides some common conference-oriented commands like
 /vcard, /time, /last, /subject, /kick, /ban and so on for LeechCraft Azoth.
-%endif
+
 
 %package azoth-murm
 Summary:        LeechCraft Azoth - VKontakte Module
@@ -578,7 +587,6 @@ This package provides an emoticons plugin for LeechCraft Azoth.
 It allows to use emoticons packs in Psi+, Kopete and own format.
 
 
-%if 0%{?suse_version} > 1220
 %package azoth-otroid
 Summary:        LeechCraft Azoth - Off-the-Record Module
 License:        BSL-1.0
@@ -587,7 +595,7 @@ Requires:       %{name}-azoth = %{version}
 
 %description azoth-otroid
 This package provides support Off-the-Record messaging for LeechCraft Azoth.
-%endif
+
 
 %package azoth-rosenthal
 Summary:        LeechCraft Azoth - Spell Checker Module
@@ -670,8 +678,6 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Recommends:     libkqoauth0 >= 0.98
-Provides:       %{name}-woodpecker = %{version}
-Obsoletes:      %{name}-woodpecker < %{version}
 
 %description azoth-woodpecker
 This package provides a Twitter Client plugin for LeechCraft.
@@ -721,7 +727,6 @@ This package provides a tune publishing plugin for LeechCraft Azoth.
 It allows to publish current user tune.
 
 
-%if 0%{?suse_version} >= 1310
 %package bittorrent
 Summary:        LeechCraft BitTorrent client Module
 License:        BSL-1.0
@@ -750,7 +755,7 @@ Features
  * IP filter to block/unblock unwanted peers.
  * Support for extension protocol
 etc.
-%endif
+
 
 %package blasq
 Summary:        LeechCraft Image storages Module
@@ -766,7 +771,7 @@ It supports different cloud image storages like Picasa or Flick.
 
 
 %package blasq-deathnote
-Summary:        LeechCraft DeathNote - LiveJournal FotoBilder client Module
+Summary:        LeechCraft Blasq - LiveJournal FotoBilder client Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name}-blasq = %{version}
@@ -790,7 +795,7 @@ for LeechCraft Blasq.
 
 
 %package blasq-vangog
-Summary:        LeechCraft Picasa - Flickr client Module
+Summary:        LeechCraft Blasq - Picasa client Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name}-blasq = %{version}
@@ -819,9 +824,7 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-blogique-subplugin = %{version}
-%if 0%{?suse_version} >= 1230
 Recommends:     %{name}-lhtr
-%endif
 
 %description blogique
 This package provides a modular Blogging client plugin for LeechCraft.
@@ -930,21 +933,24 @@ License:        BSL-1.0
 Group:          Development/Libraries/Other
 Requires:       %{name} = %{version}
 Requires:       cmake
-Requires:       lib%{name}-util-db%{so_ver}        = %{version}
-Requires:       lib%{name}-util-gui%{so_ver}       = %{version}
-Requires:       lib%{name}-util-models%{so_ver}    = %{version}
-Requires:       lib%{name}-util-network%{so_ver}   = %{version}
-Requires:       lib%{name}-util-qml%{so_ver}       = %{version}
-Requires:       lib%{name}-util-shortcuts%{so_ver} = %{version}
-Requires:       lib%{name}-util-sll%{so_ver}       = %{version}
-Requires:       lib%{name}-util-svcauth%{so_ver}   = %{version}
-Requires:       lib%{name}-util-sys%{so_ver}       = %{version}
-Requires:       lib%{name}-util-tags%{so_ver}      = %{version}
-Requires:       lib%{name}-util-x11-%{so_ver}       = %{version}
-Requires:       lib%{name}-util-xdg%{so_ver}       = %{version}
-Requires:       lib%{name}-util-xpc%{so_ver}       = %{version}
-Requires:       lib%{name}-util-xsd%{so_ver}       = %{version}
+Requires:       libleechcraft-util-db%{so_ver}        = %{version}
+Requires:       libleechcraft-util-gui%{so_ver}       = %{version}
+Requires:       libleechcraft-util-models%{so_ver}    = %{version}
+Requires:       libleechcraft-util-network%{so_ver}_1 = %{version}
+Requires:       libleechcraft-util-qml%{so_ver}_1     = %{version}
+Requires:       libleechcraft-util-shortcuts%{so_ver} = %{version}
+Requires:       libleechcraft-util-sll%{so_ver}       = %{version}
+Requires:       libleechcraft-util-svcauth%{so_ver}   = %{version}
+Requires:       libleechcraft-util-sys%{so_ver}_1     = %{version}
+Requires:       libleechcraft-util-tags%{so_ver}_1    = %{version}
+Requires:       libleechcraft-util-x11-%{so_ver}      = %{version}
+Requires:       libleechcraft-util-xdg%{so_ver}       = %{version}
+Requires:       libleechcraft-util-xpc%{so_ver}_2     = %{version}
+Requires:       libleechcraft-util-xsd%{so_ver}       = %{version}
 Requires:       pkgconfig(QtWebKit)
+Recommends:     leechcraft-azoth-doc
+Recommends:     leechcraft-doc
+Recommends:     leechcraft-monocle-doc
 
 %description devel
 This package provides files required for development for LeechCraft.
@@ -1145,7 +1151,6 @@ Requires:       %{name}-lmp = %{version}
 This package provides a radio streams provider plugin for LeechCraft.
 
 
-%if 0%{?suse_version} > 1230
 %package htthare
 Summary:        LeechCraft Http Server Module
 License:        BSL-1.0
@@ -1155,7 +1160,7 @@ Requires:       %{name} = %{version}
 %description htthare
 This package provides content from local filesystem over LANs (and
 possibly WANs, but by default only LAN interfaces are listened on).
-%endif
+
 
 %package imgaste
 Summary:        LeechCraft Image Paster Module
@@ -1164,7 +1169,17 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
 %description imgaste
-This module provides a simple image paster plugin from LeechCraft
+This module provides a simple image paster plugin from LeechCraft.
+
+
+%package intermutko
+Summary:        LeechCraft HTTP Accept-Language header Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description intermutko
+This module provides a HTTP Accept-Language header configurator.
 
 
 %package kbswitch
@@ -1173,11 +1188,9 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       setxkbmap
-Provides:       %{name}-keyboardcraft = %{version}
-Obsoletes:      %{name}-keyboardcraft < %{version}
 
 %description kbswitch
-This module allow change keyboard layouts from LeechCraft
+This module allows change keyboard layouts from LeechCraft.
 
 
 %package kinotify
@@ -1253,6 +1266,7 @@ Features:
  * Is a crossplatform package manager.
 
 
+%if 0%{?suse_version} != 1315
 %package lastfmscrobble
 Summary:        LeechCraft Last.FM Scrobble Module
 License:        BSL-1.0
@@ -1278,7 +1292,7 @@ Features:
  * Fetching recent releases of artists that are in the user's collection.
  * Fetching artists biography.
  * Configurable language of the fetched information.
-
+%endif
 
 %package laughty
 Summary:        LeechCraft Notifications Server Module
@@ -1302,6 +1316,7 @@ Requires:       %{name}-sb = %{version}
 This package provides a third-party application launcher plugin for Leechcraft.
 
 
+%if 0%{?suse_version} != 1315
 %package lemon
 Summary:        LeechCraft Network Monitor Module
 License:        BSL-1.0
@@ -1311,9 +1326,8 @@ Requires:       %{name}-sb = %{version}
 
 %description lemon
 This package provides another Network Monitor plugin for Leechcraft.
+%endif
 
-
-%if 0%{?suse_version} >= 1230
 %package lhtr
 Summary:        LeechCraft HTML WYSIWYG editor Module
 License:        BSL-1.0
@@ -1325,8 +1339,9 @@ Recommends:     %{name}-poshuku
 This package provides a HTML WYSIWYG editor plugin for Leechcraft.
 
 It can be usable with mail and blog modules.
-%endif
 
+
+%if 0%{?suse_version} != 1315
 %package liznoo
 Summary:        LeechCraft Power managment module
 License:        BSL-1.0
@@ -1349,7 +1364,7 @@ reconnect properly on startup.
  * Allows user to easily sleep/hibernate the system.
  * Notifies user when device starts discharging or charging.
  * Notifies user on low power level.
-
+%endif
 
 %package lmp
 Summary:        LeechCraft Media player Module
@@ -1362,14 +1377,13 @@ Recommends:     %{name}-scrobbler
 Suggests:       %{name}-lastfmscrobble
 Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
-%if %{lmp_gstreamer_1_0}
+%if 0%{?suse_version} > 1310
 Requires:       gstreamer-plugins-base >= 1.0
 Requires:       gstreamer-plugins-good >= 1.0
-Recommends:     gstreamer-plugins-bad >= 1.0
+Recommends:     gstreamer-fluendo-mp3
 %else
 Requires:       gstreamer-0_10-plugins-base
 Requires:       gstreamer-0_10-plugins-good
-Recommends:     gstreamer-0_10-plugins-bad
 Recommends:     gstreamer-0_10-plugins-fluendo_mp3
 %endif
 Provides:       %{name}-audioplayer
@@ -1388,12 +1402,12 @@ Features:
  * Support for automatic podcast playing (with a plugin like Aggregator).
 
 
-%if 0%{?suse_version} >= 1230
 %package lmp-brainslugz
 Summary:        LeechCraft Collection Checker Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
-Requires:       %{name}-lastfmscrobble = %{version}
+Requires:       %{name}-scrobbler = %{version}
+Suggests:       %{name}-lastfmscrobble = %{version}
 Requires:       %{name}-lmp = %{version}
 Requires:       %{name}-musiczombie = %{version}
 
@@ -1401,7 +1415,7 @@ Requires:       %{name}-musiczombie = %{version}
 This package provides a collection checker plugin for LeechCraft.
 
 It allows to check collection completeness.
-%endif
+
 
 %package lmp-dumbsync
 Summary:        LeechCraft Media syncing Module
@@ -1481,6 +1495,17 @@ Requires:       %{name}-lmp = %{version}
 This package allows to sync with MTP devices via LeechCraft.
 
 
+%if 0%{?suse_version} != 1315
+%package lmp-potorchu
+Summary:        LeechCraft Visualization Effects Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+
+%description lmp-potorchu
+This package provides visualization effects for LeechCraft audio player.
+%endif
+
 %package mellonetray
 Summary:        LeechCraft Tray Area Module
 License:        BSL-1.0
@@ -1493,7 +1518,6 @@ This package provides a tray area quark for third-party apps
 for LeechCraft SB2.
 
 
-%if 0%{?suse_version} >= 1230
 %package monocle
 Summary:        LeechCraft Document viewer Module
 License:        BSL-1.0
@@ -1535,7 +1559,7 @@ This package contains a MOBI subplugin for LeechCraft Monocle.
 This package provides MOBI documents support for Document viewer Module.
 
 
-%if 0%{suse_version} == 1310
+%if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
 %package monocle-mu
 Summary:        LeechCraft Monocle - Another PDF Module
@@ -1588,7 +1612,6 @@ This package provides PostScript documents support for Document viewer Module
 via ghostscript utils and any Monocle Pdf plugin.
 
 
-
 %package monocle-seen
 Summary:        LeechCraft Monocle - Djvu Module
 License:        BSL-1.0
@@ -1602,7 +1625,7 @@ This package contains a Djvu subplugin for LeechCraft Monocle.
 
 This package provides Djvu documents support for Document viewer Module
 via the DjvuLibre backend.
-%endif
+
 
 %package musiczombie
 Summary:        LeechCraft Azoth - MusicBrainz.org client Module
@@ -1621,7 +1644,6 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-netstoremanager-subplugin
-Obsoletes:      %{name}-netstoremanager-yandexdisk
 
 %description netstoremanager
 This package provides a network storage plugin for Leechcraft.
@@ -1648,7 +1670,7 @@ Requires:       %{name}-netstoremanager = %{version}
 Provides:       %{name}-netstoremanager-subplugin
 
 %description netstoremanager-googledrive
-This package provides a Google Drive sunplugin for Leechcraft NetStoreManager.
+This package provides a Google Drive subplugin for Leechcraft NetStoreManager.
 
 
 %package networkmonitor
@@ -1720,8 +1742,6 @@ Summary:        LeechCraft Pinning tabs Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Provides:       %{name}-poshuku-pintab = %{version}
-Obsoletes:      %{name}-poshuku-pintab < %{version}
 
 %description pintab
 This package provides a pinning tab module for LeechCraft.
@@ -1735,8 +1755,6 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Recommends:     %{name}-poshuku = %{version}
-Obsoletes:      %{name}-poshuku-pogooglue < %{version}
-Provides:       %{name}-poshuku-pogooglue = %{version}
 
 %description pogooglue
 This package provides an instant search plugin for LeechCraft.
@@ -1766,15 +1784,14 @@ Features:
  * Support for multiple documents at once.
 
 
-%if 0%{?suse_version} >= 1230
 %package poshuku
 Summary:        LeechCraft Web Browser Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-webbrowser
-Obsoletes:      poshuku-wyfv
 Recommends:     %{name}-imgaste = %{version}
+Recommends:     %{name}-intermutko = %{version}
 
 %description poshuku
 This package provides a web browser plugin for LeechCraft.
@@ -1913,8 +1930,6 @@ Summary:        LeechCraft Poshuku - Onlinebookmarks Delicious Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name}-poshuku-onlinebookmarks = %{version}
-Obsoletes:      %{name}-delicious < %{version}
-Provides:       %{name}-delicious = %{version}
 
 %description poshuku-onlinebookmarks-delicious
 This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
@@ -1927,8 +1942,6 @@ Summary:        LeechCraft Poshuku - Onlinebookmarks ReadItLater Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name}-poshuku-onlinebookmarks = %{version}
-Obsoletes:      %{name}-readitlater < %{version}
-Provides:       %{name}-readitlater = %{version}
 
 %description poshuku-onlinebookmarks-readitlater
 This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
@@ -1956,7 +1969,7 @@ Requires:       %{name}-poshuku = %{version}
 
 %description poshuku-speeddial
 This package provides a Speed Dial support plugin for LeechCraft Poshuku.
-%endif
+
 
 %package qrosp
 Summary:        LeechCraft Qross Module
@@ -1987,8 +2000,6 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-sb = %{version}
-Obsoletes:      %{name}-sidebar < %{version}
-Provides:       %{name}-sidebar = %{version}
 
 %description sb2
 This package provides another side bar plugin for Leechcraft.
@@ -2152,7 +2163,6 @@ Textogroose is a kind of supplement to DeadLyrics for sites
 too complex to be described by DeadLyrics rules.
 
 
-%if 0%{?suse_version} > 1230
 %package touchstreams
 Summary:        LeechCraft VK.com Streaming Module
 License:        BSL-1.0
@@ -2163,7 +2173,7 @@ Requires:       %{name}-musiczombie = %{version}
 
 %description touchstreams
 This package provides a VK.com music streaming plugin for Leechcraft.
-%endif
+
 
 %package tpi
 Summary:        LeechCraft Task Progress Indicator Module
@@ -2194,7 +2204,7 @@ Features:
  * Search for audios and videos.
 
 
-%if 0%{?suse_version} > 1230
+%if 0%{?suse_version} != 1315
 %package vtyulc
 Summary:        LeechCraft Video player Module
 License:        BSL-1.0
@@ -2202,8 +2212,6 @@ Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Recommends:     %{name}-liznoo
 Recommends:     vlc-codecs
-Provides:       %{name}-vlc = %{version}
-Obsoletes:      %{name}-vlc < %{version}
 
 %description vtyulc
 This package provides a video player plugin for LeechCraft.
@@ -2250,152 +2258,159 @@ This package provides a tune wrapper plugin for LeechCraft.
 It allows to get current user tune via mpris protocol.
 
 
-%package -n lib%{name}-util-db%{so_ver}
+%package zalil
+Summary:        LeechCraft Files Uploader Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description zalil
+This package provides a file uploader plugin for LeechCraft.
+
+It allows to upload files to accountless filebin services.
+
+
+%package -n libleechcraft-util-db%{so_ver}
 Summary:        Database utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-db%{so_ver}
+%description -n libleechcraft-util-db%{so_ver}
 A library providing some useful and commonly used database-related
 classes and functions.
 
 
-%package -n lib%{name}-util-gui%{so_ver}
+%package -n libleechcraft-util-gui%{so_ver}
 Summary:        GUI utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-gui%{so_ver}
+%description -n libleechcraft-util-gui%{so_ver}
 A library providing some useful and commonly used GUI-related
 widgets, classes and functions.
 
 
-%package -n lib%{name}-util-models%{so_ver}
+%package -n libleechcraft-util-models%{so_ver}
 Summary:        MVC utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-models%{so_ver}
+%description -n libleechcraft-util-models%{so_ver}
 A library providing some useful and commonly used models (as in MVC),
 as well as model-related classes and functions.
 
 
-%package -n lib%{name}-util-network%{so_ver}
+%package -n libleechcraft-util-network%{so_ver}_1
 Summary:        Network utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-network%{so_ver}
+%description -n libleechcraft-util-network%{so_ver}_1
 A library providing some useful and commonly used
 network classes and functions.
 
 
-%package -n lib%{name}-util-qml%{so_ver}
+%package -n libleechcraft-util-qml%{so_ver}_1
 Summary:        QML utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-qml%{so_ver}
+%description -n libleechcraft-util-qml%{so_ver}_1
 A library providing some useful and commonly used QML items as well as
 QML-related classes and functions.
 
 
-%package -n lib%{name}-util-shortcuts%{so_ver}
+%package -n libleechcraft-util-shortcuts%{so_ver}
 Summary:        Shortcuts utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-shortcuts%{so_ver}
+%description -n libleechcraft-util-shortcuts%{so_ver}
 A library easing shortcuts usage in LeechCraft, particularly the
 configurable shortcuts subsystem.
 
 
-%package -n lib%{name}-util-sll%{so_ver}
+%package -n libleechcraft-util-sll%{so_ver}
 Summary:        Standard LeechCraft Library
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-sll%{so_ver}
+%description -n libleechcraft-util-sll%{so_ver}
 A library providing some useful classes and algorithms, not directly
 related to any other library.
 
 
-%package -n lib%{name}-util-svcauth%{so_ver}
+%package -n libleechcraft-util-svcauth%{so_ver}
 Summary:        Authenticators library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-svcauth%{so_ver}
+%description -n libleechcraft-util-svcauth%{so_ver}
 A library providing authenticators for various services like VKontakte.
 
 
-%package -n lib%{name}-util-sys%{so_ver}
+%package -n libleechcraft-util-sys%{so_ver}_1
 Summary:        System utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-sys%{so_ver}
+%description -n libleechcraft-util-sys%{so_ver}_1
 A library providing some useful and commonly used system-related
 classes and functions, like OS version parser, paths utilities or MIME
 detector.
 
 
-%package -n lib%{name}-util-tags%{so_ver}
+%package -n libleechcraft-util-tags%{so_ver}_1
 Summary:        Tags utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-tags%{so_ver}
+%description -n libleechcraft-util-tags%{so_ver}_1
 A library providing some useful classes and functions commonly used
 with the LeechCraft tags subsystem.
 
 
-%package -n lib%{name}-util-x11-%{so_ver}
+%package -n libleechcraft-util-x11-%{so_ver}
 Summary:        X11 utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-x11-%{so_ver}
+%description -n libleechcraft-util-x11-%{so_ver}
 A library providing X11 wrappers for LeechCraft.
 
 
-%package -n lib%{name}-util-xdg%{so_ver}
+%package -n libleechcraft-util-xdg%{so_ver}
 Summary:        XDG utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-xdg%{so_ver}
+%description -n libleechcraft-util-xdg%{so_ver}
 A library providing XDG parsers and other support methods and classes
 for LeechCraft.
 
 
-%package -n lib%{name}-util-xpc%{so_ver}
+%package -n libleechcraft-util-xpc%{so_ver}_2
 Summary:        Cross-plugin communication utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-xpc%{so_ver}
+%description -n libleechcraft-util-xpc%{so_ver}_2
 A library providing some useful and commonly used primitives for
 communications between different plugins in LeechCraft.
 
 
-%package -n lib%{name}-util-xsd%{so_ver}
+%package -n libleechcraft-util-xsd%{so_ver}
 Summary:        XSD utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n lib%{name}-util-xsd%{so_ver}
+%description -n libleechcraft-util-xsd%{so_ver}
 A library providing some useful classes to be used with the
 XmlSettingsDialog LeechCraft subsystem.
 
 
 %prep
-%setup -q
-%if 0%{?suse_version} <= 1230
-%patch1 -p1
-%patch3 -p1
-%patch4 -p1
-%endif
+%setup -q -n leechcraft-%{LEECHCRAFT_VERSION}
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -2418,33 +2433,34 @@ cmake ../src \
         -DSTRICT_LICENSING=True \
         -DWITH_DBUS_LOADERS=True \
         -DWITH_PCRE=True \
+%if 0%{?suse_version} != 1315
         -DWITH_QWT=True \
+%else
+        -DWITH_QWT=False \
+%endif
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
-%if 0%{?suse_version} > 1310
+%if 0%{?suse_version} > 1315
                 -DENABLE_AGGREGATOR_WEBACCESS=True \
 %else
                 -DENABLE_AGGREGATOR_WEBACCESS=False \
 %endif
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
+                -DENABLE_AZOTH_ABBREV=True \
                 -DENABLE_AZOTH_ACETAMIDE=True \
-%if 0%{?suse_version} > 1310
+%if 0%{?suse_version} > 1315
                 -DENABLE_AZOTH_ASTRALITY=True \
 %else
                 -DENABLE_AZOTH_ASTRALITY=False \
 %endif
-%if 0%{?suse_version} >= 1230
+                -DENABLE_AZOTH_AUTOPASTE=True \
                 -DENABLE_AZOTH_MUCOMMANDS=True \
-%else
-                -DENABLE_AZOTH_MUCOMMANDS=False \
-%endif
-%if 0%{?suse_version} > 1220
+                -DENABLE_AZOTH_MURM=True \
                 -DENABLE_AZOTH_OTROID=True \
-%else
-                -DENABLE_AZOTH_OTROID=False \
-%endif
+                -DENABLE_AZOTH_SARIN=False \
                 -DENABLE_AZOTH_SHX=True \
+                -DENABLE_AZOTH_TRACOLOR=False \
                 -DENABLE_AZOTH_VELVETBIRD=True \
                 -DENABLE_AZOTH_WOODPECKER=True \
                 -DENABLE_AZOTH_ZHEET=False \
@@ -2464,7 +2480,7 @@ cmake ../src \
         -DENABLE_ELEEMINATOR=True \
         -DENABLE_FENET=True \
         -DENABLE_GACTS=True \
-%if 0%{?suse_version} > 1310
+%if 0%{?suse_version} >= 1320
                 -DWITH_GACTS_BUNDLED_QXT=False \
 %else
                 -DWITH_GACTS_BUNDLED_QXT=True \
@@ -2474,50 +2490,56 @@ cmake ../src \
         -DENABLE_HARBINGER=True \
         -DENABLE_HOTSENSORS=False \
         -DENABLE_HOTSTREAMS=True \
-%if 0%{?suse_version} > 1230
         -DENABLE_HTTHARE=True \
-%else
-        -DENABLE_HTTHARE=False \
-%endif
         -DENABLE_IMGASTE=True \
+        -DENABLE_INTERMUTKO=True \
         -DENABLE_KBSWITCH=True \
         -DENABLE_KNOWHOW=True \
         -DENABLE_KRIGSTASK=True \
         -DENABLE_LACKMAN=True \
         -DENABLE_LADS=False \
+%if 0%{?suse_version} != 1315
         -DENABLE_LASTFMSCROBBLE=True \
+%else
+        -DENABLE_LASTFMSCROBBLE=False \
+%endif
         -DENABLE_LAUGHTY=True \
         -DENABLE_LAUNCHY=True \
+%if 0%{?suse_version} != 1315
         -DENABLE_LEMON=True \
-%if 0%{?suse_version} >= 1230
+%else
+        -DENABLE_LEMON=False \
+%endif
         -DENABLE_LHTR=True \
+%if 0%{?suse_version} != 1315
                 -DWITH_LHTR_HTML=True \
 %else
-        -DENABLE_LHTR=False \
+                -DWITH_LHTR_HTML=False \
 %endif
+%if 0%{?suse_version} != 1315
         -DENABLE_LIZNOO=True \
-        -DENABLE_LMP=True \
-%if 0%{?suse_version} >= 1230
-                -DENABLE_LMP_BRAINSLUGZ=True \
 %else
-                -DENABLE_LMP_BRAINSLUGZ=False \
+        -DENABLE_LIZNOO=False \
 %endif
+        -DENABLE_LMP=True \
+                -DENABLE_LMP_BRAINSLUGZ=True \
                 -DENABLE_LMP_FRADJ=True \
                 -DENABLE_LMP_GRAFFITI=True \
                 -DENABLE_LMP_HTTSTREAM=True \
-%if 0%{?suse_version} > 1230
                 -DENABLE_LMP_LIBGUESS=True \
-%else
-                -DENABLE_LMP_LIBGUESS=False \
-%endif
                 -DENABLE_LMP_MPRIS=True \
                 -DENABLE_LMP_MTPSYNC=True \
+%if 0%{?suse_version} != 1315
+                -DENABLE_LMP_POTORCHU=True \
+%else
                 -DENABLE_LMP_POTORCHU=False \
+%endif
 %if 0%{?lmp_gstreamer_1_0}
                 -DUSE_GSTREAMER_10=True \
+%else
+                -DUSE_GSTREAMER_10=False \
 %endif
         -DENABLE_MELLONETRAY=True \
-%if 0%{?suse_version} >= 1230
         -DENABLE_MONOCLE=True \
 %if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
@@ -2529,9 +2551,8 @@ cmake ../src \
 %else
                 -DENABLE_MONOCLE_MU=False \
 %endif
-%else
-        -DENABLE_MONOCLE=False \
-%endif
+        -DENABLE_MONOCLE_PDF=True \
+        -DENABLE_MONOCLE_POSTRUS=True \
         -DENABLE_MUSICZOMBIE=True \
                 -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
         -DENABLE_NACHEKU=False \
@@ -2543,18 +2564,15 @@ cmake ../src \
         -DENABLE_OTLOZHU=True \
                 -DENABLE_OTLOZHU_SYNC=False \
         -DENABLE_PINTAB=True \
+        -DENABLE_POGOOGLUE=True \
         -DENABLE_POLEEMERY=False \
         -DENABLE_POPISHU=True \
-%if 0%{?suse_version} >= 1230
         -DENABLE_POSHUKU=True \
                 -DENABLE_IDN=True \
                 -DENABLE_POSHUKU_AUTOSEARCH=True \
                 -DENABLE_POSHUKU_DCAC=True \
                 -DENABLE_POSHUKU_QRD=True \
                 -DENABLE_POSHUKU_SPEEDDIAL=True \
-%else
-        -DENABLE_POSHUKU=False \
-%endif
         -DENABLE_QROSP=True \
         -DENABLE_SB2=True \
         -DENABLE_SCROBLIBRE=True \
@@ -2566,34 +2584,33 @@ cmake ../src \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
         -DENABLE_TEXTOGROOSE=True \
-%if 0%{?suse_version} >= 1310
         -DENABLE_TORRENT=True \
                 -DENABLE_BITTORRENT_GEOIP=True \
-%else
-        -DENABLE_TORRENT=False \
-%endif
-%if 0%{?suse_version} > 1230
         -DENABLE_TOUCHSTREAMS=True \
-%else
-        -DENABLE_TOUCHSTREAMS=False \
-%endif
         -DENABLE_TPI=True \
         -DENABLE_TWIFEE=False \
-%if 0%{?suse_version} > 1230
+%if 0%{?suse_version} != 1315
         -DENABLE_VTYULC=True \
 %else
         -DENABLE_VTYULC=False \
 %endif
         -DENABLE_VROOBY=True \
-        -DLEECHCRAFT_VERSION=%{version}
+        -DENABLE_WKPLUGINS=False \
+        -DENABLE_XPROXY=True \
+        -DENABLE_ZALIL=True \
+        -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
 %build
 cd build
-make %{?_smp_mflags} VERBOSE=1
+make -k %{?_smp_mflags} VERBOSE=1
 
 %install
 cd build
 %makeinstall
+
+# Unneeded here Qt5 build' files:
+rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
+rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 
 %fdupes -s %{buildroot}%{_datadir}/%{name}/translations
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth
@@ -2604,88 +2621,88 @@ cd build
 
 %postun -p /sbin/ldconfig
 
-%post -n lib%{name}-util-db%{so_ver}
+%post -n libleechcraft-util-db%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-db%{so_ver}
+%postun -n libleechcraft-util-db%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-gui%{so_ver}
+%post -n libleechcraft-util-gui%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-gui%{so_ver}
+%postun -n libleechcraft-util-gui%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-models%{so_ver}
+%post -n libleechcraft-util-models%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-models%{so_ver}
+%postun -n libleechcraft-util-models%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-network%{so_ver}
+%post -n libleechcraft-util-network%{so_ver}_1
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-network%{so_ver}
+%postun -n libleechcraft-util-network%{so_ver}_1
 /sbin/ldconfig
 
-%post -n lib%{name}-util-qml%{so_ver}
+%post -n libleechcraft-util-qml%{so_ver}_1
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-qml%{so_ver}
+%postun -n libleechcraft-util-qml%{so_ver}_1
 /sbin/ldconfig
 
-%post -n lib%{name}-util-shortcuts%{so_ver}
+%post -n libleechcraft-util-shortcuts%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-shortcuts%{so_ver}
+%postun -n libleechcraft-util-shortcuts%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-sll%{so_ver}
+%post -n libleechcraft-util-sll%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-sll%{so_ver}
+%postun -n libleechcraft-util-sll%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-svcauth%{so_ver}
+%post -n libleechcraft-util-svcauth%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-svcauth%{so_ver}
+%postun -n libleechcraft-util-svcauth%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-sys%{so_ver}
+%post -n libleechcraft-util-sys%{so_ver}_1
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-sys%{so_ver}
+%postun -n libleechcraft-util-sys%{so_ver}_1
 /sbin/ldconfig
 
-%post -n lib%{name}-util-tags%{so_ver}
+%post -n libleechcraft-util-tags%{so_ver}_1
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-tags%{so_ver}
+%postun -n libleechcraft-util-tags%{so_ver}_1
 /sbin/ldconfig
 
-%post -n lib%{name}-util-x11-%{so_ver}
+%post -n libleechcraft-util-x11-%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-x11-%{so_ver}
+%postun -n libleechcraft-util-x11-%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-xdg%{so_ver}
+%post -n libleechcraft-util-xdg%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-xdg%{so_ver}
+%postun -n libleechcraft-util-xdg%{so_ver}
 /sbin/ldconfig
 
-%post -n lib%{name}-util-xpc%{so_ver}
+%post -n libleechcraft-util-xpc%{so_ver}_2
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-xpc%{so_ver}
+%postun -n libleechcraft-util-xpc%{so_ver}_2
 /sbin/ldconfig
 
-%post -n lib%{name}-util-xsd%{so_ver}
+%post -n libleechcraft-util-xsd%{so_ver}
 /sbin/ldconfig
 
-%postun -n lib%{name}-util-xsd%{so_ver}
+%postun -n libleechcraft-util-xsd%{so_ver}
 /sbin/ldconfig
 
 %files
@@ -2700,906 +2717,937 @@ cd build
 %{_datadir}/icons/hicolor/*/*/*
 %dir %{_datadir}/icons/hicolor/14x14
 %dir %{_datadir}/icons/hicolor/14x14/apps
-%dir %{_datadir}/%{name}
+%dir %{_datadir}/leechcraft
 %dir %{settings_dir}
 %dir %{translations_dir}
-%dir %{_datadir}/%{name}/qml
-%{translations_dir}/leechcraft_??.qm
-%{translations_dir}/leechcraft_??_??.qm
+%dir %{qml_dir}
+%{translations_dir}/*craft_??.qm
+%{translations_dir}/*craft_??_??.qm
 %dir %{_libdir}/%{name}
 %dir %{plugin_dir}
-%{_libdir}/lib%{name}-util.so.*
+%{_libdir}/libleechcraft-util.so.*
 %{_libdir}/lib%{name}-xsd.so.*
 %doc %{_mandir}/man1/%{name}*.1.gz
-%{_datadir}/%{name}/global_icons/
-%dir %{_datadir}/%{name}/themes
-%dir %{_datadir}/%{name}/themes/*
-%{_datadir}/%{name}/themes/*/*.rc
+%{_datadir}/leechcraft/global_icons/
+%dir %{_datadir}/leechcraft/themes
+%dir %{_datadir}/leechcraft/themes/*
+%{_datadir}/leechcraft/themes/*/*.rc
 %exclude %{_datadir}/cmake/Modules/InitLCPlugin.cmake
-%{_datadir}/%{name}/qml/org/
-%{_datadir}/%{name}/qml/common/
+%{qml_dir}/org/
+%{qml_dir}/common/
 
 %files advancednotifications
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_advancednotifications.so
-%{translations_dir}/leechcraft_advancednotifications*
+%{plugin_dir}/*craft_advancednotifications.so
+%{translations_dir}/*craft_advancednotifications*
 %{settings_dir}/advancednotificationssettings.xml
-%{_datadir}/%{name}/qml/advancednotifications
-%{_datadir}/%{name}/sounds
+%{qml_dir}/advancednotifications
+%{_datadir}/leechcraft/sounds
 
 %files aggregator
 %defattr(-,root,root)
 %{settings_dir}/aggregatorsettings.xml
-%{translations_dir}/%{name}_aggregator_??.qm
-%{translations_dir}/%{name}_aggregator_??_??.qm
-%{plugin_dir}/*%{name}_aggregator.so
+%{translations_dir}/*craft_aggregator_??.qm
+%{translations_dir}/*craft_aggregator_??_??.qm
+%{plugin_dir}/*craft_aggregator.so
 
 %files aggregator-bodyfetch
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_aggregator_bodyfetch.so
-%dir %{_datadir}/%{name}/scripts
-%{_datadir}/%{name}/scripts/aggregator/
+%{plugin_dir}/*craft_aggregator_bodyfetch.so
+%dir %{_datadir}/leechcraft/scripts
+%{_datadir}/leechcraft/scripts/aggregator/
 
-%if 0%{?suse_version} > 1310
+%if 0%{?suse_version} > 1315
 %files aggregator-webaccess
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_aggregator_webaccess.so
+%{plugin_dir}/*craft_aggregator_webaccess.so
 %{settings_dir}/aggregatorwebaccesssettings.xml
-%{translations_dir}/%{name}_aggregator_webaccess*.qm
+%{translations_dir}/*craft_aggregator_webaccess*.qm
 %endif
 
 %files anhero
 %defattr(-,root,root)
 %{_bindir}/lc_anhero_crashprocess
-%{plugin_dir}/*%{name}_anhero.so
-%{translations_dir}/leechcraft_anhero*
+%{plugin_dir}/*craft_anhero.so
+%{translations_dir}/*craft_anhero*
 %doc %{_mandir}/man*/lc_anhero_crashprocess*
 
 %files auscrie
 %defattr(-,root,root)
-%{translations_dir}/%{name}_auscrie_*.qm
+%{translations_dir}/*craft_auscrie_*.qm
 %{plugin_dir}/lib%{name}_auscrie.so
 
 %files azoth
 %defattr(-,root,root)
-%dir %{azoth_dir}
-%dir %{azoth_dir}/styles
-%{azoth_dir}/emoticons
-%{azoth_dir}/iconsets
+%dir %{_datadir}/leechcraft/azoth
+%dir %{_datadir}/leechcraft/azoth/styles
+%{_datadir}/leechcraft/azoth/emoticons
+%{_datadir}/leechcraft/azoth/iconsets
 %{settings_dir}/azothsettings.xml
-%{translations_dir}/%{name}_azoth_??.qm
-%{translations_dir}/%{name}_azoth_??_??.qm
-%{plugin_dir}/*%{name}_azoth.so
+%{translations_dir}/*craft_azoth_??.qm
+%{translations_dir}/*craft_azoth_??_??.qm
+%{plugin_dir}/*craft_azoth.so
+
+%files azoth-abbrev
+%defattr(-,root,root)
+%{plugin_dir}/*craft_azoth_abbrev.so
+%{translations_dir}/*craft_azoth_abbrev_??.qm
+%{translations_dir}/*craft_azoth_abbrev_??_??.qm
 
 %files azoth-acetamide
 %defattr(-,root,root)
 %{settings_dir}/azothacetamidesettings.xml
-%{translations_dir}/%{name}_azoth_acetamide*
-%{plugin_dir}/*%{name}_azoth_acetamide.so
+%{translations_dir}/*craft_azoth_acetamide*
+%{plugin_dir}/*craft_azoth_acetamide.so
 %{_datadir}/applications/%{name}-azoth-acetamide.desktop
 
 %files azoth-adiumstyles
 %defattr(644,root,root,755)
-%{plugin_dir}/*%{name}_azoth_adiumstyles*
-%{_datadir}/%{name}/azoth/styles/adium
-%{_datadir}/%{name}/translations/%{name}_azoth_adiumstyles_*.qm
+%{plugin_dir}/*craft_azoth_adiumstyles*
+%{_datadir}/leechcraft/azoth/styles/adium
+%{translations_dir}/*craft_azoth_adiumstyles_*.qm
 
-%if 0%{?suse_version} > 1310
+%if 0%{?suse_version} > 1315
 %files azoth-astrality
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_azoth_astrality.so
-%{_datadir}/%{name}/translations/%{name}_azoth_astrality_*.qm
+%{plugin_dir}/lib%{name}_azoth_astrality.so
+%{translations_dir}/*craft_azoth_astrality_*.qm
 %endif
 
 %files azoth-autoidler
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_azoth_autoidler*
+%{plugin_dir}/*craft_azoth_autoidler*
 %{settings_dir}/azothautoidlersettings.xml
-%{translations_dir}/leechcraft_azoth_autoidler*
+%{translations_dir}/*craft_azoth_autoidler*
 
 %files azoth-autopaste
 %defattr(-,root,root)
 %{settings_dir}/azothautopastesettings.xml
-%{translations_dir}/%{name}_azoth_autopaste*
-%{plugin_dir}/*%{name}_azoth_autopaste.so
+%{translations_dir}/*craft_azoth_autopaste*
+%{plugin_dir}/*craft_azoth_autopaste.so
 
 %files azoth-birthdaynotifier
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_azoth_birthdaynotifier.so
-%{_datadir}/%{name}/settings/azothbirthdaynotifiersettings.xml
-%{translations_dir}/%{name}_azoth_birthdaynotifier*
+%{plugin_dir}/*craft_azoth_birthdaynotifier.so
+%{settings_dir}/azothbirthdaynotifiersettings.xml
+%{translations_dir}/*craft_azoth_birthdaynotifier*
 
 %files azoth-chathistory
 %defattr(-,root,root)
-%{translations_dir}/%{name}_azoth_chathistory*
-%{plugin_dir}/*%{name}_azoth_chathistory.so
+%{translations_dir}/*craft_azoth_chathistory*
+%{plugin_dir}/*craft_azoth_chathistory.so
 %{settings_dir}/azothchathistorysettings.xml
 
 %files azoth-depester
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_azoth_depester.so
-%{translations_dir}/%{name}_azoth_depester*
+%{plugin_dir}/*craft_azoth_depester.so
+%{translations_dir}/*craft_azoth_depester*
 
 %files azoth-embedmedia
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_azoth_embedmedia.so
+%{plugin_dir}/*craft_azoth_embedmedia.so
 
 %files azoth-herbicide
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_azoth_herbicide.so
-%{translations_dir}/%{name}_azoth_herbicide*
+%{plugin_dir}/*craft_azoth_herbicide.so
+%{translations_dir}/*craft_azoth_herbicide*
 %{settings_dir}/azothherbicidesettings.xml
 
 %files azoth-hili
 %defattr(-,root,root)
 %{settings_dir}/azothhilisettings.xml
-%{translations_dir}/%{name}_azoth_hili*
-%{plugin_dir}/*%{name}_azoth_hili.so
+%{translations_dir}/*craft_azoth_hili*
+%{plugin_dir}/*craft_azoth_hili.so
 
 %files azoth-isterique
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_azoth_isterique*
+%{plugin_dir}/*craft_azoth_isterique*
 %{settings_dir}/azothisteriquesettings.xml
-%{translations_dir}/leechcraft_azoth_isterique*
+%{translations_dir}/*craft_azoth_isterique*
 
 %files azoth-juick
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_azoth_juick.so
-%{_datadir}/%{name}/translations/%{name}_azoth_juick_*.qm
+%{plugin_dir}/*craft_azoth_juick.so
+%{translations_dir}/*craft_azoth_juick_*.qm
 
 %files azoth-keeso
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_azoth_keeso.so
+%{plugin_dir}/*craft_azoth_keeso.so
 
 %files azoth-lastseen
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_azoth_lastseen*
-%{translations_dir}/leechcraft_azoth_lastseen*
+%{plugin_dir}/*craft_azoth_lastseen*
+%{translations_dir}/*craft_azoth_lastseen*
 
 %files azoth-metacontacts
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_azoth_metacontacts*
-%{translations_dir}/%{name}_azoth_metacontacts*
+%{plugin_dir}/*craft_azoth_metacontacts*
+%{translations_dir}/*craft_azoth_metacontacts*
 
 %files azoth-modnok
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_azoth_modnok*
+%{plugin_dir}/*craft_azoth_modnok*
 %{settings_dir}/azothmodnoksettings.xml
-%{translations_dir}/leechcraft_azoth_modnok*
-%{azoth_dir}/lc_azoth_modnok_latexconvert.sh
+%{translations_dir}/*craft_azoth_modnok*
+%{_datadir}/leechcraft/azoth/lc_azoth_modnok_latexconvert.sh
 
-%if 0%{?suse_version} >= 1230
 %files azoth-mucommands
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_azoth_mucommands.so
-%{_datadir}/%{name}/translations/%{name}_azoth_mucommands_??.qm
-%{_datadir}/%{name}/translations/%{name}_azoth_mucommands_??_??.qm
-%endif
+%{plugin_dir}/*craft_azoth_mucommands.so
+%{translations_dir}/*craft_azoth_mucommands_??.qm
+%{translations_dir}/*craft_azoth_mucommands_??_??.qm
 
 %files azoth-murm
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_azoth_murm.so
-%{_datadir}/%{name}/translations/%{name}_azoth_murm*.qm
+%{plugin_dir}/*craft_azoth_murm.so
+%{translations_dir}/*craft_azoth_murm*.qm
 %{settings_dir}/azothmurmsettings.xml
 
 %files azoth-nativeemoticons
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_azoth_nativeemoticons.so
-%{_datadir}/%{name}/translations/%{name}_azoth_nativeemoticons_*.qm
+%{plugin_dir}/*craft_azoth_nativeemoticons.so
+%{translations_dir}/*craft_azoth_nativeemoticons_*.qm
 
-%if 0%{?suse_version} > 1220
 %files azoth-otroid
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_azoth_otroid.so
-%{_datadir}/%{name}/translations/%{name}_azoth_otroid*.qm
-%{_datadir}/%{name}/settings/azothotroidsettings.xml
-%endif
+%{plugin_dir}/*craft_azoth_otroid.so
+%{translations_dir}/*craft_azoth_otroid*.qm
+%{settings_dir}/azothotroidsettings.xml
 
 %files azoth-rosenthal
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_azoth_rosenthal.so
-%{translations_dir}/%{name}_azoth_rosenthal*
+%{plugin_dir}/*craft_azoth_rosenthal.so
+%{translations_dir}/*craft_azoth_rosenthal*
 
 %files azoth-shx
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_azoth_shx.so
-%{_datadir}/%{name}/settings/azothshxsettings.xml
-%{_datadir}/%{name}/translations/%{name}_azoth_shx_*.qm
+%{plugin_dir}/*craft_azoth_shx.so
+%{settings_dir}/azothshxsettings.xml
+%{translations_dir}/*craft_azoth_shx_*.qm
 
 %files azoth-standardstyles
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_azoth_standardstyles.so
-%{_datadir}/%{name}/azoth/styles/standard/
-%{_datadir}/%{name}/translations/%{name}_azoth_standardstyles_*.qm
+%{plugin_dir}/*craft_azoth_standardstyles.so
+%{_datadir}/leechcraft/azoth/styles/standard/
+%{translations_dir}/*craft_azoth_standardstyles_*.qm
 
 %files azoth-vader
 %defattr(-,root,root)
-%{translations_dir}/%{name}_azoth_vader*
-%{_datadir}/%{name}/settings/azothvadersettings.xml
-%{plugin_dir}/*%{name}_azoth_vader.so
+%{translations_dir}/*craft_azoth_vader*
+%{settings_dir}/azothvadersettings.xml
+%{plugin_dir}/*craft_azoth_vader.so
 
 %files azoth-velvetbird
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_azoth_velvetbird.so
+%{plugin_dir}/*craft_azoth_velvetbird.so
 
 %files azoth-woodpecker
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_azoth_woodpecker.so
-%{_datadir}/%{name}/settings/azothwoodpeckersettings.xml
-%{_datadir}/%{name}/translations/%{name}_azoth_woodpecker_*.qm
+%{plugin_dir}/lib%{name}_azoth_woodpecker.so
+%{settings_dir}/azothwoodpeckersettings.xml
+%{translations_dir}/*craft_azoth_woodpecker_*.qm
 
 %files azoth-xoox
 %defattr(-,root,root)
-%{translations_dir}/%{name}_azoth_xoox*
-%{plugin_dir}/*%{name}_azoth_xoox.so
+%{translations_dir}/*craft_azoth_xoox*
+%{plugin_dir}/*craft_azoth_xoox.so
 %{_datadir}/applications/%{name}-azoth-xoox.desktop
-%{_datadir}/%{name}/settings/azothxooxsettings.xml
+%{settings_dir}/azothxooxsettings.xml
 
 %files azoth-xtazy
 %defattr(-,root,root)
 %{settings_dir}/azothxtazysettings.xml
-%{plugin_dir}/*%{name}_azoth_xtazy.so
-%{translations_dir}/%{name}_azoth_xtazy*
+%{plugin_dir}/*craft_azoth_xtazy.so
+%{translations_dir}/*craft_azoth_xtazy*
 
-%if 0%{?suse_version} >= 1310
 %files bittorrent
 %defattr(-,root,root)
 %{settings_dir}/torrentsettings.xml
-%{translations_dir}/%{name}_bittorrent_*.qm
-%{plugin_dir}/*%{name}_bittorrent.so
+%{translations_dir}/*craft_bittorrent_*.qm
+%{plugin_dir}/*craft_bittorrent.so
 %{_datadir}/applications/%{name}-bittorrent.desktop
-%endif
 
 %files blasq
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_blasq.so
-%{_datadir}/%{name}/settings/blasqsettings.xml
-%{_datadir}/%{name}/qml/blasq
-%{_datadir}/%{name}/translations/%{name}_blasq_??.qm
-%{_datadir}/%{name}/translations/%{name}_blasq_??_??.qm
+%{plugin_dir}/lib%{name}_blasq.so
+%{settings_dir}/blasqsettings.xml
+%{qml_dir}/blasq
+%{translations_dir}/*craft_blasq_??.qm
+%{translations_dir}/*craft_blasq_??_??.qm
 
 %files blasq-spegnersi
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_blasq_spegnersi.so
-%{_datadir}/%{name}/translations/%{name}_blasq_spegnersi*.qm
+%{plugin_dir}/lib%{name}_blasq_spegnersi.so
+%{translations_dir}/*craft_blasq_spegnersi*.qm
 
 %files blasq-deathnote
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_blasq_deathnote.so
-%{_datadir}/%{name}/translations/%{name}_blasq_deathnote*.qm
+%{plugin_dir}/lib%{name}_blasq_deathnote.so
+%{translations_dir}/*craft_blasq_deathnote*.qm
 
 %files blasq-rappor
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_blasq_rappor.so
-%{_datadir}/%{name}/translations/%{name}_blasq_rappor*.qm
+%{plugin_dir}/lib%{name}_blasq_rappor.so
+%{translations_dir}/*craft_blasq_rappor*.qm
 
 %files blasq-vangog
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_blasq_vangog.so
-%{_datadir}/%{name}/translations/%{name}_blasq_vangog*.qm
+%{plugin_dir}/lib%{name}_blasq_vangog.so
+%{translations_dir}/*craft_blasq_vangog*.qm
 
 %files blogique
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_blogique.so
-%{_datadir}/%{name}/settings/blogiquesettings.xml
-%{_datadir}/%{name}/translations/%{name}_blogique_??.qm
-%{_datadir}/%{name}/translations/%{name}_blogique_??_??.qm
-%dir %{_datadir}/%{name}/qml/blogique
-%{_datadir}/%{name}/qml/blogique/*.qml
-%{_datadir}/%{name}/qml/blogique/*.js
+%{plugin_dir}/lib%{name}_blogique.so
+%{settings_dir}/blogiquesettings.xml
+%{translations_dir}/*craft_blogique_??.qm
+%{translations_dir}/*craft_blogique_??_??.qm
+%dir %{qml_dir}/blogique
+%{qml_dir}/blogique/*.qml
+%{qml_dir}/blogique/*.js
 
 %files blogique-hestia
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_blogique_hestia.so
-%{_datadir}/%{name}/settings/blogiquehestiasettings.xml
-%{_datadir}/%{name}/translations/%{name}_blogique_hestia*.qm
+%{plugin_dir}/lib%{name}_blogique_hestia.so
+%{settings_dir}/blogiquehestiasettings.xml
+%{translations_dir}/*craft_blogique_hestia*.qm
 
 %files blogique-metida
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_blogique_metida.so
-%{_datadir}/%{name}/settings/blogiquemetidasettings.xml
-%{_datadir}/%{name}/translations/%{name}_blogique_metida*.qm
+%{plugin_dir}/lib%{name}_blogique_metida.so
+%{settings_dir}/blogiquemetidasettings.xml
+%{translations_dir}/*craft_blogique_metida*.qm
 
 %files certmgr
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_certmgr.so
-%{_datadir}/%{name}/settings/certmgrsettings.xml
-%{_datadir}/%{name}/translations/%{name}_certmgr*.qm
+%{plugin_dir}/lib%{name}_certmgr.so
+%{settings_dir}/certmgrsettings.xml
+%{translations_dir}/*craft_certmgr*.qm
 
 %files cpuload
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_cpuload.so
-%{_datadir}/%{name}/qml/cpuload
+%{plugin_dir}/lib%{name}_cpuload.so
+%{qml_dir}/cpuload
 
 %files cstp
 %defattr(-,root,root)
 %{settings_dir}/cstpsettings.xml
-%{translations_dir}/leechcraft_cstp*.qm
+%{translations_dir}/*craft_cstp*.qm
 %{plugin_dir}/*leechcraft_cstp.so
 
 %files dbusmanager
 %defattr(-,root,root)
-%{translations_dir}/%{name}_dbusmanager*.qm
+%{translations_dir}/*craft_dbusmanager*.qm
 %{plugin_dir}/*leechcraft_dbusmanager.so
 %{settings_dir}/dbusmanagersettings.xml
 
 %files deadlyrics
 %defattr(-,root,root)
-%{translations_dir}/%{name}_deadlyrics*.qm
-%{plugin_dir}/*%{name}_deadlyrics.so
+%{translations_dir}/*craft_deadlyrics*.qm
+%{plugin_dir}/*craft_deadlyrics.so
 
 %files devel
 %defattr(-,root,root)
-%{_datadir}/%{name}/cmake
+%{_datadir}/leechcraft/cmake
 %{_includedir}/%{name}
-%{_libdir}/lib%{name}-util*.so
+%{_libdir}/libleechcraft-util*.so
 %{_libdir}/lib%{name}-xsd.so
 %{_datadir}/cmake/Modules/InitLCPlugin.cmake
 
 %files devmon
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_devmon.so
-%{_datadir}/%{name}/translations/%{name}_devmon_*.qm
+%{plugin_dir}/lib%{name}_devmon.so
+%{translations_dir}/*craft_devmon_*.qm
 
 %files dolozhee
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_dolozhee.so
-%{_datadir}/%{name}/translations/%{name}_dolozhee_*.qm
+%{plugin_dir}/lib%{name}_dolozhee.so
+%{translations_dir}/*craft_dolozhee_*.qm
 
 %files dumbeep
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_dumbeep.so
-%{_datadir}/%{name}/settings/dumbeepsettings.xml
+%{plugin_dir}/lib%{name}_dumbeep.so
+%{settings_dir}/dumbeepsettings.xml
 
 %files eleeminator
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_eleeminator.so
-%{_datadir}/%{name}/translations/%{name}_eleeminator_??.qm
-%{_datadir}/%{name}/translations/%{name}_eleeminator_??_??.qm
-%{_datadir}/%{name}/settings/eleeminatorsettings.xml
+%{plugin_dir}/lib%{name}_eleeminator.so
+%{translations_dir}/*craft_eleeminator_??.qm
+%{translations_dir}/*craft_eleeminator_??_??.qm
+%{settings_dir}/eleeminatorsettings.xml
 
 %files fenet
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_fenet.so
-%{_datadir}/%{name}/settings/fenetsettings.xml
+%{plugin_dir}/*craft_fenet.so
+%{settings_dir}/fenetsettings.xml
 %{_bindir}/%{name}-session
-%dir %{_datadir}/%{name}/fenet
-%{_datadir}/%{name}/fenet/compositing
-%dir %{_datadir}/%{name}/fenet/wms
+%dir %{_datadir}/leechcraft/fenet
+%dir %{_datadir}/leechcraft/fenet/compositing
+%dir %{_datadir}/leechcraft/fenet/wms
 %{_datadir}/xsessions/LCDE.desktop
-%{_datadir}/%{name}/translations/%{name}_fenet_*.qm
+%{translations_dir}/*craft_fenet_*.qm
+%{_datadir}/leechcraft/fenet/compositing/*compton*
 
 %files fenet-awesome
 %defattr(-,root,root)
-%dir %{_datadir}/%{name}/fenet
-%dir %{_datadir}/%{name}/fenet/wms
-%{_datadir}/%{name}/fenet/wms/*awesome*
+%dir %{_datadir}/leechcraft/fenet
+%dir %{_datadir}/leechcraft/fenet/wms
+%{_datadir}/leechcraft/fenet/wms/*awesome*
 
 %files fenet-kwin
 %defattr(-,root,root)
-%dir %{_datadir}/%{name}/fenet
-%dir %{_datadir}/%{name}/fenet/wms
-%{_datadir}/%{name}/fenet/wms/*kwin*
+%dir %{_datadir}/leechcraft/fenet
+%dir %{_datadir}/leechcraft/fenet/wms
+%{_datadir}/leechcraft/fenet/wms/*kwin*
 
 %files fenet-openbox
 %defattr(-,root,root)
-%dir %{_datadir}/%{name}/fenet
-%dir %{_datadir}/%{name}/fenet/wms
-%{_datadir}/%{name}/fenet/wms/*openbox*
+%dir %{_datadir}/leechcraft/fenet
+%dir %{_datadir}/leechcraft/fenet/wms
+%{_datadir}/leechcraft/fenet/wms/*openbox*
 
 %files gacts
 %defattr(-,root,root)
 %doc src/plugins/gacts/3rdparty/qxt/LICENSE
-%{_libdir}/%{name}/plugins/*%{name}_gacts.so
-%{_datadir}/%{name}/translations/%{name}_gacts_*.qm
+%{plugin_dir}/*craft_gacts.so
+%{translations_dir}/*craft_gacts_*.qm
 
 %files glance
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_glance.so
-%{translations_dir}/leechcraft_glance*
+%{plugin_dir}/*craft_glance.so
+%{translations_dir}/*craft_glance*
 
 %files gmailnotifier
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_gmailnotifier.so
+%{plugin_dir}/*craft_gmailnotifier.so
 %{settings_dir}/gmailnotifiersettings.xml
-%{translations_dir}/leechcraft_gmailnotifier*
-%{_datadir}/%{name}/qml/gmailnotifier/
+%{translations_dir}/*craft_gmailnotifier*
+%{qml_dir}/gmailnotifier/
 
 %files harbinger
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/libleechcraft_harbinger.so
+%{plugin_dir}/*craft_harbinger.so
 
 %files historyholder
 %defattr(-,root,root)
 %{plugin_dir}/*leechcraft_historyholder.so
-%{translations_dir}/leechcraft_historyholder*.qm
+%{translations_dir}/*craft_historyholder*.qm
 
 %files hotstreams
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_hotstreams.so
-%{_datadir}/%{name}/translations/%{name}_hotstreams_*.qm
+%{plugin_dir}/*craft_hotstreams.so
+%{translations_dir}/*craft_hotstreams_*.qm
 
-%if 0%{?suse_version} > 1230
 %files htthare
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_htthare.so
-%{_datadir}/%{name}/settings/httharesettings.xml
-%{_datadir}/%{name}/translations/%{name}_htthare_*.qm
-%endif
+%{plugin_dir}/lib%{name}_htthare.so
+%{settings_dir}/httharesettings.xml
+%{translations_dir}/*craft_htthare_*.qm
 
 %files imgaste
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_imgaste.so
-%{_datadir}/%{name}/translations/%{name}_imgaste_*.qm
+%{plugin_dir}/lib%{name}_imgaste.so
+%{translations_dir}/*craft_imgaste_*.qm
+
+%files intermutko
+%defattr(-,root,root)
+%{plugin_dir}/lib%{name}_intermutko.so
+%{settings_dir}/intermutkosettings.xml
+%{translations_dir}/*craft_intermutko_??.qm
+%{translations_dir}/*craft_intermutko_??_??.qm
 
 %files kbswitch
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_kbswitch.so
-%{_datadir}/%{name}/settings/kbswitchsettings.xml
-%{_datadir}/%{name}/translations/%{name}_kbswitch_*.qm
-%{_datadir}/%{name}/qml/kbswitch
+%{plugin_dir}/lib%{name}_kbswitch.so
+%{settings_dir}/kbswitchsettings.xml
+%{translations_dir}/*craft_kbswitch_*.qm
+%{qml_dir}/kbswitch
 
 %files kinotify
 %defattr(-,root,root)
-%{_datadir}/%{name}/kinotify
+%{_datadir}/leechcraft/kinotify
 %{settings_dir}/kinotifysettings.xml
-%{plugin_dir}/*%{name}_kinotify.so
-%{_datadir}/%{name}/translations/%{name}_kinotify_*.qm
+%{plugin_dir}/*craft_kinotify.so
+%{translations_dir}/*craft_kinotify_*.qm
 
 %files knowhow
 %defattr(-,root,root)
-%{_datadir}/%{name}/knowhow
-%{plugin_dir}/*%{name}_knowhow.so
+%{_datadir}/leechcraft/knowhow
+%{plugin_dir}/*craft_knowhow.so
 %{settings_dir}/knowhowsettings.xml
 
 %files krigstask
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_krigstask.so
-%{_datadir}/%{name}/qml/krigstask
-%{_datadir}/%{name}/translations/%{name}_krigstask_*.qm
+%{plugin_dir}/lib%{name}_krigstask.so
+%{qml_dir}/krigstask
+%{translations_dir}/*craft_krigstask_*.qm
 
 %files lackman
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_lackman.so
+%{plugin_dir}/*craft_lackman.so
 %{settings_dir}/lackmansettings.xml
-%{translations_dir}/leechcraft_lackman*
+%{translations_dir}/*craft_lackman*
 
+%if 0%{?suse_version} != 1315
 %files lastfmscrobble
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_lastfmscrobble.so
-%{_datadir}/%{name}/settings/lastfmscrobblesettings.xml
-%{_datadir}/%{name}/translations/%{name}_lastfmscrobble_*.qm
+%{plugin_dir}/lib%{name}_lastfmscrobble.so
+%{settings_dir}/lastfmscrobblesettings.xml
+%{translations_dir}/*craft_lastfmscrobble_*.qm
+%endif
 
 %files laughty
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_laughty.so
-%{_datadir}/%{name}/translations/%{name}_laughty_*.qm
+%{plugin_dir}/lib%{name}_laughty.so
+%{translations_dir}/*craft_laughty_*.qm
 
 %files launchy
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_launchy.so
-%{_datadir}/%{name}/translations/%{name}_launchy_*.qm
-%{_datadir}/%{name}/qml/launchy/
+%{plugin_dir}/lib%{name}_launchy.so
+%{translations_dir}/*craft_launchy_*.qm
+%{qml_dir}/launchy
 
+%if 0%{?suse_version} != 1315
 %files lemon
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_lemon.so
-%{_datadir}/%{name}/qml/lemon/
-%{_datadir}/%{name}/translations/%{name}_lemon_*.qm
-
-%if 0%{?suse_version} >= 1230
-%files lhtr
-%defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_lhtr.so
-%{_datadir}/%{name}/translations/%{name}_lhtr_*.qm
-%{_datadir}/%{name}/settings/lhtrsettings.xml
+%{plugin_dir}/lib%{name}_lemon.so
+%{qml_dir}/lemon/
+%{translations_dir}/*craft_lemon_*.qm
+%{settings_dir}/lemonsettings.xml
 %endif
 
+%files lhtr
+%defattr(-,root,root)
+%{plugin_dir}/lib%{name}_lhtr.so
+%{translations_dir}/*craft_lhtr_*.qm
+%{settings_dir}/lhtrsettings.xml
+
+%if 0%{?suse_version} != 1315
 %files liznoo
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_liznoo.so
-%{_datadir}/%{name}/settings/liznoosettings.xml
-%{_datadir}/%{name}/translations/%{name}_liznoo_*.qm
+%{plugin_dir}/lib%{name}_liznoo.so
+%{settings_dir}/liznoosettings.xml
+%{translations_dir}/*craft_liznoo_*.qm
+%endif
 
 %files lmp
 %defattr(-,root,root)
 %{settings_dir}/lmpsettings.xml
 %{settings_dir}/lmpfilterrgsettings.xml
-%{_datadir}/%{name}/translations/%{name}_lmp_??.qm
-%{_datadir}/%{name}/translations/%{name}_lmp_??_??.qm
-%{plugin_dir}/*%{name}_lmp.so
+%{translations_dir}/*craft_lmp_??.qm
+%{translations_dir}/*craft_lmp_??_??.qm
+%{plugin_dir}/*craft_lmp.so
 %{_datadir}/applications/%{name}-lmp*.desktop
-%dir %{_datadir}/%{name}/qml/lmp
-%{_datadir}/%{name}/qml/lmp/*.qml
-%if 0%{?suse_version} >= 1230
-%exclude %{_datadir}/%{name}/qml/lmp/brainslugz
-%endif
+%dir %{qml_dir}/lmp
+%{qml_dir}/lmp/*.qml
+%exclude %{qml_dir}/lmp/brainslugz
 
-%if 0%{?suse_version} >= 1230
 %files lmp-brainslugz
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_lmp_brainslugz.so
-%dir %{_datadir}/%{name}/qml/lmp
-%{_datadir}/%{name}/qml/lmp/brainslugz
-%{_datadir}/%{name}/translations/%{name}_lmp_brainslugz_*.qm
-%endif
+%{plugin_dir}/lib%{name}_lmp_brainslugz.so
+%dir %{qml_dir}/lmp
+%{qml_dir}/lmp/brainslugz
+%{translations_dir}/*craft_lmp_brainslugz_*.qm
 
 %files lmp-dumbsync
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_lmp_dumbsync.so
-%{_datadir}/%{name}/settings/lmpdumbsyncsettings.xml
-%{_datadir}/%{name}/translations/%{name}_lmp_dumbsync_??.qm
-%{_datadir}/%{name}/translations/%{name}_lmp_dumbsync_??_??.qm
+%{plugin_dir}/*craft_lmp_dumbsync.so
+%{settings_dir}/lmpdumbsyncsettings.xml
+%{translations_dir}/*craft_lmp_dumbsync_??.qm
+%{translations_dir}/*craft_lmp_dumbsync_??_??.qm
 
 %files lmp-fradj
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_lmp_fradj.so
-%{_datadir}/%{name}/translations/%{name}_lmp_fradj_??.qm
-%{_datadir}/%{name}/translations/%{name}_lmp_fradj_??_??.qm
+%{plugin_dir}/*craft_lmp_fradj.so
+%{translations_dir}/*craft_lmp_fradj_??.qm
+%{translations_dir}/*craft_lmp_fradj_??_??.qm
 
 %files lmp-graffiti
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_lmp_graffiti.so
-%{_datadir}/%{name}/translations/%{name}_lmp_graffiti_??.qm
-%{_datadir}/%{name}/translations/%{name}_lmp_graffiti_??_??.qm
+%{plugin_dir}/*craft_lmp_graffiti.so
+%{translations_dir}/*craft_lmp_graffiti_??.qm
+%{translations_dir}/*craft_lmp_graffiti_??_??.qm
 
 %files lmp-httstream
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_lmp_httstream.so
-%{_datadir}/%{name}/settings/lmphttstreamfiltersettings.xml
-%{_datadir}/%{name}/translations/%{name}_lmp_httstream_??.qm
-%{_datadir}/%{name}/translations/%{name}_lmp_httstream_??_??.qm
+%{plugin_dir}/*craft_lmp_httstream.so
+%{settings_dir}/lmphttstreamfiltersettings.xml
+%{translations_dir}/*craft_lmp_httstream_??.qm
+%{translations_dir}/*craft_lmp_httstream_??_??.qm
 
 %files lmp-mp3tunes
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_lmp_mp3tunes.so
-%{_datadir}/%{name}/settings/lmpmp3tunessettings.xml
+%{plugin_dir}/*craft_lmp_mp3tunes.so
+%{settings_dir}/lmpmp3tunessettings.xml
 
 %files lmp-mtpsync
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_lmp_mtpsync.so
+%{plugin_dir}/*craft_lmp_mtpsync.so
+
+%if 0%{?suse_version} != 1315
+%files lmp-potorchu
+%defattr(-,root,root)
+%{plugin_dir}/*craft_lmp_potorchu.so
+%{translations_dir}/*craft_lmp_potorchu_??.qm
+%{translations_dir}/*craft_lmp_potorchu_??_??.qm
+%endif
 
 %files mellonetray
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_mellonetray.so
-%{_datadir}/%{name}/qml/mellonetray/
-%{_datadir}/%{name}/translations/%{name}_mellonetray_*.qm
+%{plugin_dir}/lib%{name}_mellonetray.so
+%{qml_dir}/mellonetray/
+%{translations_dir}/*craft_mellonetray_*.qm
 
-%if 0%{?suse_version} >= 1230
 %files monocle
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_monocle.so
-%{_datadir}/%{name}/translations/%{name}_monocle_*.qm
-%{_datadir}/%{name}/settings/monoclesettings.xml
+%{plugin_dir}/lib%{name}_monocle.so
+%{translations_dir}/*craft_monocle_??.qm
+%{translations_dir}/*craft_monocle_??_??.qm
+%{settings_dir}/monoclesettings.xml
 
 %files monocle-dik
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_monocle_dik.so
+%{plugin_dir}/lib%{name}_monocle_dik.so
+%{translations_dir}/*craft_monocle_dik_??.qm
+%{translations_dir}/*craft_monocle_dik_??_??.qm
 
 %files monocle-fxb
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_monocle_fxb.so
+%{plugin_dir}/lib%{name}_monocle_fxb.so
 %{_datadir}/applications/%{name}-monocle-fxb.desktop
+%{settings_dir}/monoclefxbsettings.xml
+%{translations_dir}/*craft_monocle_fxb_??.qm
+%{translations_dir}/*craft_monocle_fxb_??_??.qm
 
 %if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
 %files monocle-mu
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_monocle_mu.so
+%{plugin_dir}/lib%{name}_monocle_mu.so
 %endif
 %endif
 
 %files monocle-pdf
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_monocle_pdf.so
+%{plugin_dir}/lib%{name}_monocle_pdf.so
 %{_datadir}/applications/%{name}-monocle-pdf.desktop
+%{settings_dir}/monoclepdfsettings.xml
+%{translations_dir}/*craft_monocle_pdf_??.qm
+%{translations_dir}/*craft_monocle_pdf_??_??.qm
 
 %files monocle-postrus
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_monocle_postrus.so
+%{plugin_dir}/lib%{name}_monocle_postrus.so
 %{_datadir}/applications/%{name}-monocle-postrus.desktop
+%{translations_dir}/*craft_monocle_postrus_??.qm
+%{translations_dir}/*craft_monocle_postrus_??_??.qm
 
 %files monocle-seen
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_monocle_seen.so
+%{plugin_dir}/lib%{name}_monocle_seen.so
 %{_datadir}/applications/%{name}-monocle-seen.desktop
-%endif
+%{translations_dir}/*craft_monocle_seen_??.qm
+%{translations_dir}/*craft_monocle_seen_??_??.qm
 
 %files musiczombie
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_musiczombie.so
-%{_datadir}/%{name}/translations/%{name}_musiczombie_*.qm
+%{plugin_dir}/lib%{name}_musiczombie.so
+%{translations_dir}/*craft_musiczombie_*.qm
 
 %files netstoremanager
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_netstoremanager.so
-%{_datadir}/%{name}/settings/netstoremanagersettings.xml
-%{_datadir}/%{name}/translations/%{name}_netstoremanager_??.qm
-%{_datadir}/%{name}/translations/%{name}_netstoremanager_??_??.qm
+%{plugin_dir}/*craft_netstoremanager.so
+%{settings_dir}/netstoremanagersettings.xml
+%{translations_dir}/*craft_netstoremanager_??.qm
+%{translations_dir}/*craft_netstoremanager_??_??.qm
 
 %files netstoremanager-googledrive
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_netstoremanager_googledrive.so
-%{_datadir}/%{name}/settings/nsmgoogledrivesettings.xml
-%{_datadir}/%{name}/translations/%{name}_netstoremanager_googledrive_*.qm
+%{plugin_dir}/*craft_netstoremanager_googledrive.so
+%{settings_dir}/nsmgoogledrivesettings.xml
+%{translations_dir}/*craft_netstoremanager_googledrive_*.qm
 
 %files networkmonitor
 %defattr(-,root,root)
-%{translations_dir}/%{name}_networkmonitor*.qm
-%{plugin_dir}/*%{name}_networkmonitor.so
+%{translations_dir}/*craft_networkmonitor*.qm
+%{plugin_dir}/*craft_networkmonitor.so
 
 %files newlife
 %defattr(-,root,root)
-%{translations_dir}/%{name}_newlife*.qm
-%{plugin_dir}/*%{name}_newlife.so
+%{translations_dir}/*craft_newlife*.qm
+%{plugin_dir}/*craft_newlife.so
 
 %files ooronee
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_ooronee.so
-%{_datadir}/%{name}/settings/ooroneesettings.xml
-%{_datadir}/%{name}/qml/ooronee
+%{plugin_dir}/lib%{name}_ooronee.so
+%{settings_dir}/ooroneesettings.xml
+%{qml_dir}/ooronee
 
 %files otlozhu
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_otlozhu.so
-%{_datadir}/%{name}/translations/%{name}_otlozhu_*.qm
-%{_datadir}/%{name}/settings/otlozhusettings.xml
+%{plugin_dir}/lib%{name}_otlozhu.so
+%{translations_dir}/*craft_otlozhu_*.qm
+%{settings_dir}/otlozhusettings.xml
 
 %files pintab
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_pintab.so
-%{_datadir}/%{name}/translations/%{name}_pintab_*.qm
+%{plugin_dir}/*craft_pintab.so
+%{translations_dir}/*craft_pintab_*.qm
 
 %files pogooglue
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_pogooglue*
-%{translations_dir}/leechcraft_pogooglue*
+%{plugin_dir}/*craft_pogooglue*
+%{translations_dir}/*craft_pogooglue*
 
 %files popishu
 %defattr(-,root,root)
 %{settings_dir}/popishusettings.xml
-%{translations_dir}/%{name}_popishu_*.qm
-%{plugin_dir}/*%{name}_popishu.so
+%{translations_dir}/*craft_popishu_*.qm
+%{plugin_dir}/*craft_popishu.so
 
-%if 0%{?suse_version} >= 1230
 %files poshuku
 %defattr(-,root,root)
-%dir %{_datadir}/%{name}/installed
-%{_datadir}/%{name}/installed/poshuku/
+%dir %{_datadir}/leechcraft/installed
+%{_datadir}/leechcraft/installed/poshuku/
 %{settings_dir}/poshukusettings.xml
-%{translations_dir}/%{name}_poshuku_??.qm
-%{translations_dir}/%{name}_poshuku_??_??.qm
-%{plugin_dir}/*%{name}_poshuku.so
+%{translations_dir}/*craft_poshuku_??.qm
+%{translations_dir}/*craft_poshuku_??_??.qm
+%{plugin_dir}/*craft_poshuku.so
 
 %files poshuku-autosearch
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_poshuku_autosearch.so
-%{_datadir}/%{name}/translations/%{name}_poshuku_autosearch_*.qm
+%{plugin_dir}/*craft_poshuku_autosearch.so
+%{translations_dir}/*craft_poshuku_autosearch_*.qm
 
 %files poshuku-cleanweb
 %defattr(-,root,root)
 %{settings_dir}/poshukucleanwebsettings.xml
-%{translations_dir}/%{name}_poshuku_cleanweb*.qm
-%{plugin_dir}/*%{name}_poshuku_cleanweb.so
+%{translations_dir}/*craft_poshuku_cleanweb*.qm
+%{plugin_dir}/*craft_poshuku_cleanweb.so
 
 %files poshuku-dcac
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/*%{name}_poshuku_dcac.so
-%{_datadir}/%{name}/translations/%{name}_poshuku_dcac_??.qm
-%{_datadir}/%{name}/translations/%{name}_poshuku_dcac_??_??.qm
-%{_datadir}/%{name}/settings/poshukudcacsettings.xml
+%{plugin_dir}/*craft_poshuku_dcac.so
+%{translations_dir}/*craft_poshuku_dcac_??.qm
+%{translations_dir}/*craft_poshuku_dcac_??_??.qm
+%{settings_dir}/poshukudcacsettings.xml
 
 %files poshuku-fatape
 %defattr(-,root,root)
 %{settings_dir}/poshukufatapesettings.xml
-%{plugin_dir}/*%{name}_poshuku_fatape.so
-%{translations_dir}/leechcraft_poshuku_fatape_*.qm
+%{plugin_dir}/*craft_poshuku_fatape.so
+%{translations_dir}/*craft_poshuku_fatape_*.qm
 
 %files poshuku-filescheme
 %defattr(-,root,root)
-%{translations_dir}/%{name}_poshuku_filescheme_*.qm
-%{plugin_dir}/*%{name}_poshuku_filescheme.so
+%{translations_dir}/*craft_poshuku_filescheme_*.qm
+%{plugin_dir}/*craft_poshuku_filescheme.so
 
 %files poshuku-fua
 %defattr(-,root,root)
 %{settings_dir}/poshukufuasettings.xml
-%{translations_dir}/%{name}_poshuku_fua*.qm
-%{plugin_dir}/*%{name}_poshuku_fua.so
+%{translations_dir}/*craft_poshuku_fua*.qm
+%{plugin_dir}/*craft_poshuku_fua.so
 
 %files poshuku-keywords
 %defattr(-,root,root,-)
-%{plugin_dir}/*%{name}_poshuku_keywords.so
+%{plugin_dir}/*craft_poshuku_keywords.so
 %{settings_dir}/poshukukeywordssettings.xml
-%{_datadir}/%{name}/translations/%{name}_poshuku_keywords_*.qm
+%{translations_dir}/*craft_poshuku_keywords_*.qm
 
 %files poshuku-onlinebookmarks
 %defattr(-,root,root)
 %{settings_dir}/poshukuonlinebookmarkssettings.xml
-%{translations_dir}/%{name}_poshuku_onlinebookmarks*.qm
-%{plugin_dir}/*%{name}_poshuku_onlinebookmarks.so
+%{translations_dir}/*craft_poshuku_onlinebookmarks*.qm
+%{plugin_dir}/*craft_poshuku_onlinebookmarks.so
 
 %files poshuku-onlinebookmarks-delicious
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_poshuku_onlinebookmarks_delicious*
+%{plugin_dir}/*craft_poshuku_onlinebookmarks_delicious*
 
 %files poshuku-onlinebookmarks-readitlater
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_poshuku_onlinebookmarks_readitlater.*
+%{plugin_dir}/*craft_poshuku_onlinebookmarks_readitlater.*
 
 %files poshuku-qrd
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_poshuku_qrd.so
-%{_datadir}/%{name}/translations/%{name}_poshuku_qrd_??.qm
-%{_datadir}/%{name}/translations/%{name}_poshuku_qrd_??_??.qm
+%{plugin_dir}/lib%{name}_poshuku_qrd.so
+%{translations_dir}/*craft_poshuku_qrd_??.qm
+%{translations_dir}/*craft_poshuku_qrd_??_??.qm
 
 %files poshuku-speeddial
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_poshuku_speeddial.so
-%{_datadir}/%{name}/settings/poshukuspeeddialsettings.xml
-%{_datadir}/%{name}/translations/%{name}_poshuku_speeddial_??.qm
-%{_datadir}/%{name}/translations/%{name}_poshuku_speeddial_??_??.qm
-%endif
+%{plugin_dir}/lib%{name}_poshuku_speeddial.so
+%{settings_dir}/poshukuspeeddialsettings.xml
+%{translations_dir}/*craft_poshuku_speeddial_??.qm
+%{translations_dir}/*craft_poshuku_speeddial_??_??.qm
 
 %files qrosp
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_qrosp.so
+%{plugin_dir}/lib%{name}_qrosp.so
 
 %files rosenthal
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_rosenthal.so
-%{_datadir}/%{name}/translations/%{name}_rosenthal*
-%{_datadir}/%{name}/settings/rosenthalsettings.xml
+%{plugin_dir}/lib%{name}_rosenthal.so
+%{translations_dir}/*craft_rosenthal*
+%{settings_dir}/rosenthalsettings.xml
 
 %files sb2
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_sb2.so
-%{_datadir}/%{name}/qml/sb2/
-%{_datadir}/%{name}/settings/sb2panelsettings.xml
-%{_datadir}/%{name}/translations/%{name}_sb2_*.qm
+%{plugin_dir}/lib%{name}_sb2.so
+%{qml_dir}/sb2/
+%{settings_dir}/sb2panelsettings.xml
+%{translations_dir}/*craft_sb2_*.qm
 
 %files scroblibre
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_scroblibre.so
-%{_datadir}/%{name}/settings/scroblibresettings.xml
-%{_datadir}/%{name}/translations/%{name}_scroblibre_*.qm
+%{plugin_dir}/lib%{name}_scroblibre.so
+%{settings_dir}/scroblibresettings.xml
+%{translations_dir}/*craft_scroblibre_*.qm
 
 %files secman
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_secman.so
-%{_datadir}/%{name}/translations/%{name}_secman_*.qm
+%{plugin_dir}/*craft_secman.so
+%{translations_dir}/*craft_secman_*.qm
 
 %files secman-simplestorage
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_secman_simplestorage.so
+%{plugin_dir}/*craft_secman_simplestorage.so
 
 %files seekthru
 %defattr(-,root,root)
 %{settings_dir}/seekthrusettings.xml
-%{translations_dir}/%{name}_seekthru*.qm
-%{plugin_dir}/*%{name}_seekthru.so
+%{translations_dir}/*craft_seekthru*.qm
+%{plugin_dir}/*craft_seekthru.so
 
 %files summary
 %defattr(-,root,root)
-%{translations_dir}/%{name}_summary*.qm
-%{plugin_dir}/*%{name}_summary.so
+%{translations_dir}/*craft_summary*.qm
+%{plugin_dir}/*craft_summary.so
 
 %files sysnotify
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_sysnotify.so
-%{_datadir}/%{name}/translations/%{name}_sysnotify_*.qm
+%{plugin_dir}/lib%{name}_sysnotify.so
+%{translations_dir}/*craft_sysnotify_*.qm
 
 %files tabsessionmanager
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_tabsessmanager.so
-%{_datadir}/%{name}/translations/%{name}_tabsessmanager_*.qm
+%{plugin_dir}/*craft_tabsessmanager.so
+%{translations_dir}/*craft_tabsessmanager_*.qm
 
 %files tabslist
 %defattr(-,root,root)
-%{plugin_dir}/*%{name}_tabslist.so
-%{translations_dir}/leechcraft_tabslist*
+%{plugin_dir}/*craft_tabslist.so
+%{translations_dir}/*craft_tabslist*
 
 %files textogroose
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_textogroose.so
+%{plugin_dir}/lib%{name}_textogroose.so
 
-%if 0%{?suse_version} > 1230
 %files touchstreams
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_touchstreams.so
-%{_datadir}/%{name}/translations/%{name}_touchstreams*.qm
-%{_datadir}/%{name}/settings/touchstreamssettings.xml
-%endif
+%{plugin_dir}/lib%{name}_touchstreams.so
+%{translations_dir}/*craft_touchstreams*.qm
+%{settings_dir}/touchstreamssettings.xml
 
 %files tpi
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_tpi.so
-%{_datadir}/%{name}/qml/tpi/
+%{plugin_dir}/lib%{name}_tpi.so
+%{qml_dir}/tpi/
 
 %files vgrabber
 %defattr(-,root,root)
 %{settings_dir}/vgrabbersettings.xml
-%{translations_dir}/%{name}_vgrabber*.qm
-%{plugin_dir}/*%{name}_vgrabber.so
+%{translations_dir}/*craft_vgrabber*.qm
+%{plugin_dir}/*craft_vgrabber.so
 
-%if 0%{?suse_version} > 1230
+%if 0%{?suse_version} != 1315
 %files vtyulc
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_vtyulc.so
-%{_datadir}/%{name}/settings/vtyulcsettings.xml
-%{_datadir}/%{name}/translations/%{name}_vtyulc_*.qm
+%{plugin_dir}/lib%{name}_vtyulc.so
+%{settings_dir}/vtyulcsettings.xml
+%{translations_dir}/*craft_vtyulc_*.qm
 %endif
 
 %files vrooby
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_vrooby.so
-%{_datadir}/%{name}/translations/%{name}_vrooby_*.qm
+%{plugin_dir}/lib%{name}_vrooby.so
+%{translations_dir}/*craft_vrooby_*.qm
+%{qml_dir}/vrooby
 
 %files xproxy
 %defattr(-,root,root)
-%{_libdir}/%{name}/plugins/lib%{name}_xproxy.so
-%{_datadir}/%{name}/settings/xproxysettings.xml
-%{_datadir}/%{name}/translations/%{name}_xproxy_*.qm
+%{plugin_dir}/lib%{name}_xproxy.so
+%{settings_dir}/xproxysettings.xml
+%{translations_dir}/*craft_xproxy_*.qm
+%{_datadir}/leechcraft/scripts/xproxy
 
 %files xtazy
 %defattr(-,root,root)
-%{_datadir}/%{name}/settings/xtazysettings.xml
-%{_libdir}/%{name}/plugins/*%{name}_xtazy.so
-%{_datadir}/%{name}/translations/%{name}_xtazy*
+%{settings_dir}/xtazysettings.xml
+%{plugin_dir}/*craft_xtazy.so
+%{translations_dir}/*craft_xtazy_??.qm
+%{translations_dir}/*craft_xtazy_??_??.qm
 
-%files -n lib%{name}-util-db%{so_ver}
+%files zalil
 %defattr(-,root,root)
-%{_libdir}/lib%{name}-util-db*.so.*
+%{plugin_dir}/*craft_zalil.so
+%{translations_dir}/*craft_zalil_??.qm
+%{translations_dir}/*craft_zalil_??_??.qm
 
-%files -n lib%{name}-util-gui%{so_ver}
+%files -n libleechcraft-util-db%{so_ver}
 %defattr(-,root,root)
-%{_libdir}/lib%{name}-util-gui*.so.*
+%{_libdir}/*-util-db*.so.*
 
-%files -n lib%{name}-util-models%{so_ver}
+%files -n libleechcraft-util-gui%{so_ver}
 %defattr(-,root,root)
-%{_libdir}/lib%{name}-util-models*.so.*
+%{_libdir}/*-util-gui*.so.*
 
-%files -n lib%{name}-util-network%{so_ver}
+%files -n libleechcraft-util-models%{so_ver}
 %defattr(-,root,root)
-%{_libdir}/lib%{name}-util-network*.so.*
+%{_libdir}/*-util-models*.so.*
 
-%files -n lib%{name}-util-qml%{so_ver}
+%files -n libleechcraft-util-network%{so_ver}_1
 %defattr(-,root,root)
-%{_libdir}/lib%{name}-util-qml*.so.*
+%{_libdir}/*-util-network*.so.*
 
-%files -n lib%{name}-util-shortcuts%{so_ver}
+%files -n libleechcraft-util-qml%{so_ver}_1
 %defattr(-,root,root)
-%{_libdir}/lib%{name}-util-shortcuts*.so.*
+%{_libdir}/*-util-qml*.so.*
 
-%files -n lib%{name}-util-sll%{so_ver}
+%files -n libleechcraft-util-shortcuts%{so_ver}
 %defattr(-,root,root)
-%{_libdir}/lib%{name}-util-sll*.so.*
+%{_libdir}/*-util-shortcuts*.so.*
 
-%files -n lib%{name}-util-svcauth%{so_ver}
+%files -n libleechcraft-util-sll%{so_ver}
 %defattr(-,root,root)
-%{_libdir}/lib%{name}-util-svcauth*.so.*
+%{_libdir}/*-util-sll*.so.*
 
-%files -n lib%{name}-util-sys%{so_ver}
+%files -n libleechcraft-util-svcauth%{so_ver}
 %defattr(-,root,root)
-%{_libdir}/lib%{name}-util-sys*.so.*
+%{_libdir}/*-util-svcauth*.so.*
 
-%files -n lib%{name}-util-tags%{so_ver}
+%files -n libleechcraft-util-sys%{so_ver}_1
 %defattr(-,root,root)
-%{_libdir}/lib%{name}-util-tags*.so.*
+%{_libdir}/*-util-sys*.so.*
 
-%files -n lib%{name}-util-x11-%{so_ver}
+%files -n libleechcraft-util-tags%{so_ver}_1
 %defattr(-,root,root)
-%{_libdir}/lib%{name}-util-x11*.so.*
+%{_libdir}/*-util-tags*.so.*
 
-%files -n lib%{name}-util-xdg%{so_ver}
+%files -n libleechcraft-util-x11-%{so_ver}
 %defattr(-,root,root)
-%{_libdir}/lib%{name}-util-xdg*.so.*
+%{_libdir}/*-util-x11*.so.*
 
-%files -n lib%{name}-util-xpc%{so_ver}
+%files -n libleechcraft-util-xdg%{so_ver}
 %defattr(-,root,root)
-%{_libdir}/lib%{name}-util-xpc*.so.*
+%{_libdir}/*-util-xdg*.so.*
 
-%files -n lib%{name}-util-xsd%{so_ver}
+%files -n libleechcraft-util-xpc%{so_ver}_2
 %defattr(-,root,root)
-%{_libdir}/lib%{name}-util-xsd*.so.*
+%{_libdir}/*-util-xpc*.so.*
+
+%files -n libleechcraft-util-xsd%{so_ver}
+%defattr(-,root,root)
+%{_libdir}/*-util-xsd*.so.*
 
 %changelog
