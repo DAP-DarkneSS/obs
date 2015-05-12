@@ -3,7 +3,7 @@
 . /etc/rc.conf
 . /etc/rc.d/functions
 
-PID=`pidof -o %PPID /usr/bin/cpufreqd`
+PID=`pidof -o %PPID /usr/sbin/cpufreqd`
 case "$1" in
   start)
     stat_busy "Starting cpufreqd"

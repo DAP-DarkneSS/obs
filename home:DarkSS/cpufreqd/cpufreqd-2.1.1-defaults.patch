@@ -5,7 +5,7 @@
  [Rule]
  name=Movie Watcher
 -programs=xine,mplayer,gmplayer
-+programs=xine,mplayer,avidemux,gcc,totem,vlc,kaffeine,ogle,lindvd
++programs=xine,mplayer,avidemux,totem,vlc,kaffeine,mpv
  battery_interval=0-100
  acpi_temperature=0-60
  cpu_interval=0-100

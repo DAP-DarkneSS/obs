@@ -16,12 +16,12 @@
 #
 
 
-%define lib_name %{mklibname} %{name}
 # (misc) about the rpmlint warning.
 #
 # file in /usr/lib are plugin, so they do not have a soname
 # and they do not nned to be installable side by side with another
 # version, so it is safe to ignore the error.
+
 Name:           cpufreqd
 Version:        2.4.2
 Release:        0
@@ -29,19 +29,24 @@ Summary:        CPU frequency scaling daemon
 License:        GPL-2.0+
 Group:          System/Kernel and hardware
 Url:            http://www.linux.it/~malattia/wiki/index.php/Cpufreqd
+
 Source:         http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
-Source1:        %{name}.init
-Source2:        cpufreq_defaults
-Patch0:         %{name}.Makefile.patch
-# (fc) 1.2.3-2mdk add more cpu intensive programs to full power mode
+Source1:        cpufreqd
+Source2:        cpufreqd.service
+
+# PATCH-FIX-OPENSUSE not to search libcpufreq.
+Patch0:         cpupower.patch
+# PATCH-FIX-OPENSUSE with longer video players list.
 Patch1:         cpufreqd-2.1.1-defaults.patch
-# add patch from upstream to fix a buffer overflow with gcc-4.5
+# PATCH-FIX-UPSRTEAM to fix a buffer overflow with gcc-4.5
 Patch2:         cpufreqd-2.4.2-fix-segfault-when-calling-realpath.patch
+
+BuildRequires:  autoconf
 BuildRequires:  automake
-BuildRequires:  libcpufreq-devel
-BuildRequires:  libsysfs-devel
-Requires:       %{lib_name}
-Requires(preun,post): rpm-helper
+BuildRequires:  cpupower-devel
+BuildRequires:  libtool
+BuildRequires:  sysfsutils-devel
+Requires:       lib%{name}
 
 %description
 cpufreqd is meant to be a replacement of the speedstep applet you
@@ -54,11 +59,11 @@ standard %{_vendor} kernel.
 
 You also need a supported processor, often found in laptops.
 
-%package -n %{lib_name}
+%package -n lib%{name}
 Summary:        Library for %{name}
 Group:          System/Kernel and hardware
 
-%description -n %{lib_name}
+%description -n lib%{name}
 This packages contains some library needed
 by %{name}.
 
@@ -73,36 +78,43 @@ sed -i -e 's,AM_CONFIG_HEADER,AC_CONFIG_HEADERS,g' configure.*
 
 %build
 autoreconf -vfi
-%{configure2_5x}
-%{make}
+%configure
+make %{?_smp_mflags} V=1
 
 %install
-%{makeinstall_std}
+%make_install V=1
 
-install -d %{buildroot}%{_sysconfdir}/sysconfig
-install -d %{buildroot}%{_sysconfdir}/%{name}
-install -D -p -m 755 %{SOURCE1} %{buildroot}/%{_initddir}/%{name}
-install -D -p -m 644 %{SOURCE2} %{buildroot}%{_datadir}/%{name}/cpufreq_defaults
+install -Dm755 %{SOURCE1} \
+                %{buildroot}%{_sysconfdir}/rc.d/cpufreqd
+install -Dm644 %{SOURCE2} \
+                %{buildroot}%{_libexecdir}/systemd/system/cpufreqd.service
 
-%post
-%{_post_service} %{name}
+
+%pre
+%service_add_pre cpufreqd.service
 
 %preun
-%{_preun_service} %{name}
+%{stop_on_removal cpufreqd}
+%service_del_preun cpufreqd.service
+
+%post
+%service_add_post cpufreqd.service
+
+%postun
+%{restart_on_update cpufreqd}
+%service_del_postun cpufreqd.service
 
 %files
 %defattr(-,root,root,0755)
 %doc AUTHORS README TODO NEWS ChangeLog
 %attr(755,root,root) %{_sbindir}/cpufreqd
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/cpufreqd.conf
-%config(noreplace) %{_initddir}/%{name}
-%dir %{_sysconfdir}/%{name}/
-%{_datadir}/%{name}/cpufreq_defaults
-%dir %{_datadir}/%{name}/
 %attr(644,root,root) %{_mandir}/*/*
 %{_bindir}/*
+%{_sysconfdir}/rc.d/cpufreqd
+%{_libexecdir}/systemd/system/cpufreqd.service
 
-%files -n %{lib_name}
+%files -n lib%{name}
 %defattr(-,root,root,0755)
 %{_libdir}/cpufreqd*
 
