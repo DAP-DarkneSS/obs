@@ -1,7 +1,7 @@
 #
 # spec file for package ghc-SDL
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -27,6 +27,9 @@ Group:          System/Libraries
 
 Url:            http://hackage.haskell.org/package/%{pkg_name}
 Source0:        http://hackage.haskell.org/packages/archive/%{pkg_name}/%{version}/%{pkg_name}-%{version}.tar.gz
+# PATCH-FIX-OPENSUSE vs. Module `Data.Typeable' does not export `Typeable(typeOf)'
+# See more at https://mail.haskell.org/pipermail/beginners/2014-May/013762.html
+Patch0:         ghc-7_8.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 BuildRequires:  ghc-Cabal-devel
@@ -66,6 +69,7 @@ This package provides the Haskell %{pkg_name} library documentation.
 
 %prep
 %setup -q -n %{pkg_name}-%{version}
+%patch0
 
 %build
 %ghc_lib_build

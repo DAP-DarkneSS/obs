@@ -1,0 +1,11 @@
+--- Graphics/UI/SDL/Events.hsc.orig	2013-07-11 15:19:37.000000000 +0300
++++ Graphics/UI/SDL/Events.hsc	2015-05-12 19:24:36.736336400 +0300
+@@ -53,7 +53,7 @@
+ import qualified Prelude (Enum(..))
+ 
+ import Foreign.StablePtr (newStablePtr,castStablePtrToPtr,castPtrToStablePtr,deRefStablePtr)
+-import Data.Typeable (Typeable(typeOf),TypeRep)
++import Data.Typeable
+ 
+ import Graphics.UI.SDL.Keysym (SDLKey, Modifier, Keysym)
+ import Graphics.UI.SDL.Utilities (Enum(..), intToBool, toBitmask, fromBitmask, fromCInt)

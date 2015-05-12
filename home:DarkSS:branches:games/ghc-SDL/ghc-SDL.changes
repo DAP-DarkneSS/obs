@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue May 12 16:29:49 UTC 2015 - dap.darkness@gmail.com
+
+- Added ghc-7_8.diff to resolve build time fail.
+
+-------------------------------------------------------------------
 Mon Oct 28 19:08:11 UTC 2013 - sbahling@suse.com
 
 - Remove doc subpackage
