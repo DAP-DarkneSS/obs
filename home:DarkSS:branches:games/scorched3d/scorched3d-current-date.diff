@@ -1,0 +1,15 @@
+--- src/common/common/DefinesScorched.cpp.orig	2014-08-01 19:47:31.000000000 +0300
++++ src/common/common/DefinesScorched.cpp	2015-05-13 23:04:21.376954000 +0300
+@@ -43,11 +43,7 @@
+ #endif
+ ;
+ std::string S3D::ScorchedProtocolVersion = "ew";
+-#ifdef __DATE__
+-std::string S3D::ScorchedBuildTime = __DATE__;
+-#else
+-std::string S3D::ScorchedBuildTime = "Unknown";
+-#endif
++std::string S3D::ScorchedBuildTime = "via openSUSE Build Service";
+ static std::string exeName;
+ static std::string currentMod = "none";
+ static std::string settingsDir = "";

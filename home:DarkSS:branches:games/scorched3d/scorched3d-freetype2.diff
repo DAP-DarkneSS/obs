@@ -1,0 +1,34 @@
+--- src/client/GLEXT/GLFont2dFreeType.h.orig	2015-05-13 22:36:36.340954000 +0300
++++ src/client/GLEXT/GLFont2dFreeType.h	2015-05-13 22:36:36.396954000 +0300
+@@ -23,10 +23,10 @@
+ 
+ #include <GLEXT/GLFont2dStorage.h>
+ #include <ft2build.h>
+-#include <freetype/freetype.h>
+-#include <freetype/ftglyph.h>
+-#include <freetype/ftoutln.h>
+-#include <freetype/fttrigon.h>
++#include <freetype2/freetype.h>
++#include <freetype2/ftglyph.h>
++#include <freetype2/ftoutln.h>
++#include <freetype2/fttrigon.h>
+ #include <string>
+ 
+ class GLFont2dFreeType
+--- src/launcher/wxdialogs/TrueTypeFont.h.orig	2015-05-13 22:36:21.570954000 +0300
++++ src/launcher/wxdialogs/TrueTypeFont.h	2015-05-13 22:36:21.613954000 +0300
+@@ -25,10 +25,10 @@
+ #include <wx/image.h>
+ #include <ft2build.h>
+ #include <string>
+-#include <freetype/freetype.h>
+-#include <freetype/ftglyph.h>
+-#include <freetype/ftoutln.h>
+-#include <freetype/fttrigon.h>
++#include <freetype2/freetype.h>
++#include <freetype2/ftglyph.h>
++#include <freetype2/ftoutln.h>
++#include <freetype2/fttrigon.h>
+ 
+ class TrueTypeFont
+ {

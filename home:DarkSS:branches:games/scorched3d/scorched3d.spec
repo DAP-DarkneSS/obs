@@ -1,7 +1,7 @@
 #
 # spec file for package scorched3d
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,26 +17,19 @@
 
 
 Name:           scorched3d
-Version:        43.3d
+Version:        44
 Release:        0
 Summary:        Game based loosely on the classic DOS game Scorched Earth
 License:        GPL-2.0+
 Group:          Amusements/Games/Action/Arcade
 Url:            http://www.scorched3d.co.uk/
-# this is
-# http://downloads.sourceforge.net/%{name}/Scorched3D-%{version}-src.tar.gz
-# with the included glew removed as that contains files under the non free
-# SGI Free license B. Instead the system version is used, which has the
-# troublesome glew parts replaced
-Source0:        Scorched3D-%{version}-src.tar.gz
+Source0:        http://downloads.sourceforge.net/project/scorched3d/scorched3d/Version%20%{version}/Scorched3D-%{version}-src.tar.gz
 Source1:        %{name}.desktop
 Source2:        openal-config
-# PATCH-FIX-OPENSUSE patch to use system libglew
-Patch0:         %{name}-systemglew.patch
-# PATCH-FIX-UPSTREAM scorched3d-gcc47.patch
-Patch1:         %{name}-gcc47.patch
-# PATCH-FIX-UPSTREAM scorched3d-libpng15.patch
-Patch2:         %{name}-libpng15.patch
+# PATCH-FIX-OPENSUSE to find ft2 headers files.
+Patch3:         %{name}-freetype2.diff
+# PATCH-FEATURE-OPENSUSE to prevent useless rebuilds.
+Patch4:         %{name}-current-date.diff
 BuildRequires:  SDL_net-devel
 BuildRequires:  fftw3-devel
 BuildRequires:  freealut-devel
@@ -44,6 +37,7 @@ BuildRequires:  freeglut-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libvorbis-devel
 BuildRequires:  openal-soft-devel
+BuildRequires:  pkgconfig(freetype2)
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version} >= 1140
 BuildRequires:  wxWidgets-devel
@@ -85,9 +79,10 @@ conditions and terrains to be dealt with.
 
 %prep
 %setup -q -n scorched
-%patch0
-%patch1 -p1
-%patch2 -p1
+%if 0%{?suse_version} >= 1320
+%patch3
+%endif
+%patch4
 sed -i 's/\r$//' COPYING README CHANGELOG
 chmod +x %{SOURCE2}
 
@@ -97,6 +92,10 @@ export CFLAGS="%{optflags} -fno-strict-aliasing"
 export CPPFLAGS="$CFLAGS"
 export CXXFLAGS="$CFLAGS"
 aclocal
+%if 0%{?suse_version} > 1320
+touch NEWS AUTHORS ChangeLog
+autoreconf -fiv
+%endif
 %configure --disable-dependency-tracking --datadir=%{_datadir}/%{name} \
   --with-docdir=%{_docdir}/%{name}-%{version}
 make %{?_smp_mflags}

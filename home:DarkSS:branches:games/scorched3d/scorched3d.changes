@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Wed May 13 19:11:56 UTC 2015 - dap.darkness@gmail.com
+
+- Updated to 44:
+  * no upstream changelog.
+- Removed merged patches:
+  * scorched3d-systemglew.patch (no bundled more glew);
+  * scorched3d-gcc47.patch.
+  * scorched3d-libpng15.patch
+- Added scorched3d-freetype2.diff to find ft2 headers files.
+- Added scorched3d-current-date.diff to prevent useless rebuilds.
+- Tarball was replaced by _service.
+
+-------------------------------------------------------------------
 Thu Dec 20 20:35:09 UTC 2012 - joop.boonen@opensuse.org
 
 - Created a libpng > 14 patch 
