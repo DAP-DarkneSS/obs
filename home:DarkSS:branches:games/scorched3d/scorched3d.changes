@@ -1,0 +1,76 @@
+-------------------------------------------------------------------
+Thu Dec 20 20:35:09 UTC 2012 - joop.boonen@opensuse.org
+
+- Created a libpng > 14 patch 
+
+-------------------------------------------------------------------
+Tue May  8 07:36:29 UTC 2012 - joop.boonen@opensuse.org
+
+- added missing BuildRequires automake
+- added gcc47 patch
+- passed the spec file through spec cleaner
+
+-------------------------------------------------------------------
+Wed Mar 16 11:44:08 UTC 2012 - svalx@svalx.net
+
+- update to 43.3d:
+  * many small fixes improve the stability of the game
+
+-------------------------------------------------------------------
+Wed Feb 15 15:23:01 UTC 2012 - svalx@svalx.net
+
+- update to 43.3:
+  * saved game can now be loaded
+  * brand new mod (AWE for a different and faster paced gameplay experience).
+  * many other bug fixes
+- drop strcmp patch
+
+-------------------------------------------------------------------
+Thu Nov 24 13:14:04 UTC 2011 - jreidinger@suse.com
+
+- fix openal linkings
+
+-------------------------------------------------------------------
+Thu Nov 3 10:38:26 UTC 2011 - svalx@pochta.ru
+
+- update to 43.2a:
+  * camera will now correctly follow players shots
+  * scorch textures now correctly tiled
+  * client server syncing fixed
+  * network dialog now correctly on screen
+
+-------------------------------------------------------------------
+Sat Jul  2 15:35:26 UTC 2011 - jengelh@medozas.de
+
+- Use %_smp_mflags for parallel building
+- Strip %clean section (not needed on BS)
+
+-------------------------------------------------------------------
+Tue Nov 16 10:32:12 UTC 2010 - pascal.bleser@opensuse.org
+
+- update to 43.2:
+  * implements some of the more popular game mechanics on the new game engine
+  * players can leave and enter spectator mode at anytime
+  * shot limits can be set for games
+  * player positions are visible when buying
+  * allows players to join and leave games without having to quit the game
+
+-------------------------------------------------------------------
+Sat Jul 17 16:34:33 UTC 2010 - highwaystar.ru@gmail.com
+
+- updated to 43.1c
+- fixed rpm group
+- switched to openal-soft
+- old patches removed 
+- new patch for system glew using
+
+-------------------------------------------------------------------
+Thu May  1 21:43:29 CEST 2008 - claes.backstrom@fsfe.org
+
+- Fix rpm dependencies.
+
+-------------------------------------------------------------------
+Fri Jan 25 09:40:44 CET 2008 - claes.backstrom@fsfe.org
+
+- Initial package built from Fedora package (41.3-2)
+
