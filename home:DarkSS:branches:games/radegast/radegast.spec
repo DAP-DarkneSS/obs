@@ -2,7 +2,7 @@
 #
 # spec file for package radegast
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 # Copyright (c) 2013 Pascal Bleser <pascal.bleser@opensuse.org>
 #
 # All modifications and additions to the file contributed by third parties
@@ -18,23 +18,25 @@
 #
 
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
-
 Name:           radegast
-Version:        2.10
+Version:        2.16
 Release:        0
 Summary:        Radegast Metaverse Client
 License:        BSD-3-Clause
 Group:          Productivity/Networking/Other
-Source:         http://radegast.googlecode.com/files/radegast-%{version}-src.zip
+Source:         https://bitbucket.org/radegastdev/radegast/downloads/radegast-%{version}-src.zip
 Url:            http://radegast.org/
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+
 BuildRequires:  fdupes
+BuildRequires:  glibc
+BuildRequires:  libgdiplus0
 BuildRequires:  mono-devel
 BuildRequires:  nant
 BuildRequires:  unzip
 BuildRequires:  update-desktop-files
+BuildRequires:  xorg-x11-fonts
 BuildRequires:  xorg-x11-fonts-core
+BuildRequires:  xorg-x11-fonts-devel
 
 %description
 Lightweight client for connecting to Second Life and OpenSim based virtual
@@ -46,8 +48,8 @@ worlds.
 
 %build
 pushd radegast
-sh ./runprebuild-nant.sh
-nant Release build
+sh ./runprebuild.sh
+xbuild Radegast.sln
 popd
 
 %install
@@ -86,9 +88,6 @@ EOF
 %suse_update_desktop_file -r "%{name}" Network InstantMessaging
 
 %fdupes -s "%{buildroot}%{_libdir}/%{name}/"
-
-%clean
-%{?buildroot:%__rm -rf "%{buildroot}"}
 
 %files
 %defattr(-,root,root)
