@@ -1,7 +1,7 @@
 #
 # spec file for package ghc-SDL-image
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -27,7 +27,8 @@ Group:          System/Libraries
 
 Url:            http://hackage.haskell.org/package/%{pkg_name}
 Source0:        http://hackage.haskell.org/packages/archive/%{pkg_name}/%{version}/%{pkg_name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+# PATCH-FIX-OPENSUSE vs. "linking error: undefined reference to IMG_*".
+Patch0:         ghc-SDL-image-pc.patch
 
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
@@ -48,6 +49,7 @@ Group:          Development/Libraries/Other
 Provides:       %{name}-static = %{version}-%{release}
 Requires:       %{name} = %{version}-%{release}
 Requires:       ghc-compiler = %{ghc_version}
+Requires:       pkgconfig(SDL_image)
 
 %description devel
 This package provides the Haskell %{pkg_name} library development files.
@@ -55,6 +57,7 @@ This package provides the Haskell %{pkg_name} library development files.
 
 %prep
 %setup -q -n %{pkg_name}-%{version}
+%patch0 -p1
 
 %build
 %ghc_lib_build

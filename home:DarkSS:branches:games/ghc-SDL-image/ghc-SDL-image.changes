@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri May 15 13:00:20 UTC 2015 - dap.darkness@gmail.com
+
+- Added ghc-SDL-image-pc.patch to resolve "linking error:
+  (Image.o):(.text+0x85): undefined reference to IMG_*",
+  see more at https://github.com/styx/Raincat/issues/3
+
+-------------------------------------------------------------------
 Mon Oct 28 19:09:40 UTC 2013 - sbahling@suse.com
 
 - Update spec file.
