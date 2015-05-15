@@ -17,40 +17,41 @@
 
 
 %global pkg_name SDL-image
-%global common_summary Haskell binding for %{pkg_name} library
-%global common_description SDL_image is an image file loading library. \
-It loads images as SDL surfaces, and supports the following formats: \
-BMP, GIF, JPEG, LBM, PCX, PNG, PNM, TGA, TIFF, XCF, XPM, XV.
 
 Name:           ghc-SDL-image
 Version:        0.6.1
 Release:        0
-Summary:        %{common_summary}
+Summary:        Binding to libSDL_image
 License:        BSD-3-Clause
 Group:          System/Libraries
+
 Url:            http://hackage.haskell.org/package/%{pkg_name}
 Source0:        http://hackage.haskell.org/packages/archive/%{pkg_name}/%{version}/%{pkg_name}-%{version}.tar.gz
-
-BuildRequires:  ghc-Cabal-devel
-BuildRequires:  ghc-SDL-devel
-BuildRequires:  ghc-rpm-macros
-BuildRequires:  pkgconfig(SDL_image)
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
+BuildRequires:  ghc-Cabal-devel
+BuildRequires:  ghc-rpm-macros
+# Begin cabal-rpm deps:
+BuildRequires:  ghc-SDL-devel
+# End cabal-rpm deps
+BuildRequires:  SDL_image-devel
+
 %description
-%{common_description}
+SDL_image is an image file loading library. It loads images as SDL surfaces,
+and supports the following formats: BMP, GIF, JPEG, LBM, PCX, PNG, PNM, TGA,
+TIFF, XCF, XPM, XV.
+
 
 %package devel
-Summary:        %{common_summary} development
-Group:          Development/Languages/Other
-Requires:       %{name} = %{version}
-Requires:       ghc-compiler
-Requires:       pkgconfig(SDL_image)
-Requires(post): ghc-compiler
-Requires(postun): ghc-compiler
+Summary:        Haskell %{pkg_name} library development files
+Group:          Development/Libraries/Other
+Provides:       %{name}-static = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+Requires:       ghc-compiler = %{ghc_version}
 
 %description devel
-%{common_description}
+This package provides the Haskell %{pkg_name} library development files.
+
 
 %prep
 %setup -q -n %{pkg_name}-%{version}
@@ -60,7 +61,6 @@ Requires(postun): ghc-compiler
 
 %install
 %ghc_lib_install
-# Deletes text stuff, let's include it via doc-macro.
 rm -rf %{buildroot}%{_datadir}/%{pkg_name}-%{version}
 
 %post devel
@@ -71,7 +71,7 @@ rm -rf %{buildroot}%{_datadir}/%{pkg_name}-%{version}
 
 %files -f %{name}.files
 %defattr(-,root,root,-)
-%doc LICENSE README TODO
+%doc LICENSE TODO README
 
 %files devel -f %{name}-devel.files
 %defattr(-,root,root,-)

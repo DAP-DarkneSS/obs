@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Oct 28 19:09:40 UTC 2013 - sbahling@suse.com
+
+- Update spec file.
+  * Use new cabal-rpm template
+  * Builds for SUSE Linux Enterpise 11
+
+-------------------------------------------------------------------
 Sun Aug  4 17:10:14 UTC 2013 - dap.darkness@gmail.com
 
 - Fixed for Haskell Platform 2013.2.
