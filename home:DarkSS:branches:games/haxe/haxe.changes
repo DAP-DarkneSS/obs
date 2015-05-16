@@ -1,4 +1,38 @@
 -------------------------------------------------------------------
+Sat May 16 10:19:57 UTC 2015 - dap.darkness@gmail.com
+
+- Updated to 4.2.0:
+  * New features:
+    + all: added @:noPrivateAccess to re-enable access
+      restrictions within @:privateAccess
+    + cpp: some support for @:nativeGen metadata
+  * Bugfixes:
+    + all: @:generic classes with constructor constraints detection
+    + all: variable initialization check issue in loop condition
+    + all: pattern matching on @:enum abstracts via field access
+    + all: missing implicit casts in Map literals (#4100)
+    + all: various minor issues in haxe.xml.Parser
+    + all: class path issue when HAXE_STD_PATH is set (#4163)
+    + js: DCE issue related to printing enums (#4197)
+    + js: various issues with the new Bytes implementation
+    + php: EOF handling in FileInput.readByte (#4082)
+    + cs/java: Math.fround implementation (#4177)
+    + cs/java: some cases of Std.parseInt failing (#4132)
+    + cpp: compilation without -main (#4199)
+  * General improvements and optimizations:
+    + all: --macro keep no longer causes types to be included
+      for compilation
+    + php: support interpolation in php code
+    + js: added variable number of arguments support
+      in js.html.* classes
+    + js: refined new HTML externs
+  * Macro features and changes:
+    + macro: [breaking] synced FClosure and FInstance
+      with the compiler updates
+- %install section refactoring.
+- general spec file clean-up.
+
+-------------------------------------------------------------------
 Sun May 10 20:18:03 UTC 2015 - dap.darkness@gmail.com
 
 - Added missing files to resolve builds issue.
