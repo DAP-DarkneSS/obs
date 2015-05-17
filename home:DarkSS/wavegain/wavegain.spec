@@ -1,7 +1,7 @@
 #
 # spec file for package wavegain
 #
-# Copyright (c) 2014 Packman team: http://packman.links2linux.org/
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via https://bugs.links2linux.org/
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
 Name:           wavegain
@@ -23,18 +23,21 @@ Summary:        A command line tool to normalize sound files
 Url:            http://rarewares.org/others.php
 Group:          Productivity/Multimedia/Sound/Editors and Convertors
 Source:         http://www.rarewares.org/files/others/%{name}-%{version}srcs.zip
+# PATCH-FIX-OPENSUSE vs. file-contains-current-date WARNING:
+Patch0:         wavegain-no-date-and-time.diff
 
 BuildRequires:  dos2unix
 BuildRequires:  unzip
 BuildRequires:  pkgconfig(sndfile)
 # x86 asm, so
-ExcludeArch:    %arm
+ExclusiveArch:  %ix86 x86_64
 
 %description
 %{name} is a ReplayGain for wave files. It normalizes sound files.
 
 %prep
 %setup -q -n WaveGain-%{version}
+%patch0
 dos2unix COPYING
 
 

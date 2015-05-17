@@ -1,0 +1,11 @@
+--- main.c.org	2010-11-20 14:36:06.000000000 +0200
++++ main.c	2015-05-17 13:07:11.199979680 +0300
+@@ -346,7 +346,7 @@
+  */
+ static void usage(void)
+ {
+-	fprintf(stdout, _("WaveGain v" WAVEGAIN_VERSION " Compiled " __DATE__ ".\n"));
++	fprintf(stdout, _("WaveGain v" WAVEGAIN_VERSION " Compiled via openSUSE Build Service.\n"));
+ 	fprintf(stdout, _("Copyright (c) 2002-2010 John Edwards <john.edwards33@ntlworld.com>\n"));
+ 	fprintf(stdout, _("Additional code by Magnus Holmgren, Gian-Carlo Pascutto, and Tycho\n\n"));
+ #ifdef _WIN32

@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sun May 17 10:09:56 UTC 2015 - dap.darkness@gmail.com
+
+- Added wavegain-no-date-and-time.diff vs.
+  W: file-contains-current-date /usr/bin/wavegain.
+
+-------------------------------------------------------------------
+Thu Aug 21 15:15:43 UTC 2014 - dap.darkness@gmail.com
+
+- Let enable x86(_64) only not just disable arm.
+
+-------------------------------------------------------------------
 Mon Jul 28 18:20:33 UTC 2014 - dap.darkness@gmail.com
 
 - Initial build.
