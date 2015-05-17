@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Sun May 17 08:18:52 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 20150505:
+  * Merge with NetBSD make, pick up
+    + cond.c: be strict about lhs of comparison when evaluating .if
+      but less so when called from variable expansion.
+    + unit-tests/cond2.mk: test various error conditions
+    + job.c: use memmove() rather than memcpy()
+    + document different handling of '-' in jobs mode vs compat
+    + fix jobs mode so that '-' only applies to whole job
+      when shell lacks hasErrCtl
+    + meta.c: use separate vars to track lcwd and latestdir (read)
+      per process
+    + meta.c: close meta file in child
+  * Add Bitrig patch from joerg@netbsd.org
+  * Makefile: use BINDIR.bmake if set. Same for MANDIR and
+    SHAREDIR. Handy for testing release candidates in various
+    environments.
+  * move initialization of savederr to block where it is used
+    to avoid spurious warning from gcc5
+
+-------------------------------------------------------------------
 Fri Mar  6 21:01:46 UTC 2015 - mpluskal@suse.com
 
 - Cleanups spec file with spec-cleaner
