@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sun May 17 08:41:42 UTC 2015 - dap.darkness@gmail.com
+
+- 0.2.7
+  * See at http://gtk-apps.org/content/show.php?content=158161
+- lang subpackage with French locale.
+- "kkedit-devel: W: devel-package-with-non-devel-group" was fixed.
+- ctags became recommended to prevent runtime warning.
+
+-------------------------------------------------------------------
 Tue Aug 12 15:28:00 UTC 2014 - dap.darkness@gmail.com
 
 - 0.2.2

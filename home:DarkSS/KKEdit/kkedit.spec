@@ -1,7 +1,7 @@
 #
 # spec file for package kkedit
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           kkedit
-Version:        0.2.2
+Version:        0.2.7
 Release:        0
 Summary:        Source code text editor
 License:        GPL-3.0
@@ -35,6 +35,8 @@ BuildRequires:  pkgconfig(gtk+-2.0) >= 2.24.0
 BuildRequires:  pkgconfig(gtksourceview-2.0)
 BuildRequires:  pkgconfig(unique-1.0)
 BuildRequires:  pkgconfig(webkit-1.0)
+Recommends:     %{name}-lang
+Recommends:     ctags
 
 %description
 KKEdit is NOT a word processor or a web page editor, it is NOT
@@ -67,10 +69,12 @@ be added anywhere, selecting a bookmark from the menu will switch to
 that tab and move to the appropriate line. Just type a line number
 into the edit box on the toolbar to jump straight to that line.
 
+%lang_package
+
 
 %package        devel
 Summary:        KKEdit development files
-Summary:        Development/Libraries/C and C++
+Group:          Development/Libraries/C and C++
 
 %description    devel
 KKEdit include headers and example external tools.
@@ -96,6 +100,7 @@ sed -i %{buildroot}%{_datadir}/applications/KKEdit.desktop \
 # Let's use %%doc macro.
 rm -rf %{buildroot}%{_datadir}/KKEdit
 %fdupes -s %{buildroot}%{_datadir}
+%find_lang %{name} %{?no_lang_C}
 
 
 %post
@@ -121,5 +126,7 @@ rm -rf %{buildroot}%{_datadir}/KKEdit
 %defattr(-,root,root)
 %doc KKEdit/resources/Exampl*
 %{_includedir}/%{name}*
+
+%files lang -f %{name}.lang
 
 %changelog
