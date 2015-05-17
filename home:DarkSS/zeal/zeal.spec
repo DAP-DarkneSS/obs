@@ -1,7 +1,7 @@
 #
 # spec file for package zeal
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,32 +16,27 @@
 #
 
 
-%define gittag 20141123
-
 Name:           zeal
 Summary:        Offline API documentation browser
-Version:        0.0+git.2014.11.23
+Version:        0.1.1
 Release:        0
 License:        GPL-3.0
 URL:            http://zealdocs.org
 Group:          Development/Tools/Other
-Source0:        https://github.com/jkozera/zeal/archive/%{gittag}.tar.gz
+Source0:        https://github.com/zealdocs/zeal/archive/v%{version}.tar.gz
+# PATCH-FIX-OPENSUSE vs. file-contains-current-date WARNING:
+Patch0:         zeal-no-date-and-time.diff
 
 BuildRequires:  fdupes
-%if 0%{?suse_version} > 1310
-BuildRequires:  libQt5Gui-private-headers-devel
-%else
-BuildRequires:  libqt5-qtbase-private-headers-devel
-%endif
+BuildRequires:  libQt5Gui-private-headers-devel >= 5.2.0
 BuildRequires:  update-desktop-files
-BuildRequires:  pkgconfig(Qt5Concurrent)
-BuildRequires:  pkgconfig(Qt5WebKitWidgets)
-BuildRequires:  pkgconfig(Qt5Xml)
-%if 0%{?suse_version} > 1310
+BuildRequires:  pkgconfig(Qt5Concurrent)        >= 5.2.0
+BuildRequires:  pkgconfig(Qt5WebKitWidgets)     >= 5.2.0
+BuildRequires:  pkgconfig(Qt5Xml)               >= 5.2.0
 BuildRequires:  pkgconfig(appindicator-0.1)
-%endif
-BuildRequires:  pkgconfig(gtk+-2.0)
+BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  pkgconfig(xcb-keysyms)
+Requires:       libQt5Sql5-sqlite               >= 5.2.0
 
 %description
 Zeal is a simple offline API documentation browser inspired by Dash
@@ -54,13 +49,11 @@ Zeal is a simple offline API documentation browser inspired by Dash
    Editor plugins for details.
 
 %prep
-%setup -q -n %{name}-%{gittag}/%{name}
+%setup -q
+%patch0
 
 %build
 qmake-qt5 \
-%if 0%{?suse_version} <= 1310
-            "CONFIG+=no_libappindicator" \
-%endif
             QMAKE_STRIP="" \
             QMAKE_CFLAGS+="%{optflags}" \
             QMAKE_CXXFLAGS+="%{optflags}"
@@ -72,12 +65,19 @@ make V=1 INSTALL_ROOT=%{buildroot} install
 %suse_update_desktop_file -r %{name} Office Viewer
 %fdupes -s %{buildroot}%{_datadir}
 
+%post
+%desktop_database_post
+%icon_theme_cache_post
+
+%postun
+%desktop_database_postun
+%icon_theme_cache_postun
+
 %files
 %defattr(-,root,root,-)
-%doc ../COPYING ../README.md
+%doc COPYING README.md
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}*
-%{_datadir}/pixmaps/%{name}
 
 %changelog

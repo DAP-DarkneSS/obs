@@ -1,0 +1,53 @@
+-------------------------------------------------------------------
+Sun May 17 09:31:15 UTC 2015 - dap.darkness@gmail.com
+
+- Updated to 0.1.1:
+  * Display a message box about in case old docset storage is found
+  * Follow a new versioning scheme. (#203)
+  * Added support for Dash protocols  dash:  and  dash-plugin: 
+    on Linux and Windows. (#247)
+  * Revamped settings dialogue with more intuitive options.
+  * Added a build option for portable mode ( qmake
+    CONFIG+=portable ). In this case settings are stored in
+    zeal.ini  next to the Zeal executable, and docset storage path
+    defaults to  docsets  subdirectory. Changing docset storage
+    path via the settings dialogue has only temporary effect, and
+    it is not saved on application exit. It is still possible to
+    set a permanent custom path by manually editing  zeal.ini .
+  * Zeal now relies on its own server for obtaining docset list,
+    rather than parsing Dash website.
+  * Now the docset list is cached for 24 hours,
+    but can be manually reloaded. (#287)
+  * Implemented version check function
+    ( Help  ->  Check for Update... ). (#282)
+  * Improved display of docset download/unpack progress. (#252)
+  * Now the main window of the running Zeal instance is brought up
+    on attempt to start the app again. (#187)
+  * Provided MSI installer for Windows users. (#279)
+  * bugfixes, see more at https://github.com/zealdocs/zeal/releases
+- Added %desktop_database_post(un) & %icon_theme_cache_post(un).
+- Added zeal-no-date-and-time.diff  vs. file-contains-current-date.
+- Qt >= 5.2.0 became required so oS <= 13.1 became unsupported.
+
+-------------------------------------------------------------------
+Thu Jan  8 20:24:24 UTC 2015 - dap.darkness@gmail.com
+
+- libQT5Sql5-sqlite has to be required, see more at
+  https://github.com/zealdocs/zeal/issues/248.
+
+-------------------------------------------------------------------
+Sun Nov 23 19:09:17 UTC 2014 - dap.darkness@gmail.com
+
+- Updated to 20141123 git tag:
+  * no upstream changelog.
+
+-------------------------------------------------------------------
+Sun Oct  5 13:49:10 UTC 2014 - dap.darkness@gmail.com
+
+- "I: Program returns random data in a function" were fixed.
+
+-------------------------------------------------------------------
+Thu Sep 25 15:49:33 UTC 2014 - dap.darkness@gmail.com
+
+- Initial build.
+
