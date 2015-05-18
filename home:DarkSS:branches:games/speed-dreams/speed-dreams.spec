@@ -1,7 +1,7 @@
 #
 # spec file for package speed-dreams
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 # Copyright (c) 2008-2012 Jean-Philippe Meuret aka pouillot
 # & Bertaux Xavier aka torcs-ng (GPLv2 & GPLv3)
 #
@@ -18,36 +18,38 @@
 #
 
 
+%define rev r5799
+
 Name:           speed-dreams
-Version:        2.0.0
+Version:        2.1.0
 Release:        0
 Summary:        Speed Dreams: binary files
 License:        GPL-2.0+
 Group:          Amusements/Games/3D/Race
 Url:            http://speed-dreams.org/
-Source2:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-base-%{version}-r4687.tar.xz
-Source3:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-hq-cars-and-tracks-%{version}-r4687.tar.xz
-Source4:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-more-hq-cars-and-tracks-%{version}-r4687.tar.xz
-Source5:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-wip-cars-and-tracks-%{version}-r4687.tar.xz
-Source6:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-unmaintained-%{version}-r4687.tar.xz
+Source2:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-base-%{version}-%{rev}.tar.xz
+Source3:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-hq-cars-and-tracks-%{version}-%{rev}.tar.xz
+Source4:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-more-hq-cars-and-tracks-%{version}-%{rev}.tar.xz
+Source5:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-wip-cars-and-tracks-%{version}-%{rev}.tar.xz
+Source6:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-unmaintained-%{version}-%{rev}.tar.xz
 BuildRequires:  Mesa-devel
 BuildRequires:  cmake
 BuildRequires:  fdupes
-BuildRequires:  freealut-devel
 BuildRequires:  freeglut-devel
-BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libXi6-devel
-BuildRequires:  libenet-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
 BuildRequires:  plib-devel
 BuildRequires:  update-desktop-files
-BuildRequires:  xorg-x11-libXmu-devel
-BuildRequires:  xz
+BuildRequires:  pkgconfig(freealut)
 BuildRequires:  pkgconfig(gl)
+BuildRequires:  pkgconfig(libenet)
+BuildRequires:  pkgconfig(ogg)
 BuildRequires:  pkgconfig(openal)
 BuildRequires:  pkgconfig(sdl)
+BuildRequires:  pkgconfig(vorbis)
+BuildRequires:  pkgconfig(xi)
+BuildRequires:  pkgconfig(xmu)
 BuildRequires:  pkgconfig(zlib)
 Requires:       %{name}-data = %{version}
 
@@ -101,12 +103,14 @@ cmake .. \
        -DCMAKE_C_FLAGS="%{optflags}" \
        -DCMAKE_CXX_FLAGS="%{optflags}" \
        -DSD_BINDIR:PATH=bin \
-       -DCMAKE_INSTALL_PREFIX:PATH=/usr
-make %{?_smp_mflags} BINDIR=%{_bindir}
+       -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix}
+make V=1 %{?_smp_mflags} BINDIR=%{_bindir}
 
 %install
 cd build
-make DESTDIR=%{buildroot} install
+make V=1 DESTDIR=%{buildroot} install
+# Let's use %%doc macro.
+rm %{buildroot}%{_datadir}/games/%{name}-2/*.txt
 %suse_update_desktop_file -c %{name} "Speed Dreams" "Racing car simulator" "%{name}-2" %{name} "Game;Simulation;"
 mkdir -p %{buildroot}%{_datadir}/pixmaps
 install ../data/data/icons/icon.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
@@ -120,7 +124,8 @@ install -m644 ../doc/man/speed-dreams-2.6 %{buildroot}%{_mandir}/man6/speed-drea
 
 %files
 %defattr(-,root,root)
-%doc CHANGES.txt COPYING.txt INSTALL.txt README.txt TODO.txt
+%doc CHANGES.txt COPYING.txt README.txt
+%doc doc/faq/faq.html doc/userman
 %{_mandir}/man6/*
 %attr(755,root,root) %{_bindir}/sd2*
 %attr(755,root,root) %{_bindir}/%{name}*
