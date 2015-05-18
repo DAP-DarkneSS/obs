@@ -24,12 +24,13 @@ License:        GPL-3.0
 Group:          Productivity/Text/Editors
 Url:            http://keithhedger.hostingsiteforfree.com/pages/kkedit/help.html
 Source0:        http://keithhedger.hostingsiteforfree.com/zips/kkedit/KKEdit-%{version}.tar.gz
+# PATCH-FIX-OPENSUSE vs. various warnings about desktop files.
+Patch0:         kkedit-desktop-warnings.diff
 
 BuildRequires:  aspell-devel
 BuildRequires:  ctags
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
-BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(gmodule-2.0) >= 2.32.4
 BuildRequires:  pkgconfig(gtk+-2.0) >= 2.24.0
 BuildRequires:  pkgconfig(gtksourceview-2.0)
@@ -37,6 +38,9 @@ BuildRequires:  pkgconfig(unique-1.0)
 BuildRequires:  pkgconfig(webkit-1.0)
 Recommends:     %{name}-lang
 Recommends:     ctags
+Recommends:     doxygen
+Requires(pre):  update-desktop-files
+Requires(post): update-desktop-files
 
 %description
 KKEdit is NOT a word processor or a web page editor, it is NOT
@@ -82,6 +86,7 @@ KKEdit include headers and example external tools.
 
 %prep
 %setup -q -n KKEdit-%{version}
+%patch0
 
 %build
 %configure \
@@ -92,15 +97,12 @@ make %{?_smp_mflags}
 
 %install
 %make_install
-# A workaround for "WARNING: absolute path in Icon line".
-sed -i %{buildroot}%{_datadir}/applications/KKEdit.desktop \
-    -e "s/\/usr\/share\/KKEdit\/pixmaps\/KKEdit.png/KKEdit/"
-%suse_update_desktop_file -r KKEdit 'Utility;TextEditor;GTK;'
-%suse_update_desktop_file -r KKEditRoot 'Utility;TextEditor;GTK;'
 # Let's use %%doc macro.
-rm -rf %{buildroot}%{_datadir}/KKEdit
-%fdupes -s %{buildroot}%{_datadir}
+rm %{buildroot}%{_datadir}/KKEdit/docs/gpl-3.0.txt
+%fdupes -s %{buildroot}
 %find_lang %{name} %{?no_lang_C}
+cd %{buildroot}%{_datadir}/KKEdit/tools
+chmod -x Re-Open-As-Root Open-Man-Page Open-Xterm-Here
 
 
 %post
@@ -114,17 +116,16 @@ rm -rf %{buildroot}%{_datadir}/KKEdit
 
 %files
 %defattr(-,root,root)
-%doc ChangeLog
-%doc KKEdit/resources/docs/* KKEdit/resources/help
+%doc ChangeLog COPYING README
 %{_bindir}/%{name}
 %{_bindir}/KKEdit*
-%{_datadir}/applications/KKEdit*.desktop
+%attr(644,root,root) %{_datadir}/applications/KKEdit*.desktop
 %{_datadir}/pixmaps/KKEdit*.png
 %{_datadir}/icons/hicolor/*/apps/KKEdit*.png
+%{_datadir}/KKEdit
 
 %files          devel
 %defattr(-,root,root)
-%doc KKEdit/resources/Exampl*
 %{_includedir}/%{name}*
 
 %files lang -f %{name}.lang

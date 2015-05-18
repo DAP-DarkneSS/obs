@@ -5,7 +5,9 @@ Sun May 17 08:41:42 UTC 2015 - dap.darkness@gmail.com
   * See at http://gtk-apps.org/content/show.php?content=158161
 - lang subpackage with French locale.
 - "kkedit-devel: W: devel-package-with-non-devel-group" was fixed.
-- ctags became recommended to prevent runtime warning.
+- ctags & doxygen became recommended to prevent runtime warning.
+- Added kkedit-desktop-warnings.diff  vs. various warnings.
+- %{_datadir}/KKEdit deleting introduced a segmentation fault.
 
 -------------------------------------------------------------------
 Tue Aug 12 15:28:00 UTC 2014 - dap.darkness@gmail.com
