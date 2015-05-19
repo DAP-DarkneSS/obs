@@ -1,7 +1,7 @@
 #
-# spec file for package Raincat
+# spec file for package raincat
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -22,7 +22,7 @@ dry to the end of each level. Just mind the rain, puddles, and loose fire \
 hydrants in your path!
 
 Name:           raincat
-Version:        1.1.1.2
+Version:        1.1.1.3
 Release:        0
 Summary:        Guide the fuzzy cat to safety
 License:        BSD-3-Clause
@@ -42,6 +42,8 @@ BuildRequires:  ghc-mtl-devel
 BuildRequires:  ghc-random-devel
 BuildRequires:  ghc-time-devel
 BuildRequires:  update-desktop-files
+BuildRequires:  pkgconfig(SDL_image)
+BuildRequires:  pkgconfig(SDL_mixer)
 Requires:       %{name}-data = %{version}
 
 %description
@@ -52,6 +54,7 @@ The binary file.
 %package data
 Summary:        Raincat: art and other architecture independent data
 License:        CC-BY-SA-3.0
+Group:          Amusements/Games/Board/Puzzle
 Requires:       %{name} = %{version}
 BuildArch:      noarch
 
@@ -70,15 +73,17 @@ runhaskell Setup build
 %install
 runhaskell Setup copy --destdir=%{buildroot}
 %suse_update_desktop_file -c %{name} "Raincat" "Guide the fuzzy cat to safety" "%{name}" "%{_datadir}/%{name}/data/cat/cat-umbrella/cat-umbrella1.png" "Game;PuzzleGame;"
+# Let's use %%doc macro.
+rm -rf %{buildroot}/%{_datadir}/doc
 
 %files
 %defattr(-,root,root)
+%doc LICENSE* README*
 %{_bindir}/%{name}
+%{_datadir}/applications/%{name}.desktop
 
 %files data
 %defattr(-,root,root)
 %{_datadir}/%{name}
-%{_datadir}/applications/%{name}.desktop
-%exclude %{_datadir}/doc/Raincat-%{version}/LICENSE
 
 %changelog
