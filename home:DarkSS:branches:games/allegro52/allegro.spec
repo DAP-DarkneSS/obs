@@ -1,7 +1,7 @@
 #
 # spec file for package allegro
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -43,13 +43,14 @@
 %define dot_allegro_ttf_so_nr %(echo %{allegro_primitives_so_nr} | sed s/_/./)
 
 Name:           allegro
-Version:        5.1.7
+Version:        5.1.10
 Release:        0
 Summary:        A game programming library
 License:        Zlib and BSD-3-Clause
 Group:          System/Libraries
 Url:            http://alleg.sourceforge.net/
 Source0:        http://sourceforge.net/projects/alleg/files/allegro-unstable/%{version}/allegro-%{version}.tar.gz
+Source9:        baselibs.conf
 BuildRequires:  cmake
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
@@ -75,6 +76,7 @@ BuildRequires:  pkgconfig(pango)
 BuildRequires:  pkgconfig(vorbisfile)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xcursor)
+BuildRequires:  pkgconfig(xi)
 BuildRequires:  pkgconfig(xinerama)
 BuildRequires:  pkgconfig(xrandr)
 
