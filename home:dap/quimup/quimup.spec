@@ -1,7 +1,7 @@
 #
-# spec file for package QMPlay2
+# spec file for package quimup
 #
-# Copyright (c) 2014 Packman team: http://packman.links2linux.org/
+# Copyright (c) 2015 Packman team: http://packman.links2linux.org/
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,7 +16,7 @@
 #
 
 Name:		quimup
-Version:	1.3.2
+Version:        1.4.0
 Release:	1
 
 License:	GPL-3.0+
@@ -24,14 +24,14 @@ Summary:	A client for the music player daemon (MPD)
 Group:		Productivity/Multimedia/Sound/Players
 URL:		http://www.coonsden.com/
 
-Source0:	http://sourceforge.net/projects/musicpd/files/Quimup/%{version}/%{name}_%{version}_src.tar.gz
+Source0:	http://sourceforge.net/projects/quimup/files/quimup%20%{version}/quimup_%{version}_src.tar.gz
 Source1:	%{name}.desktop
 
 Patch0:		quimup-gcc47.patch
 
-BuildRoot:	%{_tmppath}/%{name}-%{version}
-
-BuildRequires:	libmpdclient-devel libqt4-devel update-desktop-files
+BuildRequires:  libmpdclient-devel
+BuildRequires:  libqt4-devel >= 4.6
+BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(taglib)
 
 Requires:	mpd
@@ -45,9 +45,6 @@ The clean interface makes controlling MPD's many features easy and intuitive.
 The focus is on mouse handling: playlist management is done entirely by drag-&-drop;
 playback functions are directly accessible from the system tray.
 Quimup turns MPD into a perfect desktop music player.
-
-
-
 
 
 %prep

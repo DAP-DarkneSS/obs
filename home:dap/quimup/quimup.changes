@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Mar 24 18:23:54 UTC 2015 - dap.darkness@gmail.com
+
+- new upstream version <1.4.0>
+  * Coded: Migrated the code to QT5.
+  * Fixed: After changing colors wrong album-art could be shown.
+  * Added: Use embedded cover art from asf and ape-tagged mp3.
+
+-------------------------------------------------------------------
 Tue Jul  8 18:51:04 UTC 2014 - dap.darkness@gmail.com
 
 - new upstream version <1.3.2>
