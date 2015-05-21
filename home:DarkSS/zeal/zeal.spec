@@ -18,12 +18,12 @@
 
 Name:           zeal
 Summary:        Offline API documentation browser
-Version:        0.1.1
+Version:        0.1.1+git52
 Release:        0
 License:        GPL-3.0
 URL:            http://zealdocs.org
 Group:          Development/Tools/Other
-Source0:        https://github.com/zealdocs/zeal/archive/v%{version}.tar.gz
+Source0:        zeal-%{version}.tar.xz
 # PATCH-FIX-OPENSUSE vs. file-contains-current-date WARNING:
 Patch0:         zeal-no-date-and-time.diff
 
@@ -32,6 +32,7 @@ BuildRequires:  libQt5Gui-private-headers-devel >= 5.2.0
 BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(Qt5Concurrent)        >= 5.2.0
 BuildRequires:  pkgconfig(Qt5WebKitWidgets)     >= 5.2.0
+BuildRequires:  pkgconfig(Qt5X11Extras)         >= 5.2.0
 BuildRequires:  pkgconfig(Qt5Xml)               >= 5.2.0
 BuildRequires:  pkgconfig(appindicator-0.1)
 BuildRequires:  pkgconfig(libarchive)
@@ -50,7 +51,7 @@ Zeal is a simple offline API documentation browser inspired by Dash
 
 %prep
 %setup -q
-%patch0
+%patch0 -p1
 
 %build
 qmake-qt5 \
