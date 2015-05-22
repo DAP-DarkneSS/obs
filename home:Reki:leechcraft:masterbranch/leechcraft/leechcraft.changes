@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu May 21 16:45:35 UTC 2015 - dap.darkness@gmail.com
+
+- Added leechcraft-qt-moc-vs-boost.diff vs.
+  strange build time Qt moc parse errors at BOOST_JOIN.
+
+-------------------------------------------------------------------
 Tue Apr 21 08:29:38 UTC 2015 - dap.darkness@gmail.com
 
 - Updated to 0.6.70-2742-gfaed6e2 git snapshot

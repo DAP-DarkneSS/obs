@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-3301-g08401c6
+%define LEECHCRAFT_VERSION 0.6.70-3458-g81ffd28
 
 %if 0%{?suse_version} > 1310
 %define lmp_gstreamer_1_0 1
@@ -46,6 +46,9 @@ Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 
 Source0:        %{name}-%{version}.tar.xz
+# PATCH-FIX-OPENSUSE vs. strange build time Qt moc
+# parse errors at BOOST_JOIN.
+Patch0:         leechcraft-qt-moc-vs-boost.diff
 
 BuildRequires:  Qross-devel
 BuildRequires:  boost-devel >= 1.50
@@ -69,7 +72,7 @@ BuildRequires:  libqxt-devel
 %endif
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
-BuildRequires:  llvm-clang >= 3.4
+BuildRequires:  llvm-clang >= 3.3
 %if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
 BuildRequires:  mupdf-devel-static
@@ -2595,6 +2598,7 @@ XmlSettingsDialog LeechCraft subsystem.
 
 %prep
 %setup -q
+%patch0 -p1
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default

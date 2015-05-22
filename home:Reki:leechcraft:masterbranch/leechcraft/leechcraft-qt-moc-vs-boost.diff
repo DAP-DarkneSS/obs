@@ -1,0 +1,31 @@
+diff --git a/src/plugins/bittorrent/addmultipletorrents.cpp b/src/plugins/bittorrent/addmultipletorrents.cpp
+index 7375fbb..8c6f3bd 100644
+--- a/src/plugins/bittorrent/addmultipletorrents.cpp
++++ b/src/plugins/bittorrent/addmultipletorrents.cpp
+@@ -28,10 +28,12 @@
+  **********************************************************************/
+ 
+ #include <QFileDialog>
++#ifndef Q_MOC_RUN
+ #include <interfaces/core/icoreproxy.h>
+ #include <interfaces/core/itagsmanager.h>
+ #include "addmultipletorrents.h"
+ #include "xmlsettingsmanager.h"
++#endif
+ 
+ namespace LeechCraft
+ {
+diff --git a/src/plugins/netstoremanager/fileswatcher_inotify.h b/src/plugins/netstoremanager/fileswatcher_inotify.h
+index 47b872a..907b70b 100644
+--- a/src/plugins/netstoremanager/fileswatcher_inotify.h
++++ b/src/plugins/netstoremanager/fileswatcher_inotify.h
+@@ -29,7 +29,9 @@
+ 
+ #pragma once
+ 
++#ifndef Q_MOC_RUN
+ #include <boost/bimap.hpp>
++#endif
+ #include <QObject>
+ #include <QStringList>
+ #include <QMultiMap>
