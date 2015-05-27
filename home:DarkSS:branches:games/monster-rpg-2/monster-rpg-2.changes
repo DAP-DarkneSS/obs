@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Tue May 19 16:43:36 UTC 2015 - dap.darkness@gmail.com
+
+- Updated upstream tarball 20150519:
+  * allegro 5.1.10 build time issue was resolved.
+- Zlib license.
+- Added monster-rpg-2-dynamic-linking.diff
+  to prevent static linking.
+- Added monster-rpg-2-datadir.diff instead of sed magic
+  to use system data directory.
+
+-------------------------------------------------------------------
+Mon Feb 17 16:11:49 UTC 2014 - dap.darkness@gmail.com
+
+- Spdx was updated. Let's get with it.
+
+-------------------------------------------------------------------
 Mon Jan 13 17:05:58 UTC 2014 - dap.darkness@gmail.com
 
 - Changes file was wiped because of initial copy-paste error.
