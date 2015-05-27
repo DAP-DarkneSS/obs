@@ -1,0 +1,11 @@
+--- src/init.cpp.orig	2015-01-12 17:34:16.000000000 +0300
++++ src/init.cpp	2015-05-20 21:56:46.022292960 +0300
+@@ -1462,7 +1462,7 @@
+ #else
+ 	PHYSFS_init(al_path_cstr(exename, '/'));
+ #endif
+-	PHYSFS_addToSearchPath(al_path_cstr(exename, '/'), 1);
++	PHYSFS_addToSearchPath("/usr/share/monster-rpg-2/data.zip", 1);
+ 	al_destroy_path(exename);
+ #else
+ 	PHYSFS_init(myArgv[0]);
