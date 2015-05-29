@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Mon May 25 18:25:50 UTC 2015 - dap.darkness@gmail.com
+
+- Updated to 0.6.70-3466-g864bd1a git snapshot:
+  * clang seems to be better C++ compiler;
+  * Dolozhee plugin got https support and was fixed so.
+- New plugins were enabled:
+  * snails — e-mail client.
+- C++14 support (gcc >= 4.9 is required).
+
+-------------------------------------------------------------------
 Tue Apr 21 08:29:38 UTC 2015 - dap.darkness@gmail.com
 
 - Updated to 0.6.70-2742-gfaed6e2 git snapshot

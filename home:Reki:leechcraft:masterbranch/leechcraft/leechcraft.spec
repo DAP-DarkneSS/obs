@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-3458-g81ffd28
+%define LEECHCRAFT_VERSION 0.6.70-3466-g864bd1a
 
 %if 0%{?suse_version} > 1310
 %define lmp_gstreamer_1_0 1
@@ -30,7 +30,7 @@
 %define lmp_gstreamer_1_0 0
 %endif
 
-%if 0%{?suse_version} >= 1320
+%if 0%{?suse_version} > 1320
 %define use_cpp14 0
 %else
 %define use_cpp14 0
@@ -44,11 +44,7 @@ Summary:        Modular Internet Client
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
-
 Source0:        %{name}-%{version}.tar.xz
-# PATCH-FIX-OPENSUSE vs. strange build time Qt moc
-# parse errors at BOOST_JOIN.
-Patch0:         leechcraft-qt-moc-vs-boost.diff
 
 BuildRequires:  Qross-devel
 BuildRequires:  boost-devel >= 1.50
@@ -58,7 +54,7 @@ BuildRequires:  file-devel
 %if %{use_cpp14}
 BuildRequires:  gcc-c++ >= 4.9
 %else
-BuildRequires:  gcc-c++ >= 4.7
+BuildRequires:  gcc-c++
 %endif
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  jbig2dec-devel
@@ -72,7 +68,11 @@ BuildRequires:  libqxt-devel
 %endif
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
-BuildRequires:  llvm-clang >= 3.3
+%if %{use_cpp14}
+BuildRequires:  llvm-clang >= 3.4
+%else
+BuildRequires:  llvm-clang
+%endif
 %if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
 BuildRequires:  mupdf-devel-static
@@ -130,6 +130,9 @@ BuildRequires:  pkgconfig(poppler-qt4)
 BuildRequires:  pkgconfig(qca2)
 BuildRequires:  pkgconfig(qtermwidget4) >= 0.5.1
 BuildRequires:  pkgconfig(qxmpp) >= 0.8
+%if %{use_cpp14}
+BuildRequires:  pkgconfig(vmime)
+%endif
 BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xkbfile)
@@ -2598,7 +2601,6 @@ XmlSettingsDialog LeechCraft subsystem.
 
 %prep
 %setup -q
-%patch0 -p1
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -2619,7 +2621,7 @@ cmake ../src \
         -DLIB_SUFFIX=64 \
 %endif
 %if %{use_cpp14}
-        -DUSE_CPP14=True
+        -DUSE_CPP14=True \
 %endif
         -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \

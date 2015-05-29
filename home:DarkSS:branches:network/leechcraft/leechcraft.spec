@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-2742-gfaed6e2
+%define LEECHCRAFT_VERSION 0.6.70-3466-g864bd1a
 
 %if 0%{?suse_version} > 1310
 %define lmp_gstreamer_1_0 1
@@ -30,8 +30,14 @@
 %define lmp_gstreamer_1_0 0
 %endif
 
+%if 0%{?suse_version} > 1320
+%define use_cpp14 0
+%else
+%define use_cpp14 0
+%endif
+
 Name:           leechcraft
-Version:        0.6.70+git.2742.gfaed6e2
+Version:        0.6.70+git.3466.g864bd1a
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
@@ -45,7 +51,11 @@ BuildRequires:  boost-devel >= 1.50
 BuildRequires:  cmake > 2.8.10
 BuildRequires:  fdupes
 BuildRequires:  file-devel
-BuildRequires:  gcc-c++ >= 4.7
+%if %{use_cpp14}
+BuildRequires:  gcc-c++ >= 4.9
+%else
+BuildRequires:  gcc-c++
+%endif
 BuildRequires:  hicolor-icon-theme
 %if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
@@ -65,6 +75,13 @@ BuildRequires:  libqxt-devel
 BuildRequires:  libsensors4-devel
 %if 0%{?suse_version} != 1315
 BuildRequires:  libtidy-devel
+%endif
+%if 0%{?suse_version} != 1315
+%if %{use_cpp14}
+BuildRequires:  llvm-clang >= 3.4
+%else
+BuildRequires:  llvm-clang
+%endif
 %endif
 %if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
@@ -128,6 +145,9 @@ BuildRequires:  pkgconfig(poppler-qt4)
 BuildRequires:  pkgconfig(qca2)
 BuildRequires:  pkgconfig(qtermwidget4) >= 0.5.1
 BuildRequires:  pkgconfig(qxmpp) >= 0.8
+%if %{use_cpp14}
+BuildRequires:  pkgconfig(vmime)
+%endif
 BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xkbfile)
@@ -159,6 +179,10 @@ Obsoletes:      %{name}-nacheku
 Obsoletes:      %{name}-shaitan
 Obsoletes:      %{name}-syncer
 Obsoletes:      %{name}-tabpp
+%if %{use_cpp14}
+%else
+Obsoletes:      %{name}-xproxy
+%endif
 
 %description
 This package provides core executable of Leechcraft.
@@ -2077,6 +2101,19 @@ with a suitable plugin like Aggregator.
  * Show results in HTML format with a suitable plugin like Poshuku.
 
 
+%if %{use_cpp14}
+%package snails
+Summary:        LeechCraft Email client Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description snails
+This package contains a Email client plugin for LeechCraft.
+
+It provides basic Email client functionality and supports SMTP and IMAP4.
+%endif
+
 %package summary
 Summary:        LeechCraft Summary info Module
 License:        BSL-1.0
@@ -2234,6 +2271,7 @@ This package provides a Vrooby plugin for LeechCraft.
 It allows to watch removable storage devices via d-bus and udisks.
 
 
+%if %{use_cpp14}
 %package xproxy
 Summary:        LeechCraft Proxy manager Module
 License:        BSL-1.0
@@ -2244,7 +2282,7 @@ Requires:       %{name} = %{version}
 This package provides an advanced proxy manager for LeechCraft.
 
 It allows to configure and use proxy servers.
-
+%endif
 
 %package xtazy
 Summary:        LeechCraft Current user tune Module
@@ -2280,12 +2318,12 @@ A library providing some useful and commonly used database-related
 classes and functions.
 
 
-%package -n libleechcraft-util-gui%{so_ver}
+%package -n libleechcraft-util-gui%{so_ver}_1
 Summary:        GUI utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-gui%{so_ver}
+%description -n libleechcraft-util-gui%{so_ver}_1
 A library providing some useful and commonly used GUI-related
 widgets, classes and functions.
 
@@ -2310,12 +2348,12 @@ A library providing some useful and commonly used
 network classes and functions.
 
 
-%package -n libleechcraft-util-qml%{so_ver}_1
+%package -n libleechcraft-util-qml%{so_ver}_2
 Summary:        QML utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-qml%{so_ver}_1
+%description -n libleechcraft-util-qml%{so_ver}_2
 A library providing some useful and commonly used QML items as well as
 QML-related classes and functions.
 
@@ -2423,9 +2461,17 @@ find src -name '*.png' -or -name '*.css' -or -name '*.gif' -exec chmod 0644 {} +
 
 mkdir build && cd build
 
+%if 0%{?suse_version} != 1315
+export CC=/usr/bin/clang
+export CXX=/usr/bin/clang++
+%endif
+
 cmake ../src \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
+%endif
+%if %{use_cpp14}
+        -DUSE_CPP14=True \
 %endif
         -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
@@ -2579,7 +2625,11 @@ cmake ../src \
         -DENABLE_SECMAN=True \
         -DENABLE_SHAITAN=False \
         -DENABLE_SHELLOPEN=False \
+%if %{use_cpp14}
+        -DENABLE_SNAILS=True \
+%else
         -DENABLE_SNAILS=False \
+%endif
         -DENABLE_SYNCER=False \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
@@ -2596,7 +2646,11 @@ cmake ../src \
 %endif
         -DENABLE_VROOBY=True \
         -DENABLE_WKPLUGINS=False \
+%if %{use_cpp14}
         -DENABLE_XPROXY=True \
+%else
+        -DENABLE_XPROXY=False \
+%endif
         -DENABLE_ZALIL=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
@@ -2627,10 +2681,10 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %postun -n libleechcraft-util-db%{so_ver}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-gui%{so_ver}
+%post -n libleechcraft-util-gui%{so_ver}_1
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-gui%{so_ver}
+%postun -n libleechcraft-util-gui%{so_ver}_1
 /sbin/ldconfig
 
 %post -n libleechcraft-util-models%{so_ver}
@@ -2645,10 +2699,10 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %postun -n libleechcraft-util-network%{so_ver}_1
 /sbin/ldconfig
 
-%post -n libleechcraft-util-qml%{so_ver}_1
+%post -n libleechcraft-util-qml%{so_ver}_2
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-qml%{so_ver}_1
+%postun -n libleechcraft-util-qml%{so_ver}_2
 /sbin/ldconfig
 
 %post -n libleechcraft-util-shortcuts%{so_ver}
@@ -3519,6 +3573,16 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %{translations_dir}/*craft_seekthru*.qm
 %{plugin_dir}/*craft_seekthru.so
 
+%if %{use_cpp14}
+%files snails
+%defattr(-,root,root)
+%{plugin_dir}/lib%{name}_snails.so
+%{settings_dir}/snailssettings.xml
+%{translations_dir}/*craft_snails_??.qm
+%{translations_dir}/*craft_snails_??_??.qm
+%{_datadir}/leechcraft/snails
+%endif
+
 %files summary
 %defattr(-,root,root)
 %{translations_dir}/*craft_summary*.qm
@@ -3574,12 +3638,14 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %{translations_dir}/*craft_vrooby_*.qm
 %{qml_dir}/vrooby
 
+%if %{use_cpp14}
 %files xproxy
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_xproxy.so
 %{settings_dir}/xproxysettings.xml
 %{translations_dir}/*craft_xproxy_*.qm
 %{_datadir}/leechcraft/scripts/xproxy
+%endif
 
 %files xtazy
 %defattr(-,root,root)
@@ -3598,7 +3664,7 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %defattr(-,root,root)
 %{_libdir}/*-util-db*.so.*
 
-%files -n libleechcraft-util-gui%{so_ver}
+%files -n libleechcraft-util-gui%{so_ver}_1
 %defattr(-,root,root)
 %{_libdir}/*-util-gui*.so.*
 
@@ -3610,7 +3676,7 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %defattr(-,root,root)
 %{_libdir}/*-util-network*.so.*
 
-%files -n libleechcraft-util-qml%{so_ver}_1
+%files -n libleechcraft-util-qml%{so_ver}_2
 %defattr(-,root,root)
 %{_libdir}/*-util-qml*.so.*
 

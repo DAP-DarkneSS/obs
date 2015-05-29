@@ -1,8 +1,12 @@
 -------------------------------------------------------------------
-Thu May 21 16:45:35 UTC 2015 - dap.darkness@gmail.com
+Mon May 25 18:25:50 UTC 2015 - dap.darkness@gmail.com
 
-- Added leechcraft-qt-moc-vs-boost.diff vs.
-  strange build time Qt moc parse errors at BOOST_JOIN.
+- Updated to 0.6.70-3466-g864bd1a git snapshot:
+  * clang seems to be better C++ compiler;
+  * Dolozhee plugin got https support and was fixed so.
+- New plugins were enabled:
+  * snails — e-mail client.
+- C++14 support (gcc >= 4.9 is required).
 
 -------------------------------------------------------------------
 Tue Apr 21 08:29:38 UTC 2015 - dap.darkness@gmail.com
