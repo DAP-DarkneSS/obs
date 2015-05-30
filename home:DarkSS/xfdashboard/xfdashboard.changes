@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sun May 31 12:53:45 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 0.4.2:
+  * Fixed check against wrong major version of Clutter for old hack
+    to resize stage to screen size. Also changed this check from
+    compile-time to runtime.
+  * Changed method to find desktop window. This fixes problems
+    finding desktop window in daemon mode.
+- Fixed xfdashboard-desktopfile-without-binary.diff again.
+
+-------------------------------------------------------------------
 Mon Apr 13 20:33:28 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 0.4.0:

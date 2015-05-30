@@ -27,7 +27,7 @@ index 24f0ab8..9406a99 100644
 +Exec=xfdashboard-settings
  Icon=xfdashboard
  Categories=XFCE;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;X-XFCE-PersonalSettings;
- OnlyShowIn=XFCE;
+ NotShowIn=GNOME;KDE;Unity;
 diff --git a/data/xfdashboard.desktop.in.in b/data/xfdashboard.desktop.in.in
 index 577ecf3..a31f4e7 100644
 --- a/data/xfdashboard.desktop.in.in
