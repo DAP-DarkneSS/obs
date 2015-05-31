@@ -15,13 +15,14 @@
 # Please submit bugfixes or comments via https://bugs.links2linux.org/
 #
 
+
 Name:           QMPlay2
-Version:        15.03.28
+Version:        15.05.30
 Release:        0
-License:        GPL-3.0
 Summary:        A Qt based media player, streamer and downloader
-Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
+License:        GPL-3.0
 Group:          Productivity/Multimedia/Video/Players
+Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
 Source:         http://kent.dl.sourceforge.net/project/zaps166/QMPlay2/QMPlay2-src-%{version}.tar.bz2
 
 BuildRequires:  kdebase4-workspace
@@ -40,8 +41,9 @@ BuildRequires:  pkgconfig(libswresample)
 BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(taglib)
-Recommends:     %{name}-kde-integration
+BuildRequires:  pkgconfig(vdpau)
 Recommends:     youtube-dl
+Suggests:       %{name}-kde-integration
 
 %description
 %{name} is a video player, it can play and stream all formats supported by
