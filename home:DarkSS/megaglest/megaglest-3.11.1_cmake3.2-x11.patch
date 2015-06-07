@@ -1,0 +1,16 @@
+diff --git a/source/shared_lib/CMakeLists.txt b/source/shared_lib/CMakeLists.txt
+index 3da563e..c031510 100644
+--- a/source/shared_lib/CMakeLists.txt
++++ b/source/shared_lib/CMakeLists.txt
+@@ -95,6 +95,11 @@ IF(BUILD_MEGAGLEST_MODEL_VIEWER OR BUILD_MEGAGLEST_MAP_EDITOR OR BUILD_MEGAGLEST
+ 		SET(EXTERNAL_LIBS ${EXTERNAL_LIBS} ${OPENGL_LIBRARY})
+ 	ENDIF()
+ 
++	FIND_PACKAGE(X11 REQUIRED)
++	INCLUDE_DIRECTORIES(${X11_INCLUDE_DIR})
++	IF(UNIX)
++		SET(EXTERNAL_LIBS ${EXTERNAL_LIBS} ${X11_LIBRARIES})
++	ENDIF()
+ 
+         IF(WANT_XERCES)
+ 	        FIND_PACKAGE(XercesC REQUIRED)
