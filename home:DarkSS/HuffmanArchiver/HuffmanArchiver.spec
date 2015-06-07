@@ -42,8 +42,15 @@
 %define buildviaclang 0
 %endif
 
-%if 0%{?fedora}
+%if 0%{?fedora} >= 22
+%define buildviaclang 1
+%else
 %define buildviaclang 0
+%endif
+
+# "Extracting debug info… ERROR: No build ID note found."
+%if 0%{?fedora} == 22
+%define debug_package %{nil}
 %endif
 
 Name:           HuffmanArchiver
@@ -59,6 +66,7 @@ BuildRequires:  cmake
 %if 0%{?suse_version}
 BuildRequires:  llvm-clang
 %else
+BuildRequires:  clang
 BuildRequires:  clang-analyzer
 %endif
 %endif
