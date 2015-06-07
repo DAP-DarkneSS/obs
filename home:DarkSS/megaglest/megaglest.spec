@@ -1,7 +1,7 @@
 #
 # spec file for package megaglest
 #
-# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,13 +17,17 @@
 
 
 Name:           megaglest
-Version:        3.11.0
+Version:        3.11.1
 Release:        0
 Summary:        Free 3D Real-Time Customizable Strategy Game
 License:        GPL-2.0+
 Group:          Amusements/Games/Strategy/Real Time
 Url:            http://megaglest.org/
+
 Source:         https://github.com/MegaGlest/megaglest-source/releases/download/%{version}/%{name}-source-%{version}.tar.xz
+# PATCH-FIX-UPSTREAM vs. Factory's "undefined reference to symbol XLoadQueryFont".
+Patch0:         http://filux.megaglest.org/patches/megaglest-3.11.1_cmake3.2-x11.patch
+
 BuildRequires:  boost-jam
 BuildRequires:  cmake
 BuildRequires:  freeglut-devel
@@ -117,6 +121,7 @@ environment and can be controlled.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch0 -p1
 
 %build
 # no need to add build time to binaries

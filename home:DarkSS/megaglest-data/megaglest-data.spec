@@ -1,7 +1,7 @@
 #
 # spec file for package megaglest-data
 #
-# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           megaglest-data
-Version:        3.11.0
+Version:        3.11.1
 Release:        0
 Summary:        Data files for MegaGlest
 License:        CC-BY-SA-3.0
