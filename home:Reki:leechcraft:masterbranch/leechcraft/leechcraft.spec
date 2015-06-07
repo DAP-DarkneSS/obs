@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-3466-g864bd1a
+%define LEECHCRAFT_VERSION 0.6.70-3599-g5e4cae9
 
 %if 0%{?suse_version} > 1310
 %define lmp_gstreamer_1_0 1
