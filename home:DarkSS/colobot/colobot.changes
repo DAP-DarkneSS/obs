@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Sat Jun 13 16:00:34 UTC 2015 - dap.darkness@gmail.com
+
+- 0.1.5:
+  * no upstream changelog.
+- Removed colobot-0.1.4-no-return-in-nonvoid-function.diff
+  as already merged.
+
+-------------------------------------------------------------------
+Thu May  7 16:22:49 UTC 2015 - dap.darkness@gmail.com
+
+- Fixed openSUSE:Factory' "ERROR: No sufficient Category".
+
+-------------------------------------------------------------------
 Wed Jan  7 12:43:39 UTC 2015 - dap.darkness@gmail.com
 
 - 0.1.4:

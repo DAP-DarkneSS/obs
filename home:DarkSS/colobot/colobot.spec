@@ -1,7 +1,7 @@
 #
 # spec file for package colobot
 #
-# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,16 +17,13 @@
 
 
 Name:           colobot
-Version:        0.1.4
+Version:        0.1.5
 Release:        0
 Summary:        A real-time strategy game with programmable bots
 License:        GPL-3.0+
 Group:          Amusements/Games/Strategy/Real Time
 Url:            http://colobot.info
 Source0:        https://github.com/colobot/colobot/archive/colobot-gold-%{version}-alpha.tar.gz
-# PATCH-FIX-UPSTREAM vs. "I: Program returns random data in a function",
-# see more at https://github.com/colobot/colobot/issues/425
-Patch1:         colobot-0.1.4-no-return-in-nonvoid-function.diff
 
 BuildRequires:  boost-devel
 BuildRequires:  chrpath
@@ -40,6 +37,9 @@ BuildRequires:  libSDL_ttf-devel >= 2.0
 BuildRequires:  libphysfs-devel
 BuildRequires:  libpng-devel >= 1.2
 BuildRequires:  po4a
+%if 0%{?suse_version} > 1320
+BuildRequires:  update-desktop-files
+%endif
 BuildRequires:  pkgconfig(SDL_image) >= 1.2
 BuildRequires:  pkgconfig(glew) >= 1.8.0
 BuildRequires:  pkgconfig(ogg) >= 1.3.0
@@ -71,7 +71,6 @@ the right amount of accuracy, with the right mix of imagination.
 
 %prep
 %setup -q -n colobot-colobot-gold-%{version}-alpha
-%patch1 -p1
 
 %build
 mkdir -p build && cd build
@@ -92,6 +91,9 @@ cd build
 make V=1 install DESTDIR=%{buildroot}
 chrpath -d %{buildroot}%{_bindir}/%{name}
 %find_lang %{name} %{?no_lang_C}
+%if 0%{?suse_version} > 1320
+%suse_update_desktop_file -r %{name} 'Education;Engineering;Game;AdventureGame;StrategyGame;'
+%endif
 
 %post
 %desktop_database_post
@@ -110,6 +112,7 @@ chrpath -d %{buildroot}%{_bindir}/%{name}
 %{_datadir}/icons/hicolor/*/apps/%{name}*
 %{_mandir}/man*/%{name}*
 %{_mandir}/*/man*/%{name}*
+%{_datadir}/games/colobot
 
 %files lang -f build/%{name}.lang
 
