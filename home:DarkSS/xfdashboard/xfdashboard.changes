@@ -1,4 +1,87 @@
 -------------------------------------------------------------------
+Sat Jun 13 09:49:59 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 0.5.0:
+  * Added new experimental code to delay window content creation.
+    It will make the application "feel" faster on machines with
+    slow graphics card (e.g. slow texture creation or uploading).
+    A resume queue was implemented which will create the window
+    texture one after one when the application is idle. This should
+    help not to block the application at start-up or when switching
+    to workspaces with many windows resulting in a "feeling" that
+    the application is faster and more responsive. To enable this
+    experimental code the enviroment variable
+    XFDASHBOARD_WINDOW_CONTENT_RESUME_ON_IDLE must be set to
+    non-zero value when the application is started regardless
+    if stand-alone or daemon mode.
+  * New feature is a emblem effect called XfdashboardEmblemEffect.
+    This new effect allows an icon to be drawn over an actor and
+    can be added multiple times.
+  * Improved tooltip to behave more the tooltip known of GTK+.
+  * Improved search responsiveness by delaying initial search. But
+    this delay is turned off by default so it behave like before.
+    The delay can be configured in the settings. (GH #86)
+  * XfdashboardLiveWindow will now reflect window state changes
+    like urgent, minimized and pinned as CSS classes to get styles
+    applied at one or more of this states.
+  * The icon to show for an missing image can now be themed via the
+    property 'missing-icon-name' at XfdashboardImageContent.
+    It is not hard-coded to 'gtk-missing-image' anymore.
+  * Implemented a new themable property 'show-window-content' at
+    XfdashboardLiveWorkspace to manage if a workspace actor (e.g.
+    used in workspace selector) should show the window content of
+    the windows at this workspace or to show the windows' icon
+    instead. (GH #89)
+  * Implemented also a new themable property 'background-image-type'
+    at XfdashboardLiveWorkspace which behaves like the property
+    'background-image-type' at XfdashboardStage(Interface). (GH #81)
+  * Implemented a new property 'show-current-monitor-only' at
+    XfdashboardWorkspaceSelector to limit the windows to show at
+    XfdashboardLiveWorkspace to the windows of the monitor where
+    the selector is placed on. This feature can only be enabled in
+    layout but not in CSS. All themes enable this feature. (GH #87)
+  * Implemented a new signal 'window-monitor-changed' at window
+    tracker to signal that a window has moved from one monitor to
+    another. This signal is used by the windows view to determine
+    if the moved window has to stay in this view or if another
+    window view instance has to create an actor for this window and
+    to handle it. (GH #88)
+  * Do not track and handle window movements and resizes if the
+    application is suspended. This should lower CPU usage while
+    application is suspended and a window is moved or resized.
+    (GH #44)
+  * Reimplement old "hack" resize stage to screen size but this
+    time also listen for screen size changes. This implementation
+    is only needed when using Clutter version 1.17.1 or lower.
+    It is checked at run-time if this "hack" is needed. (GH #95)
+  * Changed method to find desktop window. This fixes problems
+    finding desktop window in daemon mode (GH #80)
+  * Show settings application menu entry also in other desktop
+    environments than Xfce. (GH #78)
+  * Fixed a bug that the windows view did not recognize that a
+    window has move to the current active workspace when a
+    workspace was removed and it did not show the moved window in
+    view. (GH #91)
+  * Fixed a bug that the functions to determine the preferred width
+    and height in XfdashboardScaledTableLayout are called
+    recursively and crashes the application
+  * Fixed calculation of workspace selector's size by fraction or
+    maximum size in multi-monitor setup by using size of
+    XfdashboardStageInterface for calculation instead of stage's
+    size which is the size of all monitors.
+  * Fixed duplicate IDs in CSS selectors by throwing an error.
+  * Lots of memleaks fixed.
+  * Lots of other bug-fixes.
+  * Lots of typos fixed.
+  * Updated translations:
+    + es (prflr88);
+    + he (GenghisKhan);
+    + it_IT (cri);
+    + sr (salepetronije);
+  * New translations:
+    + fr (jc1).
+
+-------------------------------------------------------------------
 Sun May 31 12:53:45 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 0.4.2:

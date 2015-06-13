@@ -17,7 +17,7 @@
 
 
 Name:           xfdashboard
-Version:        0.4.2
+Version:        0.5.0
 Release:        0
 Summary:        GNOME shell like dashboard for Xfce
 License:        GPL-2.0+
@@ -41,6 +41,7 @@ BuildRequires:  xfce4-dev-tools
 BuildRequires:  pkgconfig(garcon-1)
 BuildRequires:  pkgconfig(ice)
 BuildRequires:  pkgconfig(libwnck-3.0)
+BuildRequires:  pkgconfig(libxfce4util-1.0) >= 4.10.0
 BuildRequires:  pkgconfig(libxfconf-0)
 BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xdamage)
