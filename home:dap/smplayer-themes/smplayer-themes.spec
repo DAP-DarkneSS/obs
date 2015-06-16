@@ -1,7 +1,7 @@
 # vim: set ts=4 sw=4 et:
 
 # Copyright (c) 2012 Pascal Bleser <pascal.bleser@opensuse.org>
-# Copyright (c) 2014 Packman team: http://packman.links2linux.org/
+# Copyright (c) 2015 Packman team: http://packman.links2linux.org/
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           smplayer-themes
-Version:        14.12.0
+Version:        15.6.0
 Release:        1.pm.1
 Summary:        Icon Themes for SMPlayer
 Source:         http://prdownloads.sourceforge.net/smplayer/smplayer-themes-%{version}.tar.bz2
