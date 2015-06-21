@@ -22,7 +22,21 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-3599-g5e4cae9
+%define LEECHCRAFT_VERSION 0.6.70-3715-g6ee60ff
+%define db_postfix %{so_ver}
+%define gui_postfix %{so_ver}_1
+%define models_postfix %{so_ver}
+%define network_postfix %{so_ver}_1
+%define qml_postfix %{so_ver}_2
+%define shortcuts_postfix %{so_ver}
+%define sll_postfix %{so_ver}
+%define svcauth_postfix %{so_ver}
+%define sys_postfix %{so_ver}_1
+%define tags_postfix %{so_ver}_1
+%define x11_postfix -%{so_ver}
+%define xdg_postfix %{so_ver}
+%define xpc_postfix %{so_ver}_2
+%define xsd_postfix %{so_ver}
 
 %if 0%{?suse_version} > 1310
 %define lmp_gstreamer_1_0 1
@@ -31,7 +45,7 @@
 %endif
 
 %if 0%{?suse_version} > 1320
-%define use_cpp14 0
+%define use_cpp14 1
 %else
 %define use_cpp14 0
 %endif
@@ -2474,127 +2488,141 @@ This package provides a file uploader plugin for LeechCraft.
 It allows to upload files to accountless filebin services.
 
 
-%package -n libleechcraft-util-db%{so_ver}
+%package -n libleechcraft-util-db%{db_postfix}
 Summary:        Database utility library for LeechCraft
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-db%{so_ver}
+%description -n libleechcraft-util-db%{db_postfix}
 A library providing some useful and commonly used database-related
 classes and functions.
 
 
-%package -n libleechcraft-util-gui%{so_ver}_1
+%package -n libleechcraft-util-gui%{gui_postfix}
 Summary:        GUI utility library for LeechCraft
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-gui%{so_ver}_1
+%description -n libleechcraft-util-gui%{gui_postfix}
 A library providing some useful and commonly used GUI-related
 widgets, classes and functions.
 
 
-%package -n libleechcraft-util-models%{so_ver}
+%package -n libleechcraft-util-models%{models_postfix}
 Summary:        MVC utility library for LeechCraft
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-models%{so_ver}
+%description -n libleechcraft-util-models%{models_postfix}
 A library providing some useful and commonly used models (as in MVC),
 as well as model-related classes and functions.
 
 
-%package -n libleechcraft-util-network%{so_ver}_1
+%package -n libleechcraft-util-network%{network_postfix}
 Summary:        Network utility library for LeechCraft
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-network%{so_ver}_1
+%description -n libleechcraft-util-network%{network_postfix}
 A library providing some useful and commonly used
 network classes and functions.
 
 
-%package -n libleechcraft-util-qml%{so_ver}_2
+%package -n libleechcraft-util-qml%{qml_postfix}
 Summary:        QML utility library for LeechCraft
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-qml%{so_ver}_2
+%description -n libleechcraft-util-qml%{qml_postfix}
 A library providing some useful and commonly used QML items as well as
 QML-related classes and functions.
 
 
-%package -n libleechcraft-util-shortcuts%{so_ver}
+%package -n libleechcraft-util-shortcuts%{shortcuts_postfix}
 Summary:        Shortcuts utility library for LeechCraft
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-shortcuts%{so_ver}
+%description -n libleechcraft-util-shortcuts%{shortcuts_postfix}
 A library easing shortcuts usage in LeechCraft, particularly the
 configurable shortcuts subsystem.
 
 
-%package -n libleechcraft-util-sll%{so_ver}
+%package -n libleechcraft-util-sll%{sll_postfix}
 Summary:        Standard LeechCraft Library
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-sll%{so_ver}
+%description -n libleechcraft-util-sll%{sll_postfix}
 A library providing some useful classes and algorithms, not directly
 related to any other library.
 
 
-%package -n libleechcraft-util-svcauth%{so_ver}
+%package -n libleechcraft-util-svcauth%{svcauth_postfix}
 Summary:        Authenticators library for LeechCraft
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-svcauth%{so_ver}
+%description -n libleechcraft-util-svcauth%{svcauth_postfix}
 A library providing authenticators for various services like VKontakte.
 
 
-%package -n libleechcraft-util-sys%{so_ver}_1
+%package -n libleechcraft-util-sys%{sys_postfix}
 Summary:        System utility library for LeechCraft
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-sys%{so_ver}_1
+%description -n libleechcraft-util-sys%{sys_postfix}
 A library providing some useful and commonly used system-related
 classes and functions, like OS version parser, paths utilities or MIME
 detector.
 
 
-%package -n libleechcraft-util-tags%{so_ver}_1
+%package -n libleechcraft-util-tags%{tags_postfix}
 Summary:        Tags utility library for LeechCraft
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-tags%{so_ver}_1
+%description -n libleechcraft-util-tags%{tags_postfix}
 A library providing some useful classes and functions commonly used
 with the LeechCraft tags subsystem.
 
 
-%package -n libleechcraft-util-x11-%{so_ver}
+%package -n libleechcraft-util-x11%{x11_postfix}
 Summary:        X11 utility library for LeechCraft
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-x11-%{so_ver}
+%description -n libleechcraft-util-x11%{x11_postfix}
 A library providing X11 wrappers for LeechCraft.
 
 
-%package -n libleechcraft-util-xdg%{so_ver}
+%package -n libleechcraft-util-xdg%{xdg_postfix}
 Summary:        XDG utility library for LeechCraft
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-xdg%{so_ver}
+%description -n libleechcraft-util-xdg%{xdg_postfix}
 A library providing XDG parsers and other support methods and classes
 for LeechCraft.
 
 
-%package -n libleechcraft-util-xpc%{so_ver}_2
+%package -n libleechcraft-util-xpc%{xpc_postfix}
 Summary:        Cross-plugin communication utility library for LeechCraft
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-xpc%{so_ver}_2
+%description -n libleechcraft-util-xpc%{xpc_postfix}
 A library providing some useful and commonly used primitives for
 communications between different plugins in LeechCraft.
 
 
-%package -n libleechcraft-util-xsd%{so_ver}
+%package -n libleechcraft-util-xsd%{xsd_postfix}
 Summary:        XSD utility library for LeechCraft
+License:        BSL-1.0
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-xsd%{so_ver}
+%description -n libleechcraft-util-xsd%{xsd_postfix}
 A library providing some useful classes to be used with the
 XmlSettingsDialog LeechCraft subsystem.
 
@@ -2623,7 +2651,9 @@ cmake ../src \
 %if %{use_cpp14}
         -DUSE_CPP14=True \
 %endif
+%if 0%{?suse_version} <= 1320
         -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
+%endif
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DSTRICT_LICENSING=True \
@@ -2832,88 +2862,88 @@ EOF
 
 %postun -p /sbin/ldconfig
 
-%post -n libleechcraft-util-db%{so_ver}
+%post -n libleechcraft-util-db%{db_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-db%{so_ver}
+%postun -n libleechcraft-util-db%{db_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-gui%{so_ver}_1
+%post -n libleechcraft-util-gui%{gui_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-gui%{so_ver}_1
+%postun -n libleechcraft-util-gui%{gui_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-models%{so_ver}
+%post -n libleechcraft-util-models%{models_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-models%{so_ver}
+%postun -n libleechcraft-util-models%{models_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-network%{so_ver}_1
+%post -n libleechcraft-util-network%{network_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-network%{so_ver}_1
+%postun -n libleechcraft-util-network%{network_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-qml%{so_ver}_2
+%post -n libleechcraft-util-qml%{qml_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-qml%{so_ver}_2
+%postun -n libleechcraft-util-qml%{qml_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-shortcuts%{so_ver}
+%post -n libleechcraft-util-shortcuts%{shortcuts_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-shortcuts%{so_ver}
+%postun -n libleechcraft-util-shortcuts%{shortcuts_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-sll%{so_ver}
+%post -n libleechcraft-util-sll%{sll_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-sll%{so_ver}
+%postun -n libleechcraft-util-sll%{sll_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-svcauth%{so_ver}
+%post -n libleechcraft-util-svcauth%{svcauth_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-svcauth%{so_ver}
+%postun -n libleechcraft-util-svcauth%{svcauth_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-sys%{so_ver}_1
+%post -n libleechcraft-util-sys%{sys_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-sys%{so_ver}_1
+%postun -n libleechcraft-util-sys%{sys_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-tags%{so_ver}_1
+%post -n libleechcraft-util-tags%{tags_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-tags%{so_ver}_1
+%postun -n libleechcraft-util-tags%{tags_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-x11-%{so_ver}
+%post -n libleechcraft-util-x11%{x11_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-x11-%{so_ver}
+%postun -n libleechcraft-util-x11%{x11_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-xdg%{so_ver}
+%post -n libleechcraft-util-xdg%{xdg_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-xdg%{so_ver}
+%postun -n libleechcraft-util-xdg%{xdg_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-xpc%{so_ver}_2
+%post -n libleechcraft-util-xpc%{xpc_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-xpc%{so_ver}_2
+%postun -n libleechcraft-util-xpc%{xpc_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-xsd%{so_ver}
+%post -n libleechcraft-util-xsd%{xsd_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-xsd%{so_ver}
+%postun -n libleechcraft-util-xsd%{xsd_postfix}
 /sbin/ldconfig
 
 %files
@@ -3866,59 +3896,59 @@ EOF
 %{translations_dir}/*craft_zalil_??.qm
 %{translations_dir}/*craft_zalil_??_??.qm
 
-%files -n libleechcraft-util-db%{so_ver}
+%files -n libleechcraft-util-db%{db_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-db*.so.*
 
-%files -n libleechcraft-util-gui%{so_ver}_1
+%files -n libleechcraft-util-gui%{gui_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-gui*.so.*
 
-%files -n libleechcraft-util-models%{so_ver}
+%files -n libleechcraft-util-models%{models_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-models*.so.*
 
-%files -n libleechcraft-util-network%{so_ver}_1
+%files -n libleechcraft-util-network%{network_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-network*.so.*
 
-%files -n libleechcraft-util-qml%{so_ver}_2
+%files -n libleechcraft-util-qml%{qml_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-qml*.so.*
 
-%files -n libleechcraft-util-shortcuts%{so_ver}
+%files -n libleechcraft-util-shortcuts%{shortcuts_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-shortcuts*.so.*
 
-%files -n libleechcraft-util-sll%{so_ver}
+%files -n libleechcraft-util-sll%{sll_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-sll*.so.*
 
-%files -n libleechcraft-util-svcauth%{so_ver}
+%files -n libleechcraft-util-svcauth%{svcauth_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-svcauth*.so.*
 
-%files -n libleechcraft-util-sys%{so_ver}_1
+%files -n libleechcraft-util-sys%{sys_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-sys*.so.*
 
-%files -n libleechcraft-util-tags%{so_ver}_1
+%files -n libleechcraft-util-tags%{tags_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-tags*.so.*
 
-%files -n libleechcraft-util-x11-%{so_ver}
+%files -n libleechcraft-util-x11%{x11_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-x11*.so.*
 
-%files -n libleechcraft-util-xdg%{so_ver}
+%files -n libleechcraft-util-xdg%{xdg_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-xdg*.so.*
 
-%files -n libleechcraft-util-xpc%{so_ver}_2
+%files -n libleechcraft-util-xpc%{xpc_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-xpc*.so.*
 
-%files -n libleechcraft-util-xsd%{so_ver}
+%files -n libleechcraft-util-xsd%{xsd_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-xsd*.so.*
 
