@@ -16,10 +16,10 @@
 #
 
 
-%define LEECHCRAFT_VERSION 0.6.70-3466-g864bd1a
+%define LEECHCRAFT_VERSION 0.6.70-3565-g2d86529
 
 Name:           leechcraft-doc
-Version:        0.6.70+git.3466.g864bd1a
+Version:        0.6.70+git.3565.g2d86529
 Release:        0
 Summary:        Modular Internet Client Documentation
 License:        BSL-1.0

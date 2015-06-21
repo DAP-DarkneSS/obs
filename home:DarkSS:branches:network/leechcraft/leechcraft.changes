@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Jun 10 16:35:52 UTC 2015 - dap.darkness@gmail.com
+
+- Updated to 0.6.70-3565-g2d86529 git snapshot.
+- Utils postfix macros were introduced,
+  devel subpackage requirements were fixed.
+
+-------------------------------------------------------------------
 Mon May 25 18:25:50 UTC 2015 - dap.darkness@gmail.com
 
 - Updated to 0.6.70-3466-g864bd1a git snapshot:
