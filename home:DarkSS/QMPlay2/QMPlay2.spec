@@ -1,7 +1,7 @@
 #
 # spec file for package QMPlay2
 #
-# Copyright (c) 2015 Packman team: http://packman.links2linux.org/
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via https://bugs.links2linux.org/
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
 
@@ -25,9 +25,13 @@ Group:          Productivity/Multimedia/Video/Players
 Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
 Source:         http://kent.dl.sourceforge.net/project/zaps166/QMPlay2/QMPlay2-src-%{version}.tar.bz2
 
-BuildRequires:  kdebase4-workspace
+BuildRequires:  libXv-devel
 BuildRequires:  portaudio-devel
-BuildRequires:  pkgconfig(QtCore)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5OpenGL)
+BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt5X11Extras)
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(libass)
 BuildRequires:  pkgconfig(libavcodec)
@@ -41,22 +45,12 @@ BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(taglib)
 BuildRequires:  pkgconfig(vdpau)
-BuildRequires:  pkgconfig(xv)
 Recommends:     youtube-dl
-Suggests:       %{name}-kde-integration
+Obsoletes:      %{name}-kde-integration <= %{version}
 
 %description
 %{name} is a video player, it can play and stream all formats supported by
 ffmpeg and libmodplug (including J2B). It has an integrated Youtube browser.
-
-%package        kde-integration
-Summary:        %{name} KDE integration subpackage
-Requires:       %{name}
-Requires:       kdebase4-workspace
-BuildArch:      noarch
-
-%description    kde-integration
-Media playing actions for removable devices in KDE.
 
 %package        devel
 Summary:        %{name} development files
@@ -71,6 +65,7 @@ It's a development package for %{name}.
 
 
 %build
+export QT_SUFFIX="-qt5"
 NOTERM=1 SYSTEM_BUILD=1 ./compile_unix `echo "%{?_smp_mflags}" | grep -o '[0-9]*'`
 
 %install
@@ -108,10 +103,6 @@ mv %{buildroot}/%{_datadir}/{icons,pixmaps}
 %{_datadir}/applications/%{name}*.desktop
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/qmplay2
-
-%files kde-integration
-%defattr(-,root,root)
-%{_datadir}/kde4/apps/solid/actions/*.desktop
 
 %files devel
 %defattr(-,root,root)

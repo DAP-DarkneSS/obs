@@ -6,6 +6,12 @@ Fri Jul  3 19:18:26 UTC 2015 - dap.darkness@gmail.com
   * minor bug fixes.
 
 -------------------------------------------------------------------
+Mon Jun  8 19:49:55 UTC 2015 - dap.darkness@gmail.com
+
+- Let's not support KDE4.
+- Let's use Qt5.
+
+-------------------------------------------------------------------
 Sat Jun  6 11:36:03 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 15.06.06 (changes since 15.05.30):
@@ -23,6 +29,7 @@ Sun May 31 13:12:43 UTC 2015 - dap.darkness@gmail.com
   * playlist loading became faster;
   * operations on directories were improved;
   * minor bug fixing.
+- Packman → OBS.
 - _service → tarball.
 
 -------------------------------------------------------------------
