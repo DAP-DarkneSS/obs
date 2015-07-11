@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-3715-g6ee60ff
+%define LEECHCRAFT_VERSION 0.6.70-3818-gab16420
 %define db_postfix %{so_ver}
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}
@@ -45,7 +45,7 @@
 %endif
 
 %if 0%{?suse_version} > 1320
-%define use_cpp14 1
+%define use_cpp14 0
 %else
 %define use_cpp14 0
 %endif
@@ -82,10 +82,12 @@ BuildRequires:  libqxt-devel
 %endif
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
+%ifarch %ix86 %arm x86_64 ppc64 ppc64le
 %if %{use_cpp14}
 BuildRequires:  llvm-clang >= 3.4
 %else
 BuildRequires:  llvm-clang
+%endif
 %endif
 %if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
@@ -2641,8 +2643,12 @@ find src -name '*.png' -or -name '*.css' -or -name '*.gif' -exec chmod 0644 {} +
 
 mkdir build && cd build
 
+%ifarch %ix86 %arm x86_64 ppc64 ppc64le
+%if 0%{?suse_version} <= 1320
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
+%endif
+%endif
 
 cmake ../src \
 %if "%{_lib}" == "lib64"
@@ -2651,9 +2657,7 @@ cmake ../src \
 %if %{use_cpp14}
         -DUSE_CPP14=True \
 %endif
-%if 0%{?suse_version} <= 1320
         -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
-%endif
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DSTRICT_LICENSING=True \
@@ -2697,6 +2701,7 @@ cmake ../src \
                 -DDUMBEEP_WITH_PHONON=True \
         -DENABLE_ELEEMINATOR=True \
         -DENABLE_FENET=True \
+        -DENABLE_FONTIAC=False \
         -DENABLE_GACTS=True \
 %if 0%{?suse_version} > 1310
                 -DWITH_GACTS_BUNDLED_QXT=False \
