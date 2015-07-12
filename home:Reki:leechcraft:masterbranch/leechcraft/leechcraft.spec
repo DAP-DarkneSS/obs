@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-3818-gab16420
+%define LEECHCRAFT_VERSION 0.6.70-3854-g7a5631d
 %define db_postfix %{so_ver}
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}
