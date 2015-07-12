@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-3854-g7a5631d
+%define LEECHCRAFT_VERSION 0.6.70-3861-ge207e33
 %define db_postfix %{so_ver}
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}
@@ -59,6 +59,7 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 Source0:        %{name}-%{version}.tar.xz
+Patch0:         lc-liznoo-dbg.diff
 
 BuildRequires:  Qross-devel
 BuildRequires:  boost-devel >= 1.50
@@ -2631,6 +2632,7 @@ XmlSettingsDialog LeechCraft subsystem.
 
 %prep
 %setup -q
+%patch0 -p1
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
