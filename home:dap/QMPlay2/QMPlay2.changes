@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jul  7 08:39:51 UTC 2015 - cfarrell@suse.com
+
+- license update: LGPL-3.0+
+  According to website and COPYING this is LGPL-3.0+
+
+-------------------------------------------------------------------
 Fri Jul  3 19:18:26 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 15.06.26 (changes since 15.06.06):
