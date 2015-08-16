@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Mon Jul 13 18:06:19 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 15.08.12 (changes since 15.07.13):
+  * deinterlacing fixes in VAApi,
+  * MPRIS2 bugfix.
+
+-------------------------------------------------------------------
+Mon Jul 13 18:06:19 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 15.07.13 (changes since 15.06.26):
+  * fixed problem with playing video
+    (sometimes video plays at maximum speed).
+
+-------------------------------------------------------------------
 Tue Jul  7 08:39:51 UTC 2015 - cfarrell@suse.com
 
 - license update: LGPL-3.0+

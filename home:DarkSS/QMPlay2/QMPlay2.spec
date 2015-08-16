@@ -17,7 +17,7 @@
 
 
 Name:           QMPlay2
-Version:        15.06.26
+Version:        15.08.12
 Release:        0
 Summary:        A Qt based media player, streamer and downloader
 License:        LGPL-3.0+
@@ -63,7 +63,6 @@ It's a development package for %{name}.
 %prep
 %setup -q -n %{name}-src
 
-
 %build
 export QT_SUFFIX="-qt5"
 NOTERM=1 SYSTEM_BUILD=1 ./compile_unix `echo "%{?_smp_mflags}" | grep -o '[0-9]*'`
@@ -88,11 +87,9 @@ rm -rf %{buildroot}/%{_datadir}/icons/hicolor
 # Setting icon to 'pixmaps' instead of 'icons'.
 mv %{buildroot}/%{_datadir}/{icons,pixmaps}
 
-
 %post   -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
-
 
 %files
 %defattr(-,root,root)
