@@ -22,8 +22,8 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-4056-ga153545
-%define db_postfix %{so_ver}
+%define LEECHCRAFT_VERSION 0.6.70-4479-g6024327
+%define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}
 %define network_postfix %{so_ver}_1
@@ -47,7 +47,7 @@
 %if 0%{?suse_version} > 1320
 %define use_cpp14 0
 %else
-%define use_cpp14 0
+%define use_cpp14 1
 %endif
 %define poleemery 1
 
@@ -67,7 +67,7 @@ BuildRequires:  cmake > 2.8.10
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 %if %{use_cpp14}
-BuildRequires:  gcc-c++ >= 4.9
+BuildRequires:  gcc49-c++
 %else
 BuildRequires:  gcc-c++
 %endif
@@ -181,6 +181,14 @@ Recommends:     %{name}-poshuku
 Recommends:     %{name}-secman-simplestorage
 Recommends:     %{name}-visualnotifications
 Conflicts:      leechcraft-qt5
+
+# Nondefault gcc magic!
+Preinstall: !libgcc_s1 libgcc_s1-gcc49
+BuildConflicts: gcc48
+BuildConflicts: gcc48-c++
+BuildConflicts: libgcc_s1-gcc48
+BuildConflicts: Mesa
+BuildConflicts: libgbm1
 
 %description
 This package provides core executable of Leechcraft.

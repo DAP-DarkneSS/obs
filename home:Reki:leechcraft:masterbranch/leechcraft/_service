@@ -2,6 +2,7 @@
   <service name="tar_scm">
     <param name="url">git://github.com/0xd34df00d/leechcraft.git</param>
     <param name="scm">git</param>
+    <param name="revision">bf49b4462e232b159c49ced95f481f254df64b01</param>
     <param name="versionprefix">0.6.70</param>
   </service>
   <service name="recompress">
