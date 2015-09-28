@@ -17,13 +17,14 @@
 
 
 Name:           colobot-data
-Version:        0.1.5
+Version:        0.1.6
 Release:        0
 Summary:        A real-time strategy game with programmable bots
 License:        GPL-3.0+
 Group:          Amusements/Games/Strategy/Real Time
 Url:            http://colobot.info
 Source0:        https://github.com/colobot/colobot-data/archive/colobot-gold-%{version}-alpha.tar.gz
+Source1:        https://colobot.info/files/music/colobot-music_ogg_%{version}-alpha.tar.gz
 
 BuildRequires:  cmake >= 2.8
 BuildRequires:  fdupes
@@ -48,6 +49,7 @@ the right amount of accuracy, with the right mix of imagination.
 
 %prep
 %setup -q -n colobot-data-colobot-gold-%{version}-alpha
+tar -xf %{SOURCE1} -C %{_builddir}/colobot-data-colobot-gold-%{version}-alpha/music
 
 %build
 mkdir -p build && cd build
