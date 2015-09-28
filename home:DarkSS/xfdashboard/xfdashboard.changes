@@ -1,4 +1,41 @@
 -------------------------------------------------------------------
+Mon Sep 28 16:43:56 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 0.5.1:
+  * Implemented new experimental code to delay window content
+    creation finally and made it configurable.
+  * Implemented an application tracker which tries to determine and
+    to keep track of running applications.
+  * With the implementation of the application tracker also running
+    application which are not stored as favourites in quicklaunch
+    will be added dynamically as temporary application buttons
+    which look the same as stored favourites one.
+  * Favourite will get CSS class '.favourite-app' added to its
+    actor while dynamically added non-favourite actors get the CSS
+    class '.dynamic-app' added.
+  * Hide all dynamically added non-favourite actors when a
+    drag'n'drop action is in progress.
+  * Partially rewrote build system to create a static library for
+    all files except the main file containing the main() function.
+  * Began adding gtk-doc documentation annotations to various files.
+  * Remove calls to xfdashboard_actor_contains_child_deep() and
+    replaced them with clutter_actor_contains()
+  * Add command-line option "--view". This command-line option
+    "--view [internal name of view]" allows to specify which view to
+    show when xfdashboard gets visible. This will only be applied
+    once. It "overrides" any view configured in settings. (#12144)
+  * Add session management to xfdashboard to restart it if it
+    crashes (#12143)
+  * Fixed a bug that pinned windows are not shown at newly created
+    (but not current) workspace at XfdashboardLiveWorkspace
+  * Fixed settings application to set xfconf property
+    '/switch-to-view-on-resume' instead of '/switch-view-on-resume'
+  * Fixed a warning printed to console when the setting
+    "gtk-tooltip-timeout" was requested as it is deprecated and
+    ignored by GTK+ derived application since GTK+ 3.10 and higher.
+  * Some other bug-fixes.
+
+-------------------------------------------------------------------
 Tue Aug 11 15:14:49 CEST 2015 - tiwai@suse.de
 
 - include /usr/share/appdata to file list for fixing build on old

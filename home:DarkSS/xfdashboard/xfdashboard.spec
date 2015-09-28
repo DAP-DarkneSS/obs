@@ -17,7 +17,7 @@
 
 
 Name:           xfdashboard
-Version:        0.5.0
+Version:        0.5.1
 Release:        0
 Summary:        GNOME shell like dashboard for Xfce
 License:        GPL-2.0+
@@ -42,6 +42,7 @@ BuildRequires:  pkgconfig(garcon-1)
 BuildRequires:  pkgconfig(ice)
 BuildRequires:  pkgconfig(libwnck-3.0)
 BuildRequires:  pkgconfig(libxfce4util-1.0) >= 4.10.0
+BuildRequires:  pkgconfig(libxfce4ui-2) >= 4.10.0
 BuildRequires:  pkgconfig(libxfconf-0)
 BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xdamage)
@@ -105,9 +106,6 @@ make DESTDIR=%{buildroot} install %{?_smp_mflags} V=1
 %{_sysconfdir}/xdg/autostart/%{name}-autostart.desktop
 %{_datadir}/icons/hicolor/*/*/%{name}.png
 %{_datadir}/themes/%{name}
-%if 0%{?suse_version} <= 1310
-%{_datadir}/appdata
-%endif
 
 %files lang -f %{name}.lang
 
