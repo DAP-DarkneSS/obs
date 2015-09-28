@@ -98,6 +98,7 @@ make DESTDIR=%{buildroot} install %{?_smp_mflags} V=1
 %{_bindir}/%{name}
 %{_bindir}/%{name}-settings
 %{_datadir}/%{name}
+%dir %{_datadir}/appdata
 %{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/%{name}-settings.desktop

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Aug 11 15:14:49 CEST 2015 - tiwai@suse.de
+
+- include /usr/share/appdata to file list for fixing build on old
+  distros
+
+-------------------------------------------------------------------
 Sat Jun 13 09:49:59 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 0.5.0:
