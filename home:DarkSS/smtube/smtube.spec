@@ -2,7 +2,7 @@
 # spec file for package smtube
 #
 # Copyright (c) 2012 Pascal Bleser <pascal.bleser@opensuse.org>
-# Copyright (c) 2015 Packman team: http://packman.links2linux.org/
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -13,8 +13,8 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via https://bugs.links2linux.org/
-
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
+#
 
 Name:           smtube
 Version:        15.9.0
@@ -32,9 +32,13 @@ BuildRequires:  hicolor-icon-theme
 BuildRequires:  update-desktop-files
 %endif
 BuildRequires:  dos2unix
+BuildRequires:  libqt5-linguist
 BuildRequires:  pkgconfig
-BuildRequires:  pkgconfig(QtWebKit)
+BuildRequires:  pkgconfig(Qt5Script)
+BuildRequires:  pkgconfig(Qt5WebKitWidgets)
 Suggests:       MPlayer
+Suggests:       dragon
+Suggests:       gnome-mplayer
 Suggests:       mpv
 Recommends:     smplayer
 Suggests:       totem
@@ -72,6 +76,8 @@ make %{?_smp_mflags} \
      DATA_PATH="%{_datadir}/%{name}" \
      DOC_PATH="%{_docdir}/%{name}" \
      KDE_PREFIX="%{_prefix}" \
+     QMAKE=qmake-qt5 \
+     LRELEASE=lrelease-qt5 \
      OPTFLAGS="%{optflags}"
 
 %install
