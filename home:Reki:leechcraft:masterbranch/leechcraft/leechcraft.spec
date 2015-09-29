@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-4479-g6024327
+%define LEECHCRAFT_VERSION 0.6.70-4789-gd38730e
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}
@@ -33,6 +33,7 @@
 %define svcauth_postfix %{so_ver}
 %define sys_postfix %{so_ver}_1
 %define tags_postfix %{so_ver}_1
+%define threads_postfix %{so_ver}
 %define x11_postfix -%{so_ver}
 %define xdg_postfix %{so_ver}
 %define xpc_postfix %{so_ver}_2
@@ -183,7 +184,7 @@ Recommends:     %{name}-visualnotifications
 Conflicts:      leechcraft-qt5
 
 # Nondefault gcc magic!
-Preinstall: !libgcc_s1 libgcc_s1-gcc49
+# Preinstall: !libgcc_s1 libgcc_s1-gcc49
 BuildConflicts: gcc48
 BuildConflicts: gcc48-c++
 BuildConflicts: libgcc_s1-gcc48
@@ -1141,20 +1142,21 @@ Summary:        LeechCraft Development Files
 Group:          Development/Libraries/Other
 Requires:       %{name} = %{version}
 Requires:       cmake
-Requires:       libleechcraft-util-db%{so_ver}        = %{version}
-Requires:       libleechcraft-util-gui%{so_ver}_1     = %{version}
-Requires:       libleechcraft-util-models%{so_ver}    = %{version}
-Requires:       libleechcraft-util-network%{so_ver}_1 = %{version}
-Requires:       libleechcraft-util-qml%{so_ver}_2     = %{version}
-Requires:       libleechcraft-util-shortcuts%{so_ver} = %{version}
-Requires:       libleechcraft-util-sll%{so_ver}       = %{version}
-Requires:       libleechcraft-util-svcauth%{so_ver}   = %{version}
-Requires:       libleechcraft-util-sys%{so_ver}_1     = %{version}
-Requires:       libleechcraft-util-tags%{so_ver}_1    = %{version}
-Requires:       libleechcraft-util-x11-%{so_ver}      = %{version}
-Requires:       libleechcraft-util-xdg%{so_ver}       = %{version}
-Requires:       libleechcraft-util-xpc%{so_ver}_2     = %{version}
-Requires:       libleechcraft-util-xsd%{so_ver}       = %{version}
+Requires:       libleechcraft-util-db%{db_postfix}               = %{version}
+Requires:       libleechcraft-util-gui%{gui_postfix}             = %{version}
+Requires:       libleechcraft-util-models%{models_postfix}       = %{version}
+Requires:       libleechcraft-util-network%{network_postfix}     = %{version}
+Requires:       libleechcraft-util-qml%{qml_postfix}             = %{version}
+Requires:       libleechcraft-util-shortcuts%{shortcuts_postfix} = %{version}
+Requires:       libleechcraft-util-sll%{sll_postfix}             = %{version}
+Requires:       libleechcraft-util-svcauth%{svcauth_postfix}     = %{version}
+Requires:       libleechcraft-util-sys%{sys_postfix}             = %{version}
+Requires:       libleechcraft-util-tags%{tags_postfix}           = %{version}
+Requires:       libleechcraft-util-threads%{threads_postfix}     = %{version}
+Requires:       libleechcraft-util-x11%{x11_postfix}             = %{version}
+Requires:       libleechcraft-util-xdg%{xdg_postfix}             = %{version}
+Requires:       libleechcraft-util-xpc%{xpc_postfix}             = %{version}
+Requires:       libleechcraft-util-xsd%{xsd_postfix}             = %{version}
 Requires:       pkgconfig(QtWebKit)
 Recommends:     leechcraft-azoth-doc
 Recommends:     leechcraft-doc
@@ -2599,6 +2601,16 @@ A library providing some useful classes and functions commonly used
 with the LeechCraft tags subsystem.
 
 
+%package -n libleechcraft-util-threads%{threads_postfix}
+Summary:        Threads utility library for LeechCraft
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+
+%description -n libleechcraft-util-threads%{threads_postfix}
+A library providing some useful classes and functions commonly used
+with the LeechCraft threads subsystem.
+
+
 %package -n libleechcraft-util-x11%{x11_postfix}
 Summary:        X11 utility library for LeechCraft
 License:        BSL-1.0
@@ -2935,6 +2947,12 @@ EOF
 /sbin/ldconfig
 
 %postun -n libleechcraft-util-tags%{tags_postfix}
+/sbin/ldconfig
+
+%post -n libleechcraft-util-threads%{threads_postfix}
+/sbin/ldconfig
+
+%postun -n libleechcraft-util-threads%{threads_postfix}
 /sbin/ldconfig
 
 %post -n libleechcraft-util-x11%{x11_postfix}
@@ -3950,6 +3968,10 @@ EOF
 %files -n libleechcraft-util-tags%{tags_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-tags*.so.*
+
+%files -n libleechcraft-util-threads%{threads_postfix}
+%defattr(-,root,root)
+%{_libdir}/*-util-threads*.so.*
 
 %files -n libleechcraft-util-x11%{x11_postfix}
 %defattr(-,root,root)
