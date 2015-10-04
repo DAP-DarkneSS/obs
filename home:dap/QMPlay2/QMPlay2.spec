@@ -17,7 +17,7 @@
 
 
 Name:           QMPlay2
-Version:        15.08.12
+Version:        15.10.03
 Release:        0
 Summary:        A Qt based media player, streamer and downloader
 License:        LGPL-3.0+
