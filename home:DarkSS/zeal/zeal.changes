@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Oct  5 18:08:11 UTC 2015 - dap.darkness@gmail.com
+
+- Updated to v0.1.1-117-g5fdc036:
+  * https://github.com/zealdocs/zeal/issues/376 was resolved
+    (Fail to build with Qt5.5 affecting arm & leap 42.1).
+
+-------------------------------------------------------------------
 Thu May 21 15:45:53 UTC 2015 - dap.darkness@gmail.com
 
 - Updated to v0.1.1-52-g43ed784:

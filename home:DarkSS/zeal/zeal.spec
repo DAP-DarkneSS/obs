@@ -18,7 +18,7 @@
 
 Name:           zeal
 Summary:        Offline API documentation browser
-Version:        0.1.1+git52
+Version:        0.1.1+git117
 Release:        0
 License:        GPL-3.0
 URL:            http://zealdocs.org
