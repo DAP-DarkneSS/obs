@@ -24,6 +24,7 @@ License:        GPL-3.0+
 Group:          System/X11/Utilities
 Url:            http://www.maartenbaert.be/simplescreenrecorder
 Source:         https://github.com/MaartenBaert/ssr/archive/%{version}.tar.gz
+Source9:        baselibs.conf
 # PATH-FIX-UPSTREAM to fix --disable-x86-asm option
 Patch0:         ssr-0.3.3-fix-disable-x86-asm.diff
 # PATH-FIX-UPSTREAM to make build against openSUSE' ffmpeg possible

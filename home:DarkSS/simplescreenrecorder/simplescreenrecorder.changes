@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri May  1 20:36:50 UTC 2015 - dap.darkness@gmail.com
+
+- baselibs.conf became mentioned in spec files as source
+  to pass factory-auto.
+
+-------------------------------------------------------------------
 Mon Apr 27 20:46:51 UTC 2015 - dap.darkness@gmail.com
 
 - Fixed up libssr-glinject subpackage description (request#303989).
