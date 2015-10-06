@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Oct  6 18:35:32 UTC 2015 - dap.darkness@gmail.com
+
+- Added QMPlay2-arm-no-opengl.diff vs. vs. arm build issue, see
+  more at https://github.com/zaps166/QMPlay2/issues/6
+
+-------------------------------------------------------------------
 Sun Oct  4 08:26:27 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 15.10.03 (changes since 15.08.12):
