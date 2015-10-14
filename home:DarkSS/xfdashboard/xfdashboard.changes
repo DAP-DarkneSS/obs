@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Wed Oct 14 16:31:39 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 0.5.2:
+  * Applied a bug fix. It tracks screen size changes to resize
+    stage size at systems where needed. (GH #95)
+  * The application tracker now keeps a list of windows for an
+    application in a sorted order of last activation of a window.
+  * A new configuration option "/always-launch-new-instance" was
+    implemented. (GH #97)
+  * The application tracker now considers desktop files in
+    sub-directories if it was not found. (GH #99)
+  * Some smaller improvements.
+  * Some bug-fixes.
+  * Updated translations.
+
+-------------------------------------------------------------------
 Mon Sep 28 16:43:56 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 0.5.1:

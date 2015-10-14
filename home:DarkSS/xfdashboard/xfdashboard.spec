@@ -17,7 +17,7 @@
 
 
 Name:           xfdashboard
-Version:        0.5.1
+Version:        0.5.2
 Release:        0
 Summary:        GNOME shell like dashboard for Xfce
 License:        GPL-2.0+
