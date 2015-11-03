@@ -9,33 +9,7 @@ Tue Nov  3 16:02:27 UTC 2015 - dap.darkness@gmail.com
   * Added full support for NV12. If FFmpeg is compiled with NVENC
     support, this will allow you to use it.
   * Removed ssr-0.3.3-fix-disable-x86-asm.patch.diff as merged.
-  * Removed ssr-0.3.3-ffmpeg-pkgconfig.diff as merged by upstream.
-- Qt4 → Qt5.
-
--------------------------------------------------------------------
-Fri May  1 20:36:50 UTC 2015 - dap.darkness@gmail.com
-
-- baselibs.conf became mentioned in spec files as source
-  to pass factory-auto.
-
--------------------------------------------------------------------
-Mon Apr 27 20:46:51 UTC 2015 - dap.darkness@gmail.com
-
-- Fixed up libssr-glinject subpackage description (request#303989).
-- Removed libssr-glinject static build (request#303989).
-- Let's only suggest libssr-glinject-32bit to not install 32bit
-  dependencies with default ssr installation.
-- Dropped openSUSE < 13.* support.
-
--------------------------------------------------------------------
-Thu Apr 23 19:08:16 UTC 2015 - dap.darkness@gmail.com
-
-- Packman → OBS;
-- _service → tarball;
-- `spec-cleaner`.
-- Added ssr-0.3.3-ffmpeg-pkgconfig.diff
-  to make build against openSUSE' ffmpeg possible
-  ( https://github.com/MaartenBaert/ssr/commit/5929b ).
+- _service → tarball.
 
 -------------------------------------------------------------------
 Sat Jan 17 21:21:39 UTC 2015 - dap.darkness@gmail.com

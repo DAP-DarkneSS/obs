@@ -1,7 +1,7 @@
 #
 # spec file for package simplescreenrecorder
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 Packman team: http://packman.links2linux.org/
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -12,45 +12,40 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.links2linux.org/
 #
 
 
 Name:           simplescreenrecorder
 Version:        0.3.6
 Release:        0
-Summary:        A feature-rich screen recorder that supports X11 and OpenGL
 License:        GPL-3.0+
-Group:          System/X11/Utilities
+Summary:        A feature-rich screen recorder that supports X11 and OpenGL
 Url:            http://www.maartenbaert.be/simplescreenrecorder
+Group:          System/X11/Utilities
 Source:         https://github.com/MaartenBaert/ssr/archive/%{version}.tar.gz
-Source9:        baselibs.conf
 
 BuildRequires:  cmake
 BuildRequires:  hicolor-icon-theme
-BuildRequires:  libjpeg8-devel
-BuildRequires:  libqt5-linguist
 BuildRequires:  update-desktop-files
-BuildRequires:  pkgconfig(Qt5Gui)       >= 5.1
-BuildRequires:  pkgconfig(Qt5Widgets)   >= 5.1
-BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.1
+BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(glu)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
-BuildRequires:  pkgconfig(xi)
+# Fix build on => 12.3
+%if 0%{?suse_version} > 1220
+BuildRequires:  libjpeg8-devel
+%endif
 %ifarch %ix86 x86_64
-# openGL apps:
 Recommends:     libssr-glinject
 %if %{_lib} == "lib64"
-# 32bit openGL apps at 64bit system:
-Suggests:       libssr-glinject-32bit
+Recommends:     libssr-glinject-32bit
 %endif
 %endif
 
@@ -90,42 +85,33 @@ Features:
 
 %ifarch %ix86 x86_64
 %package -n libssr-glinject
-Summary:        Simple Screen Recorder openGL plugin
 License:        MIT
+Summary:        A feature-rich screen recorder library
 Group:          System/Libraries
-Requires:       %{name} = %{version}
-
 %description -n libssr-glinject
-This package provides nice openGL apps screencasting support
-for Simple Screen Recorder. At 64bit system you may also
-install libssr-glinject-32bit for 32bit openGL apps support.
+This package provides SimpleScreenRecorder's optional library.
 %endif
+
 
 %prep
 %setup -q -n ssr-%{version}
 
+
 %build
 %ifarch %ix86 x86_64
-# /usr/include/qt5/QtCore/qglobal.h:1067:4: error: error "You must build
-# your code with position independent code if Qt was built with
-# -reduce-relocations. " "Compile your code with -fPIC (-fPIE is not
-# enough)." error "You must build your code with position independent code
-# if Qt was built with -reduce-relocations."
-export CFLAGS="%optflags -fPIC"
-export CXXFLAGS="%optflags -fPIC"
-%configure --with-qt5
+%configure
 %else
 %configure \
-           --with-qt5 \
            --disable-x86-asm \
            --disable-glinjectlib
 %endif
 make %{?_smp_mflags}
 
+
 %install
 %make_install
-find %{buildroot} -name *.la -delete
 %suse_update_desktop_file %{name}
+
 
 %post
 %desktop_database_post
@@ -134,6 +120,7 @@ find %{buildroot} -name *.la -delete
 %postun
 %desktop_database_postun
 %icon_theme_cache_postun
+
 
 %files
 %defattr(-,root,root)
@@ -146,10 +133,11 @@ find %{buildroot} -name *.la -delete
 %{_mandir}/*/%{name}*
 %{_mandir}/*/ssr-glinject*
 
+
 %ifarch %ix86 x86_64
 %files -n libssr-glinject
 %defattr(-,root,root)
-%{_libdir}/libssr-glinject.so
+%{_libdir}/libssr-glinject.*
 %endif
 
 %changelog
