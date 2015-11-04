@@ -27,11 +27,14 @@ Source0:        https://github.com/gmc-holle/xfdashboard/archive/%{version}.tar.
 # WARNING! Please don't add OnlyShowIn key to the desktop file
 # to save possibility to be run from under different desktop environments.
 
-# PATCH-FIX-OPENSUSE gh#gmc-holle/xfdashboard#70 xfdashboard-0.3.8-desktop-category.diff dap.darkness@gmail.com -- fixes not-sufficient desktop file category.
-Patch0:         xfdashboard-0.3.8-desktop-category.diff
+# PATCH-FIX-OPENSUSE gh#gmc-holle/xfdashboard#70 xfdashboard-desktop-category.diff dap.darkness@gmail.com -- fixes not-sufficient desktop file category.
+Patch0:         xfdashboard-desktop-category.diff
 
 # PATCH-FIX-OPENSUSE xfdashboard-desktopfile-without-binary.diff dap.darkness@gmail.com -- fixes "W: desktopfile-without-binary".
 Patch2:         xfdashboard-desktopfile-without-binary.diff
+
+# PATCH-FIX-UPSTREAM gh#gmc-holle/xfdashboard#101 xfdashboard-0.5.2-E-64bit-portability-issue.diff dap.darkness@gmail.com -- fixes "E: 64bit-portability-issue".
+Patch3:         xfdashboard-0.5.2-E-64bit-portability-issue.diff
 
 BuildRequires:  clutter-devel
 BuildRequires:  fdupes
@@ -74,6 +77,7 @@ Additional themes for use with Xfdashboard.
 %setup -q
 %patch0 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 export CFLAGS="%{optflags}"

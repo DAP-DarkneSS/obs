@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Wed Nov  4 14:58:59 UTC 2015 - dap.darkness@gmail.com
+
+- Added xfdashboard-0.5.2-E-64bit-portability-issue.diff
+  vs. 64bit-portability-issue error, see more at
+  https://github.com/gmc-holle/xfdashboard/issues/101 or at
+  http://lists.opensuse.org/opensuse-factory/2015-11/msg00137.html
+- Renamed xfdashboard-0.3.8-desktop-category.diff into
+  xfdashboard-desktop-category.diff as not merged by upstream.
+
+-------------------------------------------------------------------
 Wed Oct 14 16:31:39 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 0.5.2:
