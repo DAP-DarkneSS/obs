@@ -1,7 +1,42 @@
 -------------------------------------------------------------------
+Sun Nov 15 19:06:37 UTC 2015 - dap.darkness@gmail.com
+
+- Updated to 0.2.0:
+  * New features:
+    + Added support for back/forward mouse buttons (#334),
+    + Tabs can be closed with a middle click,
+    + Ctrl/Shift+click  or middle click on a link
+      opens it in a new tab (#403),
+    + Implemented selective docset update and removal,
+    + Added show and hide entries to the AppIndicator menu,
+    + Now Zeal checks for updates on startup,
+    + New dependency on X11 platforms: QtX11Extras;
+  * Improvements:
+    + Improved search performance by utilizing database indexes,
+    + Previously selected tab becomes active
+      when the current tab closes,
+    + Download error message box now provides a retry option,
+    + Improved search result list rendering performance (#211),
+    + Improved global shortcut support on XCB platforms;
+  * Fixed issues:
+    + Drastically reduced memory consumption
+      during docset download (#362, #394),
+    + Fixed in-page search not hiding on Escape (#129),
+    + Fixed AppIndicator support (#321),
+    + Fixed minimize to tray (#325),
+    + Fixed broken page navigation for ZDash docsets (#328),
+    + Fixed wrong tab being closed on  Ctrl+W  (#329, #402),
+    + Fixed ignored mouse clicks in search edit (#330),
+    + Fixed search result sorting order (#407),
+    + Fixed problem with missing keywords
+      when parsing dash-plugin URI (#411),
+    + Fixed global shortcut resets (#413),
+    + Fixed crash on docset removal (#420).
+
+-------------------------------------------------------------------
 Mon Oct  5 18:08:11 UTC 2015 - dap.darkness@gmail.com
 
-- Updated to v0.1.1-117-g5fdc036:
+- Updated to v0.1.1-117-g43ed784:
   * https://github.com/zealdocs/zeal/issues/376 was resolved
     (Fail to build with Qt5.5 affecting arm & leap 42.1).
 

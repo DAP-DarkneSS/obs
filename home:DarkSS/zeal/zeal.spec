@@ -18,12 +18,12 @@
 
 Name:           zeal
 Summary:        Offline API documentation browser
-Version:        0.1.1+git117
+Version:        0.2.0
 Release:        0
 License:        GPL-3.0
 URL:            http://zealdocs.org
 Group:          Development/Tools/Other
-Source0:        zeal-%{version}.tar.xz
+Source0:        https://github.com/zealdocs/zeal/archive/v%{version}.tar.gz
 # PATCH-FIX-OPENSUSE vs. file-contains-current-date WARNING:
 Patch0:         zeal-no-date-and-time.diff
 
