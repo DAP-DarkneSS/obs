@@ -1,4 +1,33 @@
 -------------------------------------------------------------------
+Sun Dec 20 17:36:54 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 15.12.06 (changes since 15.10.18):
+  * support for HEVC, VP8 and VP9 decoding in VA-API,
+  * setting priorities of decoders and A/V outputs
+    is now more convenient,
+  * improve QOpenGLWidget performance,
+  * support for HEVC decoding in VDPAU,
+  * simple visualization shows RMS of displayed signal
+    in side bars,
+  * fixes in AudioCD module, so any tracks must be added again,
+  * falling horizontal lines behave better in visualizations,
+  * play next entry after playback error (as default),
+  * removed console for Windows,
+  * added chiptune playback,
+  * fix decoding Bink Video,
+  * bugfix.
+
+-------------------------------------------------------------------
+Mon Oct 19 16:32:48 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 15.10.18 (changes since 15.10.03):
+  * new OpenGL 2 module (with OpenGL|ES 2.0 support),
+  * due to new libass, FontConfig is used only on 32-bit WinXP,
+  * correct display information about buffered time and size,
+  * DirectDraw improvements,
+  * many minor fixes.
+
+-------------------------------------------------------------------
 Sun Oct  4 08:26:27 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 15.10.03 (changes since 15.08.12):

@@ -17,17 +17,13 @@
 
 
 Name:           QMPlay2
-Version:        15.10.03
+Version:        15.12.06
 Release:        0
 Summary:        A Qt based media player, streamer and downloader
 License:        LGPL-3.0+
 Group:          Productivity/Multimedia/Video/Players
 Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
-Source:         http://kent.dl.sourceforge.net/project/zaps166/QMPlay2/QMPlay2-src-%{version}.tar.bz2
-
-# PATCH-FIX-OPENSUSE vs. arm build issue, see more at
-# https://github.com/zaps166/QMPlay2/issues/6#issuecomment-145657638
-Patch0:         QMPlay2-arm-no-opengl.diff
+Source:         http://kent.dl.sourceforge.net/project/zaps166/QMPlay2/QMPlay2-src-%{version}.tar.xz
 
 BuildRequires:  libXv-devel
 BuildRequires:  portaudio-devel
@@ -65,10 +61,7 @@ Requires:       %{name} = %{version}
 It's a development package for %{name}.
 
 %prep
-%setup -q -n %{name}-src
-%ifarch %arm aarch64
-%patch0
-%endif
+%setup -q -n %{name}-src-%{version}
 
 %build
 export QT_SUFFIX="-qt5"

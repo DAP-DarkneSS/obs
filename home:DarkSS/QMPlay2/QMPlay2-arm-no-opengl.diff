@@ -1,9 +1,0 @@
---- src/modules/modules.pro.orig	2015-10-03 01:52:23.000000000 +0300
-+++ src/modules/modules.pro	2015-10-06 21:29:29.511966480 +0300
-@@ -1,5 +1,5 @@
- TEMPLATE = subdirs
--SUBDIRS = FFmpeg Inputs Modplug Playlists Subtitles QPainter Extensions Visualizations AudioFilters VideoFilters OpenGL AudioCD
-+SUBDIRS = FFmpeg Inputs Modplug Playlists Subtitles QPainter Extensions Visualizations AudioFilters VideoFilters AudioCD
- linux*: SUBDIRS += ALSA #OpenSLES
- else: SUBDIRS += PortAudio
- unix:!macx {
