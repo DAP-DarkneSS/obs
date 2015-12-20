@@ -17,12 +17,12 @@
 
 
 Name:           xfdashboard
-Version:        0.5.2
+Version:        0.5.4
 Release:        0
 Summary:        GNOME shell like dashboard for Xfce
 License:        GPL-2.0+
 Url:            http://xfdashboard.froevel.de
-Source0:        https://github.com/gmc-holle/xfdashboard/archive/%{version}.tar.gz
+Source0:        http://archive.xfce.org/src/apps/xfdashboard/0.5/xfdashboard-%{version}.tar.bz2
 
 # WARNING! Please don't add OnlyShowIn key to the desktop file
 # to save possibility to be run from under different desktop environments.
@@ -32,9 +32,6 @@ Patch0:         xfdashboard-desktop-category.diff
 
 # PATCH-FIX-OPENSUSE xfdashboard-desktopfile-without-binary.diff dap.darkness@gmail.com -- fixes "W: desktopfile-without-binary".
 Patch2:         xfdashboard-desktopfile-without-binary.diff
-
-# PATCH-FIX-UPSTREAM gh#gmc-holle/xfdashboard#101 xfdashboard-0.5.2-E-64bit-portability-issue.diff dap.darkness@gmail.com -- fixes "E: 64bit-portability-issue".
-Patch3:         xfdashboard-0.5.2-E-64bit-portability-issue.diff
 
 BuildRequires:  clutter-devel
 BuildRequires:  fdupes
@@ -77,15 +74,15 @@ Additional themes for use with Xfdashboard.
 %setup -q
 %patch0 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 export CFLAGS="%{optflags}"
-./autogen.sh --prefix=%{_prefix} --sysconfdir=%{_sysconfdir}
+%configure
 make %{?_smp_mflags} V=1
 
 %install
 make DESTDIR=%{buildroot} install %{?_smp_mflags} V=1
+rm -rf %{buildroot}/%{_libdir}/%{name}/plugins/*.la
 %fdupes -s %{buildroot}%{_datadir}/themes/%{name}-*
 %find_lang %{name} %{?no_lang_C}
 
@@ -110,6 +107,7 @@ make DESTDIR=%{buildroot} install %{?_smp_mflags} V=1
 %{_sysconfdir}/xdg/autostart/%{name}-autostart.desktop
 %{_datadir}/icons/hicolor/*/*/%{name}.png
 %{_datadir}/themes/%{name}
+%{_libdir}/%{name}
 
 %files lang -f %{name}.lang
 

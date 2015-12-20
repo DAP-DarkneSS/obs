@@ -1,4 +1,35 @@
 -------------------------------------------------------------------
+Sun Dec 20 17:12:23 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 0.5.4:
+  * New feature: A theme can define which actors are focusable;
+  * New feature: Implemented XfdashboardActionButton button type;
+  * Implement action signal "exit" at XfdashboardApplication;
+  * Splitted function to determine desktop ID;
+  * Improved behaviour to use mouse wheel to change workspace;
+  * Added kudos to AppData;
+  * Implemented a workaround for broken director monitor in Glib when running FreeBSD;
+  * Lots of bug-fixes, really a lot;
+  * Updated translations.
+
+-------------------------------------------------------------------
+Sun Nov 15 19:28:26 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 0.5.3:
+  * New feature: Implemented a basic and simple plugin manager;
+  * Added new environment variable XFDASHBOARD_FORCE_NEW_INSTANCE;
+  * Rewrote view and search manager;
+  * Smaller improvements, e.g. replacing all GTK+ stock icon names
+    with corresponding ones from Icon Naming Specification;
+  * Fixed bug that the view will be enforced to be shown (again);
+  * Hopefully fixed a bug causing visual glitches in search view;
+  * Fixed a possible memory leak when unregistering a view;
+  * More bug-fixes;
+  * Updated translations;
+  * Added new translation: lt.
+- Removed xfdashboard-0.5.2-E-64bit-portability-issue.diff.
+
+-------------------------------------------------------------------
 Wed Nov  4 14:58:59 UTC 2015 - dap.darkness@gmail.com
 
 - Added xfdashboard-0.5.2-E-64bit-portability-issue.diff
