@@ -22,10 +22,10 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-5487-g9f407f2
+%define LEECHCRAFT_VERSION "0.6.70-5627-g33a1a4c Orange Arrow"
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
-%define models_postfix %{so_ver}
+%define models_postfix %{so_ver}_1
 %define network_postfix %{so_ver}_1
 %define qml_postfix %{so_ver}_2
 %define shortcuts_postfix %{so_ver}
@@ -3307,6 +3307,7 @@ EOF
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_cpuload.so
 %{qml_dir}/cpuload
+%{translations_dir}/*craft_cpuload*.qm
 
 %files cstp
 %defattr(-,root,root)
@@ -3692,6 +3693,7 @@ EOF
 %{plugin_dir}/lib%{name}_ooronee.so
 %{settings_dir}/ooroneesettings.xml
 %{qml_dir}/ooronee
+%{translations_dir}/*craft_ooronee_*.qm
 
 %files otlozhu
 %defattr(-,root,root)
