@@ -24,8 +24,14 @@ License:        LGPL-3.0+
 Group:          Productivity/Multimedia/Video/Players
 Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
 Source:         http://kent.dl.sourceforge.net/project/zaps166/QMPlay2/QMPlay2-src-%{version}.tar.xz
+# PATCH-FIX-USTREAM vs. openSUSE 13.1' default Qt 5.1 build issue,
+# see more at https://github.com/zaps166/QMPlay2/issues/7
+Patch0:         QMPlay2-Qt51.diff
 
 BuildRequires:  libXv-devel
+%if 0%{?suse_version} > 1310
+BuildRequires:  libqt5-linguist
+%endif
 BuildRequires:  portaudio-devel
 BuildRequires:  pkgconfig(Qt5DBus)
 BuildRequires:  pkgconfig(Qt5Network)
@@ -62,6 +68,9 @@ It's a development package for %{name}.
 
 %prep
 %setup -q -n %{name}-src-%{version}
+%if 0%{?suse_version} == 1310
+%patch0 -p1
+%endif
 
 %build
 export QT_SUFFIX="-qt5"

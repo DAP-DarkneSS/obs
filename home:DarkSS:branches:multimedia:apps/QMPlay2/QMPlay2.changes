@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Dec 22 18:30:12 UTC 2015 - dap.darkness@gmail.com
+
+- Added QMPlay2-Qt51.diff to fix openSUSE 13.1' default Qt 5.1
+  build issue.
+- Fixed translations absence.
+
+-------------------------------------------------------------------
 Sun Dec 20 17:36:54 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 15.12.06 (changes since 15.10.18):
