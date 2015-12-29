@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Dec 28 19:28:38 UTC 2015 - dap.darkness@gmail.com
+
+- Update to 15.12.25 (changes since 15.12.06):
+  * KF5 Breeze style fixes in full screen;
+  * OpenGL 2 bugfix;
+  * Qt 5.1 build time fixes.
+- New requirements recommended by upstream.
+
+-------------------------------------------------------------------
 Sun Dec 20 17:36:54 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 15.12.06 (changes since 15.10.18):
