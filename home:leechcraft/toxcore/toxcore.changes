@@ -1,0 +1,19 @@
+-------------------------------------------------------------------
+Sun Aug 16 08:42:15 UTC 2015 - i@marguerite.su
+
+- Update to version 0.0.0+git20150808.2ab3b14:
+  + Fix libVPX git repository
+  + DHT save fixes.
+  + Save fixes.
+  + Remove useless var.
+  + comp_client_id -> comp_public_key
+  + client_id -> public_key
+  + client_id -> public_key
+  + Fix for DragonFlyBSD
+  + Removed a useless define.
+
+-------------------------------------------------------------------
+Thu Jun 11 15:40:02 UTC 2015 - i@marguerite.su
+
+- initial version 0.0.0+git20150607
+
