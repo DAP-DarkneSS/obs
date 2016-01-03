@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION "0.6.70-5627-g33a1a4c Orange Arrow"
+%define LEECHCRAFT_VERSION 0.6.70-5757-g4931b9e
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
