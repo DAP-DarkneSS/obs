@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-5757-g4931b9e
+%define LEECHCRAFT_VERSION "0.6.70-6048-g8994c5e Housewarming"
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -50,6 +50,7 @@
 %else
 %define use_cpp14 1
 %endif
+%define use_qt5 0
 %define poleemery 1
 
 Name:           leechcraft
@@ -148,7 +149,7 @@ BuildRequires:  pkgconfig(poppler-qt4)
 BuildRequires:  pkgconfig(qca2)
 BuildRequires:  pkgconfig(qtermwidget4) >= 0.5.1
 BuildRequires:  pkgconfig(qxmpp) >= 0.8
-%if %{use_cpp14}
+%if %{use_qt5}
 BuildRequires:  pkgconfig(vmime)
 %endif
 BuildRequires:  pkgconfig(xcomposite)
@@ -2294,7 +2295,7 @@ with a suitable plugin like Aggregator.
  * Show results in HTML format with a suitable plugin like Poshuku.
 
 
-%if %{use_cpp14}
+%if %{use_qt5}
 %package snails
 Summary:        LeechCraft Email client Module
 Group:          Productivity/Networking/Other
@@ -2806,7 +2807,7 @@ cmake ../src \
         -DENABLE_SCROBLIBRE=True \
         -DENABLE_SECMAN=True \
         -DENABLE_SHELLOPEN=False \
-%if %{use_cpp14}
+%if %{use_qt5}
         -DENABLE_SNAILS=True \
 %else
         -DENABLE_SNAILS=False \
@@ -3840,7 +3841,7 @@ EOF
 %{translations_dir}/*craft_seekthru*.qm
 %{plugin_dir}/*craft_seekthru.so
 
-%if %{use_cpp14}
+%if %{use_qt5}
 %files snails
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_snails.so
