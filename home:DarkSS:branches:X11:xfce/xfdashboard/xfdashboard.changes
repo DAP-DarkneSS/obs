@@ -1,4 +1,42 @@
 -------------------------------------------------------------------
+Wed Feb  3 18:22:31 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 0.5.5:
+  * New feature: A new plugin and the first search provider plugin
+    gnome-shell-search-providers was implemented and added;
+  * New feature: Implement a new actor in XfdashboardLiveWorkspace;
+  * New feature: Add new signal "application-launched";
+  * New feature: The applications search provider now counts how
+    often an application was launched;
+  * New feature: The result set (XfdashboardSearchResultSet) can
+    now store a score between 0.0 and 1.0 for each item;
+  * New feature: Add pseudo-class ':insensitive';
+  * Allow moving a window from one monitor to another;
+  * XfdashboardButton supports settings GIcon now;
+  * Improved hash value creation for icon names and GIcon;
+  * Improved sharing cached image contents;
+  * Activating a result item in search view or launching external
+    application to perform search in application of search provider
+    will now quit (standalone) or suspend (daemon mode) application;
+  * Moved logic to handle mapping of actors for result items;
+  * Limit number of search results shown for each search provider;
+  * Fix starting a real new application instance;
+  * Fix visual error at applications view when using icon mode and
+    crashes of xfdashboard (GH #109 and GH #110);
+  * Lots of bug-fixes, really really really a lot;
+  * Fixed lots of typos;
+  * Fixed lots of compiler warnings;
+  * Updated translations.
+- Removed xfdashboard-0.5.4-opensuse-13.1.diff.
+
+-------------------------------------------------------------------
+Tue Dec 22 19:26:06 UTC 2015 - dap.darkness@gmail.com
+
+- Added xfdashboard-0.5.4-opensuse-13.1.diff vs.
+  openSUSE 13.1' build issue, see more at
+  https://bugzilla.xfce.org/show_bug.cgi?id=12372
+
+-------------------------------------------------------------------
 Sun Dec 20 17:12:23 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 0.5.4:
