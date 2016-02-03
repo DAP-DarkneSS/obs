@@ -59,7 +59,8 @@ Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 
 Source0:        http://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
-
+# PATCH-FIX-UPSTREAM leechcraft-lmp-append-gstreamer-include-dirs-pkgconfig.patch mlin@suse.com
+Patch1:         leechcraft-lmp-append-gstreamer-include-dirs-pkgconfig.patch
 BuildRequires:  Qross-devel
 BuildRequires:  boost-devel >= 1.50
 BuildRequires:  cmake > 2.8.10
@@ -90,10 +91,12 @@ BuildRequires:  libsensors4-devel
 %if 0%{?suse_version} != 1315
 BuildRequires:  libtidy-devel
 %endif
+%ifarch %ix86 %arm x86_64 ppc64 ppc64le
 %if %{use_cpp14}
 BuildRequires:  llvm-clang >= 3.4
 %else
 BuildRequires:  llvm-clang
+%endif
 %endif
 %if 0%{?suse_version} == 1310
 %ifarch %ix86 x86_64 %arm
@@ -2462,6 +2465,7 @@ XmlSettingsDialog LeechCraft subsystem.
 
 %prep
 %setup -q -n leechcraft-%{LEECHCRAFT_VERSION}
+%patch1 -p1
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -2472,10 +2476,23 @@ find src/plugins/azoth/plugins/adiumstyles/share/azoth/styles/adium/ -name ".?*"
 #setup permissions correctly to avoid false duplicates reported by rpmlint (bnc#784670)
 find src -name '*.png' -or -name '*.css' -or -name '*.gif' -exec chmod 0644 {} +
 
+%build
 mkdir build && cd build
 
+%ifarch %ix86 %arm x86_64 ppc64 ppc64le
+%if 0%{suse_version} <= 1320
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
+%endif
+%endif
+
+# bypass bug 927268 for PowerPC if clang is used above in place of gcc
+tmpflags="%{optflags}"
+%ifarch ppc64 ppc64le
+%if 0%{suse_version} <= 1320
+tmpflags=${tmpflags/-fstack-protector}
+%endif
+%endif
 
 cmake ../src \
 %if "%{_lib}" == "lib64"
@@ -2484,7 +2501,7 @@ cmake ../src \
 %if %{use_cpp14}
         -DUSE_CPP14=True \
 %endif
-        -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
+        -DCMAKE_CXX_FLAGS="${tmpflags} -Doverride=" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DSTRICT_LICENSING=True \
@@ -2665,8 +2682,6 @@ cmake ../src \
         -DENABLE_ZALIL=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
-%build
-cd build
 make -k %{?_smp_mflags} VERBOSE=1
 
 %install

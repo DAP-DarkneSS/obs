@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Sun Nov 29 15:17:10 UTC 2015 - mlin@suse.com
+
+- Add leechcraft-lmp-append-gstreamer-include-dirs-pkgconfig.patch
+  * Fix compilation in lmp plugin with GStreamer 1.5.1 and above 
+
+-------------------------------------------------------------------
+Fri Aug 21 19:03:03 UTC 2015 - normand@linux.vnet.ibm.com
+
+- bypass bug 927268 for PowerPC if clang used in place of gcc
+  for build ppc64le architecture and (suse_version} <= 1320
+
+-------------------------------------------------------------------
+Thu Jul  2 15:26:25 UTC 2015 - dap.darkness@gmail.com
+
+- Fixed openSUSE <= 13.2 builds & pcc x32.
+
+-------------------------------------------------------------------
+Wed Jul  1 12:42:22 CEST 2015 - pth@suse.de
+
+- Build with gcc/g++ at least for the time being to avoid compiler
+  error. But use it only if suse_version > 1320.
+
+-------------------------------------------------------------------
 Wed Jun 10 16:35:52 UTC 2015 - dap.darkness@gmail.com
 
 - Updated to 0.6.70-3565-g2d86529 git snapshot.
