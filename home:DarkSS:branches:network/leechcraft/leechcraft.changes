@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Wed Feb  3 17:25:40 UTC 2016 - dap.darkness@gmail.com
+
+- Updated to 0.6.70-6053-g34d21e8 git snapshot:
+  * Threads utility was split out.
+  * Taglib >= 1.10 became supported.
+- Musiczombie plugin chromaprint future was enabled for Factory.
+- C++14 code and xproxy plugin were enabled for Factory.
+- leechcraft-lmp-append-gstreamer-include-dirs-pkgconfig.patch
+  was removed as already provided via upstream tarball.
+
+-------------------------------------------------------------------
 Sun Nov 29 15:17:10 UTC 2015 - mlin@suse.com
 
 - Add leechcraft-lmp-append-gstreamer-include-dirs-pkgconfig.patch

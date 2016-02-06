@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -22,17 +22,18 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-3565-g2d86529
-%define db_postfix %{so_ver}
+%define LEECHCRAFT_VERSION 0.6.70-6053-g34d21e8
+%define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
-%define models_postfix %{so_ver}
+%define models_postfix %{so_ver}_1
 %define network_postfix %{so_ver}_1
 %define qml_postfix %{so_ver}_2
 %define shortcuts_postfix %{so_ver}
-%define sll_postfix %{so_ver}
+%define sll_postfix %{so_ver}_1
 %define svcauth_postfix %{so_ver}
 %define sys_postfix %{so_ver}_1
 %define tags_postfix %{so_ver}_1
+%define threads_postfix %{so_ver}
 %define x11_postfix -%{so_ver}
 %define xdg_postfix %{so_ver}
 %define xpc_postfix %{so_ver}_2
@@ -45,13 +46,13 @@
 %endif
 
 %if 0%{?suse_version} > 1320
-%define use_cpp14 0
+%define use_cpp14 1
 %else
 %define use_cpp14 0
 %endif
 
 Name:           leechcraft
-Version:        0.6.70+git.3565.g2d86529
+Version:        0.6.70+git.6053.g34d21e8
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
@@ -59,15 +60,14 @@ Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 
 Source0:        http://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
-# PATCH-FIX-UPSTREAM leechcraft-lmp-append-gstreamer-include-dirs-pkgconfig.patch mlin@suse.com
-Patch1:         leechcraft-lmp-append-gstreamer-include-dirs-pkgconfig.patch
+
 BuildRequires:  Qross-devel
 BuildRequires:  boost-devel >= 1.50
 BuildRequires:  cmake > 2.8.10
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 %if %{use_cpp14}
-BuildRequires:  gcc-c++ >= 4.9
+BuildRequires:  gcc-c++ >= 5
 %else
 BuildRequires:  gcc-c++
 %endif
@@ -92,10 +92,8 @@ BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
 %endif
 %ifarch %ix86 %arm x86_64 ppc64 ppc64le
-%if %{use_cpp14}
+%if 0%{suse_version} <= 1320
 BuildRequires:  llvm-clang >= 3.4
-%else
-BuildRequires:  llvm-clang
 %endif
 %endif
 %if 0%{?suse_version} == 1310
@@ -142,6 +140,11 @@ BuildConflicts: libgstreamer-1_0-0
 %endif
 BuildRequires:  pkgconfig(hunspell)
 BuildRequires:  pkgconfig(kqoauth)
+%if 0%{?suse_version} > 1320
+BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libchromaprint)
+%endif
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libguess)
 %if 0%{?suse_version} == 1310
@@ -150,6 +153,9 @@ BuildRequires:  pkgconfig(libopenjpeg)
 %endif
 %endif
 BuildRequires:  pkgconfig(libqrencode)
+%if 0%{?suse_version} > 1320
+BuildRequires:  pkgconfig(libswresample)
+%endif
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.16
 BuildRequires:  pkgconfig(libudev)
 %if 0%{?suse_version} != 1315
@@ -160,9 +166,6 @@ BuildRequires:  pkgconfig(poppler-qt4)
 BuildRequires:  pkgconfig(qca2)
 BuildRequires:  pkgconfig(qtermwidget4) >= 0.5.1
 BuildRequires:  pkgconfig(qxmpp) >= 0.8
-%if %{use_cpp14}
-BuildRequires:  pkgconfig(vmime)
-%endif
 BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xkbfile)
@@ -2117,19 +2120,6 @@ with a suitable plugin like Aggregator.
  * Show results in HTML format with a suitable plugin like Poshuku.
 
 
-%if %{use_cpp14}
-%package snails
-Summary:        LeechCraft Email client Module
-License:        BSL-1.0
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description snails
-This package contains a Email client plugin for LeechCraft.
-
-It provides basic Email client functionality and supports SMTP and IMAP4.
-%endif
-
 %package summary
 Summary:        LeechCraft Summary info Module
 License:        BSL-1.0
@@ -2424,6 +2414,16 @@ A library providing some useful classes and functions commonly used
 with the LeechCraft tags subsystem.
 
 
+%package -n libleechcraft-util-threads%{threads_postfix}
+Summary:        Threads utility library for LeechCraft
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+
+%description -n libleechcraft-util-threads%{threads_postfix}
+A library providing some useful classes and functions commonly used
+with the LeechCraft threads subsystem.
+
+
 %package -n libleechcraft-util-x11%{x11_postfix}
 Summary:        X11 utility library for LeechCraft
 License:        BSL-1.0
@@ -2465,7 +2465,6 @@ XmlSettingsDialog LeechCraft subsystem.
 
 %prep
 %setup -q -n leechcraft-%{LEECHCRAFT_VERSION}
-%patch1 -p1
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -2553,6 +2552,7 @@ cmake ../src \
                 -DDUMBEEP_WITH_PHONON=True \
         -DENABLE_ELEEMINATOR=True \
         -DENABLE_FENET=True \
+        -DENABLE_FONTIAC=False \
         -DENABLE_GACTS=True \
 %if 0%{?suse_version} >= 1320
                 -DWITH_GACTS_BUNDLED_QXT=False \
@@ -2628,7 +2628,11 @@ cmake ../src \
         -DENABLE_MONOCLE_PDF=True \
         -DENABLE_MONOCLE_POSTRUS=True \
         -DENABLE_MUSICZOMBIE=True \
+%if 0%{?suse_version} > 1320
+                -DWITH_MUSICZOMBIE_CHROMAPRINT=True \
+%else
                 -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
+%endif
         -DENABLE_NACHEKU=False \
         -DENABLE_NETSTOREMANAGER=True \
                 -DENABLE_NETSTOREMANAGER_DROPBOX=False \
@@ -2653,11 +2657,7 @@ cmake ../src \
         -DENABLE_SECMAN=True \
         -DENABLE_SHAITAN=False \
         -DENABLE_SHELLOPEN=False \
-%if %{use_cpp14}
-        -DENABLE_SNAILS=True \
-%else
         -DENABLE_SNAILS=False \
-%endif
         -DENABLE_SYNCER=False \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
@@ -2759,6 +2759,12 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 /sbin/ldconfig
 
 %postun -n libleechcraft-util-tags%{tags_postfix}
+/sbin/ldconfig
+
+%post -n libleechcraft-util-threads%{threads_postfix}
+/sbin/ldconfig
+
+%postun -n libleechcraft-util-threads%{threads_postfix}
 /sbin/ldconfig
 
 %post -n libleechcraft-util-x11%{x11_postfix}
@@ -3107,6 +3113,7 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_cpuload.so
 %{qml_dir}/cpuload
+%{translations_dir}/*craft_cpuload*.qm
 
 %files cstp
 %defattr(-,root,root)
@@ -3461,6 +3468,7 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %{plugin_dir}/lib%{name}_ooronee.so
 %{settings_dir}/ooroneesettings.xml
 %{qml_dir}/ooronee
+%{translations_dir}/*craft_ooronee_*.qm
 
 %files otlozhu
 %defattr(-,root,root)
@@ -3599,16 +3607,6 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %{translations_dir}/*craft_seekthru*.qm
 %{plugin_dir}/*craft_seekthru.so
 
-%if %{use_cpp14}
-%files snails
-%defattr(-,root,root)
-%{plugin_dir}/lib%{name}_snails.so
-%{settings_dir}/snailssettings.xml
-%{translations_dir}/*craft_snails_??.qm
-%{translations_dir}/*craft_snails_??_??.qm
-%{_datadir}/leechcraft/snails
-%endif
-
 %files summary
 %defattr(-,root,root)
 %{translations_dir}/*craft_summary*.qm
@@ -3725,6 +3723,10 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %files -n libleechcraft-util-tags%{tags_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-tags*.so.*
+
+%files -n libleechcraft-util-threads%{threads_postfix}
+%defattr(-,root,root)
+%{_libdir}/*-util-threads*.so.*
 
 %files -n libleechcraft-util-x11%{x11_postfix}
 %defattr(-,root,root)
