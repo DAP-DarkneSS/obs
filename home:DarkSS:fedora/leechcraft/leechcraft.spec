@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft
 #
-# Copyright (c) 2015 LeechCraft Team.
+# Copyright (c) 2016 LeechCraft Team.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -22,7 +22,22 @@
 %define settings_dir %{_datadir}/leechcraft/settings
 %define qml_dir %{_datadir}/leechcraft/qml
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-2896-g760d9dd
+%define LEECHCRAFT_VERSION 0.6.70-6072-ga4ed4f3
+%define db_postfix %{so_ver}_1
+%define gui_postfix %{so_ver}_1
+%define models_postfix %{so_ver}_1
+%define network_postfix %{so_ver}_1
+%define qml_postfix %{so_ver}_2
+%define shortcuts_postfix %{so_ver}
+%define sll_postfix %{so_ver}_1
+%define svcauth_postfix %{so_ver}
+%define sys_postfix %{so_ver}_1
+%define tags_postfix %{so_ver}_1
+%define threads_postfix %{so_ver}
+%define x11_postfix -%{so_ver}
+%define xdg_postfix %{so_ver}
+%define xpc_postfix %{so_ver}_2
+%define xsd_postfix %{so_ver}
 
 Name:           leechcraft
 Version:        git
@@ -37,7 +52,7 @@ Source0:        %{name}-%{version}.tar.xz
 BuildRequires:  boost-devel
 BuildRequires:  cmake > 2.8
 BuildRequires:  file-devel
-BuildRequires:  gcc-c++ >= 4.7
+BuildRequires:  gcc-c++ >= 5.0
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  hunspell-devel
 %ifarch i586 i686
@@ -63,17 +78,12 @@ BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt4)
 BuildRequires:  libpurple-devel
 BuildRequires:  pkgconfig(qca2)
-%if 0%{?fedora} >= 21
 BuildRequires:  pkgconfig(qtermwidget4) >= 0.5.1
-%endif
 BuildRequires:  pkgconfig(QJson)
 BuildRequires:  qscintilla-devel
 BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(qxmpp) >= 0.8.0
 BuildRequires:  lm_sensors-devel
-# %%if 0%%{?fedora} >= 22
-# BuildRequires:  pkgconfig(libprojectM) >= 2.1
-# %%endif
 BuildRequires:  libtidy-devel
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.15.6
 BuildRequires:  systemd-devel
@@ -85,19 +95,11 @@ BuildRequires:  speex-devel
 BuildRequires:  taglib-devel
 BuildRequires:  wt-devel >= 3.3
 BuildRequires:  xz
-%if 0%{?fedora} >= 21
 BuildRequires:  pkgconfig(gstreamer-app-1.0)
 BuildConflicts: gstreamer
 BuildConflicts: gstreamer-devel
 BuildConflicts: gstreamer-plugins-base
 BuildConflicts: gstreamer-plugins-base-devel
-%else
-BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
-BuildConflicts: gstreamer1
-BuildConflicts: gstreamer1-devel
-BuildConflicts: gstreamer1-plugins-base
-BuildConflicts: gstreamer1-plugins-base-devel
-%endif
 BuildRequires:  pkgconfig(libguess)
 BuildRequires:  pkgconfig(libqrencode)
 %if %{vlc}
@@ -806,20 +808,21 @@ Summary:        LeechCraft Development Files
 Group:          Development/Libraries/Other
 Requires:       %{name} = %{version}
 Requires:       cmake
-Requires:       libleechcraft-util-db%{so_ver}        = %{version}
-Requires:       libleechcraft-util-gui%{so_ver}       = %{version}
-Requires:       libleechcraft-util-models%{so_ver}    = %{version}
-Requires:       libleechcraft-util-network%{so_ver}_1 = %{version}
-Requires:       libleechcraft-util-qml%{so_ver}_1     = %{version}
-Requires:       libleechcraft-util-shortcuts%{so_ver} = %{version}
-Requires:       libleechcraft-util-sll%{so_ver}       = %{version}
-Requires:       libleechcraft-util-svcauth%{so_ver}   = %{version}
-Requires:       libleechcraft-util-sys%{so_ver}_1     = %{version}
-Requires:       libleechcraft-util-tags%{so_ver}_1    = %{version}
-Requires:       libleechcraft-util-x11-%{so_ver}      = %{version}
-Requires:       libleechcraft-util-xdg%{so_ver}       = %{version}
-Requires:       libleechcraft-util-xpc%{so_ver}_2     = %{version}
-Requires:       libleechcraft-util-xsd%{so_ver}       = %{version}
+Requires:       libleechcraft-util-db%{db_postfix}               = %{version}
+Requires:       libleechcraft-util-gui%{gui_postfix}             = %{version}
+Requires:       libleechcraft-util-models%{models_postfix}       = %{version}
+Requires:       libleechcraft-util-network%{network_postfix}     = %{version}
+Requires:       libleechcraft-util-qml%{qml_postfix}             = %{version}
+Requires:       libleechcraft-util-shortcuts%{shortcuts_postfix} = %{version}
+Requires:       libleechcraft-util-sll%{sll_postfix}             = %{version}
+Requires:       libleechcraft-util-svcauth%{svcauth_postfix}     = %{version}
+Requires:       libleechcraft-util-sys%{sys_postfix}             = %{version}
+Requires:       libleechcraft-util-tags%{tags_postfix}           = %{version}
+Requires:       libleechcraft-util-threads%{threads_postfix}     = %{version}
+Requires:       libleechcraft-util-x11%{x11_postfix}             = %{version}
+Requires:       libleechcraft-util-xdg%{xdg_postfix}             = %{version}
+Requires:       libleechcraft-util-xpc%{xpc_postfix}             = %{version}
+Requires:       libleechcraft-util-xsd%{xsd_postfix}             = %{version}
 Requires:       pkgconfig(QtWebKit)
 
 %description devel
@@ -861,7 +864,6 @@ This package provides a dumb sound notifier plugin for LeechCraft.
 It also uses Phonon as a backend or something like aplay/mplayer.
 
 
-%if 0%{?fedora} >= 21
 %package eleeminator
 Summary:        LeechCraft Eleeminator Module
 Group:          Productivity/Networking/Other
@@ -871,7 +873,6 @@ Obsoletes:      %{name}-shaitan < %{version}
 
 %description eleeminator
 This package provides a terminal plugin for Leechcraft.
-%endif
 
 
 %package fenet
@@ -1215,13 +1216,8 @@ reconnect properly on startup.
 Summary:        LeechCraft Media player Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-%if 0%{?fedora} >= 21
 Requires:       gstreamer1-plugins-base
 Requires:       gstreamer1-plugins-basegood
-%else
-Requires:       gstreamer-plugins-base < 0.11.0
-Requires:       gstreamer-plugins-good < 0.11.0
-%endif
 Provides:       %{name}-audioplayer
 Provides:       %{name}-soundnotifications = %{version}
 
@@ -1319,17 +1315,6 @@ Requires:       %{name}-devmon = %{version}
 
 %description lmp-mtpsync
 This package allows to sync with MTP devices via LeechCraft.
-
-
-# %%if 0%%{?fedora} >= 22
-# %%package lmp-potorchu
-# Summary:        LeechCraft Visualization Effects Module
-# Group:          Productivity/Networking/Other
-# Requires:       %%{name}-lmp = %%{version}
-# 
-# %%description lmp-potorchu
-# This package provides visualization effects for LeechCraft audio player.
-# %%endif
 
 
 %package mellonetray
@@ -2015,127 +2000,136 @@ This package provides a file uploader plugin for LeechCraft.
 It allows to upload files to accountless filebin services.
 
 
-%package -n libleechcraft-util-db%{so_ver}
+%package -n libleechcraft-util-db%{db_postfix}
 Summary:        Database utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-db%{so_ver}
+%description -n libleechcraft-util-db%{db_postfix}
 A library providing some useful and commonly used database-related
 classes and functions.
 
 
-%package -n libleechcraft-util-gui%{so_ver}
+%package -n libleechcraft-util-gui%{gui_postfix}
 Summary:        GUI utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-gui%{so_ver}
+%description -n libleechcraft-util-gui%{gui_postfix}
 A library providing some useful and commonly used GUI-related
 widgets, classes and functions.
 
 
-%package -n libleechcraft-util-models%{so_ver}
+%package -n libleechcraft-util-models%{models_postfix}
 Summary:        MVC utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-models%{so_ver}
+%description -n libleechcraft-util-models%{models_postfix}
 A library providing some useful and commonly used models (as in MVC),
 as well as model-related classes and functions.
 
 
-%package -n libleechcraft-util-network%{so_ver}_1
+%package -n libleechcraft-util-network%{network_postfix}
 Summary:        Network utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-network%{so_ver}_1
+%description -n libleechcraft-util-network%{network_postfix}
 A library providing some useful and commonly used
 network classes and functions.
 
 
-%package -n libleechcraft-util-qml%{so_ver}_1
+%package -n libleechcraft-util-qml%{qml_postfix}
 Summary:        QML utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-qml%{so_ver}_1
+%description -n libleechcraft-util-qml%{qml_postfix}
 A library providing some useful and commonly used QML items as well as
 QML-related classes and functions.
 
 
-%package -n libleechcraft-util-shortcuts%{so_ver}
+%package -n libleechcraft-util-shortcuts%{shortcuts_postfix}
 Summary:        Shortcuts utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-shortcuts%{so_ver}
+%description -n libleechcraft-util-shortcuts%{shortcuts_postfix}
 A library easing shortcuts usage in LeechCraft, particularly the
 configurable shortcuts subsystem.
 
 
-%package -n libleechcraft-util-sll%{so_ver}
+%package -n libleechcraft-util-sll%{sll_postfix}
 Summary:        Standard LeechCraft Library
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-sll%{so_ver}
+%description -n libleechcraft-util-sll%{sll_postfix}
 A library providing some useful classes and algorithms, not directly
 related to any other library.
 
 
-%package -n libleechcraft-util-svcauth%{so_ver}
+%package -n libleechcraft-util-svcauth%{svcauth_postfix}
 Summary:        Authenticators library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-svcauth%{so_ver}
+%description -n libleechcraft-util-svcauth%{svcauth_postfix}
 A library providing authenticators for various services like VKontakte.
 
 
-%package -n libleechcraft-util-sys%{so_ver}_1
+%package -n libleechcraft-util-sys%{sys_postfix}
 Summary:        System utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-sys%{so_ver}_1
+%description -n libleechcraft-util-sys%{sys_postfix}
 A library providing some useful and commonly used system-related
 classes and functions, like OS version parser, paths utilities or MIME
 detector.
 
 
-%package -n libleechcraft-util-tags%{so_ver}_1
+%package -n libleechcraft-util-tags%{tags_postfix}
 Summary:        Tags utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-tags%{so_ver}_1
+%description -n libleechcraft-util-tags%{tags_postfix}
 A library providing some useful classes and functions commonly used
 with the LeechCraft tags subsystem.
 
 
-%package -n libleechcraft-util-x11-%{so_ver}
+%package -n libleechcraft-util-threads%{threads_postfix}
+Summary:        Threads utility library for LeechCraft
+Group:          Productivity/Networking/Other
+
+%description -n libleechcraft-util-threads%{threads_postfix}
+A library providing some useful classes and functions commonly used
+with the LeechCraft threads subsystem.
+
+
+%package -n libleechcraft-util-x11%{x11_postfix}
 Summary:        X11 utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-x11-%{so_ver}
+%description -n libleechcraft-util-x11%{x11_postfix}
 A library providing X11 wrappers for LeechCraft.
 
 
-%package -n libleechcraft-util-xdg%{so_ver}
+%package -n libleechcraft-util-xdg%{xdg_postfix}
 Summary:        XDG utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-xdg%{so_ver}
+%description -n libleechcraft-util-xdg%{xdg_postfix}
 A library providing XDG parsers and other support methods and classes
 for LeechCraft.
 
 
-%package -n libleechcraft-util-xpc%{so_ver}_2
+%package -n libleechcraft-util-xpc%{xpc_postfix}
 Summary:        Cross-plugin communication utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-xpc%{so_ver}_2
+%description -n libleechcraft-util-xpc%{xpc_postfix}
 A library providing some useful and commonly used primitives for
 communications between different plugins in LeechCraft.
 
 
-%package -n libleechcraft-util-xsd%{so_ver}
+%package -n libleechcraft-util-xsd%{xsd_postfix}
 Summary:        XSD utility library for LeechCraft
 Group:          Productivity/Networking/Other
 
-%description -n libleechcraft-util-xsd%{so_ver}
+%description -n libleechcraft-util-xsd%{xsd_postfix}
 A library providing some useful classes to be used with the
 XmlSettingsDialog LeechCraft subsystem.
 
@@ -2158,9 +2152,10 @@ cmake ../src \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
 %endif
-        -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
+        -DUSE_CPP14=True \
+        -DCMAKE_CXX_FLAGS="-O3 -pipe -Wall -Werror=format-security -fexceptions --param=ssp-buffer-size=4 -march=native -fasynchronous-unwind-tables" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DCMAKE_BUILD_TYPE=Release \
         -DSTRICT_LICENSING=True \
         -DWITH_DBUS_LOADERS=True \
         -DWITH_PCRE=True \
@@ -2195,12 +2190,9 @@ cmake ../src \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_DUMBEEP=True \
                 -DDUMBEEP_WITH_PHONON=True \
-%if 0%{?fedora} >= 21
         -DENABLE_ELEEMINATOR=True \
-%else
-        -DENABLE_ELEEMINATOR=False \
-%endif
         -DENABLE_FENET=True \
+        -DENABLE_FONTIAC=False \
         -DENABLE_GACTS=True \
                 -DWITH_GACTS_BUNDLED_QXT=True \
         -DENABLE_GLANCE=True \
@@ -2225,22 +2217,14 @@ cmake ../src \
                 -DWITH_LHTR_HTML=True \
         -DENABLE_LIZNOO=True \
         -DENABLE_LMP=True \
-%if 0%{?fedora} >= 21
         -DUSE_GSTREAMER_10=True \
-%else
-        -DUSE_GSTREAMER_10=False \
-%endif
                 -DENABLE_LMP_BRAINSLUGZ=True \
                 -DENABLE_LMP_FRADJ=True \
                 -DENABLE_LMP_GRAFFITI=True \
                 -DENABLE_LMP_LIBGUESS=True \
                 -DENABLE_LMP_MPRIS=True \
                 -DENABLE_LMP_MTPSYNC=True \
-%if 0%{?fedora} >= 99
-                -DENABLE_LMP_POTORCHU=True \
-%else
                 -DENABLE_LMP_POTORCHU=False \
-%endif
         -DENABLE_MEDIACALLS=False \
         -DENABLE_MELLONETRAY=True \
         -DENABLE_MONOCLE=True \
@@ -2287,12 +2271,13 @@ cmake ../src \
         -DENABLE_VTYULC=False \
 %endif
         -DENABLE_VROOBY=True \
+        -DENABLE_XPROXY=True \
         -DENABLE_ZALIL=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
 %build
 cd build
-make -k %{?_smp_mflags} VERBOSE=1
+make %{?_smp_mflags} VERBOSE=1
 
 %install
 cd build
@@ -2300,93 +2285,100 @@ cd build
 
 # Unneeded here Qt5 build' files:
 rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
+rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
 
-%post -n libleechcraft-util-db%{so_ver}
+%post -n libleechcraft-util-db%{db_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-db%{so_ver}
+%postun -n libleechcraft-util-db%{db_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-gui%{so_ver}
+%post -n libleechcraft-util-gui%{gui_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-gui%{so_ver}
+%postun -n libleechcraft-util-gui%{gui_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-models%{so_ver}
+%post -n libleechcraft-util-models%{models_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-models%{so_ver}
+%postun -n libleechcraft-util-models%{models_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-network%{so_ver}_1
+%post -n libleechcraft-util-network%{network_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-network%{so_ver}_1
+%postun -n libleechcraft-util-network%{network_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-qml%{so_ver}_1
+%post -n libleechcraft-util-qml%{qml_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-qml%{so_ver}_1
+%postun -n libleechcraft-util-qml%{qml_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-shortcuts%{so_ver}
+%post -n libleechcraft-util-shortcuts%{shortcuts_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-shortcuts%{so_ver}
+%postun -n libleechcraft-util-shortcuts%{shortcuts_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-sll%{so_ver}
+%post -n libleechcraft-util-sll%{sll_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-sll%{so_ver}
+%postun -n libleechcraft-util-sll%{sll_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-svcauth%{so_ver}
+%post -n libleechcraft-util-svcauth%{svcauth_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-svcauth%{so_ver}
+%postun -n libleechcraft-util-svcauth%{svcauth_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-sys%{so_ver}_1
+%post -n libleechcraft-util-sys%{sys_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-sys%{so_ver}_1
+%postun -n libleechcraft-util-sys%{sys_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-tags%{so_ver}_1
+%post -n libleechcraft-util-tags%{tags_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-tags%{so_ver}_1
+%postun -n libleechcraft-util-tags%{tags_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-x11-%{so_ver}
+%post -n libleechcraft-util-threads%{threads_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-x11-%{so_ver}
+%postun -n libleechcraft-util-threads%{threads_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-xdg%{so_ver}
+%post -n libleechcraft-util-x11%{x11_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-xdg%{so_ver}
+%postun -n libleechcraft-util-x11%{x11_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-xpc%{so_ver}_2
+%post -n libleechcraft-util-xdg%{xdg_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-xpc%{so_ver}_2
+%postun -n libleechcraft-util-xdg%{xdg_postfix}
 /sbin/ldconfig
 
-%post -n libleechcraft-util-xsd%{so_ver}
+%post -n libleechcraft-util-xpc%{xpc_postfix}
 /sbin/ldconfig
 
-%postun -n libleechcraft-util-xsd%{so_ver}
+%postun -n libleechcraft-util-xpc%{xpc_postfix}
+/sbin/ldconfig
+
+%post -n libleechcraft-util-xsd%{xsd_postfix}
+/sbin/ldconfig
+
+%postun -n libleechcraft-util-xsd%{xsd_postfix}
 /sbin/ldconfig
 
 %files
@@ -2701,6 +2693,7 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_cpuload.so
 %{qml_dir}/cpuload
+%{translations_dir}/*craft_cpuload*.qm
 
 %files cstp
 %defattr(-,root,root)
@@ -2742,14 +2735,12 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %{plugin_dir}/lib%{name}_dumbeep.so
 %{settings_dir}/dumbeepsettings.xml
 
-%if 0%{?fedora} >= 21
 %files eleeminator
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_eleeminator.so
 %{translations_dir}/*craft_eleeminator_??.qm
 %{translations_dir}/*craft_eleeminator_??_??.qm
 %{settings_dir}/eleeminatorsettings.xml
-%endif
 
 %files fenet
 %defattr(-,root,root)
@@ -2889,7 +2880,7 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_launchy.so
 %{translations_dir}/*craft_launchy_*.qm
-%{qml_dir}/launchy/f
+%{qml_dir}/launchy
 
 %files lemon
 %defattr(-,root,root)
@@ -2963,14 +2954,6 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %files lmp-mtpsync
 %defattr(-,root,root)
 %{plugin_dir}/*craft_lmp_mtpsync.so
-
-# %%if 0%%{?fedora} >= 22
-# %%files lmp-potorchu
-# %%defattr(-,root,root)
-# %%{_libdir}/%%{name}/plugins/*%%{name}_lmp_potorchu.so
-# %%{_datadir}/%%{name}/translations/%%{name}_lmp_potorchu_??.qm
-# %%{_datadir}/%%{name}/translations/%%{name}_lmp_potorchu_??_??.qm
-# %%endif
 
 %files mellonetray
 %defattr(-,root,root)
@@ -3059,6 +3042,7 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %{plugin_dir}/lib%{name}_ooronee.so
 %{settings_dir}/ooroneesettings.xml
 %{qml_dir}/ooronee
+%{translations_dir}/*craft_ooronee_*.qm
 
 %files otlozhu
 %defattr(-,root,root)
@@ -3264,59 +3248,63 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 %{translations_dir}/*craft_zalil_??.qm
 %{translations_dir}/*craft_zalil_??_??.qm
 
-%files -n libleechcraft-util-db%{so_ver}
+%files -n libleechcraft-util-db%{db_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-db*.so.*
 
-%files -n libleechcraft-util-gui%{so_ver}
+%files -n libleechcraft-util-gui%{gui_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-gui*.so.*
 
-%files -n libleechcraft-util-models%{so_ver}
+%files -n libleechcraft-util-models%{models_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-models*.so.*
 
-%files -n libleechcraft-util-network%{so_ver}_1
+%files -n libleechcraft-util-network%{network_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-network*.so.*
 
-%files -n libleechcraft-util-qml%{so_ver}_1
+%files -n libleechcraft-util-qml%{qml_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-qml*.so.*
 
-%files -n libleechcraft-util-shortcuts%{so_ver}
+%files -n libleechcraft-util-shortcuts%{shortcuts_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-shortcuts*.so.*
 
-%files -n libleechcraft-util-sll%{so_ver}
+%files -n libleechcraft-util-sll%{sll_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-sll*.so.*
 
-%files -n libleechcraft-util-svcauth%{so_ver}
+%files -n libleechcraft-util-svcauth%{svcauth_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-svcauth*.so.*
 
-%files -n libleechcraft-util-sys%{so_ver}_1
+%files -n libleechcraft-util-sys%{sys_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-sys*.so.*
 
-%files -n libleechcraft-util-tags%{so_ver}_1
+%files -n libleechcraft-util-tags%{tags_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-tags*.so.*
 
-%files -n libleechcraft-util-x11-%{so_ver}
+%files -n libleechcraft-util-threads%{threads_postfix}
+%defattr(-,root,root)
+%{_libdir}/*-util-threads*.so.*
+
+%files -n libleechcraft-util-x11%{x11_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-x11*.so.*
 
-%files -n libleechcraft-util-xdg%{so_ver}
+%files -n libleechcraft-util-xdg%{xdg_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-xdg*.so.*
 
-%files -n libleechcraft-util-xpc%{so_ver}_2
+%files -n libleechcraft-util-xpc%{xpc_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-xpc*.so.*
 
-%files -n libleechcraft-util-xsd%{so_ver}
+%files -n libleechcraft-util-xsd%{xsd_postfix}
 %defattr(-,root,root)
 %{_libdir}/*-util-xsd*.so.*
 
