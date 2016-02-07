@@ -22,14 +22,14 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION "0.6.70-6048-g8994c5e Housewarming"
+%define LEECHCRAFT_VERSION 0.6.70-6096-g759b0d2
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
 %define network_postfix %{so_ver}_1
 %define qml_postfix %{so_ver}_2
 %define shortcuts_postfix %{so_ver}
-%define sll_postfix %{so_ver}
+%define sll_postfix %{so_ver}_1
 %define svcauth_postfix %{so_ver}
 %define sys_postfix %{so_ver}_1
 %define tags_postfix %{so_ver}_1
