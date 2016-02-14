@@ -1,7 +1,7 @@
 #
 # spec file for package QMPlay2
 #
-# Copyright (c) 2015 Packman team: http://packman.links2linux.org/
+# Copyright (c) 2016 Packman team: http://packman.links2linux.org/
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           QMPlay2
-Version:        15.12.25
+Version:        16.02.08
 Release:        0
 Summary:        A Qt based media player, streamer and downloader
 License:        LGPL-3.0+
@@ -31,6 +31,7 @@ BuildRequires:  pkgconfig(QtCore)
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(libass)
 BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavdevice)
 BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libcddb)

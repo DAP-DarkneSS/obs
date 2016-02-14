@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Sun Feb 14 18:23:05 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 16.02.08:
+  * play multiple streams in FFmpeg,
+  * move ungrouped playlist entry to the end of the playlist,
+  * QOpenGLWindow and QOpenGLWidget are used instead of QGLWidget,
+  * FFmpeg module can play e.g. v4l2 on Linux/BSD,
+  * display icons on playlist for AudioCD and Chiptines,
+  * updated German translation (Daniel Meiß-Wilhelm),
+  * added Spanish translation (Pedro Álamo),
+  * VDPAU and DirectDraw overlay fixes,
+  * English is now default language,
+  * bugfix.
+
+-------------------------------------------------------------------
 Mon Dec 28 19:28:38 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 15.12.25 (changes since 15.12.06):
