@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-6096-g759b0d2
+%define LEECHCRAFT_VERSION '0.6.70-6228-g185765f Spring clean'
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -185,10 +185,8 @@ Recommends:     %{name}-visualnotifications
 Conflicts:      leechcraft-qt5
 
 # Nondefault gcc magic!
-# Preinstall: !libgcc_s1 libgcc_s1-gcc49
 BuildConflicts: gcc48
 BuildConflicts: gcc48-c++
-BuildConflicts: libgcc_s1-gcc48
 BuildConflicts: Mesa
 BuildConflicts: libgbm1
 
