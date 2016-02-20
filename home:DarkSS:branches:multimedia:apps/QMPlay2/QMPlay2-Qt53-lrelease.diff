@@ -1,0 +1,11 @@
+--- compile_unix.orig	2016-02-20 14:25:53.438381280 +0300
++++ compile_unix	2016-02-20 14:25:53.478381280 +0300
+@@ -27,7 +27,7 @@
+ 
+ # lupdate-qt4 -no-obsolete -locations none QMPlay2.pro
+ 
+-lrelease$QT_SUFFIX QMPlay2.pro
++# lrelease$QT_SUFFIX QMPlay2.pro
+ 
+ mkdir -p app/share/qmplay2/lang
+ mv lang/*.qm app/share/qmplay2/lang

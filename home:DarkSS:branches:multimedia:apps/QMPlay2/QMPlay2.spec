@@ -1,7 +1,7 @@
 #
 # spec file for package QMPlay2
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,17 +17,21 @@
 
 
 Name:           QMPlay2
-Version:        15.12.25
+Version:        16.02.08
 Release:        0
 Summary:        A Qt based media player, streamer and downloader
 License:        LGPL-3.0+
 Group:          Productivity/Multimedia/Video/Players
 Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
 Source:         http://kent.dl.sourceforge.net/project/zaps166/QMPlay2/QMPlay2-src-%{version}.tar.xz
-
+# PATCH-FIX-UPSTREAM vs. Qt5.3 lrelease issue, read more at
+# https://github.com/zaps166/QMPlay2/issues/10#issuecomment-186585268
+Patch0:         QMPlay2-Qt53-lrelease.diff
 BuildRequires:  libXv-devel
 %if 0%{?suse_version} > 1310
 BuildRequires:  libqt5-linguist
+%else
+BuildRequires:  libqt5-qttools
 %endif
 BuildRequires:  portaudio-devel
 BuildRequires:  pkgconfig(Qt5DBus)
@@ -38,6 +42,7 @@ BuildRequires:  pkgconfig(Qt5X11Extras)
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(libass)
 BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavdevice)
 BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libcddb)
@@ -67,9 +72,16 @@ It's a development package for %{name}.
 
 %prep
 %setup -q -n %{name}-src-%{version}
+%if 0%{?suse_version} <= 1320
+%patch0
+%endif
 
 %build
 export QT_SUFFIX="-qt5"
+%if 0%{?suse_version} <= 1320
+export QMAKE=/usr/bin/qmake$QT_SUFFIX
+lrelease$QT_SUFFIX QMPlay2.pro
+%endif
 NOTERM=1 SYSTEM_BUILD=1 ./compile_unix `echo "%{?_smp_mflags}" | grep -o '[0-9]*'`
 
 %install
