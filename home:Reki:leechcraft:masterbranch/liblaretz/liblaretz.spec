@@ -35,6 +35,13 @@ BuildRequires:  boost-devel >= 1.52
 BuildRequires:  cmake
 BuildRequires:  gcc-c++ >= 4.7
 
+BuildRequires:  gcc49-c++
+BuildRequires:  llvm-clang >= 3.4
+BuildConflicts: gcc48
+BuildConflicts: gcc48-c++
+BuildConflicts: Mesa
+BuildConflicts: libgbm1
+
 %description
 %{pack_desc}
 
@@ -61,6 +68,8 @@ developing applications that use %{name}.
 
 
 %build
+export CC=/usr/bin/clang
+export CXX=/usr/bin/clang++
 cmake src/lib \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
@@ -89,9 +98,6 @@ make %{?_smp_mflags}
 %files devel
 %defattr(-,root,root)
 %{_includedir}/laretz
-%dir %{_datadir}/apps
-%dir %{_datadir}/apps/cmake
-%dir %{_datadir}/apps/cmake/modules
-%{_datadir}/apps/cmake/modules/FindLibLaretz.cmake
+%{_datadir}/cmake/Modules/FindLibLaretz.cmake
 
 %changelog
