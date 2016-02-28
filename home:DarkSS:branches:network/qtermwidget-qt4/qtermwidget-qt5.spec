@@ -1,7 +1,7 @@
 #
 # spec file for package qtermwidget
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,35 +16,34 @@
 #
 
 
-%define qt_ver 4
+%define qt_ver 5
 
 %define pack_summ Qt4 terminal widget
 
 %define pack_desc QTermWidget is an opensource project based on KDE4 \
 Konsole application. The main goal of this project is to provide unicode-\
-enabled, embeddable QT4 widget for using as a built-in console (or \
+enabled, embeddable Qt widget for using as a built-in console (or \
 terminal emulation widget). Of course I`m aware about embedding \
 abilities of original Konsole, but once I had Qt without KDE, and it was \
 a serious problem. I decided not to rely on a chance. I could not find \
 any interesting related project, so I had to write it. The original \
-Konsole`s code was rewritten entirely with QT4 only; also I have to \
+Konsole`s code was rewritten entirely with Qt only; also I have to \
 include in the project some parts of code from kde core library. All \
 code dealing with user interface parts and session management was \
 removed (maybe later I bring it back somehow), and the result is quite \
 useful, I suppose.
 
-Name:           qtermwidget-qt%{qt_ver}
-Version:        git
+Name:           qtermwidget-qt5
+Version:        0.6.0
 Release:        0
 Summary:        %{pack_summ}
 License:        GPL-2.0+
 Group:          Development/Libraries/C and C++
 Url:            https://github.com/qterminal/qtermwidget
-Source:         qtermwidget-%{version}.tar.xz
-# https://github.com/qterminal/qtermwidget/archive/%%{version}.tar.gz
+Source:         https://github.com/lxde/qtermwidget/releases/download/%{version}/qtermwidget-%{version}.tar.xz
 
 BuildRequires:  cmake
-BuildRequires:  pkgconfig(QtGui) >= 4.7
+BuildRequires:  pkgconfig(Qt5Widgets)
 
 %description
 %{pack_desc}
@@ -58,16 +57,16 @@ Requires:       %{name}-data >= %{version}
 %{pack_desc}
 
 %package data
-Summary:        QTermWidget — data package
+Summary:        QTermWidget data package
 Group:          Development/Libraries/C and C++
 BuildArch:      noarch
-Requires:       libqtermwidget0 = %{version}
+Requires:       libqtermwidget%{qt_ver}-0 = %{version}
 
 %description data
 Data files for qtermwidget library.
 
 %package devel
-Summary:        QTermWidget — devel package
+Summary:        QTermWidget devel package
 Group:          Development/Libraries/C and C++
 Requires:       libqtermwidget%{qt_ver}-0 = %{version}
 
@@ -80,7 +79,10 @@ Development environment for qtermwidget library.
 %build
 mkdir build && cd build
 
+# Building Qt designer plugin is not supported for Qt5 yet.
 cmake .. \
+        -DUSE_QT5=ON \
+        -DBUILD_DESIGNER_PLUGIN=0 \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
 %endif
@@ -105,15 +107,15 @@ make V=1 install DESTDIR=%{buildroot}
 
 %files data
 %defattr(-,root,root)
-%{_datadir}/qtermwidget*
+%{_datadir}/qtermwidget%{qt_ver}
 
 %files devel
 %defattr(-,root,root)
-%{_includedir}/qtermwidget*
+%{_includedir}/qtermwidget%{qt_ver}
 %{_libdir}/libqtermwidget*.so
-%{_libdir}/qt4/plugins/designer/libqtermwidget*plugin.so
-%{_libdir}/pkgconfig/qtermwidget*.pc
-%{_datadir}/cmake/qtermwidget*
+# %%{_libdir}/qt%%{qt_ver}/plugins/designer/libqtermwidget*plugin.so
+%{_libdir}/pkgconfig/qtermwidget%{qt_ver}.pc
+%{_datadir}/cmake/qtermwidget%{qt_ver}
 
 
 %changelog
