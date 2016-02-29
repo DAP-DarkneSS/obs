@@ -1,7 +1,7 @@
 #
 # spec file for package xfdashboard
 #
-# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,8 +16,10 @@
 #
 
 
+%define so_ver 0
+
 Name:           xfdashboard
-Version:        0.5.5
+Version:        0.5.90
 Release:        0
 Summary:        GNOME shell like dashboard for Xfce
 License:        GPL-2.0+
@@ -41,15 +43,15 @@ BuildRequires:  xfce4-dev-tools
 BuildRequires:  pkgconfig(garcon-1)
 BuildRequires:  pkgconfig(ice)
 BuildRequires:  pkgconfig(libwnck-3.0)
-BuildRequires:  pkgconfig(libxfce4util-1.0) >= 4.10.0
 BuildRequires:  pkgconfig(libxfce4ui-2) >= 4.10.0
+BuildRequires:  pkgconfig(libxfce4util-1.0) >= 4.10.0
 BuildRequires:  pkgconfig(libxfconf-0)
 BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xinerama)
 Requires:       libcanberra-gtk-module-common
-Requires(pre):  update-desktop-files
 Requires(post): update-desktop-files
+Requires(pre):  update-desktop-files
 Recommends:     %{name}-lang
 Recommends:     %{name}-themes
 
@@ -62,13 +64,27 @@ which makes it convenient to search for and start applications.
 
 %lang_package
 
+%package devel
+Summary:        Xfdashboard Development Files
+Group:          Development/Libraries/Other
+Requires:       libxfdashboard%{so_ver} = %{version}
+
+%description devel
+This package provides files required for development for Xfdashboard.
+
 %package themes
-BuildArch:      noarch
 Summary:        Themes for Xfdashboard
 Requires:       %{name}
+BuildArch:      noarch
 
 %description themes
 Additional themes for use with Xfdashboard.
+
+%package -n libxfdashboard%{so_ver}
+Summary:        Xfdashboard library
+
+%description -n libxfdashboard%{so_ver}
+A library providing authenticators for Xfdashboard.
 
 %prep
 %setup -q
@@ -78,11 +94,11 @@ Additional themes for use with Xfdashboard.
 %build
 export CFLAGS="%{optflags}"
 %configure
-make %{?_smp_mflags} V=1
+make V=1 %{?_smp_mflags}
 
 %install
-make DESTDIR=%{buildroot} install %{?_smp_mflags} V=1
-rm -rf %{buildroot}/%{_libdir}/%{name}/plugins/*.la
+make V=1 %{?_smp_mflags} DESTDIR=%{buildroot} install
+find %{buildroot} -type f -name "*.la" -delete -print
 %fdupes -s %{buildroot}%{_datadir}/themes/%{name}-*
 %find_lang %{name} %{?no_lang_C}
 
@@ -93,6 +109,9 @@ rm -rf %{buildroot}/%{_libdir}/%{name}/plugins/*.la
 %postun
 %icon_theme_cache_postun
 %desktop_database_postun
+
+%post -n libxfdashboard%{so_ver} -p /sbin/ldconfig
+%postun -n libxfdashboard%{so_ver} -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root)
@@ -110,9 +129,20 @@ rm -rf %{buildroot}/%{_libdir}/%{name}/plugins/*.la
 %{_libdir}/%{name}
 
 %files lang -f %{name}.lang
+%defattr(-,root,root)
+
+%files devel
+%defattr(-,root,root)
+%{_includedir}/%{name}
+%{_libdir}/lib%{name}.so
+%{_libdir}/pkgconfig/libxfdashboard.pc
 
 %files themes
 %defattr(-,root,root)
 %{_datadir}/themes/%{name}-*
+
+%files -n libxfdashboard%{so_ver}
+%defattr(-,root,root)
+%{_libdir}/lib%{name}.so.*
 
 %changelog

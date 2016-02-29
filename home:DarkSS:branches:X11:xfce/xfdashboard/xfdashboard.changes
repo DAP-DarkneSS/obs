@@ -1,4 +1,23 @@
 -------------------------------------------------------------------
+Mon Feb 29 16:50:33 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 0.5.90:
+  * New feature: Split application into library and application.
+  * New feature: A new plugin 'hot corner' was implemented.
+  * New feature: Add configuration button in settings application.
+  * Fixed a bug at the layout manager's allocation function.
+  * Fixed the calculation of number of columns and rows.
+  * Fixed visual distortion when allocation of a view.
+  * Fixed actors of applications view filling whole space.
+  * Implement file monitor to Gnome-Shell search provider plugin.
+  * Changed API of object class XfdashboardApplication.
+  * Keep order of search providers at search view in order.
+  * Add missing public functions to check if a window is maximized.
+  * Add CSS class '.window-state-maximized' to actors.
+  * Some more bug-fixes, typos fixed etc.
+  * Updated translations.
+
+-------------------------------------------------------------------
 Wed Feb  3 18:22:31 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 0.5.5:
