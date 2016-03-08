@@ -17,13 +17,13 @@
 
 
 Name:           smtube
-Version:        15.9.0
+Version:        16.1.0
 Release:        0
 Summary:        Small Youtube Browser
 License:        GPL-2.0+
 Group:          Productivity/Multimedia/Video/Players
-URL:            http://smtube.sourceforge.net/
-Source0:        http://sourceforge.net/projects/smtube/files/SMTube/%{version}/smtube-%{version}.tar.bz2
+URL:            http://www.smtube.org/
+Source0:        http://downloads.sourceforge.net/smtube/SMTube/%{version}/%{name}-%{version}.tar.bz2
 # Fix 'File is compiled without RPM_OPT_FLAGS'
 Patch0:         %{name}-src_%{name}.pro.patch
 %if 0%{?suse_version}
@@ -44,8 +44,9 @@ Suggests:       youtube-dl
 %description
 SMTube is an application that allows to browse, search and play YouTube
 videos. Videos are played back with a media player (by default SMPlayer)
-instead of a flash player, this allows better performance, particularly
-with HD content. Read more at http://www.smtube.org/
+instead of a flash player, this allows better performance,
+particularly with HD content. SMTube also allows to download the videos,
+with the quality you choose. Several videos can be downloaded at a time.
 
 SMTube is included in SMPlayer's menus, to run it just select Youtube browser
 in the Options menu in the SMPlayer main window, or just press F11.
@@ -60,11 +61,8 @@ in the Options menu in the SMPlayer main window, or just press F11.
 sed -i -e 's|/usr/local|/usr|;
            s|/share/doc/|/share/doc/packages/|' Makefile
 
-# SED-FIX-OPENSUSE -- Fix zero-length docs
-# cp debian-rvm/changelog-orig Changelog
-
 # Some docs have the DOS line ends
-dos2unix Changelog *.txt
+dos2unix *.txt
 
 %build
 make %{?_smp_mflags} \
@@ -84,14 +82,14 @@ make %{?_smp_mflags} \
 %endif
 
 %files
-%defattr(-,root,root,-)
+%defattr(-,root,root)
 %doc Changelog *.txt
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %files lang -f %{name}.lang
-%defattr(-,root,root,-)
+%defattr(-,root,root)
 %{_datadir}/%{name}
 
 %changelog
