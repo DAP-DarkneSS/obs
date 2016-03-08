@@ -1,7 +1,7 @@
 #
 # spec file for package smtube
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 # Copyright (c) 2012 Pascal Bleser <pascal.bleser@opensuse.org>
 #
 # All modifications and additions to the file contributed by third parties
@@ -18,22 +18,28 @@
 
 
 Name:           smtube
-Version:        15.11.0
+Version:        16.3.0
 Release:        0
 Summary:        Small Youtube Browser
 License:        GPL-2.0+
 Group:          Productivity/Multimedia/Video/Players
-Url:            http://smtube.sourceforge.net/
-Source0:        http://sourceforge.net/projects/smtube/files/SMTube/%{version}/smtube-%{version}.tar.bz2
+Url:            http://www.smtube.org/
+Source0:        http://downloads.sourceforge.net/smtube/SMTube/%{version}/%{name}-%{version}.tar.bz2
 # Fix 'File is compiled without RPM_OPT_FLAGS'
 Patch0:         %{name}-src_%{name}.pro.patch
+# PATCH-FIX-OPENSUSE Video downloading from Youtube seems to be illegal.
+Patch1:         smtube-no-download-option.diff
 %if 0%{?suse_version}
 BuildRequires:  fdupes
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  update-desktop-files
 %endif
 BuildRequires:  dos2unix
+%if 0%{?suse_version} > 1310
 BuildRequires:  libqt5-linguist
+%else
+BuildRequires:  libqt5-qttools
+%endif
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(Qt5Script)
 BuildRequires:  pkgconfig(Qt5WebKitWidgets)
@@ -60,16 +66,14 @@ in the Options menu in the SMPlayer main window, or just press F11.
 %prep
 %setup -q
 %patch0
+%patch1
 
 # SED-FIX-OPENSUSE -- Fix paths
 sed -i -e 's|/usr/local|/usr|;
            s|/share/doc/|/share/doc/packages/|' Makefile
 
-# SED-FIX-OPENSUSE -- Fix zero-length docs
-# cp debian-rvm/changelog-orig Changelog
-
 # Some docs have the DOS line ends
-dos2unix Changelog *.txt
+dos2unix *.txt
 
 %build
 make %{?_smp_mflags} \
@@ -91,14 +95,14 @@ make %{?_smp_mflags} \
 %endif
 
 %files
-%defattr(-,root,root,-)
+%defattr(-,root,root)
 %doc Changelog *.txt
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %files lang -f %{name}.lang
-%defattr(-,root,root,-)
+%defattr(-,root,root)
 %{_datadir}/%{name}
 
 %changelog

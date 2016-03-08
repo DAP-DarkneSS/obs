@@ -2,7 +2,7 @@
 # spec file for package smtube
 #
 # Copyright (c) 2012 Pascal Bleser <pascal.bleser@opensuse.org>
-# Copyright (c) 2015 Packman team: http://packman.links2linux.org/
+# Copyright (c) 2016 Packman team: http://packman.links2linux.org/
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           smtube
-Version:        16.1.0
+Version:        16.3.0
 Release:        0
 Summary:        Small Youtube Browser
 License:        GPL-2.0+
