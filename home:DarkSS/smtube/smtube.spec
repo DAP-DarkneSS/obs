@@ -1,8 +1,8 @@
 #
 # spec file for package smtube
 #
-# Copyright (c) 2012 Pascal Bleser <pascal.bleser@opensuse.org>
 # Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2012 Pascal Bleser <pascal.bleser@opensuse.org>
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,13 +16,14 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
+
 Name:           smtube
-Version:        15.9.0
+Version:        15.11.0
 Release:        0
 Summary:        Small Youtube Browser
 License:        GPL-2.0+
 Group:          Productivity/Multimedia/Video/Players
-URL:            http://smtube.sourceforge.net/
+Url:            http://smtube.sourceforge.net/
 Source0:        http://sourceforge.net/projects/smtube/files/SMTube/%{version}/smtube-%{version}.tar.bz2
 # Fix 'File is compiled without RPM_OPT_FLAGS'
 Patch0:         %{name}-src_%{name}.pro.patch

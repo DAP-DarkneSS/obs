@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Dec 27 12:44:41 UTC 2015 - cornelis@solcon.nl
+
+- Update to 15.11.0:
+  * Fix for VEVO videos.
+  * Add support for YouTube live streams.
+
+-------------------------------------------------------------------
 Mon Sep 28 15:59:44 UTC 2015 - dap.darkness@gmail.com
 
 - update to 15.9.0:
@@ -8,9 +15,6 @@ Mon Sep 28 15:59:44 UTC 2015 - dap.darkness@gmail.com
  * Apply patch smtube-gmake.diff
    (https://sourceforge.net/p/smplayer/bugs/701/)
  * Don't use cache with PORTABLE_APP
-- spec update
- * Let's suggest players instead of recommending.
- * %%description
 
 -------------------------------------------------------------------
 Mon Aug 24 16:23:59 UTC 2015 - dap.darkness@gmail.com
