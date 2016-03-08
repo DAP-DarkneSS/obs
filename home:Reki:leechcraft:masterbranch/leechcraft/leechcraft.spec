@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION "0.6.70-6308-g01f3116 Unfrozen fish"
+%define LEECHCRAFT_VERSION "0.6.70-6367-g5243d6a Holiday of Spring"
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -2197,6 +2197,8 @@ This package provides a Speed Dial support plugin for LeechCraft Poshuku.
 %package qrosp
 Summary:        LeechCraft Qross Module
 Group:          Productivity/Networking/Other
+# src/plugins/qrosp/third-party/qmetaobjectbuilder_48.*
+License:        LGPL-2.1+
 Requires:       %{name} = %{version}
 Requires:       libqrosspython1
 
