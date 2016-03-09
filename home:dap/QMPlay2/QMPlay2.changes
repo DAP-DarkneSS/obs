@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Wed Mar  9 18:09:39 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 16.03.08:
+  * feature: suspend the computer after playback is finished,
+  * fix VA-API driver Intel >= 1.6.2 video filtering,
+  * fix slow seeking on some slow network streams,
+  * zero-copy demuxing and decoding (if possible),
+  * updated Russian translation (victorr2007),
+  * 90°/270° video rotation (OpenGL only),
+  * visualization and VDPAU/DDraw bugfix,
+  * feature: A-B Repeat,
+  * OpenGL 2 bugfix.
+
+-------------------------------------------------------------------
 Sun Feb 14 18:23:05 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 16.02.08:
