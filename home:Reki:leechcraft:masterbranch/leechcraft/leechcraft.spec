@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION "0.6.70-6367-g5243d6a Holiday of Spring"
+%define LEECHCRAFT_VERSION 0.6.70-6385-g579cf82
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -64,7 +64,7 @@ Source0:        %{name}-%{version}.tar.xz
 Patch0:         lc-liznoo-dbg.diff
 
 BuildRequires:  Qross-devel
-BuildRequires:  boost-devel >= 1.50
+BuildRequires:  boost-devel >= 1.58
 BuildRequires:  cmake > 2.8.10
 BuildRequires:  fdupes
 BuildRequires:  file-devel
@@ -208,20 +208,20 @@ dependencies and performs several other housekeeping tasks.
 
 #-------------------------patterns----------------------------#
 %package meta_full
-Summary:        Meta package for pattern leechcraft_full
+Summary:        Meta package for pattern %{name}_full
 Group:          Metapackages
-Requires:       leechcraft-meta_browser
-Requires:       leechcraft-meta_media
-Requires:       leechcraft-meta_messenger
-Requires:       leechcraft-meta_office
-Requires:       leechcraft-meta_tools
-Requires:       leechcraft-meta_websurf
+Requires:       %{name}-meta_browser
+Requires:       %{name}-meta_media
+Requires:       %{name}-meta_messenger
+Requires:       %{name}-meta_office
+Requires:       %{name}-meta_tools
+Requires:       %{name}-meta_websurf
 
 %description meta_full
 This package is installed if a pattern is selected to have a working update path
 
 %package meta_browser
-Summary:        Meta package for pattern leechcraft_browser
+Summary:        Meta package for pattern %{name}_browser
 Group:          Metapackages
 Requires:       %{name}-advancednotifications
 Requires:       %{name}-historyholder
@@ -251,7 +251,7 @@ Recommends:     %{name}-meta_tools
 This package is installed if a pattern is selected to have a working update path
 
 %package meta_desktop
-Summary:        Meta package for pattern leechcraft_browser
+Summary:        Meta package for pattern %{name}_browser
 Group:          Metapackages
 Requires:       %{name}-fenet
 Requires:       %{name}-cpuload
@@ -273,7 +273,7 @@ Recommends:     %{name}-meta_tools
 This package is installed if a pattern is selected to have a working update path
 
 %package meta_messenger
-Summary:        Meta package for pattern leechcraft_messenger
+Summary:        Meta package for pattern %{name}_messenger
 Group:          Metapackages
 Requires:       %{name}-advancednotifications
 Requires:       %{name}-azoth
@@ -319,7 +319,7 @@ Recommends:     %{name}-meta_tools
 This package is installed if a pattern is selected to have a working update path
 
 %package meta_media
-Summary:        Meta package for pattern leechcraft_media
+Summary:        Meta package for pattern %{name}_media
 Group:          Metapackages
 Requires:       %{name}-lyricsprovider
 Requires:       %{name}-gacts
@@ -343,7 +343,7 @@ Recommends:     %{name}-meta_tools
 This package is installed if a pattern is selected to have a working update path
 
 %package meta_websurf
-Summary:        Meta package for pattern leechcraft_websurf
+Summary:        Meta package for pattern %{name}_websurf
 Group:          Metapackages
 Requires:       %{name}-advancednotifications
 Requires:       %{name}-aggregator
@@ -379,7 +379,7 @@ Recommends:     %{name}-meta_tools
 This package is installed if a pattern is selected to have a working update path
 
 %package meta_office
-Summary:        Meta package for pattern leechcraft_office
+Summary:        Meta package for pattern %{name}_office
 Group:          Metapackages
 Requires:       %{name}-blogique
 Requires:       %{name}-blogique-hestia
@@ -399,7 +399,7 @@ Recommends:     %{name}-otlozhu
 This package is installed if a pattern is selected to have a working update path
 
 %package meta_tools
-Summary:        Meta package for pattern leechcraft_websurf
+Summary:        Meta package for pattern %{name}_websurf
 Group:          Metapackages
 Requires:       %{name}-advancednotifications
 Requires:       %{name}-dolozhee
@@ -895,7 +895,6 @@ This package provides a Twitter Client plugin for LeechCraft.
 Summary:        LeechCraft Azoth - XMPP Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
-Requires:       libqxmpp0 >= 0.8.0.1398262192
 Provides:       %{name}-azoth-protocolplugin
 Recommends:     %{name}-azoth-mucommands
 
