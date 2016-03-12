@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Mar 12 18:10:59 UTC 2016 - dap.darkness@gmail.com
+
+- Updated to svn revision # 2432
+  to support modern Qt5 versions.
+
+-------------------------------------------------------------------
 Tue Feb 24 16:16:29 UTC 2015 - dap.darkness@gmail.com
 
 - Initial build: 6.1.2.

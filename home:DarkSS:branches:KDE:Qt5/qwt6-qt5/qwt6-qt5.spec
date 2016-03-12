@@ -1,7 +1,7 @@
 #
 # spec file for package qwt6-qt5
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,22 +17,25 @@
 
 
 Name:           qwt6-qt5
-Version:        6.1.2
+Version:        6.1.2+svn2432
 Release:        0
 Summary:        Qt5 Widgets for Technical Applications
 License:        SUSE-QWT-1.0
 Group:          Development/Libraries/C and C++
 Url:            http://qwt.sourceforge.net/
-Source:         http://switch.dl.sourceforge.net/sourceforge/qwt/qwt-%{version}.tar.bz2
+# svn checkout svn://svn.code.sf.net/p/qwt/code/trunk qwt-code
+# cd qwt-code && tar cfJ qwt-%%{version}.tar.xz qwt
+Source:         qwt-%{version}.tar.xz
 # PATCH-FIX-OPENSUSE to prevent 'ERROR: RPATH "/usr/local/qwt-6.1.0/lib" on
 # /usr/lib(64)/qt4/plugins/designer/libqwt_designer_plugin.so is not allowed'.
 Patch0:         qwt-rpath.patch
 # PATCH-FIX-OPENSUSE to get parallel-installable qt5 version.
 Patch1:         qwt-qt5.patch
 
+BuildRequires:  chrpath
+BuildRequires:  fdupes
 BuildRequires:  freetype2-devel
 BuildRequires:  libpng-devel
-BuildRequires:  fdupes
 BuildRequires:  pkgconfig(Qt5Concurrent)
 BuildRequires:  pkgconfig(Qt5Designer)
 BuildRequires:  pkgconfig(Qt5OpenGL)
@@ -88,17 +91,8 @@ Requires:       %{name}-devel = %{version}
 The %{name}-designer package contains the plugin for the Qt5 User Interface
 designer tool.
 
-%package devel-doc
-Summary:        Development documentation for Qwt(Qt5)
-Group:          Development/Libraries/C and C++
-Requires:       %{name}-devel = %{version}
-
-%description devel-doc
-This package contains the development documentation of the Qwt(Qt5) widgets
-as is it created by doxygen.
-
 %prep
-%setup -q -n qwt-%{version}
+%setup -q -n qwt
 %patch0
 %patch1 -p1 -b .qt5
 
@@ -125,11 +119,21 @@ make V=1 DESTDIR=%{buildroot} install INSTALL_ROOT=%{buildroot}
 # Documentation
 mkdir -p %{buildroot}%{_docdir}/%{name}
 cp COPYING README %{buildroot}%{_docdir}/%{name}
+
+# Examples
+mkdir -p %{buildroot}/%{_bindir}
+cp -r examples/bin/* %{buildroot}/%{_bindir}
+rm -rf examples/bin
+rm -rf examples/*/obj
 cp -r examples %{buildroot}%{_docdir}/%{name}/examples
+chrpath --delete %{buildroot}/%{_bindir}/*
 
 # Designer plugin
 mkdir -p %{buildroot}/%{_libdir}/qt5/plugins/designer
 mv -v %{buildroot}/%{_libdir}/libqwt_designer_plugin.so %{buildroot}/%{_libdir}/qt5/plugins/designer/
+
+# BUG: E: invalid-pkgconfig-file. Your .pc file appears to be invalid.
+rm %{buildroot}/%{_libdir}/pkgconfig/Qt5Qwt6MathML.pc
 
 %fdupes %{buildroot}
 
@@ -157,13 +161,12 @@ mv -v %{buildroot}/%{_libdir}/libqwt_designer_plugin.so %{buildroot}/%{_libdir}/
 %dir %{_includedir}/%{name}
 %{_includedir}/%{name}/*.h
 %{_datadir}/%{name}
+%{_libdir}/pkgconfig/*.pc
+%{_libdir}/Qwt*
 
 %files examples
 %defattr(-,root,root)
 %doc %{_docdir}/%{name}/examples
-
-%files devel-doc
-%defattr(-,root,root)
-%doc %{_docdir}/%{name}-devel-doc
+%{_bindir}/*
 
 %changelog
