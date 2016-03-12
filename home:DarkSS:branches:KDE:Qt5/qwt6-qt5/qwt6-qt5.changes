@@ -1,0 +1,7 @@
+-------------------------------------------------------------------
+Tue Feb 24 16:16:29 UTC 2015 - dap.darkness@gmail.com
+
+- Initial build: 6.1.2.
+- Added qwt-rpath.patch vs. not allowed rpath.
+- Added qwt-qt5.patch to get parallel-installable qt5 version
+  (thanks to Fedora maintainers.)
