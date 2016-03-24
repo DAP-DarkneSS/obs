@@ -19,7 +19,7 @@
 %define so_ver 0
 
 Name:           xfdashboard
-Version:        0.5.90
+Version:        0.5.91
 Release:        0
 Summary:        GNOME shell like dashboard for Xfce
 License:        GPL-2.0+
