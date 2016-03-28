@@ -17,7 +17,7 @@
 
 
 Name:           QMPlay2
-Version:        16.03.08
+Version:        16.03.24
 Release:        0
 Summary:        A Qt based media player, streamer and downloader
 License:        LGPL-3.0+
@@ -27,6 +27,8 @@ Source:         http://kent.dl.sourceforge.net/project/zaps166/QMPlay2/QMPlay2-s
 # PATCH-FIX-UPSTREAM vs. Qt5.3 lrelease issue, read more at
 # https://github.com/zaps166/QMPlay2/issues/10#issuecomment-186585268
 Patch0:         QMPlay2-Qt53-lrelease.diff
+#PATCH-FIX-OPENSUSE vs. Prostopleer extension that provides illegal audio.
+Patch1:         QMPlay2-no-prostopleer.diff
 BuildRequires:  libXv-devel
 %if 0%{?suse_version} > 1310
 BuildRequires:  libqt5-linguist
@@ -75,6 +77,7 @@ It's a development package for %{name}.
 %if 0%{?suse_version} <= 1320
 %patch0
 %endif
+%patch1
 
 %build
 export QT_SUFFIX="-qt5"

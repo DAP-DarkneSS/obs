@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Mon Mar 28 17:23:37 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 16.03.24:
+  * XVideo SHM and OpenGL2(Qt >= 5.6) bugfix,
+  * Bob deint bugfix for odd video height/2.
+
+-------------------------------------------------------------------
+Sat Mar 12 09:50:27 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 16.03.11:
+  * updated Russian translation (victorr2007).
+- Added QMPlay2-no-prostopleer.diff  because Prostopleer extension
+  provides illegal audio.
+
+-------------------------------------------------------------------
 Wed Mar  9 18:09:39 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 16.03.08:
