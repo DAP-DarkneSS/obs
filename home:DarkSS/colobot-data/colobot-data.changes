@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Tue Apr  5 16:23:01 UTC 2016 - dap.darkness@gmail.com
+
+- 0.1.7:
+  * no upstream changelog.
+
+-------------------------------------------------------------------
+Sat Oct 17 15:17:13 UTC 2015 - dap.darkness@gmail.com
+
+- Python is required to get full levels directory, see more at
+  https://github.com/colobot/colobot/issues/669
+
+-------------------------------------------------------------------
 Mon Sep 28 17:38:41 UTC 2015 - dap.darkness@gmail.com
 
 - 0.1.6:

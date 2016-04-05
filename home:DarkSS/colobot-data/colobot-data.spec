@@ -1,7 +1,7 @@
 #
 # spec file for package colobot-data
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           colobot-data
-Version:        0.1.6
+Version:        0.1.7
 Release:        0
 Summary:        A real-time strategy game with programmable bots
 License:        GPL-3.0+
@@ -29,6 +29,7 @@ Source1:        https://colobot.info/files/music/colobot-music_ogg_%{version}-al
 BuildRequires:  cmake >= 2.8
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++ >= 4.6
+BuildRequires:  python
 Requires:       %{name} >= %{version}
 BuildArch:      noarch
 
