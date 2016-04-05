@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Tue Apr  5 16:06:02 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 0.5.92:
+  * Added a "configure" button in "plugins" panel.
+  * Fixed crash in search view when Gnome-Shell search provider is
+    enabled and DBUS call returned only name for result item.
+  * Fixed crash in search view when a result item is focused and
+    selected but removed or hidden when search terms are updated.
+  * Fixed DBUS method signature to call methods "ActivateResult"
+    and "LaunchSearch" in Gnome-Shell search provider.
+
+-------------------------------------------------------------------
 Thu Mar 24 17:05:35 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 0.5.91:
@@ -6,7 +18,7 @@ Thu Mar 24 17:05:35 UTC 2016 - dap.darkness@gmail.com
     deregisters an application from session's DBUS when returning
     from function g_application_run().
   * Fixed check if a window is really "visible" before trying to
-    find the running application in application tracker (GH #114)/
+    find the running application in application tracker (GH #114).
   * Fixed usage of an uninitialized application instance (GH #115).
   * Added a compatibility layer to silence compiler warnings.
   * Implemented a new Model class called XfdashboardModel.
