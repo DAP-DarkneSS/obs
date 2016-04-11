@@ -1,7 +1,7 @@
 #
 # spec file for package wt
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,40 +16,46 @@
 #
 
 
+%define WTSRVDIR /srv/wt
+%define WTRUNDIR %{WTSRVDIR}/run
+%define mysqllib libwtdbomysql38
+%define pglib libwtdbopostgres38 
 Name:           wt
-Version:        3.3.2
+Version:        3.3.4
 Release:        0
 Summary:        Web Toolkit
 License:        GPL-2.0
 Group:          Development/Libraries/C and C++
 Url:            http://www.webtoolkit.eu/wt/
 Source0:        https://downloads.sourceforge.net/project/witty/wt/%{version}/wt-%{version}.tar.gz
-
+Patch0:         base64.patch
 BuildRequires:  FastCGI-devel
-%if 0%{?suse_version} < 1220
-BuildRequires:  Mesa-devel
-%endif
 # wt will build with boost-devel < 1.36.0 but it won't work
+BuildRequires:  GraphicsMagick-devel
+BuildRequires:  Mesa-devel
+BuildRequires:  apache-rpm-macros
 BuildRequires:  boost-devel >= 1.36.0
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  fdupes
-%if 0%{?suse_version} >= 1220
-BuildRequires:  firebird-devel
-%endif
 BuildRequires:  gcc-c++
+BuildRequires:  glew-devel
+BuildRequires:  glu-devel
 BuildRequires:  graphviz
-%if 0%{?suse_version} >= 1230
 BuildRequires:  libharu-devel
-%endif
+BuildRequires:  libpng-devel
 BuildRequires:  libqt4-devel
+BuildRequires:  mysql-devel
 BuildRequires:  openssl-devel
 BuildRequires:  pango-devel
 BuildRequires:  pkgconfig
 BuildRequires:  postgresql-devel
-
+BuildRequires:  zlib-devel
 Requires:       FastCGI
 Requires:       openssl
+Recommends:     %{name}-dbo = %{version}
+Suggests:       %{name}-dbo-mysql = %{version}
+Suggests:       %{name}-dbo-postgres = %{version}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -61,13 +67,43 @@ application is written in only one compiled language (C++), from which
 the library generates the necessary HTML, Javascript, CGI, and AJAX
 code.
 
+%package        dbo
+Summary:        Wt::Dbo ORM library and Sqlite3 back-end
+Group:          Development/Libraries
+
+%description    dbo
+This package contains the Wt::Dbo Object-Relational Mapping library
+and Sqlite3 back-end of it.
+
+%package -n %{mysqllib}
+Summary:        MySQL back-end for the Wt::Dbo ORM library
+Group:          Development/Libraries
+Provides:       %{name}-dbo-mysql = %{version}
+Requires:       %{name}-dbo = %{version}
+
+%description -n %{mysqllib}
+This package contains the MySQL back-end for the Wt::Dbo ORM library.
+
+%package -n %{pglib}
+Summary:        PostgreSQL back-end for the Wt::Dbo ORM library
+Group:          Development/Libraries
+Provides:       %{name}-dbo-postgres = %{version}
+Requires:       %{name}-dbo = %{version}
+
+%description -n %{pglib}
+This package contains the PostgresSQL back-end for the Wt::Dbo ORM library.
+
 %package        devel
 Summary:        Web Toolkit - Development Files
 Group:          Development/Libraries/C and C++
 Requires:       %{name} = %{version}
+Requires:       %{name}-dbo = %{version}
+Requires:       %{name}-dbo-mysql = %{version}
+Requires:       %{name}-dbo-postgres = %{version}
 Requires:       FastCGI-devel
 Requires:       Xerces-c-devel
 Requires:       boost-devel >= 1.34.1
+Requires:       cmake
 Requires:       mxml-devel >= 2.3
 Requires:       openssl-devel
 
@@ -86,6 +122,7 @@ code.
 Summary:        Web Toolkit - Doxygen Documentation
 Group:          Development/Libraries/C and C++
 Requires:       %{name} = %{version}
+BuildArch:      noarch
 
 %description doc
 Doxygen documentation for the Wt library.
@@ -100,50 +137,42 @@ code.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
-%define WTSRVDIR /srv/wt
-# path to runtime session data
-%define WTRUNDIR %{WTSRVDIR}/run
-# webserve user and group
-%define WTRUNUSER wwwrun
-%define WTRUNGROUP www
-mkdir wt-build
-cd wt-build
-cmake .. \
-    -DCMAKE_C_FLAGS="%{optflags}" \
-    -DCMAKE_CXX_FLAGS="%{optflags}" \
-    -DCMAKE_INSTALL_PREFIX="/usr" \
-    -DLIB_INSTALL_DIR=%{_lib} \
+%cmake \
+    -DENABLE_FIREBIRD=OFF \
+    -DWT_CPP_11_MODE=-std=c++0x \
+    -DUSE_SYSTEM_IBPP=ON \
+    -DSHARED_LIBS=ON \
+    -DMULTI_THREADED=ON \
+    -DUSE_SYSTEM_SQLITE3=ON \
+    -DUSE_SYSTEM_GLEW=ON \
     -DCONNECTOR_HTTP=ON \
     -DCONNECTOR_FCGI=ON \
-%if 0%{?suse_version} < 1220
-    -DWT_NO_BOOST_RANDOM=ON \
-%endif
-    -DENABLE_EXT=True \
-    -DWEBGROUP="%{WTRUNGROUP}" -DWEBUSER="%{WTRUNUSER}" \
+    -DENABLE_EXT=ON \
+    -DWEBGROUP="%{apache_group}" -DWEBUSER="%{apache_user}" \
     -DRUNDIR="%{WTRUNDIR}" \
-    -DBUILD_EXAMPLES=ON
+    -DBUILD_EXAMPLES=ON \
+    -DENABLE_GM=ON \
+    -DWT_WRASTERIMAGE_IMPLEMENTATION=GraphicsMagick \
+    -DENABLE_HARU=ON \
+    -DENABLE_POSTGRES=ON \
+    -DENABLE_SQLITE=ON \
+    -DENABLE_MYSQL=ON \
+    -DWT_WITH_SSL=ON \
+    -DHTTP_WITH_ZLIB=ON
 make V=1 %{?_smp_mflags}
 
 %install
-cd wt-build
-make V=1 DESTDIR="%{buildroot}" install
-# hack for broken cmake configs on archs with /lib64
-%ifarch ppc64 s390x
-mv %{buildroot}/usr/lib/* %{buildroot}/usr/%{_lib} || true
-rm -Rf %{buildroot}/usr/lib
-%endif
-# end hack
+%cmake_install
+
 mkdir -p %{buildroot}/%{_docdir}/%{name}
 mkdir -p %{buildroot}/%{WTSRVDIR}
 mkdir -p %{buildroot}/%{WTRUNDIR}
 mkdir %{buildroot}/%{_docdir}/%{name}-devel/
-cp -rv ../doc/* %{buildroot}/%{_docdir}/%{name}-devel/
+cp -rv doc/* %{buildroot}/%{_docdir}/%{name}-devel/
 mv -v %{buildroot}/%{_datadir}/Wt %{buildroot}/%{_datadir}/wt
-
-# We mustn't package .orig files
-find %{buildroot}/%{_includedir}/Wt -name '*.orig' -delete
 
 # Remove the installdox script used for the installation of documentation.
 rm %{buildroot}/%{_docdir}/%{name}-devel/examples/html/installdox
@@ -163,21 +192,48 @@ mv -v %{buildroot}/%{_prefix}/cmake/*.cmake \
 
 %postun -p /sbin/ldconfig
 
+%post dbo -p /sbin/ldconfig
+
+%postun dbo -p /sbin/ldconfig
+
+%post -n %{mysqllib} -p /sbin/ldconfig
+
+%postun -n %{mysqllib} -p /sbin/ldconfig
+
+%post -n %{pglib} -p /sbin/ldconfig
+
+%postun -n %{pglib} -p /sbin/ldconfig
+
 %files
 %defattr(-,root,root)
-%{_libdir}/*.so.%{version}
+%{_libdir}/libwt.so.*
+%{_libdir}/libwtfcgi.so.*
+%{_libdir}/libwthttp.so.*
+%{_libdir}/libwttest.so.*
+%{_libdir}/libwtext.so.*
 %doc Changelog LICENSE
 %dir %{WTSRVDIR}
 %dir %{_sysconfdir}/wt
 %{_datadir}/wt
 %config(noreplace) %{_sysconfdir}/wt/wt_config.xml
-%attr(-,%{WTRUNUSER},%{WTRUNGROUP}) %{WTRUNDIR}
+%attr(-,%{apache_user},%{apache_group}) %{WTRUNDIR}
+
+%files dbo
+%defattr(-,root,root)
+%{_libdir}/libwtdbo.so.*
+%{_libdir}/libwtdbosqlite3.so.*
+
+%files -n %{mysqllib}
+%defattr(-,root,root)
+%{_libdir}/libwtdbomysql.so.*
+
+%files -n %{pglib}
+%defattr(-,root,root)
+%{_libdir}/libwtdbopostgres.so.*
 
 %files devel
 %defattr(-,root,root)
 %{_includedir}/Wt
-%exclude %{_libdir}/*.so.%{version}
-%{_libdir}/*.so.*
 %{_libdir}/*.so
 %exclude %{_docdir}/%{name}-devel/reference
 %doc %{_docdir}/%{name}-devel

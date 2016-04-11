@@ -1,4 +1,60 @@
 -------------------------------------------------------------------
+Wed Oct 21 09:40:00 UTC 2015 - schwab@suse.de
+
+- base64.patch: Fix invalid narrowing conversion
+
+-------------------------------------------------------------------
+Fri Apr 10 19:28:30 UTC 2015 - p.drouand@gmail.com
+
+- Update to version 3.3.4
+  * Support for dedicated session processes with wthttp connector.
+  * WIdentityProxyModel : This new proxy model simply forwards the
+    structure of the source model, without any transformation, and
+    can be used for implementing proxy models that reimplement data(),
+    but retain all other characteristics of the source model. 
+  * Chart::WAbstractChart::setAutoLayoutEnabled() : Until now, you were
+    responsible for configuring the padding around the chart area to
+    accomodate for axis labels, titles, and legend. While this is
+    still the default behaviour, we added an option to let the chart
+    derive the required padding (using approximate font-metrics
+    available server-side). 
+  * Chart::WCartesianChart::setAxis() : Whereas previously a chart axis
+    was a "value class", it is now a proper polyymorphic class, and you
+    can provide your own implementation. In this way you can customize
+    things like for example label strings. 
+  * setPointSprite(): ability to define sprites for drawing a data series
+  * pickSurface(): find out which points on a surface are under a given pixel
+  * pickBar(): find out which points on a bar on are under a given pixel.
+  * setIsoLevels(): draw iso lines (on the ground plane of the chart)
+    corresponding to selected z values.
+  * setClippingLinesEnabled(): ability to clip and optionally draw
+    clipping planes
+  * setIntersectionsEnabled(): ability to draw surface-surface
+    intersection lines.
+- Remove wt-boost-1.56.0.patch; merged on upstream relese
+
+-------------------------------------------------------------------
+Thu Dec  4 14:18:05 UTC 2014 - tchvatal@suse.com
+
+- Add various missing dependencies and switches to ensure we build
+  against system libraries
+- add -dbo-* subpackages for db connectors, thus our core does not
+  pull in all various database providers
+- Cleanup with spec cleaner
+- Remove support for < 12.3 as it failed to build there anyway
+- Use %cmake macro instead of directly calling %cmake
+- Version bump to 3.3.3:
+  * various bugfixes
+  * improved meta header support
+- Add patch to build on Factory with boost 5.16.0:
+  * wt-boost-1.56.0.patch
+
+-------------------------------------------------------------------
+Thu Apr 14 07:17:02 UTC 2014 - dap.darkness@gmail.com
+
+- Added _constraints file to prevent out of memory issue.
+
+-------------------------------------------------------------------
 Thu Apr  3 17:17:02 UTC 2014 - dap.darkness@gmail.com
 
 - Update to 3.3.2:
