@@ -1,7 +1,7 @@
 #
 # spec file for package wt
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -18,17 +18,17 @@
 
 %define WTSRVDIR /srv/wt
 %define WTRUNDIR %{WTSRVDIR}/run
-%define mysqllib libwtdbomysql38
-%define pglib libwtdbopostgres38 
+%define mysqllib libwtdbomysql39
+%define pglib libwtdbopostgres39
 Name:           wt
-Version:        3.3.4
+Version:        3.3.5
 Release:        0
 Summary:        Web Toolkit
 License:        GPL-2.0
 Group:          Development/Libraries/C and C++
 Url:            http://www.webtoolkit.eu/wt/
-Source0:        https://downloads.sourceforge.net/project/witty/wt/%{version}/wt-%{version}.tar.gz
-Patch0:         base64.patch
+Source0:        https://github.com/kdeforche/wt/archive/%{version}.tar.gz
+
 BuildRequires:  FastCGI-devel
 # wt will build with boost-devel < 1.36.0 but it won't work
 BuildRequires:  GraphicsMagick-devel
@@ -118,26 +118,8 @@ application is written in only one compiled language (C++), from which
 the library generates the necessary HTML, Javascript, CGI, and AJAX
 code.
 
-%package        doc
-Summary:        Web Toolkit - Doxygen Documentation
-Group:          Development/Libraries/C and C++
-Requires:       %{name} = %{version}
-BuildArch:      noarch
-
-%description doc
-Doxygen documentation for the Wt library.
-
-Wt is a C++ library and application server for developping and
-deploying web applications. The widget-centric API is inspired by
-existing C++ GUI APIs.  It offers complete abstraction of any
-web-specific implementation details.  Most imporantly, the entire
-application is written in only one compiled language (C++), from which
-the library generates the necessary HTML, Javascript, CGI, and AJAX
-code.
-
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %cmake \
@@ -174,16 +156,8 @@ mkdir %{buildroot}/%{_docdir}/%{name}-devel/
 cp -rv doc/* %{buildroot}/%{_docdir}/%{name}-devel/
 mv -v %{buildroot}/%{_datadir}/Wt %{buildroot}/%{_datadir}/wt
 
-# Remove the installdox script used for the installation of documentation.
-rm %{buildroot}/%{_docdir}/%{name}-devel/examples/html/installdox
-
 # Remove shell scripts used for generating some images.
 rm %{buildroot}/%{_datadir}/wt/resources/themes/*/*/generate.sh
-
-# Move cmake module to the correct location.
-install -v -m 0755 -d %{buildroot}/%{_datadir}/cmake/Modules
-mv -v %{buildroot}/%{_prefix}/cmake/*.cmake \
-      %{buildroot}/%{_datadir}/cmake/Modules
 
 %fdupes %{buildroot}/%{_docdir}
 %fdupes %{buildroot}/%{_datadir}
@@ -235,12 +209,6 @@ mv -v %{buildroot}/%{_prefix}/cmake/*.cmake \
 %defattr(-,root,root)
 %{_includedir}/Wt
 %{_libdir}/*.so
-%exclude %{_docdir}/%{name}-devel/reference
 %doc %{_docdir}/%{name}-devel
-%{_datadir}/cmake/Modules/*
-
-%files doc
-%defattr(-,root,root)
-%doc %{_docdir}/%{name}-devel/reference
 
 %changelog

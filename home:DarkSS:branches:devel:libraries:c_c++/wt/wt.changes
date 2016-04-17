@@ -1,4 +1,25 @@
 -------------------------------------------------------------------
+Mon Apr 11 15:46:03 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 3.3.5:
+  * WCartesianChart has several new features. 
+  * WAxisSliderWidget lets you easily focus on a particular range. 
+  * WPainter, WJavascriptHandle, WCanvasPaintDevice functionality
+    was implemented by making client-side interaction possible. 
+  * WAnchor target (such as this window, or new window) moved to WLink. 
+  * A new TargetDownload target was added for links.
+  * The included SQLite version was updated.
+  * Support for seconds editing in WTimePicker.
+  * Before it was only possible to set the partial state of the
+    WCheckbox when creating the Widget.
+  * The WApplication::setConnectionMonitor() method will let the
+    user register a Javascript object that will be notified.
+  * Support for custom HTML tags for a widgets.
+  * Wt::Dbo: allow to forward declare related classes.
+- Removed base64.patch as particularly merged into upstream.
+- Removed doc subpackage: no content any more.
+
+-------------------------------------------------------------------
 Wed Oct 21 09:40:00 UTC 2015 - schwab@suse.de
 
 - base64.patch: Fix invalid narrowing conversion
