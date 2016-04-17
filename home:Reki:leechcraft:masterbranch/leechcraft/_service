@@ -8,5 +8,15 @@
     <param name="file">*.tar</param>
     <param name="compression">xz</param>
   </service>
-  <service name="set_version"/>
+  <service name="set_version" />
+  <service name="obs_scm">
+    <param name="url">git://github.com/0xd34df00d/leechcraft.git</param>
+    <param name="scm">git</param>
+  </service>
+  <service mode="buildtime" name="tar" />
+  <service mode="buildtime" name="recompress">
+    <param name="file">*.tar</param>
+    <param name="compression">xz</param>
+  </service>
+  <service mode="buildtime" name="set_version" />
 </services>

@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Wed Feb  3 17:25:40 UTC 2016 - dap.darkness@gmail.com
+
+- 0.6.70-6053-g34d21e8 git snapshot.
+- leechcraft-lmp-append-gstreamer-include-dirs-pkgconfig.patch
+  was removed as already provided via upstream tarball.
+
+-------------------------------------------------------------------
+Sun Nov 29 15:18:53 UTC 2015 - mlin@suse.com
+
+- Add leechcraft-lmp-append-gstreamer-include-dirs-pkgconfig.patch
+  * Fix compilation in lmp plugin with GStreamer 1.5.1 and above 
+
+-------------------------------------------------------------------
 Wed Jun 10 16:35:52 UTC 2015 - dap.darkness@gmail.com
 
 - 0.6.70-3565-g2d86529 git snapshot.

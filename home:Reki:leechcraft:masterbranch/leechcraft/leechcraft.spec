@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-6637-ged72b3f
+%define LEECHCRAFT_VERSION 0.6.70-6670-gd8c59ef
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -61,7 +61,6 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 Source0:        %{name}-%{version}.tar.xz
-Patch0:         lc-liznoo-dbg.diff
 
 BuildRequires:  Qross-devel
 BuildRequires:  boost-devel >= 1.58
@@ -98,9 +97,9 @@ BuildRequires:  mupdf-devel-static
 %endif
 %endif
 BuildRequires:  qwt6-devel
-%if 0%{?suse_version} > 1310
-BuildRequires:  wt-devel >= 3.3
-%endif
+# %%if 0%%{?suse_version} > 1310
+# BuildRequires:  wt-devel >= 3.3
+# %%endif
 %if 0%{?suse_version} > 1310
 BuildRequires:  pkgconfig(TelepathyQt4)
 %endif
@@ -160,7 +159,7 @@ BuildRequires:  pkgconfig(xrender)
 
 BuildRequires:  liblaretz-devel
 BuildRequires:  telepathy-qt4-devel
-BuildRequires:  wt-devel >= 3.3
+# BuildRequires:  wt-devel >= 3.3
 %if 0%{?suse_version} <= 1310
 BuildRequires:  pkgconfig(QtMultimediaKit)
 %endif
@@ -444,6 +443,7 @@ Requires:       %{name} = %{version}
 Requires:       %{name}-http = %{version}
 Requires:       libqt4-sql-sqlite
 Recommends:     %{name}-poshuku = %{version}
+Obsoletes:      %{name}-aggregator-webaccess < %{version}
 
 %description aggregator
 This package provides a RSS/Atom feed reader plugin for LeechCraft.
@@ -480,15 +480,16 @@ work, a script provider like Qrosp should be installed. Please refer to the
 guide to writing recipes if you are interested in writing your own ones.
 
 
-%package aggregator-webaccess
-Summary:        LeechCraft Aggregator - Web Interface Module
-Group:          Productivity/Networking/Other
-Requires:       %{name}-aggregator = %{version}
-
-%description aggregator-webaccess
-WebAccess provides a basic web interface for the
-Aggregator feed reader, so one can read news
-articles from a mobile device or another machine.
+# NOTE: because of different boost versions invoked.
+# %%package aggregator-webaccess
+# Summary:        LeechCraft Aggregator - Web Interface Module
+# Group:          Productivity/Networking/Other
+# Requires:       %%{name}-aggregator = %%{version}
+# 
+# %%description aggregator-webaccess
+# WebAccess provides a basic web interface for the
+# Aggregator feed reader, so one can read news
+# articles from a mobile device or another machine.
 
 
 %package anhero
@@ -2652,7 +2653,6 @@ XmlSettingsDialog LeechCraft subsystem.
 
 %prep
 %setup -q
-%patch0 -p1
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -2688,7 +2688,7 @@ cmake ../src \
         -DWITH_QWT=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
-                -DENABLE_AGGREGATOR_WEBACCESS=True \
+                -DENABLE_AGGREGATOR_WEBACCESS=False \
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
                 -DENABLE_AZOTH_ABBREV=True \
@@ -3032,11 +3032,11 @@ EOF
 %dir %{_datadir}/leechcraft/scripts
 %{_datadir}/leechcraft/scripts/aggregator/
 
-%files aggregator-webaccess
-%defattr(-,root,root)
-%{plugin_dir}/*craft_aggregator_webaccess.so
-%{settings_dir}/aggregatorwebaccesssettings.xml
-%{translations_dir}/*craft_aggregator_webaccess*.qm
+# %%files aggregator-webaccess
+# %%defattr(-,root,root)
+# %%{plugin_dir}/*craft_aggregator_webaccess.so
+# %%{settings_dir}/aggregatorwebaccesssettings.xml
+# %%{translations_dir}/*craft_aggregator_webaccess*.qm
 
 %files anhero
 %defattr(-,root,root)
