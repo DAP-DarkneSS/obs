@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Sun Apr 24 10:29:33 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 16.04.23:
+  * VDPAU decoder without VDPAU writer is now available,
+  * added spherical view for video playback (Ctrl+3; OpenGL only),
+  * added Simplified Chinese translation (king Lee),
+  * move video filtering to separate thread,
+  * added Yadif deinterlacing filter,
+  * better frame skipping,
+  * replay gain fixes,
+  * bugfix.
+
+-------------------------------------------------------------------
 Mon Mar 28 17:23:37 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 16.03.24:
