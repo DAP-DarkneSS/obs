@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Mon May  2 15:37:58 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 16.05.02:
+  * fixed command line argument processing,
+  * playlist uses floating-point variables for storing length,
+  * added audio balance,
+  * don't play next entry after playback error by default,
+  * fix restoring dock widgets state and window geometry,
+  * added YouTube playlists and subtitles,
+  * restore mute state on start-up,
+  * seeking improvements,
+  * bugfix.
+
+-------------------------------------------------------------------
 Sun Apr 24 10:29:33 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 16.04.23:
