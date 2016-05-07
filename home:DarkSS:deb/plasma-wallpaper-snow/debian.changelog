@@ -1,3 +1,9 @@
+plasma-wallpaper-snow (0.1+git) xenial; urgency=medium
+
+  * OBS repack.
+
+ -- Dmitriy Perlow <dap.darkness@gmail.com>  Sat, 07 May 2016 18:02:25 +0300
+
 plasma-wallpaper-snow (0.1~wily~ppa5) wily; urgency=medium
 
   * Initial release
