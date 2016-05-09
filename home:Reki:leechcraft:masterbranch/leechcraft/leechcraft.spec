@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-6730-g6373beb
+%define LEECHCRAFT_VERSION 0.6.70-6841-gee147c3
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -140,7 +140,7 @@ BuildRequires:  pkgconfig(libopenjpeg)
 %endif
 %endif
 BuildRequires:  pkgconfig(libqrencode)
-BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.16
+BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 1.0
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(libvlc)
 BuildRequires:  pkgconfig(poppler-cpp)
