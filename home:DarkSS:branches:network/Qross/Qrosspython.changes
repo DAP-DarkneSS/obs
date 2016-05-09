@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat May  7 12:31:43 UTC 2016 - dap.darkness@gmail.com
+
+- Another cmake workaround.
+
+-------------------------------------------------------------------
 Fri Jul  4 14:16:30 UTC 2014 - dap.darkness@gmail.com
 
 - Added Qrosspython-cmake3.patch vs. cmake3 compatibility issue:

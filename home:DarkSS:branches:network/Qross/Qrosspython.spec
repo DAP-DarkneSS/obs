@@ -1,7 +1,7 @@
 #
-# spec file for package Qross
+# spec file for package Qrosspython
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -26,50 +26,54 @@ It merely serves to plug into C++/Qt applications the support for \
 other, already existing scripting languages, like JavaScript or \
 Python.
 
-
-Name:           Qross
+Name:           Qrosspython
 Version:        0.3.1
 Release:        0
+Summary:        %{pack_summ}, python2 engine
 License:        LGPL-2.0+
-Summary:        %{pack_summ}
-Url:            https://github.com/0xd34df00d/Qross
 Group:          System/Libraries
+Url:            https://github.com/0xd34df00d/Qross
 # WARNING: don't forget to remove at least
 # src/bindings/csharp directory from upstream sources,
 # really only src/bindings/python works now, see more at
 # https://bugzilla.novell.com/show_bug.cgi?id=861882
-Source0:        %{name}-%{version}.tar.xz
+Source0:        Qross-%{version}.tar.xz
+# https://github.com/0xd34df00d/Qross/commit/9053d214840
+# PATCH-FIX-UPSTREAM vs. cmake3 compatibility issue.
+Patch0:         Qrosspython-cmake3.patch
 
-BuildRequires:  cmake >= 2.8
-BuildRequires:  fdupes
-BuildRequires:  pkgconfig(QtCore)
+BuildRequires:  Qross-devel
+BuildRequires:  python-sip-devel
+BuildRequires:  pkgconfig(python2)
+%if 0%{?suse_version} > 1320
+Provides:       %{name}-devel = %{version}
+Obsoletes:      %{name}-devel < %{version}
+%endif
 
 %description
 %{pack_desc}
 
-
-%package        -n libqross1
+%package        -n libqrosspython1
 Summary:        %{pack_summ}
+Group:          System/Libraries
 
-%description    -n libqross1
+%description    -n libqrosspython1
 %{pack_desc}
 
-
+%if 0%{?suse_version} <= 1320
 %package        devel
 Summary:        Development files for %{name}
 Group:          Development/Libraries/C and C++
-Requires:       cmake
-Requires:       libqross1 = %{version}
-Requires:       pkgconfig(QtCore)
+Requires:       libqrosspython1 = %{version}
 
 %description    devel
-The %{name}-devel package contains libraries and header files for
+The %{name}-devel package contains files for
 developing applications that use %{name}.
-
+%endif
 
 %prep
-%setup -q -n %{name}-%{version}/src/qross
-
+%setup -q -n Qross-%{version}/src/bindings/python/qrosspython
+%patch0 -p1
 
 %build
 mkdir build && cd build
@@ -85,33 +89,26 @@ cmake .. \
 
 make %{?_smp_mflags} VERBOSE=1
 
-
 %install
 cd build
 %make_install
 
-%fdupes -s %{buildroot}%{_datadir}
+%post   -n libqrosspython1 -p /sbin/ldconfig
 
+%postun -n libqrosspython1 -p /sbin/ldconfig
 
-%post   -n libqross1 -p /sbin/ldconfig
-
-%postun -n libqross1 -p /sbin/ldconfig
-
-
-%files -n libqross1
+%files -n libqrosspython1
 %defattr(-,root,root)
-%{_libdir}/*qross*.so.*
-%{_libdir}/qt4/plugins/script/*qross*.so.*
+%if 0%{?suse_version} <= 1320
+%{_libdir}/*qrosspython*.so.*
+%else
+%{_libdir}/*qrosspython*.so
+%endif
 
-
+%if 0%{?suse_version} <= 1320
 %files devel
 %defattr(-,root,root)
-%{_bindir}/qross
-%{_includedir}/qross
-%{_libdir}/*qross*.so
-%{_libdir}/qt4/plugins/script/*qross*.so
-%dir %{_datadir}/leechcraft
-%dir %{_datadir}/leechcraft/cmake
-%{_datadir}/*/*/FindQrosscore.cmake
+%{_libdir}/*qrosspython*.so
+%endif
 
 %changelog
