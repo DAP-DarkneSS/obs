@@ -1,0 +1,224 @@
+-------------------------------------------------------------------
+Sun Oct 11 15:43:47 UTC 2015 - nemysis@openSUSE.org
+
+- Update to 2.0.33, announce messages are here:
+
+  http://ankisrs.net/docs/changes.html
+
+-------------------------------------------------------------------
+Sun Jun 28 19:17:06 UTC 2015 - nemysis@gmx.ch
+
+- Remove not working 
+  %post %mimedatabasepost and postun %mimedatabasepostun
+- Add update-mime-database %{_datadir}/mime and
+  update-mime-database %{_datadir}/mime
+
+-------------------------------------------------------------------
+Sat Jun 27 14:15:38 UTC 2015 - nemysis@gmx.ch
+
+- Add BuildRequires for shared-mime-info
+- Add %post %mimedatabasepost and postun %mimedatabasepostun
+- Change anki.appdata.xml
+
+-------------------------------------------------------------------
+Fri Jun 19 09:50:53 UTC 2015 - nemysis@gmx.ch
+
+- Update to 2.0.32, announce messages are here:
+
+  http://ankisrs.net/docs/changes.html
+
+- Use anki-Makefile.patch instead of many sed, imported from FreeBSD
+- Simplify installation handling, use normal build
+- Add anki.appdata.xml, imported from RedHat/Fedora
+- Reorder BuildRequires
+- Remove  Requires for xdg-utils
+- Change Description and add how to change Language
+- Add sed, Don't check for new updates
+- Change how to compile python
+- Use symlink for %fdupes
+- Use %{_mandir}/man1/%{name}.1%{ext_man} instead of %{_datadir}/man/man1/%{name}.1*
+
+-------------------------------------------------------------------
+Fri Sep 27 14:27:07 UTC 2013 - barendartchuk@suse.com
+- updated to 2.0.12
+- removed the pyqtconfig workaround patch as the fix has been merged in
+  upstream issue #831
+- added dependency on python-send2trash
+- upstream changes since 2.0.12:
+  * The complete list of changes is available at
+    http://ankisrs.net/docs/changes.html#changes-in-2.0.12
+  * Allow includegraphics in LaTeX
+  * You can now view stats on filtered decks.
+  * Work around linux crash on paste of invalid image.
+- changes since 2.0.10:
+  * Default to allowing HTML on import
+- changes since 2.0.9:
+  * The browser now has a preview button that makes it easier to quickly
+    browse previews of cards.
+  * If Anki detects that the media is out of sync, it will now automatically
+    recover on the next sync. Furthermore, it no longer needs to send files
+    that already exist on each side, so when this change is incorporated into
+    the mobile clients you’ll be able to copy media over to them to avoid a
+    long initial media sync.
+  * When media is deleted via a sync or unused media, it’s now placed in the
+    OS’s trash folder instead of deleted completely. Likewise for rotated
+    backups and
+    profile deletions.
+  * When notes are deleted, their content is logged in a file called
+    deleted.txt
+    in your profile folder.
+  * Ctrl+Shift+T (Command+Shift+T on a Mac) now jumps to the Tags entry
+    field.
+  * Allow HTML in Mnemosyne import
+  * Workaround a Qt bug that was preventing clicks on the sidebar in the
+    browser (thanks to Frostshutz)
+  * Pauker importer (thanks to Frostshutz)
+  * When using change deck, select the current deck by default.
+  * When studying a filtered card, clicking Add will default to that deck.
+
+-------------------------------------------------------------------
+Thu Apr  4 06:26:21 UTC 2013 - mvyskocil@opensuse.org
+
+- update to 2.0.8
+  * Fixed an issue with upgrading some Anki 1 decks.
+  * Allow apostrophe in deck names.
+  * Some changes which should speed up upgrading old Anki 1 decks.
+  * When rescheduling is off in a filtered deck, show "(end)" on buttons that
+    will end studying of that card.
+  * Fix extra spaces being included when showing tags on card.
+  * Make sure we switch back to the previous deck when creation of a filtered
+    deck cancelled.
+  * Fix a bug that was causing the automatically generated Reading field in the
+    Japanese Support add-on to be blanked out again if you clicked directly on
+    the Reading field.  and many more, see
+  * http://ankisrs.net/docs/changes.html#latest
+- drop libqt4-devel dependency hardcoding the qtmajor and qtminor during build
+  * anki-remove-pyqtconfig.patch
+- drop uneeded anki-indentation.patch
+
+-------------------------------------------------------------------
+Sat Nov 17 19:23:27 UTC 2012 - mailaender@opensuse.org 
+
+- update to 2.0.3
+  * Fix some more issues with importing content that used a modified version of models already present in your collection. Decks (including 1.2 decks) are now imported in such a way that repeatedly importing them will no longer result in duplicate note types, notes or cards. The duplicate check only works against previous imports made in 2.0.3 however, so if you imported decks with divergent models in a previous Anki 2 version, the first time you import that content again, a duplicate will be created.
+  * Fix a few errors that could occur when renaming decks.
+  * Fix timeboxing counting one too many cards on the first session and not accounting for undone reviews.
+  * Suspended cards now have their due date shown surrounded by brackets in the browser.
+  * When a learning card is suspended, it is moved back to new if it was in initial learning, or moved back to a review card if it was in relearning.
+  * Fix 1+ day steps not working for relearning cards.
+  * Fixed some issues with settings not syncing due to the collection being accidentally marked as modified when it was loaded.
+  * Add decimal point to reviews a day statistic.
+  * When creating a filtered deck, default to searching through the current deck.
+  * Display a progress window when closing the collection, as it may take a while.
+  * Fix font size setting in Add Field button.
+
+-------------------------------------------------------------------
+Wed Oct 10 12:58:16 UTC 2012 - mvyskocil@suse.com
+
+- update to 2.0.0 
+ * Reviews are limited to 100/day by default.
+ * When you answer "again", there are now two learning reviews of
+   the card, so the red count will increase by two.
+ * Cloze deletion has been much improved, but now requires you to
+   select a special cloze type (the top left button in the Add window).
+ * Selective study is still possible, but is done differently. You
+   can either move cards into different decks (via Change Deck in the
+   card browser), or create a filtered deck that searches for particular
+   tags, card properties and so on.
+ * Algorithm for selecting cards in multiple direction is changed
+ * Anki only checks the first field to see if it’s unique now.
+ * see http://ankisrs.net/docs/dev/changes.html
+   for details
+- libanki tests runs when build --with tests, disabled by default
+- python-beautifulsoup is now required
+- python-numpy and python-mathplotlib are no recommended as I did not
+  find a file which uses them
+- dropped anki-noupdate.patch
+- add anki-indentation.patch
+- install anki to /usr/share/anki, like upstream Makefile does
+
+-------------------------------------------------------------------
+Sun Oct  7 19:15:02 UTC 2012 - lars@linux-schulserver.de
+
+- update to 1.2.11
+- remove anki-sawarning-unicode-column.patch
+- specfile cleanup
+
+-------------------------------------------------------------------
+Wed Dec  7 10:26:40 UTC 2011 - halsmit@t-online.de
+
+- Fix 'SAWarning: Unicode column received non-unicode default value' 
+  Create a unicode string from a literal like it is done in the rest of
+  that file.
+
+-------------------------------------------------------------------
+Sat Nov 19 10:27:44 UTC 2011 - toddrme2178@gmail.com
+
+- Removed unnecessary python-sqlite2 dependency that was preventing
+  installation on openSUSE 12.1.  According to the readme this is 
+  unneccessary if python 2.5 is used, which all supported openSUSE
+  versions have.
+- Renamed python-sqlalchemy to python-SQLAlchemy to reflect changed
+  package name
+- Added version requirements for requires and buildrequires, taken
+  from the readme
+- Changed numpy from requires to recommends, since it adds optional
+  features but is not needed for basic functionality
+- Added recommends for matplotlib, since the feature numpy supports
+  will not work unless matplotlib is also installed
+- Added suggests for other optional packages that add functionality
+  like audio playback, audio recording, and file conversion.
+  These are suggets since many of them are not available in the
+  default openSUSE release due to licensing issues
+- Fixed permissions for a file (fix for RPMLINT warning) 
+
+-------------------------------------------------------------------
+Thu Sep 30 07:06:10 UTC 2011 - arun@nubati.net
+
+- update to 1.2.9
+
+-------------------------------------------------------------------
+Wed Nov 17 18:32:10 UTC 2010 - remy.marquis@opensuse.org
+
+- Update to 1.0.1
+- Disabled autoupdate feature
+- Patched anki to remove python-qt4-devel depandancy 
+
+-------------------------------------------------------------------
+Thu Jan  7 04:30:23 UTC 2010 - bphilips@novell.com
+
+- Add python-qt4-devel as dependency since anki requires the module
+  pyqtconfig
+
+-------------------------------------------------------------------
+Mon Jul 20 11:36:36 CEST 2009 - lrupp@suse.de
+
+- update to 0.9.9.8.5:
+  + Browser improvements
+  + Importing improvements
+  + Improved translations
+  + Export original media
+  + more robust LaTeX handling
+  + fixed some bugs
+- fix os-edu#71: added python-qt4, libqt4, libQtWebKit4 to Req.
+
+-------------------------------------------------------------------
+Sat May 09 00:00:00 CEST 2009 - bitshuffler #suse@irc.freenode.org
+
+- Updated to 0.9.9.7.9
+
+-------------------------------------------------------------------
+Fri May 01 00:00:00 CEST 2009 - bitshuffler #suse@irc.freenode.org
+
+- Updated to 0.9.9.7.7
+
+-------------------------------------------------------------------
+Wed Apr 22 00:00:00 CEST 2009 - bitshuffler #suse@irc.freenode.org
+
+- Updated to 0.9.9.7.5
+
+-------------------------------------------------------------------
+Sun Jul 27 00:00:00 CEST 2008 - bitshuffler #suse@irc.freenode.org
+
+- Initial RPM
+
