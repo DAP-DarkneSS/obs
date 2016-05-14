@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat May 14 09:54:18 UTC 2016 - dap.darkness@gmail.com
+
+- libqrosspython1 does not match up with qrosspython.so file
+  for openSUSE:Factory.
+
+-------------------------------------------------------------------
 Sat May  7 12:31:43 UTC 2016 - dap.darkness@gmail.com
 
 - Another cmake workaround.

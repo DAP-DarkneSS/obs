@@ -16,6 +16,12 @@
 #
 
 
+%if 0%{?suse_version} > 1320
+%define sopackname libqrosspython
+%else
+%define sopackname libqrosspython1
+%endif
+
 %define pack_summ A Qt-only fork of Kross
 
 %define pack_desc Qross is a Qt-only fork of Kross, \
@@ -53,18 +59,24 @@ Obsoletes:      %{name}-devel < %{version}
 %description
 %{pack_desc}
 
-%package        -n libqrosspython1
+%package        -n %{sopackname}
 Summary:        %{pack_summ}
 Group:          System/Libraries
+# NOTE! There are no linking against this library so let's take care
+# about backward compatibility:
+%if 0%{?suse_version} > 1320
+Provides:       libqrosspython1 = %{version}
+Obsoletes:      libqrosspython1 < %{version}
+%endif
 
-%description    -n libqrosspython1
+%description    -n %{sopackname}
 %{pack_desc}
 
 %if 0%{?suse_version} <= 1320
 %package        devel
 Summary:        Development files for %{name}
 Group:          Development/Libraries/C and C++
-Requires:       libqrosspython1 = %{version}
+Requires:       %{sopackname} = %{version}
 
 %description    devel
 The %{name}-devel package contains files for
@@ -93,11 +105,11 @@ make %{?_smp_mflags} VERBOSE=1
 cd build
 %make_install
 
-%post   -n libqrosspython1 -p /sbin/ldconfig
+%post   -n %{sopackname} -p /sbin/ldconfig
 
-%postun -n libqrosspython1 -p /sbin/ldconfig
+%postun -n %{sopackname} -p /sbin/ldconfig
 
-%files -n libqrosspython1
+%files -n %{sopackname}
 %defattr(-,root,root)
 %if 0%{?suse_version} <= 1320
 %{_libdir}/*qrosspython*.so.*

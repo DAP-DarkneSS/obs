@@ -16,6 +16,8 @@
 #
 
 
+%define so_postfix 0_1
+
 %define pack_summ A Qt-only fork of Kross
 
 %define pack_desc Qross is a Qt-only fork of Kross, \
@@ -46,18 +48,18 @@ BuildRequires:  pkgconfig(QtCore)
 %description
 %{pack_desc}
 
-%package        -n libqross1
+%package        -n libqross%{so_postfix}
 Summary:        %{pack_summ}
 Group:          System/Libraries
 
-%description    -n libqross1
+%description    -n libqross%{so_postfix}
 %{pack_desc}
 
 %package        devel
 Summary:        Development files for %{name}
 Group:          Development/Libraries/C and C++
 Requires:       cmake
-Requires:       libqross1 = %{version}
+Requires:       libqross%{so_postfix} = %{version}
 Requires:       pkgconfig(QtCore)
 
 %description    devel
@@ -88,11 +90,11 @@ cd build
 
 %fdupes -s %{buildroot}%{_datadir}
 
-%post   -n libqross1 -p /sbin/ldconfig
+%post   -n libqross%{so_postfix} -p /sbin/ldconfig
 
-%postun -n libqross1 -p /sbin/ldconfig
+%postun -n libqross%{so_postfix} -p /sbin/ldconfig
 
-%files -n libqross1
+%files -n libqross%{so_postfix}
 %defattr(-,root,root)
 %{_libdir}/*qross*.so.*
 %{_libdir}/qt4/plugins/script/*qross*.so.*

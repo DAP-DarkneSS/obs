@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat May 14 09:47:53 UTC 2016 - dap.darkness@gmail.com
+
+- The library package name ought to be libqross0_1 (not libqross1)
+  because the SONAME is .so.0.1.
+
+-------------------------------------------------------------------
 Tue Feb  4 15:13:55 UTC 2014 - dap.darkness@gmail.com
 
 - src/bindings/csharp directory and other broken bingings
