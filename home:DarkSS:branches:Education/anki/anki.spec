@@ -1,7 +1,7 @@
 #
 # spec file for package anki
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -18,7 +18,7 @@
 %bcond_with tests
 
 Name:           anki
-Version:        2.0.33
+Version:        2.0.36
 Release:        0
 License:        AGPL-3.0
 Summary:        Intelligent Spaced-Repetition Memory Training Program
