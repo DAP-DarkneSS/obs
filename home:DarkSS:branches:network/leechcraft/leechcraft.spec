@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-6053-g34d21e8
+%define LEECHCRAFT_VERSION 0.6.70-6645-gcd10d7e
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -52,17 +52,26 @@
 %endif
 
 Name:           leechcraft
-Version:        0.6.70+git.6053.g34d21e8
+Version:        0.6.70+git.6645.gcd10d7e
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 
-Source0:        http://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
+Source0:        leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
+# NOTE: delete p0&p1 at version bump!
+# PATCH-FIX-UPSTREAM for newest torrent rasterbar.
+Patch0:         leechcraft-%{LEECHCRAFT_VERSION}-torrent110.diff
+# PATCH-FIX-UPSTREAM for hunspell 1.4.
+Patch1:         leechcraft-%{LEECHCRAFT_VERSION}-hunspell14.diff
 
 BuildRequires:  Qross-devel
+%if 0%{?suse_version} > 1320
+BuildRequires:  boost-devel >= 1.58
+%else
 BuildRequires:  boost-devel >= 1.50
+%endif
 BuildRequires:  cmake > 2.8.10
 BuildRequires:  fdupes
 BuildRequires:  file-devel
@@ -156,7 +165,7 @@ BuildRequires:  pkgconfig(libqrencode)
 %if 0%{?suse_version} > 1320
 BuildRequires:  pkgconfig(libswresample)
 %endif
-BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 0.16
+BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 1.0
 BuildRequires:  pkgconfig(libudev)
 %if 0%{?suse_version} != 1315
 BuildRequires:  pkgconfig(libvlc)
@@ -330,6 +339,9 @@ Requires:       %{name}-azoth-chatstyler = %{version}
 Requires:       %{name}-azoth-protocolplugin
 Requires:       %{name}-securestorage = %{version}
 Suggests:       %{name}-azoth-standardstyles
+%if 0%{?suse_version} <= 1320
+Obsoletes:      %{name}-azoth-herbicide
+%endif
 Obsoletes:      %{name}-azoth-p100q
 Obsoletes:      %{name}-azoth-zheet
 
@@ -494,6 +506,7 @@ This package provides a embedding media plugin for LeechCraft Azoth.
 It allows to enable embedding different media objects in chat tabs.
 
 
+%if 0%{?suse_version} > 1320
 %package azoth-herbicide
 Summary:        LeechCraft Azoth - Antispam Module
 License:        BSL-1.0
@@ -502,7 +515,7 @@ Requires:       %{name}-azoth = %{version}
 
 %description azoth-herbicide
 This package provides a basic antispam plugin for LeechCraft Azoth.
-
+%endif
 
 %package azoth-hili
 Summary:        LeechCraft Azoth - Conference highlights Module
@@ -2016,8 +2029,9 @@ This package provides a Speed Dial support plugin for LeechCraft Poshuku.
 
 %package qrosp
 Summary:        LeechCraft Qross Module
-License:        BSL-1.0
+License:        LGPL-2.1+
 Group:          Productivity/Networking/Other
+# src/plugins/qrosp/third-party/qmetaobjectbuilder_48.*
 Requires:       %{name} = %{version}
 Requires:       libqrosspython1
 
@@ -2465,6 +2479,8 @@ XmlSettingsDialog LeechCraft subsystem.
 
 %prep
 %setup -q -n leechcraft-%{LEECHCRAFT_VERSION}
+%patch0 -p1
+%patch1 -p1
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -2528,6 +2544,11 @@ cmake ../src \
                 -DENABLE_AZOTH_ASTRALITY=False \
 %endif
                 -DENABLE_AZOTH_AUTOPASTE=True \
+%if 0%{?suse_version} > 1320
+                -DENABLE_AZOTH_HERBICIDE=True \
+%else
+                -DENABLE_AZOTH_HERBICIDE=False \
+%endif
                 -DENABLE_AZOTH_MUCOMMANDS=True \
                 -DENABLE_AZOTH_MURM=True \
                 -DENABLE_AZOTH_OTROID=True \
@@ -2933,11 +2954,13 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %defattr(-,root,root)
 %{plugin_dir}/*craft_azoth_embedmedia.so
 
+%if 0%{?suse_version} > 1320
 %files azoth-herbicide
 %defattr(-,root,root)
 %{plugin_dir}/*craft_azoth_herbicide.so
 %{translations_dir}/*craft_azoth_herbicide*
 %{settings_dir}/azothherbicidesettings.xml
+%endif
 
 %files azoth-hili
 %defattr(-,root,root)
