@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sun May 15 11:51:53 UTC 2016 - dap.darkness@gmail.com
+
+- 20160315
+  * Merge with NetBSD make, pick up:
+    + fix handling of archive members;
+    + meta.c: treat missing Read file same as Write,
+      in case we Delete it.
+  * Rename variable to avoid interference
+    with checks for ${MAKE_VERSION}.
+
+-------------------------------------------------------------------
 Wed Mar 16 14:14:58 UTC 2016 - mpluskal@suse.com
 
 - 20160307
