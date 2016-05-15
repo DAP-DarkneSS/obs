@@ -17,52 +17,68 @@
 
 
 %define oname ManPageEditor
+
 Name:           manpageeditor
-Version:        0.0.15
+Version:        0.1.0
 Release:        0
-Summary:        Manual pages editor
+Summary:        A simple manual pages editor
 License:        GPL-3.0
-# FIXME: use correct group, see "https://en.opensuse.org/openSUSE:Package_group_guidelines"
-Group:          Books/Howtos
-Url:            http://keithhedger.hostingsiteforfree.com/
-Source0:        http://keithhedger.hostingsiteforfree.com/zips/manpageeditor/%{oname}-%{version}.tar.gz
+Group:          Development/Tools/Other
+Url:            http://keithhedger.hostingsiteforfree.com/pages/manpageeditor/help.html
+Source0:        http://khapplications.darktech.org/zips/manpageeditor/%{oname}-%{version}.tar.gz
+# PATCH-FIX-OPENSUSE vs. forbidden I-O at root partition.
+Patch0:         manpageeditor-root-I_O.diff
+# PATCH-FIX-OPENSUSE vs. various errors & warnings about desktop files.
+Patch1:         manpageeditor-desktop-warnings.diff
+
 BuildRequires:  aspell-devel
-BuildRequires:  desktop-file-utils
-BuildRequires:  pkgconfig
+BuildRequires:  ctags
+BuildRequires:  fdupes
+BuildRequires:  gcc-c++
+BuildRequires:  groff
+BuildRequires:  pkgconfig >= 0.9.0
 BuildRequires:  xdg-utils
+BuildRequires:  pkgconfig(gtk+-2.0) >= 2.24.0
 BuildRequires:  pkgconfig(gtksourceview-2.0)
+Requires(post): update-desktop-files
+Requires(pre):  update-desktop-files
 
 %description
-Create,edit,import,preview man-pages.
+Create, edit, import, preview man-pages.
 
 %prep
 %setup -q -n %{oname}-%{version}
-cp -r ManPageEditor/resources/docs/gpl-3.0.txt gpl-3.0.txt
+%patch0
+%patch1
 
 %build
-# FIXME: you should use the %%configure macro
-./configure --prefix=%{_prefix} --enable-aspell
-sed -i "s|update-mime-database %{_datadir}/mime||" Makefile
-sed -i "/gtk-update-icon-cache/d" Makefile %{oname}/app/Makefile
-sed -i "s|xdg-mime install ManPageEditor/resources/documenticons/maneditdoc-mime.xml||" Makefile
-sed -i "s|-Wall|-Wall -fPIC|" Makefile %{oname}/app/Makefile
+%configure \
+           --enable-aspell
 
 %install
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
 %make_install
-desktop-file-install %{buildroot}%{_datadir}/applications/%{oname}.desktop
-rm -fr %{buildroot}%{_datadir}/%{oname}/docs
+
+# Let's use %%doc macro.
+rm %{buildroot}%{_datadir}/%{oname}/docs/gpl-3.0.txt
+
+%fdupes -s %{buildroot}
+
+%post
+%desktop_database_post
+%icon_theme_cache_post
+
+%postun
+%desktop_database_postun
+%icon_theme_cache_postun
 
 %files
 %defattr(-,root,root)
-%doc ChangeLog gpl-3.0.txt
+%doc BUGS-ETC ChangeLog README ManPageEditor/resources/docs/gpl-3.0.txt
 %{_bindir}/%{name}
 %{_datadir}/applications/%{oname}.desktop
-%{_datadir}/%{oname}/examples/*
-%{_datadir}/%{oname}/help/*
+%{_datadir}/%{oname}
 %{_mandir}/man1/manpageeditor.1*
 %{_datadir}/pixmaps/%{oname}.png
 %{_datadir}/icons/hicolor/256x256/apps/%{oname}.png
 
-%changelog
 %changelog
