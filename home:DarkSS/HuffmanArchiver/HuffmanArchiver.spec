@@ -37,19 +37,13 @@
 %define buildviaclang 0
 %endif
 
-%if 0%{?rhel_version} || 0%{?centos_version}
+%if 0%{?rhel_version} || 0%{?centos_version} || 0%{?scientificlinux_version}
 %define clangisntalie 0
 %define buildviaclang 0
 %endif
 
-%if 0%{?fedora} >= 22
-%define buildviaclang 1
-%else
-%define buildviaclang 0
-%endif
-
 # "Extracting debug info… ERROR: No build ID note found."
-%if 0%{?fedora} == 22
+%if 0%{?fedora}
 %define debug_package %{nil}
 %endif
 
@@ -99,6 +93,7 @@ make %{?_smp_mflags} V=1 -k
 cd build
 %endif
 %make_install V=1 -k
+gzip -9 %{buildroot}/%{_mandir}/*/huffar.1
 
 %check
 # Simple text check.
@@ -250,5 +245,6 @@ diff \
 %defattr(-,root,root)
 %doc COPYING* README*
 %{_bindir}/huffar
+%{_mandir}/*/huffar*
 
 %changelog

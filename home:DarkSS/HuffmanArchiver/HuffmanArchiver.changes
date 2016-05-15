@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun May 15 18:06:38 UTC 2016 - dap.darkness@gmail.com
+
+- Added gzipped man page.
+- Scientific Linux and Fedora > 22 support.
+- _service updated because of 0.1.1 release.
+
+-------------------------------------------------------------------
 Sun Jun  7 07:09:50 UTC 2015 - dap.darkness@gmail.com
 
 - Fedora 22 & clang.
