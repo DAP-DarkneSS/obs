@@ -1,0 +1,10 @@
+-------------------------------------------------------------------
+Fri Mar 27 00:00:00 MSK 2015 - huaren.zhong@gmail.com
+
+- Rebuild for Fedora
+
+-------------------------------------------------------------------
+Wed Oct 23 00:00:00 FET 2013 - symbianflo@mandrivausers.ro
+
++ Revision: 24b004a
+- dropped mrb distsuffix, enable debug
