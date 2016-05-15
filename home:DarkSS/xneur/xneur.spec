@@ -1,7 +1,7 @@
 #
 # spec file for package xneur
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,17 +17,20 @@
 
 
 %define major   17
+%define tarballver 0.18.0+git5
 
 Name:           xneur
-Version:        0.17.0
+Version:        0.18.0
 Release:        0
-License:        GPL-2.0+
 Summary:        X Neural Switcher
-Url:            http://www.xneur.ru
+License:        GPL-2.0+
 Group:          System/X11/Utilities
-Source0:        https://launchpad.net/~andrew-crew-kuznetsov/+archive/xneur-stable/+files/xneur_%{version}.orig.tar.gz
+Url:            http://www.xneur.ru
+Source0:        https://launchpad.net/~andrew-crew-kuznetsov/+archive/xneur-stable/+files/xneur_%{tarballver}.orig.tar.gz
+
 BuildRequires:  alsa-utils
 BuildRequires:  fdupes
+BuildRequires:  pkgconfig
 BuildRequires:  xosd-devel
 BuildRequires:  pkgconfig(enchant)
 BuildRequires:  pkgconfig(gtk+-2.0)
@@ -35,14 +38,13 @@ BuildRequires:  pkgconfig(libnotify)
 BuildRequires:  pkgconfig(libpcre)
 Requires:       alsa-utils
 Requires:       aspell
-Recommends:     %{name}-lang
 Recommends:     %{name}-gui
+Recommends:     %{name}-lang
 Recommends:     aspell-en
 Recommends:     aspell-ru
 Recommends:     myspell-american
 Recommends:     myspell-british
 Recommends:     myspell-russian
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 X Neural Switcher (XNeur).
@@ -52,6 +54,7 @@ Automatical switcher of keyboard layout.
 Summary:        Include Files and Libraries
 Group:          Development/Libraries/X11
 Requires:       libxneur%{major} = %{version}
+Requires:       pkgconfig
 Requires:       pkgconfig(enchant)
 Provides:       xneur-devel = %{version}
 Obsoletes:      xneur-devel < 0.9.9
@@ -87,7 +90,6 @@ rm -rf %{buildroot}%{_datadir}/icons/hicolor
 %find_lang %{name}
 
 %post -n libxneur%{major} -p /sbin/ldconfig
-
 %postun -n libxneur%{major} -p /sbin/ldconfig
 
 %files
@@ -95,8 +97,9 @@ rm -rf %{buildroot}%{_datadir}/icons/hicolor
 %doc AUTHORS ChangeLog COPYING NEWS README TODO
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
-%{_libdir}/%{name}/
-%doc %{_mandir}/man?/*
+%dir %{_libdir}/%{name}
+%{_libdir}/%{name}/libxn*.so.*
+%{_mandir}/man?/*
 %dir %{_sysconfdir}/%{name}/
 # Upstream updates a config file. So we must replace it.
 %config %{_sysconfdir}/%{name}/*
@@ -110,7 +113,10 @@ rm -rf %{buildroot}%{_datadir}/icons/hicolor
 %{_includedir}/%{name}/
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
+%dir %{_libdir}/%{name}
+%{_libdir}/%{name}/libxn*.so
 
 %files lang -f %{name}.lang
+%defattr(-,root,root)
 
 %changelog

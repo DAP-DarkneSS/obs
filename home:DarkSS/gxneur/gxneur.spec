@@ -1,7 +1,7 @@
 #
 # spec file for package gxneur
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,14 +16,18 @@
 #
 
 
+%define tarballver 0.18.0+git5
+
 Name:           gxneur
-Version:        0.17.0
+Version:        0.18.0
 Release:        0
-License:        GPL-2.0+
 Summary:        GTK Front-end for XNeur
-Url:            http://www.xneur.ru
+License:        GPL-2.0+
 Group:          System/X11/Utilities
-Source0:        https://launchpad.net/~andrew-crew-kuznetsov/+archive/xneur-stable/+files/gxneur_%{version}.orig.tar.gz
+Url:            http://www.xneur.ru
+Source0:        https://launchpad.net/~andrew-crew-kuznetsov/+archive/xneur-stable/+files/gxneur_%{tarballver}.orig.tar.gz
+
+BuildRequires:  pkgconfig
 BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(enchant)
 BuildRequires:  pkgconfig(glib-2.0)
@@ -35,7 +39,6 @@ BuildRequires:  pkgconfig(xneur) = %{version}
 Requires:       xneur = %{version}
 Recommends:     %{name}-lang
 Provides:       xneur-gui
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 gXNeur is a GTK front-end for XNeur keyboard layout switcher.
@@ -84,8 +87,9 @@ EOF
 %{_datadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/*/%{name}*
-%doc %{_mandir}/man?/*
+%{_mandir}/man?/*
 
 %files lang -f %{name}.lang
+%defattr(-,root,root)
 
 %changelog

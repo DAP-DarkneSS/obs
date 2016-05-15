@@ -1,7 +1,7 @@
 #
 # spec file for package kdeneur
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,25 +16,28 @@
 #
 
 
+%define tarballver 0.18.0+git6
+
 Name:           kdeneur
-Version:        0.17.0
+Version:        0.18.0
 Release:        0
-License:        GPL-2.0+
 Summary:        KDE Front-end for XNeur
-Url:            http://www.xneur.ru
+License:        GPL-2.0+
 Group:          System/X11/Utilities
-Source0:        https://launchpad.net/~andrew-crew-kuznetsov/+archive/xneur-stable/+files/kdeneur_%{version}.orig.tar.gz
+Url:            http://www.xneur.ru
+Source0:        https://launchpad.net/~andrew-crew-kuznetsov/+archive/xneur-stable/+files/kdeneur_%{tarballver}.orig.tar.gz
 # PATCH-FIX-OPENSUSE to fix Qt4 binaries names.
 Patch0:         kdeneur-qt4-bin.patch
 
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libkde4-devel
+BuildRequires:  pkgconfig
 BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(xnconfig) = %{version}
 BuildRequires:  pkgconfig(xneur) = %{version}
 Requires:       xneur = %{version}
 Provides:       xneur-gui
-%kde4_runtime_requires
+%{kde4_runtime_requires}
 
 %description
 KDE frontend for xneur keyboard layout switcher
@@ -59,6 +62,6 @@ make %{?_smp_mflags}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}*
 %{_datadir}/%{name}/
-%doc %{_mandir}/man?/%{name}*
+%{_mandir}/man?/%{name}*
 
 %changelog

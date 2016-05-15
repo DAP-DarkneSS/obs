@@ -28,14 +28,3 @@
  
  # Adjust this line according to your resources.qrc
  resources.cpp : resources.qrc octave-gui.png
---- src/main.cpp.orig	2013-10-24 23:53:54.000000000 +0300
-+++ src/main.cpp	2013-10-24 23:53:54.000000000 +0300
-@@ -19,7 +19,7 @@
- #include <unistd.h>
- 
- static const KLocalizedString description =ki18n("kXneur (KDE X Neural Switcher) is xNeur front-end for KDE ( http://xneur.ru ).\nThis version work with XNeur v.0.16 only");
--static const char version[] = "0.16.0";
-+static const char version[] = "0.17.0";
- 
- int main(int argc, char *argv[])
- {
