@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sun May 15 14:28:05 UTC 2016 - dap.darkness@gmail.com
+
+- 0.3.2
+  * See at http://gtk-apps.org/content/show.php?content=158161
+- kkedit-desktop-warnings.diff was updated.
+- manpageeditor became recommended to prevent runtime warning.
+
+-------------------------------------------------------------------
 Sun May 17 08:41:42 UTC 2015 - dap.darkness@gmail.com
 
 - 0.2.7

@@ -1,33 +1,28 @@
---- KKEdit/resources/pixmaps/KKEditRoot.desktop.orig	2015-05-18 20:44:33.679338200 +0300
-+++ KKEdit/resources/pixmaps/KKEditRoot.desktop	2015-05-18 21:15:38.667338200 +0300
-@@ -2,9 +2,10 @@
- Version=1.0
- Encoding=UTF-8
- Name=KKEdit - Root
-+GenericName=Advanced Text Editor - Root Mode
- Comment=A GTK2 text editor inspired ( but not based on ) BBEdit.
- Terminal=false
- Type=Application
--Categories=System;
--MimeType=text/plain
--Icon=KKEditRoot.png
-+Categories=Utility;TextEditor;GTK;
-+MimeType=text/plain;
-+Icon=KKEditRoot
---- KKEdit/resources/pixmaps/KKEdit.desktop.orig	2015-05-18 20:44:34.720338200 +0300
-+++ KKEdit/resources/pixmaps/KKEdit.desktop	2015-05-18 21:15:37.611338200 +0300
-@@ -2,10 +2,11 @@
+--- KKEdit/resources/pixmaps/KKEdit.desktop.orig	2016-04-29 14:01:38.000000000 +0300
++++ KKEdit/resources/pixmaps/KKEdit.desktop	2016-05-15 17:58:39.619140520 +0300
+@@ -2,8 +2,9 @@
  Version=1.0
  Encoding=UTF-8
  Name=KKEdit
 +GenericName=Advanced Text Editor
- Comment=A GTK2 text editor inspired ( but not based on ) BBEdit.
+ Comment=A GTK2/3 text editor inspired ( but not based on ) BBEdit.
  Terminal=false
  Type=Application
--Categories=Utility;
+-Categories=GTK;GNOME;Utility;
 -MimeType=text/plain
--Icon=KKEdit.png
 +Categories=Utility;TextEditor;GTK;
 +MimeType=text/plain;
-+Icon=KKEdit
- Exec=kkedit %f
+--- KKEdit/resources/pixmaps/KKEditRoot.desktop.orig	2016-04-29 14:01:38.000000000 +0300
++++ KKEdit/resources/pixmaps/KKEditRoot.desktop	2016-05-15 17:58:46.767140520 +0300
+@@ -2,8 +2,9 @@
+ Version=1.0
+ Encoding=UTF-8
+ Name=KKEdit - Root
++GenericName=Advanced Text Editor - Root Mode
+ Comment=A GTK2/3 text editor inspired ( but not based on ) BBEdit.
+ Terminal=false
+ Type=Application
+-Categories=GTK;GNOME;System;
+-MimeType=text/plain
++Categories=Utility;TextEditor;GTK;
++MimeType=text/plain;
