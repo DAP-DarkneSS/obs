@@ -1,7 +1,7 @@
 #
 # spec file for package quimup
 #
-# Copyright (c) 2015 Packman team: http://packman.links2linux.org/
+# Copyright (c) 2016 Packman team: http://packman.links2linux.org/
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,24 +17,23 @@
 
 
 Name:           quimup
-Version:        1.4.0
+Version:        1.4.1
 Release:        0
 Summary:        A client for the music player daemon (MPD)
 License:        GPL-3.0+
 Group:          Productivity/Multimedia/Sound/Players
 Url:            http://www.coonsden.com/
-Source0:        http://sourceforge.net/projects/musicpd/files/Quimup/%{version}/%{name}_%{version}_src.tar.gz
+Source0:        http://coonsden.com/dl0ads/quimup_%{version}_source.tar.gz
 Source1:        %{name}.desktop
 Patch0:         quimup-gcc47.patch
-# PATCH-FIX-UPSTREAM qt5-5.5.patch avvissu@yandex.ru -- Fix build with Qt5 >= 5.5
-Patch1:         quimup-1.4.0_qt5-5.5.patch
+
 BuildRequires:  libmpdclient-devel
+BuildRequires:  pkgconfig
 BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(Qt5Network)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(taglib)
 Requires:       mpd
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 QUIMUP is a client for the music player daemon (MPD) written in C++ and QT3.
@@ -51,7 +50,7 @@ Quimup turns MPD into a perfect desktop music player.
 %setup -c -T
 tar -xzf %{SOURCE0} --strip-components=1
 %patch0 -p1
-%patch1 -p1
+
 
 %build
 qmake-qt5 \
@@ -64,7 +63,7 @@ make %{?_smp_mflags}
 
 
 %install
-make DESTDIR=%{buildroot} install %{?_smp_mflags}
+make %{?_smp_mflags} DESTDIR=%{buildroot} install
 install -D -m 755 %{name} %{buildroot}/%{_bindir}/%{name}
 install -D -m 644 %{SOURCE1} %{buildroot}/%{_datadir}/applications/%{name}.desktop
 install -D -m 644 src/resources/mn_icon.png %{buildroot}/%{_datadir}/pixmaps/%{name}.png
