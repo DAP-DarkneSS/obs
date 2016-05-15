@@ -15,26 +15,26 @@
 # Please submit bugfixes or comments via https://bugs.links2linux.org/
 #
 
-Name:		quimup
+
+Name:           quimup
 Version:        1.4.0
-Release:	1
-
-License:	GPL-3.0+
-Summary:	A client for the music player daemon (MPD)
-Group:		Productivity/Multimedia/Sound/Players
-URL:		http://www.coonsden.com/
-
-Source0:	http://sourceforge.net/projects/quimup/files/quimup%20%{version}/quimup_%{version}_src.tar.gz
-Source1:	%{name}.desktop
-
-Patch0:		quimup-gcc47.patch
-
+Release:        0
+Summary:        A client for the music player daemon (MPD)
+License:        GPL-3.0+
+Group:          Productivity/Multimedia/Sound/Players
+Url:            http://www.coonsden.com/
+Source0:        http://sourceforge.net/projects/musicpd/files/Quimup/%{version}/%{name}_%{version}_src.tar.gz
+Source1:        %{name}.desktop
+Patch0:         quimup-gcc47.patch
+# PATCH-FIX-UPSTREAM qt5-5.5.patch avvissu@yandex.ru -- Fix build with Qt5 >= 5.5
+Patch1:         quimup-1.4.0_qt5-5.5.patch
 BuildRequires:  libmpdclient-devel
-BuildRequires:  libqt4-devel >= 4.6
 BuildRequires:  update-desktop-files
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(taglib)
-
-Requires:	mpd
+Requires:       mpd
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 QUIMUP is a client for the music player daemon (MPD) written in C++ and QT3.
@@ -46,28 +46,28 @@ The focus is on mouse handling: playlist management is done entirely by drag-&-d
 playback functions are directly accessible from the system tray.
 Quimup turns MPD into a perfect desktop music player.
 
-
 %prep
-%setup -q -n %{name}_%{version}
+# we don't want a space in the path
+%setup -c -T
+tar -xzf %{SOURCE0} --strip-components=1
 %patch0 -p1
+%patch1 -p1
 
 %build
-%__sed -i -e "s|/usr/lib/libmpdclient.so|/usr/%{_lib}/libmpdclient.so|g" %{name}.pro
-
-qmake \
+qmake-qt5 \
 QMAKE_STRIP="" \
 QMAKE_CFLAGS+="%{optflags}" \
 QMAKE_CXXFLAGS+="%{optflags}" \
 %{name}.pro
 
-%__make %{?jobs:-j%{jobs}}
+make %{?_smp_mflags}
 
 
 %install
-%makeinstall
-%__install -D -m 755 %{name} %{buildroot}/%{_bindir}/%{name}
-%__install -D -m 644 %{SOURCE1} %{buildroot}/%{_datadir}/applications/%{name}.desktop
-%__install -D -m 644 src/resources/mn_icon.png %{buildroot}/%{_datadir}/pixmaps/%{name}.png
+make DESTDIR=%{buildroot} install %{?_smp_mflags}
+install -D -m 755 %{name} %{buildroot}/%{_bindir}/%{name}
+install -D -m 644 %{SOURCE1} %{buildroot}/%{_datadir}/applications/%{name}.desktop
+install -D -m 644 src/resources/mn_icon.png %{buildroot}/%{_datadir}/pixmaps/%{name}.png
 %suse_update_desktop_file -r %{name} AudioVideo Player
 
 
@@ -77,6 +77,5 @@ QMAKE_CXXFLAGS+="%{optflags}" \
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
-
 
 %changelog

@@ -1,10 +1,16 @@
 -------------------------------------------------------------------
-Tue Mar 24 18:23:54 UTC 2015 - dap.darkness@gmail.com
+Mon Oct  5 05:29:40 UTC 2015 - avvissu@yandex.ru
 
-- new upstream version <1.4.0>
-  * Coded: Migrated the code to QT5.
+- Fix build on openSUSE > 13.2: quimup-1.4.0_qt5-5.5.patch
+
+-------------------------------------------------------------------
+Tue Mar 24 13:05:19 UTC 2015 - aloisio@gmx.com
+
+- update to version 1.4.0
+  * Coded: Migrated the code to QT5
   * Fixed: After changing colors wrong album-art could be shown.
   * Added: Use embedded cover art from asf and ape-tagged mp3.
+- spec cleanup
 
 -------------------------------------------------------------------
 Tue Jul  8 18:51:04 UTC 2014 - dap.darkness@gmail.com
