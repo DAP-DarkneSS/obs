@@ -1,7 +1,9 @@
 # vim: set ts=4 sw=4 et:
-
+#
+# spec file for package smplayer-themes
+#
 # Copyright (c) 2012 Pascal Bleser <pascal.bleser@opensuse.org>
-# Copyright (c) 2015 Packman team: http://packman.links2linux.org/
+# Copyright (c) 2016 Packman team: http://packman.links2linux.org/
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,17 +19,17 @@
 
 
 Name:           smplayer-themes
-Version:        15.6.0
-Release:        1.pm.1
+Version:        16.5.2
+Release:        0
 Summary:        Icon Themes for SMPlayer
-Source:         http://prdownloads.sourceforge.net/smplayer/smplayer-themes-%{version}.tar.bz2
-URL:            http://smplayer.sourceforge.net/
-Group:          Productivity/Multimedia/Video/Players
 License:        GPL-2.0+
-BuildRoot:      %{_tmppath}/build-%{name}-%{version}
-BuildRequires:  make
+Group:          Productivity/Multimedia/Video/Players
+Url:            http://smplayer.sourceforge.net/
+Source:         http://prdownloads.sourceforge.net/smplayer/smplayer-themes-%{version}.tar.bz2
+
 BuildRequires:  fdupes
 BuildRequires:  libqt4-devel >= 4.2.0
+BuildRequires:  make
 Requires:       smplayer-core >= 14.9.0
 BuildArch:      noarch
 

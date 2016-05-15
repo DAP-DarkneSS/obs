@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sun May 15 13:41:34 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 16.5.2 (changes from 15.6.0):
+  * New themes Breeze and Breeze-dark by andreas_k;
+  * Add a record icon to the H2O theme;
+  * Change the AutohideWidget border in the H2O theme;
+  * Add the Masalla theme;
+  * Update the H2O theme;
+  * Some fixes.
+
+-------------------------------------------------------------------
 Tue Jun 16 16:18:21 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 15.6.0
