@@ -1,4 +1,64 @@
 -------------------------------------------------------------------
+Wed Mar 16 14:14:58 UTC 2016 - mpluskal@suse.com
+
+- 20160307
+  * Merge with NetBSD make, pick up
+    + var.c: fix :ts\nnn to be octal by default.
+    + meta.c: meta_finish() to cleanup memory.
+    + meta.c: allow meta file for makeDepend if makefiles want it.
+    + var.c: add knob to control handling of '$$' in :=
+    + var.c: add .export-literal allows us to fix sys.clean-env.mk
+      post the changes to Var_Subst. Var_Subst now takes flags, and 
+      does not consume '$$' in :=
+    + ar.c: preserve '$$' in :=
+    + parse.c: add .dinclude for handling included makefile like 
+      .depend
+- Use correct package group
+
+-------------------------------------------------------------------
+Sun Dec 27 19:38:53 UTC 2015 - mpluskal@suse.com
+
+- Update to 20151220
+  * suff.c: re-initialize suffNull when clearing suffixes.
+  * cond.c: CondCvtArg: avoid access beyond end of empty buffer.
+  * meta.c: meta_oodate: use lstat(2) for checking link target in 
+    case it is a symlink.
+  * var.c: avoid calling brk_string and Var_Export1 with empty 
+    strings.
+
+-------------------------------------------------------------------
+Sat Nov 14 10:32:51 UTC 2015 - mpluskal@suse.com
+
+- Update to 20151022
+  * Makefile (MAKE_VERSION): 20151022
+
+  * Add support for BSD/OS which lacks inttypes.h
+    and really needs sys/param.h for sys/sysctl.h
+    also 'type' is not a shell builtin.
+  * var.c: eliminate uint32_t and need for inttypes.h
+  * main.c: PrintOnError flush stdout before run .ERROR
+  * parse.c: cope with _SC_PAGESIZE not being defined.
+- For reso of changes see Changelog
+- Tiny spec file polishing
+
+-------------------------------------------------------------------
+Mon Oct  5 20:26:15 UTC 2015 - mpluskal@suse.com
+
+- Update to 20150910
+  * Merge with NetBSD make, pick up
+    + main.c: with -w print Enter/Leaving messages for objdir too 
+      if necessary.
+    + centralize shell metachar handling
+  * FILES: add metachar.[ch]
+
+-------------------------------------------------------------------
+Wed Aug  5 14:12:57 UTC 2015 - mpluskal@suse.com
+
+- Update to 20150606
+  * Merge with NetBSD make, pick up
+    + o make.1: document .OBJDIR target
+
+-------------------------------------------------------------------
 Sun May 17 08:18:52 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 20150505:
