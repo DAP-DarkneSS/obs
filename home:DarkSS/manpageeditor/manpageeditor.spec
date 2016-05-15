@@ -40,8 +40,10 @@ BuildRequires:  pkgconfig >= 0.9.0
 BuildRequires:  xdg-utils
 BuildRequires:  pkgconfig(gtk+-2.0) >= 2.24.0
 BuildRequires:  pkgconfig(gtksourceview-2.0)
+Requires(post): hicolor-icon-theme
 Requires(post): update-desktop-files
-Requires(pre):  update-desktop-files
+Requires(postun): hicolor-icon-theme
+Requires(postun): update-desktop-files
 
 %description
 Create, edit, import, preview man-pages.
