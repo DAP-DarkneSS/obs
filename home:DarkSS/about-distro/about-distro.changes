@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue May 17 08:29:40 UTC 2016 - dap.darkness@gmail.com
+
+- Update to version 1.1.0:
+  * made messages (.desktop file);
+  * remove lsbrelease and finish os-release port.
+
+-------------------------------------------------------------------
 Sun May 18 19:30:32 UTC 2014 - asterios.dramis@gmail.com
 
 - Update to version 1.0.1:

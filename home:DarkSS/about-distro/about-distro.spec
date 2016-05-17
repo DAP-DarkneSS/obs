@@ -1,7 +1,7 @@
 #
 # spec file for package about-distro
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,19 +17,19 @@
 
 
 Name:           about-distro
-Version:        1.0.1
+Version:        1.1.0
 Release:        0
 Summary:        KCM module to show info about system
 License:        GPL-2.0+
 Group:          System/GUI/KDE
-Url:            https://projects.kde.org/projects/playground/base/about-distro
-Source0:        ftp://ftp.kde.org/pub/kde/stable/about-distro/%{version}/src/about-distro-%{version}.tar.xz
+Url:            https://quickgit.kde.org/?p=about-distro.git
+Source0:        http://download.kde.org/stable/about-distro/%{version}/src/about-distro-%{version}.tar.xz
 Source1:        kcm-about-distrorc
 BuildRequires:  libkde4-devel
 Requires:       kdebase4-workspace
 # The distro logo file:
 Requires:       kdebase4-workspace-branding-openSUSE
-%kde4_runtime_requires
+%{kde4_runtime_requires}
 
 %description
 KCM module to show info about system.
