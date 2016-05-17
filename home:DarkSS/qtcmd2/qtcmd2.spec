@@ -1,7 +1,7 @@
 #
 # spec file for package qtcmd2
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,29 +17,36 @@
 
 
 Name:           qtcmd2
-Version:        20130716_1313
+# NOTE CMakeLists.txt provides version:
+Version:        0.3.1+git
 Release:        0
-License:        GPL-2.0+
 Summary:        Qt Filemanager
-Url:            http://qtcmd.nes.pl/
+License:        GPL-2.0+
 Group:          Productivity/File utilities
-Source0:        http://qtcmd.nes.pl/download/snapshots/qtcmd2-%{version}.tar.bz2
+Url:            http://www.qtcmd.org
+Source0:        qtcmd2-%{version}.tar.xz
+Source9:        qtcmd2.1
 
 BuildRequires:  cmake
 BuildRequires:  fdupes
-BuildRequires:  pkgconfig(QtGui)
+BuildRequires:  pkgconfig
+BuildRequires:  pkgconfig(phonon)
 
 
 %description
-QtCommander is an advanced two-panel file manager for Linux
-Operating System, similar to similar application for Microsoft
-Windows named Total Commander or Krusader for KDE.
+QtCommander is a two-panel file manager for Linux, similar to application
+for Microsoft Windows named Total Commander or Krusader for KDE.
 
 
 %prep
-%setup -q -n %{name}
-rm iconsets/default/svg2png.sh
-
+%setup -q
+# SED-FIX-OPENSUSE to set right library directory:
+sed -i 's/DESTINATION lib/DESTINATION %{_lib}/g' \
+    libs/*/CMakeLists.txt
+sed -i 's/DESTINATION lib/DESTINATION %{_lib}/g' \
+    plugins/*/*/CMakeLists.txt
+sed -i 's/\/..\/lib\/qtcmd2\/plugins/\/..\/%{_lib}\/qtcmd2\/plugins/g' \
+    src/mainwindow.cpp
 
 %build
 cmake \
@@ -48,12 +55,13 @@ cmake \
       -DCMAKE_INSTALL_PREFIX=%{_prefix} \
       -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
-# Don't use {?_smp_mflags} !
-make VERBOSE=1
+make %{?_smp_mflags} V=1 -k
 
 
 %install
 %make_install
+mkdir -p %{buildroot}%{_mandir}/man1
+gzip -c9 %{SOURCE9} | tee -a %{buildroot}%{_mandir}/man1/%{name}.1.gz
 %fdupes -s %{buildroot}%{_datadir}/icons/%{name}/default
 
 
@@ -66,9 +74,10 @@ make VERBOSE=1
 %defattr(-,root,root)
 %doc COPYING qtcmd-FAQ.txt README
 %{_bindir}/%{name}
-%{_prefix}/lib/lib%{name}xdgmime.so
-%{_prefix}/lib/%{name}
+%{_libdir}/lib%{name}*.so
+%{_libdir}/%{name}
 %{_datadir}/icons/%{name}
-
+%exclude %{_datadir}/icons/%{name}/default/svg2png.sh
+%{_mandir}/man1/%{name}.1.gz
 
 %changelog

@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Tue May 17 09:16:56 UTC 2016 - dap.darkness@gmail.com
+
+- 0.3.1;
+- tar_scm service;
+- man page;
+- right libraries directory;
+- general spec clean-up.
+
+-------------------------------------------------------------------
 Sat Oct 12 22:08:21 UTC 2013 - dap.darkness@gmail.com
 
 - Initial build.
