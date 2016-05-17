@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun May 18 19:30:32 UTC 2014 - asterios.dramis@gmail.com
+
+- Update to version 1.0.1:
+  * solid can return empty processor list, hide labels when that happens.
+  * fix potentially wrong ram calculation.
+
+-------------------------------------------------------------------
 Wed Dec 18 19:28:43 UTC 2013 - dap.darkness@gmail.com
 
 - Imported from ROSA.

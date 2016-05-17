@@ -1,7 +1,7 @@
 #
 # spec file for package about-distro
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           about-distro
-Version:        1.0.0
+Version:        1.0.1
 Release:        0
 Summary:        KCM module to show info about system
 License:        GPL-2.0+
@@ -31,34 +31,29 @@ Requires:       kdebase4-workspace
 Requires:       kdebase4-workspace-branding-openSUSE
 %kde4_runtime_requires
 
-
 %description
 KCM module to show info about system.
 
 It can be customized by kcm-about-distrorc file
 in KDE config directory.
 
-
 %prep
 %setup -q
-
 
 %build
 %cmake_kde4 -d build
 %make_jobs
 
 %install
-cd build
-%make_install
-%find_lang kcm-about-distro
-install -D -m644 %{SOURCE1} %{buildroot}/%{_kde4_configdir}/kcm-about-distrorc
+%kde4_makeinstall -C build
 
+%find_lang kcm-about-distro
+install -Dpm 0644 %{SOURCE1} %{buildroot}%{_kde4_configdir}/kcm-about-distrorc
 
 %kde_post_install
 
-
-%files -f build/kcm-about-distro.lang
-%defattr(-,root,root)
+%files -f kcm-about-distro.lang
+%defattr(-,root,root,-)
 %doc COPYING README
 %{_kde_libdir}/kde4/kcm_about_distro.so
 %{_kde4_servicesdir}/%{name}.desktop
