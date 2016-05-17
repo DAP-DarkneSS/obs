@@ -1,7 +1,7 @@
 #
 # spec file for package krusader
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,27 +16,22 @@
 #
 
 
-%define tar_version 2.4.0-beta3
 Name:           krusader
-Version:        2.4.0~beta3
+Version:        2.4.0~beta3+git129
 Release:        0
 Summary:        A File Manager
 License:        GPL-2.0+
 Group:          Productivity/File utilities
 Url:            http://krusader.sourceforge.net/
-Source:         %{name}-%{tar_version}.tar.bz2
+Source:         %{name}-%{version}.tar.xz
 Source1:        krusader_browse_iso.desktop
-# PATCH-FIX-OPENSUSE krusader-2.4.0-beta2-generate-manpage.patch -- generate manpage
-Patch0:         krusader-2.4.0-beta2-generate-manpage.patch
-# PATCH-FIX-UPSTREAM bug309159.patch [kde#309159]
-Patch1:         bug309159.patch
+
 BuildRequires:  fdupes
 BuildRequires:  libkde4-devel
 BuildRequires:  libkonq-devel
 Requires:       kio_iso = %{version}
 Requires:       libktexteditor
 Suggests:       %{name}-doc
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %{kde4_runtime_requires}
 
 %description
@@ -61,12 +56,12 @@ Group:          Productivity/File utilities
 An advanced twin panel (commander style) file manager for KDE.
 
 %prep
-%setup -q -n %{name}-%{tar_version}
-%patch0 -p1
-%patch1 -p1
+%setup -q
+sed -i 's/2.4.0-beta3/v2.4.0-beta3-129-ge5c4d9a/g' CMakeLists.txt
+sed -i 's/Single Step/KDE4 the last/g' CMakeLists.txt
 
 %build
-export RPM_OPT_FLAGS="%{optflags} -fpermissive"
+export RPM_OPT_FLAGS="%{optflags} -fno-strict-aliasing"
 %cmake_kde4 -d build
 %make_jobs
 
@@ -107,9 +102,5 @@ cp %{SOURCE1} %{buildroot}%{_kde4_servicesdir}/ServiceMenus/
 %files doc
 %defattr(-,root,root)
 %doc %lang(en) %{_kde4_htmldir}/en/krusader
-%doc %lang(uk) %{_kde4_htmldir}/uk/krusader
-%doc %lang(sv) %{_kde4_htmldir}/sv/krusader
-%doc %lang(pt) %{_kde4_htmldir}/pt/krusader
-%doc %lang(pt_BR) %{_kde4_htmldir}/pt_BR/krusader
 
 %changelog

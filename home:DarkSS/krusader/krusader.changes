@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Tue May 17 11:46:14 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 2.4.0~beta3+git129;
+- Removed bug309159.patch;
+- Removed krusader-2.4.0-beta2-generate-manpage.patch;
+- General spec clean-up;
+- Removed -fpermissive;
+- Added -fno-strict-aliasing to skip a warning.
+
+-------------------------------------------------------------------
 Tue May 26 11:30:52 UTC 2015 - tchvatal@suse.com
 
 - Only suggest documentation, do not recommend it.
