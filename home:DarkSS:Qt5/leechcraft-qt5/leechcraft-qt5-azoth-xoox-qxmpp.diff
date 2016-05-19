@@ -1,0 +1,32 @@
+diff --git a/src/plugins/azoth/plugins/xoox/cmake/FindQXmpp.cmake b/src/plugins/azoth/plugins/xoox/cmake/FindQXmpp.cmake
+index 652d57c..6448f7a 100644
+--- a/src/plugins/azoth/plugins/xoox/cmake/FindQXmpp.cmake
++++ b/src/plugins/azoth/plugins/xoox/cmake/FindQXmpp.cmake
+@@ -12,7 +12,11 @@
+ 
+ find_path(QXMPP_INCLUDE_DIR
+ 	NAMES
+-	qxmpp/QXmppClient.h
++	if (NOT USE_QT5)
++		qxmpp/QXmppClient.h
++	else ()
++		qxmpp-qt5/QXmppClient.h
++	endif ()
+ 	HINTS
+ 	${QXMPP_DIR}/include
+ 	PATH
+@@ -48,9 +52,11 @@ endif()
+ 
+ if(QXMPP_LIBRARIES AND QXMPP_INCLUDE_DIR)
+ 	if(NOT QXMPP_LOCAL)
+-		set(QXMPP_INCLUDE_DIR
+-			${QXMPP_INCLUDE_DIR}/qxmpp
+-		)
++		if (NOT USE_QT5)
++			set(QXMPP_INCLUDE_DIR ${QXMPP_INCLUDE_DIR}/qxmpp)
++		else ()
++			set(QXMPP_INCLUDE_DIR ${QXMPP_INCLUDE_DIR}/qxmpp-qt5)
++		endif ()
+ 	endif()
+ 	set(QXMPP_FOUND 1)
+ endif()

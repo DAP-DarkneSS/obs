@@ -1,0 +1,13 @@
+diff --git a/src/plugins/azoth/cmake/FindQCA2.cmake b/src/plugins/azoth/cmake/FindQCA2.cmake
+index cf87108..0fe0137 100644
+--- a/src/plugins/azoth/cmake/FindQCA2.cmake
++++ b/src/plugins/azoth/cmake/FindQCA2.cmake
+@@ -44,7 +44,7 @@ else ()
+ 	endif ()
+ 
+ 	find_path(QCA2_INCLUDE_DIR QtCrypto
+-				HINTS ${PC_QCA2_INCLUDEDIR} ${PC_QCA2_INCLUDE_DIRS} ${QCA2_DIR}/include
++				HINTS ${PC_QCA2_INCLUDEDIR} ${PC_QCA2_INCLUDE_DIRS} ${QCA2_DIR}/include /usr/include/qt5/Qca-qt5
+ 				PATH_SUFFIXES QtCrypto)
+ 
+ 
