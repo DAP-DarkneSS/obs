@@ -52,10 +52,9 @@
  /**/
 --- src/modules/Extensions/icons.qrc.orig	2016-02-29 21:17:29.000000000 +0300
 +++ src/modules/Extensions/icons.qrc	2016-03-12 13:04:34.278846080 +0300
-@@ -1,7 +1,6 @@
+@@ -1,6 +1,5 @@
  <RCC>
  	<qresource>
- 		<file alias="browserengine">browserengine.png</file>
 -		<file alias="prostopleer">prostopleer.png</file>
  		<file alias="downloader">downloader.png</file>
  		<file alias="youtube">youtube.png</file>
