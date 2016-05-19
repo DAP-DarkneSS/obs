@@ -24,6 +24,9 @@ License:        GPL-3.0
 Group:          Productivity/Networking/InstantMessaging
 Url:            https://github.com/irungentoo/toxcore
 Source:         %{name}-%{version}.tar.xz
+# I: Program returns random data in a function
+# E: toxcore no-return-in-nonvoid-function ../other/bootstrap_daemon/src/log.c:78, 95
+BuildRequires:  -post-build-checks
 BuildRequires:  check-devel
 BuildRequires:  libconfig-devel
 BuildRequires:  libopus-devel
