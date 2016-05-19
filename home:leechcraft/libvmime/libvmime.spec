@@ -18,6 +18,7 @@
 
 Name:           libvmime
 %define lname	libvmime-0_9_2-2
+%define majver	0.9.2
 Summary:        Library for working with MIME messages and IMAP/POP/SMTP
 License:        GPL-3.0+
 Group:          Development/Libraries/C and C++
@@ -29,7 +30,7 @@ Url:            http://vmime.org/
 #Git-Web:	https://github.com/kisli/vmime
 #Snapshot:	v0.9.1-432-g674c369
 #Source:	http://downloads.sf.net/vmime/%name-%version.tar.bz2
-Source:         %name-0.9.1+git432.tar.xz
+Source:         vmime-%{version}.tar.xz
 Patch1:         libvmime-nodatetime.diff
 Patch2:         libvmime-sotag.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -99,7 +100,7 @@ over the Internet. The library offers all the features to build a
 complete mail client.
 
 %prep
-%setup -qn vmime
+%setup -qn vmime-%{version}
 %patch -P 1 -P 2 -p1
 
 %build
@@ -135,7 +136,7 @@ mkdir -p "$b/%_docdir/%name"
 cp -a doc/book/book.pdf "$b/%_docdir/%name/"
 %endif
 make install DESTDIR="$b"
-ln -s libvmime-%version.so "$b/%_libdir/libvmime.so"
+ln -s libvmime-%{majver}.so "$b/%_libdir/libvmime.so"
 find "$b" -type f -name "*.la" -delete;
 
 %post   -n %lname -p /sbin/ldconfig
@@ -144,12 +145,12 @@ find "$b" -type f -name "*.la" -delete;
 %files -n %lname
 %defattr(-,root,root)
 %doc COPYING
-%_libdir/%name-%version.so.2*
+%_libdir/%name-%{majver}.so.2*
 
 %files devel
 %defattr(-,root,root)
 %_includedir/vmime
-%_libdir/libvmime-%version.so
+%_libdir/libvmime-%{majver}.so
 %_libdir/libvmime.so
 %_libdir/pkgconfig/*.pc
 %if 0%{?with_pdf}
