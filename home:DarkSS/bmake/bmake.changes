@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Wed May 25 08:29:49 UTC 2016 - dap.darkness@gmail.com
+
+- 20160512
+  * Merge with NetBSD make, pick up
+    + meta.c: ignore paths that match .MAKE.META.IGNORE_PATTERNS
+      this is useful for gcov builds.
+    + propagate errors from filemon(4).
+    + remove use of non-standard types u_int etc.
+    + meta.c: apply realpath() before matching against metaIgnorePaths
+    + allow makefile to set .MAKE.JOBS
+  * Makefile (PROG_NAME): use ${_MAKE_VERSION}
+
+-------------------------------------------------------------------
 Sun May 15 11:51:53 UTC 2016 - dap.darkness@gmail.com
 
 - 20160315

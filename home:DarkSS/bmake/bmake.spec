@@ -17,7 +17,7 @@
 
 
 Name:           bmake
-Version:        20160315
+Version:        20160512
 Release:        0
 Summary:        The NetBSD make(1) tool
 License:        BSD-2-Clause and BSD-3-Clause and BSD-4-Clause
