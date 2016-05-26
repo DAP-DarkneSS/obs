@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu May 26 12:19:48 UTC 2016 - dap.darkness@gmail.com
+
+- BuildRequires tags were fixed up (pkgconfig).
+- Introduced data noarch subpackage.
+- Prevented usage of bundled ode library.
+
+-------------------------------------------------------------------
 Sat May 21 08:26:19 UTC 2016 - dimstar@opensuse.org
 
 - Add xmoto-nobuild_date.patch: Do not add build date and time

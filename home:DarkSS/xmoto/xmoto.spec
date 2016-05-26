@@ -29,24 +29,25 @@ Source1:        %{name}.appdata.xml
 Patch0:         %{name}-0.5.5-basedir.patch
 # PATCH-FIX-OPENSUSE xmoto-nobuild_date.patch dimstar@opensuse.org -- Do not add build time and date: it's useless information
 Patch100:       %{name}-nobuild_date.patch
+
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
-BuildRequires:  libSDL-devel
-BuildRequires:  libSDL_mixer-devel
-BuildRequires:  libSDL_net-devel
-BuildRequires:  libSDL_ttf-devel
 BuildRequires:  libjpeg-devel
-BuildRequires:  libode-devel
-BuildRequires:  libxml2-devel
+BuildRequires:  pkgconfig
 BuildRequires:  update-desktop-files
+BuildRequires:  pkgconfig(SDL_mixer)
+BuildRequires:  pkgconfig(SDL_net)
+BuildRequires:  pkgconfig(SDL_ttf)
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(glu)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libpng)
+BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(lua)
+BuildRequires:  pkgconfig(ode)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(zlib)
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+Requires:       %{name}-data = %{version}
 
 %description
 X-Moto is a challenging 2D motocross platform game, where physics play
@@ -56,10 +57,22 @@ the challenges.  First you'll try just to complete the levels, while
 later you'll compete with yourself and others, racing against the
 clock.
 
+%package data
+Summary:        Xmoto architecture independent data
+Group:          Amusements/Games/Action/Other
+Requires:       %{name} = %{version}
+BuildArch:      noarch
+
+%description data
+Xmoto translations and some other architecture independent data.
+
 %prep
 %setup -q
 %patch0 -p1
 %patch100 -p1
+# Let's always use system's ode:
+rm -rf src/ode
+ln -s %{_includedir}/ode src/ode
 
 %build
 CXXFLAGS="%{optflags} -fno-strict-aliasing" \
@@ -77,15 +90,18 @@ install -p -D -m 644 %{SOURCE1} %{buildroot}%{_datadir}/appdata/%{name}.appdata.
 %suse_update_desktop_file -i %{name}
 %find_lang %{name}
 
-%files -f %{name}.lang
+%files
 %defattr(-, root, root)
 %doc AUTHORS README
 %{_bindir}/%{name}
-%{_datadir}/%{name}
 %{_mandir}/man6/%{name}.6%{ext_man}
 %{_datadir}/pixmaps/xmoto.xpm
 %dir %{_datadir}/appdata
 %{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
+
+%files data -f %{name}.lang
+%defattr(-, root, root)
+%{_datadir}/%{name}
 
 %changelog
