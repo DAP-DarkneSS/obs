@@ -25,7 +25,8 @@ Group:          Development/Tools/Building
 Url:            ftp://ftp.NetBSD.org/pub/NetBSD/misc/sjg/
 Source0:        ftp://ftp.NetBSD.org/pub/NetBSD/misc/sjg/bmake-%{version}.tar.gz
 Source1:        Linux.sys.mk
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+# PATCH-FIX-OPENSUSE to fix MAKE_VERSION variable & mk-configure package.
+Patch0:         bmake-MAKE_VERSION.diff
 
 %description
 bmake, the NetBSD make(1) tool, is a program designed to simplify the
@@ -39,6 +40,7 @@ supported in Makefiles is very different.
 
 %prep
 %setup -q -n %{name}
+%patch0
 
 %build
 unset MAKEFLAGS
