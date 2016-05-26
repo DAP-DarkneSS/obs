@@ -1,4 +1,24 @@
 -------------------------------------------------------------------
+Thu May 26 10:26:03 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 0.13:
+  * Stable, implicit gyroscopic forces.
+  * New joint: transmission joint.
+  * Contacts now have rolling friction.
+  * Removed the need for defining dSINGLE/dDOUBLE.
+  * New joint: Double Ball (AKA "distance joint").
+  * New joint: Double Hinge.
+  * Threaded execution support interface added (experimental).
+  * Many bugs were fixed.
+- General clean-up via `spec-cleaner`.
+- Source tag was fixed up to use the upstream download URL.
+- License tag was fixed. Thanks to @AndreasStieger.
+- BuildRequires tags were fixed up.
+- Project should have the same name as upstream & pkgconfig.
+- Added simple man page for ode-config.
+- Added `make check` section (fails for i586).
+
+-------------------------------------------------------------------
 Sun Feb 19 23:22:59 UTC 2012 - jengelh@medozas.de
 
 - Use proper LIBS variable for slipping in X11

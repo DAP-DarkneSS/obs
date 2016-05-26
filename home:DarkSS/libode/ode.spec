@@ -1,7 +1,7 @@
 #
-# spec file for package libode
+# spec file for package ode
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,21 +16,23 @@
 #
 
 
-Name:           libode
-%define lname	libode1
+%define so_maj  3
+%define lname   libode%{so_maj}
+
+Name:           ode
+Url:            http://ode.org/
+Summary:        Open Dynamics Engine Library
+License:        LGPL-2.1+ or BSD-3-Clause or Zlib
+Group:          Development/Libraries/C and C++
+Version:        0.13
+Release:        0
+Source0:        https://sourceforge.net/projects/opende/files/ODE/%{version}/ode-%{version}.tar.bz2
+Source9:        ode-config.1
+
 BuildRequires:  Mesa-devel
 BuildRequires:  freeglut-devel
 BuildRequires:  gcc-c++
-BuildRequires:  sed
-BuildRequires:  unzip
-Url:            http://ode.org/
-Summary:        Open Dynamics Engine Library
-License:        LGPL-2.1+
-Group:          Development/Libraries/C and C++
-Version:        0.11.1
-Release:        0
-Source0:        ode-%{version}.tar.bz2
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+BuildRequires:  pkgconfig
 
 %description
 ODE is an open source, high performance library for simulating rigid
@@ -41,15 +43,11 @@ simulating vehicles, objects in virtual reality environments and
 virtual creatures. It is currently used in many computer games, 3D
 authoring tools and simulation tools.
 
-Authors:
---------
-    Russell Smith
-
-%package -n %lname
+%package -n %{lname}
 Summary:        Open Dynamics Engine Library development files
 Group:          System/Libraries
 
-%description -n %lname
+%description -n %{lname}
 ODE is an open source, high performance library for simulating rigid
 body dynamics. It is fully featured, stable, mature and platform
 independent with an easy to use C/C++ API. It has advanced joint types
@@ -59,9 +57,10 @@ virtual creatures. It is currently used in many computer games, 3D
 authoring tools and simulation tools.
 
 %package devel
-Requires:       %lname = %version
 Summary:        Open Dynamics Engine Library development files
 Group:          Development/Libraries/C and C++
+Requires:       %{lname} = %{version}
+Provides:       libode-devel = %{version}
 
 %description devel
 ODE is an open source, high performance library for simulating rigid
@@ -72,41 +71,46 @@ simulating vehicles, objects in virtual reality environments and
 virtual creatures. It is currently used in many computer games, 3D
 authoring tools and simulation tools.
 
-Authors:
---------
-    Russell Smith
-
 %prep
-%setup -n ode-%{version}
+%setup -q -n ode-%{version}
 
 %build
-touch NEWS README AUTHORS ChangeLog
 #autoreconf -fi
-CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
+CFLAGS="%{optflags} -fno-strict-aliasing"
 CXXFLAGS="$CFLAGS"
 export CFLAGS CXXFLAGS
 export X_LIBS="-lX11"
 %configure --enable-shared --disable-static
-make %{?_smp_mflags}
+make V=1 %{?_smp_mflags}
 
 %install
-make install DESTDIR="%buildroot"
-rm -f "%buildroot/%_libdir"/*.la
+make V=1 %{?_smp_mflags} DESTDIR=%{buildroot} install
+mkdir -p %{buildroot}%{_mandir}/man1
+gzip -c9 %{SOURCE9} | tee -a %{buildroot}%{_mandir}/man1/ode-config.1.gz
+find %{buildroot} -type f -name "*.la" -delete -print
 
-%post -n %lname -p /sbin/ldconfig
+%ifarch %{ix86}
+# Fail.
+%else
+%check
+make V=1 %{?_smp_mflags} check
+%endif
 
-%postun -n %lname -p /sbin/ldconfig
+%post -n %{lname} -p /sbin/ldconfig
+%postun -n %{lname} -p /sbin/ldconfig
 
-%files -n %lname
+%files -n %{lname}
 %defattr(-,root,root)
-%doc LICENSE.TXT README.txt CHANGELOG.txt
-%_libdir/libode.so.1*
+%doc LICENSE.TXT README.txt CHANGELOG.txt COPYING
+%{_libdir}/libode.so.%{so_maj}.*
 
 %files devel
 %defattr(-,root,root)
-%_bindir/ode-config
-%_includedir/ode
-%_libdir/libode.so
-%_libdir/pkgconfig/*.pc
+%{_bindir}/ode-config
+%{_mandir}/man1/ode-config.1.gz
+%{_includedir}/ode
+%{_libdir}/libode.so
+%{_libdir}/libode.so.%{so_maj}
+%{_libdir}/pkgconfig/*.pc
 
 %changelog
