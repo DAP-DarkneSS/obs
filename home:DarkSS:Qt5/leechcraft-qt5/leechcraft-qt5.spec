@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-6866-g46714c2
+%define LEECHCRAFT_VERSION 0.6.70-6891-gdf88473
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -1020,6 +1020,7 @@ Summary:        LeechCraft HTTP Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-http
+Recommends:     %{name}-namauth = %{version}
 
 %description cstp
 This package provides HTTP implementation plugin for LeechCraft.
@@ -1702,6 +1703,15 @@ Requires:       %{name}-lmp = %{version}
 This package provides a MusicBrainz.org client plugin for LeechCraft.
 
 
+%package namauth
+Summary:        LeechCraft HTTP Authentication Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description namauth
+This package provides a HTTP authentication handling plugin for LeechCraft.
+
+
 %package netstoremanager
 Summary:        LeechCraft Network file storages Module
 Group:          Productivity/Networking/Other
@@ -1846,6 +1856,7 @@ Requires:       %{name} = %{version}
 Provides:       %{name}-webbrowser
 Recommends:     %{name}-imgaste = %{version}
 Recommends:     %{name}-intermutko = %{version}
+Recommends:     %{name}-namauth = %{version}
 
 %description poshuku
 This package provides a web browser plugin for LeechCraft.
@@ -2588,6 +2599,7 @@ cmake ../src \
         -DENABLE_MUSICZOMBIE=True \
                 -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
         -DENABLE_NACHEKU=False \
+        -DENABLE_NAMAUTH=True \
         -DENABLE_NETSTOREMANAGER=True \
                 -DENABLE_NETSTOREMANAGER_DROPBOX=True \
                 -DENABLE_NETSTOREMANAGER_GOOGLEDRIVE=True \
@@ -3414,6 +3426,12 @@ EOF
 %defattr(-,root,root)
 %{plugin_dir}/*craft_musiczombie.so
 %{translations_dir}/*craft_musiczombie_*.qm
+
+%files namauth
+%defattr(-,root,root)
+%{plugin_dir}/*craft_namauth.so
+%{translations_dir}/*craft_namauth_??.qm
+%{translations_dir}/*craft_namauth_??_??.qm
 
 %files netstoremanager
 %defattr(-,root,root)
