@@ -46,7 +46,6 @@ else
   echo -e '\e[0;4m\nShould the commit be done?\e[0m'
   read
   osc ci -m $VGIT &
-  osc service rr $REPO $NOBS-doc &
 
   echo -e '\e[0;4m\nGit will be updated...\e[0m'
   cd ../..

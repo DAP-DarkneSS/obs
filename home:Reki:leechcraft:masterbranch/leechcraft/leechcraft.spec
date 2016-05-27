@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-6891-gdf88473
+%define LEECHCRAFT_VERSION 0.6.70-6914-g65d5d8f
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -61,6 +61,9 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 Source0:        %{name}-%{version}.tar.xz
+Source4:        %{name}-rpmlintrc
+Source8:        leechcraft-session.1
+Source9:        lc_plugin_wrapper.1
 
 BuildRequires:  Qross-devel
 BuildRequires:  boost-devel >= 1.58
@@ -91,11 +94,6 @@ BuildRequires:  llvm-clang >= 3.4
 BuildRequires:  llvm-clang
 %endif
 %endif
-%if 0%{?suse_version} == 1310
-%ifarch %ix86 x86_64 %arm
-BuildRequires:  mupdf-devel-static
-%endif
-%endif
 BuildRequires:  qwt6-devel
 # %%if 0%%{?suse_version} > 1310
 # BuildRequires:  wt-devel >= 3.3
@@ -109,17 +107,25 @@ BuildRequires:  pkgconfig(QtWebKit)
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(ddjvuapi)
 BuildRequires:  pkgconfig(geoip)
+BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavdevice)
+BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libchromaprint) >= 1.3
 BuildRequires:  pkgconfig(libidn)
 BuildRequires:  pkgconfig(libmtp)
 BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libpcre)
+BuildRequires:  pkgconfig(libpostproc)
 BuildRequires:  pkgconfig(libprojectM)
+BuildRequires:  pkgconfig(libswscale)
+BuildRequires:  pkgconfig(libswresample)
 BuildRequires:  pkgconfig(phonon)
 BuildRequires:  pkgconfig(purple)
 BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(taglib)
 %if 0%{?lmp_gstreamer_1_0}
-BuildRequires:  pkgconfig(gstreamer-app-1.0)
+BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.8
 BuildConflicts: gstreamer-0_10-devel
 BuildConflicts: gstreamer-0_10-plugins-base-devel
 BuildConflicts: libgstapp-0_10
@@ -134,11 +140,6 @@ BuildRequires:  pkgconfig(hunspell)
 BuildRequires:  pkgconfig(kqoauth)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libguess)
-%if 0%{?suse_version} == 1310
-%ifarch %ix86 x86_64 %arm
-BuildRequires:  pkgconfig(libopenjpeg)
-%endif
-%endif
 BuildRequires:  pkgconfig(libqrencode)
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 1.0
 BuildRequires:  pkgconfig(libudev)
@@ -160,9 +161,6 @@ BuildRequires:  pkgconfig(xrender)
 BuildRequires:  liblaretz-devel
 BuildRequires:  telepathy-qt4-devel
 # BuildRequires:  wt-devel >= 3.3
-%if 0%{?suse_version} <= 1310
-BuildRequires:  pkgconfig(QtMultimediaKit)
-%endif
 
 
 Requires:       oxygen-icon-theme
@@ -1596,8 +1594,8 @@ Suggests:       %{name}-lastfmscrobble
 Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
 %if 0%{?suse_version} > 1310
-Requires:       gstreamer-plugins-base >= 1.0
-Requires:       gstreamer-plugins-good >= 1.0
+Requires:       gstreamer-plugins-base >= 1.8
+Requires:       gstreamer-plugins-good >= 1.8
 Recommends:     gstreamer-fluendo-mp3
 %else
 Requires:       gstreamer-0_10-plugins-base
@@ -1764,35 +1762,15 @@ This package contains a MOBI subplugin for LeechCraft Monocle.
 This package provides MOBI documents support for Document viewer Module.
 
 
-%if 0%{?suse_version} == 1310
-%ifarch %ix86 x86_64 %arm
-%package monocle-mu
-Summary:        LeechCraft Monocle - Another PDF Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-Requires:       %{name}-monocle = %{version}
-Requires:       mupdf
-Provides:       %{name}-monocle-subplugin
-
-%description monocle-mu
-This package contains another pdf subplugin for LeechCraft Monocle.
-
-This package provides PDF documents support for Document viewer Module
-via the mupdf backend.
-%endif
-%endif
-
-
 %package monocle-pdf
 Summary:        LeechCraft Monocle - PDF Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-monocle = %{version}
 Provides:       %{name}-monocle-subplugin
-%if 0%{suse_version} > 1310
 Provides:       %{name}-monocle-mu = %{version}
 Obsoletes:      %{name}-monocle-mu < %{version}
-%endif
+
 
 %description monocle-pdf
 This package contains a pdf subplugin for LeechCraft Monocle.
@@ -2715,11 +2693,7 @@ cmake ../src \
                 -DENABLE_AZOTH_VELVETBIRD=True \
                 -DENABLE_AZOTH_WOODPECKER=True \
                 -DENABLE_AZOTH_ZHEET=False \
-%if 0%{?suse_version} <= 1310
-                -DENABLE_MEDIACALLS=True \
-%else
                 -DENABLE_MEDIACALLS=False \
-%endif
         -DENABLE_BLACKDASH=False \
         -DENABLE_BLASQ=True \
                 -DENABLE_BLASQ_VANGOG=True \
@@ -2777,20 +2751,11 @@ cmake ../src \
 %endif
         -DENABLE_MELLONETRAY=True \
         -DENABLE_MONOCLE=True \
-%if 0%{?suse_version} == 1310
-%ifarch %ix86 x86_64 %arm
-                -DENABLE_MONOCLE_MU=True \
-                -DMUPDF_VERSION=0x0102 \
-%else
                 -DENABLE_MONOCLE_MU=False \
-%endif
-%else
-                -DENABLE_MONOCLE_MU=False \
-%endif
         -DENABLE_MONOCLE_PDF=True \
         -DENABLE_MONOCLE_POSTRUS=True \
         -DENABLE_MUSICZOMBIE=True \
-                -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
+                -DWITH_MUSICZOMBIE_CHROMAPRINT=True \
         -DENABLE_NAMAUTH=True \
         -DENABLE_NACHEKU=False \
         -DENABLE_NETSTOREMANAGER=True \
@@ -2854,6 +2819,9 @@ cd build
 # Unneeded here Qt5 build' files:
 rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
+
+gzip -c9 %{SOURCE8} | tee -a %{buildroot}%{_mandir}/man1/leechcraft-session.1.gz
+gzip -c9 %{SOURCE9} | tee -a %{buildroot}%{_mandir}/man1/lc_plugin_wrapper.1.gz
 
 #-------------------------patterns----------------------------#
 %__install -d %{buildroot}%{_docdir}/%{name}
@@ -2995,9 +2963,13 @@ EOF
 %defattr(-,root,root)
 %doc CHANGELOG LICENSE README
 %{_bindir}/%{name}
+%{_mandir}/man1/%{name}.1.gz
 %{_bindir}/%{name}-add-file
+%{_mandir}/man1/%{name}-add-file.1.gz
 %{_bindir}/%{name}-handle-file
+%{_mandir}/man1/%{name}-handle-file.1.gz
 %{_bindir}/lc_plugin_wrapper
+%{_mandir}/man1/lc_plugin_wrapper.1.gz
 %{settings_dir}/coresettings.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/*/*
@@ -3013,7 +2985,6 @@ EOF
 %dir %{plugin_dir}
 %{_libdir}/libleechcraft-util.so.*
 %{_libdir}/lib%{name}-xsd.so.*
-%doc %{_mandir}/man1/%{name}*.1.gz
 %{_datadir}/leechcraft/global_icons/
 %dir %{_datadir}/leechcraft/themes
 %dir %{_datadir}/leechcraft/themes/*
@@ -3377,6 +3348,7 @@ EOF
 %{plugin_dir}/*craft_fenet.so
 %{settings_dir}/fenetsettings.xml
 %{_bindir}/%{name}-session
+%{_mandir}/man1/%{name}-session.1.gz
 %dir %{_datadir}/leechcraft/fenet
 %dir %{_datadir}/leechcraft/fenet/compositing
 %dir %{_datadir}/leechcraft/fenet/wms
@@ -3623,14 +3595,6 @@ EOF
 %{settings_dir}/monoclefxbsettings.xml
 %{translations_dir}/*craft_monocle_fxb_??.qm
 %{translations_dir}/*craft_monocle_fxb_??_??.qm
-
-%if 0%{?suse_version} == 1310
-%ifarch %ix86 x86_64 %arm
-%files monocle-mu
-%defattr(-,root,root)
-%{plugin_dir}/lib%{name}_monocle_mu.so
-%endif
-%endif
 
 %files monocle-pdf
 %defattr(-,root,root)
