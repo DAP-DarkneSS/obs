@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Jan 17 20:05:56 UTC 2016 - mpluskal@suse.com
+
+- Update to 0.29.1
+  * FIX: features "progname", "warn", "err" and "fgetln" as well 
+    as _mkcfake.c file were added to the list of installed ones.
+
+-------------------------------------------------------------------
 Tue Dec  2 16:03:44 UTC 2014 - dap.darkness@gmail.com
 
 - 0.29.0 version:
