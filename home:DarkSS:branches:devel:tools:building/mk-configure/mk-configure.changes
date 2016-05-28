@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sat May 28 18:39:20 UTC 2016 - dap.darkness@gmail.com
+
+- Added mkcmake.macros to provide rpm macros.
+- Added mk-configure-rpmlintrc to skip some useless warnings.
+- Don't override upstream's files permissions.
+- Prevented files-duplicate warnings.
+
+-------------------------------------------------------------------
 Sun Jan 17 20:05:56 UTC 2016 - mpluskal@suse.com
 
 - Update to 0.29.1

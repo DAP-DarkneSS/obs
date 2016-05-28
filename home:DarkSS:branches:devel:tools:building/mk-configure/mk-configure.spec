@@ -24,11 +24,14 @@ License:        BSD-2-Clause and BSD-2-Clause and MIT and ISC
 Group:          Development/Tools
 Url:            http://sourceforge.net/projects/mk-configure/
 Source:         http://prdownloads.sf.net/%{name}/%{name}-%{version}.tar.gz
+Source1:        mkcmake.macros
+Source9:        mk-configure-rpmlintrc
 
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  bison
 BuildRequires:  bmake
+BuildRequires:  fdupes
 BuildRequires:  flex
 BuildRequires:  gcc-c++
 BuildRequires:  glib2-devel
@@ -39,7 +42,6 @@ BuildRequires:  makedepend
 BuildRequires:  makeinfo
 BuildRequires:  pkgconfig
 Requires:       bmake
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildArch:      noarch
 Recommends:     %{name}-doc
 
@@ -79,6 +81,12 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 chmod -x examples/hello_lua/foobar.in
 chmod -x examples/hello_scripts/hello_world3.in
 chmod -x examples/hello_subdirs/prog1/prog1.awk.in
+# HACK vs. duplicates after %%doc macro.
+mkdir -p %{buildroot}%{_docdir}/%{name}-doc
+cp -r examples %{buildroot}%{_docdir}/%{name}-doc
+%fdupes -s %{buildroot}%{_docdir}/%{name}-doc
+# rpm macros
+install -m644 %{SOURCE1} -D %{buildroot}%{_sysconfdir}/rpm/macros.mkcmake
 
 %check
 unset MAKEFLAGS
@@ -95,15 +103,16 @@ rm -rf examples/*/*/*~
 %files
 %defattr(-,root,root)
 %doc README doc/FAQ doc/LICENSE doc/NEWS doc/TODO
-%attr(755,root,root) %{_bindir}/*
+%{_bindir}/mkc*
 %{_datadir}/mk-configure/
 %{_datadir}/mkc-mk/
 %{_mandir}/man1/*
 %{_mandir}/man7/*
+%config %{_sysconfdir}/rpm/macros.mkcmake
 
 %files doc
 %defattr(-,root,root)
-%doc examples
+%doc %{_docdir}/%{name}-doc/examples
 %doc presentation/presentation.pdf
 
 %changelog

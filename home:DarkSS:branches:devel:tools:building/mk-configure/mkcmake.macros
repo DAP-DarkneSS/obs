@@ -1,0 +1,15 @@
+#
+# Macros for mk-configure's make
+#
+
+%mkcmake \
+    %{_bindir}/mkcmake \\\
+        %{?_smp_mflags} \\\
+        CFLAGS="%{optflags}" \\\
+        PREFIX=%{_prefix} \\\
+        DOCDIR=%{_docdir}/%{name} \\\
+        JARDIR=%{_datadir}/java \\\
+        LIBDIR=%{_libdir} \\\
+        MANDIR=%{_mandir} \\\
+        SYSCONFDIR=%{_sysconfdir} \\\
+        DESTDIR=%{buildroot}
