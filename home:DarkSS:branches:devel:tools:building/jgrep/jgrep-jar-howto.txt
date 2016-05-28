@@ -1,0 +1,12 @@
+# There are no maven in OSS repo.
+# https://software.opensuse.org/download.html?project=devel%3Atools%3Abuilding&package=maven
+# Zypper fails to install java-sdk provider.
+zypper se --provides java-sdk
+sudo zypper in java-sdk maven mc-configure
+gzip -dc jgrep-*.tar.gz | tar -xf -
+cd jgrep-*
+export JAVA_HOME=/usr/lib*/jvm/jre
+mkcmake nodeps-all-jar
+cp jar/target/jgrep-*-jar-with-dependencies.jar ..
+cd ..
+osc add jgrep-*-jar-with-dependencies.jar

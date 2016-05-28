@@ -1,0 +1,2 @@
+# Main package is really noarch, but there is also subpackage with binary.
+addFilter("no-binary");
