@@ -1,5 +1,5 @@
 #
-# spec file for package jgrep
+# spec file for package jrep
 #
 # Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
@@ -17,28 +17,30 @@
 
 
 # Maven is unneeded when jar is bundled.
-%define _mkcmake %{mkcmake} PROG.mvn=/bin/false
-%define so_maj_ver 0
+%define _mkcmake %{mkcmake} PROG.mvn=/bin/false \\\
+                            DOCDIR=%{_docdir}/%{name} \\\
+                            JARDIR=%{_datadir}/java
+%define libpackname liblib%{name}_jni0
 
-Name:           jgrep
-Version:        0.5.2
+Name:           jrep
+Version:        0.6.0
 Release:        0
 Summary:        Grep-like utility written in Java
 License:        Apache-2.0
 Group:          Productivity/Text/Utilities
-Url:            https://github.com/cheusov/jgrep
-Source0:        https://github.com/cheusov/jgrep/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Url:            https://github.com/cheusov/jrep
+Source0:        https://github.com/cheusov/jrep/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        %{name}-0.1-jar-with-dependencies.jar
 Source9:        %{name}-rpmlintrc
 
 BuildRequires:  java-sdk >= 1.7
-BuildRequires:  config(mk-configure)
+BuildRequires:  mk-configure-rpm-macros
 BuildRequires:  perl
+Requires:       %{libpackname} >= %{version}
 Requires:       jre >= 1.7
-Requires:       libjgrep_jni%{so_maj_ver} >= %{version}
 
 %description
-jgrep is a command-line grep-like utility written in Java.
+jrep is a command-line grep-like utility written in Java.
 Features:
   -- Java regular expressions
      (https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html)
@@ -51,15 +53,15 @@ Features:
   -- Extensions over GNU grep(1):
      options -O, -2 and -8
 Documentation:
-  -- /usr/share/doc/packages/jgrep/jgrep.pod
+  -- /usr/share/doc/packages/jrep/jrep.pod
        or
-  -- man jgrep
+  -- man jrep
 
-%package -n libjgrep_jni%{so_maj_ver}
-Summary:        Library for jgrep — JNI library
+%package -n %{libpackname}
+Summary:        Library for %{name} — JNI library
 Requires:       %{name} >= %{version}
 
-%description -n libjgrep_jni%{so_maj_ver}
+%description -n %{libpackname}
 A library for command-line grep-like utility written in Java.
 
 %prep
@@ -74,30 +76,23 @@ touch jar/target/%{name}-*-jar-with-dependencies.jar
 
 %install
 %{_mkcmake} install
-cd %{buildroot}%{_libdir}
-# There are no linking so let's remove useless files.
-rm libjgrep_jni.a libjgrep_jni.so libjgrep_jni.so.%{so_maj_ver}
-mv libjgrep_jni.so.%{so_maj_ver}.* libjgrep_jni.so
 
 %check
 %{_mkcmake} test
 
-%post -n libjgrep_jni%{so_maj_ver}
-/sbin/ldconfig
-
-%postun -n libjgrep_jni%{so_maj_ver}
-/sbin/ldconfig
+%post -n %{libpackname} -p /sbin/ldconfig
+%postun -n %{libpackname} -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root)
-%doc scripts/jgrep.pod
+%doc scripts/%{name}.pod
 %doc %{_docdir}/%{name}
 %{_bindir}/%{name}
 %{_mandir}/*/%{name}*
 %{_datadir}/java/%{name}-*-jar-with-dependencies.jar
 
-%files -n libjgrep_jni%{so_maj_ver}
+%files -n %{libpackname}
 %defattr(-,root,root)
-%{_libdir}/libjgrep_jni.so
+%{_libdir}/lib%{name}_jni.so
 
 %changelog
