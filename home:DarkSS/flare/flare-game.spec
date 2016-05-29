@@ -1,5 +1,5 @@
 #
-# spec file for package flare
+# spec file for package flare-game
 #
 # Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
@@ -16,28 +16,20 @@
 #
 
 
-Name:           flare
+Name:           flare-game
 Version:        0.20
 Release:        0
-Summary:        Free Libre Action Roleplaying Engine
-License:        GPL-3.0+ and (CC-BY-SA-3.0 or CC-BY-SA-4.0)
+Summary:        Free Libre Action Roleplaying Engine — Game
+License:        CC-BY-SA-3.0 or CC-BY-SA-4.0
 Group:          Amusements/Games/RPG
 Url:            http://flarerpg.org
-Source0:        https://github.com/clintbellanger/flare-engine/archive/v%{version}.tar.gz#/%{name}-engine-%{version}.tar.gz
+Source0:        https://github.com/clintbellanger/flare-game/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires:  cmake
-BuildRequires:  gcc-c++
-BuildRequires:  pkgconfig
-BuildRequires:  pkgconfig(SDL2_image)
-BuildRequires:  pkgconfig(SDL2_mixer)
-BuildRequires:  pkgconfig(SDL2_ttf)
-Requires:       %{name}-game = %{version}
-Requires(post): hicolor-icon-theme
-Requires(post): update-desktop-files
-Requires(postun): hicolor-icon-theme
-Requires(postun): update-desktop-files
-Recommends:     python
-Provides:       %{name}-engine = %{version}
+BuildRequires:  fdupes
+Requires:       flare-engine = %{version}
+Provides:       flare-data = %{version}
+Obsoletes:      flare-data < %{version}
+BuildArch:      noarch
 
 %description
 Flare (Free Libre Action Roleplaying Engine) is a simple game engine built
@@ -54,35 +46,19 @@ game data, allowing anyone to easily modify game contents. Open formats
 are preferred (png, ogg). The game code is C++.
 
 %prep
-%setup -q -n %{name}-engine-%{version}
-# W: desktopfile-without-binary flare.desktop /usr/bin/flare
-sed -i 's/@FLARE_EXECUTABLE_PATH@/%{name}/g' distribution/flare.desktop.in
+%setup -q
 
 %build
-%cmake \
-       -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-       -DBINDIR="bin"
-make V=1 %{?_smp_mflags}
 
 %install
-%cmake_install
-
-%post
-%desktop_database_post
-%icon_theme_cache_post
-
-%postun
-%desktop_database_postun
-%icon_theme_cache_postun
+mkdir -p %{buildroot}/%{_datadir}/games/flare
+cp -r mods %{buildroot}/%{_datadir}/games/flare
+%fdupes -s %{buildroot}
 
 %files
 %defattr(-,root,root)
 # Vs. error about wrong permissions.
-%doc %attr(644,root,root) COPYING CREDITS.txt README* RELEASE_NOTES.txt
-%{_bindir}/%{name}
-%{_mandir}/man*/%{name}.*
-%{_datadir}/games/%{name}
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%doc %attr(644,root,root) CREDITS.txt README* RELEASE_NOTES.txt
+%{_datadir}/games/flare
 
 %changelog
