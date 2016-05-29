@@ -3,13 +3,12 @@
 #
 
 %mkcmake \
+    export CFLAGS="%{optflags}" \
+    export PREFIX=%{_prefix} \
+    export DOCDIR=%{_docdir} \
+    export LIBDIR=%{_libdir} \
+    export MANDIR=%{_mandir} \
+    export SYSCONFDIR=%{_sysconfdir} \
+    export DESTDIR=%{buildroot} \
     %{_bindir}/mkcmake \\\
-        %{?_smp_mflags} \\\
-        CFLAGS="%{optflags}" \\\
-        PREFIX=%{_prefix} \\\
-        DOCDIR=%{_docdir}/%{name} \\\
-        JARDIR=%{_datadir}/java \\\
-        LIBDIR=%{_libdir} \\\
-        MANDIR=%{_mandir} \\\
-        SYSCONFDIR=%{_sysconfdir} \\\
-        DESTDIR=%{buildroot}
+        %{?_smp_mflags}

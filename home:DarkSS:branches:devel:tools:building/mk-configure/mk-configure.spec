@@ -21,7 +21,7 @@ Version:        0.29.1
 Release:        0
 Summary:        Lightweight replacement for GNU autotools
 License:        BSD-2-Clause and BSD-2-Clause and MIT and ISC
-Group:          Development/Tools
+Group:          Development/Tools/Building
 Url:            http://sourceforge.net/projects/mk-configure/
 Source:         http://prdownloads.sf.net/%{name}/%{name}-%{version}.tar.gz
 Source1:        mkcmake.macros
@@ -42,8 +42,9 @@ BuildRequires:  makedepend
 BuildRequires:  makeinfo
 BuildRequires:  pkgconfig
 Requires:       bmake
-BuildArch:      noarch
 Recommends:     %{name}-doc
+Provides:       %{name}-rpm-macros
+BuildArch:      noarch
 
 %description
 mk-configure is a lightweight replacement for GNU autotools, written in
