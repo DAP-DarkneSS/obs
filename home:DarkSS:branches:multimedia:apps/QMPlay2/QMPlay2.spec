@@ -17,13 +17,14 @@
 
 
 Name:           QMPlay2
-Version:        16.05.06
+Version:        16.06.01
 Release:        0
 Summary:        A Qt based media player, streamer and downloader
 License:        LGPL-3.0+
 Group:          Productivity/Multimedia/Video/Players
 Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
 Source:         http://kent.dl.sourceforge.net/project/zaps166/QMPlay2/QMPlay2-src-%{version}.tar.xz
+Source9:        %{name}.1
 # PATCH-FIX-UPSTREAM vs. Qt5.3 lrelease issue, read more at
 # https://github.com/zaps166/QMPlay2/issues/10#issuecomment-186585268
 Patch0:         QMPlay2-Qt53-lrelease.diff
@@ -107,6 +108,9 @@ rm -rf %{buildroot}/%{_datadir}/icons/hicolor
 # Setting icon to 'pixmaps' instead of 'icons'.
 mv %{buildroot}/%{_datadir}/{icons,pixmaps}
 
+mkdir -p %{buildroot}%{_mandir}/man1
+gzip -c9 %{SOURCE9} | tee -a %{buildroot}%{_mandir}/man1/%{name}.1.gz
+
 %post   -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
@@ -120,6 +124,7 @@ mv %{buildroot}/%{_datadir}/{icons,pixmaps}
 %{_datadir}/applications/%{name}*.desktop
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/qmplay2
+%{_mandir}/man1/%{name}.1.gz
 
 %files devel
 %defattr(-,root,root)
