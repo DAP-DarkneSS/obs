@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-6914-g65d5d8f
+%define LEECHCRAFT_VERSION 0.6.70-6953-g0e300e3
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -45,14 +45,6 @@
 %define lmp_gstreamer_1_0 0
 %endif
 
-%if 0%{?suse_version} > 1320
-%define use_cpp14 0
-%else
-%define use_cpp14 1
-%endif
-%define use_qt5 0
-%define poleemery 1
-
 Name:           leechcraft
 Version:        git
 Release:        0
@@ -70,10 +62,10 @@ BuildRequires:  boost-devel >= 1.58
 BuildRequires:  cmake > 2.8.10
 BuildRequires:  fdupes
 BuildRequires:  file-devel
-%if %{use_cpp14}
+%if 0%{?suse_version} <= 1320
 BuildRequires:  gcc49-c++
 %else
-BuildRequires:  gcc-c++
+BuildRequires:  gcc-c++ >= 5
 %endif
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  jbig2dec-devel
@@ -87,12 +79,8 @@ BuildRequires:  libqxt-devel
 %endif
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
-%ifarch %ix86 %arm x86_64 ppc64 ppc64le
-%if %{use_cpp14}
+%if 0%{?suse_version} <= 1320
 BuildRequires:  llvm-clang >= 3.4
-%else
-BuildRequires:  llvm-clang
-%endif
 %endif
 BuildRequires:  qwt6-devel
 # %%if 0%%{?suse_version} > 1310
@@ -149,9 +137,6 @@ BuildRequires:  pkgconfig(poppler-qt4)
 BuildRequires:  pkgconfig(qca2)
 BuildRequires:  pkgconfig(qtermwidget4) >= 0.5.1
 BuildRequires:  pkgconfig(qxmpp) >= 0.8
-%if %{use_qt5}
-BuildRequires:  pkgconfig(vmime)
-%endif
 BuildRequires:  pkgconfig(xcomposite)
 BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xkbfile)
@@ -1593,7 +1578,7 @@ Recommends:     %{name}-scrobbler
 Suggests:       %{name}-lastfmscrobble
 Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
-%if 0%{?suse_version} > 1310
+%if 0%{?lmp_gstreamer_1_0}
 Requires:       gstreamer-plugins-base >= 1.8
 Requires:       gstreamer-plugins-good >= 1.8
 Recommends:     gstreamer-fluendo-mp3
@@ -1975,16 +1960,13 @@ This package provides an instant search plugin for LeechCraft.
 It allows to search instantly selected text in Google.
 
 
-%if %{poleemery}
 %package poleemery
 Summary:        LeechCraft Poleemery - Finances manager Module
 Group:          Productivity/Networking/Other
-BuildRequires:  qwt6-devel >= 6.1
 Requires:       %{name} = %{version}
 
 %description poleemery
 This package provides a personal finances manager plugin for LeechCraft.
-%endif
 
 
 %package popishu
@@ -2284,19 +2266,6 @@ with a suitable plugin like Aggregator.
  * Show results in HTML format with a suitable plugin like Poshuku.
 
 
-%if %{use_qt5}
-%package snails
-Summary:        LeechCraft Email client Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description snails
-This package contains a Email client plugin for LeechCraft.
-
-It provides basic Email client functionality and supports SMTP and IMAP4.
-%endif
-
-
 %package summary
 Summary:        LeechCraft Summary info Module
 Group:          Productivity/Networking/Other
@@ -2455,7 +2424,6 @@ This package provides a Vrooby plugin for LeechCraft.
 It allows to watch removable storage devices via d-bus and udisks.
 
 
-%if %{use_cpp14}
 %package xproxy
 Summary:        LeechCraft Proxy manager Module
 Group:          Productivity/Networking/Other
@@ -2465,7 +2433,6 @@ Requires:       %{name} = %{version}
 This package provides an advanced proxy manager for LeechCraft.
 
 It allows to configure and use proxy servers.
-%endif
 
 
 %package xtazy
@@ -2665,9 +2632,7 @@ cmake ../src \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
 %endif
-%if %{use_cpp14}
         -DUSE_CPP14=True \
-%endif
         -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -2766,11 +2731,7 @@ cmake ../src \
         -DENABLE_OTLOZHU=True \
         -DENABLE_PINTAB=True \
         -DENABLE_POGOOGLUE=True \
-%if %{poleemery}
         -DENABLE_POLEEMERY=True \
-%else
-        -DENABLE_POLEEMERY=False \
-%endif
         -DENABLE_POPISHU=True \
         -DENABLE_POSHUKU=True \
                 -DENABLE_IDN=True \
@@ -2783,11 +2744,7 @@ cmake ../src \
         -DENABLE_SCROBLIBRE=True \
         -DENABLE_SECMAN=True \
         -DENABLE_SHELLOPEN=False \
-%if %{use_qt5}
-        -DENABLE_SNAILS=True \
-%else
         -DENABLE_SNAILS=False \
-%endif
         -DENABLE_SYNCER=True \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
@@ -2800,11 +2757,7 @@ cmake ../src \
         -DENABLE_VTYULC=True \
         -DENABLE_VROOBY=True \
         -DENABLE_WKPLUGINS=False \
-%if %{use_cpp14}
         -DENABLE_XPROXY=True \
-%else
-        -DENABLE_XPROXY=False \
-%endif
         -DENABLE_ZALIL=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
 
@@ -3348,7 +3301,7 @@ EOF
 %{plugin_dir}/*craft_fenet.so
 %{settings_dir}/fenetsettings.xml
 %{_bindir}/%{name}-session
-%{_mandir}/man1/%{name}-session.1.gz
+%{_mandir}/man1/*-session.1.gz
 %dir %{_datadir}/leechcraft/fenet
 %dir %{_datadir}/leechcraft/fenet/compositing
 %dir %{_datadir}/leechcraft/fenet/wms
@@ -3693,13 +3646,11 @@ EOF
 %{plugin_dir}/*craft_pogooglue*
 %{translations_dir}/*craft_pogooglue*
 
-%if %{poleemery}
 %files poleemery
 %defattr(-,root,root)
 %{settings_dir}/poleemerysettings.xml
 %{translations_dir}/*craft_poleemery_*.qm
 %{plugin_dir}/*craft_poleemery*
-%endif
 
 %files popishu
 %defattr(-,root,root)
@@ -3822,16 +3773,6 @@ EOF
 %{translations_dir}/*craft_seekthru*.qm
 %{plugin_dir}/*craft_seekthru.so
 
-%if %{use_qt5}
-%files snails
-%defattr(-,root,root)
-%{plugin_dir}/lib%{name}_snails.so
-%{settings_dir}/snailssettings.xml
-%{translations_dir}/*craft_snails_??.qm
-%{translations_dir}/*craft_snails_??_??.qm
-%{_datadir}/leechcraft/snails
-%endif
-
 %files summary
 %defattr(-,root,root)
 %{translations_dir}/*craft_summary*.qm
@@ -3891,14 +3832,12 @@ EOF
 %{translations_dir}/*craft_vrooby_*.qm
 %{qml_dir}/vrooby
 
-%if %{use_cpp14}
 %files xproxy
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_xproxy.so
 %{settings_dir}/xproxysettings.xml
 %{translations_dir}/*craft_xproxy_*.qm
 %{_datadir}/leechcraft/scripts/xproxy
-%endif
 
 %files xtazy
 %defattr(-,root,root)
