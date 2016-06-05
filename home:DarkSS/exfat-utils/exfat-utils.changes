@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sun Jun  5 18:19:07 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 1.2.4:
+  * Fixed wrong files names hashes.
+  * Man pages are now installed by default.
+  * Commas and backslashes in device names are now escaped.
+
+-------------------------------------------------------------------
 Sat Feb  6 15:02:20 UTC 2016 - mpluskal@suse.com
 
 - Provide symlinks to /sbin (see boo#965476)

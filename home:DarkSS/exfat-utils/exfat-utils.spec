@@ -18,7 +18,7 @@
 
 
 Name:           exfat-utils
-Version:        1.2.3
+Version:        1.2.4
 Release:        0
 Summary:        Utilities for exFAT file system
 License:        GPL-2.0+

@@ -18,7 +18,7 @@
 
 
 Name:           fuse-exfat
-Version:        1.2.3
+Version:        1.2.4
 Release:        0
 Summary:        Free exFAT file system implementation
 License:        GPL-2.0+
