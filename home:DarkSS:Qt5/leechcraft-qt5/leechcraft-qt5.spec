@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-6953-g0e300e3
+%define LEECHCRAFT_VERSION 0.6.70-6970-g17b4101
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -1502,6 +1502,9 @@ Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
 Requires:       gstreamer-plugins-base >= 1.8
 Requires:       gstreamer-plugins-good >= 1.8
+Requires:       libqt5-qtgraphicaleffects >= 5.6
+Requires:       libqt5-qtquickcontrols >= 5.6
+Recommends:     gstreamer-plugins-bad
 Recommends:     gstreamer-fluendo-mp3
 Provides:       %{name}-audioplayer
 Provides:       %{name}-soundnotifications = %{version}

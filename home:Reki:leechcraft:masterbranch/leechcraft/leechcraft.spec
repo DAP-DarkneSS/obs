@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-6953-g0e300e3
+%define LEECHCRAFT_VERSION 0.6.70-6970-g17b4101
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -1581,10 +1581,12 @@ Recommends:     ffmpeg
 %if 0%{?lmp_gstreamer_1_0}
 Requires:       gstreamer-plugins-base >= 1.8
 Requires:       gstreamer-plugins-good >= 1.8
+Recommends:     gstreamer-plugins-bad
 Recommends:     gstreamer-fluendo-mp3
 %else
 Requires:       gstreamer-0_10-plugins-base
 Requires:       gstreamer-0_10-plugins-good
+Recommends:     gstreamer-0_10-plugins-bad
 Recommends:     gstreamer-0_10-plugins-fluendo_mp3
 %endif
 Provides:       %{name}-audioplayer
