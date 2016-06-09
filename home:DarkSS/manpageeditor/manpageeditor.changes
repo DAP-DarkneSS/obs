@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Jun  9 17:36:11 UTC 2016 - dap.darkness@gmail.com
+
+- 0.1.1.
+- Removed manpageeditor-root-I_O.diff because of upstream fix.
+- Url tag was changes to more robust alternative.
+- Added mime_database_post(un) macro requested by upstream.
+
+-------------------------------------------------------------------
 Sun May 15 19:30:48 UTC 2016 - dap.darkness@gmail.com
 
 - Post/postun requirements fixing up.

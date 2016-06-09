@@ -19,15 +19,13 @@
 %define oname ManPageEditor
 
 Name:           manpageeditor
-Version:        0.1.0
+Version:        0.1.1
 Release:        0
 Summary:        A simple manual pages editor
 License:        GPL-3.0
 Group:          Development/Tools/Other
-Url:            http://keithhedger.hostingsiteforfree.com/pages/manpageeditor/help.html
+Url:            http://gtk-apps.org/content/show.php?content=160219
 Source0:        http://khapplications.darktech.org/zips/manpageeditor/%{oname}-%{version}.tar.gz
-# PATCH-FIX-OPENSUSE vs. forbidden I-O at root partition.
-Patch0:         manpageeditor-root-I_O.diff
 # PATCH-FIX-OPENSUSE vs. various errors & warnings about desktop files.
 Patch1:         manpageeditor-desktop-warnings.diff
 
@@ -50,7 +48,6 @@ Create, edit, import, preview man-pages.
 
 %prep
 %setup -q -n %{oname}-%{version}
-%patch0
 %patch1
 
 %build
@@ -68,10 +65,12 @@ rm %{buildroot}%{_datadir}/%{oname}/docs/gpl-3.0.txt
 %post
 %desktop_database_post
 %icon_theme_cache_post
+%mime_database_post
 
 %postun
 %desktop_database_postun
 %icon_theme_cache_postun
+%mime_database_postun
 
 %files
 %defattr(-,root,root)
