@@ -17,13 +17,15 @@
 
 
 Name:           kkedit
-Version:        0.3.2
+Version:        0.3.3
 Release:        0
 Summary:        Source code text editor
 License:        GPL-3.0
 Group:          Productivity/Text/Editors
-Url:            http://keithhedger.hostingsiteforfree.com/pages/kkedit/help.html
+Url:            http://gtk-apps.org/content/show.php?content=158161
 Source0:        http://khapplications.darktech.org/zips/kkedit/KKEdit-%{version}.tar.gz
+Source8:        KKEditProgressBar.1
+Source9:        %{name}.1
 # PATCH-FIX-OPENSUSE vs. various errors & warnings about desktop files.
 Patch0:         kkedit-desktop-warnings.diff
 
@@ -112,8 +114,13 @@ chmod -x %{buildroot}%{_includedir}/kkedit-plugins.h
 # Don't package binary modules in datadir.
 mkdir -p %{buildroot}%{_libdir}/%{name}
 mv %{buildroot}/%{_datadir}/KKEdit/plugins-gtk/*.so %{buildroot}%{_libdir}/%{name}
-rm -rf %{buildroot}/%{_datadir}/qmplay2/modules
+rm -rf %{buildroot}/%{_datadir}/KKEdit/plugins-gtk
 ln -s %{_libdir}/%{name} %{buildroot}/%{_datadir}/KKEdit/plugins-gtk
+
+# Man pages:
+mkdir -p %{buildroot}%{_mandir}/man1
+gzip -c9 %{SOURCE8} | tee -a %{buildroot}%{_mandir}/man1/KKEditProgressBar.1.gz
+gzip -c9 %{SOURCE9} | tee -a %{buildroot}%{_mandir}/man1/%{name}.1.gz
 
 %fdupes -s %{buildroot}
 
@@ -131,7 +138,9 @@ ln -s %{_libdir}/%{name} %{buildroot}/%{_datadir}/KKEdit/plugins-gtk
 %defattr(-,root,root)
 %doc BUGS-ETC ChangeLog COPYING README
 %{_bindir}/%{name}
+%{_mandir}/man1/%{name}.1.gz
 %{_bindir}/KKEdit*
+%{_mandir}/man1/KKEdit*.1.gz
 %attr(644,root,root) %{_datadir}/applications/KKEdit*.desktop
 %{_datadir}/pixmaps/KKEdit*.png
 %{_datadir}/icons/hicolor/*/apps/KKEdit*.png

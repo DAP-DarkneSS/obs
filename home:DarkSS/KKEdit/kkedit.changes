@@ -1,4 +1,36 @@
 -------------------------------------------------------------------
+Thu Jun  9 17:45:10 UTC 2016 - dap.darkness@gmail.com
+
+- 0.3.3:
+  * Changed format of session files, made future proof.
+  * Code clean.
+  * Matched version numbers in included plugins with main version.
+  * Save/Restore session now saves/restores main window.
+  * Session manager uses kkedit's save/restore session routines.
+  * Added 'Hide Tab' to keyboard shortcuts.
+  * Restored missing translations.
+  * Moving a line or selection with keyboard keeps line/selection.
+  * Session restore and session manager remember visibilty of tabs.
+  * Fixed refresh bug.
+  * Added 'Show All Tabs' to edit menu.
+  * Added 'Hide Tab' to tab popup menu.
+  * Search boxes on toolbar now always active.
+  * Fixed replace all when replace string contains find string.
+  * Lowered version numbers for vte lib for older distros.
+  * Fixed some minor gtk2/3 filename clashes.
+  * Fixed losing bookmark positions.
+  * Fixed not updating status bar.
+  * Speeded up replace all.
+  * Status bar in gtk3 version now smaller.
+  * Tweaked installed styles to show 'whitespace' better.
+  * Added 'Show Whitespace' to prefs and view menu.
+  * Added 'Show Whitspace' option.
+  * VTE dev files failure in configure now gives more details.
+- Url tag was changes to more robust alternative.
+- Fixed copy/paste error at install section.
+- Added simple man pages.
+
+-------------------------------------------------------------------
 Sun May 15 14:28:05 UTC 2016 - dap.darkness@gmail.com
 
 - 0.3.2
