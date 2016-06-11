@@ -1,0 +1,62 @@
+-------------------------------------------------------------------
+Sat May 28 00:00:00 MSK 2016 - akien <akien> 0.7.0-0.mga6
+
++ Revision: 1019253
+- Version 0.7.0
+
+-------------------------------------------------------------------
+Mon Dec 28 00:00:00 MSK 2015 - daviddavid <daviddavid> 0.6.0-3.mga6
+
++ Revision: 916476
+- rebuild for new boost 1.60.0
+
+-------------------------------------------------------------------
+Sun Sep 27 00:00:00 MSK 2015 - tv <tv> 0.5.0-4.mga6
+
++ Revision: 884127
+- rebuild for new boost
+
+-------------------------------------------------------------------
+Fri Aug 21 00:00:00 MSK 2015 - akien <akien> 0.5.0-3.mga6
+
++ Revision: 867405
+- Rebuild for boost 1.58.0 and gcc 5.2.1
+
+-------------------------------------------------------------------
+Sat Jun 27 00:00:00 MSK 2015 - akien <akien> 0.5.0-2.mga6
+
++ Revision: 846467
+- Rebuild for SFML 2.3
+
+-------------------------------------------------------------------
+Mon Apr 20 00:00:00 MSK 2015 - akien <akien> 0.5.0-1.mga5
+
++ Revision: 820518
+- Fix packaging of /etc/opendungeons
+- Version 0.5.0
+
+-------------------------------------------------------------------
+Mon Feb  9 00:00:00 MSK 2015 - akien <akien> 0.4.9-3.mga5
+
++ Revision: 814391
+- Rebuild for sfml 2.2
+
+-------------------------------------------------------------------
+Sun Dec 28 00:00:00 MSK 2014 - akien <akien> 0.4.9-1.mga5
+
++ Revision: 807000
+- 0.4.9 final
+
+-------------------------------------------------------------------
+Sat Dec 20 00:00:00 MSK 2014 - akien <akien> 0.4.9-0.rc.3.mga5
+
++ Revision: 804321
+- Official RC1 snapshot
+- Unbundle FreeMono font with a patch
+
+-------------------------------------------------------------------
+Sat Dec  6 00:00:00 MSK 2014 - akien <akien> 0.4.9-0.rc.1.mga5
+
++ Revision: 801735
+- imported package opendungeons
+
