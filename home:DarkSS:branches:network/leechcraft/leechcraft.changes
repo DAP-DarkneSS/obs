@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sat Jun 11 14:48:26 UTC 2016 - dap.darkness@gmail.com
+
+- Dropped openSUSE 13.1 & SLE because of no valid compiler.
+- Enabled more packages for openSUSE Leap 42.
+- Recommended extra engines for lmp.
+- Added rpmlintrc to silence useless warnings.
+- Added simple man pages.
+
+-------------------------------------------------------------------
 Sat May  7 13:07:16 UTC 2016 - dap.darkness@gmail.com
 
 - Updated to 0.6.70-6645-gcd10d7e git snapshot:

@@ -39,12 +39,6 @@
 %define xpc_postfix %{so_ver}_2
 %define xsd_postfix %{so_ver}
 
-%if 0%{?suse_version} > 1310
-%define lmp_gstreamer_1_0 1
-%else
-%define lmp_gstreamer_1_0 0
-%endif
-
 %if 0%{?suse_version} > 1320
 %define use_cpp14 1
 %else
@@ -60,6 +54,9 @@ Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 
 Source0:        leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
+Source4:        %{name}-rpmlintrc
+Source8:        leechcraft-session.1
+Source9:        lc_plugin_wrapper.1
 # NOTE: delete p0&p1 at version bump!
 # PATCH-FIX-UPSTREAM for newest torrent rasterbar.
 Patch0:         leechcraft-%{LEECHCRAFT_VERSION}-torrent110.diff
@@ -81,72 +78,41 @@ BuildRequires:  gcc-c++ >= 5
 BuildRequires:  gcc-c++
 %endif
 BuildRequires:  hicolor-icon-theme
-%if 0%{?suse_version} == 1310
-%ifarch %ix86 x86_64 %arm
-BuildRequires:  jbig2dec-devel
-%endif
-%endif
 BuildRequires:  libjpeg-devel
-%if 0%{?suse_version} != 1315
 BuildRequires:  liblastfm-devel
-%endif
 BuildRequires:  libotr-devel
 BuildRequires:  libqscintilla-devel
 BuildRequires:  libqt4-sql
-%if 0%{?suse_version} >= 1320
 BuildRequires:  libqxt-devel
-%endif
 BuildRequires:  libsensors4-devel
-%if 0%{?suse_version} != 1315
 BuildRequires:  libtidy-devel
-%endif
-%ifarch %ix86 %arm x86_64 ppc64 ppc64le
 %if 0%{suse_version} <= 1320
 BuildRequires:  llvm-clang >= 3.4
 %endif
-%endif
-%if 0%{?suse_version} == 1310
-%ifarch %ix86 x86_64 %arm
-BuildRequires:  mupdf-devel-static
-%endif
-%endif
-%if 0%{?suse_version} != 1315
 BuildRequires:  qwt6-devel
-%endif
-%if 0%{?suse_version} > 1315
 BuildRequires:  wt-devel >= 3.3
-%endif
-%if 0%{?suse_version} > 1315
-BuildRequires:  pkgconfig(TelepathyQt4)
-%endif
 BuildRequires:  pkgconfig(QJson) >= 0.8.1
 BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(QtWebKit)
+BuildRequires:  pkgconfig(TelepathyQt4)
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(ddjvuapi)
 BuildRequires:  pkgconfig(geoip)
+BuildRequires:  pkgconfig(gstreamer-app-1.0)
 BuildRequires:  pkgconfig(libidn)
 BuildRequires:  pkgconfig(libmtp)
 BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libpcre)
-%if 0%{?suse_version} != 1315
 BuildRequires:  pkgconfig(libprojectM)
-%endif
 BuildRequires:  pkgconfig(phonon)
 BuildRequires:  pkgconfig(purple)
 BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(taglib)
-%if 0%{?lmp_gstreamer_1_0}
-BuildRequires:  pkgconfig(gstreamer-app-1.0)
 BuildConflicts: gstreamer-0_10-devel
 BuildConflicts: gstreamer-0_10-plugins-base-devel
 BuildConflicts: libgstapp-0_10
 BuildConflicts: libgstinterfaces-0_10
 BuildConflicts: libgstreamer-0_10
-%else
-BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
-BuildConflicts: libgstreamer-1_0-0
-%endif
 BuildRequires:  pkgconfig(hunspell)
 BuildRequires:  pkgconfig(kqoauth)
 %if 0%{?suse_version} > 1320
@@ -156,20 +122,13 @@ BuildRequires:  pkgconfig(libchromaprint)
 %endif
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libguess)
-%if 0%{?suse_version} == 1310
-%ifarch %ix86 x86_64 %arm
-BuildRequires:  pkgconfig(libopenjpeg)
-%endif
-%endif
 BuildRequires:  pkgconfig(libqrencode)
 %if 0%{?suse_version} > 1320
 BuildRequires:  pkgconfig(libswresample)
 %endif
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 1.0
 BuildRequires:  pkgconfig(libudev)
-%if 0%{?suse_version} != 1315
 BuildRequires:  pkgconfig(libvlc)
-%endif
 BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt4)
 BuildRequires:  pkgconfig(qca2)
@@ -289,7 +248,6 @@ work, a script provider like Qrosp should be installed. Please refer to the
 guide to writing recipes if you are interested in writing your own ones.
 
 
-%if 0%{?suse_version} > 1315
 %package aggregator-webaccess
 Summary:        LeechCraft Aggregator - Web Interface Module
 License:        BSL-1.0
@@ -300,7 +258,7 @@ Requires:       %{name}-aggregator = %{version}
 WebAccess provides a basic web interface for the
 Aggregator feed reader, so one can read news
 articles from a mobile device or another machine.
-%endif
+
 
 %package anhero
 Summary:        LeechCraft Crash handler Module
@@ -403,7 +361,6 @@ Provides:       %{name}-azoth-chatstyler
 This package provides an Adium styles support plugin for LeechCraft Azoth.
 
 
-%if 0%{?suse_version} > 1315
 %package azoth-astrality
 Summary:        LeechCraft Azoth - Telepathy Module
 License:        BSL-1.0
@@ -423,7 +380,7 @@ Features:
  * In-band account registration.
  * Standard one-to-one chats.
  * Nick resolution.
-%endif
+
 
 %package azoth-autoidler
 Summary:        LeechCraft Azoth - Automatic Change of Status Module
@@ -1322,7 +1279,6 @@ Features:
  * Is a crossplatform package manager.
 
 
-%if 0%{?suse_version} != 1315
 %package lastfmscrobble
 Summary:        LeechCraft Last.FM Scrobble Module
 License:        BSL-1.0
@@ -1348,7 +1304,7 @@ Features:
  * Fetching recent releases of artists that are in the user's collection.
  * Fetching artists biography.
  * Configurable language of the fetched information.
-%endif
+
 
 %package laughty
 Summary:        LeechCraft Notifications Server Module
@@ -1372,7 +1328,6 @@ Requires:       %{name}-sb = %{version}
 This package provides a third-party application launcher plugin for Leechcraft.
 
 
-%if 0%{?suse_version} != 1315
 %package lemon
 Summary:        LeechCraft Network Monitor Module
 License:        BSL-1.0
@@ -1382,7 +1337,7 @@ Requires:       %{name}-sb = %{version}
 
 %description lemon
 This package provides another Network Monitor plugin for Leechcraft.
-%endif
+
 
 %package lhtr
 Summary:        LeechCraft HTML WYSIWYG editor Module
@@ -1397,7 +1352,6 @@ This package provides a HTML WYSIWYG editor plugin for Leechcraft.
 It can be usable with mail and blog modules.
 
 
-%if 0%{?suse_version} != 1315
 %package liznoo
 Summary:        LeechCraft Power managment module
 License:        BSL-1.0
@@ -1420,7 +1374,7 @@ reconnect properly on startup.
  * Allows user to easily sleep/hibernate the system.
  * Notifies user when device starts discharging or charging.
  * Notifies user on low power level.
-%endif
+
 
 %package lmp
 Summary:        LeechCraft Media player Module
@@ -1433,15 +1387,11 @@ Recommends:     %{name}-scrobbler
 Suggests:       %{name}-lastfmscrobble
 Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
-%if 0%{?suse_version} > 1310
 Requires:       gstreamer-plugins-base >= 1.0
 Requires:       gstreamer-plugins-good >= 1.0
+Recommends:     gstreamer-plugins-bad
+Recommends:     gstreamer-plugins-libav
 Recommends:     gstreamer-fluendo-mp3
-%else
-Requires:       gstreamer-0_10-plugins-base
-Requires:       gstreamer-0_10-plugins-good
-Recommends:     gstreamer-0_10-plugins-fluendo_mp3
-%endif
 Provides:       %{name}-audioplayer
 Provides:       %{name}-soundnotifications = %{version}
 
@@ -1551,7 +1501,6 @@ Requires:       %{name}-lmp = %{version}
 This package allows to sync with MTP devices via LeechCraft.
 
 
-%if 0%{?suse_version} != 1315
 %package lmp-potorchu
 Summary:        LeechCraft Visualization Effects Module
 License:        BSL-1.0
@@ -1560,7 +1509,7 @@ Requires:       %{name}-lmp = %{version}
 
 %description lmp-potorchu
 This package provides visualization effects for LeechCraft audio player.
-%endif
+
 
 %package mellonetray
 Summary:        LeechCraft Tray Area Module
@@ -1615,36 +1564,15 @@ This package contains a MOBI subplugin for LeechCraft Monocle.
 This package provides MOBI documents support for Document viewer Module.
 
 
-%if 0%{?suse_version} == 1310
-%ifarch %ix86 x86_64 %arm
-%package monocle-mu
-Summary:        LeechCraft Monocle - Another PDF Module
-License:        BSL-1.0
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-Requires:       %{name}-monocle = %{version}
-Requires:       mupdf
-Provides:       %{name}-monocle-subplugin
-
-%description monocle-mu
-This package contains another pdf subplugin for LeechCraft Monocle.
-
-This package provides PDF documents support for Document viewer Module
-via the mupdf backend.
-%endif
-%endif
-
 %package monocle-pdf
 Summary:        LeechCraft Monocle - PDF Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-monocle = %{version}
-Provides:       %{name}-monocle-subplugin
-%if 0%{suse_version} > 1310
 Provides:       %{name}-monocle-mu = %{version}
+Provides:       %{name}-monocle-subplugin
 Obsoletes:      %{name}-monocle-mu < %{version}
-%endif
 
 %description monocle-pdf
 This package contains a pdf subplugin for LeechCraft Monocle.
@@ -2261,7 +2189,6 @@ Features:
  * Search for audios and videos.
 
 
-%if 0%{?suse_version} != 1315
 %package vtyulc
 Summary:        LeechCraft Video player Module
 License:        BSL-1.0
@@ -2275,7 +2202,7 @@ This package provides a video player plugin for LeechCraft.
 
 It allows to play video (local files, web, DVD etc).
 It uses vlc library as a backend thus supporting major codecs.
-%endif
+
 
 %package vrooby
 Summary:        LeechCraft Removable storage devices Manager
@@ -2494,11 +2421,9 @@ find src -name '*.png' -or -name '*.css' -or -name '*.gif' -exec chmod 0644 {} +
 %build
 mkdir build && cd build
 
-%ifarch %ix86 %arm x86_64 ppc64 ppc64le
 %if 0%{suse_version} <= 1320
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
-%endif
 %endif
 
 # bypass bug 927268 for PowerPC if clang is used above in place of gcc
@@ -2522,27 +2447,15 @@ cmake ../src \
         -DSTRICT_LICENSING=True \
         -DWITH_DBUS_LOADERS=True \
         -DWITH_PCRE=True \
-%if 0%{?suse_version} != 1315
         -DWITH_QWT=True \
-%else
-        -DWITH_QWT=False \
-%endif
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
-%if 0%{?suse_version} > 1315
                 -DENABLE_AGGREGATOR_WEBACCESS=True \
-%else
-                -DENABLE_AGGREGATOR_WEBACCESS=False \
-%endif
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
                 -DENABLE_AZOTH_ABBREV=True \
                 -DENABLE_AZOTH_ACETAMIDE=True \
-%if 0%{?suse_version} > 1315
                 -DENABLE_AZOTH_ASTRALITY=True \
-%else
-                -DENABLE_AZOTH_ASTRALITY=False \
-%endif
                 -DENABLE_AZOTH_AUTOPASTE=True \
 %if 0%{?suse_version} > 1320
                 -DENABLE_AZOTH_HERBICIDE=True \
@@ -2575,11 +2488,7 @@ cmake ../src \
         -DENABLE_FENET=True \
         -DENABLE_FONTIAC=False \
         -DENABLE_GACTS=True \
-%if 0%{?suse_version} >= 1320
                 -DWITH_GACTS_BUNDLED_QXT=False \
-%else
-                -DWITH_GACTS_BUNDLED_QXT=True \
-%endif
         -DENABLE_GLANCE=True \
         -DENABLE_GMAILNOTIFIER=True \
         -DENABLE_HARBINGER=True \
@@ -2593,29 +2502,13 @@ cmake ../src \
         -DENABLE_KRIGSTASK=True \
         -DENABLE_LACKMAN=True \
         -DENABLE_LADS=False \
-%if 0%{?suse_version} != 1315
         -DENABLE_LASTFMSCROBBLE=True \
-%else
-        -DENABLE_LASTFMSCROBBLE=False \
-%endif
         -DENABLE_LAUGHTY=True \
         -DENABLE_LAUNCHY=True \
-%if 0%{?suse_version} != 1315
         -DENABLE_LEMON=True \
-%else
-        -DENABLE_LEMON=False \
-%endif
         -DENABLE_LHTR=True \
-%if 0%{?suse_version} != 1315
                 -DWITH_LHTR_HTML=True \
-%else
-                -DWITH_LHTR_HTML=False \
-%endif
-%if 0%{?suse_version} != 1315
         -DENABLE_LIZNOO=True \
-%else
-        -DENABLE_LIZNOO=False \
-%endif
         -DENABLE_LMP=True \
                 -DENABLE_LMP_BRAINSLUGZ=True \
                 -DENABLE_LMP_FRADJ=True \
@@ -2624,30 +2517,13 @@ cmake ../src \
                 -DENABLE_LMP_LIBGUESS=True \
                 -DENABLE_LMP_MPRIS=True \
                 -DENABLE_LMP_MTPSYNC=True \
-%if 0%{?suse_version} != 1315
                 -DENABLE_LMP_POTORCHU=True \
-%else
-                -DENABLE_LMP_POTORCHU=False \
-%endif
-%if 0%{?lmp_gstreamer_1_0}
                 -DUSE_GSTREAMER_10=True \
-%else
-                -DUSE_GSTREAMER_10=False \
-%endif
         -DENABLE_MELLONETRAY=True \
         -DENABLE_MONOCLE=True \
-%if 0%{?suse_version} == 1310
-%ifarch %ix86 x86_64 %arm
-                -DENABLE_MONOCLE_MU=True \
-                -DMUPDF_VERSION=0x0102 \
-%else
                 -DENABLE_MONOCLE_MU=False \
-%endif
-%else
-                -DENABLE_MONOCLE_MU=False \
-%endif
-        -DENABLE_MONOCLE_PDF=True \
-        -DENABLE_MONOCLE_POSTRUS=True \
+                -DENABLE_MONOCLE_PDF=True \
+                -DENABLE_MONOCLE_POSTRUS=True \
         -DENABLE_MUSICZOMBIE=True \
 %if 0%{?suse_version} > 1320
                 -DWITH_MUSICZOMBIE_CHROMAPRINT=True \
@@ -2688,11 +2564,7 @@ cmake ../src \
         -DENABLE_TOUCHSTREAMS=True \
         -DENABLE_TPI=True \
         -DENABLE_TWIFEE=False \
-%if 0%{?suse_version} != 1315
         -DENABLE_VTYULC=True \
-%else
-        -DENABLE_VTYULC=False \
-%endif
         -DENABLE_VROOBY=True \
         -DENABLE_WKPLUGINS=False \
 %if %{use_cpp14}
@@ -2712,6 +2584,9 @@ cd build
 # Unneeded here Qt5 build' files:
 rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
+
+gzip -c9 %{SOURCE8} | tee -a %{buildroot}%{_mandir}/man1/leechcraft-session.1.gz
+gzip -c9 %{SOURCE9} | tee -a %{buildroot}%{_mandir}/man1/lc_plugin_wrapper.1.gz
 
 %fdupes -s %{buildroot}%{_datadir}/%{name}/translations
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth
@@ -2816,9 +2691,13 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %defattr(-,root,root)
 %doc CHANGELOG LICENSE README
 %{_bindir}/%{name}
+%{_mandir}/man1/%{name}.1.gz
 %{_bindir}/%{name}-add-file
+%{_mandir}/man1/%{name}-add-file.1.gz
 %{_bindir}/%{name}-handle-file
+%{_mandir}/man1/%{name}-handle-file.1.gz
 %{_bindir}/lc_plugin_wrapper
+%{_mandir}/man1/lc_plugin_wrapper.1.gz
 %{settings_dir}/coresettings.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/*/*
@@ -2834,7 +2713,6 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %dir %{plugin_dir}
 %{_libdir}/libleechcraft-util.so.*
 %{_libdir}/lib%{name}-xsd.so.*
-%doc %{_mandir}/man1/%{name}*.1.gz
 %{_datadir}/leechcraft/global_icons/
 %dir %{_datadir}/leechcraft/themes
 %dir %{_datadir}/leechcraft/themes/*
@@ -2864,13 +2742,11 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %dir %{_datadir}/leechcraft/scripts
 %{_datadir}/leechcraft/scripts/aggregator/
 
-%if 0%{?suse_version} > 1315
 %files aggregator-webaccess
 %defattr(-,root,root)
 %{plugin_dir}/*craft_aggregator_webaccess.so
 %{settings_dir}/aggregatorwebaccesssettings.xml
 %{translations_dir}/*craft_aggregator_webaccess*.qm
-%endif
 
 %files anhero
 %defattr(-,root,root)
@@ -2914,12 +2790,10 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %{_datadir}/leechcraft/azoth/styles/adium
 %{translations_dir}/*craft_azoth_adiumstyles_*.qm
 
-%if 0%{?suse_version} > 1315
 %files azoth-astrality
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_azoth_astrality.so
 %{translations_dir}/*craft_azoth_astrality_*.qm
-%endif
 
 %files azoth-autoidler
 %defattr(-,root,root)
@@ -3190,6 +3064,7 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %{plugin_dir}/*craft_fenet.so
 %{settings_dir}/fenetsettings.xml
 %{_bindir}/%{name}-session
+%{_mandir}/man1/*-session.1.gz
 %dir %{_datadir}/leechcraft/fenet
 %dir %{_datadir}/leechcraft/fenet/compositing
 %dir %{_datadir}/leechcraft/fenet/wms
@@ -3297,13 +3172,11 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %{settings_dir}/lackmansettings.xml
 %{translations_dir}/*craft_lackman*
 
-%if 0%{?suse_version} != 1315
 %files lastfmscrobble
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_lastfmscrobble.so
 %{settings_dir}/lastfmscrobblesettings.xml
 %{translations_dir}/*craft_lastfmscrobble_*.qm
-%endif
 
 %files laughty
 %defattr(-,root,root)
@@ -3316,14 +3189,12 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %{translations_dir}/*craft_launchy_*.qm
 %{qml_dir}/launchy
 
-%if 0%{?suse_version} != 1315
 %files lemon
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_lemon.so
 %{qml_dir}/lemon/
 %{translations_dir}/*craft_lemon_*.qm
 %{settings_dir}/lemonsettings.xml
-%endif
 
 %files lhtr
 %defattr(-,root,root)
@@ -3331,13 +3202,11 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %{translations_dir}/*craft_lhtr_*.qm
 %{settings_dir}/lhtrsettings.xml
 
-%if 0%{?suse_version} != 1315
 %files liznoo
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_liznoo.so
 %{settings_dir}/liznoosettings.xml
 %{translations_dir}/*craft_liznoo_*.qm
-%endif
 
 %files lmp
 %defattr(-,root,root)
@@ -3393,13 +3262,11 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %defattr(-,root,root)
 %{plugin_dir}/*craft_lmp_mtpsync.so
 
-%if 0%{?suse_version} != 1315
 %files lmp-potorchu
 %defattr(-,root,root)
 %{plugin_dir}/*craft_lmp_potorchu.so
 %{translations_dir}/*craft_lmp_potorchu_??.qm
 %{translations_dir}/*craft_lmp_potorchu_??_??.qm
-%endif
 
 %files mellonetray
 %defattr(-,root,root)
@@ -3427,14 +3294,6 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %{settings_dir}/monoclefxbsettings.xml
 %{translations_dir}/*craft_monocle_fxb_??.qm
 %{translations_dir}/*craft_monocle_fxb_??_??.qm
-
-%if 0%{?suse_version} == 1310
-%ifarch %ix86 x86_64 %arm
-%files monocle-mu
-%defattr(-,root,root)
-%{plugin_dir}/lib%{name}_monocle_mu.so
-%endif
-%endif
 
 %files monocle-pdf
 %defattr(-,root,root)
@@ -3671,13 +3530,11 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %{translations_dir}/*craft_vgrabber*.qm
 %{plugin_dir}/*craft_vgrabber.so
 
-%if 0%{?suse_version} != 1315
 %files vtyulc
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_vtyulc.so
 %{settings_dir}/vtyulcsettings.xml
 %{translations_dir}/*craft_vtyulc_*.qm
-%endif
 
 %files vrooby
 %defattr(-,root,root)
