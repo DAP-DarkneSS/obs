@@ -1,28 +1,15 @@
-#
-# spec file for package leechcraft
-#
-# Copyright (c) 2016 LeechCraft Team.
-#
-# All modifications and additions to the file contributed by third parties
-# remain the property of their copyright owners, unless otherwise agreed
-# upon. The license for this file, and modifications and additions to the
-# file, is the same license as for the pristine package itself (unless the
-# license for the pristine package is not an Open Source License, in which
-# case the license is the MIT License). An "Open Source License" is a
-# license that conforms to the Open Source Definition (Version 1.9)
-# published by the Open Source Initiative.
-
 # Please submit bugfixes or comments via http://dev.leechcraft.org/
 #
 
-%define vlc 0
 
 %define plugin_dir %{_libdir}/leechcraft/plugins
 %define translations_dir %{_datadir}/leechcraft/translations
 %define settings_dir %{_datadir}/leechcraft/settings
 %define qml_dir %{_datadir}/leechcraft/qml
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-6843-gf9f8e0e
+
+%define LEECHCRAFT_VERSION 0.6.70-6986-g6a29895
+
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -39,15 +26,18 @@
 %define xpc_postfix %{so_ver}_2
 %define xsd_postfix %{so_ver}
 
+# "Extracting debug info… ERROR: No build ID note found."
+%define debug_package %{nil}
+
 Name:           leechcraft
-Version:        git
+Version:        0.6.70+git.6986.g6a29895
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 
-Source0:        %{name}-%{version}.tar.xz
+Source0:        https://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
 
 BuildRequires:  boost-devel >= 1.58
 BuildRequires:  cmake > 2.8
@@ -55,9 +45,6 @@ BuildRequires:  file-devel
 BuildRequires:  gcc-c++ >= 5.0
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  hunspell-devel
-%ifarch i586 i686
-BuildRequires:  jbig2dec-devel
-%endif
 BuildRequires:  GeoIP-devel
 BuildRequires:  pkgconfig(QtWebKit)
 BuildRequires:  libXcomposite-devel
@@ -80,7 +67,6 @@ BuildRequires:  pkgconfig(qca2)
 BuildRequires:  pkgconfig(qtermwidget4) >= 0.5.1
 BuildRequires:  pkgconfig(QJson)
 BuildRequires:  qscintilla-devel
-BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(qxmpp) >= 0.8.0
 BuildRequires:  lm_sensors-devel
 BuildRequires:  libtidy-devel
@@ -92,7 +78,6 @@ BuildRequires:  phonon-devel
 BuildRequires:  qwt-devel
 BuildRequires:  speex-devel
 BuildRequires:  taglib-devel
-# BuildRequires:  wt-devel >= 3.3
 BuildRequires:  xz
 BuildRequires:  pkgconfig(gstreamer-app-1.0)
 BuildConflicts: gstreamer
@@ -101,18 +86,35 @@ BuildConflicts: gstreamer-plugins-base
 BuildConflicts: gstreamer-plugins-base-devel
 BuildRequires:  pkgconfig(libguess)
 BuildRequires:  pkgconfig(libqrencode)
-%if %{vlc}
-BuildRequires:  pkgconfig(libvlc)
-%endif
 BuildRequires:  telepathy-qt4-devel
 
 Requires:       oxygen-icon-theme
+Requires:       %{name}-anhero
+Requires:       %{name}-advancednotifications
+Requires:       %{name}-azoth-xoox
+Requires:       %{name}-azoth-chathistory
+Requires:       %{name}-azoth-rosenthal
+Requires:       %{name}-azoth-standardstyles
+Requires:       %{name}-bittorrent
+Requires:       %{name}-blasq-vangog
+Requires:       %{name}-blogique-metida
+Requires:       %{name}-dolozhee
+Requires:       %{name}-kinotify
+Requires:       %{name}-knowhow
+Requires:       %{name}-lackman
+Requires:       %{name}-lastfmscrobble
+Requires:       %{name}-lmp
+Requires:       %{name}-monocle-pdf
+Requires:       %{name}-netstoremanager
+Requires:       %{name}-newlife
+Requires:       %{name}-pogooglue
+Requires:       %{name}-sb2
+Requires:       %{name}-secman-simplestorage
+Requires:       %{name}-tabsessionmanager
+Requires:       %{name}-visualnotifications
 
-Obsoletes:      %{name}-dlniwe
-Obsoletes:      %{name}-nacheku
 Obsoletes:      %{name}-otlozhu
 Obsoletes:      %{name}-poleemery
-Obsoletes:      %{name}-shaitan
 Obsoletes:      %{name}-syncer
 Obsoletes:      %{name}-textogroose
 
@@ -188,17 +190,6 @@ work, a script provider like Qrosp should be installed. Please refer to the
 guide to writing recipes if you are interested in writing your own ones.
 
 
-# %%package aggregator-webaccess
-# Summary:        LeechCraft Aggregator - Web Interface Module
-# Group:          Productivity/Networking/Other
-# Requires:       %%{name}-aggregator = %%{version}
-# 
-# %%description aggregator-webaccess
-# WebAccess provides a basic web interface for the
-# Aggregator feed reader, so one can read news
-# articles from a mobile device or another machine.
-
-
 %package anhero
 Summary:        LeechCraft Crash handler Module
 Group:          Productivity/Networking/Other
@@ -263,8 +254,6 @@ and /listabbrevs for LeechCraft Azoth.
 Summary:        LeechCraft Azoth - IRC Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
-Provides:       %{name}-acetamine = %{version}
-Obsoletes:      %{name}-acetamine < %{version}
 Provides:       %{name}-azoth-protocolplugin
 
 %description azoth-acetamide
@@ -1048,8 +1037,6 @@ Summary:        LeechCraft keyboard switcher Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       setxkbmap
-Provides:       %{name}-keyboardcraft = %{version}
-Obsoletes:      %{name}-keyboardcraft < %{version}
 
 %description kbswitch
 This module allows change keyboard layouts from LeechCraft
@@ -1421,12 +1408,20 @@ Requires:       %{name}-lmp = %{version}
 This package provides a MusicBrainz.org client plugin for LeechCraft.
 
 
+%package namauth
+Summary:        LeechCraft HTTP Authentication Module
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+
+%description namauth
+This package provides a HTTP authentication handling plugin for LeechCraft.
+
+
 %package netstoremanager
 Summary:        LeechCraft Network file storages Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-netstoremanager-subplugin
-Obsoletes:      %{name}-netstoremanager-yandexdisk
 
 %description netstoremanager
 This package provides a network storage plugin for Leechcraft.
@@ -1539,8 +1534,6 @@ It allows to pin important tabs so that they occupy less space.
 Summary:        LeechCraft Poshuku - quick google search Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Obsoletes:      %{name}-poshuku-pogooglue < %{version}
-Provides:       %{name}-poshuku-pogooglue = %{version}
 
 %description pogooglue
 This package provides an instant search plugin for LeechCraft.
@@ -1702,8 +1695,6 @@ or Del.icio.us.
 Summary:        LeechCraft Poshuku - Onlinebookmarks Delicious Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-poshuku-onlinebookmarks = %{version}
-Obsoletes:      %{name}-delicious < %{version}
-Provides:       %{name}-delicious = %{version}
 
 %description poshuku-onlinebookmarks-delicious
 This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
@@ -1715,8 +1706,6 @@ It provides support for the the Del.icio.us service.
 Summary:        LeechCraft Poshuku - Onlinebookmarks ReadItLater Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-poshuku-onlinebookmarks = %{version}
-Obsoletes:      %{name}-readitlater < %{version}
-Provides:       %{name}-readitlater = %{version}
 
 %description poshuku-onlinebookmarks-readitlater
 This package contains a plugin for LeechCraft Poshuku Online Bookmarks.
@@ -1760,8 +1749,6 @@ Summary:        LeechCraft SideBar2 Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-sb = %{version}
-Obsoletes:      %{name}-sidebar < %{version}
-Provides:       %{name}-sidebar = %{version}
 
 %description sb2
 This package provides another side bar plugin for Leechcraft.
@@ -1937,20 +1924,6 @@ social network Vkontakte.
 Features:
  * Download or stream audios and videos from Vkontakte.
  * Search for audios and videos.
-
-
-%if %{vlc}
-%package vtyulc
-Summary:        LeechCraft Video player Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description vtyulc
-This package provides a video player plugin for LeechCraft.
-
-It allows to play video (local files, web, DVD etc).
-It uses vlc library as a backend thus supporting major codecs.
-%endif
 
 
 %package vrooby
@@ -2135,7 +2108,7 @@ XmlSettingsDialog LeechCraft subsystem.
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-%{LEECHCRAFT_VERSION}
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -2153,7 +2126,6 @@ cmake ../src \
         -DLIB_SUFFIX=64 \
 %endif
         -DUSE_CPP14=True \
-        -DCMAKE_CXX_FLAGS="-O3 -pipe -Wall -Werror=format-security -fexceptions --param=ssp-buffer-size=4 -march=native -fasynchronous-unwind-tables" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=Release \
         -DSTRICT_LICENSING=True \
@@ -2180,7 +2152,7 @@ cmake ../src \
                 -DENABLE_AZOTH_ZHEET=False \
         -DENABLE_BLACKDASH=False \
         -DENABLE_BLASQ=True \
-        -DENABLE_BLASQ_SPEGNERSI=False \
+                -DENABLE_BLASQ_SPEGNERSI=False \
         -DENABLE_BLOGIQUE=True \
         -DENABLE_CERTMGR=True \
         -DENABLE_CHOROID=True \
@@ -2228,9 +2200,10 @@ cmake ../src \
         -DENABLE_MEDIACALLS=False \
         -DENABLE_MELLONETRAY=True \
         -DENABLE_MONOCLE=True \
-        -DENABLE_MONOCLE_MU=False \
+                -DENABLE_MONOCLE_MU=False \
         -DENABLE_MUSICZOMBIE=True \
                 -DWITH_MUSICZOMBIE_CHROMAPRINT=False \
+        -DENABLE_NAMAUTH=True \
         -DENABLE_NACHEKU=False \
         -DENABLE_NETSTOREMANAGER=True \
                 -DENABLE_NETSTOREMANAGER_DROPBOX=True \
@@ -2238,7 +2211,7 @@ cmake ../src \
         -DENABLE_NEWLIFE=True \
         -DENABLE_OORONEE=True \
         -DENABLE_OTLOZHU=True \
-        -DENABLE_OTLOZHU_SYNC=False \
+                -DENABLE_OTLOZHU_SYNC=False \
         -DENABLE_PINTAB=True \
         -DENABLE_POLEEMERY=False \
         -DENABLE_POGOOGLUE=True \
@@ -2265,11 +2238,7 @@ cmake ../src \
         -DENABLE_TOUCHSTREAMS=True \
         -DENABLE_TPI=True \
         -DENABLE_TWIFEE=False \
-%if %{vlc}
-        -DENABLE_VTYULC=True \
-%else
         -DENABLE_VTYULC=False \
-%endif
         -DENABLE_VROOBY=True \
         -DENABLE_XPROXY=True \
         -DENABLE_ZALIL=True \
@@ -2432,12 +2401,6 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %{plugin_dir}/*craft_aggregator_bodyfetch.so
 %dir %{_datadir}/leechcraft/scripts
 %{_datadir}/leechcraft/scripts/aggregator/
-
-# %%files aggregator-webaccess
-# %%defattr(-,root,root)
-# %%{plugin_dir}/*craft_aggregator_webaccess.so
-# %%{settings_dir}/aggregatorwebaccesssettings.xml
-# %%{translations_dir}/*craft_aggregator_webaccess*.qm
 
 %files anhero
 %defattr(-,root,root)
@@ -3009,6 +2972,12 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %{plugin_dir}/lib%{name}_musiczombie.so
 %{translations_dir}/*craft_musiczombie_*.qm
 
+%files namauth
+%defattr(-,root,root)
+%{plugin_dir}/*craft_namauth.so
+%{translations_dir}/*craft_namauth_??.qm
+%{translations_dir}/*craft_namauth_??_??.qm
+
 %files netstoremanager
 %defattr(-,root,root)
 %{plugin_dir}/*craft_netstoremanager.so
@@ -3214,14 +3183,6 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %{translations_dir}/*craft_vgrabber*.qm
 %{plugin_dir}/*craft_vgrabber.so
 
-%if %{vlc}
-%files vtyulc
-%defattr(-,root,root)
-%{plugin_dir}/lib%{name}_vtyulc.so
-%{settings_dir}/vtyulcsettings.xml
-%{translations_dir}/*craft_vtyulc_*.qm
-%endif
-
 %files vrooby
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_vrooby.so
@@ -3309,3 +3270,5 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %{_libdir}/*-util-xsd*.so.*
 
 %changelog
+* Sat Jun 11 2016 Dmitriy A. Perlow <dap.darkness@gmail.com> - 0.6.70+git.6986.g6a29895-0
+- Initial comment.
