@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Jun 14 17:58:29 UTC 2016 - dap.darkness@gmail.com
+
+- 20160528
+  * boot-strap, make-bootstrap.sh.in: Makefile uses _MAKE_VERSION
+- Removed bmake-MAKE_VERSION.diff so.
+
+-------------------------------------------------------------------
 Thu May 26 18:04:54 UTC 2016 - dap.darkness@gmail.com
 
 - Added bmake-MAKE_VERSION.diff to fix MAKE_VERSION variable

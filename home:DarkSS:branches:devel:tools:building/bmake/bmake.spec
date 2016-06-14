@@ -17,7 +17,7 @@
 
 
 Name:           bmake
-Version:        20160512
+Version:        20160528
 Release:        0
 Summary:        The NetBSD make(1) tool
 License:        BSD-2-Clause and BSD-3-Clause and BSD-4-Clause
@@ -25,8 +25,6 @@ Group:          Development/Tools/Building
 Url:            ftp://ftp.NetBSD.org/pub/NetBSD/misc/sjg/
 Source0:        ftp://ftp.NetBSD.org/pub/NetBSD/misc/sjg/bmake-%{version}.tar.gz
 Source1:        Linux.sys.mk
-# PATCH-FIX-OPENSUSE to fix MAKE_VERSION variable & mk-configure package.
-Patch0:         bmake-MAKE_VERSION.diff
 
 %description
 bmake, the NetBSD make(1) tool, is a program designed to simplify the
@@ -40,7 +38,6 @@ supported in Makefiles is very different.
 
 %prep
 %setup -q -n %{name}
-%patch0
 
 %build
 unset MAKEFLAGS
