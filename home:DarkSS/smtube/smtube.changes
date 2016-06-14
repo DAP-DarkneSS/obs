@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sun Jun  5 11:04:11 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 16.6.0:
+  * Enable high DPI scaling.
+  * Replace ' with \' in the translation texts
+    for the javascript code.
+- Added man page.
+
+-------------------------------------------------------------------
 Tue Mar  8 16:08:31 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 16.3.0:

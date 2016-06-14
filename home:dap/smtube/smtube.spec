@@ -17,13 +17,14 @@
 
 
 Name:           smtube
-Version:        16.3.0
+Version:        16.6.0
 Release:        0
 Summary:        Small Youtube Browser
 License:        GPL-2.0+
 Group:          Productivity/Multimedia/Video/Players
 URL:            http://www.smtube.org/
 Source0:        http://downloads.sourceforge.net/smtube/SMTube/%{version}/%{name}-%{version}.tar.bz2
+Source9:        %{name}.1
 # Fix 'File is compiled without RPM_OPT_FLAGS'
 Patch0:         %{name}-src_%{name}.pro.patch
 %if 0%{?suse_version}
@@ -81,12 +82,16 @@ make %{?_smp_mflags} \
     %fdupes -s %{buildroot}%{_prefix}
 %endif
 
+mkdir -p %{buildroot}%{_mandir}/man1
+gzip -c9 %{SOURCE9} | tee -a %{buildroot}%{_mandir}/man1/%{name}.1.gz
+
 %files
 %defattr(-,root,root)
 %doc Changelog *.txt
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_mandir}/man1/%{name}.1.gz
 
 %files lang -f %{name}.lang
 %defattr(-,root,root)
