@@ -29,12 +29,16 @@ BuildRequires:  cmake
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(QtCore) >= 4.8
+BuildRequires:  pkgconfig(QtGui)
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(glu)
 BuildRequires:  pkgconfig(jack)
-BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavcodec) >= 53
+BuildRequires:  pkgconfig(libavformat) >= 53
+BuildRequires:  pkgconfig(libavutil) >= 51
 BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(libswscale) >= 2
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
