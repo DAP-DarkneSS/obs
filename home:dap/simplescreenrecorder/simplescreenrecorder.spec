@@ -1,7 +1,7 @@
 #
 # spec file for package simplescreenrecorder
 #
-# Copyright (c) 2015 Packman team: http://packman.links2linux.org/
+# Copyright (c) 2016 Packman team: http://packman.links2linux.org/
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -19,14 +19,19 @@
 Name:           simplescreenrecorder
 Version:        0.3.6
 Release:        0
-License:        GPL-3.0+
 Summary:        A feature-rich screen recorder that supports X11 and OpenGL
-Url:            http://www.maartenbaert.be/simplescreenrecorder
+License:        GPL-3.0+
 Group:          System/X11/Utilities
+Url:            http://www.maartenbaert.be/simplescreenrecorder
 Source:         https://github.com/MaartenBaert/ssr/archive/%{version}.tar.gz
+Source9:        baselibs.conf
+# PATCH-FIX-UPSTREAM vs. "error: 'mt19937' is not a member of 'std'".
+# See more at https://github.com/MaartenBaert/ssr/issues/455.
+Patch0:         simplescreenrecorder-0.3.6-missing-include.diff
 
 BuildRequires:  cmake
 BuildRequires:  hicolor-icon-theme
+BuildRequires:  pkgconfig
 BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(QtCore) >= 4.8
 BuildRequires:  pkgconfig(QtGui)
@@ -46,7 +51,7 @@ BuildRequires:  pkgconfig(xfixes)
 %if 0%{?suse_version} > 1220
 BuildRequires:  libjpeg8-devel
 %endif
-%ifarch %ix86 x86_64
+%ifarch %{ix86} x86_64
 Recommends:     libssr-glinject
 %if %{_lib} == "lib64"
 Recommends:     libssr-glinject-32bit
@@ -86,12 +91,12 @@ Features:
  * Tooltips for almost everything: no need to read the documentation to find
    out what something does.
 
-
-%ifarch %ix86 x86_64
+%ifarch %{ix86} x86_64
 %package -n libssr-glinject
-License:        MIT
 Summary:        A feature-rich screen recorder library
+License:        MIT
 Group:          System/Libraries
+
 %description -n libssr-glinject
 This package provides SimpleScreenRecorder's optional library.
 %endif
@@ -99,21 +104,22 @@ This package provides SimpleScreenRecorder's optional library.
 
 %prep
 %setup -q -n ssr-%{version}
+%patch0 -p1
 
 
 %build
-%ifarch %ix86 x86_64
+%ifarch %{ix86} x86_64
 %configure
 %else
 %configure \
            --disable-x86-asm \
            --disable-glinjectlib
 %endif
-make %{?_smp_mflags}
+make V=1 %{?_smp_mflags}
 
 
 %install
-%make_install
+%make_install V=1
 %suse_update_desktop_file %{name}
 
 
@@ -138,7 +144,7 @@ make %{?_smp_mflags}
 %{_mandir}/*/ssr-glinject*
 
 
-%ifarch %ix86 x86_64
+%ifarch %{ix86} x86_64
 %files -n libssr-glinject
 %defattr(-,root,root)
 %{_libdir}/libssr-glinject.*

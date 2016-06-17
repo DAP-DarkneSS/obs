@@ -1,7 +1,7 @@
 #
 # spec file for package simplescreenrecorder
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -25,11 +25,15 @@ Group:          System/X11/Utilities
 Url:            http://www.maartenbaert.be/simplescreenrecorder
 Source:         https://github.com/MaartenBaert/ssr/archive/%{version}.tar.gz
 Source9:        baselibs.conf
+# PATCH-FIX-UPSTREAM vs. "error: 'mt19937' is not a member of 'std'".
+# See more at https://github.com/MaartenBaert/ssr/issues/455 & bnc#985369.
+Patch0:         simplescreenrecorder-0.3.6-missing-include.diff
 
 BuildRequires:  cmake
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libjpeg8-devel
 BuildRequires:  libqt5-linguist
+BuildRequires:  pkgconfig
 BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(Qt5Gui)       >= 5.1
 BuildRequires:  pkgconfig(Qt5Widgets)   >= 5.1
@@ -38,14 +42,16 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(glu)
 BuildRequires:  pkgconfig(jack)
-BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavcodec) >= 53
+BuildRequires:  pkgconfig(libavformat) >= 53
+BuildRequires:  pkgconfig(libavutil) >= 51
 BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(libswscale)
+BuildRequires:  pkgconfig(libswscale) >= 2
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(xi)
-%ifarch %ix86 x86_64
+%ifarch %{ix86} x86_64
 # openGL apps:
 Recommends:     libssr-glinject
 %if %{_lib} == "lib64"
@@ -88,7 +94,7 @@ Features:
    out what something does.
 
 
-%ifarch %ix86 x86_64
+%ifarch %{ix86} x86_64
 %package -n libssr-glinject
 Summary:        Simple Screen Recorder openGL plugin
 License:        MIT
@@ -103,16 +109,17 @@ install libssr-glinject-32bit for 32bit openGL apps support.
 
 %prep
 %setup -q -n ssr-%{version}
+%patch0 -p1
 
 %build
-%ifarch %ix86 x86_64
+%ifarch %{ix86} x86_64
 # /usr/include/qt5/QtCore/qglobal.h:1067:4: error: error "You must build
 # your code with position independent code if Qt was built with
 # -reduce-relocations. " "Compile your code with -fPIC (-fPIE is not
 # enough)." error "You must build your code with position independent code
 # if Qt was built with -reduce-relocations."
-export CFLAGS="%optflags -fPIC"
-export CXXFLAGS="%optflags -fPIC"
+export CFLAGS="%{optflags} -fPIC"
+export CXXFLAGS="%{optflags} -fPIC"
 %configure --with-qt5
 %else
 %configure \
@@ -120,11 +127,11 @@ export CXXFLAGS="%optflags -fPIC"
            --disable-x86-asm \
            --disable-glinjectlib
 %endif
-make %{?_smp_mflags}
+make V=1 %{?_smp_mflags}
 
 %install
-%make_install
-find %{buildroot} -name *.la -delete
+%make_install V=1
+find %{buildroot} -type f -name "*.la" -delete -print
 %suse_update_desktop_file %{name}
 
 %post
@@ -146,7 +153,7 @@ find %{buildroot} -name *.la -delete
 %{_mandir}/*/%{name}*
 %{_mandir}/*/ssr-glinject*
 
-%ifarch %ix86 x86_64
+%ifarch %{ix86} x86_64
 %files -n libssr-glinject
 %defattr(-,root,root)
 %{_libdir}/libssr-glinject.so

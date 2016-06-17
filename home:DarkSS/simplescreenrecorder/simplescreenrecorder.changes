@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Fri Jun 17 16:22:18 UTC 2016 - dap.darkness@gmail.com
+
+- `spec-cleaner`
+- Added simplescreenrecorder-0.3.6-missing-include.diff
+  to resolve bnc#985369.
+- Tips from Packman's package.
+- Enabled verbose make build.
+
+-------------------------------------------------------------------
 Tue Nov  3 16:02:27 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 0.3.6 (since 0.3.3):
@@ -8,7 +17,7 @@ Tue Nov  3 16:02:27 UTC 2015 - dap.darkness@gmail.com
   * Fixed JACK input bug that could cause deadlocks in rare cases.
   * Added full support for NV12. If FFmpeg is compiled with NVENC
     support, this will allow you to use it.
-  * Removed ssr-0.3.3-fix-disable-x86-asm.patch.diff as merged.
+  * Removed ssr-0.3.3-fix-disable-x86-asm.diff as merged.
   * Removed ssr-0.3.3-ffmpeg-pkgconfig.diff as merged by upstream.
 - Qt4 → Qt5.
 

@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Fri Jun 17 16:22:18 UTC 2016 - dap.darkness@gmail.com
+
+- `spec-cleaner`
+- Added simplescreenrecorder-0.3.6-missing-include.diff
+  to resolve openSUSE Factory build time issue.
+- Tips from OBS' package.
+- Enabled verbose make build.
+
+-------------------------------------------------------------------
 Tue Nov  3 16:02:27 UTC 2015 - dap.darkness@gmail.com
 
 - Update to 0.3.6 (since 0.3.3):
