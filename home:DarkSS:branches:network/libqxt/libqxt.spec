@@ -1,7 +1,7 @@
 #
 # spec file for package libqxt
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -23,13 +23,26 @@ Release:        0
 Summary:        Library extending Qt
 License:        CPL-1.0 and LGPL-2.1
 Group:          Development/Libraries/C and C++
-Url:            http://libqxt.org/
+Url:            https://bitbucket.org/libqxt/libqxt/wiki/Home
+
+# SourceUrl seems to be unavailable.
 Source0:        v%{version}.tar.bz2
+# PATCH-FIX-OPENSUSE to support multimedia keys on keyboards.
+# http://dev.libqxt.org/libqxt-old-hg/issue/75
+Patch0:         libqxt-media-keys.patch
+# PATCH-FIX-OPENSUSE to respect X11 event filters already set.
+# http://dev.libqxt.org/libqxt/pull-request/41
+Patch1:         libqxt-event-filters.patch
+# PATCH-FIX-OPENSUSE to resolve build time issue via gcc6 (bnc#985109).
+Patch2:         libqxt-gcc6.patch
+
 BuildRequires:  chrpath
+BuildRequires:  db-devel
 BuildRequires:  fdupes
-BuildRequires:  libdb-4_8-devel
-BuildRequires:  libqt4-devel
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+BuildRequires:  pkgconfig
+BuildRequires:  pkgconfig(QtCore)
+BuildRequires:  pkgconfig(avahi-core)
+BuildRequires:  pkgconfig(xrandr)
 
 %description
 LibQxt is an extension library for Qt providing a suite of cross-platform utility classes to add functionality not readily available in the Qt toolkit by Trolltech, a Nokia company.
@@ -49,7 +62,6 @@ developing applications that use %{name}.
 %package -n %{name}1
 Summary:        Library extending Qt
 Group:          Development/Libraries/C and C++
-License:        CPL-1.0 and LGPL-2.1
 
 %description -n %{name}1
 LibQxt is an extension library for Qt providing a suite of cross-platform utility classes to add functionality not readily available in the Qt toolkit by Trolltech, a Nokia company.
@@ -57,15 +69,21 @@ LibQxt is an extension library for Qt providing a suite of cross-platform utilit
 
 %prep
 %setup -q -n libqxt-libqxt-%{versionhash}
+%patch0 -p1
+%patch1
+%if 0%{?suse_version} > 1320
+%patch2 -p1
+%endif
 
 %build
-./configure -prefix /usr -libdir %{_libdir}
-make %{?_smp_mflags}
+# Does not use GNU configure
+./configure -prefix %{_prefix} -libdir %{_libdir}
+make V=1 %{?_smp_mflags}
 
 %install
-make INSTALL_ROOT=%{buildroot} install
+make V=1 INSTALL_ROOT=%{buildroot} install
 chrpath --delete %{buildroot}%{_libdir}/*.so %{buildroot}%{_libdir}/qt4/plugins/designer/*.so
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
+find %{buildroot} -type f -name "*.la" -delete -print
 %fdupes -s %{buildroot}%{_includedir}/
 
 %post -n %{name}1 -p /sbin/ldconfig

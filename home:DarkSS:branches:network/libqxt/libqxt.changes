@@ -1,0 +1,29 @@
+-------------------------------------------------------------------
+Fri Jun 17 15:24:41 UTC 2016 - dap.darkness@gmail.com
+
+-`spec-cleaner`.
+- Updated Url & BuildRequires tags.
+- Added libqxt-gcc6.patch to resolve bnc#985109.
+- Enabled verbose make output.
+- Required xrandr & zeroconf to resolve configure time warnings.
+
+-------------------------------------------------------------------
+Sun Dec 29 09:21:05 UTC 2013 - dap.darkness@gmail.com
+
+- Added libqxt-media-keys.patch to support multimedia keys.
+  http://dev.libqxt.org/libqxt-old-hg/issue/75
+- Added libqxt-event-filters.patch to respect X11 event filters.
+  http://dev.libqxt.org/libqxt/pull-request/41
+
+-------------------------------------------------------------------
+Thu May 29 14:50:00 UTC 2012 - nekolayer@yandex.ru
+
+- changed package name to libqxt, to avoid future changes of soname
+
+-------------------------------------------------------------------
+Wed Feb 01 17:45:00 UTC 2012 - nekolayer@yandex.ru
+
+- LibQxt is an extension library for Qt providing a suite of
+  cross-platform utility classes to add functionality not readily available
+  in the Qt toolkit by Trolltech, a Nokia company.
+
