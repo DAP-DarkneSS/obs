@@ -1,7 +1,7 @@
 #
 # spec file for package modem-manager-gui
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -35,9 +35,10 @@ BuildRequires:  pkgconfig(glib-2.0) >= 2.32.1
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.4.0
 Requires:       ModemManager >= 0.5.0.0
 Recommends:     %{name}-lang
-Suggests:       evolution-data-server >= 3.4.1
 Suggests:       libcanberra0 >= 0.28
 Suggests:       libnotify-tools >= 0.7.5
+# Finally resolves bnc#985560 & bnc#927724.
+Conflicts:      evolution-data-server >= 3.16
 
 %description
 This program is simple graphical interface for Modem Manager
