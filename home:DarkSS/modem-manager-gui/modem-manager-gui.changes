@@ -1,4 +1,21 @@
 -------------------------------------------------------------------
+Tue Oct 13 17:15:48 UTC 2015 - dap.darkness@gmail.com
+
+- 0.0.18:
+  * New features:
+    - SystemD integration for easy services activation (DBus
+      activation also supported, SystemD is not strictly required);
+    - Spell checking for SMS messages (using Gtkspell and Enchant);
+    - Extended traffic consumption statistics;
+    - SMS list multi-selection mode.
+  * Fixes:
+    - Evolution Data Server v.0.0.16 API break;
+    - Crash on start because of NULL values in SMS structure fields;
+    - NDIS devices support;
+    - ...and some other.
+- Removed modem-manager-gui-0.0.17.1-fix-libebook-api-break.patch.
+
+-------------------------------------------------------------------
 Sat Apr 25 21:22:41 UTC 2015 - dap.darkness@gmail.com
 
 - Added http://download.tuxfamily.org/gsf/patch/…-api-break.patch

@@ -17,16 +17,13 @@
 
 
 Name:           modem-manager-gui
-Version:        0.0.17.1
+Version:        0.0.18
 Release:        0
 Summary:        Modem Manager GUI
 License:        GPL-3.0+
 Group:          Hardware/Mobile
 Url:            http://linuxonly.ru/cms/page.php?7
 Source:         http://download.tuxfamily.org/gsf/source/modem-manager-gui-%{version}.tar.gz
-
-# PATCH-FIX-UPSTREAM vs. evolution data server 3.16 libebook api break.
-Patch0:         modem-manager-gui-0.0.17.1-fix-libebook-api-break.patch
 
 BuildRequires:  fdupes
 BuildRequires:  gdbm-devel
@@ -58,10 +55,6 @@ Current features:
 
 %prep
 %setup -q
-# NOTE: if evolution-data-server >= 3.16.
-%if 0%{?suse_version} > 1320
-%patch0 -p1
-%endif
 
 %build
 %configure
@@ -89,15 +82,16 @@ make install INSTALLPREFIX=%{buildroot}
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%{_mandir}/man*/%{name}.1.*
-%dir %{_mandir}/en_US
-%dir %{_mandir}/en_US/man1
-%dir %{_mandir}/uz@Latn
-%dir %{_mandir}/uz@Latn/man1
-%{_mandir}/*/man*/%{name}.1.*
+%dir %{_mandir}/tr
+%dir %{_mandir}/uk
+%dir %{_mandir}/uz*
+%{_mandir}/*/*
 %dir %{_datadir}/appdata
 %{_datadir}/appdata/%{name}.appdata.xml
+# https://bugzilla.novell.com/show_bug.cgi?id=950215
+%exclude %{_datadir}/polkit-1/actions/ru.linuxonly.modem-manager-gui.policy
 
 %files lang -f %{name}.lang
+%defattr(-,root,root)
 
 %changelog
