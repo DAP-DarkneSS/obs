@@ -64,7 +64,7 @@ make %{?_smp_mflags}
 make install INSTALLPREFIX=%{buildroot}
 %find_lang %{name}
 %suse_update_desktop_file -r %{name} 'Internet;Monitor;'
-%fdupes -s %{buildroot}%{_datadir}
+%fdupes -s %{buildroot}%{_datadir}/help
 
 %post
 %desktop_database_post

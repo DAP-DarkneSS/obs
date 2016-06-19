@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Nov 17 14:27:56 UTC 2015 - dimstar@opensuse.org
+
+- Only run fdupes over /usr/share/help: we must not risk the icon
+  in /usr/share/pixmaps to turn in a symlink.
+
+-------------------------------------------------------------------
 Tue Oct 13 17:15:48 UTC 2015 - dap.darkness@gmail.com
 
 - 0.0.18:
