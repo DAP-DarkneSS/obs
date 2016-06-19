@@ -1,3 +1,13 @@
+-------------------------------------------------------------------
+Sun Jun 19 10:01:00 UTC 2016 - dap.darkness@gmail.com
+
+- `spec-cleaner`.
+- _service was removed. Source was updated.
+- Added ROSA-*.patch.
+- Verbose make.
+- Fixed about stuff.
+
+-------------------------------------------------------------------
 Sun Apr 28 11:49:02 UTC 2013 - dap.darkness@gmail.com
 
 - Initial build.
