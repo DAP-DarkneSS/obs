@@ -1,0 +1,87 @@
+commit 323a8ba26800d187e4e155dc7d4165b30b20bbc9
+Author: Dmitriy A. Perlow <dap.darkness@gmail.com>
+Date:   Fri Jun 17 23:13:03 2016 +0300
+
+    Resolved Qt5 build time issues. Qt4 is still fine too.
+
+diff --git a/itmages-dolphin-extension.pro b/itmages-dolphin-extension.pro
+index 8e43354..780c001 100644
+--- a/itmages-dolphin-extension.pro
++++ b/itmages-dolphin-extension.pro
+@@ -1,4 +1,5 @@
+ QT       += core gui dbus
++greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+ 
+ TARGET    = itmages-dolphin-extension
+ TEMPLATE  = app
+diff --git a/src/itmagesitem.cpp b/src/itmagesitem.cpp
+index 1469478..addc5b2 100644
+--- a/src/itmagesitem.cpp
++++ b/src/itmagesitem.cpp
+@@ -20,7 +20,7 @@
+ #include <QtCore/QUrl>
+ #include <QtGui/QClipboard>
+ #include <QtGui/QDesktopServices>
+-#include <QtGui/QMenu>
++#include <QMenu>
+ 
+ #include "src/itmagesitem.h"
+ 
+diff --git a/src/itmagesitem.h b/src/itmagesitem.h
+index 6610c59..29285a3 100644
+--- a/src/itmagesitem.h
++++ b/src/itmagesitem.h
+@@ -18,9 +18,9 @@
+ #ifndef ITMAGESITEM_H
+ #define ITMAGESITEM_H
+ 
+-#include <QtGui/QAction>
+-#include <QtGui/QActionGroup>
+-#include <QtGui/QWidget>
++#include <QAction>
++#include <QActionGroup>
++#include <QWidget>
+ 
+ #include "src/links.h"
+ #include "ui_itmagesitem.h"
+diff --git a/src/itmagesuploader.cpp b/src/itmagesuploader.cpp
+index 39b1720..feb85fb 100644
+--- a/src/itmagesuploader.cpp
++++ b/src/itmagesuploader.cpp
+@@ -15,7 +15,7 @@
+  *   along with itmages-dolphin-extension.  If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
+-#include <QtGui/QMessageBox>
++#include <QMessageBox>
+ #include <QtGui/QDesktopServices>
+ #include <QtCore/QProcess>
+ #include <QtCore/QSettings>
+diff --git a/src/itmagesuploader.h b/src/itmagesuploader.h
+index e69abc0..f6ec25e 100644
+--- a/src/itmagesuploader.h
++++ b/src/itmagesuploader.h
+@@ -18,7 +18,7 @@
+ #ifndef ITMAGESUPLOADER_H
+ #define ITMAGESUPLOADER_H
+ 
+-#include <QtGui/QMainWindow>
++#include <QMainWindow>
+ #include <QtDBus/QDBusConnection>
+ #include <QtDBus/QDBusInterface>
+ 
+diff --git a/src/main.cpp b/src/main.cpp
+index 11abd0f..9a87248 100644
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -15,8 +15,8 @@
+  *   along with itmages-dolphin-extension.  If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
+-#include <QtGui/QApplication>
+-#include <QtGui/QMessageBox>
++#include <QApplication>
++#include <QMessageBox>
+ #include <QtCore/QStringList>
+ #include <QtCore/QTranslator>
+ #include <QtCore/QLibraryInfo>

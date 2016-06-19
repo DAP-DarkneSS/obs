@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sat Jun 18 15:48:51 UTC 2016 - dap.darkness@gmail.com
+
+- _service → tarball & pretty sourceurl.
+- `spec-cleaner` & general spec clean-up.
+- Added simple man page.
+- Added dolphin-plugin-itmages-Qt5.diff.
+- Updated BuildRequires & %%build so.
+- Verbose make output.
+- Let's only suggest KDE4 stuff.
+
+-------------------------------------------------------------------
 Thu Aug 22 17:07:39 UTC 2013 - dap.darkness@gmail.com
 
 - Version 1.10:

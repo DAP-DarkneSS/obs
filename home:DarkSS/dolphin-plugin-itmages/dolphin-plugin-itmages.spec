@@ -1,7 +1,7 @@
 #
 # spec file for package dolphin-plugin-itmages
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -15,51 +15,66 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
+
 Name:           dolphin-plugin-itmages
 Version:        1.10
-Release:        1
+Release:        0
 Summary:        ITmages Dolphin extension to upload pictures to ITmages.ru
-
 License:        LGPL-3.0+
-Url:            https://github.com/itmages/itmages-dolphin-extension
 Group:          Productivity/Networking/Other
-Source0:        https://codeload.github.com/itmages/itmages-dolphin-extension/tar.gz/v%{version}
+Url:            https://github.com/itmages/itmages-dolphin-extension
+Source0:        https://github.com/itmages/itmages-dolphin-extension/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source9:        itmages-dolphin-extension.1
+# PATCH-FEATURE-UPSTREAM to make Qt5 build. See more at
+# https://github.com/itmages/itmages-dolphin-extension/pull/5
+Patch0:         dolphin-plugin-itmages-Qt5.diff
 
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  kde4-filesystem
-BuildRequires:  libqt4-devel
+BuildRequires:  pkgconfig
 BuildRequires:  update-desktop-files
-Requires:       kdelibs4-core
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Widgets)
 Requires:       python-itmages-service
-Recommends:     dolphin
+Suggests:       dolphin
+Suggests:       plasmoid-itmages-applet
 Provides:       itmages-dolphin-extension
 
 %description
-This extension for the file manager Dolphin, which allows you to quickly
-download your images to free image hosting ITmages.ru, in "two clicks".
+Qt application and KDE4 file manager Dolphin extension, that allow to
+quickly upload images to free image hosting ITmages.ru in "two clicks".
 
 %prep
 %setup -q -n itmages-dolphin-extension-%{version}
+%patch0 -p1
 chmod -x itmages-dolphin-extension.desktop
 
 %build
-export PATH="$PATH:/usr/lib/qt4/bin/:/usr/lib64/qt4/bin"
-qmake \
+qmake-qt5 \
       QMAKE_STRIP="" \
       PREFIX=%{_prefix} \
       QMAKE_CXXFLAGS+="%{optflags}"
-make %{?_smp_mflags}
+make V=1 %{?_smp_mflags}
 
 %install
-make INSTALL_ROOT=%{buildroot} install
+make V=1 INSTALL_ROOT=%{buildroot} install
+
+# Desktop files:
 %suse_update_desktop_file %{buildroot}%{_datadir}/kde4/services/ServiceMenus/itmages-dolphin-extension.desktop
 %suse_update_desktop_file -c itmages-uploader "ITmages Uploader" "Upload images to ITmages" "itmages-dolphin-extension %U" "%{_datadir}/icons/hicolor/scalable/apps/itmages.svg" "Utility;WebUtility;"
 echo "MimeType=image/png;image/jpeg;image/gif;" | tee -a %{buildroot}%{_datadir}/applications/itmages-uploader.desktop
+
+# Man page:
+mkdir -p %{buildroot}%{_mandir}/man1
+gzip -c9 %{SOURCE9} | tee -a %{buildroot}%{_mandir}/man1/itmages-dolphin-extension.1.gz
 
 %files
 %defattr(-,root,root,-)
 %doc README COPYING COPYING.LESSER
 %{_bindir}/itmages-dolphin-extension
+%{_mandir}/man1/itmages-dolphin-extension.1.gz
 %{_datadir}/icons/hicolor/scalable/apps/itmages.svg
 %{_datadir}/itmages/itmages-dolphin-extension_ru.qm
 %{_datadir}/applications/itmages-uploader.desktop
