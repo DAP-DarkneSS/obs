@@ -1,8 +1,19 @@
 -------------------------------------------------------------------
+Sun Jun 19 08:01:56 UTC 2016 - dap.darkness@gmail.com
+
+- 0.6.70-7062-gf8e8c11.
+- gstreamer-plugins-libav provides extra engines for lmp.
+- qt5ct provides system Qt5 configuration tool.
+- qtcurve-qt5 & oxygen5 provide Qt5 styles.
+
+-------------------------------------------------------------------
 Sun Jun  5 10:32:26 UTC 2016 - dap.darkness@gmail.com
 
 - 0.6.70-6970-g17b4101:
   * Lackman init was fixed.
+- gstreamer-plugins-bad provides extra engines for lmp.
+- libqt5-qtquickcontrols provides common qml stuff.
+- libqt5-qtgraphicaleffects provides extra qml widgets for lmp.
 
 -------------------------------------------------------------------
 Sat Jun  4 13:40:26 UTC 2016 - dap.darkness@gmail.com

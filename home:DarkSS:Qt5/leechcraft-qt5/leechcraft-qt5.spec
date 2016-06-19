@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-6970-g17b4101
+%define LEECHCRAFT_VERSION 0.6.70-7062-gf8e8c11
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -149,9 +149,13 @@ Suggests:       %{name}-lastfmscrobble
 Recommends:     %{name}-secman-simplestorage
 Recommends:     %{name}-visualnotifications
 
+# Qt5
 Conflicts:      leechcraft
 Conflicts:      libproxy1-config-kde4
+Recommends:     oxygen5
+Recommends:     qtcurve-qt5
 Requires:       libQt5Core5 >= 5.6
+Suggests:       qt5ct
 
 # Nondefault gcc magic!
 BuildConflicts: gcc48
@@ -1505,6 +1509,7 @@ Requires:       gstreamer-plugins-good >= 1.8
 Requires:       libqt5-qtgraphicaleffects >= 5.6
 Requires:       libqt5-qtquickcontrols >= 5.6
 Recommends:     gstreamer-plugins-bad
+Recommends:     gstreamer-plugins-libav
 Recommends:     gstreamer-fluendo-mp3
 Provides:       %{name}-audioplayer
 Provides:       %{name}-soundnotifications = %{version}

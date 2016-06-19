@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-6970-g17b4101
+%define LEECHCRAFT_VERSION 0.6.70-7062-gf8e8c11
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -1582,6 +1582,7 @@ Recommends:     ffmpeg
 Requires:       gstreamer-plugins-base >= 1.8
 Requires:       gstreamer-plugins-good >= 1.8
 Recommends:     gstreamer-plugins-bad
+Recommends:     gstreamer-plugins-libav
 Recommends:     gstreamer-fluendo-mp3
 %else
 Requires:       gstreamer-0_10-plugins-base
@@ -1867,16 +1868,6 @@ Provides:       %{name}-netstoremanager-subplugin
 
 %description netstoremanager-googledrive
 This package provides a Google Drive subplugin for Leechcraft NetStoreManager.
-
-
-#%%package netstoremanager-yandexdisk
-#Summary:        LeechCraft Network file storages Module
-#Group:          Productivity/Networking/Other
-#Requires:       %%{name}-netstoremanager = %%{version}
-#Provides:       %%{name}-netstoremanager-subplugin
-#
-#%%description netstoremanager-yandexdisk
-#This package provides a Yandex.Disk subplugin for Leechcraft NetStoreManager.
 
 
 %package networkmonitor
@@ -3607,13 +3598,6 @@ EOF
 %{plugin_dir}/*craft_netstoremanager_googledrive.so
 %{settings_dir}/nsmgoogledrivesettings.xml
 %{translations_dir}/*craft_netstoremanager_googledrive_*.qm
-
-#%%if %%qtversion >= 40800
-#%%files netstoremanager-yandexdisk
-#%%defattr(-,root,root)
-#%%{_libdir}/%%{name}/plugins/*%%{name}_netstoremanager_yandexdisk.so
-#%%{_datadir}/%%{name}/translations/%%{name}_netstoremanager_yandexdisk_*.qm
-#%%endif
 
 %files networkmonitor
 %defattr(-,root,root)
