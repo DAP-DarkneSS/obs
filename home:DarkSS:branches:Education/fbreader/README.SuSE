@@ -1,0 +1,18 @@
+FBReader package contains the following subpackages:
+- fbreader: The ebook reader
+- zlibrary: Cross-platform GUI library 
+- zlibrary-ui-gtk: GTK+ interface for zlibrary
+- zlibrary-ui-qt:  Qt interface for zlibrary
+
+'zypper install fbreader' does not guarantee which interface gets picked;
+so specify also either zlibrary-ui-gtk or -qt.
+
+If both -gtk and -qt interfaces are installed, by default
+the Gtk+ interface is used. To change the interface you want to use,
+run as root:
+
+# update-alternatives --config zlibrary-ui
+
+to reset the choice to the default, use
+
+# update-alternatives --auto zlibrary-ui
