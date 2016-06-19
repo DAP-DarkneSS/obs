@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Jun 19 19:57:17 UTC 2016 - dap.darkness@gmail.com
+
+- Removed README.SuSE because there is only Qt GUI now.
+- Moved libraries' stuff to main package.
+- pkgconfig().
+
+-------------------------------------------------------------------
 Sun May 25 10:42:36 UTC 2014 - trcs@gmx.com
 
 - Update to version 0.99.4
