@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jun 21 16:22:21 UTC 2016 - dap.darkness@gmail.com
+
+- The latest cmake workaround for openSUSE Leap 42.2.
+- %%cmake macro.
+
+-------------------------------------------------------------------
 Sat May 14 09:54:18 UTC 2016 - dap.darkness@gmail.com
 
 - libqrosspython1 does not match up with qrosspython.so file

@@ -17,6 +17,16 @@
 
 
 %if 0%{?suse_version} > 1320
+%define cmake34 1
+%else
+%if 0%{?suse_version} == 1315 && 0%{?sle_version} >= 120200 && 0%{?is_opensuse}
+%define cmake34 1
+%else
+%define cmake34 0
+%endif
+%endif
+
+%if %{cmake34}
 %define sopackname libqrosspython
 %else
 %define sopackname libqrosspython1
@@ -49,9 +59,11 @@ Source0:        Qross-%{version}.tar.xz
 Patch0:         Qrosspython-cmake3.patch
 
 BuildRequires:  Qross-devel
+BuildRequires:  cmake >= 3
+BuildRequires:  pkgconfig
 BuildRequires:  python-sip-devel
 BuildRequires:  pkgconfig(python2)
-%if 0%{?suse_version} > 1320
+%if %{cmake34}
 Provides:       %{name}-devel = %{version}
 Obsoletes:      %{name}-devel < %{version}
 %endif
@@ -64,7 +76,7 @@ Summary:        %{pack_summ}
 Group:          System/Libraries
 # NOTE! There are no linking against this library so let's take care
 # about backward compatibility:
-%if 0%{?suse_version} > 1320
+%if %{cmake34}
 Provides:       libqrosspython1 = %{version}
 Obsoletes:      libqrosspython1 < %{version}
 %endif
@@ -72,7 +84,7 @@ Obsoletes:      libqrosspython1 < %{version}
 %description    -n %{sopackname}
 %{pack_desc}
 
-%if 0%{?suse_version} <= 1320
+%if %{cmake34} == 0
 %package        devel
 Summary:        Development files for %{name}
 Group:          Development/Libraries/C and C++
@@ -88,22 +100,11 @@ developing applications that use %{name}.
 %patch0 -p1
 
 %build
-mkdir build && cd build
-
-cmake .. \
-%if "%{_lib}" == "lib64"
-        -DLIB_SUFFIX=64 \
-%endif
-        -DCMAKE_C_FLAGS="%{optflags}" \
-        -DCMAKE_CXX_FLAGS="%{optflags}" \
-        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo
-
+%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo
 make %{?_smp_mflags} VERBOSE=1
 
 %install
-cd build
-%make_install
+%cmake_install
 
 %post   -n %{sopackname} -p /sbin/ldconfig
 
@@ -111,13 +112,13 @@ cd build
 
 %files -n %{sopackname}
 %defattr(-,root,root)
-%if 0%{?suse_version} <= 1320
+%if %{cmake34} == 0
 %{_libdir}/*qrosspython*.so.*
 %else
 %{_libdir}/*qrosspython*.so
 %endif
 
-%if 0%{?suse_version} <= 1320
+%if %{cmake34} == 0
 %files devel
 %defattr(-,root,root)
 %{_libdir}/*qrosspython*.so

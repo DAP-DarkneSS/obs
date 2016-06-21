@@ -41,8 +41,9 @@ Url:            https://github.com/0xd34df00d/Qross
 # https://bugzilla.novell.com/show_bug.cgi?id=861882
 Source0:        %{name}-%{version}.tar.xz
 
-BuildRequires:  cmake >= 2.8
+BuildRequires:  cmake >= 3
 BuildRequires:  fdupes
+BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(QtCore)
 
 %description
@@ -60,6 +61,7 @@ Summary:        Development files for %{name}
 Group:          Development/Libraries/C and C++
 Requires:       cmake
 Requires:       libqross%{so_postfix} = %{version}
+Requires:       pkgconfig
 Requires:       pkgconfig(QtCore)
 
 %description    devel
@@ -71,22 +73,11 @@ developing applications that use %{name}.
 %setup -q -n %{name}-%{version}/src/qross
 
 %build
-mkdir build && cd build
-
-cmake .. \
-%if "%{_lib}" == "lib64"
-        -DLIB_SUFFIX=64 \
-%endif
-        -DCMAKE_C_FLAGS="%{optflags}" \
-        -DCMAKE_CXX_FLAGS="%{optflags}" \
-        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo
-
+%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo
 make %{?_smp_mflags} VERBOSE=1
 
 %install
-cd build
-%make_install
+%cmake_install
 
 %fdupes -s %{buildroot}%{_datadir}
 

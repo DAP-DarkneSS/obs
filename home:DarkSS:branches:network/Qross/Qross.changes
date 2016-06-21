@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jun 21 16:22:21 UTC 2016 - dap.darkness@gmail.com
+
+- %%cmake macro.
+
+-------------------------------------------------------------------
 Sat May 14 09:47:53 UTC 2016 - dap.darkness@gmail.com
 
 - The library package name ought to be libqross0_1 (not libqross1)
