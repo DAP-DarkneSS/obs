@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jun 22 15:12:13 UTC 2016 - dap.darkness@gmail.com
+
+- Reverted previous commit. It was wrong.
+
+-------------------------------------------------------------------
 Sun Jun 19 19:45:11 UTC 2016 - dap.darkness@gmail.com
 
 - Let's conflict with evolution-data-server >= 3.16 to finally
