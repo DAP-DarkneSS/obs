@@ -16,17 +16,17 @@
 #
 
 
-%define major   17
-%define tarballver 0.18.0+git5
+%define major   19
 
 Name:           xneur
-Version:        0.18.0
+Version:        0.%{major}.0
 Release:        0
 Summary:        X Neural Switcher
 License:        GPL-2.0+
 Group:          System/X11/Utilities
 Url:            http://www.xneur.ru
-Source0:        https://launchpad.net/~andrew-crew-kuznetsov/+archive/xneur-stable/+files/xneur_%{tarballver}.orig.tar.gz
+Source0:        https://github.com/AndrewCrewKuznetsov/xneur-devel/blob/master/dists/%{version}/%{name}_%{version}.orig.tar.gz?raw=true#/%{name}-%{version}.tar.gz
+Source9:        %{name}-rpmlintrc
 
 BuildRequires:  alsa-utils
 BuildRequires:  fdupes
@@ -36,6 +36,7 @@ BuildRequires:  pkgconfig(enchant)
 BuildRequires:  pkgconfig(gtk+-2.0)
 BuildRequires:  pkgconfig(libnotify)
 BuildRequires:  pkgconfig(libpcre)
+BuildRequires:  pkgconfig(xi)
 Requires:       alsa-utils
 Requires:       aspell
 Recommends:     %{name}-gui
@@ -75,15 +76,20 @@ Shared libraries for the package XNeur.
 %setup -q
 
 %build
+# NOTE: remove at version bump this workaround vs. utils.c:46:18: error:
+# 'total_mod_keys' defined but not used [-Werror=unused-const-variable=]
+%if 0%{?suse_version} > 1320
+export CPPFLAGS="%{optflags} -Wno-misleading-indentation -Wno-unused-variable"
+%endif
 %configure \
     --disable-static \
     --with-sound=aplay \
     --with-gtk=gtk2 \
     --with-spell=enchant
-make %{?_smp_mflags}
+make V=1 %{?_smp_mflags}
 
 %install
-%make_install
+%make_install V=1
 rm -f %{buildroot}%{_libdir}/{%{name}/*.*a,*.*a}
 rm -rf %{buildroot}%{_datadir}/icons/hicolor
 %fdupes -s %{buildroot}%{_datadir}

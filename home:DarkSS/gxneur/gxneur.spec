@@ -16,16 +16,14 @@
 #
 
 
-%define tarballver 0.18.0+git5
-
 Name:           gxneur
-Version:        0.18.0
+Version:        0.19.0
 Release:        0
 Summary:        GTK Front-end for XNeur
 License:        GPL-2.0+
 Group:          System/X11/Utilities
 Url:            http://www.xneur.ru
-Source0:        https://launchpad.net/~andrew-crew-kuznetsov/+archive/xneur-stable/+files/gxneur_%{tarballver}.orig.tar.gz
+Source0:        Source0:        https://github.com/AndrewCrewKuznetsov/xneur-devel/blob/master/dists/%{version}/%{name}_%{version}.orig.tar.gz?raw=true#/%{name}-%{version}.tar.gz
 
 BuildRequires:  pkgconfig
 BuildRequires:  update-desktop-files
@@ -49,13 +47,18 @@ gXNeur is a GTK front-end for XNeur keyboard layout switcher.
 %setup -q
 
 %build
+# NOTE: remove at version bump this workaround vs. utils.c:46:18: error:
+# 'total_mod_keys' defined but not used [-Werror=unused-const-variable=]
+%if 0%{?suse_version} > 1320
+export CPPFLAGS="%{optflags} -Wno-misleading-indentation -Wno-unused-variable"
+%endif
 %configure \
     --without-appindicator \
     --without-gconf
-make %{?_smp_mflags}
+make V=1 %{?_smp_mflags}
 
 %install
-%make_install
+%make_install V=1
 # Create desktop-file.
 cat > %{name}.desktop << EOF
 [Desktop Entry]

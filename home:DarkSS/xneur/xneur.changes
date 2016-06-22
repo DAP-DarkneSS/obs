@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Wed Jun 22 19:54:39 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 0.19:
+  * different minor improvements,
+  * errors and memory leaks fixes.
+- _service → tarball.
+- Corrected libs subpackage name.
+- Added rpmlintrc to skip zero-length warnings.
+- Enabled verbose make output.
+- Added an ugly workaround vs. Factory's compiler error.
+
+-------------------------------------------------------------------
 Sun May 15 12:54:45 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 0.18:

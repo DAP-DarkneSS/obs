@@ -16,16 +16,14 @@
 #
 
 
-%define tarballver 0.18.0+git6
-
 Name:           kdeneur
-Version:        0.18.0
+Version:        0.19.0
 Release:        0
 Summary:        KDE Front-end for XNeur
 License:        GPL-2.0+
 Group:          System/X11/Utilities
 Url:            http://www.xneur.ru
-Source0:        https://launchpad.net/~andrew-crew-kuznetsov/+archive/xneur-stable/+files/kdeneur_%{tarballver}.orig.tar.gz
+Source0:        https://github.com/AndrewCrewKuznetsov/xneur-devel/blob/master/dists/%{version}/%{name}_%{version}.orig.tar.gz?raw=true#/%{name}-%{version}.tar.gz
 # PATCH-FIX-OPENSUSE to fix Qt4 binaries names.
 Patch0:         kdeneur-qt4-bin.patch
 
@@ -50,11 +48,11 @@ It also allows to configure XNeur via GUI dialog.
 
 %build
 %configure
-make %{?_smp_mflags}
+make V=1 %{?_smp_mflags}
 %suse_update_desktop_file -r %{name} 'Utility;DesktopUtility;Qt;'
 
 %install
-%make_install
+%make_install V=1
 
 %files
 %defattr(-,root,root)
