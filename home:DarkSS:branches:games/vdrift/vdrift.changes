@@ -1,0 +1,46 @@
+-------------------------------------------------------------------
+Tue May 24 13:04:02 UTC 2016 - rpm@fthiessen.de
+
+- Added fix-desktop-and-appdata.patch see upstream reported:
+  https://github.com/VDrift/vdrift/pull/147
+- Builds also with libbullet 2.83 so removed unneeded libbullet
+  requirement.
+
+-------------------------------------------------------------------
+Fri May  6 07:08:38 UTC 2016 - mailaender@opensuse.org
+
+- Update to version 2014.10.20
+
+-------------------------------------------------------------------
+Sat Mar 22 21:18:39 UTC 2014 - seife+obs@b1-systems.com
+
+- fix build with newer libbullet (replace vdrift-2012-07-22c_patch
+  vdrift-2012-07-22c_bullet281_patch)
+
+-------------------------------------------------------------------
+Sat Sep 15 20:02:38 UTC 2012 - mailaender@opensuse.org
+
+- update to 20120722
+
+-------------------------------------------------------------------
+Mon Apr 30 16:02:39 UTC 2012 - reddwarf@opensuse.org
+
+- update to 20111022
+
+-------------------------------------------------------------------
+Mon Nov 21 17:15:00 UTC 2011 - jengelh@medozas.de
+
+- Remove redundant/unwanted tags/section (cf. specfile guidelines)
+- Avoid use of %_smp_mflags with scons
+
+-------------------------------------------------------------------
+Sun Nov 20 21:08:31 UTC 2011 - seife+obs@b1-systems.com
+
+- fix build for 12.1+ by explicitly linking against libGL
+- enable verbose build to not suppress compiler messages
+
+-------------------------------------------------------------------
+Thu Apr 21 14:58:32 UTC 2011 - prusnak@opensuse.org
+
+- based on packman package by Toni Graffy
+
