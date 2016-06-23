@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jun 23 19:21:09 UTC 2016 - dap.darkness@gmail.com
+
+- Added Fedora's vdrift-20141020-gcc6.patch
+  to prevent build issue via gcc6.
+
+-------------------------------------------------------------------
 Tue May 24 13:04:02 UTC 2016 - rpm@fthiessen.de
 
 - Added fix-desktop-and-appdata.patch see upstream reported:

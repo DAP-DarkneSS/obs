@@ -32,6 +32,8 @@ Url:            http://vdrift.net/
 Source:         https://downloads.sourceforge.net/project/vdrift/vdrift/vdrift-%{_year}-%{_month}-%{_day}/vdrift-%{_year}-%{_month}-%{_day}.tar.bz2
 # PATCH-FIX-UPSTREAM fix-desktop-and-appdata.patch -- https://github.com/VDrift/vdrift/pull/147
 Patch0:         fix-desktop-and-appdata.patch
+# PATCH-FIX-OPENSUSE to prevent build issue via gcc6.
+Patch1:         vdrift-20141020-gcc6.patch
 BuildRequires:  fdupes
 BuildRequires:  update-desktop-files
 BuildRequires:  gcc-c++
@@ -91,6 +93,9 @@ Monza, Paul Ricard, Vir, ...
 %prep
 %setup -q -n vdrift
 %patch0 -p1
+%if 0%{?suse_version} > 1320
+%patch1 -p0
+%endif
 
 find . -name "*.bak" -delete
 
