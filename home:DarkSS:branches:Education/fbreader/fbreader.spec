@@ -1,7 +1,7 @@
 #
 # spec file for package fbreader
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,8 +16,7 @@
 #
 
 
-%define			zlui_soname 0_99
-%define			zlib_suffix 0_99_4
+%define			zl_sover 0_99
 Name:           fbreader
 Version:        0.99.4
 Release:        0
@@ -43,78 +42,51 @@ BuildRequires:  libqt4-devel
 BuildRequires:  libunibreak-devel
 BuildRequires:  sqlite3-devel
 BuildRequires:  zlib-devel
-Requires:       libzlui%{zlui_soname} = %{version}
-Requires:       zlibrary-%{zlib_suffix} = %{version}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  update-desktop-files
 
 %description
-About FBReader
+A multi-platform ebook reader which supports popular ebook formats:
+ePub, fb2, mobi, rtf, html, plain text, and a lot of other formats.
+It provides access to popular network libraries that contain a large
+set of ebooks. Download books for free or for a fee. Add your own
+catalog. Highly customizable. Choose colors, fonts, page turning
+animations, dictionaries, bookmarks, etc. to make reading as
+convenient as you want.
 
-    A multi-platform ebook reader. FBReader is free (and ad-free).
-    Supports popular ebook formats: ePub, fb2, mobi, rtf, html, plain text, and a lot of other formats.
-    Provides access to popular network libraries that contain a large set of ebooks. Download books for free or for a fee. Add your own catalog.
-    Highly customizable. Choose colors, fonts, page turning animations, dictionaries, bookmarks, etc. to make reading as convenient as you want.
-
-
-FBReader is an e-book reader for various platforms.
-Main features:
-    * Supported formats are
-          o fb2 e-book format (style attributes are not supported yet).
-          o HTML format (tables are not supported).
-          o CHM format (tables are not supported).
-          o plucker format (tables are not supported).
-          o Palmdoc (aportis doc).
-          o zTxt (Weasel format).
-          o TCR (psion text) format.
-          o RTF format (stylesheets and tables are not supported).
-          o OEB format (css and tables are not supported).
-          o OpenReader format (css and tables are not supported).
-          o Non-DRM'ed mobipocket format (tables are not supported).
-          o Plain text format.
-    * Direct reading from tar, zip, gzip and bzip2 archives.
-      (Multiple books in one archive are supported.)
-    * Automatic library building.
-    * Automatic encoding detection is supported.
-    * Automatically generated contents table.
-    * Embedded images support.
-    * Footnotes/hyperlinks support.
-    * Position indicator.
-    * Keeps the last open book and the last read positions for all opened
-      books between runs.
-    * List of last opened books.
-    * Automatic hyphenations. Liang's algorithm is used. The same algorithm is
-      used in TeX, and TeX hyphenation patterns are used in FBReader. Patterns
-      for Czech, English, Esperanto, French, German and Russian are included
-      in the current version.
-    * Text search.
-    * Full-screen mode.
-    * Screen rotation by 90, 180 and 270 degrees.
-
-%package -n     zlibrary-%{zlib_suffix}
+%package -n     zlibrary%{zl_sover}
 Summary:        Cross-platform GUI library
-Group:          Development/Libraries/C and C++
+Group:          System/Libraries
+Requires:       zlibrary-data >= %{version}
 Requires:       zlibrary-ui = %{version}
 
-%description -n zlibrary-%{zlib_suffix}
+%description -n zlibrary%{zl_sover}
 ZLibrary is a cross-platform library to build applications running on
 desktop Linux, Windows, and different Linux-based PDAs.
+
+%package -n zlibrary-data
+Summary:        Data files for Zlibrary
+Group:          Productivity/Other
+
+%description -n zlibrary-data
 
 %package -n     zlibrary-devel
 Summary:        Development files for zlibrary
 Group:          Development/Libraries/C and C++
-Requires:       zlibrary = %{version}
+Requires:       libzlui%{zl_sover} = %{version}
+Requires:       zlibrary%{zl_sover} = %{version}
 
 %description -n zlibrary-devel
 This package contains the libraries amd header files that are needed
 for writing applications with Zlibrary.
 
-%package -n     libzlui%{zlui_soname}
+%package -n     libzlui%{zl_sover}
 Summary:        Qt4 interface module for ZLibrary
-Group:          Development/Libraries/C and C++
+Group:          System/Libraries
 Provides:       zlibrary-ui = %{version}
+Requires:       zlibrary-data >= %{version}
 
-%description -n libzlui%{zlui_soname}
+%description -n libzlui%{zl_sover}
 This package provides a Qt4-based UI for ZLibrary.
 
 %prep
@@ -155,13 +127,13 @@ install -m644 fbreader/desktop/FBReader.1 %{buildroot}%{_mandir}/man1
 %postun
 %desktop_database_postun
 
-%post   -n zlibrary-%{zlib_suffix} -p /sbin/ldconfig
+%post   -n zlibrary%{zl_sover} -p /sbin/ldconfig
 
-%postun -n zlibrary-%{zlib_suffix} -p /sbin/ldconfig
+%postun -n zlibrary%{zl_sover} -p /sbin/ldconfig
 
-%post   -n libzlui%{zlui_soname} -p /sbin/ldconfig
+%post   -n libzlui%{zl_sover} -p /sbin/ldconfig
 
-%postun -n libzlui%{zlui_soname} -p /sbin/ldconfig
+%postun -n libzlui%{zl_sover} -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root,-)
@@ -174,26 +146,25 @@ install -m644 fbreader/desktop/FBReader.1 %{buildroot}%{_mandir}/man1
 %{_datadir}/pixmaps/FBReader.png
 %{_mandir}/man1/FBReader.1.gz
 
-%files -n zlibrary-%{zlib_suffix}
+%files -n zlibrary%{zl_sover}
 %defattr(-,root,root,-)
 %doc fbreader/LICENSE
 %{_libdir}/libzlcore.so.*
 %{_libdir}/libzltext.so.*
-%dir %{_datadir}/zlibrary
-%{_datadir}/zlibrary
-%exclude %{_datadir}/zlibrary/keynames-*.xml
+
+%files -n zlibrary-data
+%defattr(-,root,root)
+%{_datadir}/zlibrary/
 
 %files -n zlibrary-devel
 %defattr(-,root,root,-)
-%dir %{_includedir}/zlibrary
-%{_includedir}/zlibrary/*
+%{_includedir}/zlibrary/
 %{_libdir}/libzlcore.so
 %{_libdir}/libzltext.so
 %{_libdir}/libzlui.so
 
-%files -n libzlui%{zlui_soname}
+%files -n libzlui%{zl_sover}
 %defattr(-,root,root,-)
-%{_datadir}/zlibrary/keynames-qt4.xml
 %{_libdir}/libzlui.so.*
 
 %changelog
