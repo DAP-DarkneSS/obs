@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Jun 23 17:33:29 UTC 2016 - dap.darkness@gmail.com
+
+- Added fbreader-0.99.4-gcc6-Wno-narrowing.diff as a workaround
+  for https://github.com/geometer/FBReader/issues/289
+- Added %%description tag & noarch for zlibrary-data subpackage.
+
+-------------------------------------------------------------------
 Sun Jun 19 19:57:17 UTC 2016 - dap.darkness@gmail.com
 
 - Removed README.SuSE because there is only Qt GUI now.

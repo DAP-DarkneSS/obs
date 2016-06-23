@@ -26,24 +26,27 @@ Group:          Productivity/Other
 Url:            http://www.fbreader.org/
 Source0:        %{name}-sources-%{version}.tgz
 Source1:        FBReader.desktop
-Source2:        README.SuSE
 Source3:        fbreader.xml
+# PATCH-FIX-UPSTREAM to prevent crash with zipped fb2 files.
 # See https://github.com/geometer/FBReader/issues/232 for more info
 Patch0:         FBReader-0.99.4-fix-crash-with-fb2.zip-files.patch
-BuildRequires:  enca-devel
+# PATCH-FIX-OPENSUSE to workaround for build issue via gcc6,
+# see more at https://github.com/geometer/FBReader/issues/289
+Patch1:         fbreader-0.99.4-gcc6-Wno-narrowing.diff
 BuildRequires:  expat
 BuildRequires:  fdupes
-BuildRequires:  fribidi-devel
 BuildRequires:  gcc-c++
-BuildRequires:  libbz2-devel
-BuildRequires:  libcurl-devel >= 7.17
-BuildRequires:  libexpat-devel
-BuildRequires:  libqt4-devel
-BuildRequires:  libunibreak-devel
-BuildRequires:  sqlite3-devel
-BuildRequires:  zlib-devel
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+BuildRequires:  pkgconfig
 BuildRequires:  update-desktop-files
+BuildRequires:  pkgconfig(QtGui)
+BuildRequires:  pkgconfig(bzip2)
+BuildRequires:  pkgconfig(enca)
+BuildRequires:  pkgconfig(expat)
+BuildRequires:  pkgconfig(fribidi)
+BuildRequires:  pkgconfig(libcurl) >= 7.17
+BuildRequires:  pkgconfig(libunibreak)
+BuildRequires:  pkgconfig(sqlite3)
+BuildRequires:  pkgconfig(zlib)
 
 %description
 A multi-platform ebook reader which supports popular ebook formats:
@@ -67,6 +70,10 @@ desktop Linux, Windows, and different Linux-based PDAs.
 %package -n zlibrary-data
 Summary:        Data files for Zlibrary
 Group:          Productivity/Other
+BuildArch:      noarch
+
+%description -n zlibrary-data
+This package contains data files for Zlibrary.
 
 %description -n zlibrary-data
 
@@ -91,8 +98,10 @@ This package provides a Qt4-based UI for ZLibrary.
 
 %prep
 %setup -q
-cp %{SOURCE2} .
 %patch0 -p1
+%if 0%{?suse_version} > 1320
+%patch1 -p0
+%endif
 
 %build
 make %{?_smp_mflags} -C zlibrary/core TARGET_ARCH=desktop LIBDIR=%{_libdir} UI_TYPE=dummy
@@ -137,7 +146,7 @@ install -m644 fbreader/desktop/FBReader.1 %{buildroot}%{_mandir}/man1
 
 %files
 %defattr(-,root,root,-)
-%doc fbreader/LICENSE README.SuSE
+%doc fbreader/LICENSE ChangeLog
 %{_bindir}/FBReader
 %{_datadir}/FBReader
 %{_datadir}/applications/FBReader.desktop
