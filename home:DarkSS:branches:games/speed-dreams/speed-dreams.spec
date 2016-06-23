@@ -1,7 +1,7 @@
 #
 # spec file for package speed-dreams
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 # Copyright (c) 2008-2012 Jean-Philippe Meuret aka pouillot
 # & Bertaux Xavier aka torcs-ng (GPLv2 & GPLv3)
 #
@@ -32,6 +32,8 @@ Source3:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}
 Source4:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-more-hq-cars-and-tracks-%{version}-%{rev}.tar.xz
 Source5:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-wip-cars-and-tracks-%{version}-%{rev}.tar.xz
 Source6:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-unmaintained-%{version}-%{rev}.tar.xz
+# PATCH-FIX-OPENSUSE to prevent error: 'isnan' was not declared in this scope.
+Patch0:         speed-dreams-2.1.0-gcc-isnan.diff
 BuildRequires:  Mesa-devel
 BuildRequires:  cmake
 BuildRequires:  fdupes
@@ -90,6 +92,9 @@ tar -xf %{SOURCE4}
 tar -xf %{SOURCE5}
 tar -xf %{SOURCE6}
 chmod -x *.txt
+%if 0%{?suse_version} > 1320
+%patch0 -p0
+%endif
 
 %build
 mkdir -p build
