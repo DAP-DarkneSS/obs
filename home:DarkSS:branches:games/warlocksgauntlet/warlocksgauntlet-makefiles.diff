@@ -1,0 +1,51 @@
+--- Makefile.orig	2016-06-24 18:57:42.000000000 +0300
++++ Makefile	2016-06-24 19:02:03.533159720 +0300
+@@ -1,6 +1,6 @@
+ GAMENAME = WarlocksGauntlet
+ 
+-BINARY = $(GAMENAME).bin32
++BINARY = warlocksgauntlet
+ 
+ -include Makefile.sources
+ 
+@@ -9,12 +9,10 @@
+     CPPFLAGS += -DSCM_REVISION="$(SCM_REVISION)"
+ endif
+ 
+-LDFLAGS = -L"./libs32"
+-
+-LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
++LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lopenal -lGL -lGLEW -lz
+ 
+ #default:
+-CXXFLAGS = -g -Wall
++CXXFLAGS = -g -Wall -std=c++98
+ 
+ #release:
+ #release: CXXFLAGS = -O3 -ffast-math
+--- Makefile.x86_64.orig	2016-06-24 18:57:52.000000000 +0300
++++ Makefile.x86_64	2016-06-24 19:17:37.449159720 +0300
+@@ -2,7 +2,7 @@
+ 
+ ARCH = "x86_64"
+ 
+-BINARY = $(GAMENAME).bin64
++BINARY = warlocksgauntlet
+ 
+ -include Makefile.sources
+ 
+@@ -11,12 +11,10 @@
+     CPPFLAGS += -DSCM_REVISION="$(SCM_REVISION)"
+ endif
+ 
+-LDFLAGS = -L"./libs64"
+-
+-LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lopenal
++LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lopenal -lGL -lGLEW -lz
+ 
+ #default:
+-CXXFLAGS = -g -Wall -m64
++CXXFLAGS = -g -Wall -m64 -std=c++98
+ 
+ #release:
+ #release: CXXFLAGS = -O3 -ffast-math

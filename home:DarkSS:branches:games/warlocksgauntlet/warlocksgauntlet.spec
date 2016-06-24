@@ -1,11 +1,7 @@
 #
 # spec file for package warlocksgauntlet
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
-# Copyright (c) 2010-2012 Warlock's Gauntlet team:
-# see more at http://www.assembla.com/spaces/gdpl/wiki/Kontakty
-# (the code is open source and the assets are licensed CC),
-# (c) 2012 Perlow Dmitriy A. (spec file)
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -30,20 +26,17 @@ License:        CC-BY-3.0
 Group:          Amusements/Games/Action/Other
 Url:            http://www.assembla.com/wiki/show/gdpl
 Source0:        https://bitbucket.org/toxic/wg/get/%{version}.tar.bz2
-# PATCH-FIX-UPSTREAM Building error is fixed.
+
+# PATCH-FIX-OPENSUSE to 1) unify the binary file name 2) exclude built-in
+# libraries 3) prevent linking error 4) prevent build error via gcc6.
+Patch0:         warlocksgauntlet-makefiles.diff
+# PATCH-FIX-OPENSUSE to prevent build error.
 Patch1:         include2.patch
-# PATCH-FIX-OPENSUSE Makefile for x32 is fixed in order to unify the binary
-# file name, exclude built-in libraries and resolve linking error.
-Patch2:         link64.patch
-# PATCH-FIX-OPENSUSE Makefile for x64 is fixed in order to unify the binary
-# file name, exclude built-in libraries and resolve linking error.
-Patch3:         link32.patch
-# PATCH-FIX-UPSTREAM Crash on startup is fixed.
+# PATCH-FIX-OPENSUSE to prevent crash on start-up.
 Patch4:         toxic.patch
-# See patch discussion with the game developer at
-# http://www.assembla.com/spaces/gdpl/tickets/1282-make--***-%5Bwarlocksgauntlet-bin64%5D-error-1-in-opensuse-12-1
-# PATCH-FIX-UPSTREAM warlocksgauntlet-gcc47.patch
+# PATCH-FIX-OPENSUSE to prevent build error via gcc≥47.
 Patch5:         warlocksgauntlet-gcc47.patch
+
 BuildRequires:  Mesa-devel
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
@@ -93,25 +86,20 @@ spells. There is no networked multiplayer, but the game includes a hot-seat
 two-player mode. The game available entirely for free.
 
 %prep
-tar -xf %{SOURCE0} -C ./
-cd toxic-wg-%{rev}
+%setup -q -n toxic-wg-%{rev}
+%patch0 -p0
 %patch1
-%patch2
-%patch3
 %patch4
 %patch5 -p1
 
 %build
-cd toxic-wg-%{rev}
-%ifarch %{ix86}
-make
-%endif
 %ifarch x86_64
-make -f Makefile.x86_64
+make V=1 %{?_smp_mflags} -f Makefile.x86_64
+%else
+make V=1 %{?_smp_mflags}
 %endif
 
 %install
-cd toxic-wg-%{rev}
 mkdir -p %{buildroot}%{_datadir}/%{name}
 cp -r ./data/ %{buildroot}%{_datadir}/%{name}
 install ./data.vfs %{buildroot}%{_datadir}/%{name}

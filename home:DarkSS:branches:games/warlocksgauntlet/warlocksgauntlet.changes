@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Fri Jun 24 15:44:53 UTC 2016 - dap.darkness@gmail.com
+
+- Added %%setup macro.
+- Set verbose make output.
+- Added warlocksgauntlet-makefiles.diff to add " -std=c++98" to
+  CXXFLAGS to prevent build issue via gcc6.
+- Removed link32.patch & link64.patch as merged into
+  warlocksgauntlet-makefiles.diff.
+
+-------------------------------------------------------------------
+Sun Sep 15 17:28:24 UTC 2013 - dap.darkness@gmail.com
+
+- Arm build was fixed.
+
+-------------------------------------------------------------------
 Wed Dec 19 18:05:36 UTC 2012 - joop.boonen@opensuse.org
 
 - Added BuildRequires: glu-devel as it's not a BuildRequirement
