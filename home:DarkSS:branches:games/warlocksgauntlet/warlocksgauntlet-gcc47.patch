@@ -1,0 +1,10 @@
+diff -Naur toxic-wg-5234a6147bac.orig/src/PlatformLinux.cpp toxic-wg-5234a6147bac/src/PlatformLinux.cpp
+--- toxic-wg-5234a6147bac.orig/src/PlatformLinux.cpp	2012-03-08 17:37:30.000000000 +0100
++++ toxic-wg-5234a6147bac/src/PlatformLinux.cpp	2012-05-15 20:58:04.000000000 +0200
+@@ -1,5 +1,6 @@
+ #ifdef PLATFORM_LINUX
+ #ifndef PLATFORM_MACOSX
++#include <unistd.h>
+ #include <wordexp.h>
+ #include <string>
+ #include <stdio.h>
