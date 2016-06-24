@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Fri Jun 24 15:38:27 UTC 2016 - dap.darkness@gmail.com
+
+- 2.8.1 (no upstream changelog).
+- Added transparency-2.8.1-gcc6-abs.diff to prevent build issue.
+- Added simple man pages.
+- Set Qt5 build.
+- Introduced %%cmake macro.
+- Suppressed developer warnings of cmake.
+- _service → tarball.
+
+-------------------------------------------------------------------
 Mon May 19 20:32:37 UTC 2014 - dap.darkness@gmail.com
 
 - Initial build.

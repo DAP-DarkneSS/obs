@@ -1,0 +1,99 @@
+.TH "transparency" "1" "2.8.1" "Dmitriy A. Perlow aka DAP-DarkneSS" ""
+.SH "NAME"
+Transparency is a set of transparent applications.
+.br
+.SH "SYNTAX"
+transparency [options] [applications]
+.br
+.SH "OPTIONS"
+Application Options:
+.br
+	-h, --help
+.br
+			print this help and exit
+.br
+	-v, --version
+.br
+			print application version and exits
+.br
+	--acpi	transparent battery monitor
+.br
+	--all	all display except summary
+.br
+	--append
+.br
+			append selected applications to current session instead of replacing it
+.br
+	--calendar
+.br
+			transparent calendar
+.br
+	--clock	transparent clock
+.br
+	--cpu	transparent cpu monitor
+.br
+	--disk	transparent disk monitor
+.br
+	--highdpi
+.br
+			enable high-dpi support
+.br
+	--memory
+.br
+			transparent memory monitor
+.br
+	--network
+.br
+			transparent network monitor
+.br
+	--summary
+.br
+			text summary of all display
+.br
+	--temperature
+.br
+			transparent temperature monitor
+.br
+
+Server Options:
+.br
+	-q, --abort
+.br
+			exit existing instance
+.br
+	-r, --replace
+.br
+			replace existing application instance with new one
+.br
+	--no-server
+.br
+			ignore server mode, run new application instance
+.br
+	--server-host string
+.br
+			use specified host for server communication
+.br
+	--server-port integer
+.br
+			use specified port for server communication
+.br
+
+Qt Options:
+.br
+	-graphicssystem	string
+.br
+			Qt drawing backend (native|raster)
+.br
+	-style			string
+.br
+			Qt widget style
+.br
+
+Special tag "-" can be added to separate options from the last list of arguments (e.g. list of files to be opened).
+.br
+.SH "AUTHORS"
+<hugo.pereira@free.fr>
+.br
+.SH "SEE ALSO"
+transparency-settings(1) transparent-pictures(1) transparent-clock(1) transparent-calendar(1)
+.br

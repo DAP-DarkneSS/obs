@@ -1,7 +1,7 @@
 #
 # spec file for package transparency
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,21 +17,40 @@
 
 
 Name:           transparency
-Version:        2.7.4
+Version:        2.8.1
 Release:        0
 Summary:        A set of transparent applications
 License:        GPL-2.0+
 Group:          System/GUI/Other
 Url:            http://hugo.pereira.free.fr/software/index.php?page=package&package_list=software_list_qt4&package=transparency&full=0
 Source:         http://hugo.pereira.free.fr/software/tgz/transparency-%{version}.tar.gz
+Source5:        transparency.1
+Source6:        transparent-calendar.1
+Source7:        transparent-clock.1
+Source8:        transparent-pictures.1
+Source9:        transparency-settings.1
+# PATCH-FIX-OPENSUSE to prevent build issue via gcc6.
+Patch0:         transparency-2.8.1-gcc6-abs.diff
 
-BuildRequires:  cmake
+BuildRequires:  cmake >= 3
+BuildRequires:  libQt5Gui-private-headers-devel
+BuildRequires:  pkgconfig
 BuildRequires:  update-desktop-files
 BuildRequires:  xdg-utils
-BuildRequires:  pkgconfig(QtCore)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5PrintSupport)
+BuildRequires:  pkgconfig(Qt5Svg)
+BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt5Xml)
 BuildRequires:  pkgconfig(libnotify)
+BuildRequires:  pkgconfig(xcb-keysyms)
 BuildRequires:  pkgconfig(xrender)
-BuildConflicts: post-build-checks
+Requires(post): hicolor-icon-theme
+Requires(post): update-desktop-files
+Requires(postun): hicolor-icon-theme
+Requires(postun): update-desktop-files
 
 %description
 Transparent applications suite:
@@ -46,22 +65,21 @@ Transparent applications suite:
 
 %prep
 %setup -q
+%if 0%{?suse_version} > 1320
+%patch0 -p0
+%endif
 
 %build
-mkdir build && cd build
-
-cmake .. \
-        -DCMAKE_CXX_FLAGS="%{optflags}" \
-        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+%cmake \
+        -Wno-dev \
+        -DUSE_QT5=True \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
 make V=1 %{?_smp_mflags}
 
 %install
-cd build
-make V=1 install DESTDIR=%{buildroot}
+%cmake_install
 
-cd ..
 mkdir -p %{buildroot}%{_datadir}/pixmaps
 
 install transparency.png \
@@ -78,16 +96,25 @@ install pictures/transparent-picture-viewer.png \
 %suse_update_desktop_file -i transparent-clock     -r "Qt;Utility;DesktopUtility;TimeUtility;"
 %suse_update_desktop_file -i transparent-pictures
 
+mkdir -p %{buildroot}%{_mandir}/man1
+cd %{_sourcedir}
+for MANPAGE in *.1; do
+gzip -c9 $MANPAGE | tee -a %{buildroot}%{_mandir}/man1/$MANPAGE.gz
+done
+
 %post
 %desktop_database_post
+%icon_theme_cache_post
 
 %postun
 %desktop_database_postun
+%icon_theme_cache_postun
 
 %files
 %defattr(-,root,root)
 %doc COPYING
 %{_bindir}/transparen*
+%{_mandir}/man1/transparen*
 %{_datadir}/pixmaps/transparen*
 %{_datadir}/applications/transparen*
 
