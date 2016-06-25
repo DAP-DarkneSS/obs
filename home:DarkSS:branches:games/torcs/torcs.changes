@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sat Jun 25 15:53:54 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 1.3.7.
+- Added torcs-1.3.7-isnan.patch from Fedora to prevent
+  error: 'isnan' was not declared in this scope.
+- Enabled verbose make output.
+- Added man pages.
+- Tarball → _service.
+- Introduced data subpackage.
+
+-------------------------------------------------------------------
 Sat Feb  8 18:52:41 UTC 2014 - mailaender@opensuse.org
 
 - update to 1.3.5

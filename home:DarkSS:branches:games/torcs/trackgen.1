@@ -1,0 +1,55 @@
+.TH "trackgen" "1" "1.3.7" "Dmitriy A. Perlow aka DAP-DarkneSS" ""
+.SH "NAME"
+A part of TORCS: The Open Racing Car Simulator.
+.br
+.SH "DESCRIPTION"
+Terrain generator for tracks.
+.br
+.SH "SYNTAX"
+trackgen -c category -n name [-i xml_path] [-o ac_path] [-a] [-m] [-s] [-S] [-E <n> [-H <nb>]]
+.br
+.SH "OPTIONS"
+	-c category		:	track category (road, oval, dirt...)
+.br
+	-n name			:	track name
+.br
+	-i xml_path		:	path to track XML file, for unit tests (instead of fetching it from standard location)
+.br
+	-o ac_path		:	path of the generated ac file, for unit tests (instead of putting it to the standard location)
+.br
+	-b				:	draw bump track
+.br
+	-r				:	draw raceline track
+.br
+	-B				:	don't use terrain border (relief supplied int clockwise, ext CC)
+.br
+	-a				:	draw all (default is track only)
+.br
+	-z				:	just calculate track parameters and exit
+.br
+	-s				:	split the track and the terrain
+.br
+	-S				:	split all
+.br
+	-E <n>			:	save elevation file n
+.br
+					0: all elevatation files
+.br
+					1: elevation file of terrain + track
+.br
+					2: elevation file of terrain with track white
+.br
+					3: track only
+.br
+					4: track elevations with height steps
+.br
+	-H <nb>			: nb of height steps for 4th elevation file [30]
+.br
+	-L libDir		: Library directory
+.br
+.SH "AUTHORS"
+http://torcs.sourceforge.net
+.br
+.SH "SEE ALSO"
+texmapper(1) nfs2ac(1) accc(1) torcs(1) nfsperf(1)
+.br

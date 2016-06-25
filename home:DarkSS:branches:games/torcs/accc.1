@@ -1,0 +1,81 @@
+.TH "accc" "1" "1.3.7" "Dmitriy A. Perlow aka DAP-DarkneSS" ""
+.SH "NAME"
+A part of TORCS: The Open Racing Car Simulator.
+.br
+.SH "DESCRIPTION"
+Ac3d Compiler.
+.br
+.SH "SYNTAX"
+accc [option] <inputfile> <outputfile> [dist][-order "orderstring"]<
+.br
+.SH "OPTIONS"
++o: ac3d to ac3d : the result file is optimized
+.br
+                   in using groups by zone of track
+.br
+                   track must be named TKMNxxx
+.br
+                   dist is used to determine the distance of the objects
+.br
+-o: ac3d to obj 
+.br
++s: ac3d to ac3d with strips (used for cars) 
+.br
++es <angle_of_smooth>: ac3d to ac3d with strips (used for cars) and extended ac3d file output 
+.br
+    (computed normals) angle is in degrees : example : +es 80.0 clkdtm_o.ac clkdtm.ac  
+.br
+    the output file will also contains the secondary textcoord for the env sliding 
+.br
++et: ac3d to ac3d with triangles (used for cars) and extended ac3d file output (normals normals) 
+.br
++etn: ac3d to ac3d with triangles no split and extended ac3d file output (normals normals) 
+.br
++shad: ac3d to ac3d with triangles, create a new ac3d file used for track shading
+.br
+   vertical mapping of a single texture 
+.br
+<inputfile>: 
+.br
+<oututfile>: 
+.br
+-order "orderstring": only used with +es , +s and  +et  
+.br
+       "orderstring" is the order of the objects during the save
+.br
+        for example : "HB;OB;OBM" is the names of the objet separate
+.br
+        by a semicolon
+.br
+        for imported NFS cars the object name "HB" must be used instead
+.br
+        of ":HB"
+.br
+-g <outputfile>: for grouping multilayer ac3d track 
+.br
+     -l0 <input filename> : the base geometry
+.br
+     -l1 <input filename> : the base geometry map-tiled 
+.br
+     -l2 <input filename> : the base geometry skids/and grass details 
+.br
+     -l3 <input filename> : the base geometry shadows 
+.br
+     -d3 <val> : the max distance of groups in tkmn
+.br
+     -d2 <val> : the distance of group 2 in tkmn
+.br
+     -d1 <val> : the distance of group 1 in tkmn
+.br
+     -S <val> : the distance of splitting for TERRAIN* objects
+.br
+     -es : for extended ac3d file format for strips
+.br
+     -nts : no texture split (for debug)
+.br
+.SH "AUTHORS"
+http://torcs.sourceforge.net
+.br
+.SH "SEE ALSO"
+texmapper(1) nfs2ac(1) trackgen(1) torcs(1) nfsperf(1)
+.br
