@@ -17,7 +17,7 @@
 
 
 Name:           kkedit
-Version:        0.3.3
+Version:        0.3.3+git.87.gcd45fe7
 Release:        0
 Summary:        Source code text editor
 License:        GPL-3.0
@@ -25,23 +25,24 @@ Group:          Productivity/Text/Editors
 Url:            http://gtk-apps.org/content/show.php?content=158161
 Source0:        http://khapplications.darktech.org/zips/kkedit/KKEdit-%{version}.tar.gz
 Source8:        KKEditProgressBar.1
-Source9:        %{name}.1
-# PATCH-FIX-OPENSUSE vs. various errors & warnings about desktop files.
-Patch0:         kkedit-desktop-warnings.diff
 
 BuildRequires:  aspell-devel
+BuildRequires:  automake >= 1.15
 BuildRequires:  ctags
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig >= 0.9.0
+BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(gmodule-2.0) >= 2.32.4
 BuildRequires:  pkgconfig(gtk+-2.0) >= 2.24.0
 BuildRequires:  pkgconfig(gtksourceview-2.0)
 BuildRequires:  pkgconfig(unique-1.0)
 BuildRequires:  pkgconfig(vte) >= 0.28.2
 BuildRequires:  pkgconfig(webkit-1.0)
+Requires(post): hicolor-icon-theme
 Requires(post): update-desktop-files
-Requires(pre):  update-desktop-files
+Requires(postun): hicolor-icon-theme
+Requires(postun): update-desktop-files
 Recommends:     %{name}-lang
 Recommends:     ctags
 Recommends:     doxygen
@@ -91,7 +92,6 @@ KKEdit include headers and example external tools.
 
 %prep
 %setup -q -n KKEdit-%{version}
-%patch0
 
 %build
 %configure \
@@ -102,6 +102,8 @@ make %{?_smp_mflags}
 
 %install
 %make_install
+
+%suse_update_desktop_file KKEditRoot Utility TextEditor
 
 # Let's use %%doc macro.
 rm %{buildroot}%{_datadir}/KKEdit/docs/gpl-3.0.txt
@@ -120,9 +122,8 @@ ln -s %{_libdir}/%{name} %{buildroot}/%{_datadir}/KKEdit/plugins-gtk
 # Man pages:
 mkdir -p %{buildroot}%{_mandir}/man1
 gzip -c9 %{SOURCE8} | tee -a %{buildroot}%{_mandir}/man1/KKEditProgressBar.1.gz
-gzip -c9 %{SOURCE9} | tee -a %{buildroot}%{_mandir}/man1/%{name}.1.gz
 
-%fdupes -s %{buildroot}
+%fdupes -s %{buildroot}%{_datadir}/locale/fr_FR/LC_MESSAGES
 
 
 %post

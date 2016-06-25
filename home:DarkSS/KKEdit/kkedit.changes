@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sat Jun 25 13:00:41 UTC 2016 - dap.darkness@gmail.com
+
+- 0.3.3+git.87.gcd45fe7.
+- Removed kkedit-desktop-warnings.diff as upstreamed.
+- Removed kkedit.1 as upstreamed.
+- Applied %%suse_update_desktop_file to resolve
+  not sufficient category error.
+
+-------------------------------------------------------------------
 Thu Jun  9 17:45:10 UTC 2016 - dap.darkness@gmail.com
 
 - 0.3.3:
