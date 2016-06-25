@@ -1,0 +1,268 @@
+-------------------------------------------------------------------
+Sat Feb  8 18:52:41 UTC 2014 - mailaender@opensuse.org
+
+- update to 1.3.5
+- migrate to https://en.opensuse.org/SourceUrls
+- upstream merged src and data tarballs
+
+-------------------------------------------------------------------
+Sat Nov 24 11:41:45 UTC 2012 - matwey.kornilov@gmail.com
+
+- updated to 1.3.4
+  - lots of fixes
+
+-------------------------------------------------------------------
+Sun Feb 26 21:54:17 MSK 2012 - matwey.kornilov@gmail.com
+
+- updated to 1.3.3
+
+-------------------------------------------------------------------
+Tue Apr 13 17:03:23 CEST 2010 - prusnak@suse.cz
+
+- updated to 1.3.1, cleaned specfile
+
+-------------------------------------------------------------------
+Sat Nov 17 19:01:11 CET 2007 - sndirsch@suse.de
+
+- some more gcc 4.3 fixes ("<new.h>" --> "<new>")
+
+-------------------------------------------------------------------
+Thu Nov  1 11:05:09 CET 2007 - coolo@suse.de
+
+- fix compiling with gcc 4.3
+
+-------------------------------------------------------------------
+Mon Jun 18 01:48:02 CEST 2007 - ro@suse.de
+
+- avoid string compare with char literal
+
+-------------------------------------------------------------------
+Thu May 24 02:14:22 CEST 2007 - ro@suse.de
+
+- added plib-devel to buildreq
+
+-------------------------------------------------------------------
+Tue Nov  7 22:08:30 CET 2006 - sndirsch@suse.de
+
+- updated to release 1.3.0
+  * reworked cars and tracks (Andrew, Bernhard)
+  * improved and new opponents (Christos, Bernhard)
+  * a lot of little improvements and a few new features (Bernhard,
+    Christos, Mart Kelder and a lot of other people)
+
+-------------------------------------------------------------------
+Wed Oct 25 12:36:49 CEST 2006 - sndirsch@suse.de
+
+- freealut only exists since openSUSE 10.2
+
+-------------------------------------------------------------------
+Tue Oct 24 01:47:22 CEST 2006 - ro@suse.de
+
+- build with freealut (split from openal)
+
+-------------------------------------------------------------------
+Tue Oct 10 22:43:00 CEST 2006 - sndirsch@suse.de
+
+- undefined.diff:
+  * fixed gcc "may be undefined" warning (Bug #207686)
+
+-------------------------------------------------------------------
+Mon Jul 31 21:33:18 CEST 2006 - sndirsch@suse.de
+
+- disabled parallel build, since it simply doesn't work ...
+
+-------------------------------------------------------------------
+Sun Jul 23 16:48:35 CEST 2006 - sndirsch@suse.de
+
+- fixed build for X.Org 7
+
+-------------------------------------------------------------------
+Wed Jun 14 23:16:14 CEST 2006 - dmueller@suse.de
+
+- build parallel
+
+-------------------------------------------------------------------
+Mon Jan 30 13:14:06 CET 2006 - coolo@suse.de
+
+- fix BuildRequires
+
+-------------------------------------------------------------------
+Wed Jan 25 21:44:44 CET 2006 - mls@suse.de
+
+- converted neededforbuild to BuildRequires
+
+-------------------------------------------------------------------
+Fri Nov 25 14:43:35 CET 2005 - sndirsch@suse.de
+
+- added -fno-strict-aliasing to fix build
+
+-------------------------------------------------------------------
+Wed Nov  2 21:44:34 CET 2005 - sndirsch@suse.de
+
+- added glib2/glib2-devel to neededforbuild to fix build
+
+-------------------------------------------------------------------
+Tue Oct 18 22:27:47 CEST 2005 - sndirsch@suse.de
+
+- removed extra qualifications (fatal error for gcc 4.1)
+
+-------------------------------------------------------------------
+Fri Sep  9 10:21:06 CEST 2005 - sndirsch@suse.de
+
+- splitted package into torcs + torcs-data(noarch), which saves us
+  about 32MB on a biarch distribution
+
+-------------------------------------------------------------------
+Sat Aug 27 16:39:46 CEST 2005 - sndirsch@suse.de
+
+- update to release 1.2.4
+  * obsoletes gcc4 patch
+  * reworked tracks
+  * updated cars
+  * added/updated sound effects and OpenAL support
+  * improved and new opponents
+  * texture compression and down scaling
+  * a lot of bugfixes and little improvements
+
+-------------------------------------------------------------------
+Fri May 13 04:18:23 CEST 2005 - sndirsch@suse.de
+
+- use norootforbuild
+
+-------------------------------------------------------------------
+Tue Apr  5 15:56:18 CEST 2005 - sndirsch@suse.de
+
+- improved gcc4 fix: long --> intptr_t
+
+-------------------------------------------------------------------
+Tue Apr  5 04:47:28 CEST 2005 - sndirsch@suse.de
+
+- fixed build with gcc4
+
+-------------------------------------------------------------------
+Sun Feb 27 00:28:15 CET 2005 - sndirsch@suse.de
+
+- fixed build on x86_64
+
+-------------------------------------------------------------------
+Tue Feb  8 06:14:51 CET 2005 - sndirsch@suse.de
+
+- updated to release 1.2.3
+  * The most visible and audible changes are a new and really great
+    sound implementation and samples (Christos), a nice new track
+    (Christos), new and updated opponents (Christos, Bernhard), a
+    cool open wheel car (SpeedyChonChon), nicer smoke and improved
+    skid marks (Christos), lots of small improvments and bugfixes
+    (Eric, Bernhard) and finally some new configuration options
+    (Eric, Bernhard).
+
+-------------------------------------------------------------------
+Wed May  5 22:49:13 CEST 2004 - sndirsch@suse.de
+
+- added desktop icon
+
+-------------------------------------------------------------------
+Tue May  4 15:07:09 CEST 2004 - sndirsch@suse.de
+
+- revised selection of tracks, cars and robots; define ADDONS in
+  specfile to build everything
+
+-------------------------------------------------------------------
+Sun May  2 18:19:17 CEST 2004 - sndirsch@suse.de
+
+- updated to release 1.2.2
+- radical changes in build
+
+-------------------------------------------------------------------
+Sun May  2 14:56:32 CEST 2004 - sndirsch@suse.de
+
+- no longer build against a special static freeglut library; use
+  the system shared freeglut library instead
+
+-------------------------------------------------------------------
+Mon Mar 29 17:06:07 CEST 2004 - mmj@suse.de
+
+- Package /usr/games/torcs and /usr/lib/torcs as root:root [#36364]
+- Clean up after us
+
+-------------------------------------------------------------------
+Wed Aug 20 01:05:03 CEST 2003 - ro@suse.de
+
+- fix typo in specfile
+
+-------------------------------------------------------------------
+Tue Aug 19 18:56:45 CEST 2003 - bk@suse.de
+
+- cleanup some drivers and cars and fix graph.xml for driver view
+
+-------------------------------------------------------------------
+Wed Aug 13 22:53:48 CEST 2003 - bk@suse.de
+
+- update to CVS: keyboard & multiplayer support powerful input config
+
+-------------------------------------------------------------------
+Tue Aug 12 10:19:41 CEST 2003 - sndirsch@suse.de
+
+- added desktop file
+
+-------------------------------------------------------------------
+Fri Jun 13 11:05:51 CEST 2003 - kukuk@suse.de
+
+- Fix permissions of lib/games directory
+- Add missing directories to filelist
+
+-------------------------------------------------------------------
+Wed Apr  2 12:39:39 CEST 2003 - sndirsch@suse.de
+
+- gl-glext-legacy.dif
+  * fixes build with current XFree86 GL library
+
+-------------------------------------------------------------------
+Mon Mar 17 17:25:18 CET 2003 - bk@suse.de
+
+- reduce optimisation to avoid sigill on AMD K6
+
+-------------------------------------------------------------------
+Tue Mar 11 14:21:41 CET 2003 - bk@suse.de
+
+- fix fullscreen mode(fixes bug #25168) and fix data overrun errors
+
+------------------------------------------------------------------
+Tue Mar  4 20:53:18 CET 2003 - bk@suse.de
+
+- better default car, improved mouse settings and starting grid
+- remove berniw drivers for now until they are are shortened
+- use compressed textures where applicable to reduce install size
+
+-------------------------------------------------------------------
+Mon Mar  3 18:54:52 CET 2003 - bk@suse.de
+
+- tune mouse preferences and update default quickrace starting grid
+
+-------------------------------------------------------------------
+Mon Mar  3 15:22:40 CET 2003 - bk@suse.de
+
+- update src tarball to rc2, obsoletes only the mouse patch
+- bzip2 tarballs, use the GPL cars and new default quickrace
+
+-------------------------------------------------------------------
+Tue Feb 25 02:25:57 CET 2003 - ro@suse.de
+
+- use ExclusiveArch, not BuildArch
+- remove Epoch
+
+-------------------------------------------------------------------
+Mon Feb 24 19:28:34 CET 2003 - bk@suse.de
+
+- fix saving game settings user, mouse sensivity fix for high speeds
+
+-------------------------------------------------------------------
+Sun Feb 23 17:55:03 CET 2003 - ro@suse.de
+
+- completely comment out non-existing sub-package
+
+-------------------------------------------------------------------
+Thu Feb 20 18:06:56 CET 2003 - bk@suse.de
+
+- initial version 1.2.0-rc1
+
