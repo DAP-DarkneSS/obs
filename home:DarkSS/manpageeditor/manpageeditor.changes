@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sat Jun 25 12:06:28 UTC 2016 - dap.darkness@gmail.com
+
+- 0.1.1+git.20160623.1ad4b8d.
+- Removed manpageeditor-desktop-warnings.diff as upstreamed.
+- Applied %%suse_update_desktop_file to resolve
+  not sufficient category error.
+- Removed %%fdupes macro because of upstream clean-up.
+
+-------------------------------------------------------------------
 Thu Jun  9 17:36:11 UTC 2016 - dap.darkness@gmail.com
 
 - 0.1.1.

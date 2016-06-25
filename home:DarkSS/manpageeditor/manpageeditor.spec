@@ -19,22 +19,20 @@
 %define oname ManPageEditor
 
 Name:           manpageeditor
-Version:        0.1.1
+Version:        0.1.1+git.20160623.1ad4b8d
 Release:        0
 Summary:        A simple manual pages editor
 License:        GPL-3.0
 Group:          Development/Tools/Other
 Url:            http://gtk-apps.org/content/show.php?content=160219
 Source0:        http://khapplications.darktech.org/zips/manpageeditor/%{oname}-%{version}.tar.gz
-# PATCH-FIX-OPENSUSE vs. various errors & warnings about desktop files.
-Patch1:         manpageeditor-desktop-warnings.diff
 
 BuildRequires:  aspell-devel
 BuildRequires:  ctags
-BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  groff
 BuildRequires:  pkgconfig >= 0.9.0
+BuildRequires:  update-desktop-files
 BuildRequires:  xdg-utils
 BuildRequires:  pkgconfig(gtk+-2.0) >= 2.24.0
 BuildRequires:  pkgconfig(gtksourceview-2.0)
@@ -48,7 +46,6 @@ Create, edit, import, preview man-pages.
 
 %prep
 %setup -q -n %{oname}-%{version}
-%patch1
 
 %build
 %configure \
@@ -57,10 +54,10 @@ Create, edit, import, preview man-pages.
 %install
 %make_install
 
+%suse_update_desktop_file %{oname} Documentation
+
 # Let's use %%doc macro.
 rm %{buildroot}%{_datadir}/%{oname}/docs/gpl-3.0.txt
-
-%fdupes -s %{buildroot}
 
 %post
 %desktop_database_post
