@@ -1,0 +1,61 @@
+-------------------------------------------------------------------
+Sun Aug 10 12:02:57 UTC 2014 - mailaender@opensuse.org
+
+- update to version 2.4
+
+-------------------------------------------------------------------
+Sat Dec 21 17:57:13 UTC 2013 - tom.mbrt@googlemail.com
+
+- Update to version 2.2.1 fixes build against ogre 1.9
+
+-------------------------------------------------------------------
+Sun Oct 20 15:26:05 UTC 2013 - tom.mbrt@googlemail.com
+
+- Update to version 2.1
+  *add SDL2 as build dependency
+  *disable parallel make jobs to avoid out of memory exception
+  *removed redundant set_version from _service file
+
+-------------------------------------------------------------------
+Mon Jul 15 09:16:53 UTC 2013 - i@marguerite.su
+
+- fix openSUSE 12.3 builds
+  * because our boost 1.49 contains a fix that coming with 1.50+
+  * so upstream fix (rename Boost:TIME_UTC to Boost:TIME_UTC_) conflicts with us
+
+-------------------------------------------------------------------
+Sat Jun  1 10:31:51 UTC 2013 - joop.boonen@opensuse.org
+
+- Update to version 2.0
+
+-------------------------------------------------------------------
+Wed Apr  3 19:32:25 UTC 2013 - joop.boonen@opensuse.org
+
+- Update to version 1.9
+
+-------------------------------------------------------------------
+Tue Oct 30 20:56:30 UTC 2012 - reddwarf@opensuse.org
+
+- Add stuntrally-1.8-gcc_output_warnings.patch
+
+-------------------------------------------------------------------
+Sun Oct 28 19:39:41 UTC 2012 - reddwarf@opensuse.org
+
+- Update to 1.8
+
+-------------------------------------------------------------------
+Sun Sep 16 07:51:00 UTC 2012 - mailaender@opensuse.org
+
+- update to version 1.7
+
+-------------------------------------------------------------------
+Wed Apr 20 13:51:09 UTC 2011 - prusnak@opensuse.org
+
+- spec cleanup
+- split-off data noarch package
+
+-------------------------------------------------------------------
+Fri Apr  8 13:19:38 UTC 2011 - anixx@opensuse.org
+
+- Initial release for openSUSE
+
