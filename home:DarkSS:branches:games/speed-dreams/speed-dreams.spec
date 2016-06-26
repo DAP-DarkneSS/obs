@@ -32,8 +32,9 @@ Source3:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}
 Source4:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-more-hq-cars-and-tracks-%{version}-%{rev}.tar.xz
 Source5:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-wip-cars-and-tracks-%{version}-%{rev}.tar.xz
 Source6:        http://sourceforge.net/projects/%{name}/files/%{version}/%{name}-src-unmaintained-%{version}-%{rev}.tar.xz
-# PATCH-FIX-OPENSUSE to prevent error: 'isnan' was not declared in this scope.
-Patch0:         speed-dreams-2.1.0-gcc-isnan.diff
+# PATCH-FIX-UPSTREAM vs. gcc6' error: 'isnan' was not declared in this
+# scope. See more at https://sourceforge.net/p/speed-dreams/tickets/964
+Patch0:         speed-dreams-2.1.0-gcc6-isnan.diff
 BuildRequires:  Mesa-devel
 BuildRequires:  cmake
 BuildRequires:  fdupes

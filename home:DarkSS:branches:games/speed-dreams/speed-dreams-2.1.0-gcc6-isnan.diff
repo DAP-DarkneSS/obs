@@ -1,0 +1,12 @@
+--- src/libs/learning/policy.cpp.orig	2014-06-18 17:20:36.000000000 +0300
++++ src/libs/learning/policy.cpp	2016-06-26 17:02:05.871749280 +0300
+@@ -18,6 +18,9 @@
+ #ifdef WIN32
+ #include <float.h>
+ #endif // WIN32
++#if __cplusplus==201402L // compiler claims to be C++14 compliant
++#define isnan std::isnan
++#endif
+ 
+ #include <portability.h>
+ 
