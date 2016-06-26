@@ -45,7 +45,8 @@ BuildRequires:  gettext-devel
 BuildRequires:  graphviz
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
-BuildRequires:  zlib-devel
+BuildRequires:  pkgconfig
+BuildRequires:  pkgconfig(zlib)
 
 %description
 %{pack_desc}
@@ -93,6 +94,9 @@ done
 
 %build
 %cmake \
+%if 0%{suse_version} > 1320
+	-DCMAKE_CXX_FLAGS="%{optflags} -std=c++98" \
+%endif
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo
 make %{?_smp_mflags} VERBOSE=1
 
