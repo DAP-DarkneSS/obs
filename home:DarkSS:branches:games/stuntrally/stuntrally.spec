@@ -1,7 +1,7 @@
 #
 # spec file for package stuntrally
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,25 +17,25 @@
 
 
 Name:           stuntrally
-Version:        2.4
+Version:        2.6
 Release:        0
 Summary:        Rally game with stunt elements
 License:        GPL-3.0
 Group:          Amusements/Games/Action/Race
 Url:            http://code.google.com/p/vdrift-ogre/
-Source0:        stuntrally-%{version}.tar.xz
-Source1:        tracks-%{version}.tar.xz
+Source0:        https://github.com/stuntrally/stuntrally/archive/%{version}.tar.gz#/stuntrally-%{version}.tar.gz
+Source1:        https://github.com/stuntrally/tracks/archive/%{version}.tar.gz#/tracks-%{version}.tar.gz
+Source8:        sr-editor.1
+Source9:        stuntrally.1
 Patch0:         strcmp.diff
-# PATCH-FIX-OPENSUSE marguerite@opensuse.org - because our boost 1.49 contains a fix that coming in 1.50+
-# so upstream fix the same thing...(rename Boost::TIME_UTC to Boost::TIME_UTC_)
-Patch1:         stuntrally-2.0-boost-fix.patch
-BuildRequires:  boost-devel
-BuildRequires:  cmake
+
+BuildRequires:  boost-devel >= 1.54
+BuildRequires:  cmake >= 3
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  hicolor-icon-theme
-BuildRequires:  xz
 BuildRequires:  update-desktop-files
+BuildRequires:  xz
 BuildRequires:  pkgconfig(MYGUI)
 BuildRequires:  pkgconfig(OGRE)
 BuildRequires:  pkgconfig(OGRE-Overlay)
@@ -44,7 +44,9 @@ BuildRequires:  pkgconfig(OGRE-Property)
 BuildRequires:  pkgconfig(OGRE-RTShaderSystem)
 BuildRequires:  pkgconfig(OGRE-Terrain)
 BuildRequires:  pkgconfig(OIS)
+BuildRequires:  pkgconfig(bullet) >= 2.83
 BuildRequires:  pkgconfig(libenet)
+BuildRequires:  pkgconfig(openal)
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(vorbisfile)
 BuildRequires:  pkgconfig(x11)
@@ -69,36 +71,49 @@ Requires:       %{name} = %{version}
 BuildArch:      noarch
 
 %description data
-Data files for Stunt Rally.
+Architecture independent data files for Stunt Rally.
+
+%package devel
+Summary:        Development files for Stunt Rally
+Group:          Development/Libraries/C and C++
+Requires:       %{name} = %{version}
+BuildArch:      noarch
+
+%description devel
+This package contain all that is needed to developer or compile
+appliancation with the Stunt Rally.
 
 %prep
 %setup -q -a1
 %patch0
 mv tracks-%{version} data/tracks
-%if 0%{?suse_version} == 1230
-%patch1 -p1
-%endif
 
 %build
 mkdir build
 cd build
-export CFLAGS='%{optflags} -fno-strict-aliasing'
-export CXXFLAGS='%{optflags} -fno-strict-aliasing'
+# WARNING: %%cmake breaks game linking (undefined reference to boost).
 cmake -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON \
+      -DCMAKE_C_FLAGS="%{optflags} -std=gnu++98 -fno-strict-aliasing -Wno-narrowing" \
+      -DCMAKE_CXX_FLAGS="%{optflags} -std=gnu++98 -fno-strict-aliasing -Wno-narrowing" \
       -DCMAKE_INSTALL_PREFIX=%{_prefix} \
       -DSHARE_INSTALL=share/stuntrally \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_VERBOSE_MAKEFILE=TRUE \
       ..
-#no parallel build to avoid out of memory exception
-make
+# WARNING: don't use parallel build because of compiling fatal errors.
+make V=1
 
 %install
-pushd build
-make DESTDIR=%{buildroot} install
-popd
+%cmake_install
+%fdupes %{buildroot}/%{_datadir}/stuntrally
+rm %{buildroot}/%{_prefix}/lib/OGRE/libshiny.OgrePlatform.a
+rm %{buildroot}/%{_prefix}/lib/libshiny.a
 
-%fdupes %{buildroot}%{_datadir}
+mkdir -p %{buildroot}%{_mandir}/man1
+cd %{_sourcedir}
+for MANPAGE in *.1; do
+gzip -c9 $MANPAGE | tee -a %{buildroot}%{_mandir}/man1/$MANPAGE.gz
+done
 
 %post
 %desktop_database_post
@@ -112,6 +127,7 @@ popd
 %defattr(-,root,root,-)
 %{_bindir}/sr-editor
 %{_bindir}/stuntrally
+%{_mandir}/man1/s*.1.gz
 %{_datadir}/applications/sr-editor.desktop
 %{_datadir}/applications/stuntrally.desktop
 %{_datadir}/icons/hicolor/*/apps/
@@ -122,5 +138,9 @@ popd
 %defattr(-,root,root,-)
 %{_datadir}/stuntrally/
 %exclude %{_datadir}/stuntrally/config/
+
+%files devel
+%defattr(-,root,root,-)
+%{_includedir}/shiny
 
 %changelog

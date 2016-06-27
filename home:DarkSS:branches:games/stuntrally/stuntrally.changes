@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Sat Jun 25 17:43:07 UTC 2016 - dap.darkness@gmail.com
+
+- Update to version 2.6.
+- Download_files service.
+- Added "-std=gnu++98 -Wno-narrowing" flags to prevent gcc6 errors.
+- Resolved stuntrally-data: W: description-shorter-than-summary.
+- Added man pages.
+- Prevented openSUSE 13.1 build error.
+- Removed stuntrally-2.0-boost-fix.patch because of oS 12.3 EOL.
+- Added _constraints to prevent "error: Unable to write payload".
+- Updated strcmp.diff.
+
+-------------------------------------------------------------------
 Sun Aug 10 12:02:57 UTC 2014 - mailaender@opensuse.org
 
 - update to version 2.4
