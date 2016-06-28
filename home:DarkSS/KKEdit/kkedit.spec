@@ -17,7 +17,7 @@
 
 
 Name:           kkedit
-Version:        0.3.3+git.87.gcd45fe7
+Version:        0.3.3+git.98.g0febb3c
 Release:        0
 Summary:        Source code text editor
 License:        GPL-3.0
@@ -121,7 +121,7 @@ ln -s %{_libdir}/%{name} %{buildroot}/%{_datadir}/KKEdit/plugins-gtk
 
 # Man pages:
 mkdir -p %{buildroot}%{_mandir}/man1
-gzip -c9 %{SOURCE8} | tee -a %{buildroot}%{_mandir}/man1/KKEditProgressBar.1.gz
+cp %{SOURCE8} %{buildroot}%{_mandir}/man1
 
 %fdupes -s %{buildroot}%{_datadir}/locale/fr_FR/LC_MESSAGES
 
@@ -138,10 +138,8 @@ gzip -c9 %{SOURCE8} | tee -a %{buildroot}%{_mandir}/man1/KKEditProgressBar.1.gz
 %files
 %defattr(-,root,root)
 %doc BUGS-ETC ChangeLog COPYING README
-%{_bindir}/%{name}
-%{_mandir}/man1/%{name}.1.gz
-%{_bindir}/KKEdit*
-%{_mandir}/man1/KKEdit*.1.gz
+%{_bindir}/*dit*
+%{_mandir}/man1/*dit*.1.*
 %attr(644,root,root) %{_datadir}/applications/KKEdit*.desktop
 %{_datadir}/pixmaps/KKEdit*.png
 %{_datadir}/icons/hicolor/*/apps/KKEdit*.png
