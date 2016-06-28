@@ -19,7 +19,7 @@
 %define oname ManPageEditor
 
 Name:           manpageeditor
-Version:        0.1.1+git.20160623.1ad4b8d
+Version:        0.1.1+git.20160627.92de1e3
 Release:        0
 Summary:        A simple manual pages editor
 License:        GPL-3.0
@@ -32,7 +32,6 @@ BuildRequires:  ctags
 BuildRequires:  gcc-c++
 BuildRequires:  groff
 BuildRequires:  pkgconfig >= 0.9.0
-BuildRequires:  update-desktop-files
 BuildRequires:  xdg-utils
 BuildRequires:  pkgconfig(gtk+-2.0) >= 2.24.0
 BuildRequires:  pkgconfig(gtksourceview-2.0)
@@ -53,8 +52,6 @@ Create, edit, import, preview man-pages.
 
 %install
 %make_install
-
-%suse_update_desktop_file %{oname} Documentation
 
 # Let's use %%doc macro.
 rm %{buildroot}%{_datadir}/%{oname}/docs/gpl-3.0.txt

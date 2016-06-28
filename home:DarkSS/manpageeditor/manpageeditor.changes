@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jun 28 18:27:38 UTC 2016 - dap.darkness@gmail.com
+
+- 0.1.1+git.20160627.92de1e3.
+- Removed %%suse_update_desktop_file because of upstream fix.
+
+-------------------------------------------------------------------
 Sat Jun 25 12:06:28 UTC 2016 - dap.darkness@gmail.com
 
 - 0.1.1+git.20160623.1ad4b8d.
