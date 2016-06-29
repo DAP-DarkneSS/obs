@@ -1,0 +1,13 @@
+diff --git a/cmake-helper/compiler-defaults.cmake b/cmake-helper/compiler-defaults.cmake
+index 4741819..54f0be2 100644
+--- a/bear/cmake-helper/compiler-defaults.cmake
++++ b/bear/cmake-helper/compiler-defaults.cmake
+@@ -2,7 +2,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
+   if(NOT WIN32 AND NOT APPLE)
+     add_definitions(
+       -Wall
+-      -ansi
++      -std=c++11
+       -pedantic
+       -Wmissing-field-initializers
+       -Wuninitialized

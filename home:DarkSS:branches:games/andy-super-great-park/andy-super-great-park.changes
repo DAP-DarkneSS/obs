@@ -1,0 +1,18 @@
+-------------------------------------------------------------------
+Tue Jun 28 04:11:46 UTC 2016 - dap.darkness@gmail.com
+
+- _service → tarball.
+- General spec-clean-up.
+- Enabled verbose make output.
+- Resolved asgp-data' desktopfile-without-binary warning.
+- Added man pages.
+- Resolved invalid desktop file warnings.
+- Arcade everywhere.
+- Added andy-super-great-park-1.0.8-gcc6-c++11.diff
+  to prevent build failure via gcc6.
+
+-------------------------------------------------------------------
+Sat Aug 24 09:52:00 UTC 2013 - dap.darkness@gmail.com
+
+- Initial build.
+
