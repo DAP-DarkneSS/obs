@@ -17,19 +17,18 @@
 
 
 Name:           kkedit
-Version:        0.3.3+git.98.g0febb3c
+Version:        0.3.3+git.101.g36cb709
 Release:        0
 Summary:        Source code text editor
 License:        GPL-3.0
 Group:          Productivity/Text/Editors
-Url:            http://gtk-apps.org/content/show.php?content=158161
+Url:            https://www.linux-apps.com/p/1129318
 Source0:        http://khapplications.darktech.org/zips/kkedit/KKEdit-%{version}.tar.gz
 Source8:        KKEditProgressBar.1
 
 BuildRequires:  aspell-devel
 BuildRequires:  automake >= 1.15
 BuildRequires:  ctags
-BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig >= 0.9.0
 BuildRequires:  update-desktop-files
@@ -108,12 +107,7 @@ make %{?_smp_mflags}
 # Let's use %%doc macro.
 rm %{buildroot}%{_datadir}/KKEdit/docs/gpl-3.0.txt
 
-# E: spurious-executable-perm
-cd %{buildroot}%{_datadir}/KKEdit/tools
-chmod -x Re-Open-As-Root Open-Man-Page Open-Xterm-Here
-chmod -x %{buildroot}%{_includedir}/kkedit-plugins.h
-
-# Don't package binary modules in datadir.
+# E: arch-dependent-file-in-usr-share
 mkdir -p %{buildroot}%{_libdir}/%{name}
 mv %{buildroot}/%{_datadir}/KKEdit/plugins-gtk/*.so %{buildroot}%{_libdir}/%{name}
 rm -rf %{buildroot}/%{_datadir}/KKEdit/plugins-gtk
@@ -122,8 +116,6 @@ ln -s %{_libdir}/%{name} %{buildroot}/%{_datadir}/KKEdit/plugins-gtk
 # Man pages:
 mkdir -p %{buildroot}%{_mandir}/man1
 cp %{SOURCE8} %{buildroot}%{_mandir}/man1
-
-%fdupes -s %{buildroot}%{_datadir}/locale/fr_FR/LC_MESSAGES
 
 
 %post
