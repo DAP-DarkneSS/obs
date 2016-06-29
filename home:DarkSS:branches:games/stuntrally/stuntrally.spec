@@ -25,8 +25,8 @@ Group:          Amusements/Games/Action/Race
 Url:            http://code.google.com/p/vdrift-ogre/
 Source0:        https://github.com/stuntrally/stuntrally/archive/%{version}.tar.gz#/stuntrally-%{version}.tar.gz
 Source1:        https://github.com/stuntrally/tracks/archive/%{version}.tar.gz#/tracks-%{version}.tar.gz
-Source8:        sr-editor.1
-Source9:        stuntrally.1
+Source8:        sr-editor.6
+Source9:        stuntrally.6
 Patch0:         strcmp.diff
 
 BuildRequires:  boost-devel >= 1.54
@@ -109,10 +109,10 @@ make V=1
 rm %{buildroot}/%{_prefix}/lib/OGRE/libshiny.OgrePlatform.a
 rm %{buildroot}/%{_prefix}/lib/libshiny.a
 
-mkdir -p %{buildroot}%{_mandir}/man1
+mkdir -p %{buildroot}%{_mandir}/man6
 cd %{_sourcedir}
-for MANPAGE in *.1; do
-gzip -c9 $MANPAGE | tee -a %{buildroot}%{_mandir}/man1/$MANPAGE.gz
+for MANPAGE in *.?; do
+cp $MANPAGE %{buildroot}%{_mandir}/man`echo "$MANPAGE" | grep -o '[0-9]*'`
 done
 
 %post
@@ -127,7 +127,7 @@ done
 %defattr(-,root,root,-)
 %{_bindir}/sr-editor
 %{_bindir}/stuntrally
-%{_mandir}/man1/s*.1.gz
+%{_mandir}/man?/s*.?.*
 %{_datadir}/applications/sr-editor.desktop
 %{_datadir}/applications/stuntrally.desktop
 %{_datadir}/icons/hicolor/*/apps/
