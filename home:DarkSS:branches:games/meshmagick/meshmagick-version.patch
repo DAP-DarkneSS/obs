@@ -1,0 +1,13 @@
+--- CMakeLists.txt.orig	2011-02-20 20:25:47.000000000 -0600
++++ CMakeLists.txt	2011-02-20 20:26:02.000000000 -0600
+@@ -7,8 +7,8 @@
+ include(FeatureSummary)
+ 
+ set(MESHMAGICK_MAJOR_VERSION 0)
+-set(MESHMAGICK_MINOR_VERSION 5)
+-set(MESHMAGICK_PATCH_VERSION 2)
++set(MESHMAGICK_MINOR_VERSION 6)
++set(MESHMAGICK_PATCH_VERSION 0)
+ 
+ # include our custom cmake scripts
+ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)

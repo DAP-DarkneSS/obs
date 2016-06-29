@@ -1,0 +1,34 @@
+--- CMakeLists.txt.orig	2011-03-06 12:47:25.000000000 -0600
++++ CMakeLists.txt	2011-03-06 12:48:23.000000000 -0600
+@@ -117,12 +117,12 @@
+ 
+ install(TARGETS meshmagick_bin meshmagick_lib
+ 	RUNTIME DESTINATION bin
+-	LIBRARY DESTINATION lib
+-	ARCHIVE DESTINATION lib)
++	LIBRARY DESTINATION ${LIB}
++	ARCHIVE DESTINATION ${LIB})
+ 	
+ if(NOT WIN32)
+ 	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/meshmagick.pc
+-	        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
++	        DESTINATION ${CMAKE_INSTALL_PREFIX}/${LIB}/pkgconfig)
+ endif(NOT WIN32)
+ 
+ install(FILES
+--- meshmagick.pc.cmake.orig	2011-03-06 12:01:18.000000000 -0600
++++ meshmagick.pc.cmake	2011-03-06 12:01:45.000000000 -0600
+@@ -1,11 +1,11 @@
+ prefix=${CMAKE_INSTALL_PREFIX}
+ exec_prefix=${CMAKE_INSTALL_PREFIX}
+-libdir=${CMAKE_INSTALL_PREFIX}/lib
++libdir=${CMAKE_INSTALL_PREFIX}/${LIB}
+ includedir=${CMAKE_INSTALL_PREFIX}/include/meshmagick
+ 
+ Name: meshmagick
+ Description: ogre mesh manipulation utility
+ Requires: OGRE >= 1.6
+ Version: ${MESHMAGICK_MAJOR_VERSION}.${MESHMAGICK_MINOR_VERSION}.${MESHMAGICK_PATCH_VERSION}
+-Libs: -L${CMAKE_INSTALL_PREFIX}/lib -lmeshmagick
++Libs: -L${CMAKE_INSTALL_PREFIX}/${LIB} -lmeshmagick
+ Cflags: -I${CMAKE_INSTALL_PREFIX}/include/meshmagick

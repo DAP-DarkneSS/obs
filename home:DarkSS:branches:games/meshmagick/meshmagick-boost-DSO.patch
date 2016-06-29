@@ -1,0 +1,11 @@
+--- CMakeLists.txt.orig	2013-02-24 11:00:24.990154465 -0600
++++ CMakeLists.txt	2013-02-24 11:01:08.562692310 -0600
+@@ -103,7 +103,7 @@
+ 		VERSION ${MESHMAGICK_MAJOR_VERSION}.${MESHMAGICK_MINOR_VERSION}.${MESHMAGICK_PATCH_VERSION}
+ 		SOVERSION ${MESHMAGICK_MAJOR_VERSION}.${MESHMAGICK_MINOR_VERSION}
+ 		DEFINE_SYMBOL MESHMAGICK_EXPORTS)
+-	target_link_libraries(meshmagick_lib ${OGRE_LIBRARIES} ${Tootle_LIBRARIES})
++	target_link_libraries(meshmagick_lib ${OGRE_LIBRARIES} -lboost_system ${Tootle_LIBRARIES})
+ endif()
+ 
+ 

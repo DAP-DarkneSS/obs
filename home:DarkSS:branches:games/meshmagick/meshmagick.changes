@@ -1,0 +1,174 @@
+-------------------------------------------------------------------
+Thu Feb  4 00:00:00 MSK 2016 - releng@fedoraproject.org
+
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
+-------------------------------------------------------------------
+Thu Aug 27 00:00:00 MSK 2015 - jwakely@redhat.com
+
+- Rebuilt for Boost 1.59
+
+-------------------------------------------------------------------
+Wed Aug  5 00:00:00 MSK 2015 - jwakely@redhat.com
+
+- Rebuilt for Boost 1.58
+
+-------------------------------------------------------------------
+Wed Jun 17 00:00:00 MSK 2015 - rel-eng@lists.fedoraproject.org
+
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
+-------------------------------------------------------------------
+Fri May 22 00:00:00 MSK 2015 - bruno@wolff.to
+
+- Rebuild against latest Ogre to see if FTBFS issue is resolved
+
+-------------------------------------------------------------------
+Tue Feb 10 00:00:00 MSK 2015 - bruno@wolff.to
+
+- Rebuild for boost update
+
+-------------------------------------------------------------------
+Tue Nov 18 00:00:00 MSK 2014 - bruno@wolff.to
+
+- Use sed instead of dos2unix for building
+
+-------------------------------------------------------------------
+Sun Nov 16 00:00:00 MSK 2014 - bruno@wolff.to
+
+- Apply patch from Ogre forums to get it to build for Ogre 1.9
+
+-------------------------------------------------------------------
+Sun Aug 17 00:00:00 FET 2014 - rel-eng@lists.fedoraproject.org
+
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
+-------------------------------------------------------------------
+Wed Jun 11 00:00:00 FET 2014 - bruno@wolff.to
+
+- Rebuild for Ogre 1.9
+
+-------------------------------------------------------------------
+Sat Jun  7 00:00:00 FET 2014 - rel-eng@lists.fedoraproject.org
+
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
+-------------------------------------------------------------------
+Fri May 23 00:00:00 FET 2014 - dtardon@redhat.com
+
+- rebuild for boost 1.55.0
+
+-------------------------------------------------------------------
+Sat Aug  3 00:00:00 FET 2013 - rel-eng@lists.fedoraproject.org
+
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
+-------------------------------------------------------------------
+Sun Jul 28 00:00:00 FET 2013 - pmachata@redhat.com
+
+- Rebuild for boost 1.54.0
+- Drop -mt from boost_system-mt (meshmagick-boost-DSO.patch)
+
+-------------------------------------------------------------------
+Sun Feb 24 00:00:00 FET 2013 - bruno@wolff.to
+
+- Fix ogre / boost_system-mt DSO issue with a bigger hammer
+
+-------------------------------------------------------------------
+Thu Feb 14 00:00:00 FET 2013 - rel-eng@lists.fedoraproject.org
+
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
+-------------------------------------------------------------------
+Sun Dec  9 00:00:00 FET 2012 - bruno@wolff.to
+
+- Rebuild for Ogre 1.8
+- Adjust for ms_Singleton to msSingleton function name change
+
+-------------------------------------------------------------------
+Fri Jul 20 00:00:00 FET 2012 - rel-eng@lists.fedoraproject.org
+
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
+-------------------------------------------------------------------
+Sun Apr  1 00:00:00 FET 2012 - bruno@wolff.to
+
+- Rebuild for ogre 1.7.4
+
+-------------------------------------------------------------------
+Tue Feb 28 00:00:00 FET 2012 - rel-eng@lists.fedoraproject.org
+
+- Rebuilt for c++ ABI breakage
+
+-------------------------------------------------------------------
+Fri Jan 13 00:00:00 FET 2012 - rel-eng@lists.fedoraproject.org
+
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
+-------------------------------------------------------------------
+Sun May 15 00:00:00 FET 2011 - bruno@wolff.to
+
+- Rebuild for ogre 1.7.3
+
+-------------------------------------------------------------------
+Sun Mar  6 00:00:00 EET 2011 - bruno@wolff.to
+
+- I think I finally have the multilib stuff fixed.
+- The license has changed to MIT.
+
+-------------------------------------------------------------------
+Sun Feb 20 00:00:00 EET 2011 - bruno@wolff.to
+
+- Update for Ogre 1.7
+- Switch to using cmake build
+- Update library versions to 0.6.0 to match meshmagick version
+
+-------------------------------------------------------------------
+Tue Feb  8 00:00:00 EET 2011 - rel-eng@lists.fedoraproject.org
+
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
+-------------------------------------------------------------------
+Mon Oct 12 00:00:00 EEST 2009 - atorkhov@gmail.com
+
+- Update
+
+-------------------------------------------------------------------
+Mon Sep 28 00:00:00 EEST 2009 - atorkhov@gmail.com
+
+- Rebuilt for new OGRE
+
+-------------------------------------------------------------------
+Sat Jul 25 00:00:00 EEST 2009 - rel-eng@lists.fedoraproject.org
+
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
+-------------------------------------------------------------------
+Wed May  6 00:00:00 EEST 2009 - atorkhov@gmail.com
+
+- Rebuild for new OGRE
+
+-------------------------------------------------------------------
+Wed Mar  4 00:00:00 EET 2009 - atorkhov@gmail.com
+
+- Split shared library to -libs subpackage for correct work in multilib
+  environment
+- Add patch for generating full debuginfo
+
+-------------------------------------------------------------------
+Tue Mar  3 00:00:00 EET 2009 - atorkhov@gmail.com
+
+- Renamed package to simply "meshmagick"
+- Clarified commands to get source
+- Minor fixes
+
+-------------------------------------------------------------------
+Sat Feb 28 00:00:00 EET 2009 - atorkhov@gmail.com
+
+- Update to post 0.5.2
+
+-------------------------------------------------------------------
+Mon Nov  3 00:00:00 EET 2008 - atorkhov@gmail.com
+
+- Initial package
+

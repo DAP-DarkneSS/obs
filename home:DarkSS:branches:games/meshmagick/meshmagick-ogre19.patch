@@ -1,0 +1,68 @@
+Index: include/MmOptimiseTool.h
+===================================================================
+--- include/MmOptimiseTool.h	(revision 2988)
++++ include/MmOptimiseTool.h	(working copy)
+@@ -149,7 +149,7 @@
+ 		void removeDegenerateFaces(Ogre::IndexData* idata);
+ 		Ogre::Mesh::VertexBoneAssignmentList getAdjustedBoneAssignments(
+ 			Ogre::Mesh::BoneAssignmentIterator& it);
+-		void fixLOD(Ogre::ProgressiveMesh::LODFaceList lodFaces);
++		void fixLOD(Ogre::vector<Ogre::IndexData*>::type lodFaces);
+ 
+ 		void doInvoke(const OptionList& toolOptions,
+ 			const Ogre::StringVector& inFileNames, const Ogre::StringVector& outFileNames);
+Index: src/MeshMagick.cpp
+===================================================================
+--- src/MeshMagick.cpp	(revision 2988)
++++ src/MeshMagick.cpp	(working copy)
+@@ -29,7 +29,7 @@
+ #include "MmRenameToolFactory.h"
+ #include "MmTransformToolFactory.h"
+ 
+-template<> meshmagick::MeshMagick* Ogre::Singleton<meshmagick::MeshMagick>::ms_Singleton = NULL;
++template<> meshmagick::MeshMagick* Ogre::Singleton<meshmagick::MeshMagick>::msSingleton = NULL;
+ 
+ using namespace Ogre;
+ 
+Index: src/MmOgreEnvironment.cpp
+===================================================================
+--- src/MmOgreEnvironment.cpp	(revision 2988)
++++ src/MmOgreEnvironment.cpp	(working copy)
+@@ -32,7 +32,7 @@
+ 
+ using namespace Ogre;
+ 
+-template<> meshmagick::OgreEnvironment* Singleton<meshmagick::OgreEnvironment>::ms_Singleton = NULL;
++template<> meshmagick::OgreEnvironment* Singleton<meshmagick::OgreEnvironment>::msSingleton = NULL;
+ 
+ namespace meshmagick
+ {
+Index: src/MmOptimiseTool.cpp
+===================================================================
+--- src/MmOptimiseTool.cpp	(revision 2988)
++++ src/MmOptimiseTool.cpp	(working copy)
+@@ -270,9 +270,9 @@
+ 
+ 	}
+ 	//---------------------------------------------------------------------
+-	void OptimiseTool::fixLOD(ProgressiveMesh::LODFaceList lodFaces)
++	void OptimiseTool::fixLOD(Ogre::vector<Ogre::IndexData*>::type lodFaces)
+ 	{
+-		for (ProgressiveMesh::LODFaceList::iterator l = lodFaces.begin();
++		for (Ogre::vector<Ogre::IndexData*>::type::iterator l = lodFaces.begin();
+ 			l != lodFaces.end(); ++l)
+ 		{
+ 			IndexData* idata = *l;
+Index: src/MmStatefulSkeletonSerializer.cpp
+===================================================================
+--- src/MmStatefulSkeletonSerializer.cpp	(revision 2988)
++++ src/MmStatefulSkeletonSerializer.cpp	(working copy)
+@@ -77,7 +77,7 @@
+         }
+ 
+         Endian endianMode = keepEndianess ? mSkeletonFileEndian : ENDIAN_NATIVE;
+-        exportSkeleton(mSkeleton.getPointer(), name, endianMode);
++        exportSkeleton(mSkeleton.getPointer(), name,Ogre::SKELETON_VERSION_LATEST, endianMode);
+     }
+ 
+     void StatefulSkeletonSerializer::clear()
