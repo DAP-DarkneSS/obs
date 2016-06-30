@@ -1,0 +1,23 @@
+-------------------------------------------------------------------
+Sun Aug 16 05:48:03 UTC 2015 - mailaender@opensuse.org
+
+- Run unit tests
+- Fix rpmlint warnings
+
+-------------------------------------------------------------------
+Mon Mar 25 06:44:06 UTC 2013 - mailaender@opensuse.org
+
+- Update to 0.96.3
+- Use https://en.opensuse.org/SourceUrls
+
+-------------------------------------------------------------------
+Mon Apr 30 19:25:20 UTC 2012 - jengelh@medozas.de
+
+- Enable parallel build with %_smp_mflags
+- Remove seemingly unneeded calls to autotools regeneration
+
+-------------------------------------------------------------------
+Fri Jul 22 00:00:00 UTC 2011 - mailaender@opensuse.org
+
+- Initial package for build.opensuse.org, based upon
+  http://cvs.pld-linux.org/cgi-bin/cvsweb/packages/dunelegacy/dunelegacy.spec?rev=1.8.2.1
