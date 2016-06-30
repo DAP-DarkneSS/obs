@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Jun 30 17:44:04 UTC 2016 - dap.darkness@gmail.com
+
+- Added dunelegacy-0.96.3-configure-CXXFLAGS.diff to not override
+  system's CXXFLAGS, not use -O3 and finally prevent build issue
+  via gcc6 adding -std=gnu++98.
+- Added man page.
+
+-------------------------------------------------------------------
 Sun Aug 16 05:48:03 UTC 2015 - mailaender@opensuse.org
 
 - Run unit tests

@@ -1,0 +1,11 @@
+--- configure.orig	2013-02-26 02:03:07.000000000 +0300
++++ configure	2016-06-30 21:15:26.220367560 +0300
+@@ -3477,7 +3477,7 @@
+ 
+ 
+ 
+-CXXFLAGS="-O3 -pipe -pedantic -Wall -Wextra -Wno-unused-parameter -DNDEBUG"
++CXXFLAGS="$CXXFLAGS -std=gnu++98 -pipe -pedantic -Wall -Wextra -Wno-unused-parameter -DNDEBUG"
+ 
+ 
+ 

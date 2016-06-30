@@ -1,7 +1,7 @@
 #
 # spec file for package dunelegacy
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -23,6 +23,9 @@ Name:           dunelegacy
 Version:        0.96.3
 Release:        0
 Source:         http://downloads.sourceforge.net/%{name}/%{name}-%{version}-src.tar.bz2
+Source9:        %{name}.6
+# PATCH-FIX-UPSTREAM mostly no prevent build failure via gcc6.
+Patch0:         dunelegacy-0.96.3-configure-CXXFLAGS.diff
 Url:            http://dunelegacy.sourceforge.net/
 BuildRequires:  cppunit-devel
 BuildRequires:  dos2unix
@@ -52,6 +55,7 @@ NOTE: Original Dune 2 game files are needed.
 %prep
 %setup -q
 dos2unix ToDo.txt
+%patch0 -p0
 
 %build
 %configure
@@ -67,10 +71,14 @@ install -D -p -m 0644 %{name}-128x128.png %{buildroot}%{_datadir}/pixmaps/%{name
 
 %make_install
 
+mkdir -p %{buildroot}%{_mandir}/man6
+cp %{SOURCE9} %{buildroot}%{_mandir}/man6
+
 %files
 %defattr(644,root,root,755)
 %doc README ToDo.txt
 %attr(755,root,root) %{_bindir}/%{name}
+%{_mandir}/man?/%{name}.?.*
 %{_datadir}/%{name}/
 %attr(755,root,root) %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
