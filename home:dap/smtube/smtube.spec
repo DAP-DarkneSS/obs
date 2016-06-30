@@ -17,7 +17,7 @@
 
 
 Name:           smtube
-Version:        16.6.0
+Version:        16.7.0
 Release:        0
 Summary:        Small Youtube Browser
 License:        GPL-2.0+
@@ -83,7 +83,7 @@ make %{?_smp_mflags} \
 %endif
 
 mkdir -p %{buildroot}%{_mandir}/man1
-gzip -c9 %{SOURCE9} | tee -a %{buildroot}%{_mandir}/man1/%{name}.1.gz
+cp %{SOURCE9} %{buildroot}%{_mandir}/man1
 
 %files
 %defattr(-,root,root)
@@ -91,7 +91,7 @@ gzip -c9 %{SOURCE9} | tee -a %{buildroot}%{_mandir}/man1/%{name}.1.gz
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_mandir}/man1/%{name}.1.gz
+%{_mandir}/man?/%{name}.?.*
 
 %files lang -f %{name}.lang
 %defattr(-,root,root)
