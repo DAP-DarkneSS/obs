@@ -23,7 +23,7 @@
 %define libpackname liblib%{name}_jni0
 
 Name:           jrep
-Version:        0.6.0
+Version:        0.6.1
 Release:        0
 Summary:        Grep-like utility written in Java
 License:        Apache-2.0
@@ -31,6 +31,7 @@ Group:          Productivity/Text/Utilities
 Url:            https://github.com/cheusov/jrep
 Source0:        https://github.com/cheusov/jrep/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        %{name}-0.1-jar-with-dependencies.jar
+Source2:        %{name}-jar-howto.txt
 Source9:        %{name}-rpmlintrc
 
 BuildRequires:  java-sdk >= 1.7

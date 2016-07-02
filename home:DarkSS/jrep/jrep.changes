@@ -1,0 +1,17 @@
+-------------------------------------------------------------------
+Sat Jul  2 11:48:14 UTC 2016 - dap.darkness@gmail.com
+
+- 0.6.1 release (no changelog since 0.6.0-3-gaefc653).
+
+-------------------------------------------------------------------
+Tue Jun 14 17:31:53 UTC 2016 - dap.darkness@gmail.com
+
+- 0.6.0-3-gaefc653 git snapshot:
+  * Fix -v in combination with multiple -e.
+  * Fix infinite loop when regular expression matches empty string.
+
+-------------------------------------------------------------------
+Sun May 29 08:18:15 UTC 2016 - dap.darkness@gmail.com
+
+- Initial build (0.6.0).
+
