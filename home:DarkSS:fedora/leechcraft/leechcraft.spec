@@ -8,7 +8,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 %define so_ver 0_6_75
 
-%define LEECHCRAFT_VERSION 0.6.70-6986-g6a29895
+%define LEECHCRAFT_VERSION 0.6.70-7122-g83dc80a
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -30,7 +30,7 @@
 %define debug_package %{nil}
 
 Name:           leechcraft
-Version:        0.6.70+git.6986.g6a29895
+Version:        0.6.70+git.7122.g83dc80a
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
@@ -40,61 +40,55 @@ Url:            http://leechcraft.org
 Source0:        https://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
 
 BuildRequires:  boost-devel >= 1.58
-BuildRequires:  cmake > 2.8
+BuildRequires:  bzip2-devel
+BuildRequires:  cmake >= 3.1
 BuildRequires:  file-devel
 BuildRequires:  gcc-c++ >= 5.0
 BuildRequires:  hicolor-icon-theme
-BuildRequires:  hunspell-devel
-BuildRequires:  GeoIP-devel
-BuildRequires:  pkgconfig(QtWebKit)
-BuildRequires:  libXcomposite-devel
-BuildRequires:  libXdamage-devel
-BuildRequires:  libXrender-devel
-BuildRequires:  bzip2-devel
-BuildRequires:  libcurl-devel
-BuildRequires:  pkgconfig(ddjvuapi)
 BuildRequires:  libjpeg-devel
 BuildRequires:  liblastfm-devel
+BuildRequires:  libpurple-devel
+BuildRequires:  libtidy-devel
+BuildRequires:  lm_sensors-devel
+BuildRequires:  pkgconfig
+BuildRequires:  qscintilla-devel
+BuildRequires:  xz
+BuildRequires:  pkgconfig(QJson)
+BuildRequires:  pkgconfig(QtWebKit)
+BuildRequires:  pkgconfig(TelepathyQt4)
+BuildRequires:  pkgconfig(ddjvuapi)
+BuildRequires:  pkgconfig(geoip)
+BuildRequires:  pkgconfig(gstreamer-app-1.0)
+BuildRequires:  pkgconfig(hunspell)
+BuildRequires:  pkgconfig(libcurl)
+BuildRequires:  pkgconfig(libguess)
 BuildRequires:  pkgconfig(libidn)
-BuildRequires:  libmtp-devel
-BuildRequires:  libnl3-devel
-BuildRequires:  libotr
-BuildRequires:  libotr-devel
+BuildRequires:  pkgconfig(libmtp)
+BuildRequires:  pkgconfig(libnl-3.0)
+BuildRequires:  pkgconfig(libotr) >= 4
+BuildRequires:  pkgconfig(libpcre)
+BuildRequires:  pkgconfig(libqrencode)
+BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 1.0
+BuildRequires:  pkgconfig(libudev)
+BuildRequires:  pkgconfig(phonon)
 BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt4)
-BuildRequires:  libpurple-devel
-BuildRequires:  pkgconfig(qca2)
+BuildRequires:  pkgconfig(qca2) >= 2.1
 BuildRequires:  pkgconfig(qtermwidget4) >= 0.5.1
-BuildRequires:  pkgconfig(QJson)
-BuildRequires:  qscintilla-devel
+BuildRequires:  pkgconfig(qwt)
 BuildRequires:  pkgconfig(qxmpp) >= 0.8.0
-BuildRequires:  lm_sensors-devel
-BuildRequires:  libtidy-devel
-BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 1.0
-BuildRequires:  systemd-devel
-BuildRequires:  libxkbfile-devel
-BuildRequires:  pcre-devel
-BuildRequires:  phonon-devel
-BuildRequires:  qwt-devel
-BuildRequires:  speex-devel
-BuildRequires:  taglib-devel
-BuildRequires:  xz
-BuildRequires:  pkgconfig(gstreamer-app-1.0)
-BuildConflicts: gstreamer
-BuildConflicts: gstreamer-devel
-BuildConflicts: gstreamer-plugins-base
-BuildConflicts: gstreamer-plugins-base-devel
-BuildRequires:  pkgconfig(libguess)
-BuildRequires:  pkgconfig(libqrencode)
-BuildRequires:  telepathy-qt4-devel
-
-Requires:       oxygen-icon-theme
-Requires:       %{name}-anhero
+BuildRequires:  pkgconfig(speex)
+BuildRequires:  pkgconfig(taglib)
+BuildRequires:  pkgconfig(xcomposite)
+BuildRequires:  pkgconfig(xdamage)
+BuildRequires:  pkgconfig(xkbfile)
+BuildRequires:  pkgconfig(xrender)
 Requires:       %{name}-advancednotifications
-Requires:       %{name}-azoth-xoox
+Requires:       %{name}-anhero
 Requires:       %{name}-azoth-chathistory
 Requires:       %{name}-azoth-rosenthal
 Requires:       %{name}-azoth-standardstyles
+Requires:       %{name}-azoth-xoox
 Requires:       %{name}-bittorrent
 Requires:       %{name}-blasq-vangog
 Requires:       %{name}-blogique-metida
@@ -112,11 +106,15 @@ Requires:       %{name}-sb2
 Requires:       %{name}-secman-simplestorage
 Requires:       %{name}-tabsessionmanager
 Requires:       %{name}-visualnotifications
-
+Requires:       oxygen-icon-theme
 Obsoletes:      %{name}-otlozhu
 Obsoletes:      %{name}-poleemery
 Obsoletes:      %{name}-syncer
 Obsoletes:      %{name}-textogroose
+BuildConflicts: gstreamer
+BuildConflicts: gstreamer-devel
+BuildConflicts: gstreamer-plugins-base
+BuildConflicts: gstreamer-plugins-base-devel
 
 %description
 This package provides core executable of Leechcraft.
@@ -3270,5 +3268,9 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 %{_libdir}/*-util-xsd*.so.*
 
 %changelog
+* Sat Jul 02 2016 Dmitriy A. Perlow <dap.darkness@gmail.com> - 0.6.70+git.7122.g83dc80a-0
+- Fixed bittorrent plugin initialization issue at least with boost 1.60.
+- BuildRequires clean-up.
+
 * Sat Jun 11 2016 Dmitriy A. Perlow <dap.darkness@gmail.com> - 0.6.70+git.6986.g6a29895-0
 - Initial comment.

@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-7062-gf8e8c11
+%define LEECHCRAFT_VERSION 0.6.70-7122-g83dc80a
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -58,7 +58,7 @@ Patch1:         leechcraft-qt5-azoth-xoox-qxmpp.diff
 Patch2:         leechcraft-qt5-qwt.diff
 
 BuildRequires:  boost-devel >= 1.58
-BuildRequires:  cmake > 2.8.10
+BuildRequires:  cmake >= 3.1
 BuildRequires:  fdupes
 %if 0%{?suse_version} <= 1320
 BuildRequires:  gcc49-c++
@@ -66,34 +66,48 @@ BuildRequires:  gcc49-c++
 BuildRequires:  gcc-c++ >= 5
 %endif
 BuildRequires:  hicolor-icon-theme
-BuildRequires:  libQt5Gui-private-headers-devel
+BuildRequires:  libQt5Gui-private-headers-devel >= 5.5
 BuildRequires:  liblastfm-qt5-devel
-BuildRequires:  libqt5-linguist-devel
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
 BuildRequires:  libvmime-devel >= 0.9.2.1461565714.4d1a6ad
 %if 0%{?suse_version} <= 1320
 BuildRequires:  llvm-clang >= 3.4
 %endif
+BuildRequires:  pkgconfig
 BuildRequires:  qwt6-qt5-devel
 # BuildRequires:  wt-devel >= 3.3
+BuildRequires:  cmake(Qt5LinguistTools)
 BuildRequires:  pkgconfig(Qt5Concurrent) >= 5.5
+BuildRequires:  pkgconfig(Qt5Core) >= 5.5
 BuildRequires:  pkgconfig(Qt5DBus) >= 5.5
+BuildRequires:  pkgconfig(Qt5Gui) >= 5.5
 BuildRequires:  pkgconfig(Qt5Multimedia) >= 5.5
+BuildRequires:  pkgconfig(Qt5Network) >= 5.5
 BuildRequires:  pkgconfig(Qt5OpenGL) >= 5.5
+BuildRequires:  pkgconfig(Qt5Positioning) >= 5.5
 BuildRequires:  pkgconfig(Qt5PrintSupport) >= 5.5
+BuildRequires:  pkgconfig(Qt5Qml) >= 5.5
+BuildRequires:  pkgconfig(Qt5Quick) >= 5.5
+BuildRequires:  pkgconfig(Qt5QuickWidgets) >= 5.5
 BuildRequires:  pkgconfig(Qt5Script) >= 5.5
+BuildRequires:  pkgconfig(Qt5Sensors) >= 5.5
+BuildRequires:  pkgconfig(Qt5Sql) >= 5.5
 BuildRequires:  pkgconfig(Qt5Svg) >= 5.5
+BuildRequires:  pkgconfig(Qt5WebChannel) >= 5.5
+BuildRequires:  pkgconfig(Qt5WebKit) >= 5.5
 BuildRequires:  pkgconfig(Qt5WebKitWidgets) >= 5.5
+BuildRequires:  pkgconfig(Qt5Widgets) >= 5.5
 BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.5
+BuildRequires:  pkgconfig(Qt5Xml) >= 5.5
 BuildRequires:  pkgconfig(Qt5XmlPatterns) >= 5.5
 BuildRequires:  pkgconfig(ddjvuapi)
 BuildRequires:  pkgconfig(geoip)
 BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.8
 BuildRequires:  pkgconfig(hunspell)
 BuildRequires:  pkgconfig(libavcodec)
-BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libavdevice)
+BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libchromaprint) >= 1.3
 BuildRequires:  pkgconfig(libguess)
@@ -104,9 +118,9 @@ BuildRequires:  pkgconfig(libotr) >= 4
 BuildRequires:  pkgconfig(libpcre)
 BuildRequires:  pkgconfig(libpostproc)
 BuildRequires:  pkgconfig(libprojectM)
-BuildRequires:  pkgconfig(libswscale)
-BuildRequires:  pkgconfig(libswresample)
 BuildRequires:  pkgconfig(libqrencode)
+BuildRequires:  pkgconfig(libswresample)
+BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 1.0
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(libxml-2.0)
@@ -154,14 +168,36 @@ Conflicts:      leechcraft
 Conflicts:      libproxy1-config-kde4
 Recommends:     oxygen5
 Recommends:     qtcurve-qt5
-Requires:       libQt5Core5 >= 5.6
 Suggests:       qt5ct
+%if 0%{?suse_version} >= 1320
+Requires:       libQt5Concurrent >= 5.6
+Requires:       libQt5Core >= 5.6
+Requires:       libQt5Gui >= 5.6
+Requires:       libQt5Network >= 5.6
+Requires:       libQt5OpenGL >= 5.6
+Requires:       libQt5Positioning >= 5.6
+Requires:       libQt5PrintSupport >= 5.6
+Requires:       libQt5Qml >= 5.6
+Requires:       libQt5Quick >= 5.6
+Requires:       libQt5QuickWidgets >= 5.6
+Requires:       libQt5Script >= 5.6
+Requires:       libQt5Sensors >= 5.6
+Requires:       libQt5Sql >= 5.6
+Requires:       libQt5Svg >= 5.6
+Requires:       libQt5WebChannel >= 5.6
+Requires:       libQt5WebKit >= 5.6
+Requires:       libQt5WebKitWidgets >= 5.6
+Requires:       libQt5Widgets >= 5.6
+Requires:       libQt5Xml >= 5.6
+%endif
 
 # Nondefault gcc magic!
+%if 0%{?suse_version} <= 1320
 BuildConflicts: gcc48
 BuildConflicts: gcc48-c++
 BuildConflicts: Mesa
 BuildConflicts: libgbm1
+%endif
 
 %description
 This package provides core executable of Leechcraft.
@@ -2462,14 +2498,12 @@ find src/plugins/azoth/plugins/adiumstyles/share/azoth/styles/adium/ -name ".?*"
 #setup permissions correctly to avoid false duplicates reported by rpmlint (bnc#784670)
 find src -name '*.png' -or -name '*.css' -or -name '*.gif' -exec chmod 0644 {} +
 
+
+%build
 mkdir build && cd build
-
-%if 0%{?suse_version} <= 1320
-export CC=/usr/bin/clang
-export CXX=/usr/bin/clang++
-%endif
-
+# NOTE that %%cmake macro breaks compiler configuring.
 cmake ../src \
+        -Wno-dev \
         -DUSE_QT5=True \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
@@ -2478,6 +2512,10 @@ cmake ../src \
         -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+%if 0%{?suse_version} <= 1320
+        -DCMAKE_C_COMPILER=/usr/bin/clang \
+        -DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
+%endif
         -DSTRICT_LICENSING=True \
         -DWITH_DBUS_LOADERS=False \
         -DWITH_PCRE=True \
@@ -2595,14 +2633,10 @@ cmake ../src \
         -DENABLE_XPROXY=True \
         -DENABLE_ZALIL=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
-
-%build
-cd build
 make -k %{?_smp_mflags} VERBOSE=1
 
 %install
-cd build
-%make_install
+%cmake_install
 
 # Unneeded here files:
 rm -rf %{buildroot}%{_datadir}/leechcraft/qml

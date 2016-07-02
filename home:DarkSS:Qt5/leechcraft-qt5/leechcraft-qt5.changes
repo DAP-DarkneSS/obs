@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Sat Jul  2 10:22:02 UTC 2016 - dap.darkness@gmail.com
+
+- 0.6.70-7122-g83dc80a:
+  * resolved libtorrent-rasterbar ver. 1.1 initialization issue.
+- Moved cmake to %%build section. Use macro when possible.
+- Updated (Build)Requires.
+- Suppressed developer warnings of cmake.
+- Cmake >= 3.1 became required to build.
+
+-------------------------------------------------------------------
 Sun Jun 19 08:01:56 UTC 2016 - dap.darkness@gmail.com
 
 - 0.6.70-7062-gf8e8c11.

@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-7062-gf8e8c11
+%define LEECHCRAFT_VERSION 0.6.70-7122-g83dc80a
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -59,7 +59,7 @@ Source9:        lc_plugin_wrapper.1
 
 BuildRequires:  Qross-devel
 BuildRequires:  boost-devel >= 1.58
-BuildRequires:  cmake > 2.8.10
+BuildRequires:  cmake >= 3.1
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 %if 0%{?suse_version} <= 1320
@@ -2612,15 +2612,10 @@ find src/plugins/azoth/plugins/adiumstyles/share/azoth/styles/adium/ -name ".?*"
 #setup permissions correctly to avoid false duplicates reported by rpmlint (bnc#784670)
 find src -name '*.png' -or -name '*.css' -or -name '*.gif' -exec chmod 0644 {} +
 
+
+%build
 mkdir build && cd build
-
-%ifarch %ix86 %arm x86_64 ppc64 ppc64le
-%if 0%{?suse_version} <= 1320
-export CC=/usr/bin/clang
-export CXX=/usr/bin/clang++
-%endif
-%endif
-
+# NOTE that %%cmake macro breaks compiler configuring.
 cmake ../src \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
@@ -2629,6 +2624,10 @@ cmake ../src \
         -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+%if 0%{?suse_version} <= 1320
+        -DCMAKE_C_COMPILER=/usr/bin/clang \
+        -DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
+%endif
         -DSTRICT_LICENSING=True \
         -DWITH_DBUS_LOADERS=True \
         -DWITH_PCRE=True \
@@ -2753,14 +2752,10 @@ cmake ../src \
         -DENABLE_XPROXY=True \
         -DENABLE_ZALIL=True \
         -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
-
-%build
-cd build
 make -k %{?_smp_mflags} VERBOSE=1
 
 %install
-cd build
-%make_install
+%cmake_install
 
 # Unneeded here Qt5 build' files:
 rm -rf %{buildroot}%{_datadir}/leechcraft/qml5

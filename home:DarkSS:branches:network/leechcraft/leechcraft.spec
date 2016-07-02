@@ -69,7 +69,7 @@ BuildRequires:  boost-devel >= 1.58
 %else
 BuildRequires:  boost-devel >= 1.50
 %endif
-BuildRequires:  cmake > 2.8.10
+BuildRequires:  cmake >= 3
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 %if %{use_cpp14}
@@ -2421,11 +2421,6 @@ find src -name '*.png' -or -name '*.css' -or -name '*.gif' -exec chmod 0644 {} +
 %build
 mkdir build && cd build
 
-%if 0%{suse_version} <= 1320
-export CC=/usr/bin/clang
-export CXX=/usr/bin/clang++
-%endif
-
 # bypass bug 927268 for PowerPC if clang is used above in place of gcc
 tmpflags="%{optflags}"
 %ifarch ppc64 ppc64le
@@ -2434,6 +2429,7 @@ tmpflags=${tmpflags/-fstack-protector}
 %endif
 %endif
 
+# NOTE that %%cmake macro breaks compiler configuring.
 cmake ../src \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
@@ -2444,6 +2440,10 @@ cmake ../src \
         -DCMAKE_CXX_FLAGS="${tmpflags} -Doverride=" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+%if 0%{?suse_version} <= 1320
+        -DCMAKE_C_COMPILER=/usr/bin/clang \
+        -DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
+%endif
         -DSTRICT_LICENSING=True \
         -DWITH_DBUS_LOADERS=True \
         -DWITH_PCRE=True \
@@ -2552,7 +2552,6 @@ cmake ../src \
         -DENABLE_SB2=True \
         -DENABLE_SCROBLIBRE=True \
         -DENABLE_SECMAN=True \
-        -DENABLE_SHAITAN=False \
         -DENABLE_SHELLOPEN=False \
         -DENABLE_SNAILS=False \
         -DENABLE_SYNCER=False \
@@ -2573,20 +2572,18 @@ cmake ../src \
         -DENABLE_XPROXY=False \
 %endif
         -DENABLE_ZALIL=True \
-        -DLEECHCRAFT_VERSION=%{LEECHCRAFT_VERSION}
+        -DLEECHCRAFT_VERSION="%{LEECHCRAFT_VERSION} with bittorrent 0.6.70-7122-g83dc80a"
 
 make -k %{?_smp_mflags} VERBOSE=1
 
 %install
-cd build
-%makeinstall
+%cmake_install
 
 # Unneeded here Qt5 build' files:
 rm -rf %{buildroot}%{_datadir}/leechcraft/qml5
 rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 
-gzip -c9 %{SOURCE8} | tee -a %{buildroot}%{_mandir}/man1/leechcraft-session.1.gz
-gzip -c9 %{SOURCE9} | tee -a %{buildroot}%{_mandir}/man1/lc_plugin_wrapper.1.gz
+cp %{SOURCE8} %{SOURCE9} %{buildroot}%{_mandir}/man1
 
 %fdupes -s %{buildroot}%{_datadir}/%{name}/translations
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth
@@ -2691,13 +2688,13 @@ gzip -c9 %{SOURCE9} | tee -a %{buildroot}%{_mandir}/man1/lc_plugin_wrapper.1.gz
 %defattr(-,root,root)
 %doc CHANGELOG LICENSE README
 %{_bindir}/%{name}
-%{_mandir}/man1/%{name}.1.gz
+%{_mandir}/man1/%{name}.1.*
 %{_bindir}/%{name}-add-file
-%{_mandir}/man1/%{name}-add-file.1.gz
+%{_mandir}/man1/%{name}-add-file.1.*
 %{_bindir}/%{name}-handle-file
-%{_mandir}/man1/%{name}-handle-file.1.gz
+%{_mandir}/man1/%{name}-handle-file.1.*
 %{_bindir}/lc_plugin_wrapper
-%{_mandir}/man1/lc_plugin_wrapper.1.gz
+%{_mandir}/man1/lc_plugin_wrapper.1.*
 %{settings_dir}/coresettings.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/*/*
@@ -3064,7 +3061,7 @@ gzip -c9 %{SOURCE9} | tee -a %{buildroot}%{_mandir}/man1/lc_plugin_wrapper.1.gz
 %{plugin_dir}/*craft_fenet.so
 %{settings_dir}/fenetsettings.xml
 %{_bindir}/%{name}-session
-%{_mandir}/man1/*-session.1.gz
+%{_mandir}/man1/*-session.1.*
 %dir %{_datadir}/leechcraft/fenet
 %dir %{_datadir}/leechcraft/fenet/compositing
 %dir %{_datadir}/leechcraft/fenet/wms
