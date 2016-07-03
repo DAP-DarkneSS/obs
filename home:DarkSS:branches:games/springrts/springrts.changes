@@ -1,0 +1,360 @@
+-------------------------------------------------------------------
+Sat Feb 21 18:57:17 UTC 2015 - devel.suse@gmail.com
+
+- Added springrts-fix-cmake31.patch to fix build with cmake 3.1 
+
+-------------------------------------------------------------------
+Fri Feb 20 07:34:08 UTC 2015 - devel.suse@gmail.com
+
+- Update to 0.98: 
+  NOTE: "!" prefix indicate backward compability broke,
+  numbers in brackets normally mean the mantis ticket ID
+
+  Major:
+  * vaporized PathFinder's runtime precache cpu usage
+ 
+ 
+  Cmdline Arguments:
+  * allow ./spring --game rapid://ba:stable --map DeltaSiegeDry
+  * give correct error message when cmdline given filepath wasn't quoted and contained spaces
+ 
+  GameServer:
+  * rename BypassScriptPasswordCheck to AllowSpectatorJoin and default to true
+ 
+  Lua:
+  * added SetAlly(firstAllyTeamId, secondAllyTeamId, ally)
+  * added VFS.UnmapArchive(string fileName)
+  * added VFS.GetMaps(), VFS.GetGames(), VFS.GetAllArchives(), VFS.HasArchive(archiveName)
+  * added VFS.GetArchiveInfo(archiveName)
+  * added VFS.GetArchiveChecksum(archiveName)
+  * added VFS.GetArchiveDependencies(archiveName), VFS.GetArchiveReplaces(archiveName)
+  * allow tcp connections by luasocket as default (udp is still restricted)
+  * add callin DrawInMiniMapBackground(sizex, sizey) -> nil
+  * add callin AllowBuilderHoldFire(unitID, unitDefID, action) --> boolean
+      action is one of:
+        Build      -1
+        Repair     40 (CMD_REPAIR)
+        Reclaim    90 (CMD_RECLAIM)
+        Restore   110 (CMD_RESTORE)
+        Resurrect 125 (CMD_RESURRECT)
+        Capture   130 (CMD_CAPTURE)
+ 
+  Rendering:
+  * glFont: make inlined colorcodes reuse current set alpha value
+ 
+  Pather:
+  * make lowRes PathEstimator using medRes PE instead of maxRes PathFinder (massively reducing cputime)
+  * massive cleanup & modularization
+  * reduced memory usage
+  * modrules: add system.pathFinderUpdateRate tag
+  * fixed/reduced PathEstimator update rate
+  * crashing aircraft doesn't spam PE updates anymore (#4500)
+ 
+  CEG:
+  ! fixed booleans in CEGs (sometimes they were randomly overriden with random data)
+ 
+  Weapons:
+  * Beamlasers respect repulser-shields' armorclass (pullrequest by sprunk)
+  ! move magic number to weapondef_post.lua: crater were 1.5x of craterAreaOfEffect while decals are 1.0x -> make them _both     same size_
+  ! fixed #4523: typo in craterAoE loading
+ 
+  Sim:
+  * GroundBlocking: don't align immobile objects to even squares
+  * reduce load in Collisions handling (by doing blocked ground squares scans only every 2nd frame)
+ 
+  Misc:
+  * AI is initializated earlier: no more hang on game start
+  * add /set GrassDetail to console
+  * slightly speed up scanning for archives
+  * add HostIPDefault, HostPortDefault to set default host ip/port
+  * reduce default spintime of ThreadPool workers to 1ms (from 5ms)
+ 
+  Bugfixes:
+  * fix #4417 (spring spring://username:passwd@hostname:port doesn't work)
+  * fix #4413 (widget:GameProgress() was no longer called for rejoining player)
+  * fix #4407 (SetUnitRotation broken for buildings)
+  * fix #4406 (crash at start)
+  * fix #4377 (compile with cmake 3.0)
+  * fix #3677 (bounceExplosionGenerator tag does not work for bouncing aircraftbomb weapon types)
+  * fix #4483 (Spring.SetProjectileAlwaysVisible doesn't always make a projectile always visible)
+  * KingRaptor found the cause of a _very_ old bug: fix green screen tint in startselector stage
+  * PE: fix bug where buildings weren't registered as blocking, cause they were not snapped to ground when the PE update was     called (c03022cc)
+ 
+  AI:
+  * fixed return-type and value of Pathing::GetApproximateLength (pullrequest by rlcevg)
+ 
+  Buildprocess:
+  * fixes for CMake 3.0
+  * heavily reduced files which are compiled multiple times
+  ! add check for gcc >=4.7 at configure
+
+-------------------------------------------------------------------
+Wed Jan 15 14:48:35 UTC 2014 - vdziewiecki@suse.com
+
+- Update to 0.96:
+	Spring 96.0 is a bugfix release, to kill fix some really annoying bugs
+
+-------------------------------------------------------------------
+Sat Nov 23 16:38:41 UTC 2013 - mailaender@opensuse.org
+
+- Update to 0.95.0
+  + customizeable loadscreen
+  + map border rendering (/mapborder command)
+  + new datadir structure
+  + bugfixes & speedups
+
+-------------------------------------------------------------------
+Sun Jul  7 09:20:56 UTC 2013 - fa0sck@gmail.com
+
+- Update to 0.94.1
+  + default LogFlush to true again
+  + fix crash at start related to Optimus
+  + remove Tobis rapid client (its broken)
+  + add multi engine type support
+  + recycle unit and feature ID's less quickly again, a la 91.0
+    and prior
+  + automatic runtime recompression of groundtextures
+
+- Bugfixes:
+  + fix #3591 (UnitFromFactory(..., userOrders) always passes 
+    userOrders=false)
+  + fix #3561 (units getting stuck on edges of impassable areas 
+    --> pathing is no longer FUBAR)
+  + fix #3575 (QTPFS terrain deformation lagspikes)
+  + fix #3580 (decreased unit/feature ID randomness)
+  + fix #3557 (TorpedoLauncher weapon fires only when on land)
+  + fix #3564 (sun-flare visible when obscured by terrain)
+  + fix #3553 (sun-flare has harsh edge)
+  + fix #3562 (units are reluctant to fire in crowded situations 
+    after 'fix #3488')
+  + fix #3559 (avoidGround weapon tag is broken)
+  + fix #3563 (units rub against building edges and slow down to a 
+    crawl) and #3592 related to it
+  + fix #3567 (transported nanotowers periodically teleporting to 
+    ground)
+  + fix #3520 (kamikaze units always have bad attack cursor when 
+    giving manual attack command)
+  + fix #3531 (wrong textures assigned to assimp models)
+  + fix #3545 (AddUnitImpulse() causes unit to move in random 
+    direction)
+  + fix #3544 (units briefly invisible when transferred to another 
+    team)
+  + fix #3490 (ships cannot be transported by aircraft)
+  + fix #3596 (in debug-mode the firing-cone visualisation of 
+    weapons points up)
+  + fix 'fix #3506 (wrong calculation of goffset for assimp model 
+    pieces)'
+  + fix pseudo-static units (nanotowers, etc) no longer being 
+    transportable
+  + fix #3569 (texturing for OBJ and ASS projectile models)
+  + fix OBJ models being parsed by assimp
+  + fix SEGV on exit
+  + fix flashing team colors
+  + fix some trees drawn after being destroyed
+
+- Lua:
+  + add Spring.UnitWeapon{Fire,HoldFire}(number unitID, number 
+    weaponID) --> nil
+  + add callouts 
+    Spring.GetUnitWeapon{TryTarget,TestTarget,TestRange,
+    HaveFreeLineOfFire}(number attackerID, number weaponID, number 
+    attackeeID | [number targetPosX, number targetPosY, number 
+    targetPosZ]) --> boolean
+  + add Spring.SetProjectileTarget(number projectileID, [number 
+    objectID, string objectType] | [number x, number y, number z]) 
+    -->     boolean
+  + add Spring.GetProjectileTarget(number projectileID) --> number 
+    targetID, string targetType
+  + add Spring.SpawnProjectile(number weaponDefID, table 
+    projectileParams) --> number projectileID | nil
+  + add MoveCtrl.SetMoveDef(number unitID, number moveDefID | 
+    string moveDefName) --> boolean
+  + add projectileID argument to UnitPreDamaged
+     OLD signature: unitID, unitDefID, unitTeam, damage, paralyzer 
+    [, weaponDefID [, attackerID, attackerDefID, attackerTeam] ]
+     NEW signature: unitID, unitDefID, unitTeam, damage, paralyzer 
+    [, weaponDefID, projectileID [, attackerID, attackerDefID, 
+    attackerTeam] ]
+
+-------------------------------------------------------------------
+Fri Mar 15 14:36:44 UTC 2013 - mailaender@opensuse.org
+
+- Update to 0.93.2
+- moved weblinks to https://en.opensuse.org/Spring
+- update MIME databases
+
+-------------------------------------------------------------------
+Sun Jan 13 16:49:03 UTC 2013 - joop.boonen@opensuse.org
+
+- Added BuildRequires libbz2-devel as it's not automatically
+  installed for openSUSE > 12.2
+
+-------------------------------------------------------------------
+Fri Apr 13 13:27:25 UTC 2012 - seiler@b1-systems.de
+
+- added doc package to package new "sprin-VERSION" files
+
+-------------------------------------------------------------------
+Tue Apr 10 17:12:32 UTC 2012 - seiler@b1-systems.de
+
+- updated to latest version. test file
+
+-------------------------------------------------------------------
+Sat Jul  2 13:07:38 UTC 2011 - jengelh@medozas.de
+
+- Remove conflicting %debug_package: OBS deals with that already
+- Remove unnecessary %clean section
+- Use %_smp_mflags
+
+-------------------------------------------------------------------
+Sun Dec 12 00:00:00 UTC 2010 - marcel.hauf@googlemail.com
+
+- Update source to 0.82.6.1
+- Requires GLEW 1.5.1 or higher
+- Change spring-engine-dedicated to engine-dedicated
+
+-------------------------------------------------------------------
+Thu Sep 09 00:00:00 UTC 2010 - marcel.hauf@googlemail.com
+
+- Update source to 0.82.5
+- Added headless and multithreaded spring binary
+- New name conventions
+
+-------------------------------------------------------------------
+Thu Mar 16 00:00:00 UTC 2010 - marcel.hauf@googlemail.com
+
+- Update source to 0.81.2.1
+
+-------------------------------------------------------------------
+Mon Feb 01 00:00:00 UTC 2010 - marcel.hauf@googlemail.com
+
+- Update source to 0.81.1.3
+
+-------------------------------------------------------------------
+Fri Nov 13 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- Update source to 0.80.5.2 which includes a new ErrorAI by default
+
+-------------------------------------------------------------------
+Sat Oct 24 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- Update source to 0.80.5.1
+
+-------------------------------------------------------------------
+Mon Oct 19 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- Update source to 0.80.5
+
+-------------------------------------------------------------------
+Fri Sep 18 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- Update source to 0.80.4.2
+
+-------------------------------------------------------------------
+Fri Sep 04 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- Update source to 0.80.4.1
+
+-------------------------------------------------------------------
+Sun Aug 30 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- Update source to 0.80.4
+
+-------------------------------------------------------------------
+Thu Aug 25 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- Added Java AI wrapper support. Builds Java AIs and the Java AI interface.
+
+-------------------------------------------------------------------
+Fri Aug 21 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- Update source to 0.80.2
+- Requires boost 1.35 instead of 1.34
+
+-------------------------------------------------------------------
+Wed Aug 19 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- Update source to 0.80.1
+- Requires boost 1.34 instead of 1.35
+
+-------------------------------------------------------------------
+Fri May 29 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- Update source to 0.79.1
+
+-------------------------------------------------------------------
+Sun May 24 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- Update source to 0.79.0.2
+
+-------------------------------------------------------------------
+Sat May 16 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- Update source to 0.79.0
+
+-------------------------------------------------------------------
+Mon Jan 26 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- Using openAL-soft instead of openAL for newer distributions like openSUSE_11.1
+
+-------------------------------------------------------------------
+Sun Jan 25 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- added spring-complete package which installs all spring related packages
+
+-------------------------------------------------------------------
+Sat Jan 24 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- moved datadir to /usr/share/games/spring
+- AIs are now located under /usr/lib(64)/spring/AI/*
+- splitted AI files from spring-content package to spring-ais package
+
+-------------------------------------------------------------------
+Sun Jan 18 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- moved libdir from /usr/lib(64)/spring back to /usr/lib(64) to work with springlobbys autodetection of libunitsync.so
+- source update to 0.78.2.1
+
+-------------------------------------------------------------------
+Mon Jan 12 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- update source to 0.78.1.1
+- moved datadir to from /usr/share/games/spring to /usr/lib(64)/spring to fix badness reports for AI files
+- moved libdir from /usr/lib(64) to /usr/lib(64)/spring
+- droped python unitsync support
+- splitted package into spring, spring-dedicated-server, spring-data
+- using compiler flags and optimized build
+
+-------------------------------------------------------------------
+Thu Jan 06 00:00:00 UTC 2009 - marcel.hauf@googlemail.com
+
+- fixed libdevil1 requirement
+- removed require tag, buildservice finds the required packages automatically
+- enabled jobs for makes, should increase compiling speed on multi core cpus
+
+-------------------------------------------------------------------
+Thu Oct 22 00:00:00 UTC 2008 - koshi@springlobby.info
+
+- Updated source to 0.77b5
+
+-------------------------------------------------------------------
+Thu Oct 07 00:00:00 UTC 2008 - marcel.hauf@googlemail.com
+
+- Updated source to 0.77b1
+
+-------------------------------------------------------------------
+Sun Jul 13 00:00:00 UTC 2008 - marcel.hauf@googlemail.com
+
+- Removed java unitsync bindings
+- Updated source to fixed 0.76b1 version
+- Fixed maps/mods links in description
+
+-------------------------------------------------------------------
+Wed Jan 02 00:00:00 UTC 2008 - marcel.hauf@googlemail.com
+
+- Update to 0.76b1
+
+-------------------------------------------------------------------
+Mon Jul 23 00:00:00 UTC 2007 - marcel.hauf@googlemail.com
+
+- first version of package
