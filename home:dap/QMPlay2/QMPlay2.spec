@@ -17,17 +17,21 @@
 
 
 Name:           QMPlay2
-Version:        16.06.01
+Version:        16.07.02
 Release:        0
 Summary:        A Qt based media player, streamer and downloader
 License:        LGPL-3.0+
 Group:          Productivity/Multimedia/Video/Players
 Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
 Source:         http://kent.dl.sourceforge.net/project/zaps166/QMPlay2/QMPlay2-src-%{version}.tar.xz
-Source9:        %{name}.1
+# PATCH-FIX-UPSTREAM vs. linking issue via cmake, read more at
+# https://github.com/zaps166/QMPlay2/issues/36 &
+# https://github.com/zaps166/QMPlay2/issues/37
+Patch9:         QMPlay2-16.07.02-cmake-linking.diff
 
+BuildRequires:  cmake >= 3
 BuildRequires:  kdebase4-workspace
-BuildRequires:  portaudio-devel
+BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(QtCore)
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(libass)
@@ -46,6 +50,12 @@ BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(taglib)
 BuildRequires:  pkgconfig(vdpau)
 BuildRequires:  pkgconfig(xv)
+Requires(post): hicolor-icon-theme
+Requires(post): shared-mime-info
+Requires(post): update-desktop-files
+Requires(postun): hicolor-icon-theme
+Requires(postun): shared-mime-info
+Requires(postun): update-desktop-files
 Recommends:     youtube-dl
 Suggests:       %{name}-kde-integration
 
@@ -72,51 +82,47 @@ It's a development package for %{name}.
 
 %prep
 %setup -q -n %{name}-src-%{version}
+%patch9 -p1
 
 
 %build
-NOTERM=1 SYSTEM_BUILD=1 ./compile_unix `echo "%{?_smp_mflags}" | grep -o '[0-9]*'`
+%cmake \
+       -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+       -DCMAKE_BUILD_TYPE=RelWithDebInfo
+make V=1 %{?_smp_mflags}
 
 
 %install
-mkdir -p %{buildroot}%{_prefix}
-cp -R app/* %{buildroot}%{_prefix}
+%cmake_install
 
-# Setting libs to system libdir instead of 'lib'.
-%if "%{_lib}" == "lib64"
-mv %{buildroot}/%{_prefix}/{lib,lib64}
-%endif
+# Let's use %%doc macro
+cd %{buildroot}/%{_datadir}/qmplay2
+rm ChangeLog LICENSE README.md TODO
 
-# Don't package binary modules in datadir.
-mkdir -p %{buildroot}%{_libdir}/%{name}
-mv %{buildroot}/%{_datadir}/qmplay2/modules/*.so %{buildroot}%{_libdir}/%{name}
-rm -rf %{buildroot}/%{_datadir}/qmplay2/modules
-ln -s %{_libdir}/%{name} %{buildroot}/%{_datadir}/qmplay2/modules
+%post
+/sbin/ldconfig
+%desktop_database_post
+%icon_theme_cache_post
+%mime_database_post
 
-# Deleting useless links.
-rm -rf %{buildroot}/%{_datadir}/icons/hicolor
-# Setting icon to 'pixmaps' instead of 'icons'.
-mv %{buildroot}/%{_datadir}/{icons,pixmaps}
-
-mkdir -p %{buildroot}%{_mandir}/man1
-gzip -c9 %{SOURCE9} | tee -a %{buildroot}%{_mandir}/man1/%{name}.1.gz
-
-
-%post   -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
+%postun
+/sbin/ldconfig
+%desktop_database_postun
+%icon_theme_cache_postun
+%mime_database_postun
 
 
 %files
 %defattr(-,root,root)
-%doc COPYING TODO
+%doc ChangeLog LICENSE README.md TODO
 %{_bindir}/%{name}
-%{_libdir}/%{name}
+%{_libdir}/qmplay2
 %{_libdir}/libqmplay2.so
 %{_datadir}/applications/%{name}*.desktop
-%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/qmplay2
-%{_mandir}/man1/%{name}.1.gz
+%{_mandir}/man?/%{name}.?.*
+%{_datadir}/mime/packages/x-*.xml
 
 %files kde-integration
 %defattr(-,root,root)

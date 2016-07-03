@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Sun Jul  3 09:46:30 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 16.07.02:
+  * update pause and buffered data info when demuxer is busy,
+  * move "modules" directory from "share/qmplay2" to "lib/qmplay2",
+  * allow file group and Audio CD tracks synchronization:
+    + synchronize automatically when loading the same playlist,
+    + synchronize automatically when loading Audio CD tracks,
+    + on "F5" key,
+  * show more warnings in VDPAU and appearance settings,
+  * fixed colour in graphics subtitles (e.g. dvdsub),
+  * reading files doesn't depend on FFmpeg module,
+  * hide mouse cursor when cover image is visible,
+  * updated Russian translation (victorr2007),
+  * allow mouse wheel to change the volume,
+  * show blurred covers as a background,
+  * OpenGL2 now uses PBO if available,
+  * bugfix.
+- Man page was merged into upstream.
+- Updated QMPlay2-no-prostopleer.diff.
+
+-------------------------------------------------------------------
 Sat Jun  4 11:50:51 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 16.06.01:
