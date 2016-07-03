@@ -1,4 +1,21 @@
 -------------------------------------------------------------------
+Sat Jul  2 12:25:29 UTC 2016 - dap.darkness@gmail.com
+
+- Update to version 0.9.2 release (no changes since rc2).
+- Updated BuildRequires to use pkgconfig().
+- Cmake clean-up.
+- Enabled verbose make output.
+- Don't modify system's C*FLAGS.
+- Set Release With Debug Info cmake build type.
+- Resolved warnings:
+  * version-control-internal-file: .gitignore;
+  * hidden-file-or-dir: .gitattributes;
+  * non-executable-script: run_me.sh update_po_authors.py
+    pull_from_transifex.sh optimize_data.sh.
+- Added desktop_database_post(un).
+- Added man page.
+
+-------------------------------------------------------------------
 Thu Jun 16 13:42:10 UTC 2016 - dimstar@opensuse.org
 
 - Update to version 0.9.2-rc2:

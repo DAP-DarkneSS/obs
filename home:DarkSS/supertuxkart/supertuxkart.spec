@@ -17,38 +17,41 @@
 
 
 Name:           supertuxkart
-Version:        0.9.2~rc1
+Version:        0.9.2
 Release:        0
 Summary:        A 3D kart racing game
 License:        GPL-2.0+ and GPL-3.0+ and CC-BY-SA-3.0
 Group:          Amusements/Games/3D/Race
 Url:            http://supertuxkart.sourceforge.net/
-Source:         http://sourceforge.net/projects/supertuxkart/files/SuperTuxKart/0.9.2/%{name}-0.9.2-rc1-src.tar.xz
+Source:         http://sourceforge.net/projects/supertuxkart/files/SuperTuxKart/%{version}/%{name}-%{version}-src.tar.xz
 # Geeko kart add-on (CC-BY 3.0)
 Source1:        http://stkaddons.net/dl/14e6ba25b17f0d.zip
-BuildRequires:  bluez-devel
-BuildRequires:  cmake
-BuildRequires:  curl-devel
+Source9:        supertuxkart.6
+
+BuildRequires:  cmake >= 3
 BuildRequires:  fdupes
-BuildRequires:  fribidi-devel
 BuildRequires:  gcc-c++
-BuildRequires:  glu-devel
 BuildRequires:  hicolor-icon-theme
-BuildRequires:  libXrandr-devel
 BuildRequires:  libjpeg-devel
-BuildRequires:  libogg-devel
 BuildRequires:  libpng-devel
-%if 0%{?suse_version} <= 1220
-BuildRequires:  libopenal1
-%endif
-BuildRequires:  libvorbis-devel
-BuildRequires:  openal-soft-devel
+BuildRequires:  pkgconfig
 BuildRequires:  unzip
 BuildRequires:  update-desktop-files
+BuildRequires:  pkgconfig(bluez)
 BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(fribidi)
 BuildRequires:  pkgconfig(gl)
+BuildRequires:  pkgconfig(glu)
+BuildRequires:  pkgconfig(libcurl)
+BuildRequires:  pkgconfig(ogg)
+BuildRequires:  pkgconfig(openal)
+BuildRequires:  pkgconfig(vorbis)
+BuildRequires:  pkgconfig(xrandr)
+Requires(post): hicolor-icon-theme
+Requires(post): update-desktop-files
+Requires(postun): hicolor-icon-theme
+Requires(postun): update-desktop-files
 Requires:       %{name}-data = %{version}
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 ExclusiveArch:  %{ix86} x86_64
 
 %description
@@ -74,36 +77,50 @@ BuildArch:      noarch
 Data files for SuperTuxKart a Free 3d kart racing game.
 
 %prep
-%setup -q -n %{name}-0.9.2-rc1
+%setup -q
 find -name '*~' -delete -print
+find -name '.git*' -delete -print
 
 %build
-export CFLAGS="%{optflags} -fno-strict-aliasing"
-export CXXFLAGS="$CFLAGS"
-   mkdir cmake_build
-   cd cmake_build
-   cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} ..
-make %{?_smp_mflags}
+mkdir build && cd build
+# NOTE that %%cmake macro breaks linking.
+cmake .. \
+        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+        -DCMAKE_C_FLAGS="%{optflags} -fno-strict-aliasing" \
+        -DCMAKE_CXX_FLAGS="%{optflags} -fno-strict-aliasing" \
+        -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo
+make V=1 %{?_smp_mflags}
 
 %install
-cd cmake_build
-make DESTDIR=%{buildroot} install
+%cmake_install
 mkdir -p %{buildroot}%{_datadir}/supertuxkart/data/karts/geeko/
 cd %{buildroot}%{_datadir}/supertuxkart/data/karts/geeko/
 unzip %{SOURCE1}
+# WARNING non-executable-script:
+rm %{buildroot}%{_datadir}/supertuxkart/data/run_me.sh
+rm %{buildroot}%{_datadir}/supertuxkart/data/po/update_po_authors.py
+rm %{buildroot}%{_datadir}/supertuxkart/data/po/pull_from_transifex.sh
+rm %{buildroot}%{_datadir}/supertuxkart/data/optimize_data.sh
 %fdupes  %{buildroot}%{_datadir}
 %suse_update_desktop_file supertuxkart
+# Man page:
+mkdir -p %{buildroot}%{_mandir}/man6
+cp %{SOURCE9} %{buildroot}%{_mandir}/man6
 
 %post
+%desktop_database_post
 %icon_theme_cache_post
 
 %postun
+%desktop_database_postun
 %icon_theme_cache_postun
 
 %files
 %defattr(-,root,root)
 %doc AUTHORS COPYING README.md TODO.md CHANGELOG.md
 %{_bindir}/supertuxkart
+%{_mandir}/man?/%{name}.?.*
 %dir %{_datadir}/appdata
 %{_datadir}/appdata/supertuxkart.appdata.xml
 %{_datadir}/applications/%{name}.desktop
