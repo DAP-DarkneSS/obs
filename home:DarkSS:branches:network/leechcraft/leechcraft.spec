@@ -2437,7 +2437,7 @@ cmake ../src \
 %if %{use_cpp14}
         -DUSE_CPP14=True \
 %endif
-        -DCMAKE_CXX_FLAGS="${tmpflags} -Doverride=" \
+        -DCMAKE_CXX_FLAGS="${tmpflags} -Doverride= -DBOOST_ASIO_HAS_STD_CHRONO" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
 %if 0%{?suse_version} <= 1320

@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-7122-g83dc80a
+%define LEECHCRAFT_VERSION 0.6.70-7142-gd1fa0ed
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -169,27 +169,6 @@ Conflicts:      libproxy1-config-kde4
 Recommends:     oxygen5
 Recommends:     qtcurve-qt5
 Suggests:       qt5ct
-%if 0%{?suse_version} >= 1320
-Requires:       libQt5Concurrent >= 5.6
-Requires:       libQt5Core >= 5.6
-Requires:       libQt5Gui >= 5.6
-Requires:       libQt5Network >= 5.6
-Requires:       libQt5OpenGL >= 5.6
-Requires:       libQt5Positioning >= 5.6
-Requires:       libQt5PrintSupport >= 5.6
-Requires:       libQt5Qml >= 5.6
-Requires:       libQt5Quick >= 5.6
-Requires:       libQt5QuickWidgets >= 5.6
-Requires:       libQt5Script >= 5.6
-Requires:       libQt5Sensors >= 5.6
-Requires:       libQt5Sql >= 5.6
-Requires:       libQt5Svg >= 5.6
-Requires:       libQt5WebChannel >= 5.6
-Requires:       libQt5WebKit >= 5.6
-Requires:       libQt5WebKitWidgets >= 5.6
-Requires:       libQt5Widgets >= 5.6
-Requires:       libQt5Xml >= 5.6
-%endif
 
 # Nondefault gcc magic!
 %if 0%{?suse_version} <= 1320
@@ -2509,7 +2488,7 @@ cmake ../src \
         -DLIB_SUFFIX=64 \
 %endif
         -DUSE_CPP14=True \
-        -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
+        -DCMAKE_CXX_FLAGS="%{optflags} -Doverride= -DBOOST_ASIO_HAS_STD_CHRONO" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
 %if 0%{?suse_version} <= 1320

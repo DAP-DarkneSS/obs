@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-7122-g83dc80a
+%define LEECHCRAFT_VERSION 0.6.70-7147-ge693ae6
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -2621,7 +2621,7 @@ cmake ../src \
         -DLIB_SUFFIX=64 \
 %endif
         -DUSE_CPP14=True \
-        -DCMAKE_CXX_FLAGS="%{optflags} -Doverride=" \
+        -DCMAKE_CXX_FLAGS="%{optflags} -Doverride= -DBOOST_ASIO_HAS_STD_CHRONO" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
 %if 0%{?suse_version} <= 1320

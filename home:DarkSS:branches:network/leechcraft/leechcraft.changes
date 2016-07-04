@@ -1,8 +1,8 @@
 -------------------------------------------------------------------
-Sat Jul  2 10:23:33 UTC 2016 - dap.darkness@gmail.com
+Mon Jul  4 19:51:29 UTC 2016 - dap.darkness@gmail.com
 
-- Updated leechcraft-0.6.70-6645-gcd10d7e-torrent110.diff vs.
-  bittorrent plugin initialization issue at least with boost 1.60.
+- Updated leechcraft-0.6.70-6645-gcd10d7e-torrent110.diff & added
+  BOOST_ASIO_HAS_STD_CHRONO vs. bittorrent initialization failure.
 - Cmake clean-up.
 - Man pages clean-up.
 
