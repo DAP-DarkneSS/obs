@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jul  6 16:36:48 UTC 2016 - dap.darkness@gmail.com
+
+- Set "release with debug info" cmake build type.
+- Added monster-rpg-2-cmake-cflags.diff to prevent linking error.
+
+-------------------------------------------------------------------
 Wed Apr  6 08:07:09 UTC 2016 - bwiedemann@suse.com
 
 - Fix build-compare by dropping timestamp from png

@@ -39,6 +39,8 @@ Source0:        https://github.com/Nooskewl/%{name}/archive/%{version}/%{name}-%
 Patch0:         monster-rpg-2-dynamic-linking.diff
 # PATCH-FIX-OPENSUSE to use {_datadir} at runtime.
 Patch1:         monster-rpg-2-datadir.diff
+# PATCH-FIX-UPSTREAM to not wipe default cmake c*flags.
+Patch2:         monster-rpg-2-cmake-cflags.diff
 BuildRequires:  ImageMagick
 BuildRequires:  cmake
 BuildRequires:  fdupes
@@ -94,6 +96,7 @@ BuildArch:      noarch
 %setup -q
 %patch0
 %patch1
+%patch2
 chmod -x data/*.*
 chmod -x data/*/*.*
 
@@ -107,6 +110,7 @@ sed "s/lua5.2/lua/" \
 %build
 %cmake -DUSER_INCLUDE_PATH="%{_includedir}" \
        -DUSER_LIBRARY_PATH="%{_libdir}" \
+       -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DKCM_AUDIO=on
 
 make V=1 %{?_smp_mflags}
