@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Thu Jul  7 15:29:24 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 5.2.0
+  * changes attached via %%doc macro.
+- Introduced %%cmake macro.
+- Set "release with debug info" cmake build type.
+- Introduced liballegro_video5_2* subpackages.
+
+-------------------------------------------------------------------
 Tue May 19 16:08:33 UTC 2015 - dap.darkness@gmail.com
 
 - update to 5.1.10

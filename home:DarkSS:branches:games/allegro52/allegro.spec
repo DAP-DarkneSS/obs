@@ -1,7 +1,7 @@
 #
 # spec file for package allegro
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,18 +16,26 @@
 #
 
 
-%define allegro_so_nr 5_1
-%define allegro_acodec_so_nr 5_1
-%define allegro_audio_so_nr 5_1
-%define allegro_color_so_nr 5_1
-%define allegro_dialog_so_nr 5_1
-%define allegro_font_so_nr 5_1
-%define allegro_image_so_nr 5_1
-%define allegro_main_so_nr 5_1
-%define allegro_memfile_so_nr 5_1
-%define allegro_physfs_so_nr 5_1
-%define allegro_primitives_so_nr 5_1
-%define allegro_ttf_so_nr 5_1
+%define pack_descr Allegro is a cross-platform library mainly aimed at \
+video game and multimedia programming. It handles common, low-level \
+tasks such as creating windows, accepting user input, loading data, \
+drawing images, playing sounds, etc. and generally abstracting away \
+the underlying platform. However, Allegro is not a game engine: you \
+are free to design and structure your program as you like.
+
+%define allegro_so_nr 5_2
+%define allegro_acodec_so_nr 5_2
+%define allegro_audio_so_nr 5_2
+%define allegro_color_so_nr 5_2
+%define allegro_dialog_so_nr 5_2
+%define allegro_font_so_nr 5_2
+%define allegro_image_so_nr 5_2
+%define allegro_main_so_nr 5_2
+%define allegro_memfile_so_nr 5_2
+%define allegro_physfs_so_nr 5_2
+%define allegro_primitives_so_nr 5_2
+%define allegro_ttf_so_nr 5_2
+%define allegro_video_so_nr 5_2
 
 %define dot_allegro_so_nr %(echo %{allegro_so_nr} | sed s/_/./)
 %define dot_allegro_acodec_so_nr %(echo %{allegro_acodec_so_nr} | sed s/_/./)
@@ -40,16 +48,17 @@
 %define dot_allegro_memfile_so_nr %(echo %{allegro_memfile_so_nr} | sed s/_/./)
 %define dot_allegro_physfs_so_nr %(echo %{allegro_physfs_so_nr} | sed s/_/./)
 %define dot_allegro_primitives_so_nr %(echo %{allegro_primitives_so_nr} | sed s/_/./)
-%define dot_allegro_ttf_so_nr %(echo %{allegro_primitives_so_nr} | sed s/_/./)
+%define dot_allegro_ttf_so_nr %(echo %{allegro_ttf_so_nr} | sed s/_/./)
+%define dot_allegro_video_so_nr %(echo %{allegro_video_so_nr} | sed s/_/./)
 
 Name:           allegro
-Version:        5.1.10
+Version:        5.2.0
 Release:        0
 Summary:        A game programming library
 License:        Zlib and BSD-3-Clause
 Group:          System/Libraries
-Url:            http://alleg.sourceforge.net/
-Source0:        http://sourceforge.net/projects/alleg/files/allegro-unstable/%{version}/allegro-%{version}.tar.gz
+Url:            http://liballeg.org
+Source0:        http://download.gna.org/allegro/allegro/%{version}/allegro-%{version}.tar.gz
 Source9:        baselibs.conf
 BuildRequires:  cmake
 BuildRequires:  fdupes
@@ -73,6 +82,7 @@ BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libpulse-simple)
 BuildRequires:  pkgconfig(openal)
 BuildRequires:  pkgconfig(pango)
+BuildRequires:  pkgconfig(theora)
 BuildRequires:  pkgconfig(vorbisfile)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xcursor)
@@ -81,17 +91,14 @@ BuildRequires:  pkgconfig(xinerama)
 BuildRequires:  pkgconfig(xrandr)
 
 %description
-Allegro is a cross-platform library intended for use in computer games
-and other types of multimedia programming.
+%{pack_descr}
 
 %package -n liballegro%{allegro_so_nr}
 Summary:        A game programming library
 Group:          System/Libraries
 
 %description -n liballegro%{allegro_so_nr}
-Allegro is a cross-platform library intended for use in computer games
-and other types of multimedia programming. This package is needed to
-build programs written with Allegro.
+%{pack_descr}
 
 %package -n liballegro%{allegro_so_nr}-devel
 Summary:        Development files for liballegro
@@ -107,7 +114,7 @@ Development files needed to build applications which use liballegro.
 
 %files -n liballegro%{allegro_so_nr}
 %defattr(0644,root,root,0755)
-%doc CHANGES-5.0.txt CONTRIBUTORS.txt LICENSE.txt
+%doc CHANGES-5.?.txt CONTRIBUTORS.txt LICENSE.txt README.txt
 %{_libdir}/liballegro.so.%{dot_allegro_so_nr}*
 %config(noreplace) %{_sysconfdir}/allegro5rc
 
@@ -125,6 +132,7 @@ Development files needed to build applications which use liballegro.
 %exclude %{_includedir}/allegro5/allegro_physfs.h
 %exclude %{_includedir}/allegro5/allegro_primitives.h
 %exclude %{_includedir}/allegro5/allegro_ttf.h
+%exclude %{_includedir}/allegro5/allegro_video.h
 %{_libdir}/pkgconfig/allegro-5.pc
 
 %package -n liballegro_acodec%{allegro_acodec_so_nr}
@@ -132,9 +140,7 @@ Summary:        A game programming library
 Group:          System/Libraries
 
 %description -n liballegro_acodec%{allegro_acodec_so_nr}
-Allegro is a cross-platform library intended for use in computer games
-and other types of multimedia programming. This package is needed to
-build programs written with Allegro.
+%{pack_descr}
 
 %package -n liballegro_acodec%{allegro_acodec_so_nr}-devel
 Summary:        Development files for liballegro_acodec
@@ -163,9 +169,7 @@ Summary:        A game programming library
 Group:          System/Libraries
 
 %description -n liballegro_audio%{allegro_audio_so_nr}
-Allegro is a cross-platform library intended for use in computer games
-and other types of multimedia programming. This package is needed to
-build programs written with Allegro.
+%{pack_descr}
 
 %package -n liballegro_audio%{allegro_audio_so_nr}-devel
 Summary:        Development files for liballegro_audio
@@ -194,9 +198,7 @@ Summary:        A game programming library
 Group:          System/Libraries
 
 %description -n liballegro_color%{allegro_color_so_nr}
-Allegro is a cross-platform library intended for use in computer games
-and other types of multimedia programming. This package is needed to
-build programs written with Allegro.
+%{pack_descr}
 
 %package -n liballegro_color%{allegro_color_so_nr}-devel
 Summary:        Development files for liballegro_color
@@ -225,9 +227,7 @@ Summary:        A game programming library
 Group:          System/Libraries
 
 %description -n liballegro_dialog%{allegro_dialog_so_nr}
-Allegro is a cross-platform library intended for use in computer games
-and other types of multimedia programming. This package is needed to
-build programs written with Allegro.
+%{pack_descr}
 
 %package -n liballegro_dialog%{allegro_dialog_so_nr}-devel
 Summary:        Development files for liballegro_dialog
@@ -256,9 +256,7 @@ Summary:        A game programming library
 Group:          System/Libraries
 
 %description -n liballegro_font%{allegro_font_so_nr}
-Allegro is a cross-platform library intended for use in computer games
-and other types of multimedia programming. This package is needed to
-build programs written with Allegro.
+%{pack_descr}
 
 %package -n liballegro_font%{allegro_font_so_nr}-devel
 Summary:        Development files for liballegro_font
@@ -287,9 +285,7 @@ Summary:        A game programming library
 Group:          System/Libraries
 
 %description -n liballegro_image%{allegro_image_so_nr}
-Allegro is a cross-platform library intended for use in computer games
-and other types of multimedia programming. This package is needed to
-build programs written with Allegro.
+%{pack_descr}
 
 %package -n liballegro_image%{allegro_image_so_nr}-devel
 Summary:        Development files for liballegro_image
@@ -318,9 +314,7 @@ Summary:        A game programming library
 Group:          System/Libraries
 
 %description -n liballegro_main%{allegro_main_so_nr}
-Allegro is a cross-platform library intended for use in computer games
-and other types of multimedia programming. This package is needed to
-build programs written with Allegro.
+%{pack_descr}
 
 %package -n liballegro_main%{allegro_main_so_nr}-devel
 Summary:        Development files for liballegro_main
@@ -348,9 +342,7 @@ Summary:        A game programming library
 Group:          System/Libraries
 
 %description -n liballegro_memfile%{allegro_memfile_so_nr}
-Allegro is a cross-platform library intended for use in computer games
-and other types of multimedia programming. This package is needed to
-build programs written with Allegro.
+%{pack_descr}
 
 %package -n liballegro_memfile%{allegro_memfile_so_nr}-devel
 Summary:        Development files for liballegro_memfile
@@ -379,9 +371,7 @@ Summary:        A game programming library
 Group:          System/Libraries
 
 %description -n liballegro_physfs%{allegro_physfs_so_nr}
-Allegro is a cross-platform library intended for use in computer games
-and other types of multimedia programming. This package is needed to
-build programs written with Allegro.
+%{pack_descr}
 
 %package -n liballegro_physfs%{allegro_physfs_so_nr}-devel
 Summary:        Development files for liballegro_physfs
@@ -410,9 +400,7 @@ Summary:        A game programming library
 Group:          System/Libraries
 
 %description -n liballegro_primitives%{allegro_primitives_so_nr}
-Allegro is a cross-platform library intended for use in computer games
-and other types of multimedia programming. This package is needed to
-build programs written with Allegro.
+%{pack_descr}
 
 %package -n liballegro_primitives%{allegro_primitives_so_nr}-devel
 Summary:        Development files for liballegro_primitives
@@ -441,9 +429,7 @@ Summary:        A game programming library
 Group:          System/Libraries
 
 %description -n liballegro_ttf%{allegro_ttf_so_nr}
-Allegro is a cross-platform library intended for use in computer games
-and other types of multimedia programming. This package is needed to
-build programs written with Allegro.
+%{pack_descr}
 
 %package -n liballegro_ttf%{allegro_ttf_so_nr}-devel
 Summary:        Development files for liballegro_ttf
@@ -452,6 +438,21 @@ Requires:       liballegro_ttf%{allegro_ttf_so_nr} = %{version}
 
 %description -n liballegro_ttf%{allegro_ttf_so_nr}-devel
 Development files needed to build applications which use liballegro_ttf.
+
+%package -n liballegro_video%{allegro_video_so_nr}
+Summary:        A game programming library
+Group:          System/Libraries
+
+%description -n liballegro_video%{allegro_video_so_nr}
+%{pack_descr}
+
+%package -n liballegro_video%{allegro_video_so_nr}-devel
+Summary:        Development files for liballegro_video
+Group:          Development/Libraries/C and C++
+Requires:       liballegro_video%{allegro_video_so_nr} = %{version}
+
+%description -n liballegro_video%{allegro_video_so_nr}-devel
+Development files needed to build applications which use liballegro_video.
 
 %package -n liballegro-doc
 Summary:        Allegro Documentation
@@ -467,25 +468,18 @@ Allegro HTML documentation and man pages.
 %{_mandir}/man3/*
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}.0
 
 %build
-mkdir build
-cd build
-export CFLAGS='%{optflags}'
-export CXXFLAGS='%{optflags}'
-cmake -DCMAKE_SKIP_RPATH=ON \
-      -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-      -DLIB_SUFFIX=$(echo %{_lib} | cut -b4-) \
-      -DCMAKE_BUILD_TYPE=Release \
+%cmake \
+      -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+      -DCMAKE_C_FLAGS="%{optflags} -fPIC" \
       -DWANT_EXAMPLES=NO \
-      -DWANT_DEMO=NO ..
+      -DWANT_DEMO=NO
 make %{?_smp_mflags} VERBOSE=1
 
 %install
-cd build
-make DESTDIR=%{buildroot} install VERBOSE=1
-cd ..
+%cmake_install
 install -D -m 644 allegro5.cfg %{buildroot}%{_sysconfdir}/allegro5rc
 install -d -D %{buildroot}%{_mandir}/man3
 cp docs/man/*.3 %{buildroot}%{_mandir}/man3
@@ -497,6 +491,10 @@ cp -r docs/html/refman/* %{buildroot}%{_datadir}/doc/%{name}
 
 %postun -n liballegro_ttf%{allegro_ttf_so_nr} -p /sbin/ldconfig
 
+%post -n liballegro_video%{allegro_video_so_nr} -p /sbin/ldconfig
+
+%postun -n liballegro_video%{allegro_video_so_nr} -p /sbin/ldconfig
+
 %files -n liballegro_ttf%{allegro_ttf_so_nr}
 %defattr(0644,root,root,0755)
 %{_libdir}/liballegro_ttf.so.%{dot_allegro_ttf_so_nr}*
@@ -506,5 +504,15 @@ cp -r docs/html/refman/* %{buildroot}%{_datadir}/doc/%{name}
 %{_libdir}/liballegro_ttf.so
 %{_includedir}/allegro5/allegro_ttf.h
 %{_libdir}/pkgconfig/allegro_ttf-5.pc
+
+%files -n liballegro_video%{allegro_video_so_nr}
+%defattr(0644,root,root,0755)
+%{_libdir}/liballegro_video.so.%{dot_allegro_video_so_nr}*
+
+%files -n liballegro_video%{allegro_video_so_nr}-devel
+%defattr(0644,root,root,0755)
+%{_libdir}/liballegro_video.so
+%{_includedir}/allegro5/allegro_video.h
+%{_libdir}/pkgconfig/allegro_video-5.pc
 
 %changelog
