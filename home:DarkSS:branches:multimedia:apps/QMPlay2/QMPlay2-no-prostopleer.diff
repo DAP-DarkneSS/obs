@@ -1,73 +1,13 @@
---- src/modules/Extensions/Extensions.cpp.orig	2016-02-29 21:17:29.000000000 +0300
-+++ src/modules/Extensions/Extensions.cpp	2016-03-12 13:03:59.990846080 +0300
-@@ -22,9 +22,6 @@
- #include <YouTube.hpp>
- #include <LastFM.hpp>
- #include <Radio.hpp>
--#ifdef USE_PROSTOPLEER
--	#include <ProstoPleer.hpp>
--#endif
- #ifdef USE_MPRIS2
- 	#include <MPRIS2.hpp>
- #endif
-@@ -35,17 +32,11 @@
- 	Module("Extensions"),
- 	downloader(QImage(":/downloader")), youtube(QImage(":/youtube")), radio(QImage(":/radio")), lastfm(QImage(":/lastfm"))
- {
--#ifdef USE_PROSTOPLEER
--	prostopleer = QImage(":/prostopleer");
--#endif
+--- src/modules/Extensions/Extensions.pro.orig	2016-07-07 16:46:34.000000000 +0300
++++ src/modules/Extensions/Extensions.pro	2016-07-07 20:31:33.746888040 +0300
+@@ -28,10 +28,6 @@
+ HEADERS += Extensions.hpp YouTube.hpp Downloader.hpp Radio.hpp LastFM.hpp
+ SOURCES += Extensions.cpp YouTube.cpp Downloader.cpp Radio.cpp LastFM.cpp
  
- 	downloader.setText("Path", ":/downloader");
- 	youtube.setText("Path", ":/youtube");
- 	radio.setText("Path", ":/radio");
- 	lastfm.setText("Path", ":/lastfm");
--#ifdef USE_PROSTOPLEER
--	prostopleer.setText("Path", ":/prostopleer");
--#endif
- 
- 	init("YouTube/ShowAdditionalInfo", false);
- 	init("YouTube/MultiStream", true);
-@@ -74,9 +65,6 @@
- 	modulesInfo += Info(YouTubeName, QMPLAY2EXTENSION, youtube);
- 	modulesInfo += Info(LastFMName, QMPLAY2EXTENSION, lastfm);
- 	modulesInfo += Info(RadioName, QMPLAY2EXTENSION, radio);
--#ifdef USE_PROSTOPLEER
--	modulesInfo += Info(ProstoPleerName, QMPLAY2EXTENSION, prostopleer);
--#endif
- #if USE_MPRIS2
- 	modulesInfo += Info(MPRIS2Name, QMPLAY2EXTENSION);
- #endif
-@@ -92,10 +80,6 @@
- 		return static_cast<QMPlay2Extensions *>(new LastFM(*this));
- 	else if (name == RadioName)
- 		return static_cast<QMPlay2Extensions *>(new Radio(*this));
--#ifdef USE_PROSTOPLEER
--	else if (name == ProstoPleerName)
--		return static_cast<QMPlay2Extensions *>(new ProstoPleer(*this));
--#endif
- #ifdef USE_MPRIS2
- 	else if (name == MPRIS2Name)
- 		return static_cast<QMPlay2Extensions *>(new MPRIS2(*this));
---- src/modules/Extensions/Extensions.hpp.orig	2016-02-29 21:17:29.000000000 +0300
-+++ src/modules/Extensions/Extensions.hpp	2016-03-12 13:04:23.706846080 +0300
-@@ -29,9 +29,6 @@
- 	SettingsWidget *getSettingsWidget();
- 
- 	QImage downloader, youtube, radio, lastfm;
--#ifdef USE_PROSTOPLEER
--	QImage prostopleer;
--#endif
- };
- 
- /**/
-
---- src/modules/Extensions/icons.qrc.orig	2016-02-29 21:17:29.000000000 +0300
-+++ src/modules/Extensions/icons.qrc	2016-03-12 13:04:34.278846080 +0300
-@@ -1,6 +1,5 @@
- <RCC>
- 	<qresource>
--		<file alias="prostopleer">prostopleer.png</file>
- 		<file alias="downloader">downloader.png</file>
- 		<file alias="youtube">youtube.png</file>
- 		<file alias="lastfm">lastfm.png</file>
+-HEADERS += ProstoPleer.hpp
+-SOURCES += ProstoPleer.cpp
+-DEFINES += USE_PROSTOPLEER
+-
+ unix:!macx:!android {
+ 	QT += dbus
+ 	HEADERS += MPRIS2.hpp

@@ -17,7 +17,7 @@
 
 
 Name:           QMPlay2
-Version:        16.07.02
+Version:        16.07.07
 Release:        0
 Summary:        A Qt based media player, streamer and downloader
 License:        LGPL-3.0+
@@ -115,6 +115,10 @@ rm ChangeLog LICENSE README.md TODO
 %{_prefix}/lib/qmplay2
 %{_datadir}/applications/%{name}*.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
+%if 0%{?suse_version} == 1315
+%dir %{_datadir}/icons/hicolor/*
+%dir %{_datadir}/icons/hicolor/*/apps
+%endif
 %{_datadir}/qmplay2
 %{_mandir}/man?/%{name}.?.*
 

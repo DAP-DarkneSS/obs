@@ -17,17 +17,13 @@
 
 
 Name:           QMPlay2
-Version:        16.07.02
+Version:        16.07.07
 Release:        0
 Summary:        A Qt based media player, streamer and downloader
 License:        LGPL-3.0+
 Group:          Productivity/Multimedia/Video/Players
 Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
 Source:         http://kent.dl.sourceforge.net/project/zaps166/QMPlay2/QMPlay2-src-%{version}.tar.xz
-# PATCH-FIX-UPSTREAM vs. linking issue via cmake, read more at
-# https://github.com/zaps166/QMPlay2/issues/36 &
-# https://github.com/zaps166/QMPlay2/issues/37
-Patch9:         QMPlay2-16.07.02-cmake-linking.diff
 
 BuildRequires:  cmake >= 3
 BuildRequires:  kdebase4-workspace
@@ -82,7 +78,6 @@ It's a development package for %{name}.
 
 %prep
 %setup -q -n %{name}-src-%{version}
-%patch9 -p1
 
 
 %build

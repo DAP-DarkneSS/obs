@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Thu Jul  7 17:04:57 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 16.07.07:
+  * Ubuntu Unity integration (MPRIS2 and shortcut groups),
+  * added video equalizer to "Settings/Video filters",
+  * new "Concept" icons by Alexey Varfolomeev,
+  * updated Russian translation (victorr2007),
+  * properly add many files containing tracks,
+  * better detection of subtitles text codec,
+  * handle audio parameters changes,
+  * MPRIS2 and PLS fixes.
+- Updated QMPlay2-no-prostopleer.diff.
+
+-------------------------------------------------------------------
 Sun Jul  3 09:46:30 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 16.07.02:
