@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Fri Jul  8 16:10:55 UTC 2016 - dap.darkness@gmail.com
+
+- Update to new release ≥ 2.11.8 (tarball 20160706).
+- Merged monster-rpg-2-cmake-cflags.diff &
+  monster-rpg-2-dynamic-linking.diff & new diff into
+  monster-rpg-2-CMakeLists.txt.diff.
+- Added man page.
+
+-------------------------------------------------------------------
 Wed Jul  6 16:36:48 UTC 2016 - dap.darkness@gmail.com
 
 - Set "release with debug info" cmake build type.
