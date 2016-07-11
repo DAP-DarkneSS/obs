@@ -16,10 +16,10 @@
 #
 
 
-%define tarball_ver %{version}b-alpha
+%define tarball_ver %{version}-alpha
 
 Name:           colobot
-Version:        0.1.7
+Version:        0.1.8
 Release:        0
 Summary:        A real-time strategy game with programmable bots
 License:        GPL-3.0+
@@ -28,8 +28,7 @@ Url:            http://colobot.info
 Source0:        https://github.com/colobot/colobot/archive/colobot-gold-%{tarball_ver}.tar.gz
 
 BuildRequires:  boost-devel
-BuildRequires:  chrpath
-BuildRequires:  cmake >= 2.8
+BuildRequires:  cmake >= 3
 BuildRequires:  desktop-file-utils
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++ >= 4.6
@@ -46,12 +45,16 @@ BuildRequires:  pkgconfig(SDL2_ttf)
 BuildRequires:  pkgconfig(glew) >= 1.8.0
 BuildRequires:  pkgconfig(ogg) >= 1.3.0
 BuildRequires:  pkgconfig(openal) >= 1.13
-BuildRequires:  pkgconfig(sdl2)
+BuildRequires:  pkgconfig(sdl2) >= 2.0.4
 BuildRequires:  pkgconfig(sndfile) >= 1.0.25
 BuildRequires:  pkgconfig(vorbis) >= 1.3.2
 Requires:       %{name}-data = %{version}
 Recommends:     %{name}-lang
 Recommends:     zenity
+Requires(post): hicolor-icon-theme
+Requires(post): update-desktop-files
+Requires(postun): hicolor-icon-theme
+Requires(postun): update-desktop-files
 
 %description
 And this is what made the game special in our childhood, or maybe even
@@ -75,23 +78,14 @@ the right amount of accuracy, with the right mix of imagination.
 %setup -q -n colobot-colobot-gold-%{tarball_ver}
 
 %build
-mkdir -p build && cd build
-cmake .. \
-       -DCMAKE_BUILD_WITH_INSTALL_RPATH:BOOL=FALSE \
-       -DCMAKE_NO_BUILTIN_CHRPATH=ON \
-       -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
-       -DCMAKE_C_FLAGS="%{optflags}" \
-       -DCMAKE_CXX_FLAGS="%{optflags}" \
+%cmake \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-       -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
        -DCOLOBOT_INSTALL_BIN_DIR:PATH=%{_bindir} \
        -DCOLOBOT_INSTALL_LIB_DIR:PATH=%{_libdir}
 make V=1 %{?_smp_mflags}
 
 %install
-cd build
-make V=1 install DESTDIR=%{buildroot}
-chrpath -d %{buildroot}%{_bindir}/%{name}
+%cmake_install
 %find_lang %{name} %{?no_lang_C}
 %if 0%{?suse_version} > 1320 || 0%{?suse_version} == 1315
 %suse_update_desktop_file -r %{name} 'Education;Engineering;Game;AdventureGame;StrategyGame;'
@@ -116,6 +110,6 @@ chrpath -d %{buildroot}%{_bindir}/%{name}
 %{_mandir}/*/man*/%{name}*
 %{_datadir}/games/colobot
 
-%files lang -f build/%{name}.lang
+%files lang -f %{name}.lang
 
 %changelog

@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jul 11 17:01:27 UTC 2016 - dap.darkness@gmail.com
+
+- 0.1.8:
+  * no upstream changelog.
+- Introduced %%cmake macro.
+
+-------------------------------------------------------------------
 Tue Apr  5 16:23:01 UTC 2016 - dap.darkness@gmail.com
 
 - 0.1.7:
