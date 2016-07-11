@@ -1,0 +1,20 @@
+--- src/autoversion.h.in.orig	2016-06-04 01:11:14.000000000 +0300
++++ src/autoversion.h.in	2016-07-11 23:11:30.303250520 +0300
+@@ -1,5 +1,5 @@
+ 
+-# define MAX_BUILD_DATE ((std::string)__DATE__ + " " + __TIME__)
++# define MAX_BUILD_DATE ((std::string)"via openSUSE Build Service")
+ 
+ # ifdef NIGHTLY_BUILD
+ #  define PACKAGE_REV "GIT Hash ${GIT_DESC}"
+--- src/maxrversion.h.orig	2016-06-04 01:11:14.000000000 +0300
++++ src/maxrversion.h	2016-07-11 23:11:15.003250520 +0300
+@@ -6,7 +6,7 @@
+ //default path to data dir only used on linux/other
+ # define BUILD_DATADIR "/usr/share/maxr"
+ // Builddate: Mmm DD YYYY HH:MM:SS
+-# define MAX_BUILD_DATE ((std::string)__DATE__ + " " + __TIME__)
++# define MAX_BUILD_DATE ((std::string)"via openSUSE Build Service")
+ # ifdef NDEBUG
+ #  define PACKAGE_REV "Releaseversion"
+ # else

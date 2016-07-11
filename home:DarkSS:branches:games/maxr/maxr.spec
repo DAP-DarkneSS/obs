@@ -1,7 +1,7 @@
 #
 # spec file for package maxr
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 # Copyright (c) 2009 oc2pus
 #
 # All modifications and additions to the file contributed by third parties
@@ -18,23 +18,28 @@
 
 
 Name:           maxr
-Version:        0.2.8
+Version:        0.2.9
 Release:        0
 Summary:        M.A.X.R. (Mechanized Assault and eXploration Reloaded)
-License:        GPL-2.0+
+License:        GPL-2.0+ and CC-BY-SA-3.0
 Group:          Amusements/Games/Strategy/Turn Based
 Url:            http://www.maxr.org/
 Source0:        http://www.maxr.org/downloads/%{name}-%{version}.tar.gz
-Source1:        %{name}.png
 Source2:        http://www.maxr.org/downloads/manual.pdf
-BuildRequires:  SDL-devel
-BuildRequires:  SDL_mixer-devel
-BuildRequires:  SDL_net-devel
+Source9:        %{name}.6
+# PATCH-FIX-OPENSUSE vs. W: file-contains-date-and-time /usr/bin/maxr
+Patch0:         maxr-date-time.diff
+
+BuildRequires:  cmake >= 3
 BuildRequires:  dos2unix
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  update-desktop-files
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+BuildRequires:  pkgconfig(SDL2_mixer)
+BuildRequires:  pkgconfig(SDL2_net)
+BuildRequires:  pkgconfig(sdl2)
+Requires(post): update-desktop-files
+Requires(postun): update-desktop-files
 
 %description
 M.A.X.R. (Mechanized Assault and eXploration Reloaded) is a
@@ -53,23 +58,20 @@ turnbased strategy with battle chess character.
 
 %prep
 %setup -q -n%{name}-%{version}
-dos2unix     CHANGELOG data/MANUAL
-chmod 644 CHANGELOG data/MANUAL
-# Convert everything to UTF-8
-iconv -f iso-8859-1 -t utf-8 -o COPYING.README.utf8 COPYING.README
-touch -c -r COPYING.README COPYING.README.utf8
-mv -f COPYING.README.utf8 COPYING.README
+%patch0
+find -name '.empty' -delete -print
+dos2unix data/AUTHORS data/CHANGELOG data/MANUAL
 install -m 644 %{SOURCE2} .
 
 %build
-%configure
-make %{?_smp_mflags}
+%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo
+make V=1 %{?_smp_mflags}
 
 %install
-make DESTDIR=%{buildroot} install
+%cmake_install
 # icon
 install -dm 755 %{buildroot}%{_datadir}/pixmaps
-install -m 644 %{SOURCE1} %{buildroot}%{_datadir}/pixmaps
+install -m 644 data/%{name}.png %{buildroot}%{_datadir}/pixmaps
 # menu
 install -dm 755 %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/%{name}.desktop <<EOF
@@ -85,12 +87,25 @@ Comment=M.A.X.R. (Mechanized Assault and eXploration Reloaded)
 EOF
 %suse_update_desktop_file %{name} Game StrategyGame
 %fdupes -s %{buildroot}
-ln -sf %{_datadir}/doc/licenses/md5/$(md5sum COPYING | sed 's/ .*//') COPYING
+# man
+mkdir -p %{buildroot}%{_mandir}/man6
+cp %{SOURCE9} %{buildroot}%{_mandir}/man6
+# Let's use %%doc macro for:
+cd %{buildroot}/%{_datadir}/%{name}
+rm ABOUT AUTHORS CHANGELOG COPYING* MANUAL
+
+%post
+%desktop_database_post
+
+%postun
+%desktop_database_postun
 
 %files
 %defattr(-,root,root,-)
-%doc ABOUT CHANGELOG COPYING COPYING.README manual.pdf
+%doc README.md manual.pdf data/ABOUT data/AUTHORS
+%doc data/CHANGELOG data/COPYING* data/MANUAL
 %{_bindir}/%{name}
+%{_mandir}/man?/%{name}.6.*
 %{_datadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png

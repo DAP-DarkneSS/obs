@@ -1,4 +1,33 @@
 -------------------------------------------------------------------
+Mon Jul 11 19:17:18 UTC 2016 - dap.darkness@gmail.com
+
+- Updated to 0.2.9
+  * migrated from sdl to sdl2;
+  * changed movement control: press CTRL to fly over other units;
+  * new chat box, including chat log and player list;
+  * implemented chat box in landing selection screen;
+  * implemented RETURN and ESC shortcuts in menues and dialogs;
+  * implemented mouse wheel scroll support in all lists;
+  * implemented colorpicker for player colors;
+  * implemented position dependent, stereo "3D" sound effects;
+  * implemented hot seat mode;
+  * implemented turn time limit;
+  * improved right mouse button scroll;
+  * improved possible key combinations for hot keys;
+  * improved turn time clock;
+  * fixed missing units after loading a game;
+  * fixed turn based mode;
+  * fixed resolution detection (multiple display support);
+  * fixed various missing status updates in GUI;
+  * fixed various situations with wrong cursor displayed;
+  * rewrite internal attack implementation;
+  * new code behind the menus and the in-game GUI;
+  * tons of bugs and crashes fixed.
+- Added maxr-date-time.diff vs. rpmlint warning.
+- Added man page.
+- Introduced %%desktop_database_post(un).
+
+-------------------------------------------------------------------
 Wed Mar 27 19:41:34 UTC 2013 - joop.boonen@opensuse.org
 
 - Updated to 0.2.8
