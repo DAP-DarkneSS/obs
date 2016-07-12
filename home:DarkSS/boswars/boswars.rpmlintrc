@@ -1,2 +1,5 @@
+# Useless:
 addFilter("incorrect-fsf-address")
-addFilter("no-manual-page-for-binary")
+addFilter("files-duplicate /usr/share/man/man6/boswars.6.gz /usr/share.*")
+# Editable maps:
+addFilter("files-duplicate /usr/share/boswars/maps.*");

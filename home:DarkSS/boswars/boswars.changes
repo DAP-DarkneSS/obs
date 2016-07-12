@@ -1,4 +1,25 @@
 -------------------------------------------------------------------
+Tue Jul 12 19:47:43 UTC 2016 - dap.darkness@gmail.com
+
+- Update to svn rev # 10242 (2016 07 11):
+  * Escape key unselects units (Francois Beerten);
+  * Fix save games with too many units;
+  * Patch #8319: Fast-forward Through Command Line Option;
+  * Fixed command line speed option (Francois Beerten);
+  * Added the Cornered map (Iwan Gabovitch);
+  * Fixed objectives screen broken: missing text and freeze;
+  * Fixed "Set new units target" makes engineers harvest buildings;
+  * Added the Ringway map (Michiel van der Wulp);
+  * Added the Wormroads map (Iwan Gabovitch);
+  * Added 10 "oasis" maps — pick one at random to play.
+- Added files duplicate rpmlint warning filter for editable maps.
+- Added man page.
+- Removed ice age provides/obsoletes.
+- Introduced noarch data subpackage.
+- Added %%desktop_database_post(un).
+- Fixed up previous commit.
+
+-------------------------------------------------------------------
 Mon Jul 11 18:09:48 UTC 2016 - michiel.vanderwulp@gmail.com
 
 - make the maps folder writable, so that the map editor will be able to save new maps

@@ -1,0 +1,63 @@
+.TH "boswars" "6" "2.7+svn10242" "Dmitriy A. Perlow aka DAP-DarkneSS" "openSUSE games"
+.SH "NAME"
+\fBBos Wars\fR is a futuristic real time strategy game (RTS)
+.br
+.SH "SYNTAX"
+\fBboswars\fR [\fBOPTIONS\fR] [MAP-PRESENTATION-FILE]
+.br
+.SH "DESCRIPTION"
+In a RTS game, the player has to combat his enemies while developing his war economy. Everything runs in real-time, as opposed to turn-based games where the player always has to wait for his turn. The trick is to balance the effort put into building his economy and building an army to defend and attack the enemies.
+.br
+
+\fBBos Wars\fR has a dynamic rate based economy. Energy is produced by power plants and magma gets pumped from hot spots. Buildings and mobile units are also built at a continuous rate. Control of larger parts of the map creates the potential to increase your economy throughput. Holding key points like roads and passages allow for different strategies.
+.br
+
+It is possible to play against human opponents over LAN, internet, or against the computer.
+.br
+
+\fBBos Wars\fR aims to create a completely original and fun open source RTS game.
+.br
+.SH "OPTIONS"
+-c	file.lua	Configuration start file (default scripts/boswars.lua)
+.br
+-d	datapath	Path to Bos Wars data
+.br
+-E	file.lua	Load this script file when starting the map editor (default scripts/editor.lua)
+.br
+-h			Help shows this page
+.br
+-l			Disable command log
+.br
+-P	port		Network port to use
+.br
+-L	lag		Network lag in # frames (default 10 = 333ms)
+.br
+-U	update	Network update rate in # frames (default 5=6x per s)
+.br
+-v	mode		Video mode WIDTHxHEIGHT, at least 640x480.
+.br
+			Abbreviations: 1=640x480, 2=800x600, 3=1024x768, 4=1280x960, 5=1600x1200.
+.br
+-D	bpp		Video mode depth = bits per pixel (for Win32/TNT)
+.br
+-F			Full screen video mode
+.br
+-S	speed	Video sync speed (100 = 30 frames/s)
+.br
+-f	cycle	Fast foward until the cycle number
+.br
+-W			Windowed video mode
+.br
+.SH "EXAMPLES"
+Specifying MAP-PRESENTATION-FILE starts a single-player game in that map.
+.br
+\fBboswars\fR maps/islandwar.map/presentation.smp
+.br
+.SH "AUTHORS"
+© 1998-2013 by the \fBBos Wars\fR and Stratagus Project.
+.br
+Written by Lutz Sammer, Fabrice Rossi, Vladi Shabanski, Patrice Fortier, Jon Gabrielson, Andreas Arens, Nehal Mistry, Jimmy Salmon, Francois Beerten and others.
+.br
+.SH "SEE ALSO"
+\fIhttp://www.boswars.org\fR
+.br
