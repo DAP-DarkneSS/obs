@@ -1,0 +1,294 @@
+-------------------------------------------------------------------
+Mon Jul 11 18:09:48 UTC 2016 - michiel.vanderwulp@gmail.com
+
+- make the maps folder writable, so that the map editor will be able to save new maps
+
+-------------------------------------------------------------------
+Fri Jun 27 13:56:42 UTC 2014 - ecsos@schirra.net
+
+- include rpmlintrc in spec for factory 
+
+-------------------------------------------------------------------
+Fri Feb 14 11:04:53 UTC 2014 - ecsos@schirra.net
+
+add the folder "patches" from the source 
+
+-------------------------------------------------------------------
+Sun Dec 22 14:43:08 UTC 2013 - ecsos@schirra.net
+
+- update to 2.7 (2013 06 16):
+  - Added the Boxland map (Iwan Gabovitch)
+  - Added the islands campaign (Connor MacKay)
+  - Extended the swindler campaign (Michiel van der Wulp)
+  - Added sounds for aircraftfactory, artil, destroyer and shipyard (Iwan Gabovitch)
+  - Do not show waypoints for enemy units when SHIFT key is pressed down (Pali Rohar)
+  - Added support for 1024x600 and 1366x768 video modes (Kalle Olavi Niemitalo)
+  - Updated the development documentation (Kalle Olavi Niemitalo)
+  - Added maps: zombies, cannons, smalland, the small ring (Michiel van der Wulp)
+  - Improved the clover map (Michiel van der Wulp)
+  - Added 5 maps from the overpopulation series (Michiel van der Wulp)
+  - Added goshgeom patches (Michiel van der Wulp)
+  - Added Lithuanian translation (Vytautas Raškevičius)
+  - Fixed bug "uncontrollable with Wacom tablet when in full-screen mode"
+    as reported at http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=559615 
+    (Kalle Olavi Niemitalo)
+  - Added Swamp Dwellers map (Michiel van der Wulp)
+  - Added hungarian translation (Ur Balazs)
+  - Added the trenches map (Michiel van der Wulp)
+  - Partially fixed bug #30994: Make AI work with naval units (Kalle Olavi Niemitalo)
+  - Fixed bug #30971: Units attack buildings too stubbornly (Kalle Olavi Niemitalo)
+  - Fixed bug #30856: Workers swich to other resourse type after one deposit complete (Kalle Olavi Niemitalo)
+  - New arrow and cross cursor graphics (Leonid Gutmann)
+  - Added "terrain" build restriction (Kalle Olavi Niemitalo)
+  - Added the Tokelau map (Michiel van der Wulp)
+  - Added the Volcanic Grounds map (Michiel van der Wulp)
+  - Added the Chilka map (Michiel van der Wulp)
+  - Added undo groups to the map editor (Kalle Olavi Niemitalo)
+  - Added ctrl-shift-t hotkey in the editor to tile the selected patch (Jimmy Salmon)
+  - Added patch themes (Jimmy Salmon)
+  - Fixed bug #30173: Map editor should require at least one player type to be a person (Jimmy Salmon)
+  - Fixed bug #29740: Map editor adds units even if dragging began in the sidebar (Jimmy Salmon)
+  - Fixed bug #30164: Map editor doesn't close terrain file (Jimmy Salmon)
+  - Fixed bug #30244: Crash with some map sizes in minimap (Francois Beerten)
+  - Added Clover map (Michiel van der Wulp)
+  - Fixed bug #30112: How to set the default for "Fog of War" in "Start Game" is not obvious (Kalle Olavi Niemitalo)
+  - Added AllowTerrain* flags in DefineUnitType (Kalle Olavi Niemitalo)
+  - Distinguish between shallow and deep water (Kalle Olavi Niemitalo)
+  - Added Gosh patches (Tejay Penfold)
+  - Added Shipyard (Tejay Penfold and Francois Beerten)
+  - Added "Show Terrain Attributes" to the map editor (Kalle Olavi Niemitalo)
+  - Fixed bug #29731: Replacing patches in the map editor discards CMapField::Flags set because of units (Kalle Olavi Niemitalo)
+  - Added Multiple Fronts map (Michiel van der Wulp)
+  - Added a file browser and a size suggestion to Create New Patch (Kalle Olavi Niemitalo)
+  - Added Atoll Walk map (Michiel van der Wulp)
+  - Added destroyer ship (Tejay Penfold and Francois Beerten)
+  - Added water scout unit (Tejay Penfold and Francois Beerten)
+  - Fixed TextField crash on shift+arrow after backspace (Kalle Olavi Niemitalo)
+  - Fixed bug #28951: Undo/redo in the editor now supports patches (Jimmy Salmon)
+  - Added unit-rocksfield to the map editor (Kalle Olavi Niemitalo)
+  - Updated tolua++ to 1.0.93 (Jimmy Salmon)
+  - Fixed bug #22211: Arrow keys don't work right when selecting maps (Jimmy Salmon)
+  - Fixed bug #29096: Adjacent air units flicker in z-order (Jimmy Salmon)
+  - Fixed bug #29533: No way to exit the campaign in the briefing screen (Jimmy Salmon)
+  - Fixed bug #29389: Save/recall map position not preserved during save/reload of game (Jimmy Salmon)
+  - Fixed bug #29284: Custom patches aren't completely cleaned (Jimmy Salmon)
+  - Build static binary without requiring apg++ from autopackage (Francois Beerten)
+  - Fixed bug #29100: Cannot translate resource names shown in map editor (Jimmy Salmon)
+  - Add build script using fabricate (Francois Beerten)
+  - Add moon patches (Tejay Penfold)
+  - Fixed bug #29274: Disabling command log crashes and doesn't always work as expected (Jimmy Salmon)
+  - Fixed bug #29579: KillUnitAt takes 5 parameters (Jimmy Salmon)
+
+-------------------------------------------------------------------
+Sun Sep 16 01:00:00 CEST 2012 - freespacer@gmx.de
+
+- Fix compiling error with openSUSE 12.2
+
+-------------------------------------------------------------------
+Wed Mar 28 14:24:24 UTC 2012 - jengelh@medozas.de
+
+- Enable parallel build
+- Strip redundant sections/tags from specfile
+
+-------------------------------------------------------------------
+Wed Jul 14 08:04:31 UTC 2010 - mseben@novell.com
+
+- updated to 2.6.1:
+  - Fix the position of the morels (Kalle Olavi Niemitalo)
+  - Correct the draw level of some unit types (Kalle Olavi Niemitalo)
+  - Update the documentation of the scripting API (Francois Beerten)
+  - On Windows, use the application directory to save user data (Nehal Mistry)
+  - Fix crash at the end of the Tutorial campaign (Francois Beerten)
+
+- changes in version 2.6:
+  - Fix crash on exit in Windows (Francois Beerten, Nehal Mistry, Jimmy Salmon)
+  - Fix bug map editor places magma pump next to hotspot. (Kalle Olavi Niemitalo)
+  - Support libpng 1.4 (Francois Beerten)
+  - Fix resource consumption and production issues when rescueing units 
+    (Kalle Olavi Niemitalo)
+  - Add portuguese (pt-pt) translation (Tiago Faria)
+  - Add the 4on4 map (Michiel van der Wulp)
+  - Add the hospitality map (Kyran Jackson)
+  - Add italian translation (Simone Rucci)
+  - Fix bug #29110 "Fatal error 'bad player' when loading map to editor"
+    (Francois Beerten)
+  - Discard NewOrder if it refers to destroyed unit (Kalle Olavi Niemitalo)
+  - Recover map specific triggers and settings when loading a saved game (Francois Beerten)
+  - Add the bottleneck map (Kyran Jackson)
+  - Make GLMaxTextureSize configurable for systems where the value reported
+    by OpenGL causes slow displays (Kalle Olavi Niemitalo)
+  - Add the Go-East map (Michiel van der Wulp)
+  - Added a new background image for the swindler campaign (Johannes Engelhardt, Francois Beerten)
+  - Add the lava-river map (Michiel van der Wulp)
+  - Add the Swindler campaign (Francois Beerten and Ruben Diaz)
+  - Fix teams in UnSelectUnit (Kalle Olavi Niemitalo)
+  - Removed broken elites campaign and maps (Francois Beerten)
+  - Add code for dumping all received SDL events to stdout
+    (Kalle Olavi Niemitalo)
+  - Work around bug #27982 mouse centered when clicking in the window after
+    having left. (Kalle Olavi Niemitalo and Francois Beerten)
+  - Fix bug #25178 in patch editor; mouse placement confusion (Jimmy Salmon)
+  - Nukes target the center of the target. (Jann Horn)
+  - Fix use of settings from pkg-config in SCons. (Francois Beerten)
+  - Replace the deprecated SCons Options class by Variables.
+    This requires SCons 0.98.1 or higher. (Francois Beerten)
+  - Replace the deprecated SCons calls to env.Copy by calls to env.Clone.
+    This requires SCons 0.96.93 or higher. (Francois Beerten)
+  - Remove incomplete Dorcoz unit (Francois Beerten)
+  - Fix header includes for GCC 4.4 (Francois Beerten)
+  - Add the "grass" set of patches (Johannes Engelhardt)
+  - Added undo and redo to the editor (Jimmy Salmon)
+  - Add new defeat background graphic (Johannes Engelhardt)
+  - Quick drawing in the main menus (Jimmy Salmon)
+  - Added patch support to the editor (Jimmy Salmon)
+  - Add the heli unit (Johannes Engelhardt and Francois Beerten)
+  - Add the big gun turret (Johannes Engelhardt and Francois Beerten)
+  - Support lua 5.1 only (Jimmy Salmon and Francois Beerten)
+  - New patch based map system (Jimmy Salmon)
+
+- changes in version 2.5.1:
+  - Fixed crash in savegames with destroyed buildings seen by other players (Jimmy Salmon)
+
+-------------------------------------------------------------------
+Thu Oct 15 15:47:53 CEST 2009 - prusnak@suse.cz
+
+- fixed more missing includes (includes.patch)
+- moved /usr/games+/usr/share/games -> /usr/bin+/usr/share
+
+-------------------------------------------------------------------
+Mon Mar 10 00:14:40 CET 2008 - sndirsch@suse.de
+
+- boswars 2.5
+  * adds recyclable building and beautiful explosions using
+    particle graphics.
+  * start position in campaign level 5 fixed
+
+-------------------------------------------------------------------
+Wed Nov 21 05:14:07 CET 2007 - sndirsch@suse.de
+
+- boswars 2.4.1
+  * This update uses a new map layout, fixes a load/save bug and
+    makes OpenGL a run-time option.
+
+-------------------------------------------------------------------
+Mon Nov 12 01:39:20 CET 2007 - ro@suse.de
+
+- fix build with gcc-4.3
+
+-------------------------------------------------------------------
+Wed Aug 15 00:33:24 CEST 2007 - sndirsch@suse.de
+
+- boswars 2.4
+  * This new version features a brand new rate-based economy that
+    completely replaces the old system of harvesting resources. The
+    new system uses energy and magma. Now, you consume resources
+    as they are being produced instead of making one large up-front
+    payment. Other changes include a new tutorial, new translations,
+    and several bug fixes.
+
+-------------------------------------------------------------------
+Mon Jun 18 00:37:40 CEST 2007 - ro@suse.de
+
+- fix build (detect if strnlen is defined)
+
+-------------------------------------------------------------------
+Wed Apr 11 16:18:16 CEST 2007 - sbrabec@suse.cz
+
+- Require just created libmikmod-devel instead of libmikmod.
+
+-------------------------------------------------------------------
+Tue Mar 13 14:56:07 CET 2007 - sndirsch@suse.de
+
+- updated and renamed to boswars 2.3; uses its own stratagus based
+  engine by now
+
+-------------------------------------------------------------------
+Tue Dec 19 18:28:19 CET 2006 - sndirsch@suse.de
+
+- updated to 2.0.1
+
+-------------------------------------------------------------------
+Sat Dec  9 20:25:58 CET 2006 - sndirsch@suse.de
+
+- updated to 2.0alpha
+
+-------------------------------------------------------------------
+Fri Nov  3 22:04:19 CET 2006 - sndirsch@suse.de
+
+- updated to current CVS (2006-11-03)
+  * various bugfixes
+
+-------------------------------------------------------------------
+Sun Sep  3 21:51:40 CEST 2006 - sndirsch@suse.de
+
+- updated to current CVS (2006-09-03)
+  * various bugfixes
+
+-------------------------------------------------------------------
+Mon May 15 16:36:56 CEST 2006 - sndirsch@suse.de
+
+- updated to current CVS (2005-05-15)
+  * various bugfixes
+
+-------------------------------------------------------------------
+Sat Apr 15 18:29:05 CEST 2006 - sndirsch@suse.de
+
+- updated to current CVS (2005-04-30)
+  * various bugfixes
+
+-------------------------------------------------------------------
+Thu Jan 26 00:55:19 CET 2006 - sndirsch@suse.de
+
+- updated to current CVS (2005-01-26)
+  * added New Button Format (TimberDragon)
+  * added Nuclear Power Plant (TimberDragon, p0ng)
+  * added new building corpses (TimberDragon)
+
+-------------------------------------------------------------------
+Wed Jan 25 21:45:55 CET 2006 - mls@suse.de
+
+- converted neededforbuild to BuildRequires
+
+-------------------------------------------------------------------
+Thu Jan 19 01:17:32 CET 2006 - sndirsch@suse.de
+
+- updated to current CVS (2005-01-18)
+  * fix dependencies in the ai helper (dorcoz is built by the camp)
+  * updated jet graphics (rendering TimberDragon, idea GruiicK)
+
+-------------------------------------------------------------------
+Fri Dec 16 15:39:36 CET 2005 - sndirsch@suse.de
+
+- updated to current CVS (2005-12-16)
+
+-------------------------------------------------------------------
+Mon Dec  5 06:02:04 CET 2005 - sndirsch@suse.de
+
+- updated to current CVS (2005-12-05)
+
+-------------------------------------------------------------------
+Sat Nov 19 21:02:11 CET 2005 - sndirsch@suse.de
+
+- updated to current CVS (2005-11-19)
+
+-------------------------------------------------------------------
+Thu May 12 23:37:35 CEST 2005 - sndirsch@suse.de
+
+- use norootforbuild
+
+-------------------------------------------------------------------
+Wed Mar 23 09:51:43 CET 2005 - sndirsch@suse.de
+
+- build as noarch
+
+-------------------------------------------------------------------
+Mon Nov  1 13:19:01 CET 2004 - sndirsch@suse.de
+
+- use NoSource for data files
+- added desktop file + icon
+
+-------------------------------------------------------------------
+Sun Oct 31 23:59:52 CET 2004 - sndirsch@suse.de
+
+- created package
+

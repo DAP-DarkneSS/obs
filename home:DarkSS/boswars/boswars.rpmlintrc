@@ -1,0 +1,2 @@
+addFilter("incorrect-fsf-address")
+addFilter("no-manual-page-for-binary")
