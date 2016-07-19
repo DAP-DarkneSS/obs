@@ -7,5 +7,6 @@ StartupWMClass=Franz
 Icon=franz
 Terminal=false
 Type=Application
-Categories=Network;
+GenericName=Combines chat & messaging services into one app
+Categories=Network;InstantMessaging;
 X-Desktop-File-Install-Version=0.1
