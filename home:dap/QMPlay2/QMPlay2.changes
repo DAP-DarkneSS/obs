@@ -1,4 +1,29 @@
 -------------------------------------------------------------------
+Wed Jul 20 17:16:30 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 16.07.20:
+  * Don't fetch the stream url twice on add and play action,
+  * move most settings Ui from C++ to Qt forms,
+  * play the entire audio if playback has been finished,
+  * block screen saver on full screen when only audio is playing,
+  * add sharpness to video adjustment (OpenGL2 and VDPAU only),
+  * add key bindings (currently only in settings file),
+  * sort current group instead of entire playlist,
+  * HW and SW filters settings in the same place,
+  * rename video equalizer -> video adjustment,
+  * fix OGG pictures for taglib 1.11 and newer,
+  * fix bug in tag editor (non-Windows OS'es),
+  * updated Russian translation (victorr2007),
+  * fix downloading cover art from Last FM,
+  * move OpenGL2 shaders to resources,
+  * handle multimedia keys on Windows,
+  * properly handle chained OGG files,
+  * add sharpness shader to OpenGL2,
+  * move online contents to GitHub,
+  * add contributors tab,
+  * bugfix.
+
+-------------------------------------------------------------------
 Thu Jul  7 17:04:57 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 16.07.07:

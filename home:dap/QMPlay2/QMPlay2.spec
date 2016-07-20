@@ -17,13 +17,13 @@
 
 
 Name:           QMPlay2
-Version:        16.07.07
+Version:        16.07.20
 Release:        0
 Summary:        A Qt based media player, streamer and downloader
 License:        LGPL-3.0+
 Group:          Productivity/Multimedia/Video/Players
 Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
-Source:         http://kent.dl.sourceforge.net/project/zaps166/QMPlay2/QMPlay2-src-%{version}.tar.xz
+Source:         https://github.com/zaps166/QMPlay2/releases/download/%{version}/QMPlay2-src-%{version}.tar.xz
 
 BuildRequires:  cmake >= 3
 BuildRequires:  kdebase4-workspace
@@ -90,9 +90,9 @@ make V=1 %{?_smp_mflags}
 %install
 %cmake_install
 
-# Let's use %%doc macro
+# Let's use %%doc macro. AUTHORS & ChangeLog are required for help window
 cd %{buildroot}/%{_datadir}/qmplay2
-rm ChangeLog LICENSE README.md TODO
+rm LICENSE README.md TODO
 
 %post
 /sbin/ldconfig
@@ -109,7 +109,7 @@ rm ChangeLog LICENSE README.md TODO
 
 %files
 %defattr(-,root,root)
-%doc ChangeLog LICENSE README.md TODO
+%doc LICENSE README.md TODO
 %{_bindir}/%{name}
 %{_libdir}/qmplay2
 %{_libdir}/libqmplay2.so

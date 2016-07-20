@@ -17,13 +17,13 @@
 
 
 Name:           QMPlay2
-Version:        16.07.07
+Version:        16.07.20
 Release:        0
 Summary:        A Qt based media player, streamer and downloader
 License:        LGPL-3.0+
 Group:          Productivity/Multimedia/Video/Players
 Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
-Source:         http://kent.dl.sourceforge.net/project/zaps166/QMPlay2/QMPlay2-src-%{version}.tar.xz
+Source:         https://github.com/zaps166/QMPlay2/releases/download/%{version}/QMPlay2-src-%{version}.tar.xz
 # PATCH-FIX-UPSTREAM vs. Qt5.3 lrelease issue, read more at
 # https://github.com/zaps166/QMPlay2/issues/10#issuecomment-186585268
 Patch0:         QMPlay2-Qt53-lrelease.diff
@@ -57,6 +57,10 @@ BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(taglib)
 BuildRequires:  pkgconfig(vdpau)
 BuildRequires:  pkgconfig(xv)
+Requires(post): hicolor-icon-theme
+Requires(post): update-desktop-files
+Requires(postun): hicolor-icon-theme
+Requires(postun): update-desktop-files
 Recommends:     youtube-dl
 Obsoletes:      %{name}-kde-integration <= %{version}
 
@@ -98,17 +102,23 @@ mkdir -p %{buildroot}/%{_prefix}/lib
 ln -s %{_libdir}/qmplay2 %{buildroot}/%{_prefix}/lib/qmplay2
 %endif
 
-# Let's use %%doc macro
+# Let's use %%doc macro. AUTHORS & ChangeLog are required for help window
 cd %{buildroot}/%{_datadir}/qmplay2
-rm ChangeLog LICENSE README.md TODO
+rm LICENSE README.md TODO
 
-%post   -p /sbin/ldconfig
+%post
+/sbin/ldconfig
+%desktop_database_post
+%icon_theme_cache_post
 
-%postun -p /sbin/ldconfig
+%postun
+/sbin/ldconfig
+%desktop_database_postun
+%icon_theme_cache_postun
 
 %files
 %defattr(-,root,root)
-%doc ChangeLog LICENSE README.md TODO
+%doc LICENSE README.md TODO
 %{_bindir}/%{name}
 %{_libdir}/qmplay2
 %{_libdir}/libqmplay2.so
