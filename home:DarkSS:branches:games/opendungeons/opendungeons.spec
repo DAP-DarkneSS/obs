@@ -17,7 +17,7 @@
 
 
 Name:           opendungeons
-Version:        0.6.0
+Version:        0.7.0
 Release:        0
 Summary:        RTS game in dark, damp and dangerous dungeons
 License:        GPL-3.0+ and Zlib
@@ -69,6 +69,7 @@ into sinister traps.
 %package        data
 Summary:        Data files for OpenDungeons
 License:        GPL-2.0+ and CC-BY-SA-3.0 and MIT and OFL-1.1 and SUSE-Public-Domain
+Group:          Amusements/Games/Strategy/Real Time
 Requires:       %{name} = %{version}
 BuildArch:      noarch
 
@@ -87,12 +88,13 @@ It is meant to be used with the "opendungeons" binary package.
 
 %build
 # Gcc 4.8 & OBS.
-tmpflags="%{optflags}"
+tmpflags="%{optflags} -fPIC"
 %if 0%{suse_version} <= 1320
 tmpflags="%{optflags} -fno-stack-protector"
 %endif
 
 %cmake \
+       -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_CXX_FLAGS="${tmpflags}" \
        -DOD_BIN_PATH=%{_bindir}
 %make_jobs
@@ -105,7 +107,7 @@ sed -i \
 %if "%{_lib}" == "lib64"
        's/PluginFolder=/PluginFolder=\/usr\/lib64\/OGRE/g' \
 %else
-       's/PluginFolder=/PluginFolder=\/usr\/lib64\/OGRE/g' \
+       's/PluginFolder=/PluginFolder=\/usr\/lib\/OGRE/g' \
 %endif
         %{buildroot}/%{_sysconfdir}/%{name}/plugins.cfg
 
@@ -115,7 +117,8 @@ sed -i 's/\/usr\/bin\/%{name}/%{name}/g' %{buildroot}%{_datadir}/applications/%{
 # Let's use %%doc macro.
 rm -rf %{buildroot}/%{_datadir}/doc/opendungeons
 
-%fdupes -s %{_datadir}/games/%{name}
+chmod +x %{buildroot}/%{_datadir}/games/%{name}/scripts/unix/run_unit_tests.sh
 
+%fdupes -s %{_datadir}/games/%{name}
 
 %changelog

@@ -1,4 +1,22 @@
 -------------------------------------------------------------------
+Tue Aug  2 16:43:26 UTC 2016 - dap.darkness@gmail.com
+
+- Version 0.7.0 (true this time):
+  * Multiplayer lobby using a master server, to find other players;
+  * Animated main menu with scripted events!
+  * Play voice-overs on some game events;
+  * Vastly improved creatures behaviour;
+  * New rooms: Arena, Bridges, Casino, Prison, Torture room;
+  * New creatures: Cultist, Elf, Dark Elf, Lava Spawn; Lich, Monk…
+  * New spells: Defense, Eye of Evil, Slow, Strength, Weak.
+- Release with debugging information cmake build type.
+
+-------------------------------------------------------------------
+Sun Jul 10 09:32:08 UTC 2016 - dap.darkness@gmail.com
+
+- "-fPIC" CXX flag for openSUSE Tumbleweed x86_64.
+
+-------------------------------------------------------------------
 Sat Jun 11 13:01:47 UTC 2016 - dap.darkness@gmail.com
 
 - Imported from Mageia. Adapted for openSUSE.
@@ -7,7 +25,6 @@ Sat Jun 11 13:01:47 UTC 2016 - dap.darkness@gmail.com
 Sat May 28 00:00:00 MSK 2016 - akien <akien> 0.7.0-0.mga6
 
 + Revision: 1019253
-- Version 0.7.0
 
 -------------------------------------------------------------------
 Mon Dec 28 00:00:00 MSK 2015 - daviddavid <daviddavid> 0.6.0-3.mga6
