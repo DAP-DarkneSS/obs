@@ -17,7 +17,7 @@
 
 
 Name:           rambox
-Version:        0.4.0
+Version:        0.4.1
 Release:        0
 Summary:        Combines common messaging and emailing apps
 License:        MIT
@@ -25,19 +25,18 @@ Group:          Productivity/Networking/Instant Messenger
 Url:            http://rambox.pro
 ExclusiveArch:  x86_64 %ix86
 %ifarch x86_64
-Source0:        https://github.com/saenzramiro/rambox/releases/download/%{version}/Rambox-linux-x64.zip
-Source9:        https://github.com/saenzramiro/rambox/releases/download/%{version}/Rambox-linux-ia32.zip
+Source0:        https://github.com/saenzramiro/rambox/releases/download/%{version}/rambox-%{version}-x64.tar.gz
+Source9:        https://github.com/saenzramiro/rambox/releases/download/%{version}/rambox-%{version}-ia32.tar.gz
 %endif
 %ifarch %ix86
-Source0:        https://github.com/saenzramiro/rambox/releases/download/%{version}/Rambox-linux-ia32.zip
-Source9:        https://github.com/saenzramiro/rambox/releases/download/%{version}/Rambox-linux-x64.zip
+Source0:        https://github.com/saenzramiro/rambox/releases/download/%{version}/rambox-%{version}-ia32.tar.gz
+Source9:        https://github.com/saenzramiro/rambox/releases/download/%{version}/rambox-%{version}-x64.tar.gz
 %endif
 Source1:        %{name}.desktop
 Source2:        %{name}.png
 Source3:        %{name}.sh
 Source4:        %{name}.1
 
-BuildRequires:  unzip
 BuildRequires:  update-desktop-files
 Requires(post): update-desktop-files
 Requires(postun): update-desktop-files
@@ -47,7 +46,7 @@ Free and Open Source messaging and emailing app that combines common web
 applications into one.
 
 %prep
-%setup -qc
+%setup -q
 
 %build
 

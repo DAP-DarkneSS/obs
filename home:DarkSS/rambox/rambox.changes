@@ -1,4 +1,44 @@
 -------------------------------------------------------------------
+Mon Aug  8 03:46:15 UTC 2016 - dap.darkness@gmail.com
+
+- 0.4.1:
+  * Fixed links, images and attachments in Skype.
+  * Added new services 
+  * Zoho Email
+  * Zoho Chat
+  * Roundcube
+  * Horde
+  * SquirrelMail
+  * Fixed Steam Chat badge.
+  * Fixed HipChat.
+  * Fixed TweetDeck.
+  * Fixed Gitter.
+  * Edit Services name on grid row by double click.
+  * Group services in two groups, left and right.
+  * Persistent Lock, on restart app keeps locked.
+  * Ask for password twice on Lock to confirm.
+  * Added Offline feature to each service by double click.
+  * Added Preferences menu, to configure Rambox. 
+  * Start Minimized.
+  * Auto Hide menu bar.
+  * Show in Taskbar.
+  * Keep Rambox in taskbar when close it.
+  * Start automatically on system startup.
+  * There will be notice to download the new version.
+  * Added *Check for update....
+  * Fixed Slack Notifications.
+  * Fixed Login bugs.
+  * Added the possibility to Inject Custom JS Code to any service.
+  * Fixed code injection.
+  * Fixed Linux icon.
+  * Fixed Linux tray icon.
+  * Added Trust invalid authority certificates option.
+  * Allow only single instance for Rambox.
+  * Added keyboard shortcuts for DnD (F1) and Lock (F2).
+  * Added Auth0 SSO Rambox logins for Twitter, Facebook and Github.
+  * And more minor bugs!
+
+-------------------------------------------------------------------
 Tue Jul 19 16:14:46 UTC 2016 - dap.darkness@gmail.com
 
 - Imported from Arch linux (0.4.0).
