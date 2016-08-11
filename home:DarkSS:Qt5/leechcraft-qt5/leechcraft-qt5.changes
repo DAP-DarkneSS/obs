@@ -1,3 +1,8 @@
+-------------------------------------------------------------------
+Wed Aug 10 17:25:54 UTC 2016 - dap.darkness@gmail.com
+
+- 0.6.70-7515-g828423d:
+  * README → README.md.
 - Added -DBOOST_ASIO_HAS_STD_CHRONO to CXXFLAGS to resolve
   libtorrent-rasterbar ver. 1.1 initialization failure.
 

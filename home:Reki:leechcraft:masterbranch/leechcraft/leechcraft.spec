@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-7147-ge693ae6
+%define LEECHCRAFT_VERSION 0.6.70-7515-g828423d
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -2902,7 +2902,7 @@ EOF
 
 %files
 %defattr(-,root,root)
-%doc CHANGELOG LICENSE README
+%doc CHANGELOG LICENSE README.md
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1.gz
 %{_bindir}/%{name}-add-file
