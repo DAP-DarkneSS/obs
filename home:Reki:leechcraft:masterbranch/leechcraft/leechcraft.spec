@@ -56,6 +56,7 @@ Source0:        %{name}-%{version}.tar.xz
 Source4:        %{name}-rpmlintrc
 Source8:        leechcraft-session.1
 Source9:        lc_plugin_wrapper.1
+Patch0:         leechcraft-qt-moc-vs-boost.diff
 
 BuildRequires:  Qross-devel
 BuildRequires:  boost-devel >= 1.58
@@ -2602,6 +2603,7 @@ XmlSettingsDialog LeechCraft subsystem.
 
 %prep
 %setup -q
+%patch0 -p1
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default

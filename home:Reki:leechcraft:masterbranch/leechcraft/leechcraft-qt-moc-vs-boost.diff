@@ -1,31 +1,28 @@
-diff --git a/src/plugins/bittorrent/addmultipletorrents.cpp b/src/plugins/bittorrent/addmultipletorrents.cpp
-index 7375fbb..8c6f3bd 100644
---- a/src/plugins/bittorrent/addmultipletorrents.cpp
-+++ b/src/plugins/bittorrent/addmultipletorrents.cpp
-@@ -28,10 +28,12 @@
-  **********************************************************************/
+diff --git a/src/plugins/poshuku/plugins/dcac/effects.h b/src/plugins/poshuku/plugins/dcac/effects.h
+index 41cbd5a..5b67a6f 100644
+--- a/src/plugins/poshuku/plugins/dcac/effects.h
++++ b/src/plugins/poshuku/plugins/dcac/effects.h
+@@ -30,7 +30,9 @@
+ #pragma once
  
- #include <QFileDialog>
+ #include <QMetaType>
 +#ifndef Q_MOC_RUN
- #include <interfaces/core/icoreproxy.h>
- #include <interfaces/core/itagsmanager.h>
- #include "addmultipletorrents.h"
- #include "xmlsettingsmanager.h"
+ #include <boost/variant.hpp>
 +#endif
  
  namespace LeechCraft
  {
-diff --git a/src/plugins/netstoremanager/fileswatcher_inotify.h b/src/plugins/netstoremanager/fileswatcher_inotify.h
-index 47b872a..907b70b 100644
---- a/src/plugins/netstoremanager/fileswatcher_inotify.h
-+++ b/src/plugins/netstoremanager/fileswatcher_inotify.h
-@@ -29,7 +29,9 @@
- 
- #pragma once
- 
+diff --git a/src/plugins/poshuku/plugins/dcac/tests/testbase.h b/src/plugins/poshuku/plugins/dcac/tests/testbase.h
+index 49e86dc..6cf34f9 100644
+--- a/src/plugins/poshuku/plugins/dcac/tests/testbase.h
++++ b/src/plugins/poshuku/plugins/dcac/tests/testbase.h
+@@ -36,7 +36,9 @@
+ #include <QMap>
+ #include <QElapsedTimer>
+ #include <QtDebug>
 +#ifndef Q_MOC_RUN
- #include <boost/bimap.hpp>
+ #include <util/sll/qtutil.h>
 +#endif
- #include <QObject>
- #include <QStringList>
- #include <QMultiMap>
+ 
+ inline bool operator< (const QSize& s1, const QSize& s2)
+ {
