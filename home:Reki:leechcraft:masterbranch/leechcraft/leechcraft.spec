@@ -22,7 +22,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 
 %define so_ver 0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-7515-g828423d
+%define LEECHCRAFT_VERSION 0.6.70-7572-g218ab51
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -2731,6 +2731,11 @@ cmake ../src \
                 -DENABLE_IDN=True \
                 -DENABLE_POSHUKU_AUTOSEARCH=True \
                 -DENABLE_POSHUKU_DCAC=True \
+%ifarch x86_64
+                        -DWITH_POSHUKU_DCAC_SIMD=True \
+%else
+                        -DWITH_POSHUKU_DCAC_SIMD=False \
+%endif
                 -DENABLE_POSHUKU_QRD=True \
                 -DENABLE_POSHUKU_SPEEDDIAL=True \
         -DENABLE_QROSP=True \
