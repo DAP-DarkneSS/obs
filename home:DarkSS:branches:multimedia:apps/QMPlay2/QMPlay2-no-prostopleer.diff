@@ -1,13 +1,13 @@
---- src/modules/Extensions/Extensions.pro.orig	2016-07-07 16:46:34.000000000 +0300
-+++ src/modules/Extensions/Extensions.pro	2016-07-07 20:31:33.746888040 +0300
+--- src/modules/Extensions/Extensions.pro.orig	2016-07-30 00:57:49.000000000 +0300
++++ src/modules/Extensions/Extensions.pro	2016-08-21 11:50:26.312724280 +0300
 @@ -28,10 +28,6 @@
- HEADERS += Extensions.hpp YouTube.hpp Downloader.hpp Radio.hpp LastFM.hpp
- SOURCES += Extensions.cpp YouTube.cpp Downloader.cpp Radio.cpp LastFM.cpp
+ HEADERS += Extensions.hpp YouTube.hpp Downloader.hpp Radio.hpp
+ SOURCES += Extensions.cpp YouTube.cpp Downloader.cpp Radio.cpp
  
 -HEADERS += ProstoPleer.hpp
 -SOURCES += ProstoPleer.cpp
 -DEFINES += USE_PROSTOPLEER
 -
- unix:!macx:!android {
- 	QT += dbus
- 	HEADERS += MPRIS2.hpp
+ HEADERS += LastFM.hpp
+ SOURCES += LastFM.cpp
+ DEFINES += USE_LASTFM

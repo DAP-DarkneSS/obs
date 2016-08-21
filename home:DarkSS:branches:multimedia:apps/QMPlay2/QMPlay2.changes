@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Sun Aug 21 08:19:50 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 16.08.19:
+  * Add key shortcuts editor to Settings (thanks Zamarin Arthur),
+  * respect HTML tags in classic subtitles,
+  * use scroll area for equalizer sliders,
+  * add presets to equalizer,
+  * playlist bugfix,
+  * OpenGL2 bugfix.
+- Updated QMPlay2-no-prostopleer.diff.
+
+-------------------------------------------------------------------
 Wed Jul 20 17:16:30 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 16.07.20:
