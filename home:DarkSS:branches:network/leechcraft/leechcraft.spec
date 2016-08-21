@@ -59,11 +59,13 @@ Source0:        leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
 Source4:        %{name}-rpmlintrc
 Source8:        leechcraft-session.1
 Source9:        lc_plugin_wrapper.1
-# NOTE: delete p0&p1 at version bump!
+# NOTE: delete p0&p1&p2 at version bump!
 # PATCH-FIX-UPSTREAM for newest torrent rasterbar.
 Patch0:         leechcraft-%{LEECHCRAFT_VERSION}-torrent110.diff
 # PATCH-FIX-UPSTREAM for hunspell 1.4.
 Patch1:         leechcraft-%{LEECHCRAFT_VERSION}-hunspell14.diff
+# PATCH-FIX-UPSTREAM for boost 1.61.
+Patch2:         leechcraft-%{LEECHCRAFT_VERSION}-boost161.diff
 
 BuildRequires:  Qross-devel
 %if 0%{?suse_version} > 1320
@@ -2279,6 +2281,7 @@ XmlSettingsDialog LeechCraft subsystem.
 %setup -q -n leechcraft-%{LEECHCRAFT_VERSION}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
