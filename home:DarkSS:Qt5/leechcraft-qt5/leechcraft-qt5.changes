@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Aug 21 12:31:46 UTC 2016 - dap.darkness@gmail.com
+
+- Really fixed poshuku dcac x32 build.
+- Introduced %check section.
+
+-------------------------------------------------------------------
 Wed Aug 17 17:26:08 UTC 2016 - dap.darkness@gmail.com
 
 - 0.6.70-7572-g218ab51:
@@ -17,6 +23,18 @@ Wed Aug 10 17:25:54 UTC 2016 - dap.darkness@gmail.com
   * README → README.md.
 - Added -DBOOST_ASIO_HAS_STD_CHRONO to CXXFLAGS to resolve
   libtorrent-rasterbar ver. 1.1 initialization failure.
+
+-------------------------------------------------------------------
+Sun Jul 31 16:35:50 UTC 2016 - jengelh@inai.de
+
+- Update summaries and descriptions: rectify grammar and remove
+  redundant mentions.
+- Avoid sh invocation for simple ldconfig calls.
+
+-------------------------------------------------------------------
+Mon Jul 25 11:28:39 UTC 2016 - olaf@aepfle.de
+
+- Unconditionally build with ffmpeg
 
 -------------------------------------------------------------------
 Sun Jul  3 18:27:42 UTC 2016 - dap.darkness@gmail.com

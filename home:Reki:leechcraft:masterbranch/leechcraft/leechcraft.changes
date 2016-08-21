@@ -1,4 +1,52 @@
 -------------------------------------------------------------------
+Sun Aug 21 10:00:50 UTC 2016 - dap.darkness@gmail.com
+
+- Added leechcraft-0.6.70-6645-gcd10d7e-boost161.diff
+  for newest boost support.
+
+-------------------------------------------------------------------
+Sun Jul 31 16:35:50 UTC 2016 - jengelh@inai.de
+
+- Update summaries and descriptions: rectify grammar and remove
+  redundant mentions.
+- Avoid sh invocation for simple ldconfig calls.
+
+-------------------------------------------------------------------
+Mon Jul 25 11:28:39 UTC 2016 - olaf@aepfle.de
+
+- Unconditionally build with ffmpeg
+
+-------------------------------------------------------------------
+Mon Jul  4 19:51:29 UTC 2016 - dap.darkness@gmail.com
+
+- Updated leechcraft-0.6.70-6645-gcd10d7e-torrent110.diff & added
+  BOOST_ASIO_HAS_STD_CHRONO vs. bittorrent initialization failure.
+- Cmake clean-up.
+- Man pages clean-up.
+
+-------------------------------------------------------------------
+Sat Jun 11 14:48:26 UTC 2016 - dap.darkness@gmail.com
+
+- Dropped openSUSE 13.1 & SLE because of no valid compiler.
+- Enabled more packages for openSUSE Leap 42.
+- Recommended extra engines for lmp.
+- Added rpmlintrc to silence useless warnings.
+- Added simple man pages.
+
+-------------------------------------------------------------------
+Sat May  7 13:07:16 UTC 2016 - dap.darkness@gmail.com
+
+- Updated to 0.6.70-6645-gcd10d7e git snapshot:
+  (NOTE: the latest one supporting gcc 4.8
+  i.e. openSUSE 13.1, 13.2 & Leap 42.1)
+- Azoth Herbicide required boost ≥ 1.58
+  and was disabled for 13.1, 13.2 & Leap 42.1 so.
+- Added leechcraft-0.6.70-6645-gcd10d7e-torrent110.diff
+  for newest torrent rasterbar support.
+- Added leechcraft-0.6.70-6645-gcd10d7e-hunspell14.diff
+  for newest hunspell support.
+
+-------------------------------------------------------------------
 Wed Feb  3 17:25:40 UTC 2016 - dap.darkness@gmail.com
 
 - Updated to 0.6.70-6053-g34d21e8 git snapshot:

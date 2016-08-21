@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Sun Jul 31 16:35:50 UTC 2016 - jengelh@inai.de
+
+- Update summaries and descriptions: rectify grammar and remove
+  redundant mentions.
+- Avoid sh invocation for simple ldconfig calls.
+
+-------------------------------------------------------------------
+Mon Jul 25 11:28:39 UTC 2016 - olaf@aepfle.de
+
+- Unconditionally build with ffmpeg
+
+-------------------------------------------------------------------
 Mon Jul  4 19:51:29 UTC 2016 - dap.darkness@gmail.com
 
 - Updated leechcraft-0.6.70-6645-gcd10d7e-torrent110.diff & added
