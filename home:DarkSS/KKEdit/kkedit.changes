@@ -1,21 +1,13 @@
 -------------------------------------------------------------------
-Wed Jun 29 15:08:25 UTC 2016 - dap.darkness@gmail.com
+Thu Aug 25 15:38:52 UTC 2016 - dap.darkness@gmail.com
 
-- 0.3.3+git.101.g36cb709.
+- 0.4.0:
+  * Check full changes log at https://www.linux-apps.com/p/1129318
+- Excluded KKEditRoot.desktop file because of gtksu not packaged.
 - Removed `chmod -x` because of upstream fix.
-- Updated Url tag.
-
--------------------------------------------------------------------
-Tue Jun 28 18:36:23 UTC 2016 - dap.darkness@gmail.com
-
-- 0.3.3+git.98.g0febb3c.
+- Updated Url & Source tags.
 - Automatic man compressing.
 - Removed %%fdupes because of upstream fix.
-
--------------------------------------------------------------------
-Sat Jun 25 13:00:41 UTC 2016 - dap.darkness@gmail.com
-
-- 0.3.3+git.87.gcd45fe7.
 - Removed kkedit-desktop-warnings.diff as upstreamed.
 - Removed kkedit.1 as upstreamed.
 - Applied %%suse_update_desktop_file to resolve

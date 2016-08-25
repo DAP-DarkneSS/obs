@@ -17,17 +17,16 @@
 
 
 Name:           kkedit
-Version:        0.3.3+git.101.g36cb709
+Version:        0.4.0
 Release:        0
 Summary:        Source code text editor
 License:        GPL-3.0
 Group:          Productivity/Text/Editors
 Url:            https://www.linux-apps.com/p/1129318
-Source0:        http://khapplications.darktech.org/zips/kkedit/KKEdit-%{version}.tar.gz
+Source0:        https://dl.opendesktop.org/api/files/download/id/1472121260/KKEdit-%{version}.tar.gz
 Source8:        KKEditProgressBar.1
 
 BuildRequires:  aspell-devel
-BuildRequires:  automake >= 1.15
 BuildRequires:  ctags
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig >= 0.9.0
@@ -137,6 +136,8 @@ cp %{SOURCE8} %{buildroot}%{_mandir}/man1
 %{_datadir}/icons/hicolor/*/apps/KKEdit*.png
 %{_datadir}/KKEdit
 %{_libdir}/%{name}
+# W: desktopfile-without-binary because of gtksu not packaged.
+%exclude %{_datadir}/applications/KKEditRoot.desktop
 
 %files          devel
 %defattr(-,root,root)
