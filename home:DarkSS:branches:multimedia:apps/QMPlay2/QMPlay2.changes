@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Mon Sep  5 03:27:52 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 16.09.04:
+  * Don't load subtitles which needs decoder without the decoder,
+  * add checkbox to disable PBO in OpenGL2 module settings,
+  * fix displaying multi-line graphical subtitles,
+  * don't crop non-graphics subtitles on zoom,
+  * add quality button in YouTube browser,
+  * download "youtube-dl" if necessary,
+  * get rid of "QtNetwork" module,
+  * add MPEG-TS programs support.
+
+-------------------------------------------------------------------
 Sun Aug 21 08:19:50 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 16.08.19:
