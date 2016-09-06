@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Sep  5 18:08:24 UTC 2016 - dap.darkness@gmail.com
+
+- Version 0.7.1:
+  * Fixed crash when entering editor (#1246);
+  * Added a minimap that displays the whole map (#1246);
+  * Added support to change overall ambient lighting factor;
+  * Fixed bug with rooms not giving vision (#1251).
+
+-------------------------------------------------------------------
 Tue Aug  2 16:43:26 UTC 2016 - dap.darkness@gmail.com
 
 - Version 0.7.0 (true this time):

@@ -17,7 +17,7 @@
 
 
 Name:           opendungeons
-Version:        0.7.0
+Version:        0.7.1
 Release:        0
 Summary:        RTS game in dark, damp and dangerous dungeons
 License:        GPL-3.0+ and Zlib
