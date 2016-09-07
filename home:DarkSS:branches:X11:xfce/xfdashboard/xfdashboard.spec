@@ -19,12 +19,14 @@
 %define so_ver 0
 
 Name:           xfdashboard
-Version:        0.5.92
+Version:        0.7.0
 Release:        0
 Summary:        GNOME shell like dashboard for Xfce
 License:        GPL-2.0+
 Url:            http://xfdashboard.froevel.de
-Source0:        http://archive.xfce.org/src/apps/xfdashboard/0.5/xfdashboard-%{version}.tar.bz2
+Source0:        http://archive.xfce.org/src/apps/xfdashboard/0.7/xfdashboard-%{version}.tar.bz2
+Source8:        xfdashboard.1
+Source9:        xfdashboard-settings.1
 
 # WARNING! Please don't add OnlyShowIn key to the desktop file
 # to save possibility to be run from under different desktop environments.
@@ -38,7 +40,7 @@ Patch2:         xfdashboard-desktopfile-without-binary.diff
 BuildRequires:  clutter-devel
 BuildRequires:  fdupes
 BuildRequires:  libtool
-BuildRequires:  libxfce4util-devel
+BuildRequires:  libxfce4util-devel >= 4.10.0
 BuildRequires:  xfce4-dev-tools
 BuildRequires:  pkgconfig(garcon-1)
 BuildRequires:  pkgconfig(ice)
@@ -99,6 +101,9 @@ make V=1 %{?_smp_mflags}
 %install
 make V=1 %{?_smp_mflags} DESTDIR=%{buildroot} install
 find %{buildroot} -type f -name "*.la" -delete -print
+mkdir -p %{buildroot}%{_mandir}/man1
+gzip -c9 %{SOURCE8} | tee -a %{buildroot}%{_mandir}/man1/%{name}.1.gz
+gzip -c9 %{SOURCE9} | tee -a %{buildroot}%{_mandir}/man1/%{name}-settings.1.gz
 %fdupes -s %{buildroot}%{_datadir}/themes/%{name}-*
 %find_lang %{name} %{?no_lang_C}
 
@@ -116,8 +121,8 @@ find %{buildroot} -type f -name "*.la" -delete -print
 %files
 %defattr(-,root,root)
 %doc AUTHORS COPYING README
-%{_bindir}/%{name}
-%{_bindir}/%{name}-settings
+%{_bindir}/%{name}*
+%{_mandir}/man1/%{name}*.1.gz
 %{_datadir}/%{name}
 %dir %{_datadir}/appdata
 %{_datadir}/appdata/%{name}.appdata.xml

@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Wed Sep  7 18:57:09 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 0.7.0:
+  * New feature: Implement pop-up menu which.
+  * New plugin 'middle-click-window-close'.
+  * Allow windows view to filter windows.
+  * Move to workspace where the window to activate is placed on.
+  * Introduced a new signal 'actor-created'.
+  * Introduced a new signal "initialized" in XfdashboardApplication.
+  * Properties of ClutterActor are now themable.
+  * Smaller bug-fixes.
+  * More API documentation.
+  * Updated localizations.
+
+-------------------------------------------------------------------
+Sat May 21 08:48:01 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 0.6.0, changelog at
+  https://github.com/gmc-holle/xfdashboard/releases/tag/0.6.0
+- Added simple man pages for xfdashboard & xfdashboard-settings.
+
+-------------------------------------------------------------------
 Tue Apr  5 16:06:02 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 0.5.92:
