@@ -17,7 +17,7 @@
 
 
 Name:           rambox
-Version:        0.4.1
+Version:        0.4.2
 Release:        0
 Summary:        Combines common messaging and emailing apps
 License:        MIT
@@ -46,7 +46,12 @@ Free and Open Source messaging and emailing app that combines common web
 applications into one.
 
 %prep
-%setup -q
+%ifarch x86_64
+%setup -q -n Rambox-%{version}
+%endif
+%ifarch %ix86
+%setup -q -n Rambox-%{version}-ia32
+%endif
 
 %build
 
