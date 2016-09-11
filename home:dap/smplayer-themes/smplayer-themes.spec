@@ -19,7 +19,7 @@
 
 
 Name:           smplayer-themes
-Version:        16.6.0
+Version:        16.8.0
 Release:        0
 Summary:        Icon Themes for SMPlayer
 License:        GPL-2.0+
