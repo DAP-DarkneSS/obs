@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sun Sep 25 07:52:27 UTC 2016 - dap.darkness@gmail.com
+
+- Updated to 0.7.0:
+  * Remove support for Qt <= 5.4;
+  * Remove Designer plugin;
+  * Check CHANGELOG for additional information.
+- %%cmake macro.
+
+-------------------------------------------------------------------
 Tue May 17 23:19:05 UTC 2016 - jengelh@inai.de
 
 - Trim storytelling from description.
