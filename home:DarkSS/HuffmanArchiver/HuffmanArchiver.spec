@@ -59,6 +59,9 @@ BuildRequires:  cmake
 %if %{clangisntalie}
 %if 0%{?suse_version}
 BuildRequires:  llvm-clang
+%if 0%{?suse_version} > 1320
+BuildRequires:  clang-checker
+%endif
 %else
 BuildRequires:  clang
 BuildRequires:  clang-analyzer
