@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Sat May 21 17:48:35 UTC 2016 - mpluskal@suse.com
+
+- Update scriplet dependencies
+- Use pretty name for url
+- Use qmake5 macros when building
+
+-------------------------------------------------------------------
+Thu Nov 26 08:59:01 UTC 2015 - idonmez@suse.com
+
+- Remove unneeded appindicator dependency 
+
+-------------------------------------------------------------------
+Thu Nov 26 08:22:16 UTC 2015 - idonmez@suse.com
+
+- Update to 0.2.1
+  * Fixed issues:
+    + Proxy settings lost after restart
+    + Configuration file version not updated
+    + Missing user agent header
+    + Broken autocompletion for docset search keywords
+
+-------------------------------------------------------------------
 Sun Nov 15 19:06:37 UTC 2015 - dap.darkness@gmail.com
 
 - Updated to 0.2.0:

@@ -1,7 +1,7 @@
 #
 # spec file for package zeal
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,27 +17,31 @@
 
 
 Name:           zeal
-Summary:        Offline API documentation browser
-Version:        0.2.0
+Version:        0.2.1
 Release:        0
+Summary:        Offline API documentation browser
 License:        GPL-3.0
-URL:            http://zealdocs.org
 Group:          Development/Tools/Other
-Source0:        https://github.com/zealdocs/zeal/archive/v%{version}.tar.gz
+Url:            http://zealdocs.org
+Source0:        https://github.com/zealdocs/zeal/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # PATCH-FIX-OPENSUSE vs. file-contains-current-date WARNING:
 Patch0:         zeal-no-date-and-time.diff
-
 BuildRequires:  fdupes
+BuildRequires:  hicolor-icon-theme
 BuildRequires:  libQt5Gui-private-headers-devel >= 5.2.0
+BuildRequires:  pkgconfig
 BuildRequires:  update-desktop-files
-BuildRequires:  pkgconfig(Qt5Concurrent)        >= 5.2.0
-BuildRequires:  pkgconfig(Qt5WebKitWidgets)     >= 5.2.0
-BuildRequires:  pkgconfig(Qt5X11Extras)         >= 5.2.0
-BuildRequires:  pkgconfig(Qt5Xml)               >= 5.2.0
-BuildRequires:  pkgconfig(appindicator-0.1)
+BuildRequires:  pkgconfig(Qt5Concurrent) >= 5.2.0
+BuildRequires:  pkgconfig(Qt5WebKitWidgets) >= 5.2.0
+BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.2.0
+BuildRequires:  pkgconfig(Qt5Xml) >= 5.2.0
 BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  pkgconfig(xcb-keysyms)
-Requires:       libQt5Sql5-sqlite               >= 5.2.0
+Requires:       libQt5Sql5-sqlite >= 5.2.0
+Requires(post): hicolor-icon-theme
+Requires(post): update-desktop-files
+Requires(postun): hicolor-icon-theme
+Requires(postun): update-desktop-files
 
 %description
 Zeal is a simple offline API documentation browser inspired by Dash
@@ -54,15 +58,11 @@ Zeal is a simple offline API documentation browser inspired by Dash
 %patch0 -p1
 
 %build
-qmake-qt5 \
-            QMAKE_STRIP="" \
-            QMAKE_CFLAGS+="%{optflags}" \
-            QMAKE_CXXFLAGS+="%{optflags}"
-
-make V=1 %{?_smp_mflags}
+%qmake5 
+make %{?_smp_mflags} V=1
 
 %install
-make V=1 INSTALL_ROOT=%{buildroot} install
+%qmake5_install
 %suse_update_desktop_file -r %{name} Office Viewer
 %fdupes -s %{buildroot}%{_datadir}
 
