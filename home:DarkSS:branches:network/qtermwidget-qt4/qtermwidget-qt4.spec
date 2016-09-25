@@ -20,18 +20,14 @@
 
 %define pack_summ Qt4 terminal widget
 
-%define pack_desc QTermWidget is an opensource project based on KDE4 \
-Konsole application. The main goal of this project is to provide unicode-\
-enabled, embeddable Qt widget for using as a built-in console (or \
-terminal emulation widget). Of course I`m aware about embedding \
-abilities of original Konsole, but once I had Qt without KDE, and it was \
-a serious problem. I decided not to rely on a chance. I could not find \
-any interesting related project, so I had to write it. The original \
-Konsole`s code was rewritten entirely with Qt only; also I have to \
-include in the project some parts of code from kde core library. All \
+%define pack_desc QTermWidget is a project based on the KDE4 \
+Konsole application whose goal is to provide a Unicode-\
+enabled, embeddable Qt widget to be used as a built-in console (or \
+terminal emulation widget). Though Konsole is able of getting embedded, \
+it is possible to have Qt without KDE. The original \
+Konsole code was rewritten entirely with using Qt only, and all \
 code dealing with user interface parts and session management was \
-removed (maybe later I bring it back somehow), and the result is quite \
-useful, I suppose.
+removed.
 
 Name:           qtermwidget-qt4
 Version:        0.6.0
