@@ -17,15 +17,16 @@
 
 
 Name:           zeal
-Version:        0.2.1
+Version:        0.3.0
 Release:        0
 Summary:        Offline API documentation browser
 License:        GPL-3.0
 Group:          Development/Tools/Other
 Url:            http://zealdocs.org
 Source0:        https://github.com/zealdocs/zeal/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# PATCH-FIX-OPENSUSE vs. file-contains-current-date WARNING:
-Patch0:         zeal-no-date-and-time.diff
+# `help2man zeal > zeal.1` can't be run without X started.
+Source9:        zeal.1
+
 BuildRequires:  fdupes
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libQt5Gui-private-headers-devel >= 5.2.0
@@ -55,7 +56,6 @@ Zeal is a simple offline API documentation browser inspired by Dash
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %qmake5 
@@ -65,6 +65,10 @@ make %{?_smp_mflags} V=1
 %qmake5_install
 %suse_update_desktop_file -r %{name} Office Viewer
 %fdupes -s %{buildroot}%{_datadir}
+
+# Man pages:
+mkdir -p %{buildroot}%{_mandir}/man1
+cp %{SOURCE9} %{buildroot}%{_mandir}/man1
 
 %post
 %desktop_database_post
@@ -78,6 +82,7 @@ make %{?_smp_mflags} V=1
 %defattr(-,root,root,-)
 %doc COPYING README.md
 %{_bindir}/%{name}
+%{_mandir}/man1/%{name}.1.*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}*
 

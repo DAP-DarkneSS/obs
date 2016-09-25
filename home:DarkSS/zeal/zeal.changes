@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sun Sep 25 10:51:38 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 0.3.0
+  * no upstream changes log.
+- Deleted zeal-no-date-and-time.diff (can't find file to patch).
+- Added man page via `help2man`.
+
+-------------------------------------------------------------------
 Sat May 21 17:48:35 UTC 2016 - mpluskal@suse.com
 
 - Update scriplet dependencies
