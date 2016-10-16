@@ -17,7 +17,7 @@
 
 
 Name:           simplescreenrecorder
-Version:        0.3.6
+Version:        0.3.7
 Release:        0
 Summary:        A feature-rich screen recorder that supports X11 and OpenGL
 License:        GPL-3.0+
@@ -25,9 +25,6 @@ Group:          System/X11/Utilities
 Url:            http://www.maartenbaert.be/simplescreenrecorder
 Source:         https://github.com/MaartenBaert/ssr/archive/%{version}.tar.gz
 Source9:        baselibs.conf
-# PATCH-FIX-UPSTREAM vs. "error: 'mt19937' is not a member of 'std'".
-# See more at https://github.com/MaartenBaert/ssr/issues/455.
-Patch0:         simplescreenrecorder-0.3.6-missing-include.diff
 
 BuildRequires:  cmake
 BuildRequires:  hicolor-icon-theme
@@ -104,7 +101,6 @@ This package provides SimpleScreenRecorder's optional library.
 
 %prep
 %setup -q -n ssr-%{version}
-%patch0 -p1
 
 
 %build
@@ -137,6 +133,8 @@ make V=1 %{?_smp_mflags}
 %doc COPYING *.txt *.md data/resources/about.htm
 %{_bindir}/%{name}
 %{_bindir}/ssr-glinject
+%dir %{_datadir}/appdata
+%{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}*
 %{_datadir}/%{name}

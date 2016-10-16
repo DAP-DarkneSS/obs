@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Sun Oct 16 09:55:03 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 0.3.7 (since 0.3.6):
+  * Added support for latest FFmpeg/libav.
+  * Make relaxed GLInject permissions actually work.
+  * The backend now supports fragmented recording,
+    but there is no GUI for this yet.
+  * The default audio sample rate is now 48 kHz.
+    This makes SSR compatible with Opus.
+  * System tray icon now indicates errors during recording.
+- Removed simplescreenrecorder-0.3.6-missing-include.diff
+  as already provided via upstream tarball.
+
+-------------------------------------------------------------------
 Fri Jun 17 16:22:18 UTC 2016 - dap.darkness@gmail.com
 
 - `spec-cleaner`
