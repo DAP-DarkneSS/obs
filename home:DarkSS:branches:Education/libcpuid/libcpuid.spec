@@ -1,7 +1,7 @@
 #
 # spec file for package libcpuid
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,14 +16,19 @@
 #
 
 
+%define so_ver 13
+
 Name:           libcpuid
-Version:        0.1.0+git.2014.08.04
+Version:        0.3.0
 Release:        0
 Summary:        Provides CPU identification for x86
 License:        BSD-2-Clause
 Group:          Development/Libraries/C and C++
 Url:            https://github.com/anrieff/libcpuid
 Source0:        libcpuid-%{version}.tar.gz
+# `help2man cpuid_tool > cpuid_tool.1` can't be run without so installed.
+Source9:        cpuid_tool.1
+ExclusiveArch:  %{ix86} x86_64
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -38,7 +43,7 @@ Libcpuid provides CPU identification for the x86 (and x86_64).
 %package devel
 Summary:        Development files for %{name}
 Group:          Development/Libraries/C and C++
-Requires:       %{name}11 = %{version}
+Requires:       %{name}%{so_ver} = %{version}
 
 %description devel
 The %{name}-devel package contains libraries and header files for
@@ -47,11 +52,11 @@ For details about the programming API, please see the docs
 on the project's site (http://libcpuid.sourceforge.net/)
 
 
-%package -n %{name}11
+%package -n %{name}%{so_ver}
 Summary:        Provides CPU identification for x86
 Group:          Development/Libraries/C and C++
 
-%description -n %{name}11
+%description -n %{name}%{so_ver}
 Libcpuid provides CPU identification for the x86 (and x86_64).
 
 
@@ -68,16 +73,20 @@ make V=1 %{?_smp_mflags}
 
 %install
 make V=1 DESTDIR=%{buildroot} install
+
 # WARNING: empty dependency_libs variable. remove the pointless .la
 rm %{buildroot}%{_libdir}/*.la
 
+# Man pages:
+mkdir -p %{buildroot}%{_mandir}/man1
+cp %{SOURCE9} %{buildroot}%{_mandir}/man1
 
-%post -n %{name}11 -p /sbin/ldconfig
+%post -n %{name}%{so_ver} -p /sbin/ldconfig
 
-%postun -n %{name}11 -p /sbin/ldconfig
+%postun -n %{name}%{so_ver} -p /sbin/ldconfig
 
 
-%files -n %{name}11
+%files -n %{name}%{so_ver}
 %defattr(-,root,root)
 %{_libdir}/%{name}.so.*
 
@@ -85,6 +94,7 @@ rm %{buildroot}%{_libdir}/*.la
 %files devel
 %defattr(-,root,root)
 %{_bindir}/cpuid_tool
+%{_mandir}/man1/cpuid_tool.1.*
 %{_includedir}/%{name}
 %{_libdir}/%{name}*
 %exclude %{_libdir}/%{name}.so.*
