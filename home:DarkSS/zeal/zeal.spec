@@ -17,7 +17,7 @@
 
 
 Name:           zeal
-Version:        0.3.0
+Version:        0.3.1
 Release:        0
 Summary:        Offline API documentation browser
 License:        GPL-3.0

@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Tue Oct 11 19:01:38 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 0.3.1
+  * Fixed random crashing on application start and exit. (#595)
+  * Fixed web view hanging caused by URLs with no schema. (#532)
+  * Fixed docset removal on Windows. (#621)
+  * Fixed race condition (and warning) in docset removal logic.
+  * Fixed docset selection with Select All shortcut (Ctrl+A).
+
+-------------------------------------------------------------------
 Sun Sep 25 10:51:38 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 0.3.0
