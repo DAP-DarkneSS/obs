@@ -1,4 +1,41 @@
 -------------------------------------------------------------------
+Sun Oct 16 10:41:15 UTC 2016 - dap.darkness@gmail.com
+
+- Upstream version 7.6.0:
+  * Experimental: SPD Decode, JEDEC DDR2,3,4;
+  * Add: i5 4210-U;
+  * Add: Centos LOGO;
+  * Fix: i-nex-lspci;
+  * Add: Celeron T3000;
+  * Update: Settings class module;
+  * Fix: Memory tab;
+  * New: GPU Images ;
+  * Change: Memory UI;
+  * New: GPU Logos For VM;
+  * Add: Update to i7.json for Haswell, Broadwell and Skylake;
+  * Add: KDE Neon support LOGO etc.;
+  * Remove: Remove i-nex-cpusage. Add MCPUSAGE.module.
+    Convert from C to Gambas lang;
+  * Fix: Better list of ASOUND_INPUT_LIST;
+  * Add: Add Intel i5-6600K and i5-6600;
+  * Remove: Delete Validate button;
+  * Fix: copyright file should not be compressed;
+  * Fix: udev rules should be under /lib/udev/rules.d.;
+  * Fix: Repeating output from thermal_zone.module;
+  * Fix: uses python script but no dependency
+    on python2 or python3 declared ?;
+  * Fix: package-contains-timestamped-gzip;
+  * Fix: files which are not an executable or a script
+    shouldn't have write permissions;
+  * Update: Atom Database;
+  * Fix: need to add one more manpage i-nex-dimms;
+  * Fix: dependencies don't tell about gambas3-gb-desktop-x11;
+  * Fix: update build depends in debian/control;
+  * Add: Linux Mint Mate Sticker;
+  * Fix: Not found battery PACKARD BELL BV EasyNote_SJ51.
+- _service → tarball.
+
+-------------------------------------------------------------------
 Mon Aug 18 14:57:45 UTC 2014 - dap.darkness@gmail.com
 
 - Upstream version 7.4.0:

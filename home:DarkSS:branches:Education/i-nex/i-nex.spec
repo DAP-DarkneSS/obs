@@ -1,7 +1,7 @@
 #
 # spec file for package i-nex
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           i-nex
-Version:        7.4.0
+Version:        7.6.0
 Release:        1
 Summary:        System information tool
 
@@ -29,11 +29,7 @@ Source0:        https://github.com/eloaders/I-Nex/archive/%{version}.tar.gz
 BuildRequires:  ImageMagick
 BuildRequires:  autoconf
 BuildRequires:  automake
-%if 0%{?suse_version} <= 1210
-BuildRequires:  freeglut
-%else
 BuildRequires:  Mesa-demo-x
-%endif
 BuildRequires:  fdupes
 BuildRequires:  gambas3-devel >= 3.5.0
 BuildRequires:  gambas3-gb-desktop >= 3.5.0
@@ -43,8 +39,7 @@ BuildRequires:  gambas3-gb-form-stock >= 3.5.0
 BuildRequires:  gambas3-gb-gtk >= 3.5.0
 BuildRequires:  gambas3-gb-gui >= 3.5.0
 BuildRequires:  gambas3-gb-image >= 3.5.0
-BuildRequires:  gambas3-gb-qt4 >= 3.5.0
-BuildRequires:  gambas3-gb-qt4-ext >= 3.5.0
+BuildRequires:  gambas3-gb-qt5 >= 3.5.0
 BuildRequires:  gambas3-gb-settings >= 3.5.0
 BuildRequires:  hicolor-icon-theme
 %if 0%{?suse_version}
@@ -62,6 +57,7 @@ BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pciutils
 BuildRequires:  procps
+BuildRequires:  udev
 BuildRequires:  update-desktop-files
 %if 0%{?suse_version}
 BuildRequires:  xorg-x11 >= 7.5
@@ -72,21 +68,16 @@ Requires:       gambas3-gb-desktop >= 3.5.0
 Requires:       gambas3-gb-form >= 3.5.0
 Requires:       gambas3-gb-form-dialog >= 3.5.0
 Requires:       gambas3-gb-form-stock >= 3.5.0
-Requires:       gambas3-gb-geom >= 3.4.0
+Requires:       gambas3-gb-geom >= 3.5.0
 Requires:       gambas3-gb-gtk >= 3.5.0
 Requires:       gambas3-gb-gui >= 3.5.0
 Requires:       gambas3-gb-image >= 3.5.0
-Requires:       gambas3-gb-qt4 >= 3.5.0
-Requires:       gambas3-gb-qt4-ext >= 3.5.0
+Requires:       gambas3-gb-qt5 >= 3.5.0
 Requires:       gambas3-gb-settings >= 3.5.0
 Requires:       gambas3-runtime >= 3.5.0
 %if 0%{?suse_version}
-%if 0%{?suse_version} <= 1210
-Recommends:     freeglut
-%else
 Recommends:     Mesa-demo-x
 Recommends:     xrandr
-%endif
 Recommends:     lsb-release
 Recommends:     net-tools
 Recommends:     pastebinit >= 1.3
@@ -158,6 +149,13 @@ rm -rf %{buildroot}%{_datadir}/%{name}/pastebinit
 %suse_update_desktop_file -r %{name}-library 'System;HardwareSettings;'
 %endif
 
+# A fix for desktopfile-without-binary warning:
+sed -i 's/\/usr\/bin\///g' %{buildroot}/%{_datadir}/applications/%{name}*.desktop
+
+# Right place for udev rules.
+mkdir -p %{buildroot}%{_prefix}/lib/udev/rules.d
+mv %{buildroot}/{lib,usr/lib}/udev/rules.d/i2c_smbus.rules
+
 %fdupes -s %{buildroot}%{_datadir}
 
 
@@ -170,18 +168,21 @@ rm -rf %{buildroot}%{_datadir}/%{name}/pastebinit
 
 %files
 %defattr(-,root,root,-)
-%doc docs/copyright docs/I-Nex.LICENSE I-Nex/COPYING
+%doc docs/*.LICENSE I-Nex/COPYING
 %{_bindir}/%{name}-*
-%doc %{_mandir}/man*/%{name}*
+%doc %{_mandir}/man*/%{name}-*
 
 
 %files  data
 %defattr(-,root,root,-)
+%doc docs/*.LICENSE I-Nex/COPYING
+%doc README.md changelogs/changelog* debian/changelog*
+%doc I-Nex/AUTHORS I-Nex/ChangeLog I-Nex/README
 %{_bindir}/%{name}
 %{_bindir}/%{name}.gambas
 %{_datadir}/applications/%{name}*.desktop
 %{_datadir}/pixmaps/%{name}*
-%doc debian/changelog* changelogs/changelog*
-%doc I-Nex/AUTHORS I-Nex/ChangeLog I-Nex/README
+%doc %{_mandir}/man*/%{name}.*
+%{_prefix}/lib/udev/rules.d/i2c_smbus.rules
 
 %changelog
