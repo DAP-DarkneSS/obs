@@ -1,6 +1,6 @@
 <services>
   <service name="tar_scm">
-    <param name="url">git://github.com/DAP-DarkneSS/rexloader.git</param>
+    <param name="url">git://github.com/RA9OAJ/rexloader.git</param>
     <param name="scm">git</param>
     <param name="versionprefix">0.1a.svn.357.git</param>
   </service>
