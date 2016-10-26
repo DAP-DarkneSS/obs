@@ -1,0 +1,12 @@
+Source: plasma-applet-network-monitor
+Section: unknown
+Priority: optional
+Maintainer: Dmitriy Perlow <dap.darkness@gmail.com>
+Build-Depends: cdbs, debhelper (>= 4.1.16)
+
+Package: plasma-applet-network-monitor
+Architecture: all
+Depends: plasma-framework, ${shlibs:Depends}
+Description: Plasma 5 Network Monitor Plasmoid
+ Plasmoid for plasma panel. Monitors network
+ speed of currently active connections;
