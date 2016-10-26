@@ -2,7 +2,7 @@
   <service name="tar_scm">
     <param name="url">git://github.com/kotelnik/plasma-applet-network-monitor.git</param>
     <param name="scm">git</param>
-    <param name="versionprefix">1.2+git</param>
+    <param name="versionprefix">1.7.3+git</param>
   </service>
   <service name="recompress">
     <param name="file">*.tar</param>

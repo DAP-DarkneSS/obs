@@ -1,3 +1,12 @@
+plasma-applet-network-monitor (1.7.3) xenial; urgency=low
+
+  * Update.
+  * Modern deb-s packaging.
+
+ -- Dmitriy Perlow <dap.darkness@gmail.com>  Mon, 24 Oct 2016 22:55:22 +0300
+
 plasma-applet-network-monitor (1.2) unstable; urgency=low
+
   * Initial package.
+
  -- Dmitriy Perlow <dap.darkness@gmail.com>  Mon, 04 May 2015 23:51:02 +0300
