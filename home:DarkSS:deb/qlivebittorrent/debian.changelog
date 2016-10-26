@@ -1,3 +1,11 @@
+qlivebittorrent (20161025) yakkety; urgency=low
+
+  * Update for newer distributions.
+
+ -- Dmitriy Perlow <dap.darkness@gmail.com>  Wed, 26 Oct 2016 20:02:00 +0300
+
 qlivebittorrent (20130830) unstable; urgency=low
+
   * Initial build.
+
  -- Dmitriy Perlow <dap.darkness@gmail.com>  Sat, 31 Aug 2013 11:48:22 +0300
