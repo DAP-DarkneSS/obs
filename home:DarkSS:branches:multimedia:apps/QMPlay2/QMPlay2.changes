@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Nov  2 03:22:08 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 16.11.01:
+  * Properly read styles from MPL, MicroDVD and SubRip format,
+  * Added CUVID decoder,
+  * Bug fixes.
+
+-------------------------------------------------------------------
 Sun Oct 16 09:24:24 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 16.10.14:
