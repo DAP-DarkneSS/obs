@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Tue Nov 15 17:42:44 UTC 2016 - dap.darkness@gmail.com
+
+- 0.1.9:
+  * Speeded up loading by caching sound/music files
+  * Fixed appearance menu
+  * Fully implemented and documented inheritance
+  * Fixed circular references in classes
+  * Added method chaining for class constructor calls
+  * Made it possible to access members of returned objects
+  * Added file appending mode
+  * Removed character limit in programs
+  * Fixed ‘radarall’ returning only one object
+  * Fixed game stucking in infinite pause
+  * Fixed crashes when loading levels.
+
+-------------------------------------------------------------------
 Mon Jul 11 17:01:27 UTC 2016 - dap.darkness@gmail.com
 
 - 0.1.8:

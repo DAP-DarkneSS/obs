@@ -17,7 +17,7 @@
 
 
 Name:           colobot-data
-Version:        0.1.8
+Version:        0.1.9
 Release:        0
 Summary:        A real-time strategy game with programmable bots
 License:        GPL-3.0+
