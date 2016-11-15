@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Nov 15 17:08:12 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 0.3.8 (since 0.3.7):
+  * Revert sample rate to 44.1 kHz for FLV container.
+
+-------------------------------------------------------------------
 Sun Oct 16 09:55:03 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 0.3.7 (since 0.3.6):
