@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Tue Nov 22 18:07:00 UTC 2016 - dap.darkness@gmail.com
+
+- Update to 16.11.20:
+  * Display real FPS and interlaced video information,
+  * VA-API displays using OpenGL (default behavior),
+  * Updated German translation (martinkg),
+  * Add DXVA2 decoder (limited features),
+  * Fix seeking on interlaced videos,
+  * CUVID bugfix.
+- Cmake macro.
+- Deleted QMPlay2-Qt53-lrelease.diff because openSUSE 13.*
+  became unresolvable because of pkgconfig(libva-glx) required.
+- Mime tricks.
+
+-------------------------------------------------------------------
 Wed Nov  2 03:22:08 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 16.11.01:

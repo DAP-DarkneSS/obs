@@ -17,7 +17,7 @@
 
 
 Name:           QMPlay2
-Version:        16.11.01
+Version:        16.11.20
 Release:        0
 Summary:        A Qt based media player, streamer and downloader
 License:        LGPL-3.0+
@@ -43,6 +43,7 @@ BuildRequires:  pkgconfig(libsidplayfp)
 BuildRequires:  pkgconfig(libswresample)
 BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(libva)
+BuildRequires:  pkgconfig(libva-glx)
 BuildRequires:  pkgconfig(taglib)
 BuildRequires:  pkgconfig(vdpau)
 BuildRequires:  pkgconfig(xv)

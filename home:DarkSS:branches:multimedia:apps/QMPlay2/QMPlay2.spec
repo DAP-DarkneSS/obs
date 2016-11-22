@@ -17,24 +17,18 @@
 
 
 Name:           QMPlay2
-Version:        16.11.01
+Version:        16.11.20
 Release:        0
 Summary:        A Qt based media player, streamer and downloader
 License:        LGPL-3.0+
 Group:          Productivity/Multimedia/Video/Players
 Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
 Source:         https://github.com/zaps166/QMPlay2/releases/download/%{version}/QMPlay2-src-%{version}.tar.xz
-# PATCH-FIX-UPSTREAM vs. Qt5.3 lrelease issue, read more at
-# https://github.com/zaps166/QMPlay2/issues/10#issuecomment-186585268
-Patch0:         QMPlay2-Qt53-lrelease.diff
 #PATCH-FIX-OPENSUSE vs. Prostopleer extension that provides illegal audio.
 Patch1:         QMPlay2-no-prostopleer.diff
 
-%if 0%{?suse_version} > 1310
-BuildRequires:  libqt5-linguist
-%else
-BuildRequires:  libqt5-qttools
-%endif
+BuildRequires:  cmake >= 3
+BuildRequires:  cmake(Qt5LinguistTools)
 BuildRequires:  pkgconfig(Qt5DBus)
 BuildRequires:  pkgconfig(Qt5OpenGL)
 BuildRequires:  pkgconfig(Qt5Widgets)
@@ -53,12 +47,15 @@ BuildRequires:  pkgconfig(libsidplayfp)
 BuildRequires:  pkgconfig(libswresample)
 BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(libva)
+BuildRequires:  pkgconfig(libva-glx)
 BuildRequires:  pkgconfig(taglib)
 BuildRequires:  pkgconfig(vdpau)
 BuildRequires:  pkgconfig(xv)
 Requires(post): hicolor-icon-theme
+Requires(post): shared-mime-info
 Requires(post): update-desktop-files
 Requires(postun): hicolor-icon-theme
+Requires(postun): shared-mime-info
 Requires(postun): update-desktop-files
 Recommends:     youtube-dl
 Obsoletes:      %{name}-kde-integration <= %{version}
@@ -77,29 +74,16 @@ It's a development package for %{name}.
 
 %prep
 %setup -q -n %{name}-src-%{version}
-%if 0%{?suse_version} <= 1320
-%patch0
-%endif
 %patch1
 
 %build
-export QT_SUFFIX="-qt5"
-%if 0%{?suse_version} <= 1320
-export QMAKE=/usr/bin/qmake$QT_SUFFIX
-lrelease$QT_SUFFIX QMPlay2.pro
-%endif
-NOTERM=1 SYSTEM_BUILD=1 ./compile_unix `echo "%{?_smp_mflags}" | grep -o '[0-9]*'`
+%cmake \
+       -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+       -DCMAKE_BUILD_TYPE=RelWithDebInfo
+make V=1 %{?_smp_mflags}
 
 %install
-mkdir -p %{buildroot}%{_prefix}
-cp -R app/* %{buildroot}%{_prefix}
-
-# Setting libs to system libdir instead of 'lib'.
-%if "%{_lib}" == "lib64"
-mv %{buildroot}/%{_prefix}/{lib,lib64}
-mkdir -p %{buildroot}/%{_prefix}/lib
-ln -s %{_libdir}/qmplay2 %{buildroot}/%{_prefix}/lib/qmplay2
-%endif
+%cmake_install
 
 # Let's use %%doc macro. AUTHORS & ChangeLog are required for help window
 cd %{buildroot}/%{_datadir}/qmplay2
@@ -109,11 +93,13 @@ rm LICENSE README.md TODO
 /sbin/ldconfig
 %desktop_database_post
 %icon_theme_cache_post
+%mime_database_post
 
 %postun
 /sbin/ldconfig
 %desktop_database_postun
 %icon_theme_cache_postun
+%mime_database_postun
 
 %files
 %defattr(-,root,root)
@@ -121,7 +107,6 @@ rm LICENSE README.md TODO
 %{_bindir}/%{name}
 %{_libdir}/qmplay2
 %{_libdir}/libqmplay2.so
-%{_prefix}/lib/qmplay2
 %{_datadir}/applications/%{name}*.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %if 0%{?suse_version} == 1315
@@ -130,6 +115,7 @@ rm LICENSE README.md TODO
 %endif
 %{_datadir}/qmplay2
 %{_mandir}/man?/%{name}.?.*
+%{_datadir}/mime/packages/x-*.xml
 
 %files devel
 %defattr(-,root,root)
