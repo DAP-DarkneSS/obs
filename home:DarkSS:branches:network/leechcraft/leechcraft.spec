@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -62,8 +62,8 @@ Source9:        lc_plugin_wrapper.1
 # NOTE: delete p0&p1&p2 at version bump!
 # PATCH-FIX-UPSTREAM for newest torrent rasterbar.
 Patch0:         leechcraft-%{LEECHCRAFT_VERSION}-torrent110.diff
-# PATCH-FIX-UPSTREAM for hunspell 1.4.
-Patch1:         leechcraft-%{LEECHCRAFT_VERSION}-hunspell14.diff
+# PATCH-FIX-UPSTREAM for hunspell from 1.4 to 1.7.
+Patch1:         leechcraft-%{LEECHCRAFT_VERSION}-hunspell17.diff
 # PATCH-FIX-UPSTREAM for boost 1.61.
 Patch2:         leechcraft-%{LEECHCRAFT_VERSION}-boost161.diff
 
@@ -1024,7 +1024,7 @@ the Awesome Window Manager.
 
 
 %package fenet-kwin
-Summary:        kwin integration for LeechCraft
+Summary:        Kwin integration for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 BuildArch:      noarch
@@ -1518,11 +1518,11 @@ Provides:       %{name}-monocle-subplugin
 
 %description monocle-postrus
 This package contains the PostRus subplugin for LeechCraft Monocle
-which supports PostScript document support via the ghostscript utilties.
+which supports PostScript document support via the ghostscript utilities.
 
 
 %package monocle-seen
-Summary:        djvu support for LeechCraft Monocle
+Summary:        Djvu support for LeechCraft Monocle
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
@@ -1852,9 +1852,9 @@ This package provides the Speed Dial support plugin for LeechCraft Poshuku.
 
 %package qrosp
 Summary:        LeechCraft Qross Module
+# src/plugins/qrosp/third-party/qmetaobjectbuilder_48.*
 License:        LGPL-2.1+
 Group:          Productivity/Networking/Other
-# src/plugins/qrosp/third-party/qmetaobjectbuilder_48.*
 Requires:       %{name} = %{version}
 Requires:       libqrosspython1
 
