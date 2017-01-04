@@ -1,7 +1,7 @@
 #
-# spec file for package qtermwidget
+# spec file for package qtermwidget-qt5
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -30,7 +30,7 @@ code dealing with user interface parts and session management was \
 removed.
 
 Name:           qtermwidget-qt5
-Version:        0.7.0
+Version:        0.7.1
 Release:        0
 Summary:        %{pack_summ}
 License:        GPL-2.0+

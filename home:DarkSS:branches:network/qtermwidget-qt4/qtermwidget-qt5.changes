@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Wed Jan  4 16:37:10 UTC 2017 - dap.darkness@gmail.com
+
+- Updated to 0.7.1:
+  * Bump patch version (#105);
+  * Added a modified Breeze color scheme (#104);
+  * Accept hex color strings as well (#101);
+  * Remove the stale lib/README (#102);
+  * Implement background images (#95);
+  * Implement other BOX DRAWING characters (#98);
+  * Preparations for context menu actions on URLs (#97);
+  * Drop the ancient wcwidth impl. and use utf8proc if possible;
+  * Remove widget size checks in setVTFont() (#86);
+  * Delete unused tooltip code (#81);
+  * Fix size of the array passed to memset() (#79).
+
+-------------------------------------------------------------------
 Sun Sep 25 07:52:27 UTC 2016 - dap.darkness@gmail.com
 
 - Updated to 0.7.0:
