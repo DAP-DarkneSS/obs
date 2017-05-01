@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Gweled
+GenericName=Puzzle game
+GenericName[ru]=Головоломка
+Comment=A "Diamond Mine" for Gnome
+Comment[ru]=Сборка в ряд трех и более кристаллов одного вида
+Exec=gweled
+Icon=gweled.png
+Terminal=false
+Type=Application
+Categories=GNOME;Game;LogicGame;
+StartupNotify=true

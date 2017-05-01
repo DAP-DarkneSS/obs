@@ -1,0 +1,63 @@
+-------------------------------------------------------------------
+Wed Sep 26 23:46:21 UTC 2012 - kkirill@opensuse.org
+
+- update to 0.9.1:
+  + Show game-type choice at startup (alias welcome screen
+  + New Slovenian [sl] translation (almost complete)
+  + Malay [ms] translation almost completed     
+  + Updated the others
+- release notes for 0.9:
+  + New endless game type (also called relax mode)
+  + Save and resume game between program closing
+  + Various new graphic effects
+  + Hint after 15 seconds of inactivity
+  + Added 22px and 64px application icons
+  + Level system (replace bonus-only target)
+  + New Brazilian Portuguese [pt_BR] translation (almost complete)
+  + New Croatian [hr] translation (incomplete)
+  + New Dutch [nl] translation (complete)
+  + New Georgian [ka] translation (complete)
+  + New Hebrew [he] translation (almost complete)
+  + New Japanese [ja] translation (almost complete)
+  + New Malay [ms] translation (incomplete)
+  + New Polish [pl] translation (complete)
+  + New Ukrainian [uk] translation (almost complete)
+  + Updated French [fr] translation (complete)
+  + Updated German [de] translation (almost complete)
+  + Updated Italian [it] translation (complete)
+  + Updated Russian [ru] translation (complete)
+  + Updated Spanish [es] translation (complete)
+
+-------------------------------------------------------------------
+Tue Jun  1 22:32:54 UTC 2010 - kirill.kirillov@gmail.com
+
+- update to 0.8:
+  + Pause support (LP #195206)
+  + Plain text config file (LP #563135)
+  + More application icons for launchers and menus (included SVG)
+  + Gweled translatable (gettext i18n support)
+  + Scores handling refactory
+  + Dropped deprecated libglade dependency (now use GtkBuilder)
+  + Dropped deprecated libgnomeui dependency
+  + Removed a lot of deprecated GTK+ symbols
+
+-------------------------------------------------------------------
+Thu Nov  6 12:29:22 CET 2008 - lars@linux-schulserver.de
+
+- added gweled-rpmlintrc and enabled post-build-checks again
+
+-------------------------------------------------------------------
+Thu Oct 30 21:54:53 CET 2008 - lars@linux-schulserver.de
+
+- temporary disable post-build-checks
+
+-------------------------------------------------------------------
+Thu Sep 25 13:10:30 CEST 2008 - lars@linux-schulserver.de
+
+- moved to Education base repository
+
+-------------------------------------------------------------------
+Sat Aug  2 05:02:15 MSD 2008 - kirill.kirillov@gmail.com
+
+- Initial build of 0.7 based on Mandriva spec and Ubuntu patches
+

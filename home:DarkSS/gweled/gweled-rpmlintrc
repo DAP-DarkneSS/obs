@@ -1,0 +1,2 @@
+setBadness('permissions-unauthorized-file', 0)
+setBadness('non-position-independent-executable', 0)

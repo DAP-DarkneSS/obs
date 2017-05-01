@@ -1,0 +1,3 @@
+/usr/bin/gweled                        games:games             2755
+/var/games/gweled.easy.scores          games:games             0664
+/var/games/gweled.timed.scores         games:games             0664
