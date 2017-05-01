@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Mon May  1 14:56:22 UTC 2017 - dap.darkness@gmail.com
+
+- `spec-cleaner`;
+- pkgconfig() where possible;
+- own /var/games directory if Factory;
+- added a man page.
+
+-------------------------------------------------------------------
 Mon Apr 14 15:50:39 UTC 2014 - dap.darkness@gmail.com
 
 - pkgconfig(libpulse) became required to build to prevent
