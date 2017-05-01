@@ -35,6 +35,7 @@ BuildRequires:  libmikmod-devel
 %if 0%{?suse_version}
 BuildRequires:  update-desktop-files
 %endif
+BuildRequires:  pkgconfig(libpulse)
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -45,7 +46,6 @@ swapping adjacent gems. The game ends when there are no possible moves
 left.
 
 %lang_package
-%debug_package
 
 %prep
 %setup -q

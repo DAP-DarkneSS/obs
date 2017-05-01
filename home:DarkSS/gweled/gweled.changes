@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Mon Apr 14 15:50:39 UTC 2014 - dap.darkness@gmail.com
+
+- pkgconfig(libpulse) became required to build to prevent
+  "ld: cannot find -lpulse" issue.
+- debug_package macro was removed to not conflict
+  with OBS flags settings.
+
+-------------------------------------------------------------------
 Wed Sep 26 23:46:21 UTC 2012 - kkirill@opensuse.org
 
 - update to 0.9.1:
