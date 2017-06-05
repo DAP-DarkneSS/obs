@@ -68,8 +68,10 @@ Patch1:         leechcraft-%{LEECHCRAFT_VERSION}-hunspell17.diff
 Patch2:         leechcraft-%{LEECHCRAFT_VERSION}-boost161.diff
 
 BuildRequires:  Qross-devel
-%if 0%{?suse_version} > 1320
-BuildRequires:  boost-devel >= 1.58
+%if 0%{?suse_version} > 1325
+BuildRequires:  libboost_filesystem-devel
+BuildRequires:  libboost_locale-devel
+BuildRequires:  libboost_program_options-devel
 %else
 BuildRequires:  boost-devel >= 1.50
 %endif
@@ -1852,9 +1854,9 @@ This package provides the Speed Dial support plugin for LeechCraft Poshuku.
 
 %package qrosp
 Summary:        LeechCraft Qross Module
-# src/plugins/qrosp/third-party/qmetaobjectbuilder_48.*
 License:        LGPL-2.1+
 Group:          Productivity/Networking/Other
+# src/plugins/qrosp/third-party/qmetaobjectbuilder_48.*
 Requires:       %{name} = %{version}
 Requires:       libqrosspython1
 
