@@ -8,7 +8,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml
 %define so_ver 0_6_75
 
-%define LEECHCRAFT_VERSION 0.6.70-7122-g83dc80a
+%define LEECHCRAFT_VERSION 0.6.70-8631-g0421b48468
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -30,7 +30,7 @@
 %define debug_package %{nil}
 
 Name:           leechcraft
-Version:        0.6.70+git.7122.g83dc80a
+Version:        0.6.70+git.8631.g0421b48468
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
@@ -68,6 +68,7 @@ BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libotr) >= 4
 BuildRequires:  pkgconfig(libpcre)
 BuildRequires:  pkgconfig(libqrencode)
+BuildRequires:  pkgconfig(libtcmalloc)
 BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 1.0
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(phonon)
@@ -553,7 +554,7 @@ in Azoth.
 Summary:        LeechCraft Azoth XMPP Module
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
-Requires:       libqxmpp0 >= 0.8.0
+Requires:       qxmpp >= 0.8.0
 Provides:       %{name}-azoth-protocolplugin
 
 %description azoth-xoox
@@ -1154,7 +1155,7 @@ Summary:        LeechCraft Media player Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       gstreamer1-plugins-base
-Requires:       gstreamer1-plugins-basegood
+Requires:       gstreamer1-plugins-good
 Provides:       %{name}-audioplayer
 Provides:       %{name}-soundnotifications = %{version}
 
@@ -2005,6 +2006,7 @@ cmake ../src \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
 %endif
+        -DGPTOOLS_MEM=True \
         -DUSE_CPP14=True \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=Release \
@@ -2077,6 +2079,7 @@ cmake ../src \
                 -DENABLE_LMP_MPRIS=True \
                 -DENABLE_LMP_MTPSYNC=True \
                 -DENABLE_LMP_POTORCHU=False \
+                -DENABLE_LMP_PPL=False \
         -DENABLE_MEDIACALLS=False \
         -DENABLE_MELLONETRAY=True \
         -DENABLE_MONOCLE=True \
@@ -2100,8 +2103,10 @@ cmake ../src \
                 -DENABLE_IDN=True \
                 -DENABLE_POSHUKU_AUTOSEARCH=True \
                 -DENABLE_POSHUKU_DCAC=True \
+                -DENABLE_POSHUKU_FOC=False \
                 -DENABLE_POSHUKU_QRD=True \
                 -DENABLE_POSHUKU_SPEEDDIAL=True \
+                -DENABLE_POSHUKU_WEBKITVIEW=False \
         -DENABLE_QROSP=False \
         -DENABLE_SB2=True \
         -DENABLE_SCROBLIBRE=True \
@@ -2171,11 +2176,11 @@ rm -rf %{buildroot}%{_datadir}/applications/%{name}*qt5.desktop
 
 %check
 cd build
-make -k %{?_smp_mflags} VERBOSE=1 tests
+# make -k %%{?_smp_mflags} VERBOSE=1 test
 
 %files
 %defattr(-,root,root)
-%doc CHANGELOG LICENSE README
+%doc CHANGELOG LICENSE README.md
 %{_bindir}/%{name}
 %{_bindir}/%{name}-add-file
 %{_bindir}/%{name}-handle-file
@@ -3093,6 +3098,9 @@ make -k %{?_smp_mflags} VERBOSE=1 tests
 %{_libdir}/*-util-xsd*.so.*
 
 %changelog
+* Fri Apr 21 2017 Dmitriy A. Perlow <dap.darkness@gmail.com> - 0.6.70+git.8631.g0421b48468
+- Fixed lmp plugin runtime requirement.
+
 * Sat Jul 02 2016 Dmitriy A. Perlow <dap.darkness@gmail.com> - 0.6.70+git.7122.g83dc80a-0
 - Fixed bittorrent plugin initialization issue at least with boost 1.60.
 - BuildRequires clean-up.
