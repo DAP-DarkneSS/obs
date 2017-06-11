@@ -2263,7 +2263,7 @@ cmake ../src \
                 -DENABLE_AZOTH_AUTOPASTE=True \
                 -DENABLE_AZOTH_HERBICIDE=True \
                 -DENABLE_AZOTH_MUCOMMANDS=True \
-                -DENABLE_AZOTH_MUCOMMANDS_TESTS=True \
+                -DENABLE_AZOTH_MUCOMMANDS_TESTS=False \
                 -DENABLE_AZOTH_MURM=True \
                 -DENABLE_AZOTH_OTROID=True \
                 -DENABLE_AZOTH_SARIN=False \
@@ -2325,7 +2325,7 @@ cmake ../src \
                 -DENABLE_LMP_MTPSYNC=True \
                 -DENABLE_LMP_POTORCHU=True \
                 -DENABLE_LMP_PPL=True \
-                -DENABLE_LMP_PPL_TESTS=True \
+                -DENABLE_LMP_PPL_TESTS=False \
         -DENABLE_MELLONETRAY=True \
         -DENABLE_MONOCLE=True \
                 -DENABLE_MONOCLE_MU=False \
@@ -2354,11 +2354,7 @@ cmake ../src \
                 -DENABLE_IDN=True \
                 -DENABLE_POSHUKU_AUTOSEARCH=True \
                 -DENABLE_POSHUKU_DCAC=True \
-%ifarch x86_64
-                -DENABLE_POSHUKU_DCAC_TESTS=True \
-%else
                 -DENABLE_POSHUKU_DCAC_TESTS=False \
-%endif
                 -DENABLE_POSHUKU_FOC=True \
                 -DENABLE_POSHUKU_QRD=True \
                 -DENABLE_POSHUKU_SPEEDDIAL=True \
@@ -2402,8 +2398,9 @@ mv %{buildroot}%{_mandir}/man1/%{name}.1.gz \
 %fdupes -s %{buildroot}%{_datadir}/%{name}/global_icons/flags
 %fdupes -s %{buildroot}%{_datadir}/%{name}/themes
 
-# %%check
-# make -k %%{?_smp_mflags} VERBOSE=1 test
+%check
+cd build
+make -k %{?_smp_mflags} VERBOSE=1 test
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
