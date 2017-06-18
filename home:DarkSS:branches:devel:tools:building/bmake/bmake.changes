@@ -1,4 +1,58 @@
 -------------------------------------------------------------------
+Fri May 19 08:50:03 UTC 2017 - dziolkowski@suse.com
+
+- Update to version 20170510
+  * For full list of changes see provided Changelog
+- Fix allow-overriding-compiler-variables.patch to work with new version
+
+-------------------------------------------------------------------
+Wed Apr  5 09:35:31 UTC 2017 - mpluskal@suse.com
+
+- Update to version 20170326
+  * For full list of changes see provided Changelog
+- Use https url for downloading
+
+-------------------------------------------------------------------
+Wed Nov 23 19:49:33 UTC 2016 - arichardson.kde@gmail.com
+
+- Update to 20160926
+  * Makefile (_MAKE_VERSION): 20160926
+      + Merge with NetBSD make, pick up
+      + support for .DELETE_ON_ERROR: (remove targets that fail)
+  * Makefile MAN: tweak .Dt to match ${PROG} 
+
+-------------------------------------------------------------------
+Wed Nov 23 19:29:55 UTC 2016 - arichardson.kde@gmail.com
+
+- Install the .mk files as well
+- Use allow-overriding-compiler-variables.patch instead overwriting the
+  installed file with Linux.sys.mk
+
+-------------------------------------------------------------------
+Thu Sep 15 12:38:58 UTC 2016 - rdodopoulos@suse.com
+
+- 20160818
+  * its a neater number; pick up whitespace fixes to man page.
+  * Merge with NetBSD make, pick up
+    + meta.c: move handling of .MAKE.META.IGNORE_* to meta_ignore()
+      so we can call it before adding entries to missingFiles.
+      Thus we do not track files we have been told to ignore.
+    + meta_oodate: apply .MAKE.META.IGNORE_FILTER (if defined) to
+      pathnames, and skip if the expansion is empty.
+      Useful for dirdeps.mk when checking DIRDEPS_CACHE.
+    + meta.c: remove all missingFiles entries that match a deleted
+      dir.
+    + main.c: set .ERROR_CMD if possible.
+    + dir.c: extend mtimes cache to others via cached_stat()
+    + meta.c: missing filemon data is only relevant if we read a
+    meta file.
+    Also do not return oodate for a missing metafile if gn->path
+    points to .CURDIR
+    + cached_realpath(): avoid hitting filesystem more than necessary.
+    + meta.c: refactor need_meta decision, add knobs for 
+      missing meta file and filemon data wrt out-of-datedness.
+
+-------------------------------------------------------------------
 Tue Jun 14 17:58:29 UTC 2016 - dap.darkness@gmail.com
 
 - 20160528

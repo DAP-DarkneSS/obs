@@ -1,7 +1,7 @@
 #
 # spec file for package bmake
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,14 +17,16 @@
 
 
 Name:           bmake
-Version:        20160528
+Version:        20170510
 Release:        0
 Summary:        The NetBSD make(1) tool
 License:        BSD-2-Clause and BSD-3-Clause and BSD-4-Clause
 Group:          Development/Tools/Building
-Url:            ftp://ftp.NetBSD.org/pub/NetBSD/misc/sjg/
-Source0:        ftp://ftp.NetBSD.org/pub/NetBSD/misc/sjg/bmake-%{version}.tar.gz
-Source1:        Linux.sys.mk
+Url:            https://ftp.NetBSD.org/pub/NetBSD/misc/sjg/
+Source0:        https://ftp.NetBSD.org/pub/NetBSD/misc/sjg/bmake-%{version}.tar.gz
+# PATCH-FEATURE-OPENSUSE allow-overriding-compiler-variables.patch -- Based on Linux.sys.mk which was previously shipped with this package
+# patch generated using `git diff master opensuse` from https://github.com/RichardsonAlex/bmake
+Patch0:         allow-overriding-compiler-variables.patch
 
 %description
 bmake, the NetBSD make(1) tool, is a program designed to simplify the
@@ -38,6 +40,7 @@ supported in Makefiles is very different.
 
 %prep
 %setup -q -n %{name}
+%patch0 -p1
 
 %build
 unset MAKEFLAGS
@@ -46,12 +49,18 @@ env CFLAGS="%{optflags}" \
   --prefix="%{_prefix}" \
   --sysconfdir="%{_sysconfdir}" \
   --with-default-sys-path="%{_datadir}/mk" \
-  --mksrc none op=build
+  --without-filemon \
+  op=build
 
 %install
-install -Dp -m0644 bmake.1      %{buildroot}%{_mandir}/man1/bmake.1
-install -Dp -m0755 Linux/bmake  %{buildroot}%{_bindir}/bmake
-install -Dp -m0644 %{SOURCE1}   %{buildroot}%{_datadir}/mk/sys.mk
+./boot-strap -o Linux \
+  --prefix="%{_prefix}" \
+  --sysconfdir="%{_sysconfdir}" \
+  --with-default-sys-path="%{_datadir}/mk" \
+  --install-prefix="%{_prefix}" \
+  --install-destdir="%{buildroot}" \
+  op=install
+mv "%{buildroot}%{_mandir}/cat1" "%{buildroot}%{_mandir}/man1"
 
 %check
 ./boot-strap op=test
