@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Mon Feb  6 18:02:06 UTC 2017 - jengelh@inai.de
+
+- Use knwon good source URL
+
+-------------------------------------------------------------------
+Mon Feb  6 17:08:30 UTC 2017 - jengelh@inai.de
+
+- Update descriptions and RPM groups.
+
+-------------------------------------------------------------------
 Sun Jun 26 11:34:31 UTC 2016 - dap.darkness@gmail.com
 
 - Added " -std=c++98" to CXXFLAGS to prevent build issue via gcc6.

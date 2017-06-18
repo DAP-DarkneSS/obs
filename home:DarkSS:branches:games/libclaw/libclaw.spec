@@ -1,7 +1,7 @@
 #
 # spec file for package libclaw
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,18 +16,14 @@
 #
 
 
-%define pack_summ C++ Library of various utility functions
-%define pack_desc Claw (C++ Library Absolutely Wonderful) is a C++ library \
-of various utility functions. In doesn't have a particular objective but \
-being useful to anyone.
 Name:           libclaw
 Version:        1.7.4
 Release:        0
-Summary:        %{pack_summ}
+Summary:        C++ library of various utility functions
 License:        LGPL-2.1+
-Group:          System/Libraries
+Group:          Development/Libraries/C and C++
 Url:            http://libclaw.sourceforge.net/
-Source0:        http://dl.sourceforge.net/project/%{name}/%{version}/%{name}-%{version}.tar.gz
+Source:         http://downloads.sf.net/%{name}/%{name}-%{version}.tar.gz
 # FEATURE-OPENSUSE not to strip libs.
 Patch0:         libclaw-1.6.1-nostrip.patch
 # FIX-OPENSUSE to set libs dir.
@@ -49,24 +45,26 @@ BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(zlib)
 
 %description
-%{pack_desc}
+Claw is a generalist library written in C++ and providing various
+structures (multitype map, AVL binary tree) and algorithms.
 
 %package        -n %{name}1
-Summary:        %{pack_summ}
-Group:          Development/Libraries/C and C++
+Summary:        C++ library of various utility functions
+Group:          System/Libraries
 
 %description    -n %{name}1
-%{pack_desc}
+Claw is a generalist library written in C++ and providing various
+structures (multitype map, AVL binary tree) and algorithms.
 
 %package devel
-Summary:        Development files for Claw library
+Summary:        Development files for the Claw library
 Group:          Development/Libraries/C and C++
 Requires:       %{name}1 = %{version}
 Requires:       cmake
 
 %description devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
+This subpackage contains libraries and header files for developing
+applications that want to make use of libclaw.
 
 %package doc
 Summary:        Documentation for Claw library
@@ -74,8 +72,8 @@ Group:          Documentation/HTML
 BuildArch:      noarch
 
 %description doc
-The %{name}-doc package contains the documentation and examples for
-developing applications that use %{name}.
+This subpackage contains the documentation and examples for using
+libclaw.
 
 %prep
 %setup -q
