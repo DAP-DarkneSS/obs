@@ -24,6 +24,8 @@ License:        GPL-2.0+
 Group:          Amusements/Games/Other
 Url:            http://www.stuff-o-matic.com/ptb/
 Source:         http://www.stuff-o-matic.com/plee-the-bear/download/file.php?platform=source#/%{name}-%{version}.tar.gz
+# PATCH-FIX-UPSTREAM to be built via gcc6+.
+Patch0:         ptb-sequencer-gcc6.patch
 BuildRequires:  SDL_mixer-devel
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -61,6 +63,7 @@ This subpackage contains the game data files.
 
 %prep
 %setup -q -n %{name}-%{version}-light
+%patch0
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
