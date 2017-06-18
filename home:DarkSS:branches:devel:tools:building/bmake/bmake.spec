@@ -44,7 +44,11 @@ supported in Makefiles is very different.
 
 %build
 unset MAKEFLAGS
+%if 0%{?suse_version} > 1325
+env CFLAGS="-fmessage-length=0 -grecord-gcc-switches -O2 -Wall -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -g" \
+%else
 env CFLAGS="%{optflags}" \
+%endif
 ./boot-strap -o Linux \
   --prefix="%{_prefix}" \
   --sysconfdir="%{_sysconfdir}" \

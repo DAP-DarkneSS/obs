@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Jun 18 16:27:39 UTC 2017 - dap.darkness@gmail.com
+
+- Let's skip optflags macro using to fix all builds.
+  "-D_FORTIFY_SOURCE=0" for some reason doesn't fix x64.
+
+-------------------------------------------------------------------
 Fri May 19 08:50:03 UTC 2017 - dziolkowski@suse.com
 
 - Update to version 20170510
