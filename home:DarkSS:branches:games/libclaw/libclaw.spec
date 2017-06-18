@@ -32,6 +32,8 @@ Patch1:         libclaw-1.7.0-libdir.patch
 Patch2:         libclaw-doxy-w-date-time.patch
 # PATCH-FIX-UPSTREAM fix-cmake.patch
 Patch3:         fix-cmake.patch
+# PATCH-FIX-UPSTREAM to be built via gcc7.
+Patch4:         libclaw-1.7.4-gcc7.patch
 BuildRequires:  boost-devel >= 1.42
 BuildRequires:  cmake >= 2.8.8
 BuildRequires:  doxygen
@@ -81,6 +83,7 @@ libclaw.
 %patch1 -p1 -b .libdir
 %patch2
 %patch3 -p1
+%patch4 -p1
 # Fix encoding of examples
 find examples -type f |
 while read F

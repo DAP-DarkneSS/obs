@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Jun 18 17:42:43 UTC 2017 - dap.darkness@gmail.com
+
+- Added libclaw-1.7.4-gcc7.patch from Fedora.
+
+-------------------------------------------------------------------
 Mon Feb  6 18:02:06 UTC 2017 - jengelh@inai.de
 
 - Use knwon good source URL
