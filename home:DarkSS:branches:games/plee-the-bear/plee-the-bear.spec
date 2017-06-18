@@ -1,7 +1,7 @@
 #
 # spec file for package plee-the-bear
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,34 +16,14 @@
 #
 
 
-%define pack_summ 2D platform game
-
-%define pack_desc Plee the Bear is a 2D platform game like those we found \
-on consoles in the beginning of the 90's. The basis of the scenario fit in \
-few lines: \
-\
-4 PM or so, Plee wakes up, tired. He has dreamed again about that awesome \
-period when he went across the entire world together with his belle. He \
-puts his leg in the honey pot... empty! Moreover every single honey pot in \
-the house is empty. "One more trick of that kid", he thinks. "I'm going to \
-give him such a wallop of which he sure will remember". \
-\
-Following honey drops on the ground, Plee reaches the edge of the forest. \
-Beginning of the game. \
-\
-The game is led by Julien Jorge and Sebastien Angibaud. Nevertheless, the \
-game counts several contributions from external people.
-
 Name:           plee-the-bear
 Version:        0.7.0
 Release:        0
-Summary:        %{pack_summ} — binary files
+Summary:        Plee the Bear, a 2D platform game
 License:        GPL-2.0+
 Group:          Amusements/Games/Other
 Url:            http://www.stuff-o-matic.com/ptb/
-Source0:        plee-the-bear-%{version}.tar.gz
-# http://www.stuff-o-matic.com/plee-the-bear/download/file.php?platform=source
-
+Source:         http://www.stuff-o-matic.com/plee-the-bear/download/file.php?platform=source#/%{name}-%{version}.tar.gz
 BuildRequires:  SDL_mixer-devel
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -61,42 +41,43 @@ BuildRequires:  pkgconfig(SDL2_mixer)
 BuildConflicts: docbook2x
 
 %description
-%{pack_desc}
+Plee the Bear is a 2D platform game like those found on consoles in
+the beginning of the 1990s. The storyline centeres around an angry
+bear whose son has been kidnapped by God.
 
 %package        data
-Summary:        %{pack_summ} — art and other architecture independent data
+Summary:        Game data files for "Plee the Bear"
 License:        CC-BY-SA-3.0
 Group:          Amusements/Games/Other
 Requires:       %{name} = %{version}
 BuildArch:      noarch
 
 %description data
-%{pack_desc}
+Plee the Bear is a 2D platform game like those found on consoles in
+the beginning of the 1990s. The storyline centeres around an angry
+bear whose son has been kidnapped by God.
+
+This subpackage contains the game data files.
 
 %prep
 %setup -q -n %{name}-%{version}-light
 
 %build
-cmake  . \
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-        -DCMAKE_NO_BUILTIN_CHRPATH=ON \
-        -DCMAKE_C_FLAGS="-DNDEBUG %{optflags}" \
-        -DCMAKE_CXX_FLAGS="-DNDEBUG %{optflags}" \
-        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-        -DPTB_INSTALL_CUSTOM_LIBRARY_DIR=%{_lib}/%{name} \
-        -DBEAR_ENGINE_INSTALL_LIBRARY_DIR=%{_lib}/%{name} \
-        -DBEAR_EDITORS_ENABLED=False
+%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+       -DPTB_INSTALL_CUSTOM_LIBRARY_DIR=%{_lib}/%{name} \
+       -DBEAR_ENGINE_INSTALL_LIBRARY_DIR=%{_lib}/%{name} \
+       -DBEAR_EDITORS_ENABLED=False
 make V=1 %{?_smp_mflags}
 
 %install
-make V=1 install DESTDIR=%{buildroot} INSTALL="install -p"
+%cmake_install
 
 # Translations
 %find_lang %{name}
 %find_lang bear-engine
 cat bear-engine.lang >>%{name}.lang
 
-%suse_update_desktop_file -r plee-the-bear 'Game;PlatformGame;'
+%suse_update_desktop_file -r plee-the-bear 'Game;ArcadeGame;'
 
 # W: non-executable-script
 chmod +x %{buildroot}%{_datadir}/%{name}/gfx/title_screen/mk.sh
@@ -105,28 +86,12 @@ chmod +x %{buildroot}%{_datadir}/%{name}/gfx/forest/bk/*/mk.sh
 %fdupes -s %{buildroot}%{_datadir}
 
 %post
-/sbin/ldconfig
-%if 0%{?suse_version} >= 1140
 %icon_theme_cache_post
 %desktop_database_post
-%else
-touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-update-desktop-database &> /dev/null || :
-%endif
 
 %postun
-/sbin/ldconfig
-%if 0%{?suse_version} >= 1140
 %icon_theme_cache_postun
 %desktop_database_postun
-%else
-touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-update-desktop-database &> /dev/null || :
-%endif
-
-%posttrans
-gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files
 %defattr(-,root,root)

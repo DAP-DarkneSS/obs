@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Mon Feb  6 22:38:52 UTC 2017 - jengelh@inai.de
+
+- Trim description according to guidelines
+- Remove unnecessary ldconfig call (there are no files matching
+  /usr/lib/*.so*)
+
+-------------------------------------------------------------------
+Mon Feb  6 16:44:36 UTC 2017 - mailaender@opensuse.org
+
+- https://en.opensuse.org/SourceUrls
+- use cmake macros
+- fix the .desktop category
+
+-------------------------------------------------------------------
 Thu Apr 10 18:03:42 UTC 2014 - dap.darkness@gmail.com
 
 - Updated to ver. 0.7.0:
