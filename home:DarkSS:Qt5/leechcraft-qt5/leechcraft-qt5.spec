@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-7572-g218ab51
+%define LEECHCRAFT_VERSION 0.6.70-9295-gcb70637b0e
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -52,12 +52,8 @@ Url:            http://leechcraft.org
 Source0:        leechcraft-%{version}.tar.xz
 Source4:        %{name}-rpmlintrc
 Source8:        leechcraft-session.1
-# PATCH-FIX-OPENSUSE to find qca2-qt5 includes.
-Patch0:         leechcraft-qt5-azoth-qca2.diff
-# PATCH-FIX-OPENSUSE to find qxmpp-qt5 includes.
-Patch1:         leechcraft-qt5-azoth-xoox-qxmpp.diff
-# PATCH-FIX-OPENSUSE to find qwt-qt5 includes.
-Patch2:         leechcraft-qt5-qwt.diff
+
+Patch0:         lc-bn.diff
 
 BuildRequires:  boost-devel >= 1.58
 BuildRequires:  cmake >= 3.1
@@ -72,13 +68,11 @@ BuildRequires:  libQt5Gui-private-headers-devel >= 5.5
 BuildRequires:  liblastfm-qt5-devel
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
-BuildRequires:  libvmime-devel >= 0.9.2.1461565714.4d1a6ad
 %if 0%{?suse_version} <= 1320
 BuildRequires:  llvm-clang >= 3.4
 %endif
 BuildRequires:  pkgconfig
 BuildRequires:  qwt6-qt5-devel
-# BuildRequires:  wt-devel >= 3.3
 BuildRequires:  cmake(Qt5LinguistTools)
 BuildRequires:  pkgconfig(Qt5Concurrent) >= 5.5
 BuildRequires:  pkgconfig(Qt5Core) >= 5.5
@@ -121,7 +115,6 @@ BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libotr) >= 4
 BuildRequires:  pkgconfig(libpcre)
 BuildRequires:  pkgconfig(libpostproc)
-BuildRequires:  pkgconfig(libprojectM)
 BuildRequires:  pkgconfig(libqrencode)
 %if %{with ffmpeg}
 BuildRequires:  pkgconfig(libswresample)
@@ -175,14 +168,6 @@ Conflicts:      libproxy1-config-kde4
 Recommends:     oxygen5
 Recommends:     qtcurve-qt5
 Suggests:       qt5ct
-
-# Nondefault gcc magic!
-%if 0%{?suse_version} <= 1320
-BuildConflicts: gcc48
-BuildConflicts: gcc48-c++
-BuildConflicts: Mesa
-BuildConflicts: libgbm1
-%endif
 
 %description
 LeechCraft is a modular "Internet client" application.
@@ -1576,6 +1561,16 @@ Requires:       %{name}-lmp = %{version}
 This package provides visualization effects for the LeechCraft audio player.
 
 
+%package lmp-ppl
+Summary:        LeechCraft Portable Player Logging Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-lmp = %{version}
+
+%description lmp-ppl
+This package provides Portable Player Logging support for the LeechCraft audio player.
+
+
 %package mellonetray
 Summary:        LeechCraft Tray Area Module
 Group:          Productivity/Networking/Other
@@ -1849,16 +1844,6 @@ Features:
  * Whitelists for the Flash blocker.
 
 
-%package poshuku-dcac
-Summary:        LeechCraft Poshuku DC/AC Module
-Group:          Productivity/Networking/Other
-Requires:       %{name}-poshuku = %{version}
-
-%description poshuku-dcac
-This package provides the DC/AC plugin for LeechCraft Poshuku
-which inverts colors on web pages.
-
-
 %package poshuku-fatape
 Summary:        LeechCraft Poshuku Greasemonkey Module
 Group:          Productivity/Networking/Other
@@ -1886,6 +1871,16 @@ Requires:       %{name}-poshuku = %{version}
 This package provides file: scheme support for LeechCraft Poshuku,
 allowing to navigate local resources.
 FileScheme also supports "downloading" files from there.
+
+
+%package poshuku-foc
+Summary:        LeechCraft Poshuku Flash-on-Click module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-poshuku = %{version}
+
+%description poshuku-foc
+This package provides Flash-on-Click support for LeechCraft Poshuku browser.
 
 
 %package poshuku-fua
@@ -1963,6 +1958,17 @@ Requires:       %{name}-poshuku = %{version}
 
 %description poshuku-speeddial
 This package provides the Speed Dial support plugin for LeechCraft Poshuku.
+
+
+%package poshuku-webkitview
+Summary:        LeechCraft Poshuku WebKit-based backend Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name}-poshuku = %{version}
+Provides:       %{name}-poshuku-backend = %{version}
+
+%description poshuku-webkitview
+This package provides WebKit-based backend for LeechCraft Poshuku browser.
 
 
 %package rosenthal
@@ -2050,17 +2056,6 @@ Features:
  * Support search results in RSS/Atom format and subscribe to them
 with a suitable plugin like Aggregator.
  * Show results in HTML format with a suitable plugin like Poshuku.
-
-
-%package snails
-Summary:        LeechCraft Email client Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description snails
-This package contains a Email client plugin for LeechCraft.
-
-It provides basic Email client functionality and supports SMTP and IMAP4.
 
 
 %package summary
@@ -2365,8 +2360,6 @@ XmlSettingsDialog LeechCraft subsystem.
 %prep
 %setup -q -n leechcraft-%{version}
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -2383,11 +2376,9 @@ mkdir build && cd build
 # NOTE that %%cmake macro breaks compiler configuring.
 cmake ../src \
         -Wno-dev \
-        -DUSE_QT5=True \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
 %endif
-        -DUSE_CPP14=True \
         -DCMAKE_CXX_FLAGS="%{optflags} -Doverride= -DBOOST_ASIO_HAS_STD_CHRONO" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -2399,6 +2390,7 @@ cmake ../src \
         -DWITH_DBUS_LOADERS=False \
         -DWITH_PCRE=True \
         -DWITH_QWT=True \
+        -DENABLE_UTIL_TESTS=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
                 -DENABLE_AGGREGATOR_WEBACCESS=False \
@@ -2409,6 +2401,7 @@ cmake ../src \
                 -DENABLE_AZOTH_ASTRALITY=False \
                 -DENABLE_AZOTH_AUTOPASTE=True \
                 -DENABLE_AZOTH_MUCOMMANDS=True \
+                -DENABLE_AZOTH_MUCOMMANDS_TESTS=True \
                 -DENABLE_AZOTH_MURM=True \
                 -DENABLE_AZOTH_OTROID=True \
                 -DENABLE_AZOTH_SARIN=False \
@@ -2435,7 +2428,6 @@ cmake ../src \
         -DENABLE_FENET=True \
         -DENABLE_FONTIAC=False \
         -DENABLE_GACTS=True \
-                -DWITH_GACTS_BUNDLED_QXT=True \
         -DENABLE_GLANCE=True \
         -DENABLE_GMAILNOTIFIER=True \
         -DENABLE_HARBINGER=False \
@@ -2448,6 +2440,7 @@ cmake ../src \
         -DENABLE_KNOWHOW=True \
         -DENABLE_KRIGSTASK=True \
         -DENABLE_LACKMAN=True \
+                -DTESTS_LACKMAN=False \
         -DENABLE_LADS=False \
         -DENABLE_LASTFMSCROBBLE=True \
         -DENABLE_LAUGHTY=True \
@@ -2455,6 +2448,7 @@ cmake ../src \
         -DENABLE_LEMON=True \
         -DENABLE_LHTR=True \
                 -DWITH_LHTR_HTML=True \
+                -DUSE_LIBTIDY_HTML5=False \
         -DENABLE_LIZNOO=True \
         -DENABLE_LMP=True \
                 -DENABLE_LMP_BRAINSLUGZ=True \
@@ -2464,8 +2458,9 @@ cmake ../src \
                 -DENABLE_LMP_LIBGUESS=True \
                 -DENABLE_LMP_MPRIS=True \
                 -DENABLE_LMP_MTPSYNC=True \
-                -DENABLE_LMP_POTORCHU=True \
-                -DUSE_GSTREAMER_10=True \
+                -DENABLE_LMP_POTORCHU=False \
+                -DENABLE_LMP_PPL=True \
+                -DENABLE_LMP_PPL_TESTS=True \
         -DENABLE_MELLONETRAY=True \
         -DENABLE_MONOCLE=True \
                 -DENABLE_MONOCLE_MU=False \
@@ -2492,20 +2487,17 @@ cmake ../src \
         -DENABLE_POSHUKU=True \
                 -DENABLE_IDN=True \
                 -DENABLE_POSHUKU_AUTOSEARCH=True \
-                -DENABLE_POSHUKU_DCAC=True \
-%ifarch x86_64
-                        -DWITH_POSHUKU_DCAC_SIMD=True \
-%else
-                        -DWITH_POSHUKU_DCAC_SIMD=False \
-%endif
+                -DENABLE_POSHUKU_DCAC=False \
+                -DENABLE_POSHUKU_FOC=True \
                 -DENABLE_POSHUKU_QRD=True \
                 -DENABLE_POSHUKU_SPEEDDIAL=True \
         -DENABLE_QROSP=False \
         -DENABLE_SB2=True \
         -DENABLE_SCROBLIBRE=True \
         -DENABLE_SECMAN=True \
+                -DTESTS_SECMAN=True \
         -DENABLE_SHELLOPEN=False \
-        -DENABLE_SNAILS=True \
+        -DENABLE_SNAILS=False \
         -DENABLE_SYNCER=False \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
@@ -2611,7 +2603,7 @@ EOF
 
 %check
 cd build
-make -k %{?_smp_mflags} VERBOSE=1 tests
+ctest --output-on-failure
 
 %files
 %defattr(-,root,root)
@@ -3176,11 +3168,10 @@ make -k %{?_smp_mflags} VERBOSE=1 tests
 %defattr(-,root,root)
 %{plugin_dir}/*craft_lmp_mtpsync.so
 
-%files lmp-potorchu
+%files lmp-ppl
 %defattr(-,root,root)
-%{plugin_dir}/*craft_lmp_potorchu.so
-%{translations_dir}/*craft_lmp_potorchu_??.qm
-%{translations_dir}/*craft_lmp_potorchu_??_??.qm
+%{plugin_dir}/*craft_lmp_ppl.so
+%{translations_dir}/*craft_lmp_ppl_*.qm
 
 %files mellonetray
 %defattr(-,root,root)
@@ -3313,13 +3304,6 @@ make -k %{?_smp_mflags} VERBOSE=1 tests
 %{translations_dir}/*craft_poshuku_cleanweb*.qm
 %{plugin_dir}/*craft_poshuku_cleanweb.so
 
-%files poshuku-dcac
-%defattr(-,root,root)
-%{plugin_dir}/*craft_poshuku_dcac.so
-%{translations_dir}/*craft_poshuku_dcac_??.qm
-%{translations_dir}/*craft_poshuku_dcac_??_??.qm
-%{settings_dir}/poshukudcacsettings.xml
-
 %files poshuku-fatape
 %defattr(-,root,root)
 %{settings_dir}/poshukufatapesettings.xml
@@ -3330,6 +3314,12 @@ make -k %{?_smp_mflags} VERBOSE=1 tests
 %defattr(-,root,root)
 %{translations_dir}/*craft_poshuku_filescheme_*.qm
 %{plugin_dir}/*craft_poshuku_filescheme.so
+
+%files poshuku-foc
+%defattr(-,root,root)
+%{translations_dir}/*craft_poshuku_foc_*.qm
+%{plugin_dir}/*craft_poshuku_foc.so
+%{settings_dir}/poshukufocsettings.xml
 
 %files poshuku-fua
 %defattr(-,root,root)
@@ -3370,6 +3360,12 @@ make -k %{?_smp_mflags} VERBOSE=1 tests
 %{translations_dir}/*craft_poshuku_speeddial_??.qm
 %{translations_dir}/*craft_poshuku_speeddial_??_??.qm
 
+%files poshuku-webkitview
+%defattr(-,root,root)
+%{settings_dir}/poshukuwebkitviewsettings.xml
+%{translations_dir}/*craft_poshuku_webkitview*.qm
+%{plugin_dir}/*craft_poshuku_webkitview.so
+
 %files rosenthal
 %defattr(-,root,root)
 %{plugin_dir}/*craft_rosenthal.so
@@ -3403,14 +3399,6 @@ make -k %{?_smp_mflags} VERBOSE=1 tests
 %{settings_dir}/seekthrusettings.xml
 %{translations_dir}/*craft_seekthru*.qm
 %{plugin_dir}/*craft_seekthru.so
-
-%files snails
-%defattr(-,root,root)
-%{plugin_dir}/*craft_snails.so
-%{settings_dir}/snailssettings.xml
-%{translations_dir}/*craft_snails_??.qm
-%{translations_dir}/*craft_snails_??_??.qm
-%{_datadir}/leechcraft/snails
 
 %files summary
 %defattr(-,root,root)
