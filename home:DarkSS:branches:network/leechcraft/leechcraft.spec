@@ -24,7 +24,8 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-9309-ge104962e32
+%define LEECHCRAFT_VERSION 0.6.70-9312-g4cc613a2df
+
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -42,14 +43,14 @@
 %define xsd_postfix %{so_ver}
 
 Name:           leechcraft
-Version:        0.6.70+git.9309.ge104962e32
+Version:        0.6.70+git.9312.g4cc613a2df
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 
-Source0:        https://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
+Source0:        leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
 Source4:        %{name}-rpmlintrc
 Source8:        leechcraft-session.1
 Source9:        lc_plugin_wrapper-qt5.1
@@ -82,7 +83,9 @@ BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
 # BuildRequires:  llvm-clang
 BuildRequires:  pkgconfig
+%if 0%{?suse_version} > 1325
 BuildRequires:  wt-devel
+%endif
 BuildRequires:  cmake(Qt5LinguistTools)
 BuildRequires:  pkgconfig(Qt5Concurrent)
 BuildRequires:  pkgconfig(Qt5Core)
@@ -142,7 +145,6 @@ BuildRequires:  pkgconfig(libtcmalloc)
 BuildRequires:  pkgconfig(libtorrent-rasterbar)
 %endif
 BuildRequires:  pkgconfig(libudev)
-BuildRequires:  pkgconfig(phonon)
 BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt5)
 BuildRequires:  pkgconfig(purple)
@@ -228,6 +230,9 @@ Requires:       %{name} = %{version}
 Requires:       %{name}-http = %{version}
 Requires:       libQt5Sql5-sqlite
 Recommends:     %{name}-poshuku = %{version}
+%if 0%{?suse_version} < 1325
+Obsoletes:      %{name}-aggregator-webaccess
+%endif
 
 %description aggregator
 This package provides a RSS/Atom feed reader plugin for LeechCraft.
@@ -263,6 +268,7 @@ work, a script provider like Qrosp should be installed. Please refer to the
 guide to writing recipes if you are interested in writing your own.
 
 
+%if 0%{?suse_version} > 1325
 %package aggregator-webaccess
 Summary:        LeechCraft Aggregator Web Interface Module
 License:        BSL-1.0
@@ -273,7 +279,7 @@ Requires:       %{name}-aggregator = %{version}
 WebAccess provides a basic web interface for the
 Aggregator feed reader, so one can read news
 articles from a mobile device or another machine.
-
+%endif
 
 %package anhero
 Summary:        LeechCraft Crash handler Module
@@ -2251,7 +2257,11 @@ cmake ../src \
         -DENABLE_UTIL_TESTS=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
+%if 0%{?suse_version} > 1325
                 -DENABLE_AGGREGATOR_WEBACCESS=True \
+%else
+                -DENABLE_AGGREGATOR_WEBACCESS=False \
+%endif
         -DENABLE_AUSCRIE=True \
         -DENABLE_AZOTH=True \
                 -DENABLE_AZOTH_ABBREV=True \
@@ -2299,7 +2309,7 @@ cmake ../src \
         -DENABLE_KNOWHOW=True \
         -DENABLE_KRIGSTASK=True \
         -DENABLE_LACKMAN=True \
-                -DTESTS_LACKMAN=True \
+                -DTESTS_LACKMAN=False \
         -DENABLE_LADS=False \
         -DENABLE_LASTFMSCROBBLE=True \
         -DENABLE_LAUGHTY=True \
@@ -2493,11 +2503,13 @@ ctest --output-on-failure
 %dir %{_datadir}/leechcraft/scripts
 %{_datadir}/leechcraft/scripts/aggregator/
 
+%if 0%{?suse_version} > 1325
 %files aggregator-webaccess
 %defattr(-,root,root)
 %{plugin_dir}/*craft_aggregator_webaccess.so
 %{settings_dir}/aggregatorwebaccesssettings.xml
 %{translations_dir}/*craft_aggregator_webaccess*.qm
+%endif
 
 %files anhero
 %defattr(-,root,root)
