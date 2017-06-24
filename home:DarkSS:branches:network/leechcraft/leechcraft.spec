@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-9233-gffda87bea6
+%define LEECHCRAFT_VERSION 0.6.70-9309-ge104962e32
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -42,14 +42,14 @@
 %define xsd_postfix %{so_ver}
 
 Name:           leechcraft
-Version:        0.6.70+git.9233.gffda87bea6
+Version:        0.6.70+git.9309.ge104962e32
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 
-Source0:        leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
+Source0:        https://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
 Source4:        %{name}-rpmlintrc
 Source8:        leechcraft-session.1
 Source9:        lc_plugin_wrapper-qt5.1
@@ -146,6 +146,7 @@ BuildRequires:  pkgconfig(phonon)
 BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt5)
 BuildRequires:  pkgconfig(purple)
+BuildRequires:  pkgconfig(qca2-qt5)
 BuildRequires:  pkgconfig(qtermwidget5)
 BuildRequires:  pkgconfig(qxmpp-qt5)
 BuildRequires:  pkgconfig(speex)
@@ -2247,11 +2248,7 @@ cmake ../src \
         -DWITH_DBUS_LOADERS=True \
         -DWITH_PCRE=True \
         -DWITH_QWT=False \
-%if 0%{?suse_version} > 1325
         -DENABLE_UTIL_TESTS=True \
-%else
-        -DENABLE_UTIL_TESTS=False \
-%endif
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
                 -DENABLE_AGGREGATOR_WEBACCESS=True \
@@ -2263,7 +2260,7 @@ cmake ../src \
                 -DENABLE_AZOTH_AUTOPASTE=True \
                 -DENABLE_AZOTH_HERBICIDE=True \
                 -DENABLE_AZOTH_MUCOMMANDS=True \
-                -DENABLE_AZOTH_MUCOMMANDS_TESTS=False \
+                -DENABLE_AZOTH_MUCOMMANDS_TESTS=True \
                 -DENABLE_AZOTH_MURM=True \
                 -DENABLE_AZOTH_OTROID=True \
                 -DENABLE_AZOTH_SARIN=False \
@@ -2272,7 +2269,7 @@ cmake ../src \
                 -DENABLE_AZOTH_VELVETBIRD=True \
                 -DENABLE_AZOTH_WOODPECKER=False \
                 -DENABLE_AZOTH_ZHEET=False \
-                -DENABLE_CRYPT=False \
+                -DENABLE_CRYPT=True \
                 -DENABLE_MEDIACALLS=False \
         -DENABLE_BLACKDASH=False \
         -DENABLE_BLASQ=True \
@@ -2302,6 +2299,7 @@ cmake ../src \
         -DENABLE_KNOWHOW=True \
         -DENABLE_KRIGSTASK=True \
         -DENABLE_LACKMAN=True \
+                -DTESTS_LACKMAN=True \
         -DENABLE_LADS=False \
         -DENABLE_LASTFMSCROBBLE=True \
         -DENABLE_LAUGHTY=True \
@@ -2325,7 +2323,7 @@ cmake ../src \
                 -DENABLE_LMP_MTPSYNC=True \
                 -DENABLE_LMP_POTORCHU=True \
                 -DENABLE_LMP_PPL=True \
-                -DENABLE_LMP_PPL_TESTS=False \
+                -DENABLE_LMP_PPL_TESTS=True \
         -DENABLE_MELLONETRAY=True \
         -DENABLE_MONOCLE=True \
                 -DENABLE_MONOCLE_MU=False \
@@ -2354,7 +2352,11 @@ cmake ../src \
                 -DENABLE_IDN=True \
                 -DENABLE_POSHUKU_AUTOSEARCH=True \
                 -DENABLE_POSHUKU_DCAC=True \
+%ifarch %ix86 x86_64
+                -DENABLE_POSHUKU_DCAC_TESTS=True \
+%else
                 -DENABLE_POSHUKU_DCAC_TESTS=False \
+%endif
                 -DENABLE_POSHUKU_FOC=True \
                 -DENABLE_POSHUKU_QRD=True \
                 -DENABLE_POSHUKU_SPEEDDIAL=True \
@@ -2362,6 +2364,7 @@ cmake ../src \
         -DENABLE_SB2=True \
         -DENABLE_SCROBLIBRE=True \
         -DENABLE_SECMAN=True \
+                -DTESTS_SECMAN=True \
         -DENABLE_SHELLOPEN=False \
         -DENABLE_SNAILS=False \
         -DENABLE_SYNCER=False \
@@ -2400,7 +2403,7 @@ mv %{buildroot}%{_mandir}/man1/%{name}.1.gz \
 
 %check
 cd build
-make -k %{?_smp_mflags} VERBOSE=1 test
+ctest --output-on-failure
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig

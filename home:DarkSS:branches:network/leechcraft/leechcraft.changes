@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sat Jun 24 07:09:58 UTC 2017 - dap.darkness@gmail.com
+
+- Updated to 0.6.70-9309-ge104962e32 git snapshot:
+  * Source URL;
+  * Bug #2038 was resolved (Segfault: IRC → offline);
+  * %%check section: output on failure;
+  * %%check section: more tests enabled.
+
+-------------------------------------------------------------------
 Mon Jun  5 15:04:22 UTC 2017 - dap.darkness@gmail.com
 
 - Updated to 0.6.70-9233-gffda87bea6 git snapshot:
