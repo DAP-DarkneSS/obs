@@ -1,9 +1,9 @@
 #!/bin/bash
 
 REPO=home:Reki:leechcraft:masterbranch
-NOBS=leechcraft
-DGIT=~/Documents/obs/trash/$NOBS-git
-DOBS=~/Documents/obs/home:Reki:leechcraft:masterbranch/$NOBS
+NOBS=leechcraft-qt5
+DGIT=~/Documents/obs/trash/leechcraft-git
+DOBS=~/Documents/obs/home:DarkSS:Qt5/$NOBS
 
 echo -e '\e[0;4mChecking of github version:\e[0m'
 cd $DGIT
@@ -38,9 +38,9 @@ else
 
   CTIME=`date +%g'.'%m'.'%d'-'%H.%M.%S`
   cp ./$NOBS.spec ./$NOBS.spec.$VOBS.$CTIME
-  cp ./$NOBS-doc.spec ./$NOBS-doc.spec.$VOBS.$CTIME
+#   cp ./$NOBS-doc.spec ./$NOBS-doc.spec.$VOBS.$CTIME
   sed "s/$VOBS/$VGIT/g" ./$NOBS.spec.$VOBS.$CTIME > ./$NOBS.spec
-  sed "s/$VOBS/$VGIT/g" ./$NOBS-doc.spec.$VOBS.$CTIME > ./$NOBS-doc.spec
+#   sed "s/$VOBS/$VGIT/g" ./$NOBS-doc.spec.$VOBS.$CTIME > ./$NOBS-doc.spec
   rm $NOBS*.spec.$VOBS.$CTIME
 
   echo -e '\e[0;4m\nShould the commit be done?\e[0m'
