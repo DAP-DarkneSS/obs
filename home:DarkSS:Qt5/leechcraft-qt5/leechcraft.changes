@@ -1,8 +1,45 @@
 -------------------------------------------------------------------
+Mon Jul  3 09:46:59 UTC 2017 - dap.darkness@gmail.com
+
+- Updated to 0.6.70-9391-g79e0f0c340 git snapshot:
+  * Bug #1348 was resolved (no birthday notifications);
+  * gcc 7 & cmake 3.8: azoth-advancednotifications dependencies;
+  * Right main man page file name.
+
+-------------------------------------------------------------------
+Sat Jun 24 07:09:58 UTC 2017 - dap.darkness@gmail.com
+
+- Updated to 0.6.70-9312-g4cc613a2df git snapshot:
+  * Bug #2038 was resolved (Segfault: IRC → offline);
+  * %%check section: output on failure;
+  * %%check section: more tests enabled.
+
+-------------------------------------------------------------------
 Mon Jun 19 15:22:41 UTC 2017 - dap.darkness@gmail.com
 
 - 0.6.70-9295-gcb70637b0e:
   * MOAR openSUSE 13.2 x64!
+
+-------------------------------------------------------------------
+Mon Jun  5 15:04:22 UTC 2017 - dap.darkness@gmail.com
+
+- Updated to 0.6.70-9233-gffda87bea6 git snapshot:
+  * gcc7 fix;
+  * buildrequires&obsoletes clean-up;
+  * GPTOOLS_MEM;
+  * %%check section;
+  * CXX 17.
+- Obsoleted plugins:
+  * azoth-astrality (no Qt5 telepathy);
+  * harbinger;
+  * popishu (Qt5 Scintilla includes failure);
+  * qrosp (no Qt5 qross);
+  * vtyulc (no code maintainer).
+- New plugins:
+  * lmp-ppl (Portable Player Logging support);
+  * namauth (standard HTTP authentication facilities);
+  * poshuku-foc (Flash-on-Click);
+  * poshuku-webkitview (WebKit-based backend).
 
 -------------------------------------------------------------------
 Sun Aug 21 12:31:46 UTC 2016 - dap.darkness@gmail.com

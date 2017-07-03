@@ -1,7 +1,7 @@
 #
-# spec file for package leechcraft-qt5
+# spec file for package leechcraft
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -24,7 +24,8 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-9312-g4cc613a2df
+%define LEECHCRAFT_VERSION 0.6.70-9391-g79e0f0c340
+
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
 %define models_postfix %{so_ver}_1
@@ -41,7 +42,7 @@
 %define xpc_postfix %{so_ver}_2
 %define xsd_postfix %{so_ver}
 
-Name:           leechcraft-qt5
+Name:           leechcraft
 Version:        git
 Release:        0
 Summary:        Modular Internet Client
@@ -53,52 +54,46 @@ Source0:        leechcraft-%{version}.tar.xz
 Source4:        %{name}-rpmlintrc
 Source8:        leechcraft-session.1
 
-Patch0:         lc-bn.diff
-
-BuildRequires:  boost-devel >= 1.58
-BuildRequires:  cmake >= 3.1
+BuildRequires:  boost-devel >= 1.61
+BuildRequires:  cmake >= 3.8
 BuildRequires:  fdupes
 %if 0%{?suse_version} <= 1320
-BuildRequires:  gcc49-c++
+BuildRequires:  gcc7-c++
 %else
-BuildRequires:  gcc-c++ >= 5
+BuildRequires:  gcc-c++ >= 7
 %endif
 BuildRequires:  hicolor-icon-theme
-BuildRequires:  libQt5Gui-private-headers-devel >= 5.5
+BuildRequires:  libQt5Gui-private-headers-devel >= 5.6
 BuildRequires:  liblastfm-qt5-devel
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
-%if 0%{?suse_version} <= 1320
-BuildRequires:  llvm-clang >= 3.4
-%endif
 BuildRequires:  pkgconfig
 BuildRequires:  qwt6-qt5-devel
 BuildRequires:  cmake(Qt5LinguistTools)
-BuildRequires:  pkgconfig(Qt5Concurrent) >= 5.5
-BuildRequires:  pkgconfig(Qt5Core) >= 5.5
-BuildRequires:  pkgconfig(Qt5DBus) >= 5.5
-BuildRequires:  pkgconfig(Qt5Gui) >= 5.5
-BuildRequires:  pkgconfig(Qt5Multimedia) >= 5.5
-BuildRequires:  pkgconfig(Qt5Network) >= 5.5
-BuildRequires:  pkgconfig(Qt5OpenGL) >= 5.5
-BuildRequires:  pkgconfig(Qt5Positioning) >= 5.5
-BuildRequires:  pkgconfig(Qt5PrintSupport) >= 5.5
-BuildRequires:  pkgconfig(Qt5Qml) >= 5.5
-BuildRequires:  pkgconfig(Qt5Quick) >= 5.5
-BuildRequires:  pkgconfig(Qt5QuickWidgets) >= 5.5
-BuildRequires:  pkgconfig(Qt5Script) >= 5.5
-BuildRequires:  pkgconfig(Qt5Sensors) >= 5.5
-BuildRequires:  pkgconfig(Qt5Sql) >= 5.5
-BuildRequires:  pkgconfig(Qt5Svg) >= 5.5
-BuildRequires:  pkgconfig(Qt5WebChannel) >= 5.5
-BuildRequires:  pkgconfig(Qt5WebKit) >= 5.5
-BuildRequires:  pkgconfig(Qt5WebKitWidgets) >= 5.5
-BuildRequires:  pkgconfig(Qt5Widgets) >= 5.5
-BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.5
-BuildRequires:  pkgconfig(Qt5Xml) >= 5.5
-BuildRequires:  pkgconfig(Qt5XmlPatterns) >= 5.5
+BuildRequires:  pkgconfig(Qt5Concurrent) >= 5.6
+BuildRequires:  pkgconfig(Qt5Core) >= 5.6
+BuildRequires:  pkgconfig(Qt5DBus) >= 5.6
+BuildRequires:  pkgconfig(Qt5Gui) >= 5.6
+BuildRequires:  pkgconfig(Qt5Multimedia) >= 5.6
+BuildRequires:  pkgconfig(Qt5Network) >= 5.6
+BuildRequires:  pkgconfig(Qt5OpenGL) >= 5.6
+BuildRequires:  pkgconfig(Qt5Positioning) >= 5.6
+BuildRequires:  pkgconfig(Qt5PrintSupport) >= 5.6
+BuildRequires:  pkgconfig(Qt5Qml) >= 5.6
+BuildRequires:  pkgconfig(Qt5Quick) >= 5.6
+BuildRequires:  pkgconfig(Qt5QuickWidgets) >= 5.6
+BuildRequires:  pkgconfig(Qt5Script) >= 5.6
+BuildRequires:  pkgconfig(Qt5Sensors) >= 5.6
+BuildRequires:  pkgconfig(Qt5Sql) >= 5.6
+BuildRequires:  pkgconfig(Qt5Svg) >= 5.6
+BuildRequires:  pkgconfig(Qt5WebChannel) >= 5.6
+BuildRequires:  pkgconfig(Qt5WebKit) >= 5.6
+BuildRequires:  pkgconfig(Qt5WebKitWidgets) >= 5.6
+BuildRequires:  pkgconfig(Qt5Widgets) >= 5.6
+BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.6
+BuildRequires:  pkgconfig(Qt5Xml) >= 5.6
+BuildRequires:  pkgconfig(Qt5XmlPatterns) >= 5.6
 BuildRequires:  pkgconfig(ddjvuapi)
-BuildRequires:  pkgconfig(geoip)
 BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.8
 BuildRequires:  pkgconfig(hunspell)
 %if %{with ffmpeg}
@@ -120,7 +115,6 @@ BuildRequires:  pkgconfig(libqrencode)
 BuildRequires:  pkgconfig(libswresample)
 BuildRequires:  pkgconfig(libswscale)
 %endif
-BuildRequires:  pkgconfig(libtorrent-rasterbar) >= 1.0
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(poppler-cpp)
@@ -149,7 +143,6 @@ Requires:       oxygen-icon-theme
 Recommends:     %{name}-advancednotifications
 Recommends:     %{name}-azoth-acetamide
 Recommends:     %{name}-azoth-xoox
-Recommends:     %{name}-bittorrent
 Recommends:     %{name}-blogique
 Recommends:     %{name}-dolozhee
 Recommends:     %{name}-lackman
@@ -163,11 +156,20 @@ Recommends:     %{name}-secman-simplestorage
 Recommends:     %{name}-visualnotifications
 
 # Qt5
-Conflicts:      leechcraft
+Conflicts:      leechcraft-qt5
 Conflicts:      libproxy1-config-kde4
 Recommends:     oxygen5
 Recommends:     qtcurve-qt5
 Suggests:       qt5ct
+
+%if 0%{?suse_version} < 1325
+Obsoletes:      %{name}-bittorrent
+%endif
+Obsoletes:      %{name}-nacheku
+Obsoletes:      %{name}-popishu
+Obsoletes:      %{name}-qrosp
+Obsoletes:      %{name}-syncer
+Obsoletes:      %{name}-vtyulc
 
 %description
 LeechCraft is a modular "Internet client" application.
@@ -323,7 +325,6 @@ Requires:       %{name}-advancednotifications
 Requires:       %{name}-aggregator
 Requires:       %{name}-aggregator-bodyfetch
 Requires:       %{name}-auscrie
-Requires:       %{name}-bittorrent
 Requires:       %{name}-blasq
 Requires:       %{name}-blasq-deathnote
 Requires:       %{name}-blasq-rappor
@@ -391,14 +392,13 @@ Recommends:     %{name}-sb2
 This package is installed if a pattern is selected to have a working update path
 #-----------------------end-patterns--------------------------#
 
+
 %package advancednotifications
 Summary:        LeechCraft Notifications framework Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-visualnotifications = %{version}
 Recommends:     %{name}-soundnotifications = %{version}
-Provides:       %{name}-shellopen = %{version}
-Obsoletes:      %{name}-shellopen < %{version}
 
 %description advancednotifications
 This package provides an advanced notifications plugin for Leechcraft
@@ -412,7 +412,9 @@ Requires:       %{name} = %{version}
 Requires:       %{name}-http = %{version}
 Requires:       libQt5Sql5-sqlite
 Recommends:     %{name}-poshuku = %{version}
-Obsoletes:      %{name}-aggregator-webaccess < %{version}
+%if 0%{?suse_version} < 1325
+Obsoletes:      %{name}-aggregator-webaccess
+%endif
 
 %description aggregator
 This package provides a RSS/Atom feed reader plugin for LeechCraft.
@@ -448,18 +450,6 @@ work, a script provider like Qrosp should be installed. Please refer to the
 guide to writing recipes if you are interested in writing your own.
 
 
-# NOTE: because of different boost versions invoked.
-# %%package aggregator-webaccess
-# Summary:        LeechCraft Aggregator Web Interface Module
-# Group:          Productivity/Networking/Other
-# Requires:       %%{name}-aggregator = %%{version}
-# 
-# %%description aggregator-webaccess
-# WebAccess provides a basic web interface for the
-# Aggregator feed reader, so one can read news
-# articles from a mobile device or another machine.
-
-
 %package anhero
 Summary:        LeechCraft Crash handler Module
 Group:          Productivity/Networking/Other
@@ -492,8 +482,8 @@ Requires:       %{name}-azoth-chatstyler = %{version}
 Requires:       %{name}-azoth-protocolplugin
 Requires:       %{name}-securestorage = %{version}
 Suggests:       %{name}-azoth-standardstyles
-Obsoletes:      %{name}-azoth-p100q
-Obsoletes:      %{name}-azoth-zheet
+Obsoletes:      %{name}-azoth-astrality
+Obsoletes:      %{name}-azoth-woodpecker
 
 %description azoth
 This package provides a modular, multi-protocol IM client for LeechCraft.
@@ -855,45 +845,12 @@ This package provides an Azoth plugin which allows to publish
 the current user tune.
 
 
-%package bittorrent
-Summary:        LeechCraft BitTorrent client Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-Recommends:     %{name}-summaryrepresentation = %{version}
-
-%description bittorrent
-This package provides a BitTorrent client for Leechcraft.
-
-Features:
- * Support for DHT and magnet links
- * Sequential download mode where torrent is download sequentially.
- * Torrents queue, limiting number of seeding/leeching torrents.
- * Ability to rename files and directories in the torrent.
- * Selective download: possibility to select specific files from torrent.
- * Continue downloads left by any other client.
- * Support for sparse files.
- * Tags for torrents.
- * Global and per-torrent speed limits.
- * Connection number limits.
- * Fast resume support to avoid long startup times.
- * IP filter to block/unblock unwanted peers.
- * Support for extension protocol
-
-
-#%%package blackdash
-#Summary:        LeechCraft Dashboard Module
-#Group:          Productivity/Networking/Other
-#Requires:       %%{name} = %%{version}
-
-#%%description blackdash
-#Dashboard
-
-
 %package blasq
 Summary:        LeechCraft Image storage Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-blasq-subplugin = %{version}
+Obsoletes:      %{name}-blasq-spegnersi
 
 %description blasq
 This package provides a modular image storage plugin for LeechCraft
@@ -1118,8 +1075,6 @@ It uses Phonon as a backend, or something like aplay/mplayer.
 Summary:        LeechCraft terminal plugin
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Provides:       %{name}-shaitan = %{version}
-Obsoletes:      %{name}-shaitan < %{version}
 
 %description eleeminator
 This package provides a terminal plugin for Leechcraft.
@@ -1175,7 +1130,7 @@ the Compton Compositor.
 
 
 %package fenet-kwin
-Summary:        kwin integration for LeechCraft
+Summary:        Kwin integration for LeechCraft
 Group:          Productivity/Networking/Other
 BuildArch:      noarch
 Provides:       %{name}-fenet-wm = %{version}
@@ -1636,11 +1591,11 @@ Provides:       %{name}-monocle-subplugin
 
 %description monocle-postrus
 This package contains the PostRus subplugin for LeechCraft Monocle
-which supports PostScript document support via the ghostscript utilties.
+which supports PostScript document support via the ghostscript utilities.
 
 
 %package monocle-seen
-Summary:        djvu support for LeechCraft Monocle
+Summary:        Djvu support for LeechCraft Monocle
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-monocle = %{version}
@@ -1787,15 +1742,6 @@ Recommends:     %{name}-poshuku = %{version}
 %description pogooglue
 This package provides a LeechCraft plugin to do a Google search
 with some selected text.
-
-
-%package poleemery
-Summary:        LeechCraft Poleemery - Finances manager Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-
-%description poleemery
-This package provides a personal finances manager plugin for LeechCraft.
 
 
 %package poshuku
@@ -2251,7 +2197,7 @@ network classes and functions.
 Summary:        QML utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
-Requires:       libQtQuick5 >= 5.4
+Requires:       libQtQuick5 >= 5.6
 
 %description -n libleechcraft-util-qml%{qml_postfix}
 A library providing some commonly used QML items as well as
@@ -2359,7 +2305,6 @@ XmlSettingsDialog LeechCraft subsystem.
 
 %prep
 %setup -q -n leechcraft-%{version}
-%patch0 -p1
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
@@ -2379,12 +2324,13 @@ cmake ../src \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
 %endif
-        -DCMAKE_CXX_FLAGS="%{optflags} -Doverride= -DBOOST_ASIO_HAS_STD_CHRONO" \
+        -DLC_CXX_STANDARD=17 \
+        -DCMAKE_CXX_FLAGS="%{optflags}" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
 %if 0%{?suse_version} <= 1320
-        -DCMAKE_C_COMPILER=/usr/bin/clang \
-        -DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
+        -DCMAKE_C_COMPILER=/usr/bin/gcc-7 \
+        -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 \
 %endif
         -DSTRICT_LICENSING=True \
         -DWITH_DBUS_LOADERS=False \
@@ -2400,6 +2346,7 @@ cmake ../src \
                 -DENABLE_AZOTH_ACETAMIDE=True \
                 -DENABLE_AZOTH_ASTRALITY=False \
                 -DENABLE_AZOTH_AUTOPASTE=True \
+                -DENABLE_AZOTH_BIRTHDAYNOTIFIER=True \
                 -DENABLE_AZOTH_MUCOMMANDS=True \
                 -DENABLE_AZOTH_MUCOMMANDS_TESTS=True \
                 -DENABLE_AZOTH_MURM=True \
@@ -2423,7 +2370,6 @@ cmake ../src \
         -DENABLE_DLNIWE=False \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_DUMBEEP=True \
-                -DDUMBEEP_WITH_PHONON=False \
         -DENABLE_ELEEMINATOR=True \
         -DENABLE_FENET=True \
         -DENABLE_FONTIAC=False \
@@ -2482,7 +2428,7 @@ cmake ../src \
         -DENABLE_OTLOZHU=False \
         -DENABLE_PINTAB=True \
         -DENABLE_POGOOGLUE=True \
-        -DENABLE_POLEEMERY=True \
+        -DENABLE_POLEEMERY=False \
         -DENABLE_POPISHU=False \
         -DENABLE_POSHUKU=True \
                 -DENABLE_IDN=True \
@@ -2502,8 +2448,7 @@ cmake ../src \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
         -DENABLE_TEXTOGROOSE=True \
-        -DENABLE_TORRENT=True \
-                -DENABLE_BITTORRENT_GEOIP=True \
+        -DENABLE_TORRENT=False \
         -DENABLE_TOUCHSTREAMS=True \
         -DENABLE_TPI=True \
         -DENABLE_TWIFEE=False \
@@ -2523,8 +2468,6 @@ rm -rf %{buildroot}%{_datadir}/leechcraft/qml
 rm -rf %{buildroot}%{plugin_dir}/lib/*.a
 
 gzip -c9 %{SOURCE8} | tee -a %{buildroot}%{_mandir}/man1/leechcraft-session.1.gz
-mv %{buildroot}%{_mandir}/man1/leechcraft.1.gz \
-   %{buildroot}%{_mandir}/man1/%{name}.1.gz
 
 #-------------------------patterns----------------------------#
 %__install -d %{buildroot}%{_docdir}/%{name}
@@ -2608,14 +2551,14 @@ ctest --output-on-failure
 %files
 %defattr(-,root,root)
 %doc CHANGELOG LICENSE README.md
-%{_bindir}/%{name}
-%{_mandir}/man1/%{name}.1.gz
+%{_bindir}/%{name}-qt5
+%{_mandir}/man1/%{name}-qt5.1.gz
 %{_bindir}/leechcraft-add-file
 %{_mandir}/man1/leechcraft-add-file.1.gz
 %{_bindir}/leechcraft-handle-file
 %{_mandir}/man1/leechcraft-handle-file.1.gz
 %{settings_dir}/coresettings.xml
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/%{name}-qt5.desktop
 %{_datadir}/icons/hicolor/*/*/*
 %dir %{_datadir}/icons/hicolor/14x14
 %dir %{_datadir}/icons/hicolor/14x14/apps
@@ -2658,12 +2601,6 @@ ctest --output-on-failure
 %{plugin_dir}/*craft_aggregator_bodyfetch.so
 %dir %{_datadir}/leechcraft/scripts
 %{_datadir}/leechcraft/scripts/aggregator/
-
-# %%files aggregator-webaccess
-# %%defattr(-,root,root)
-# %%{plugin_dir}/*craft_aggregator_webaccess.so
-# %%{settings_dir}/aggregatorwebaccesssettings.xml
-# %%{translations_dir}/*craft_aggregator_webaccess*.qm
 
 %files anhero
 %defattr(-,root,root)
@@ -2846,13 +2783,6 @@ ctest --output-on-failure
 %{settings_dir}/azothxtazysettings.xml
 %{plugin_dir}/*craft_azoth_xtazy.so
 %{translations_dir}/*craft_azoth_xtazy*
-
-%files bittorrent
-%defattr(-,root,root)
-%{settings_dir}/torrentsettings.xml
-%{translations_dir}/*craft_bittorrent_*.qm
-%{plugin_dir}/*craft_bittorrent.so
-%{_datadir}/applications/leechcraft-bittorrent-qt5.desktop
 
 %files blasq
 %defattr(-,root,root)
@@ -3277,12 +3207,6 @@ ctest --output-on-failure
 %defattr(-,root,root)
 %{plugin_dir}/*craft_pogooglue*
 %{translations_dir}/*craft_pogooglue*
-
-%files poleemery
-%defattr(-,root,root)
-%{settings_dir}/poleemerysettings.xml
-%{translations_dir}/*craft_poleemery_*.qm
-%{plugin_dir}/*craft_poleemery*
 
 %files poshuku
 %defattr(-,root,root)

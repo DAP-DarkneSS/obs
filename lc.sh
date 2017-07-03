@@ -1,9 +1,8 @@
 #!/bin/bash
 
-REPO=home:Reki:leechcraft:masterbranch
-NOBS=leechcraft-qt5
+NOBS=leechcraft
 DGIT=~/Documents/obs/trash/leechcraft-git
-DOBS=~/Documents/obs/home:DarkSS:Qt5/$NOBS
+DOBS=~/Documents/obs/home:DarkSS:Qt5/leechcraft-qt5
 
 echo -e '\e[0;4mChecking of github version:\e[0m'
 cd $DGIT
