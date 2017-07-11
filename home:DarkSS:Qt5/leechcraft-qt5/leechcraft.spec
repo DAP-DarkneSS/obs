@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-9391-g79e0f0c340
+%define LEECHCRAFT_VERSION 0.6.70-9426-gb55798e764
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -58,6 +58,9 @@ BuildRequires:  boost-devel >= 1.61
 BuildRequires:  cmake >= 3.8
 BuildRequires:  fdupes
 %if 0%{?suse_version} <= 1320
+%if 0%{?sle_version} == 120100
+BuildRequires:  gcc6-c++
+%else
 BuildRequires:  gcc7-c++
 %else
 BuildRequires:  gcc-c++ >= 7
@@ -94,14 +97,14 @@ BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.6
 BuildRequires:  pkgconfig(Qt5Xml) >= 5.6
 BuildRequires:  pkgconfig(Qt5XmlPatterns) >= 5.6
 BuildRequires:  pkgconfig(ddjvuapi)
-BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.8
+BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.4
 BuildRequires:  pkgconfig(hunspell)
 %if %{with ffmpeg}
 BuildRequires:  pkgconfig(libavcodec)
 BuildRequires:  pkgconfig(libavdevice)
 BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libavutil)
-BuildRequires:  pkgconfig(libchromaprint) >= 1.3
+BuildRequires:  pkgconfig(libchromaprint) >= 1.2
 %endif
 BuildRequires:  pkgconfig(libguess)
 BuildRequires:  pkgconfig(libidn)
@@ -121,7 +124,9 @@ BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt5)
 BuildRequires:  pkgconfig(purple)
 BuildRequires:  pkgconfig(qca2-qt5)
+%if 0%{?sle_version} != 120100
 BuildRequires:  pkgconfig(qtermwidget5) >= 0.5.1
+%endif
 BuildRequires:  pkgconfig(qxmpp-qt5)
 BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(taglib)
@@ -1071,6 +1076,7 @@ This package provides a dumb sound notifier plugin for LeechCraft.
 It uses Phonon as a backend, or something like aplay/mplayer.
 
 
+%if 0%{?sle_version} != 120100
 %package eleeminator
 Summary:        LeechCraft terminal plugin
 Group:          Productivity/Networking/Other
@@ -1078,6 +1084,7 @@ Requires:       %{name} = %{version}
 
 %description eleeminator
 This package provides a terminal plugin for Leechcraft.
+%endif
 
 
 %package fenet
@@ -1418,8 +1425,8 @@ Recommends:     %{name}-scrobbler
 Suggests:       %{name}-lastfmscrobble
 Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
-Requires:       gstreamer-plugins-base >= 1.8
-Requires:       gstreamer-plugins-good >= 1.8
+Requires:       gstreamer-plugins-base >= 1.4
+Requires:       gstreamer-plugins-good >= 1.4
 Requires:       libqt5-qtgraphicaleffects >= 5.6
 Requires:       libqt5-qtquickcontrols >= 5.6
 Recommends:     gstreamer-plugins-bad
@@ -2324,11 +2331,19 @@ cmake ../src \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
 %endif
+%if 0%{?sle_version} == 120100
+        -DLC_CXX_STANDARD=14 \
+%else
         -DLC_CXX_STANDARD=17 \
+%endif
         -DCMAKE_CXX_FLAGS="%{optflags}" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
 %if 0%{?suse_version} <= 1320
+%if 0%{?sle_version} == 120100
+        -DCMAKE_C_COMPILER=/usr/bin/gcc-6 \
+        -DCMAKE_CXX_COMPILER=/usr/bin/g++-6 \
+%else
         -DCMAKE_C_COMPILER=/usr/bin/gcc-7 \
         -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 \
 %endif
@@ -2370,7 +2385,11 @@ cmake ../src \
         -DENABLE_DLNIWE=False \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_DUMBEEP=True \
+%if 0%{?sle_version} == 120100
+        -DENABLE_ELEEMINATOR=False \
+%else
         -DENABLE_ELEEMINATOR=True \
+%endif
         -DENABLE_FENET=True \
         -DENABLE_FONTIAC=False \
         -DENABLE_GACTS=True \
@@ -2886,12 +2905,14 @@ ctest --output-on-failure
 %{plugin_dir}/*craft_dumbeep.so
 %{settings_dir}/dumbeepsettings.xml
 
+%if 0%{?sle_version} != 120100
 %files eleeminator
 %defattr(-,root,root)
 %{plugin_dir}/*craft_eleeminator.so
 %{translations_dir}/*craft_eleeminator_??.qm
 %{translations_dir}/*craft_eleeminator_??_??.qm
 %{settings_dir}/eleeminatorsettings.xml
+%endif
 
 %files fenet
 %defattr(-,root,root)
