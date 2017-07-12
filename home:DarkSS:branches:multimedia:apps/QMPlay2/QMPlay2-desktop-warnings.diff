@@ -1,0 +1,29 @@
+--- src/gui/Unix/QMPlay2.desktop.orig	2017-03-11 03:19:26.000000000 +0300
++++ src/gui/Unix/QMPlay2.desktop	2017-07-12 22:52:35.590653797 +0300
+@@ -12,22 +12,22 @@
+ 
+ X-Ayatana-Desktop-Shortcuts=PlayPause;Stop;Prev;Next;
+ 
+-[PlayPause Shortcut Group]
++[X-PlayPause Shortcut Group]
+ Name=Play/Pause
+ Exec=QMPlay2 -toggle
+ TargetEnvironment=Unity
+ 
+-[Stop Shortcut Group]
++[X-Stop Shortcut Group]
+ Name=Stop
+ Exec=QMPlay2 -stop
+ TargetEnvironment=Unity
+ 
+-[Prev Shortcut Group]
++[X-Prev Shortcut Group]
+ Name=Previuos
+ Exec=QMPlay2 -prev
+ TargetEnvironment=Unity
+ 
+-[Next Shortcut Group]
++[X-Next Shortcut Group]
+ Name=Next
+ Exec=QMPlay2 -next
+ TargetEnvironment=Unity

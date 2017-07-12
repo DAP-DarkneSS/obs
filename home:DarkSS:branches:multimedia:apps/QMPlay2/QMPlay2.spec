@@ -24,6 +24,13 @@ License:        LGPL-3.0+
 Group:          Productivity/Multimedia/Video/Players
 Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
 Source:         https://github.com/zaps166/QMPlay2/releases/download/%{version}/QMPlay2-src-%{version}.tar.xz
+# PATCH-FIX-OPENSUSE vs. Prostopleer extension that provides illegal audio.
+# NOTE Please don't remove the patch because of source update,
+# just update the patch!
+Patch1:         QMPlay2-no-prostopleer.diff
+# PATCH-FIX-OPENSUSE vs. WARNING: invalid-desktopfile contains group,
+# but ones extending the format should start with "X-".
+Patch2:         QMPlay2-desktop-warnings.diff
 
 BuildRequires:  cmake >= 3.5
 BuildRequires:  cmake(Qt5LinguistTools)
@@ -71,6 +78,8 @@ It's a development package for %{name}.
 
 %prep
 %setup -q -n %{name}-src-%{version}
+%patch1
+%patch2
 
 %build
 %cmake \
@@ -84,6 +93,10 @@ make V=1 %{?_smp_mflags}
 # Let's use %%doc macro. AUTHORS & ChangeLog are required for help window
 cd %{buildroot}/%{_datadir}/qmplay2
 rm LICENSE README.md TODO
+
+# WARNING: gzipped-svg-icon. Not all DE that support SVG icons support
+# them gzipped (.svgz). Install the icon as plain uncompressed SVG.
+gunzip -S svgz %{buildroot}/%{_datadir}/icons/hicolor/scalable/apps/%{name}.svgz
 
 %post
 /sbin/ldconfig
@@ -107,7 +120,7 @@ rm LICENSE README.md TODO
 %dir %{_datadir}/metainfo/
 %{_datadir}/metainfo/%{name}.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_datadir}/icons/hicolor/*/apps/%{name}.svgz
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.*
 %if 0%{?suse_version} == 1315
 %dir %{_datadir}/icons/hicolor/*
 %dir %{_datadir}/icons/hicolor/*/apps

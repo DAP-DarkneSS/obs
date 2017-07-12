@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Wed Jul 12 20:02:07 UTC 2017 - dap.darkness@gmail.com
+
+- Added QMPlay2-no-prostopleer.diff back because Prostopleer
+  extension still provides illegal audio; updated.
+- Added QMPlay2-desktop-warnings.diff vs. WARNING: invalid-
+  desktopfile contains group, but ones extending the format should
+  start with "X-".
+- Resolved WARNING: gzipped-svg-icon (Not all DE that support SVG
+  icons support them gzipped (.svgz). Install the icon as plain
+  uncompressed SVG).
+
+-------------------------------------------------------------------
 Fri Jul  7 06:49:21 UTC 2017 - kah0922@gmail.com
 
 - Update to 17.06.09:

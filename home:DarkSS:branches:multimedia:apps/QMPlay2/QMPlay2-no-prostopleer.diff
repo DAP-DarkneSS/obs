@@ -1,0 +1,15 @@
+--- src/modules/Extensions/Extensions.pro.orig	2017-05-14 18:30:05.000000000 +0300
++++ src/modules/Extensions/Extensions.pro	2017-07-12 22:44:18.026551916 +0300
+@@ -22,9 +22,9 @@
+ SOURCES += Extensions.cpp YouTube.cpp Downloader.cpp Radio.cpp Radio/RadioBrowserModel.cpp
+ FORMS += Radio/Radio.ui
+ 
+-HEADERS += MediaBrowser.hpp MediaBrowser/Common.hpp MediaBrowser/ProstoPleer.hpp MediaBrowser/SoundCloud.hpp MediaBrowser/AnimeOdcinki.hpp MediaBrowser/Wbijam.hpp
+-SOURCES += MediaBrowser.cpp MediaBrowser/Common.cpp MediaBrowser/ProstoPleer.cpp MediaBrowser/SoundCloud.cpp MediaBrowser/AnimeOdcinki.cpp MediaBrowser/Wbijam.cpp
+-DEFINES += USE_MEDIABROWSER USE_PROSTOPLEER USE_SOUNDCLOUD USE_ANIMEODCINKI USE_WBIJAM
++HEADERS += MediaBrowser.hpp MediaBrowser/Common.hpp MediaBrowser/SoundCloud.hpp MediaBrowser/AnimeOdcinki.hpp MediaBrowser/Wbijam.hpp
++SOURCES += MediaBrowser.cpp MediaBrowser/Common.cpp MediaBrowser/SoundCloud.cpp MediaBrowser/AnimeOdcinki.cpp MediaBrowser/Wbijam.cpp
++DEFINES += USE_MEDIABROWSER USE_SOUNDCLOUD USE_ANIMEODCINKI USE_WBIJAM
+ 
+ HEADERS += LastFM.hpp
+ SOURCES += LastFM.cpp
