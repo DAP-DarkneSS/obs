@@ -59,9 +59,10 @@ BuildRequires:  cmake >= 3.8
 BuildRequires:  fdupes
 %if 0%{?suse_version} <= 1320
 %if 0%{?sle_version} == 120100
-BuildRequires:  gcc6-c++
+BuildRequires:  gcc5-c++
 %else
 BuildRequires:  gcc7-c++
+%endif
 %else
 BuildRequires:  gcc-c++ >= 7
 %endif
@@ -2341,11 +2342,12 @@ cmake ../src \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
 %if 0%{?suse_version} <= 1320
 %if 0%{?sle_version} == 120100
-        -DCMAKE_C_COMPILER=/usr/bin/gcc-6 \
-        -DCMAKE_CXX_COMPILER=/usr/bin/g++-6 \
+        -DCMAKE_C_COMPILER=/usr/bin/gcc-5 \
+        -DCMAKE_CXX_COMPILER=/usr/bin/g++-5 \
 %else
         -DCMAKE_C_COMPILER=/usr/bin/gcc-7 \
         -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 \
+%endif
 %endif
         -DSTRICT_LICENSING=True \
         -DWITH_DBUS_LOADERS=False \
