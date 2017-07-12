@@ -1,7 +1,7 @@
 #
 # spec file for package QMPlay2
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,20 +17,17 @@
 
 
 Name:           QMPlay2
-Version:        16.11.20
+Version:        17.06.09
 Release:        0
 Summary:        A Qt based media player, streamer and downloader
 License:        LGPL-3.0+
 Group:          Productivity/Multimedia/Video/Players
 Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
 Source:         https://github.com/zaps166/QMPlay2/releases/download/%{version}/QMPlay2-src-%{version}.tar.xz
-#PATCH-FIX-OPENSUSE vs. Prostopleer extension that provides illegal audio.
-Patch1:         QMPlay2-no-prostopleer.diff
 
-BuildRequires:  cmake >= 3
+BuildRequires:  cmake >= 3.5
 BuildRequires:  cmake(Qt5LinguistTools)
 BuildRequires:  pkgconfig(Qt5DBus)
-BuildRequires:  pkgconfig(Qt5OpenGL)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5X11Extras)
 BuildRequires:  pkgconfig(alsa)
@@ -74,7 +71,6 @@ It's a development package for %{name}.
 
 %prep
 %setup -q -n %{name}-src-%{version}
-%patch1
 
 %build
 %cmake \
@@ -108,7 +104,10 @@ rm LICENSE README.md TODO
 %{_libdir}/qmplay2
 %{_libdir}/libqmplay2.so
 %{_datadir}/applications/%{name}*.desktop
+%dir %{_datadir}/metainfo/
+%{_datadir}/metainfo/%{name}.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_datadir}/icons/hicolor/*/apps/%{name}.svgz
 %if 0%{?suse_version} == 1315
 %dir %{_datadir}/icons/hicolor/*
 %dir %{_datadir}/icons/hicolor/*/apps

@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Fri Jul  7 06:49:21 UTC 2017 - kah0922@gmail.com
+
+- Update to 17.06.09:
+  * more acurate seeking
+  * Support for openssl-1.1
+  * Various fixes
+- Drop patch QMPlay2-no-prostopleer.diff
+
+-------------------------------------------------------------------
 Tue Nov 22 18:07:00 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 16.11.20:
