@@ -1,45 +1,19 @@
-Index: bmake/main.c
+Index: nonints.h
 ===================================================================
---- bmake.orig/main.c
-+++ bmake/main.c
-@@ -138,6 +138,7 @@ __RCSID("$NetBSD: main.c,v 1.259 2017/03
- #include "job.h"
- #include "pathnames.h"
- #include "trace.h"
-+#include "strlcpy.h"
+RCS file: /volume/cvs/bmake/nonints.h,v
+retrieving revision 1.15
+diff -u -p -r1.15 nonints.h
+--- nonints.h	27 Sep 2016 20:40:54 -0000	1.15
++++ nonints.h	18 Jul 2017 23:43:15 -0000
+@@ -143,6 +143,11 @@ int Str_Match(const char *, const char *
+ char *Str_SYSVMatch(const char *, const char *, int *len);
+ void Str_SYSVSubst(Buffer *, char *, char *, int);
  
- #ifdef USE_IOVEC
- #include <sys/uio.h>
-Index: bmake/meta.c
-===================================================================
---- bmake.orig/meta.c
-+++ bmake/meta.c
-@@ -56,6 +56,9 @@ char * dirname(char *);
- #if !defined(USE_FILEMON) && defined(FILEMON_SET_FD)
- # define USE_FILEMON
- #endif
 +#ifndef HAVE_STRLCPY
-+#  include "strlcpy.h"
++/* strlcpy.c */
++size_t strlcpy(char *, const char *, size_t);
 +#endif
- 
- static BuildMon Mybm;			/* for compat */
- static Lst metaBailiwick;		/* our scope of control */
-Index: bmake/strlcpy.h
-===================================================================
---- /dev/null
-+++ bmake/strlcpy.h
-@@ -0,0 +1,14 @@
-+#ifdef HAVE_CONFIG_H
-+# include <config.h>
-+#endif
-+#ifndef HAVE_STRLCPY
 +
-+/*
-+ * Copy src to string dst of size siz.  At most siz-1 characters
-+ * will be copied.  Always NUL terminates (unless siz == 0).
-+ * Returns strlen(src); if retval >= siz, truncation occurred.
-+ */
-+size_t
-+strlcpy(char *dst, const char *src, size_t siz);
-+
-+#endif
+ /* suff.c */
+ void Suff_ClearSuffixes(void);
+ Boolean Suff_IsTransform(char *);
