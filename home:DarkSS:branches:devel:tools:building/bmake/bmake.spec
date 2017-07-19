@@ -27,6 +27,7 @@ Source0:        https://ftp.NetBSD.org/pub/NetBSD/misc/sjg/bmake-%{version}.tar.
 # PATCH-FEATURE-OPENSUSE allow-overriding-compiler-variables.patch -- Based on Linux.sys.mk which was previously shipped with this package
 # patch generated using `git diff master opensuse` from https://github.com/RichardsonAlex/bmake
 Patch0:         allow-overriding-compiler-variables.patch
+Patch1:         bmake-strlcpy-explicit.patch
 
 %description
 bmake, the NetBSD make(1) tool, is a program designed to simplify the
@@ -41,14 +42,11 @@ supported in Makefiles is very different.
 %prep
 %setup -q -n %{name}
 %patch0 -p1
+%patch1 -p1
 
 %build
 unset MAKEFLAGS
-%if 0%{?suse_version} > 1325
-env CFLAGS="-fmessage-length=0 -grecord-gcc-switches -O2 -Wall -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -g" \
-%else
 env CFLAGS="%{optflags}" \
-%endif
 ./boot-strap -o Linux \
   --prefix="%{_prefix}" \
   --sysconfdir="%{_sysconfdir}" \

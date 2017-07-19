@@ -1,0 +1,45 @@
+Index: bmake/main.c
+===================================================================
+--- bmake.orig/main.c
++++ bmake/main.c
+@@ -138,6 +138,7 @@ __RCSID("$NetBSD: main.c,v 1.259 2017/03
+ #include "job.h"
+ #include "pathnames.h"
+ #include "trace.h"
++#include "strlcpy.h"
+ 
+ #ifdef USE_IOVEC
+ #include <sys/uio.h>
+Index: bmake/meta.c
+===================================================================
+--- bmake.orig/meta.c
++++ bmake/meta.c
+@@ -56,6 +56,9 @@ char * dirname(char *);
+ #if !defined(USE_FILEMON) && defined(FILEMON_SET_FD)
+ # define USE_FILEMON
+ #endif
++#ifndef HAVE_STRLCPY
++#  include "strlcpy.h"
++#endif
+ 
+ static BuildMon Mybm;			/* for compat */
+ static Lst metaBailiwick;		/* our scope of control */
+Index: bmake/strlcpy.h
+===================================================================
+--- /dev/null
++++ bmake/strlcpy.h
+@@ -0,0 +1,14 @@
++#ifdef HAVE_CONFIG_H
++# include <config.h>
++#endif
++#ifndef HAVE_STRLCPY
++
++/*
++ * Copy src to string dst of size siz.  At most siz-1 characters
++ * will be copied.  Always NUL terminates (unless siz == 0).
++ * Returns strlen(src); if retval >= siz, truncation occurred.
++ */
++size_t
++strlcpy(char *dst, const char *src, size_t siz);
++
++#endif
