@@ -17,7 +17,7 @@
 
 
 Name:           bmake
-Version:        20170510
+Version:        20170711
 Release:        0
 Summary:        The NetBSD make(1) tool
 License:        BSD-2-Clause and BSD-3-Clause and BSD-4-Clause
@@ -42,7 +42,7 @@ supported in Makefiles is very different.
 %prep
 %setup -q -n %{name}
 %patch0 -p1
-%patch1 -p1
+%patch1 -p0
 
 %build
 unset MAKEFLAGS
