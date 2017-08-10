@@ -1274,7 +1274,6 @@ Requires:       gstreamer-plugins-base >= 1.0
 Requires:       gstreamer-plugins-good >= 1.0
 Recommends:     gstreamer-plugins-bad
 Recommends:     gstreamer-plugins-libav
-Recommends:     gstreamer-fluendo-mp3
 Provides:       %{name}-audioplayer
 Provides:       %{name}-soundnotifications = %{version}
 
@@ -2300,6 +2299,7 @@ cmake ../src \
         -DENABLE_GLANCE=True \
         -DENABLE_GMAILNOTIFIER=True \
         -DENABLE_HARBINGER=False \
+        -DENABLE_HTTHARE=False \
         -DENABLE_HOTSENSORS=False \
         -DENABLE_HOTSTREAMS=True \
         -DENABLE_HTTHARE=True \

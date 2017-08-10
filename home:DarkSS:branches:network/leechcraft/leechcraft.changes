@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jul 25 09:46:30 UTC 2017 - tchvatal@suse.com
+
+- Do not recommend fluendo plugins as now mp3 is enabled by default
+
+-------------------------------------------------------------------
 Sat Jun 24 07:09:58 UTC 2017 - dap.darkness@gmail.com
 
 - Updated to 0.6.70-9312-g4cc613a2df git snapshot:
