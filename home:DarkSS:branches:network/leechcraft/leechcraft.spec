@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-9312-g4cc613a2df
+%define LEECHCRAFT_VERSION 0.6.70-9432-g81ef79f367
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -43,14 +43,14 @@
 %define xsd_postfix %{so_ver}
 
 Name:           leechcraft
-Version:        0.6.70+git.9312.g4cc613a2df
+Version:        0.6.70+git.9432.g81ef79f367
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 
-Source0:        leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
+Source0:        https://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
 Source4:        %{name}-rpmlintrc
 Source8:        leechcraft-session.1
 Source9:        lc_plugin_wrapper-qt5.1
@@ -67,7 +67,7 @@ BuildRequires:  libboost_thread-devel
 %else
 BuildRequires:  boost-devel >= 1.60
 %endif
-BuildRequires:  cmake >= 3.1
+BuildRequires:  cmake >= 3.5
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 %if 0%{?suse_version} > 1325
@@ -186,6 +186,7 @@ Suggests:       %{name}-lastfmscrobble
 Obsoletes:      %{name}-bittorrent
 %endif
 Obsoletes:      %{name}-choroid
+Obsoletes:      %{name}-harbinger
 Obsoletes:      %{name}-lemon
 Obsoletes:      %{name}-liznoo
 Obsoletes:      %{name}-nacheku
@@ -1272,6 +1273,8 @@ Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
 Requires:       gstreamer-plugins-base >= 1.0
 Requires:       gstreamer-plugins-good >= 1.0
+Requires:       libqt5-qtgraphicaleffects >= 5.6
+Requires:       libqt5-qtquickcontrols >= 5.6
 Recommends:     gstreamer-plugins-bad
 Recommends:     gstreamer-plugins-libav
 Provides:       %{name}-audioplayer
@@ -1829,6 +1832,7 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-sb = %{version}
+Requires:       libqt5-qtquickcontrols >= 5.6
 
 %description sb2
 This package provides another side bar plugin for Leechcraft.
@@ -2106,6 +2110,7 @@ network classes and functions.
 Summary:        QML utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
+Requires:       libQtQuick5 >= 5.6
 
 %description -n libleechcraft-util-qml%{qml_postfix}
 A library providing some commonly used QML items as well as
@@ -2299,7 +2304,6 @@ cmake ../src \
         -DENABLE_GLANCE=True \
         -DENABLE_GMAILNOTIFIER=True \
         -DENABLE_HARBINGER=False \
-        -DENABLE_HTTHARE=False \
         -DENABLE_HOTSENSORS=False \
         -DENABLE_HOTSTREAMS=True \
         -DENABLE_HTTHARE=True \
@@ -2403,8 +2407,6 @@ make -k %{?_smp_mflags} VERBOSE=1
 %cmake_install
 
 cp %{SOURCE8} %{SOURCE9} %{buildroot}%{_mandir}/man1
-mv %{buildroot}%{_mandir}/man1/%{name}.1.gz \
-   %{buildroot}%{_mandir}/man1/%{name}-qt5.1.gz
 
 %fdupes -s %{buildroot}%{_datadir}/%{name}/translations
 %fdupes -s %{buildroot}%{_datadir}/%{name}/azoth

@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Thu Aug 10 16:06:32 UTC 2017 - dap.darkness@gmail.com
+
+- Harbinger became really obsoleted now.
+- Added Qt5 runtime requirements.
+- Updated to 0.6.70-9432-g81ef79f367 git snapshot:
+  * Bugged contacts could be hidden now.
+  * Bug #1348 was resolved (no birthday notifications);
+  * Right main man page file name.
+
+-------------------------------------------------------------------
 Tue Jul 25 09:46:30 UTC 2017 - tchvatal@suse.com
 
 - Do not recommend fluendo plugins as now mp3 is enabled by default
