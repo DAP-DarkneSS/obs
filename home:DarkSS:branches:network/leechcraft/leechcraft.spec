@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-9432-g81ef79f367
+%define LEECHCRAFT_VERSION 0.6.70-9561-gaf7a4f70b8
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -43,14 +43,14 @@
 %define xsd_postfix %{so_ver}
 
 Name:           leechcraft
-Version:        0.6.70+git.9432.g81ef79f367
+Version:        0.6.70+git.9561.gaf7a4f70b8
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 
-Source0:        https://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
+Source0:        leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
 Source4:        %{name}-rpmlintrc
 Source8:        leechcraft-session.1
 Source9:        lc_plugin_wrapper-qt5.1
@@ -70,18 +70,21 @@ BuildRequires:  boost-devel >= 1.60
 BuildRequires:  cmake >= 3.5
 BuildRequires:  fdupes
 BuildRequires:  file-devel
-%if 0%{?suse_version} > 1325
-BuildRequires:  gcc-c++ >= 6
-%else
+%if 0%{?suse_version} <= 1320
+%if 0%{?sle_version} == 120200
 BuildRequires:  gcc6-c++
+%else
+BuildRequires:  gcc7-c++
+%endif
+%else
+BuildRequires:  gcc-c++ >= 7
 %endif
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libQt5Gui-private-headers-devel
 BuildRequires:  libjpeg-devel
-BuildRequires:  liblastfm-devel
+BuildRequires:  liblastfm-qt5-devel
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
-# BuildRequires:  llvm-clang
 BuildRequires:  pkgconfig
 %if 0%{?suse_version} > 1325
 BuildRequires:  wt-devel
@@ -99,6 +102,7 @@ BuildRequires:  pkgconfig(Qt5PrintSupport)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5QuickWidgets)
+BuildRequires:  pkgconfig(Qt5Qwt6)
 BuildRequires:  pkgconfig(Qt5Script)
 BuildRequires:  pkgconfig(Qt5Sensors)
 BuildRequires:  pkgconfig(Qt5Sql)
@@ -111,7 +115,9 @@ BuildRequires:  pkgconfig(Qt5X11Extras)
 BuildRequires:  pkgconfig(Qt5Xml)
 BuildRequires:  pkgconfig(Qt5XmlPatterns)
 BuildRequires:  pkgconfig(bzip2)
+%if 0%{?suse_version} > 1325 || 0%{?sle_version} >= 120300
 BuildRequires:  pkgconfig(ddjvuapi)
+%endif
 %if 0%{?suse_version} > 1325
 BuildRequires:  pkgconfig(geoip)
 %endif
@@ -145,8 +151,10 @@ BuildRequires:  pkgconfig(libtcmalloc)
 BuildRequires:  pkgconfig(libtorrent-rasterbar)
 %endif
 BuildRequires:  pkgconfig(libudev)
+%if 0%{?suse_version} > 1325 || 0%{?sle_version} >= 120300
 BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt5)
+%endif
 BuildRequires:  pkgconfig(purple)
 BuildRequires:  pkgconfig(qca2-qt5)
 BuildRequires:  pkgconfig(qtermwidget5)
@@ -187,8 +195,9 @@ Obsoletes:      %{name}-bittorrent
 %endif
 Obsoletes:      %{name}-choroid
 Obsoletes:      %{name}-harbinger
-Obsoletes:      %{name}-lemon
-Obsoletes:      %{name}-liznoo
+%if 0%{?suse_version} < 1325 && 0%{?sle_version} <= 120200
+Obsoletes:      %{name}-monocle
+%endif
 Obsoletes:      %{name}-nacheku
 Obsoletes:      %{name}-popishu
 Obsoletes:      %{name}-qrosp
@@ -979,6 +988,8 @@ Recommends:     %{name}-kbswitch
 Recommends:     %{name}-krigstask
 Recommends:     %{name}-laughty
 Recommends:     %{name}-launchy
+Recommends:     %{name}-lemon
+Recommends:     %{name}-liznoo
 Recommends:     %{name}-mellonetray
 Recommends:     %{name}-ooronee
 Recommends:     %{name}-sb2
@@ -1248,6 +1259,17 @@ Requires:       %{name}-sb = %{version}
 This package provides a third-party application launcher plugin for Leechcraft.
 
 
+%package lemon
+Summary:        LeechCraft Network Monitor Module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       %{name}-sb = %{version}
+
+%description lemon
+This package provides another Network Monitor plugin for Leechcraft.
+
+
 %package lhtr
 Summary:        LeechCraft HTML WYSIWYG editor Module
 License:        BSL-1.0
@@ -1258,6 +1280,29 @@ Recommends:     %{name}-poshuku
 %description lhtr
 This package provides a HTML WYSIWYG editor plugin for Leechcraft,
 usable with mail and blog modules.
+
+
+%package liznoo
+Summary:        LeechCraft Power management module
+License:        BSL-1.0
+Group:          Productivity/Networking/Other
+Requires:       %{name} = %{version}
+Requires:       upower
+Recommends:     %{name}-sb = %{version}
+
+%description liznoo
+This package provides a power manager plugin for Leechcraft
+which makes use of upower.
+
+Features:
+ * Displays battery status in LeechCraft tray.
+ * Displays battery charge and power consumption history.
+ * Notifies other plugins about sleep and resume events. This way, plugins
+   like Azoth can disconnect from servers gracefully on hibernation and
+   reconnect properly on startup.
+ * Allows the user to sleep/hibernate the system.
+ * Notifies the user when device starts discharging or charging.
+ * Notifies the user on low capacity.
 
 
 %package lmp
@@ -1407,6 +1452,7 @@ This package provides a tray area quark for third-party apps
 for LeechCraft SB2.
 
 
+%if 0%{?suse_version} > 1325 || 0%{?sle_version} >= 120300
 %package monocle
 Summary:        LeechCraft Document viewer Module
 License:        BSL-1.0
@@ -1480,7 +1526,7 @@ Provides:       %{name}-monocle-subplugin
 %description monocle-seen
 This package contains a LeechCraft Monocle subplugin for djvu
 document support via the djvulibre backend.
-
+%endif
 
 %package musiczombie
 Summary:        LeechCraft Azoth MusicBrainz.org client Module
@@ -2250,14 +2296,19 @@ cmake ../src \
         -DCMAKE_CXX_FLAGS="${tmpflags} -Doverride=" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-%if 0%{?suse_version} < 1325
+%if 0%{?suse_version} <= 1320
+%if 0%{?sle_version} == 120200
         -DCMAKE_C_COMPILER=/usr/bin/gcc-6 \
         -DCMAKE_CXX_COMPILER=/usr/bin/g++-6 \
+%else
+        -DCMAKE_C_COMPILER=/usr/bin/gcc-7 \
+        -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 \
+%endif
 %endif
         -DSTRICT_LICENSING=True \
         -DWITH_DBUS_LOADERS=True \
         -DWITH_PCRE=True \
-        -DWITH_QWT=False \
+        -DWITH_QWT=True \
         -DENABLE_UTIL_TESTS=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
@@ -2318,7 +2369,7 @@ cmake ../src \
         -DENABLE_LASTFMSCROBBLE=True \
         -DENABLE_LAUGHTY=True \
         -DENABLE_LAUNCHY=True \
-        -DENABLE_LEMON=False \
+        -DENABLE_LEMON=True \
         -DENABLE_LHTR=True \
                 -DWITH_LHTR_HTML=True \
 %if 0%{?suse_version} > 1325
@@ -2326,7 +2377,7 @@ cmake ../src \
 %else
                 -DUSE_LIBTIDY_HTML5=False \
 %endif
-        -DENABLE_LIZNOO=False \
+        -DENABLE_LIZNOO=True \
         -DENABLE_LMP=True \
                 -DENABLE_LMP_BRAINSLUGZ=True \
                 -DENABLE_LMP_FRADJ=True \
@@ -2339,10 +2390,14 @@ cmake ../src \
                 -DENABLE_LMP_PPL=True \
                 -DENABLE_LMP_PPL_TESTS=True \
         -DENABLE_MELLONETRAY=True \
+%if 0%{?suse_version} > 1325 || 0%{?sle_version} >= 120300
         -DENABLE_MONOCLE=True \
                 -DENABLE_MONOCLE_MU=False \
                 -DENABLE_MONOCLE_PDF=True \
                 -DENABLE_MONOCLE_POSTRUS=True \
+%else
+        -DENABLE_MONOCLE=False \
+%endif
         -DENABLE_MUSICZOMBIE=True \
 %if %{with ffmpeg}
                 -DWITH_MUSICZOMBIE_CHROMAPRINT=True \
@@ -2934,11 +2989,25 @@ ctest --output-on-failure
 %{translations_dir}/*craft_launchy_*.qm
 %{qml_dir}/launchy
 
+%files lemon
+%defattr(-,root,root)
+%{plugin_dir}/lib%{name}_lemon.so
+%{qml_dir}/lemon/
+%{translations_dir}/*craft_lemon_*.qm
+%{settings_dir}/lemonsettings.xml
+
 %files lhtr
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_lhtr.so
 %{translations_dir}/*craft_lhtr_*.qm
 %{settings_dir}/lhtrsettings.xml
+
+%files liznoo
+%defattr(-,root,root)
+%{plugin_dir}/lib%{name}_liznoo.so
+%{settings_dir}/liznoosettings.xml
+%{translations_dir}/*craft_liznoo_*.qm
+%{qml_dir}/liznoo
 
 %files lmp
 %defattr(-,root,root)
@@ -3011,6 +3080,7 @@ ctest --output-on-failure
 %{qml_dir}/mellonetray/
 %{translations_dir}/*craft_mellonetray_*.qm
 
+%if 0%{?suse_version} > 1325 || 0%{?sle_version} >= 120300
 %files monocle
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_monocle.so
@@ -3053,6 +3123,7 @@ ctest --output-on-failure
 %{_datadir}/applications/%{name}-monocle-seen-qt5.desktop
 %{translations_dir}/*craft_monocle_seen_??.qm
 %{translations_dir}/*craft_monocle_seen_??_??.qm
+%endif
 
 %files musiczombie
 %defattr(-,root,root)

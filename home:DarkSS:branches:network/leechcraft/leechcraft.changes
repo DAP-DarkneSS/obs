@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sun Aug 13 07:51:04 UTC 2017 - dap.darkness@gmail.com
+
+- Updated to 0.6.70-9561-gaf7a4f70b8 git snapshot:
+  * Bug #2042 was resolved (segfault on Qt 5.6 → 5.9 update).
+- Monocle plugin requires gcc ≥ 7.
+- Let's use Qt5 lastfm library.
+- Enabled back plugins since Qt5Qwt6 became available:
+  * lemon — another network Monitor;
+  * liznoo — power manager.
+
+-------------------------------------------------------------------
 Thu Aug 10 16:06:32 UTC 2017 - dap.darkness@gmail.com
 
 - Harbinger became really obsoleted now.

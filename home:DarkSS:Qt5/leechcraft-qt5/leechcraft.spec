@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-9432-g81ef79f367
+%define LEECHCRAFT_VERSION 0.6.70-9561-gaf7a4f70b8
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -72,7 +72,6 @@ BuildRequires:  liblastfm-qt5-devel
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
 BuildRequires:  pkgconfig
-BuildRequires:  qwt6-qt5-devel
 BuildRequires:  cmake(Qt5LinguistTools)
 BuildRequires:  pkgconfig(Qt5Concurrent) >= 5.6
 BuildRequires:  pkgconfig(Qt5Core) >= 5.6
@@ -86,6 +85,7 @@ BuildRequires:  pkgconfig(Qt5PrintSupport) >= 5.6
 BuildRequires:  pkgconfig(Qt5Qml) >= 5.6
 BuildRequires:  pkgconfig(Qt5Quick) >= 5.6
 BuildRequires:  pkgconfig(Qt5QuickWidgets) >= 5.6
+BuildRequires:  pkgconfig(Qt5Qwt6)
 BuildRequires:  pkgconfig(Qt5Script) >= 5.6
 BuildRequires:  pkgconfig(Qt5Sensors) >= 5.6
 BuildRequires:  pkgconfig(Qt5Sql) >= 5.6
@@ -1395,7 +1395,7 @@ usable with mail and blog modules.
 
 
 %package liznoo
-Summary:        LeechCraft Power managment module
+Summary:        LeechCraft Power management module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       upower
