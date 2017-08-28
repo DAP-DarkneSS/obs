@@ -17,17 +17,14 @@
 
 
 Name:           QMPlay2
-Version:        17.06.09
+Version:        17.07.25
 Release:        0
 Summary:        A Qt based media player, streamer and downloader
 License:        LGPL-3.0+
 Group:          Productivity/Multimedia/Video/Players
 Url:            http://qt-apps.org/content/show.php/QMPlay2?content=153339
 Source:         https://github.com/zaps166/QMPlay2/releases/download/%{version}/QMPlay2-src-%{version}.tar.xz
-# PATCH-FIX-OPENSUSE vs. Prostopleer extension that provides illegal audio.
-# NOTE Please don't remove the patch because of source update,
-# just update the patch!
-Patch1:         QMPlay2-no-prostopleer.diff
+
 # PATCH-FIX-OPENSUSE vs. WARNING: invalid-desktopfile contains group,
 # but ones extending the format should start with "X-".
 Patch2:         QMPlay2-desktop-warnings.diff
@@ -62,7 +59,6 @@ Requires(postun): hicolor-icon-theme
 Requires(postun): shared-mime-info
 Requires(postun): update-desktop-files
 Recommends:     youtube-dl
-Obsoletes:      %{name}-kde-integration <= %{version}
 
 %description
 %{name} is a video player, it can play and stream all formats supported by
@@ -78,12 +74,12 @@ It's a development package for %{name}.
 
 %prep
 %setup -q -n %{name}-src-%{version}
-%patch1
 %patch2
 
 %build
 %cmake \
        -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+       -DUSE_PROSTOPLEER=OFF \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo
 make V=1 %{?_smp_mflags}
 

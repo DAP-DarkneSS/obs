@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Sat Aug 26 08:33:58 UTC 2017 - dap.darkness@gmail.com
+
+- Update to 17.07.25:
+  * minor CUVID bugfix (missing PTS in some videos),
+  * added option to hide artist metadata,
+  * Tekstowo: minor improvement,
+  * don't delete Radio settings,
+  * minor QPainter bugfix,
+  * fix YouTube images.
+- Removed obsoletion actual till Leap 42.1.
+- Finally replaced QMPlay2-no-prostopleer.diff by cmake option.
+
+-------------------------------------------------------------------
 Wed Jul 12 20:02:07 UTC 2017 - dap.darkness@gmail.com
 
 - Added QMPlay2-no-prostopleer.diff back because Prostopleer
