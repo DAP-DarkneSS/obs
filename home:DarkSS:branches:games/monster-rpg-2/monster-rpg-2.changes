@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Sep  3 18:59:49 UTC 2017 - dap.darkness@gmail.com
+
+- Let's use lua52 for TW because there are no root lua includes.
+
+-------------------------------------------------------------------
 Fri Jul  8 16:10:55 UTC 2016 - dap.darkness@gmail.com
 
 - Update to new release ≥ 2.11.8 (tarball 20160706).

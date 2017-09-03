@@ -1,7 +1,7 @@
 #
 # spec file for package monster-rpg-2
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -73,7 +73,11 @@ BuildRequires:  pkgconfig(glu)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libpulse)
+%if 0%{?suse_version} <= 1320
 BuildRequires:  pkgconfig(lua)
+%else
+BuildRequires:  pkgconfig(lua5.2)
+%endif
 BuildRequires:  pkgconfig(openal)
 BuildRequires:  pkgconfig(sm)
 BuildRequires:  pkgconfig(vorbis)
@@ -108,12 +112,14 @@ BuildArch:      noarch
 chmod -x data/*.*
 chmod -x data/*/*.*
 
+%if 0%{?suse_version} <= 1320
 # sed patching lua5.2 includes to lua
 sed "s@include <lua5.2/@include <@" \
     -i include/monster2.hpp
 
 sed "s/lua5.2/lua/" \
     -i CMakeLists.txt
+%endif
 
 %build
 %cmake -DUSER_INCLUDE_PATH="%{_includedir}" \
