@@ -1,8 +1,9 @@
 -------------------------------------------------------------------
-Sun Sep 10 18:10:17 UTC 2017 - dap.darkness@gmail.com
+Sun Sep 11 00:10:17 UTC 2017 - dap.darkness@gmail.com
 
-- Updated to 0.6.70-9722-g4ae9572997 git snapshot:
+- Updated to 0.6.70-9734-gdc1421e736 git snapshot:
   * Bug #2045 was resolved (poshuku start-up segfault).
+- Qca was disabled due to start-up time.
 
 -------------------------------------------------------------------
 Sun Aug 13 07:51:04 UTC 2017 - dap.darkness@gmail.com

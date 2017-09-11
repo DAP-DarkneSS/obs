@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-9722-g4ae9572997
+%define LEECHCRAFT_VERSION 0.6.70-9734-gdc1421e736
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -124,7 +124,7 @@ BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt5)
 BuildRequires:  pkgconfig(purple)
-BuildRequires:  pkgconfig(qca2-qt5)
+# BuildRequires:  pkgconfig(qca2-qt5)
 %if 0%{?sle_version} != 120100
 BuildRequires:  pkgconfig(qtermwidget5) >= 0.5.1
 %endif
@@ -2374,6 +2374,7 @@ cmake ../src \
                 -DENABLE_AZOTH_VELVETBIRD=True \
                 -DENABLE_AZOTH_WOODPECKER=False \
                 -DENABLE_AZOTH_ZHEET=False \
+                -DENABLE_CRYPT=False \
                 -DENABLE_MEDIACALLS=False \
         -DENABLE_BLACKDASH=False \
         -DENABLE_BLASQ=True \
