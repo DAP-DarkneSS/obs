@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-9734-gdc1421e736
+%define LEECHCRAFT_VERSION 0.6.70-9820-g8dd8667e0b
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -67,36 +67,36 @@ BuildRequires:  gcc7-c++
 BuildRequires:  gcc-c++ >= 7
 %endif
 BuildRequires:  hicolor-icon-theme
-BuildRequires:  libQt5Gui-private-headers-devel >= 5.6
+BuildRequires:  libQt5Gui-private-headers-devel >= 5.7
 BuildRequires:  liblastfm-qt5-devel
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
 BuildRequires:  pkgconfig
 BuildRequires:  cmake(Qt5LinguistTools)
-BuildRequires:  pkgconfig(Qt5Concurrent) >= 5.6
-BuildRequires:  pkgconfig(Qt5Core) >= 5.6
-BuildRequires:  pkgconfig(Qt5DBus) >= 5.6
-BuildRequires:  pkgconfig(Qt5Gui) >= 5.6
-BuildRequires:  pkgconfig(Qt5Multimedia) >= 5.6
-BuildRequires:  pkgconfig(Qt5Network) >= 5.6
-BuildRequires:  pkgconfig(Qt5OpenGL) >= 5.6
-BuildRequires:  pkgconfig(Qt5Positioning) >= 5.6
-BuildRequires:  pkgconfig(Qt5PrintSupport) >= 5.6
-BuildRequires:  pkgconfig(Qt5Qml) >= 5.6
-BuildRequires:  pkgconfig(Qt5Quick) >= 5.6
-BuildRequires:  pkgconfig(Qt5QuickWidgets) >= 5.6
+BuildRequires:  pkgconfig(Qt5Concurrent) >= 5.7
+BuildRequires:  pkgconfig(Qt5Core) >= 5.7
+BuildRequires:  pkgconfig(Qt5DBus) >= 5.7
+BuildRequires:  pkgconfig(Qt5Gui) >= 5.7
+BuildRequires:  pkgconfig(Qt5Multimedia) >= 5.7
+BuildRequires:  pkgconfig(Qt5Network) >= 5.7
+BuildRequires:  pkgconfig(Qt5OpenGL) >= 5.7
+BuildRequires:  pkgconfig(Qt5Positioning) >= 5.7
+BuildRequires:  pkgconfig(Qt5PrintSupport) >= 5.7
+BuildRequires:  pkgconfig(Qt5Qml) >= 5.7
+BuildRequires:  pkgconfig(Qt5Quick) >= 5.7
+BuildRequires:  pkgconfig(Qt5QuickWidgets) >= 5.7
 BuildRequires:  pkgconfig(Qt5Qwt6)
-BuildRequires:  pkgconfig(Qt5Script) >= 5.6
-BuildRequires:  pkgconfig(Qt5Sensors) >= 5.6
-BuildRequires:  pkgconfig(Qt5Sql) >= 5.6
-BuildRequires:  pkgconfig(Qt5Svg) >= 5.6
-BuildRequires:  pkgconfig(Qt5WebChannel) >= 5.6
-BuildRequires:  pkgconfig(Qt5WebKit) >= 5.6
-BuildRequires:  pkgconfig(Qt5WebKitWidgets) >= 5.6
-BuildRequires:  pkgconfig(Qt5Widgets) >= 5.6
-BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.6
-BuildRequires:  pkgconfig(Qt5Xml) >= 5.6
-BuildRequires:  pkgconfig(Qt5XmlPatterns) >= 5.6
+BuildRequires:  pkgconfig(Qt5Script) >= 5.7
+BuildRequires:  pkgconfig(Qt5Sensors) >= 5.7
+BuildRequires:  pkgconfig(Qt5Sql) >= 5.7
+BuildRequires:  pkgconfig(Qt5Svg) >= 5.7
+BuildRequires:  pkgconfig(Qt5WebChannel) >= 5.7
+BuildRequires:  pkgconfig(Qt5WebKit) >= 5.7
+BuildRequires:  pkgconfig(Qt5WebKitWidgets) >= 5.7
+BuildRequires:  pkgconfig(Qt5Widgets) >= 5.7
+BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.7
+BuildRequires:  pkgconfig(Qt5Xml) >= 5.7
+BuildRequires:  pkgconfig(Qt5XmlPatterns) >= 5.7
 BuildRequires:  pkgconfig(ddjvuapi)
 BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.4
 BuildRequires:  pkgconfig(hunspell)
@@ -1428,8 +1428,8 @@ Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
 Requires:       gstreamer-plugins-base >= 1.4
 Requires:       gstreamer-plugins-good >= 1.4
-Requires:       libqt5-qtgraphicaleffects >= 5.6
-Requires:       libqt5-qtquickcontrols >= 5.6
+Requires:       libqt5-qtgraphicaleffects >= 5.7
+Requires:       libqt5-qtquickcontrols >= 5.7
 Recommends:     gstreamer-plugins-bad
 Recommends:     gstreamer-plugins-libav
 Recommends:     gstreamer-fluendo-mp3
@@ -1756,6 +1756,7 @@ with some selected text.
 Summary:        LeechCraft Web Browser Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Requires:       %{name}-poshuku-backend = %{version}
 Provides:       %{name}-webbrowser
 Recommends:     %{name}-imgaste = %{version}
 Recommends:     %{name}-intermutko = %{version}
@@ -1940,7 +1941,7 @@ It is based on Hunspell or Myspell dictionaries.
 Summary:        LeechCraft SideBar2 Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
-Requires:       libqt5-qtquickcontrols >= 5.6
+Requires:       libqt5-qtquickcontrols >= 5.7
 Provides:       %{name}-sb = %{version}
 
 %description sb2
@@ -2205,7 +2206,7 @@ network classes and functions.
 Summary:        QML utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
-Requires:       libQtQuick5 >= 5.6
+Requires:       libQtQuick5 >= 5.7
 
 %description -n libleechcraft-util-qml%{qml_postfix}
 A library providing some commonly used QML items as well as

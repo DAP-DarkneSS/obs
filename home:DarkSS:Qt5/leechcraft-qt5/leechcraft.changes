@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Oct  5 18:34:28 UTC 2017 - dap.darkness@gmail.com
+
+- Updated to 0.6.70-9820-g8dd8667e0b git snapshot:
+  * Requires Qt ≥ 5.7;
+  * Bug #1967 may be resolved (false typing status).
+
+-------------------------------------------------------------------
 Sun Sep 11 00:10:17 UTC 2017 - dap.darkness@gmail.com
 
 - Updated to 0.6.70-9734-gdc1421e736 git snapshot:
