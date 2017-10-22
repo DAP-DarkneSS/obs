@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Oct 22 18:46:45 UTC 2017 - dap.darkness@gmail.com
+
+- Updated to 0.6.70-9960-g6050593f17 git snapshot:
+  * Bug #2048 may be resolved (xoox log failure);
+  * Azoth tab closing segfault may be fixed.
+
+-------------------------------------------------------------------
 Thu Oct  5 18:34:28 UTC 2017 - dap.darkness@gmail.com
 
 - Updated to 0.6.70-9820-g8dd8667e0b git snapshot:
