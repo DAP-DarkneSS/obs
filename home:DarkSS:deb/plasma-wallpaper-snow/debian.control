@@ -3,7 +3,7 @@ Section: utils
 Priority: extra
 Maintainer: Dmitriy Perlow <dap.darkness@gmail.com>
 Build-Depends: debhelper (>= 9), cmake, pkg-kde-tools (>= 0.15.15ubuntu1~), extra-cmake-modules,
-               plasma-framework-dev
+               plasma-framework-dev, libkf5windowsystem-dev
 Standards-Version: 2.1.0.0
 
 Package: plasma-wallpaper-snow
