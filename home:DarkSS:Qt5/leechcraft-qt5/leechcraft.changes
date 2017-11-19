@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Nov 19 08:52:05 UTC 2017 - dap.darkness@gmail.com
+
+- Updared to 0.6.70-10303-gdfdde8cca5 git snapshot:
+  * Poshuku logging out if restarted may be fixed.
+
+-------------------------------------------------------------------
 Sun Oct 22 18:46:45 UTC 2017 - dap.darkness@gmail.com
 
 - Updated to 0.6.70-9960-g6050593f17 git snapshot:
