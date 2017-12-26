@@ -23,10 +23,9 @@ Summary:        RTS game in dark, damp and dangerous dungeons
 License:        GPL-3.0+ and Zlib
 Group:          Amusements/Games/Strategy/Real Time
 Url:            http://opendungeons.github.io
-Source0:        https://github.com/OpenDungeons/OpenDungeons/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-
+Source0:        https://github.com/OpenDungeons/OpenDungeons/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  boost-devel >= 1.54
-BuildRequires:  cmake
+BuildRequires:  cmake >= 2.8
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++ >= 4.8
 BuildRequires:  hicolor-icon-theme
@@ -50,22 +49,6 @@ each other for control of the underground by indirectly commanding their
 minions, directly casting spells in combat, and luring enemies
 into sinister traps.
 
-%files
-%defattr(-,root,root)
-%doc AUTHORS CREDITS LICENSE.md README.md RELEASE-NOTES.md
-%{_bindir}/%{name}
-%if 0%{?suse_version} == 1315
-%dir %{_datadir}/appdata
-%endif
-%{_datadir}/appdata/%{name}.appdata.xml
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_mandir}/man6/%{name}.6*
-%dir %{_sysconfdir}/%{name}
-%config %{_sysconfdir}/%{name}/plugins.cfg
-
-#----------------------------------------------------------------------
-
 %package        data
 Summary:        Data files for OpenDungeons
 License:        GPL-2.0+ and CC-BY-SA-3.0 and MIT and OFL-1.1 and SUSE-Public-Domain
@@ -77,48 +60,58 @@ BuildArch:      noarch
 This package contains arch-independent data files for OpenDungeons.
 It is meant to be used with the "opendungeons" binary package.
 
-%files data
-%defattr(-,root,root)
-%{_datadir}/games/%{name}/
-
-#----------------------------------------------------------------------
-
 %prep
 %setup -q -n OpenDungeons-%{version}
 
 %build
 # Gcc 4.8 & OBS.
 tmpflags="%{optflags} -fPIC"
-%if 0%{suse_version} <= 1320
+%if 0%{?suse_version} <= 1320
 tmpflags="%{optflags} -fno-stack-protector"
 %endif
-
 %cmake \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_CXX_FLAGS="${tmpflags}" \
-       -DOD_BIN_PATH=%{_bindir}
-%make_jobs
+       -DOD_BIN_PATH=%{_bindir} \
+       -DOD_DATA_PATH="%{_datadir}/%{name}"
+make %{?_smp_mflags}
 
 %install
 %cmake_install
 
 # Runtime error fix.
-sed -i \
-%if "%{_lib}" == "lib64"
-       's/PluginFolder=/PluginFolder=\/usr\/lib64\/OGRE/g' \
-%else
-       's/PluginFolder=/PluginFolder=\/usr\/lib\/OGRE/g' \
-%endif
+sed -i 's@PluginFolder=@PluginFolder=%{_libdir}/OGRE@g' \
         %{buildroot}/%{_sysconfdir}/%{name}/plugins.cfg
 
 # W: desktopfile-without-binary
-sed -i 's/\/usr\/bin\/%{name}/%{name}/g' %{buildroot}%{_datadir}/applications/%{name}.desktop
+sed -i 's@%{_bindir}/%{name}@%{name}@g' %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 # Let's use %%doc macro.
 rm -rf %{buildroot}/%{_datadir}/doc/opendungeons
 
-chmod +x %{buildroot}/%{_datadir}/games/%{name}/scripts/unix/run_unit_tests.sh
+chmod +x %{buildroot}/%{_datadir}/%{name}/scripts/unix/run_unit_tests.sh
 
-%fdupes -s %{_datadir}/games/%{name}
+%fdupes %{buildroot}%{_datadir}/%{name}
+
+%files
+%defattr(-,root,root)
+%doc README.md RELEASE-NOTES.md
+%if 0%{?suse_version} > 1320
+%license AUTHORS CREDITS LICENSE.md
+%else
+%doc AUTHORS CREDITS LICENSE.md
+%dir %{_datadir}/appdata
+%endif
+%{_bindir}/%{name}
+%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_mandir}/man6/%{name}.6*
+%dir %{_sysconfdir}/%{name}
+%config %{_sysconfdir}/%{name}/plugins.cfg
+
+%files data
+%defattr(-,root,root)
+%{_datadir}/%{name}/
 
 %changelog

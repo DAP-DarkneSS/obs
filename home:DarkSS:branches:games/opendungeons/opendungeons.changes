@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Sep  5 23:59:34 UTC 2016 - rpm@fthiessen.de
+
+- Some cleanup
+  * Fixed "E: files-duplicated-waste"
+  * Fixed location of data files.
+
+-------------------------------------------------------------------
 Mon Sep  5 18:08:24 UTC 2016 - dap.darkness@gmail.com
 
 - Version 0.7.1:
