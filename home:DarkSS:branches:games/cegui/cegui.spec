@@ -166,7 +166,9 @@ mkdir -p %{buildroot}%{_datadir}/CEGUI/examples
 cd Samples
 cp -r . %{buildroot}%{_datadir}/cegui%{soname}/examples
 find %{buildroot}%{_datadir}/cegui* -type f -name "*.orig" -exec rm -f {} \;
-rm %{buildroot}%{_bindir}/CEGUITests-0.8
+%if 0%{?suse_version} <= 1320
+rm -f %{buildroot}%{_bindir}/CEGUITests-0.8
+%endif
 
 %post -n lib%{name}%{soname} -p /sbin/ldconfig
 %postun -n lib%{name}%{soname} -p /sbin/ldconfig

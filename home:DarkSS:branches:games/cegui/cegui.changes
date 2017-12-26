@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Dec 26 15:44:01 UTC 2017 - dap.darkness@gmail.com
+
+- "CEGUITests-0.8: No such file or directory" error double fix.
+
+-------------------------------------------------------------------
 Sat Sep 23 14:00:02 UTC 2017 - rpm@fthiessen.de
 
 - Fixed tolua++ dependency.
