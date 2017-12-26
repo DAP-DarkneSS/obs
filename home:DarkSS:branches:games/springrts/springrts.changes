@@ -1,12 +1,22 @@
 -------------------------------------------------------------------
+Fri Jul 29 10:30:41 UTC 2016 - rpm@fthiessen.de
+
+- Update to 103.0
+- Removed upstream fixed springrts-fix-cmake31.patch
+- Added fix-cmake.patch
+- Aded fix-random-return.patch to fix build on openSUSE,
+  prevent RPMLint errors about "random return" in functions without
+  a default return (only an assert at the end).
+
+-------------------------------------------------------------------
 Sat Feb 21 18:57:17 UTC 2015 - devel.suse@gmail.com
 
-- Added springrts-fix-cmake31.patch to fix build with cmake 3.1 
+- Added springrts-fix-cmake31.patch to fix build with cmake 3.1
 
 -------------------------------------------------------------------
 Fri Feb 20 07:34:08 UTC 2015 - devel.suse@gmail.com
 
-- Update to 0.98: 
+- Update to 0.98:
   NOTE: "!" prefix indicate backward compability broke,
   numbers in brackets normally mean the mantis ticket ID
 

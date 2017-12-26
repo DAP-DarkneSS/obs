@@ -1,7 +1,7 @@
 #
 # spec file for package springrts
 #
-# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -15,9 +15,9 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
-
+%define relto() $(realpath --relative-to %{_prefix} %{1})
 %define libunitsyncSONAME 1
-%define _version 98.0
+%define _version 103.0
 Name:           springrts
 Version:        0.%{_version}
 Release:        0
@@ -25,30 +25,35 @@ Summary:        A full 3D open source RTS game engine
 License:        GPL-2.0+
 Group:          Amusements/Games/Strategy/Real Time
 Url:            http://springrts.com
-Source:         http://sourceforge.net/projects/%{name}/files/%{name}/spring-%{_version}/spring_%{_version}_src.tar.lzma
+Source:         https://springrts.com/dl/buildbot/default/master/%{_version}/source/spring_%{_version}_src.tar.lzma
+# PATCH-FIX-UPSTREAM fix-cmake.patch -- https://springrts.com/mantis/view.php?id=5329
+Patch0:         fix-cmake.patch
+# PATCH-FIX-OPENSUSE fix-random-return.patch -- https://springrts.com/mantis/view.php?id=5328
+Patch1:         fix-random-return.patch
 BuildRequires:  asciidoc
 ## we choose the gold linker for build
 BuildRequires:  binutils-gold
 BuildRequires:  boost-devel >= 1.52
 BuildRequires:  cmake
+BuildRequires:  docbook-xsl-stylesheets
 BuildRequires:  fdupes
 BuildRequires:  fontconfig-devel
 BuildRequires:  gcc-c++
 BuildRequires:  java-devel
 BuildRequires:  p7zip
-BuildRequires:  zip
+BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(IL)
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(glew)
+BuildRequires:  pkgconfig(jsoncpp)
 BuildRequires:  pkgconfig(libcurl)
+BuildRequires:  pkgconfig(libunwind)
 BuildRequires:  pkgconfig(openal)
 BuildRequires:  pkgconfig(python)
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(vorbis)
 BuildRequires:  pkgconfig(zlib)
-# PATCH-FIX-UPSTREAM: fix building with cmake 3.1
-Patch0:         springrts-fix-cmake31.patch
 Requires:       %{name}-engine = %{version}
 Requires:       libunitsync = %{version}
 Requires(post): desktop-file-utils
@@ -57,14 +62,8 @@ Requires(postun): desktop-file-utils
 Requires(postun): shared-mime-info
 Recommends:     springlobby
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-%if 0%{?suse_version} > 1220
 BuildRequires:  pkgconfig(xcursor)
-%endif
-%if 0%{?suse_version} >= 1220
 BuildRequires:  libxslt-tools
-%else
-BuildRequires:  libxslt
-%endif
 
 %description
 Spring is an open source game engine that supports 3D multiplayer gameplay,
@@ -77,8 +76,8 @@ mods are available via springlobby's p2p system or community websites.
 %package gamedata
 Summary:        Game releated files
 Group:          Amusements/Games/Strategy/Real Time
-BuildArch:      noarch
 Requires:       %{name}-engine = %{version}
+BuildArch:      noarch
 
 %description gamedata
 Game related files for the open source rts game engine spring.
@@ -135,75 +134,64 @@ Tool to download maps and games for the Spring engine.
 
 %prep
 %setup -q -n spring_%{_version}
-%patch0
-
-## fix __DATE__ and __TIME__
-STATIC_BUILDTIME=$(LC_ALL=C date -u -r %{_sourcedir}/%{name}.changes '+%%H:%%M')
-STATIC_BUILDDATE=$(LC_ALL=C date -u -r %{_sourcedir}/%{name}.changes '+%%b %%e %%Y')
-%define _sed_work sed -i -e 's/__DATE__/"$STATIC_BUILDDATE"/' -e 's/__TIME__/"$STATIC_BUILDTIME"/'
-%{_sed_work} rts/Game/GameVersion.cpp
+%patch0 -p1
+%patch1 -p1
 
 %build
-## NOTE: forcing to use optflags produce the following warning:
-## "Using custom C_FLAGS: this build will very likely not sync in online mode!"
-cmake -G "Unix Makefiles" \
-      -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-      -DLIBDIR=%{_libdir} \
-      -DCMAKE_VERBOSE_MAKEFILE=ON \
-      -DCMAKE_BUILD_TYPE=RELWITHDBGINFO \
-      -DAI_LIBS_DIR=%{_libdir}/spring \
-      -DDOCDIR=%{_docdir}/%{name} \
-      -DCMAKE_C_FLAGS="$CMAKE_C_FLAGS %{optflags}"
-
-make spring %{?_smp_mflags}
+%cmake -DCMAKE_BUILD_TYPE=RELWITHDBGINFO \
+      -DAI_LIBS_DIR=%{relto %{_libdir}/spring} \
+      -DLIBDIR=%{_lib} \
+      -DDOCDIR=%{relto %{_docdir}/%{name}} \
+%if %{?suse_version} > 1320
+      -DLTO=ON \
+%endif
+      -DDATADIR="%{relto %{_datadir}/%{name}}"
+make %{?_smp_mflags}
 
 %install
-export NO_BRP_CHECK_BYTECODE_VERSION=true
-make DESTDIR=%{buildroot} install %{?_smp_mflags}
+%cmake_install
 %fdupes %{buildroot}
 
-%post
+%post engine
 %mime_database_post
 %desktop_database_post
 
-%postun
+%postun engine
 %desktop_database_postun
 %mime_database_postun
 
 %post -n %{name}-engine-default -p /sbin/ldconfig
-
 %postun -n %{name}-engine-default -p /sbin/ldconfig
-
 %post -n libunitsync -p /sbin/ldconfig
-
 %postun -n libunitsync -p /sbin/ldconfig
-
-%files
-%defattr(-,root,root)
-%{_datadir}/mime/packages/spring.xml
 
 %files engine
 %defattr(-,root,root)
 %{_datadir}/applications/spring.desktop
+%{_datadir}/mime/packages/spring.xml
 %{_datadir}/pixmaps/application-x-spring-demo.png
 %{_datadir}/pixmaps/spring.png
+%{_mandir}/man6/spring-legacy.6%{ext_man}
 
 %files gamedata
 %defattr(-,root,root)
-%{_datadir}/games/spring
+%{_datadir}/%{name}
 
 %files engine-default
 %defattr(-,root,root)
 %{_bindir}/spring
 %{_libdir}/spring
+%{_mandir}/man6/spring.6%{ext_man}
 
 %files engine-dedicated
 %defattr(-,root,root)
 %{_bindir}/spring-dedicated
+%{_mandir}/man6/spring-dedicated.6%{ext_man}
 
 %files engine-headless
 %defattr(-,root,root)
 %{_bindir}/spring-headless
+%{_mandir}/man6/spring-headless.6%{ext_man}
 
 %files -n libunitsync
 %defattr(-,root,root)
