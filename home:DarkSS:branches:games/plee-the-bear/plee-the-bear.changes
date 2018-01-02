@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Dec 26 16:06:18 UTC 2017 - dap.darkness@gmail.com
+
+- Cmake error and warnings fix.
+
+-------------------------------------------------------------------
 Sun Jun 18 17:52:09 UTC 2017 - dap.darkness@gmail.com
 
 - Added ptb-sequencer-gcc6.patch from Fedora.

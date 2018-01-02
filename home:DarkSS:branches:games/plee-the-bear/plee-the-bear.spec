@@ -27,7 +27,14 @@ Source:         http://www.stuff-o-matic.com/plee-the-bear/download/file.php?pla
 # PATCH-FIX-UPSTREAM to be built via gcc6+.
 Patch0:         ptb-sequencer-gcc6.patch
 BuildRequires:  SDL_mixer-devel
+%if 0%{?suse_version} > 1325
+BuildRequires:  libboost_filesystem-devel
+BuildRequires:  libboost_regex-devel
+BuildRequires:  libboost_system-devel
+BuildRequires:  libboost_thread-devel
+%else
 BuildRequires:  boost-devel
+%endif
 BuildRequires:  cmake
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
@@ -67,6 +74,7 @@ This subpackage contains the game data files.
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+       -Wno-dev \
        -DPTB_INSTALL_CUSTOM_LIBRARY_DIR=%{_lib}/%{name} \
        -DBEAR_ENGINE_INSTALL_LIBRARY_DIR=%{_lib}/%{name} \
        -DBEAR_EDITORS_ENABLED=False

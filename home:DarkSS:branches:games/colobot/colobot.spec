@@ -1,7 +1,7 @@
 #
 # spec file for package colobot
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -27,7 +27,13 @@ Group:          Amusements/Games/Strategy/Real Time
 Url:            http://colobot.info
 Source0:        https://github.com/colobot/colobot/archive/colobot-gold-%{tarball_ver}.tar.gz
 
+%if 0%{?suse_version} > 1325
+BuildRequires:  libboost_filesystem-devel
+BuildRequires:  libboost_regex-devel
+BuildRequires:  libboost_system-devel
+%else
 BuildRequires:  boost-devel
+%endif
 BuildRequires:  cmake >= 3
 BuildRequires:  desktop-file-utils
 BuildRequires:  doxygen
@@ -37,9 +43,11 @@ BuildRequires:  hicolor-icon-theme
 BuildRequires:  libphysfs-devel
 BuildRequires:  libpng-devel >= 1.2
 BuildRequires:  po4a
+BuildRequires:  rsvg-view
 %if 0%{?suse_version} > 1320 || 0%{?suse_version} == 1315
 BuildRequires:  update-desktop-files
 %endif
+BuildRequires:  xmlstarlet
 BuildRequires:  pkgconfig(SDL2_image)
 BuildRequires:  pkgconfig(SDL2_ttf)
 BuildRequires:  pkgconfig(glew) >= 1.8.0
@@ -79,6 +87,7 @@ the right amount of accuracy, with the right mix of imagination.
 
 %build
 %cmake \
+       -Wno-dev \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCOLOBOT_INSTALL_BIN_DIR:PATH=%{_bindir} \
        -DCOLOBOT_INSTALL_LIB_DIR:PATH=%{_libdir}

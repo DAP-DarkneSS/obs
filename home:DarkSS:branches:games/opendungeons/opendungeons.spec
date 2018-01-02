@@ -1,7 +1,7 @@
 #
 # spec file for package opendungeons
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -24,7 +24,14 @@ License:        GPL-3.0+ and Zlib
 Group:          Amusements/Games/Strategy/Real Time
 Url:            http://opendungeons.github.io
 Source0:        https://github.com/OpenDungeons/OpenDungeons/archive/%{version}/%{name}-%{version}.tar.gz
+
+%if 0%{?suse_version} > 1325
+BuildRequires:  libboost_filesystem-devel
+BuildRequires:  libboost_locale-devel
+BuildRequires:  libboost_program_options-devel
+%else
 BuildRequires:  boost-devel >= 1.54
+%endif
 BuildRequires:  cmake >= 2.8
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++ >= 4.8
@@ -70,6 +77,7 @@ tmpflags="%{optflags} -fPIC"
 tmpflags="%{optflags} -fno-stack-protector"
 %endif
 %cmake \
+       -Wno-dev \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_CXX_FLAGS="${tmpflags}" \
        -DOD_BIN_PATH=%{_bindir} \
