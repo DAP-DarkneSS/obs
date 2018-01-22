@@ -1,8 +1,13 @@
+- Updared to 0.6.70-10870-g558588d6ec snapshot:
+  * Enabled utils tests back.
+  * Partially disabled deathnote due to compiler error.
+
 -------------------------------------------------------------------
 Sun Nov 19 08:52:05 UTC 2017 - dap.darkness@gmail.com
 
 - Updared to 0.6.70-10303-gdfdde8cca5 git snapshot:
   * Poshuku logging out if restarted may be fixed.
+  * Disabled utils tests due to X not found.
 
 -------------------------------------------------------------------
 Sun Oct 22 18:46:45 UTC 2017 - dap.darkness@gmail.com

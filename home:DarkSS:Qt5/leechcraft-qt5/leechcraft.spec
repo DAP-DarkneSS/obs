@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft
 #
-# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-10303-gdfdde8cca5
+%define LEECHCRAFT_VERSION 0.6.70-10870-g558588d6ec
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -332,7 +332,9 @@ Requires:       %{name}-aggregator
 Requires:       %{name}-aggregator-bodyfetch
 Requires:       %{name}-auscrie
 Requires:       %{name}-blasq
+%if 0%{?suse_version} <= 1320
 Requires:       %{name}-blasq-deathnote
+%endif
 Requires:       %{name}-blasq-rappor
 Requires:       %{name}-blasq-vangog
 Requires:       %{name}-blogique
@@ -863,6 +865,7 @@ This package provides a modular image storage plugin for LeechCraft
 which supports different cloud image stores like Picasa or Flickr.
 
 
+%if 0%{?suse_version} <= 1320
 %package blasq-deathnote
 Summary:        LeechCraft Blasq LiveJournal/FotoBilder client Module
 Group:          Productivity/Networking/Other
@@ -872,6 +875,7 @@ Provides:       %{name}-blasq-subplugin = %{version}
 %description blasq-deathnote
 This package provides a LiveJournal FotoBilder image storage client subplugin
 for LeechCraft Blasq.
+%endif
 
 
 %package blasq-rappor
@@ -2379,6 +2383,11 @@ cmake ../src \
                 -DENABLE_MEDIACALLS=False \
         -DENABLE_BLACKDASH=False \
         -DENABLE_BLASQ=True \
+%if 0%{?suse_version} <= 1320
+                -DENABLE_BLASQ_DEATHNOTE=True \
+%else
+                -DENABLE_BLASQ_DEATHNOTE=False \
+%endif
                 -DENABLE_BLASQ_VANGOG=True \
                 -DENABLE_BLASQ_SPEGNERSI=False \
         -DENABLE_BLOGIQUE=True \
@@ -2815,10 +2824,12 @@ ctest --output-on-failure
 %{translations_dir}/*craft_blasq_??.qm
 %{translations_dir}/*craft_blasq_??_??.qm
 
+%if 0%{?suse_version} <= 1320
 %files blasq-deathnote
 %defattr(-,root,root)
 %{plugin_dir}/*craft_blasq_deathnote.so
 %{translations_dir}/*craft_blasq_deathnote*.qm
+%endif
 
 %files blasq-rappor
 %defattr(-,root,root)

@@ -1,4 +1,21 @@
 -------------------------------------------------------------------
+Tue Jan 23 16:27:12 UTC 2018 - dap.darkness@gmail.com
+
+- Updated to 0.6.70-10870-g558588d6ec snapshot:
+  * Utils tests became temporarily disabled (wip);
+  * cmake ≥ 3.10 became required to build;
+  * Wt build failure was fixed;
+  * Bug #2048 may be resolved (xoox log failure);
+  * Azoth tab closing segfault may be fixed;
+  * Bug #2045 was resolved (poshuku start-up segfault).
+
+-------------------------------------------------------------------
+Wed Nov 29 14:44:57 UTC 2017 - dimstar@opensuse.org
+
+- BuildIgnore openssl: the required libraries are pulled in by wt
+  and libqt. openssl (the program suite) is not required here.
+
+-------------------------------------------------------------------
 Sun Aug 13 07:51:04 UTC 2017 - dap.darkness@gmail.com
 
 - Updated to 0.6.70-9561-gaf7a4f70b8 git snapshot:

@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft
 #
-# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-9561-gaf7a4f70b8
+%define LEECHCRAFT_VERSION 0.6.70-10870-g558588d6ec
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -43,14 +43,14 @@
 %define xsd_postfix %{so_ver}
 
 Name:           leechcraft
-Version:        0.6.70+git.9561.gaf7a4f70b8
+Version:        0.6.70+git.10870.g558588d6ec
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 
-Source0:        leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
+Source0:        https://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
 Source4:        %{name}-rpmlintrc
 Source8:        leechcraft-session.1
 Source9:        lc_plugin_wrapper-qt5.1
@@ -67,7 +67,7 @@ BuildRequires:  libboost_thread-devel
 %else
 BuildRequires:  boost-devel >= 1.60
 %endif
-BuildRequires:  cmake >= 3.5
+BuildRequires:  cmake >= 3.10
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 %if 0%{?suse_version} <= 1320
@@ -172,6 +172,8 @@ BuildConflicts: gstreamer-0_10-plugins-base-devel
 BuildConflicts: libgstapp-0_10
 BuildConflicts: libgstinterfaces-0_10
 BuildConflicts: libgstreamer-0_10
+
+#!BuildIgnore:  openssl
 
 Requires:       oxygen-icon-theme
 Recommends:     %{name}-advancednotifications
@@ -2309,7 +2311,7 @@ cmake ../src \
         -DWITH_DBUS_LOADERS=True \
         -DWITH_PCRE=True \
         -DWITH_QWT=True \
-        -DENABLE_UTIL_TESTS=True \
+        -DENABLE_UTIL_TESTS=False \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
 %if 0%{?suse_version} > 1325

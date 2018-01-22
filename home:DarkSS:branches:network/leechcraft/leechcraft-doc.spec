@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft-doc
 #
-# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,16 +16,16 @@
 #
 
 
-%define LEECHCRAFT_VERSION 0.6.70-9561-gaf7a4f70b8
+%define LEECHCRAFT_VERSION 0.6.70-10870-g558588d6ec
 
 Name:           leechcraft-doc
-Version:        0.6.70+git.9561.gaf7a4f70b8
+Version:        0.6.70+git.10870.g558588d6ec
 Release:        0
 Summary:        Modular Internet Client Documentation
 License:        BSL-1.0
 Group:          Development/Libraries/Other
 Url:            http://leechcraft.org
-Source0:        leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
+Source0:        https://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
 
 BuildRequires:  doxygen >= 1.8.3.1
 BuildRequires:  fdupes
