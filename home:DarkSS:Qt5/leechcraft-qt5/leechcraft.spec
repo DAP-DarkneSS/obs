@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-10870-g558588d6ec
+%define LEECHCRAFT_VERSION 0.6.70-10895-gfcc39f86c0
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -55,14 +55,10 @@ Source4:        %{name}-rpmlintrc
 Source8:        leechcraft-session.1
 
 BuildRequires:  boost-devel >= 1.61
-BuildRequires:  cmake >= 3.8
+BuildRequires:  cmake >= 3.10
 BuildRequires:  fdupes
 %if 0%{?suse_version} <= 1320
-%if 0%{?sle_version} == 120100
-BuildRequires:  gcc5-c++
-%else
 BuildRequires:  gcc7-c++
-%endif
 %else
 BuildRequires:  gcc-c++ >= 7
 %endif
@@ -125,9 +121,7 @@ BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(poppler-qt5)
 BuildRequires:  pkgconfig(purple)
 # BuildRequires:  pkgconfig(qca2-qt5)
-%if 0%{?sle_version} != 120100
 BuildRequires:  pkgconfig(qtermwidget5) >= 0.5.1
-%endif
 BuildRequires:  pkgconfig(qxmpp-qt5)
 BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(taglib)
@@ -1081,7 +1075,6 @@ This package provides a dumb sound notifier plugin for LeechCraft.
 It uses Phonon as a backend, or something like aplay/mplayer.
 
 
-%if 0%{?sle_version} != 120100
 %package eleeminator
 Summary:        LeechCraft terminal plugin
 Group:          Productivity/Networking/Other
@@ -1089,7 +1082,6 @@ Requires:       %{name} = %{version}
 
 %description eleeminator
 This package provides a terminal plugin for Leechcraft.
-%endif
 
 
 %package fenet
@@ -2337,28 +2329,18 @@ cmake ../src \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
 %endif
-%if 0%{?sle_version} == 120100
-        -DLC_CXX_STANDARD=14 \
-%else
-        -DLC_CXX_STANDARD=17 \
-%endif
         -DCMAKE_CXX_FLAGS="%{optflags}" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
 %if 0%{?suse_version} <= 1320
-%if 0%{?sle_version} == 120100
-        -DCMAKE_C_COMPILER=/usr/bin/gcc-5 \
-        -DCMAKE_CXX_COMPILER=/usr/bin/g++-5 \
-%else
         -DCMAKE_C_COMPILER=/usr/bin/gcc-7 \
         -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 \
-%endif
 %endif
         -DSTRICT_LICENSING=True \
         -DWITH_DBUS_LOADERS=False \
         -DWITH_PCRE=True \
         -DWITH_QWT=True \
-        -DENABLE_UTIL_TESTS=True \
+        -DENABLE_UTIL_TESTS=False \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
                 -DENABLE_AGGREGATOR_WEBACCESS=False \
@@ -2398,11 +2380,7 @@ cmake ../src \
         -DENABLE_DLNIWE=False \
         -DENABLE_DOLOZHEE=True \
         -DENABLE_DUMBEEP=True \
-%if 0%{?sle_version} == 120100
-        -DENABLE_ELEEMINATOR=False \
-%else
         -DENABLE_ELEEMINATOR=True \
-%endif
         -DENABLE_FENET=True \
         -DENABLE_FONTIAC=False \
         -DENABLE_GACTS=True \
@@ -2920,14 +2898,12 @@ ctest --output-on-failure
 %{plugin_dir}/*craft_dumbeep.so
 %{settings_dir}/dumbeepsettings.xml
 
-%if 0%{?sle_version} != 120100
 %files eleeminator
 %defattr(-,root,root)
 %{plugin_dir}/*craft_eleeminator.so
 %{translations_dir}/*craft_eleeminator_??.qm
 %{translations_dir}/*craft_eleeminator_??_??.qm
 %{settings_dir}/eleeminatorsettings.xml
-%endif
 
 %files fenet
 %defattr(-,root,root)

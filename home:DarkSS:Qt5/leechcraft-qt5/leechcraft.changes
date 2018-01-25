@@ -1,11 +1,23 @@
-- Updared to 0.6.70-10870-g558588d6ec snapshot:
-  * Enabled utils tests back.
+-------------------------------------------------------------------
+Thu Jan 25 15:27:27 UTC 2018 - dap.darkness@gmail.com
+
+- Updated to 0.6.70-10895-gfcc39f86c0 snapshot:
+  * Utils tests became temporarily disabled (wip);
+  * cmake ≥ 3.10 became required to build;
+  * oS Leap 42.1 was dropped.
+
+-------------------------------------------------------------------
+Tue Jan 23 16:27:12 UTC 2018 - dap.darkness@gmail.com
+
+- Updated to 0.6.70-10870-g558588d6ec snapshot:
+  * Wt build failure was fixed;
+  * Enabled utils tests back;
   * Partially disabled deathnote due to compiler error.
 
 -------------------------------------------------------------------
 Sun Nov 19 08:52:05 UTC 2017 - dap.darkness@gmail.com
 
-- Updared to 0.6.70-10303-gdfdde8cca5 git snapshot:
+- Updated to 0.6.70-10303-gdfdde8cca5 git snapshot:
   * Poshuku logging out if restarted may be fixed.
   * Disabled utils tests due to X not found.
 
