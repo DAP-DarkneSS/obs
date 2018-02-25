@@ -1,0 +1,11 @@
+--- src/natspec.c.orig	2015-10-24 15:58:12.000000000 +0300
++++ src/natspec.c	2018-02-25 16:41:04.546153720 +0300
+@@ -155,7 +155,7 @@
+ 
+ 	if (version || info)
+ 	{
+-		printf("%s, compiled %s\n", PACKAGE_STRING,__DATE__);
++		printf("%s, compiled %s\n", PACKAGE_STRING, "via openSUSE Build Service");
+ 		if (!info)
+ 			exit(0);
+ 	}
