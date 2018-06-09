@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-11546-gc1b366fd10
+%define LEECHCRAFT_VERSION 0.6.70-11550-gf1bb8213a2
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -2879,7 +2879,7 @@ ctest --output-on-failure
 %defattr(-,root,root)
 %{translations_dir}/*craft_dbusmanager*.qm
 %{plugin_dir}/*craft_dbusmanager.so
-%{settings_dir}/dbusmanagersettings.xml
+# %%{settings_dir}/dbusmanagersettings.xml
 
 %files deadlyrics
 %defattr(-,root,root)

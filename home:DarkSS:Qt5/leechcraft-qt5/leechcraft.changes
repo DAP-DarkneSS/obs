@@ -1,5 +1,9 @@
-- Updated to  snapshot:
-  * oS Leap 15.0 should be fixed.
+-------------------------------------------------------------------
+Tue Jun  9 17:32:15 UTC 2018 - dap.darkness@gmail.com
+
+- Updated to 0.6.70-11550-gf1bb8213a2 snapshot:
+  * oS 13.2, 42.3, 15.0 should be fixed.
+  * Qt 5.11 configure issue should be resolved.
 
 -------------------------------------------------------------------
 Sat Jan 27 19:41:18 UTC 2018 - dap.darkness@gmail.com
