@@ -1,4 +1,22 @@
 -------------------------------------------------------------------
+Sun Jun 10 11:21:46 UTC 2018 - dap.darkness@gmail.com
+
+- Update to 0.3.11 (since 0.3.8):
+  * Fixed FFmpeg 4.0 compatibility.
+  * Fixed AAC codec (missing channel layout).
+  * Improved build system.
+  * Custom recording frame to replace QRubberBand (for Qt5).
+  * Improved build system.
+  * Switch to CMake build system.
+  * Add RGB24 support.
+  * Automatically add scroll bars.
+  * Improve PulseAudio latency handling of monitors.
+  * Add a separate checkbox to enable timestamps.
+  * All options are set to a sensible default value.
+  * Use base-10 units for bitrate for consistency with FFmpeg.
+  * Minor bugfixes.
+
+-------------------------------------------------------------------
 Tue Nov 15 17:08:12 UTC 2016 - dap.darkness@gmail.com
 
 - Update to 0.3.8 (since 0.3.7):

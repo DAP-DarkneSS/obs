@@ -1,7 +1,7 @@
 #
 # spec file for package simplescreenrecorder
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,24 +17,25 @@
 
 
 Name:           simplescreenrecorder
-Version:        0.3.8
+Version:        0.3.11
 Release:        0
 Summary:        A feature-rich screen recorder that supports X11 and OpenGL
-License:        GPL-3.0+
+License:        GPL-3.0-or-later
 Group:          System/X11/Utilities
 Url:            http://www.maartenbaert.be/simplescreenrecorder
 Source:         https://github.com/MaartenBaert/ssr/archive/%{version}.tar.gz
 Source9:        baselibs.conf
 
 BuildRequires:  cmake
+BuildRequires:  fdupes
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libjpeg8-devel
 BuildRequires:  libqt5-linguist
 BuildRequires:  pkgconfig
 BuildRequires:  update-desktop-files
-BuildRequires:  pkgconfig(Qt5Gui)       >= 5.1
-BuildRequires:  pkgconfig(Qt5Widgets)   >= 5.1
-BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.1
+BuildRequires:  pkgconfig(Qt5Gui)       >= 5.7
+BuildRequires:  pkgconfig(Qt5Widgets)   >= 5.7
+BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.7
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(glu)
@@ -116,18 +117,17 @@ install libssr-glinject-32bit for 32bit openGL apps support.
 # if Qt was built with -reduce-relocations."
 export CFLAGS="%{optflags} -fPIC"
 export CXXFLAGS="%{optflags} -fPIC"
-%configure --with-qt5
+%cmake -DWITH_QT5=True
 %else
-%configure \
-           --with-qt5 \
-           --disable-x86-asm \
-           --disable-glinjectlib
+%cmake \
+       -DWITH_QT5=True \
+       -DWITH_GLINJECT=False
 %endif
 make V=1 %{?_smp_mflags}
 
 %install
-%make_install V=1
-find %{buildroot} -type f -name "*.la" -delete -print
+%cmake_install
+%fdupes -s %{buildroot}%{_datadir}/icons/hicolor
 %suse_update_desktop_file %{name}
 
 %post
@@ -140,7 +140,8 @@ find %{buildroot} -type f -name "*.la" -delete -print
 
 %files
 %defattr(-,root,root)
-%doc COPYING *.txt *.md data/resources/about.htm
+%doc *.txt *.md data/resources/about.htm
+%license COPYING
 %{_bindir}/%{name}
 %{_bindir}/ssr-glinject
 %dir %{_datadir}/appdata
