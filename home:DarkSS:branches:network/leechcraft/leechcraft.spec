@@ -54,6 +54,8 @@ Source0:        https://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECH
 Source4:        %{name}-rpmlintrc
 Source8:        leechcraft-session.1
 Source9:        lc_plugin_wrapper-qt5.1
+# PATCH-FEATURE-OPENSUSE leechcraft-projectM-qt5.patch use qt5 version of projectM -- aloisio@gmx.com
+Patch0:         leechcraft-projectM-qt5.patch
 
 %if 0%{?suse_version} > 1325
 BuildRequires:  libboost_atomic-devel
@@ -140,7 +142,11 @@ BuildRequires:  pkgconfig(libpcre)
 %if %{with ffmpeg}
 BuildRequires:  pkgconfig(libpostproc)
 %endif
+%if 0%{?suse_version} >= 1500
+BuildRequires:  pkgconfig(libprojectM-qt5)
+%else
 BuildRequires:  pkgconfig(libprojectM)
+%endif
 BuildRequires:  pkgconfig(libqrencode)
 %if %{with ffmpeg}
 BuildRequires:  pkgconfig(libswresample)
@@ -2266,6 +2272,9 @@ XmlSettingsDialog LeechCraft subsystem.
 
 %prep
 %setup -q -n leechcraft-%{LEECHCRAFT_VERSION}
+%if 0%{?suse_version} >= 1500
+%patch0 -p1
+%endif
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
