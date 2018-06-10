@@ -1,7 +1,7 @@
 #
 # spec file for package kdeneur
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           kdeneur
-Version:        0.19.0
+Version:        0.20.0
 Release:        0
 Summary:        KDE Front-end for XNeur
 License:        GPL-2.0+
@@ -31,8 +31,8 @@ BuildRequires:  hicolor-icon-theme
 BuildRequires:  libkde4-devel
 BuildRequires:  pkgconfig
 BuildRequires:  update-desktop-files
-BuildRequires:  pkgconfig(xnconfig) = %{version}
-BuildRequires:  pkgconfig(xneur) = %{version}
+BuildRequires:  pkgconfig(xnconfig) >= %{version}
+BuildRequires:  pkgconfig(xneur) >= %{version}
 Requires:       xneur = %{version}
 Provides:       xneur-gui
 %{kde4_runtime_requires}
@@ -53,6 +53,14 @@ make V=1 %{?_smp_mflags}
 
 %install
 %make_install V=1
+
+%post
+%desktop_database_post
+%icon_theme_cache_post
+
+%postun
+%desktop_database_postun
+%icon_theme_cache_postun
 
 %files
 %defattr(-,root,root)
