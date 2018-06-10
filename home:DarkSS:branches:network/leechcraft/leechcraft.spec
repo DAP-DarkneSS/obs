@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-10870-g558588d6ec
+%define LEECHCRAFT_VERSION 0.6.70-11552-gf61ee51c3d
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -43,7 +43,7 @@
 %define xsd_postfix %{so_ver}
 
 Name:           leechcraft
-Version:        0.6.70+git.10870.g558588d6ec
+Version:        0.6.70+git.11552.gf61ee51c3d
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
@@ -69,7 +69,7 @@ BuildRequires:  libboost_thread-devel
 %else
 BuildRequires:  boost-devel >= 1.60
 %endif
-BuildRequires:  cmake >= 3.10
+BuildRequires:  cmake >= 3.5
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 %if 0%{?suse_version} <= 1320
@@ -1055,7 +1055,7 @@ the Openbox Window Manager.
 
 %package gacts
 Summary:        LeechCraft Global actions Module
-License:        BSL-1.0 and (LGPL-2.1 or CPL-1.0)
+License:        BSL-1.0 AND (LGPL-2.1-only OR CPL-1.0)
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 
@@ -2518,7 +2518,8 @@ ctest --output-on-failure
 
 %files
 %defattr(-,root,root)
-%doc CHANGELOG LICENSE README.md
+%doc CHANGELOG README.md
+%license LICENSE
 %{_bindir}/%{name}-qt5
 %{_mandir}/man1/%{name}-qt5.1.*
 %{_bindir}/%{name}-add-file
@@ -2837,7 +2838,6 @@ ctest --output-on-failure
 %defattr(-,root,root)
 %{translations_dir}/*craft_dbusmanager*.qm
 %{plugin_dir}/*leechcraft_dbusmanager.so
-%{settings_dir}/dbusmanagersettings.xml
 
 %files deadlyrics
 %defattr(-,root,root)
