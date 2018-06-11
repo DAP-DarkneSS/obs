@@ -1,7 +1,7 @@
 #
 # spec file for package plasmoid-timekeeper
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -19,21 +19,14 @@
 Name:           plasmoid-timekeeper
 Version:        0.7.0
 Release:        0
-License:        GPL-3.0
 Summary:        A clock and a calendar functions via steampunk interface
-Url:            http://store.kde.org/p/1002162
+License:        GPL-3.0
 Group:          System/GUI/KDE
+URL:            http://store.kde.org/p/1002162
 Source0:        http://github.com/Joker/timekeeper/archive/v0.7.0.tar.gz
 BuildRequires:  fdupes
-BuildRequires:  pkgconfig
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5Qml)
-BuildRequires:  pkgconfig(Qt5Widgets)
-BuildRequires:  cmake(KF5Service)
 BuildRequires:  cmake(KF5Plasma)
-BuildRequires:  zip
-###BuildRequires:  unzip
-###Requires:       plasma-addons-marble
+BuildRequires:  cmake(KF5Service)
 BuildArch:      noarch
 
 %description
@@ -65,9 +58,7 @@ cp -a tk.jpg %{buildroot}%{_kf5_sharedir}/pixmaps/timekeeper.jpg
 %fdupes -s %{buildroot}
 
 %files
-%defattr(-,root,root,-)
-%doc package/LICENSE.GPL3
-%dir %{_kf5_sharedir}/plasma
+%license package/LICENSE.GPL3
 %dir %{_kf5_sharedir}/plasma/plasmoids
 %{_kf5_sharedir}/plasma/plasmoids/timekeeper
 %{_kf5_servicesdir}/plasma-applet-timekeeper.desktop
