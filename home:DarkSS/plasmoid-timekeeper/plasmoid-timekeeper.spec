@@ -17,17 +17,23 @@
 
 
 Name:           plasmoid-timekeeper
-Version:        0.5.1
+Version:        0.7.0
 Release:        0
 License:        GPL-3.0
 Summary:        A clock and a calendar functions via steampunk interface
-Url:            http://kde-apps.org/content/show.php/Time+Keeper?content=159345
+Url:            http://store.kde.org/p/1002162
 Group:          System/GUI/KDE
-Source0:        http://kde-apps.org/CONTENT/content-files/159345-timekeeper.plasmoid
+Source0:        http://github.com/Joker/timekeeper/archive/v0.7.0.tar.gz
 BuildRequires:  fdupes
-BuildRequires:  kde4-filesystem
-BuildRequires:  unzip
-Requires:       plasma-addons-marble
+BuildRequires:  pkgconfig
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Qml)
+BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  cmake(KF5Service)
+BuildRequires:  cmake(KF5Plasma)
+BuildRequires:  zip
+###BuildRequires:  unzip
+###Requires:       plasma-addons-marble
 BuildArch:      noarch
 
 %description
@@ -41,32 +47,30 @@ For the Moon graphics from Luna QML were used:
 http://kde-look.org/content/show.php?content=140204
 
 %prep
-%setup -qc
+%setup -q -n timekeeper-%{version}
 
 # Fix icon name
-sed -i "s/icon.png/timekeeper/" metadata.desktop
+sed -i "s/Icon=desktop/Icon=timekeeper/" package/metadata.desktop
 
 %build
 
 %install
-mkdir -p %{buildroot}%{_kde4_appsdir}/plasma/plasmoids/timekeeper
-mkdir -p %{buildroot}%{_kde4_servicesdir}
-mkdir -p %{buildroot}%{_datadir}/pixmaps
-cp -a contents/ metadata.desktop %{buildroot}%{_kde4_appsdir}/plasma/plasmoids/timekeeper/
-cp -a metadata.desktop %{buildroot}%{_kde4_servicesdir}/plasma-applet-timekeeper.desktop
-cp -a icon.png %{buildroot}%{_datadir}/pixmaps/timekeeper.png
+mkdir -p %{buildroot}%{_kf5_sharedir}/plasma/plasmoids/timekeeper
+mkdir -p %{buildroot}%{_kf5_servicesdir}
+mkdir -p %{buildroot}%{_kf5_sharedir}/pixmaps
+cp -a package/contents/ package/metadata.desktop %{buildroot}%{_kf5_sharedir}/plasma/plasmoids/timekeeper/
+cp -a package/metadata.desktop %{buildroot}%{_kf5_servicesdir}/plasma-applet-timekeeper.desktop
+cp -a tk.jpg %{buildroot}%{_kf5_sharedir}/pixmaps/timekeeper.jpg
 
 %fdupes -s %{buildroot}
 
-%kde_post_install
-
 %files
 %defattr(-,root,root,-)
-%doc LICENSE.GPL3
-%dir %{_kde4_appsdir}/plasma
-%dir %{_kde4_appsdir}/plasma/plasmoids
-%{_kde4_appsdir}/plasma/plasmoids/timekeeper
-%{_kde4_servicesdir}/plasma-applet-timekeeper.desktop
-%{_datadir}/pixmaps/timekeeper.png
+%doc package/LICENSE.GPL3
+%dir %{_kf5_sharedir}/plasma
+%dir %{_kf5_sharedir}/plasma/plasmoids
+%{_kf5_sharedir}/plasma/plasmoids/timekeeper
+%{_kf5_servicesdir}/plasma-applet-timekeeper.desktop
+%{_datadir}/pixmaps/timekeeper.jpg
 
 %changelog

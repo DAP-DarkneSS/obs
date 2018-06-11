@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Fri Feb 23 13:03:43 UTC 2018 - ecsos@opensuse.org
+
+- update to 0.7.0
+  - Ported to Plasma 5.
+  - System fonts support added.
+  - The Marble feature does not work. Having some problems with the 
+    Plasma 5 version, so all this is turned off for now.
+
+-------------------------------------------------------------------
 Sun Sep 15 18:24:36 UTC 2013 - dap.darkness@gmail.com
 
 - Update to version 0.5.1:
