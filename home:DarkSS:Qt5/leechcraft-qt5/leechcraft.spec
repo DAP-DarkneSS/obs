@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-11550-gf1bb8213a2
+%define LEECHCRAFT_VERSION 0.6.70-11571-g1723f67874
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -66,16 +66,17 @@ BuildRequires:  libboost_thread-devel
 %else
 BuildRequires:  boost-devel >= 1.61
 %endif
-BuildRequires:  cmake >= 3.10
+BuildRequires:  cmake >= 3.8
 BuildRequires:  fdupes
 %if 0%{?suse_version} <= 1320
 BuildRequires:  gcc7-c++
-%else
+# %else 
 BuildRequires:  gcc-c++ >= 7
 %endif
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libQt5Gui-private-headers-devel >= 5.7
 BuildRequires:  liblastfm-qt5-devel
+BuildRequires:  libqt5-qtbase-common-devel >= 5.8
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
 BuildRequires:  pkgconfig
@@ -1031,17 +1032,18 @@ Requires:       libleechcraft-util-x11%{x11_postfix}             = %{version}
 Requires:       libleechcraft-util-xdg%{xdg_postfix}             = %{version}
 Requires:       libleechcraft-util-xpc%{xpc_postfix}             = %{version}
 Requires:       libleechcraft-util-xsd%{xsd_postfix}             = %{version}
-Requires:       libQt5Gui-private-headers-devel
-Requires:       libqt5-linguist-devel
-Requires:       pkgconfig(Qt5Concurrent)
-Requires:       pkgconfig(Qt5DBus)
-Requires:       pkgconfig(Qt5OpenGL)
-Requires:       pkgconfig(Qt5PrintSupport)
-Requires:       pkgconfig(Qt5Script)
-Requires:       pkgconfig(Qt5Svg)
-Requires:       pkgconfig(Qt5WebKitWidgets)
-Requires:       pkgconfig(Qt5X11Extras)
-Requires:       pkgconfig(Qt5XmlPatterns)
+Requires:       libQt5Gui-private-headers-devel >= 5.7
+Requires:       libqt5-linguist-devel >= 5.7
+Requires:       libqt5-qtbase-common-devel >= 5.8
+Requires:       pkgconfig(Qt5Concurrent) >= 5.7
+Requires:       pkgconfig(Qt5DBus) >= 5.7
+Requires:       pkgconfig(Qt5OpenGL) >= 5.7
+Requires:       pkgconfig(Qt5PrintSupport) >= 5.7
+Requires:       pkgconfig(Qt5Script) >= 5.7
+Requires:       pkgconfig(Qt5Svg) >= 5.7
+Requires:       pkgconfig(Qt5WebKitWidgets) >= 5.7
+Requires:       pkgconfig(Qt5X11Extras) >= 5.7
+Requires:       pkgconfig(Qt5XmlPatterns) >= 5.7
 Recommends:     leechcraft-azoth-doc
 Recommends:     leechcraft-doc
 Recommends:     leechcraft-monocle-doc
@@ -2879,7 +2881,6 @@ ctest --output-on-failure
 %defattr(-,root,root)
 %{translations_dir}/*craft_dbusmanager*.qm
 %{plugin_dir}/*craft_dbusmanager.so
-# %%{settings_dir}/dbusmanagersettings.xml
 
 %files deadlyrics
 %defattr(-,root,root)
