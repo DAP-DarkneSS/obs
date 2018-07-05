@@ -8,7 +8,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-9312-g4cc613a2df
+%define LEECHCRAFT_VERSION 0.6.70-11707-g69b59323a1
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -30,19 +30,19 @@
 %define debug_package %{nil}
 
 Name:           leechcraft
-Version:        0.6.70+git.9312.g4cc613a2df
+Version:        0.6.70+git.11707.g69b59323a1
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 
-Source0:        https://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
+Source0:        leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
 
-BuildRequires:  boost-devel >= 1.60
-BuildRequires:  cmake >= 3.1
+BuildRequires:  boost-devel >= 1.61
+BuildRequires:  cmake >= 3.8
 BuildRequires:  file-devel
-BuildRequires:  gcc-c++ >= 6
+BuildRequires:  gcc-c++ >= 7
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libjpeg-devel
 BuildRequires:  liblastfm-devel
@@ -857,7 +857,7 @@ the Compton Compositor.
 
 
 %package fenet-kwin
-Summary:        kwin integration for LeechCraft
+Summary:        Kwin integration for LeechCraft
 Group:          Productivity/Networking/Other
 BuildArch:      noarch
 Provides:       %{name}-fenet-wm = %{version}
@@ -1100,7 +1100,7 @@ usable with mail and blog modules.
 
 
 %package liznoo
-Summary:        LeechCraft Power managment module
+Summary:        LeechCraft Power management module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       upower
@@ -1290,11 +1290,11 @@ Provides:       %{name}-monocle-subplugin
 
 %description monocle-postrus
 This package contains the PostRus subplugin for LeechCraft Monocle
-which supports PostScript document support via the ghostscript utilties.
+which supports PostScript document support via the ghostscript utilities.
 
 
 %package monocle-seen
-Summary:        djvu support for LeechCraft Monocle
+Summary:        Djvu support for LeechCraft Monocle
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Requires:       %{name}-monocle = %{version}
@@ -1455,6 +1455,7 @@ browser module, for example. Multiple documents can be opened at once.
 Summary:        LeechCraft Web Browser Module
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
+Requires:       %{name}-poshuku-backend = %{version}
 Provides:       %{name}-webbrowser
 
 %description poshuku
@@ -2026,7 +2027,7 @@ cmake ../src \
         -DWITH_DBUS_LOADERS=True \
         -DWITH_PCRE=True \
         -DWITH_QWT=True \
-        -DENABLE_UTIL_TESTS=True \
+        -DENABLE_UTIL_TESTS=False \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
                 -DENABLE_AGGREGATOR_WEBACCESS=False \
@@ -2160,8 +2161,6 @@ make -k %{?_smp_mflags} VERBOSE=1
 %install
 cd build
 %make_install
-mv %{buildroot}%{_mandir}/man1/%{name}.1.gz \
-   %{buildroot}%{_mandir}/man1/%{name}-qt5.1.gz
 
 %check
 cd build
@@ -2510,7 +2509,6 @@ ctest --output-on-failure
 %defattr(-,root,root)
 %{translations_dir}/*craft_dbusmanager*.qm
 %{plugin_dir}/*leechcraft_dbusmanager.so
-%{settings_dir}/dbusmanagersettings.xml
 
 %files deadlyrics
 %defattr(-,root,root)
@@ -3124,6 +3122,9 @@ ctest --output-on-failure
 %{_libdir}/*-util-xsd*.so.*
 
 %changelog
+* Tue Jul 05 2018 Dmitriy A. Perlow <dap.darkness@gmail.com> - 0.6.70+git.11707.g69b59323a1
+- Qt 5.11 ready.
+
 * Sat Jun 24 2017 Dmitriy A. Perlow <dap.darkness@gmail.com> - 0.6.70+git.9312.g4cc613a2df
 - Qt5.
 

@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-11571-g1723f67874
+%define LEECHCRAFT_VERSION 0.6.70-11707-g69b59323a1
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -70,7 +70,7 @@ BuildRequires:  cmake >= 3.8
 BuildRequires:  fdupes
 %if 0%{?suse_version} <= 1320
 BuildRequires:  gcc7-c++
-# %else 
+%else 
 BuildRequires:  gcc-c++ >= 7
 %endif
 BuildRequires:  hicolor-icon-theme
