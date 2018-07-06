@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-11707-g69b59323a1
+%define LEECHCRAFT_VERSION 0.6.70-11709-gf2ae79141b
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -54,7 +54,6 @@ Source0:        leechcraft-%{version}.tar.xz
 Source4:        %{name}-rpmlintrc
 Source8:        leechcraft-session.1
 
-%if 0%{?suse_version} > 1325
 BuildRequires:  libboost_atomic-devel
 BuildRequires:  libboost_chrono-devel
 BuildRequires:  libboost_date_time-devel
@@ -63,9 +62,6 @@ BuildRequires:  libboost_locale-devel
 BuildRequires:  libboost_program_options-devel
 BuildRequires:  libboost_system-devel
 BuildRequires:  libboost_thread-devel
-%else
-BuildRequires:  boost-devel >= 1.61
-%endif
 BuildRequires:  cmake >= 3.8
 BuildRequires:  fdupes
 %if 0%{?suse_version} <= 1320
@@ -2353,7 +2349,7 @@ cmake ../src \
         -DWITH_DBUS_LOADERS=False \
         -DWITH_PCRE=True \
         -DWITH_QWT=True \
-        -DENABLE_UTIL_TESTS=False \
+        -DENABLE_UTIL_TESTS=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
                 -DENABLE_AGGREGATOR_WEBACCESS=False \
