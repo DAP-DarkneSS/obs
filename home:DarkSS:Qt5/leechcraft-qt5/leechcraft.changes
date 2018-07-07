@@ -1,7 +1,8 @@
 -------------------------------------------------------------------
 Fri Jul  6 03:45:09 UTC 2018 - dap.darkness@gmail.com
 
-- Utils tests are back.
+- Updated to 0.6.70-11712-g696a28fe34 snapshot.
+- Utils tests are back (libQt5Sql5-sqlite became requires).
 
 -------------------------------------------------------------------
 Tue Jun  9 17:32:15 UTC 2018 - dap.darkness@gmail.com

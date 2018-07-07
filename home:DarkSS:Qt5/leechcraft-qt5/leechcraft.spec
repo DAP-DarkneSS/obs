@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-11709-gf2ae79141b
+%define LEECHCRAFT_VERSION 0.6.70-11712-g696a28fe34
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -71,6 +71,7 @@ BuildRequires:  gcc-c++ >= 7
 %endif
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libQt5Gui-private-headers-devel >= 5.7
+BuildRequires:  libQt5Sql5-sqlite
 BuildRequires:  liblastfm-qt5-devel
 BuildRequires:  libqt5-qtbase-common-devel >= 5.8
 BuildRequires:  libsensors4-devel
