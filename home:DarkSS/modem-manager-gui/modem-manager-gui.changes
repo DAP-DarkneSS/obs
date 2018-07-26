@@ -1,4 +1,38 @@
 -------------------------------------------------------------------
+Thu Jul 26 18:12:34 UTC 2018 - dap.darkness@gmail.com
+
+- 0.0.19.1:
+  * Fixes:
+    - building on non-x86 machines;
+    - running on system without systemd;
+    - couple of small fixes;
+    - new Slovak localization by Jozef Gaal;
+- 0.0.19:
+  * New features:
+    - New connection control functionality
+      for NetworkManager/Connman;
+    - Builtin PIN code input dialog;
+    - Active pages selection;
+    - Custom command for new SMS;
+    - Notifications filtration in GNOME;
+    - Traffic graph movement selection;
+    - Modules compatibility checks;;
+    - Meson build system support;
+    - Theme icons support (thanks to Andrei);
+    - Monochrome and scalable icons for desktop integration;
+    - AppIndicator as replacement for GtkStatusIcon;
+    - New translations;
+  * Fixes:
+    - UI refresh for better look and feel (thanks to Andrei);
+    - Registration handler in MM06 fix (thanks to Alexey);
+    - Invisible infobar fix;
+    - Stalled connection to Akonadi server fix;
+    - Akonadi server error handler typo fix (thanks to dcb);
+    - Timestamp parser for legacy MM versions fix;
+    - Appdata file format and placement fix.
+- Added 95-mmgui-timestamp-notifier.diff.
+
+-------------------------------------------------------------------
 Wed Jun 22 15:12:13 UTC 2016 - dap.darkness@gmail.com
 
 - Reverted previous commit. It was wrong.

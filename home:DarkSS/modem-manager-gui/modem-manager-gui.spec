@@ -1,7 +1,7 @@
 #
 # spec file for package modem-manager-gui
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,13 +17,22 @@
 
 
 Name:           modem-manager-gui
-Version:        0.0.18
+Version:        0.0.19.1
 Release:        0
 Summary:        Modem Manager GUI
-License:        GPL-3.0+
+License:        GPL-3.0-or-later
 Group:          Hardware/Mobile
 Url:            http://linuxonly.ru/cms/page.php?7
 Source:         http://download.tuxfamily.org/gsf/source/modem-manager-gui-%{version}.tar.gz
+# PATCH-FEATURE-OPENSUSE E: env-script-interpreter (Badness: 9)
+# /etc/NetworkManager/dispatcher.d/95-mmgui-timestamp-notifier /usr/bin/env python3
+# This script uses 'env' as an interpreter. For the rpm runtime dependency
+# detection to work, the shebang #!/usr/bin/env python  needs to be patched into
+# #!/usr/bin/python  otherwise the package dependency generator merely adds a
+# dependency on /usr/bin/env rather than the actual interpreter /usr/bin/python.
+# Alternatively, if the file should not be executed, then ensure that it is not
+# marked as executable or don't install it in a path that is reserved for executables.
+Patch0:         95-mmgui-timestamp-notifier.diff
 
 BuildRequires:  fdupes
 BuildRequires:  gdbm-devel
@@ -31,6 +40,7 @@ BuildRequires:  itstool >= 1.2
 BuildRequires:  man
 BuildRequires:  po4a
 BuildRequires:  update-desktop-files
+BuildRequires:  pkgconfig(appindicator3-0.1)
 BuildRequires:  pkgconfig(glib-2.0) >= 2.32.1
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.4.0
 Requires:       ModemManager >= 0.5.0.0
@@ -55,6 +65,7 @@ Current features:
 
 %prep
 %setup -q
+%patch0
 
 %build
 %configure
@@ -66,29 +77,25 @@ make install INSTALLPREFIX=%{buildroot}
 %suse_update_desktop_file -r %{name} 'Internet;Monitor;'
 %fdupes -s %{buildroot}%{_datadir}/help
 
-%post
-%desktop_database_post
-
-%postun
-%desktop_database_postun
-
 %files
 %defattr(-,root,root,-)
-%doc LICENSE
+%license LICENSE
 %doc AUTHORS
 %doc Changelog
 %{_bindir}/%{name}
 %{_libdir}/%{name}
-%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%dir %{_mandir}/tr
-%dir %{_mandir}/uk
-%dir %{_mandir}/uz*
+%dir %{_mandir}/*
 %{_mandir}/*/*
-%dir %{_datadir}/appdata
-%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/metainfo/%{name}.appdata.xml
+%dir %{_sysconfdir}/NetworkManager
+%dir %{_sysconfdir}/NetworkManager/dispatcher.d
+%{_sysconfdir}/NetworkManager/dispatcher.d/95-mmgui-timestamp-notifier
 # https://bugzilla.novell.com/show_bug.cgi?id=950215
+# %%dir %%{_datadir}/polkit-1
+# %%dir %%{_datadir}/polkit-1/actions	
 %exclude %{_datadir}/polkit-1/actions/ru.linuxonly.modem-manager-gui.policy
 
 %files lang -f %{name}.lang
