@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-11712-g696a28fe34
+%define LEECHCRAFT_VERSION 0.6.70-11903-g35ca75a9bc
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
