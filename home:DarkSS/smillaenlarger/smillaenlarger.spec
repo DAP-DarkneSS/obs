@@ -1,7 +1,7 @@
 #
 # spec file for package smillaenlarger
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -19,18 +19,20 @@
 Name:           smillaenlarger
 Version:        0.9.0
 Release:        0
-License:        GPL-3.0+
 Summary:        A graphical tool to resize bitmaps in high quality
-Url:            http://sourceforge.net/projects/imageenlarger/
+License:        GPL-3.0+
 Group:          Productivity/Graphics/Bitmap Editors
+Url:            http://sourceforge.net/projects/imageenlarger/
 Source0:        http://kent.dl.sourceforge.net/project/imageenlarger/imageenlarger/SmillaEnlarger%20Release%20%{version}/SmillaEnlarger_%{version}_source.zip
 Source1:        smillaenlarger.desktop
 
 BuildRequires:  gcc-c++
-BuildRequires:  qt-devel
 BuildRequires:  unzip
 BuildRequires:  update-desktop-files
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+Patch0:         smillaenlarger-qt5.patch
 
 %description
 SmillaEnlarger is a small graphical tool ( based on Qt ) to resize,
@@ -38,17 +40,18 @@ especially magnify bitmaps in high quality.
 
 %prep
 %setup -q -n SmillaEnlarger_%{version}_source/SmillaEnlargerSrc
+%patch0 -p1
 sed \
     -i -e \
     's|0.8.9|%{version}|g' \
     EnlargerDialog.cpp
 
 %build
-%{_libdir}/qt4/bin/qmake \
+%{_libdir}/qt5/bin/qmake \
                          ImageEnlarger.pro \
                          QMAKE_STRIP="" \
                          QMAKE_CFLAGS+="%{optflags}" \
-                         QMAKE_CXXFLAGS+="%{optflags}"
+                         QMAKE_CXXFLAGS+="%{optflags} -fvisibility=hidden -fvisibility-inlines-hidden"
 %{__make} %{?_smp_mflags}
 
 %install
