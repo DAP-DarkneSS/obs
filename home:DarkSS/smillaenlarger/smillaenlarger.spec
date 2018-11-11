@@ -1,7 +1,7 @@
 #
 # spec file for package smillaenlarger
 #
-# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,34 +17,32 @@
 
 
 Name:           smillaenlarger
-Version:        0.9.0
+Version:        0.9.0+git.2017.11.21
 Release:        0
 Summary:        A graphical tool to resize bitmaps in high quality
-License:        GPL-3.0+
+License:        GPL-3.0-or-later
 Group:          Productivity/Graphics/Bitmap Editors
-Url:            http://sourceforge.net/projects/imageenlarger/
-Source0:        http://kent.dl.sourceforge.net/project/imageenlarger/imageenlarger/SmillaEnlarger%20Release%20%{version}/SmillaEnlarger_%{version}_source.zip
-Source1:        smillaenlarger.desktop
+URL:            https://github.com/lupoDharkael/smilla-enlarger
+# git clone https://github.com/lupoDharkael/smilla-enlarger.git
+# git archive --format=tar --prefix=smillaenlarger-{version}/ master | xz -z9 > smillaenlarger-{version}.tar.xz
+Source0:        smillaenlarger-%{version}.tar.xz
 
 BuildRequires:  gcc-c++
-BuildRequires:  unzip
+BuildRequires:  pkgconfig
 BuildRequires:  update-desktop-files
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Widgets)
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-Patch0:         smillaenlarger-qt5.patch
 
 %description
 SmillaEnlarger is a small graphical tool ( based on Qt ) to resize,
 especially magnify bitmaps in high quality.
 
 %prep
-%setup -q -n SmillaEnlarger_%{version}_source/SmillaEnlargerSrc
-%patch0 -p1
+%setup -q
 sed \
     -i -e \
-    's|0.8.9|%{version}|g' \
-    EnlargerDialog.cpp
+    's|0.9.0|%{version}|g' \
+    ImageEnlarger.pro
 
 %build
 %{_libdir}/qt5/bin/qmake \
@@ -52,32 +50,18 @@ sed \
                          QMAKE_STRIP="" \
                          QMAKE_CFLAGS+="%{optflags}" \
                          QMAKE_CXXFLAGS+="%{optflags} -fvisibility=hidden -fvisibility-inlines-hidden"
-%{__make} %{?_smp_mflags}
+make %{?_smp_mflags}
 
 %install
-%{__install} -m0755 -D SmillaEnlarger %{buildroot}%{_bindir}/smillaenlarger
-%{__install} -m0644 -D smilla.png %{buildroot}%{_datadir}/pixmaps/smillaenlarger.png
-%suse_update_desktop_file -i %{name}
-
-%post
-%if 0%{?suse_version} >= 1140
-%desktop_database_post
-%else
-update-desktop-database &> /dev/null || :
-%endif
-
-%postun
-%if 0%{?suse_version} >= 1140
-%desktop_database_postun
-%else
-update-desktop-database &> /dev/null || :
-%endif
+install -m0755 -D smilla-enlarger %{buildroot}%{_bindir}/%{name}
+install -m0644 -D img/smilla.png %{buildroot}%{_datadir}/pixmaps/smilla.png
+%suse_update_desktop_file -i smilla
 
 %files
-%defattr(-,root,root)
-%doc docs/* help/*
+%license LICENSE
+%doc docs/*.md docs/*.txt help/*.html README.md
 %{_bindir}/%{name}
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/applications/smilla.desktop
+%{_datadir}/pixmaps/smilla.png
 
 %changelog

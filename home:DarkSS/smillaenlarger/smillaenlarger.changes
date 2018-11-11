@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sun Nov 11 10:52:36 UTC 2018 - Dmitriy Perlow <dap.darkness@gmail.com>
+
+- 0.9.0+git.2017.11.21:
+  * Sources were switched to github.com/lupoDharkael/smilla-enlarger.
+  * Removed smillaenlarger-qt5.patch & smillaenlarger.desktop.
+- `spec-cleaner` and general refactoring.
+
+-------------------------------------------------------------------
 Fri Dec 15 20:24:41 UTC 2017 - crrodriguez@opensuse.org
 
 - smillaenlarger-qt5.patch: Very simple patch to allow 
