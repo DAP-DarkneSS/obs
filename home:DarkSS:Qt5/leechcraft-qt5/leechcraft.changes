@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Apr  1 15:30:08 UTC 2019 - dap.darkness@gmail.com
+- Updated to 0.6.70-13142-gc531fc741b snapshot:
+  * gcc ≥ 8 became requred to build;
+  * Qt ≥ 5.10 became requred to build;
+  * Disabled chromaprint due to "error: conflicting declaration".
+
+-------------------------------------------------------------------
 Fri Jul  6 03:45:09 UTC 2018 - dap.darkness@gmail.com
 
 - Updated to 0.6.70-11712-g696a28fe34 snapshot.
