@@ -1,7 +1,7 @@
 #
 # spec file for package leechcraft
 #
-# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2019 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 
@@ -50,12 +50,10 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 
-Source0:        https://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
+Source0:        leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
 Source4:        %{name}-rpmlintrc
 Source8:        leechcraft-session.1
 Source9:        lc_plugin_wrapper-qt5.1
-# PATCH-FEATURE-OPENSUSE leechcraft-projectM-qt5.patch use qt5 version of projectM -- aloisio@gmx.com
-Patch0:         leechcraft-projectM-qt5.patch
 
 %if 0%{?suse_version} > 1325
 BuildRequires:  libboost_atomic-devel
@@ -69,7 +67,7 @@ BuildRequires:  libboost_thread-devel
 %else
 BuildRequires:  boost-devel >= 1.60
 %endif
-BuildRequires:  cmake >= 3.5
+BuildRequires:  cmake >= 3.8
 BuildRequires:  fdupes
 BuildRequires:  file-devel
 %if 0%{?suse_version} <= 1320
@@ -85,6 +83,7 @@ BuildRequires:  hicolor-icon-theme
 BuildRequires:  libQt5Gui-private-headers-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  liblastfm-qt5-devel
+BuildRequires:  libqt5-qtbase-common-devel >= 5.8
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
 BuildRequires:  pkgconfig
@@ -142,11 +141,7 @@ BuildRequires:  pkgconfig(libpcre)
 %if %{with ffmpeg}
 BuildRequires:  pkgconfig(libpostproc)
 %endif
-%if 0%{?suse_version} >= 1500
-BuildRequires:  pkgconfig(libprojectM-qt5)
-%else
-BuildRequires:  pkgconfig(libprojectM)
-%endif
+BuildRequires:  pkgconfig(libprojectM) >= 3
 BuildRequires:  pkgconfig(libqrencode)
 %if %{with ffmpeg}
 BuildRequires:  pkgconfig(libswresample)
@@ -2272,9 +2267,6 @@ XmlSettingsDialog LeechCraft subsystem.
 
 %prep
 %setup -q -n leechcraft-%{LEECHCRAFT_VERSION}
-%if 0%{?suse_version} >= 1500
-%patch0 -p1
-%endif
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
