@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via https://bugs.opensuse.org/
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
 
@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-11552-gf61ee51c3d
+%define LEECHCRAFT_VERSION 0.6.70-13143-gd05082db2d
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -43,14 +43,14 @@
 %define xsd_postfix %{so_ver}
 
 Name:           leechcraft
-Version:        0.6.70+git.11552.gf61ee51c3d
+Version:        0.6.70+git.13143.gd05082db2d
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Url:            http://leechcraft.org
 
-Source0:        leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
+Source0:        https://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
 Source4:        %{name}-rpmlintrc
 Source8:        leechcraft-session.1
 Source9:        lc_plugin_wrapper-qt5.1
@@ -70,56 +70,53 @@ BuildRequires:  boost-devel >= 1.60
 BuildRequires:  cmake >= 3.8
 BuildRequires:  fdupes
 BuildRequires:  file-devel
-%if 0%{?suse_version} <= 1320
-%if 0%{?sle_version} == 120200
-BuildRequires:  gcc6-c++
+%if 0%{?sle_version} > 150100
+BuildRequires:  gcc-c++ >= 8
 %else
-BuildRequires:  gcc7-c++
-%endif
-%else
-BuildRequires:  gcc-c++ >= 7
+BuildRequires:  gcc8-c++
 %endif
 BuildRequires:  hicolor-icon-theme
-BuildRequires:  libQt5Gui-private-headers-devel
+BuildRequires:  libQt5Gui-private-headers-devel >= 5.10
+BuildRequires:  libQt5Sql5-sqlite >= 5.10
 BuildRequires:  libjpeg-devel
 BuildRequires:  liblastfm-qt5-devel
-BuildRequires:  libqt5-qtbase-common-devel >= 5.8
+BuildRequires:  libqt5-qtbase-common-devel >= 5.10
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
 BuildRequires:  pkgconfig
 %if 0%{?suse_version} > 1325
 BuildRequires:  wt-devel
 %endif
-BuildRequires:  cmake(Qt5LinguistTools)
-BuildRequires:  pkgconfig(Qt5Concurrent)
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5DBus)
-BuildRequires:  pkgconfig(Qt5Gui)
-BuildRequires:  pkgconfig(Qt5Multimedia)
-BuildRequires:  pkgconfig(Qt5Network)
-BuildRequires:  pkgconfig(Qt5OpenGL)
-BuildRequires:  pkgconfig(Qt5Positioning)
-BuildRequires:  pkgconfig(Qt5PrintSupport)
-BuildRequires:  pkgconfig(Qt5Qml)
-BuildRequires:  pkgconfig(Qt5Quick)
-BuildRequires:  pkgconfig(Qt5QuickWidgets)
-BuildRequires:  pkgconfig(Qt5Qwt6)
-BuildRequires:  pkgconfig(Qt5Script)
-BuildRequires:  pkgconfig(Qt5Sensors)
-BuildRequires:  pkgconfig(Qt5Sql)
-BuildRequires:  pkgconfig(Qt5Svg)
-BuildRequires:  pkgconfig(Qt5WebChannel)
-BuildRequires:  pkgconfig(Qt5WebKit)
-BuildRequires:  pkgconfig(Qt5WebKitWidgets)
-BuildRequires:  pkgconfig(Qt5Widgets)
-BuildRequires:  pkgconfig(Qt5X11Extras)
-BuildRequires:  pkgconfig(Qt5Xml)
-BuildRequires:  pkgconfig(Qt5XmlPatterns)
+BuildRequires:  cmake(Qt5LinguistTools) >= 5.10
+BuildRequires:  pkgconfig(Qt5Concurrent) >= 5.10
+BuildRequires:  pkgconfig(Qt5Core) >= 5.10
+BuildRequires:  pkgconfig(Qt5DBus) >= 5.10
+BuildRequires:  pkgconfig(Qt5Gui) >= 5.10
+BuildRequires:  pkgconfig(Qt5Multimedia) >= 5.10
+BuildRequires:  pkgconfig(Qt5Network) >= 5.10
+BuildRequires:  pkgconfig(Qt5OpenGL) >= 5.10
+BuildRequires:  pkgconfig(Qt5Positioning) >= 5.10
+BuildRequires:  pkgconfig(Qt5PrintSupport) >= 5.10
+BuildRequires:  pkgconfig(Qt5Qml) >= 5.10
+BuildRequires:  pkgconfig(Qt5Quick) >= 5.10
+BuildRequires:  pkgconfig(Qt5QuickWidgets) >= 5.10
+BuildRequires:  pkgconfig(Qt5Qwt6) >= 5.10
+BuildRequires:  pkgconfig(Qt5Script) >= 5.10
+BuildRequires:  pkgconfig(Qt5Sensors) >= 5.10
+BuildRequires:  pkgconfig(Qt5Sql) >= 5.10
+BuildRequires:  pkgconfig(Qt5Svg) >= 5.10
+BuildRequires:  pkgconfig(Qt5WebChannel) >= 5.10
+BuildRequires:  pkgconfig(Qt5WebKit) >= 5.10
+BuildRequires:  pkgconfig(Qt5WebKitWidgets) >= 5.10
+BuildRequires:  pkgconfig(Qt5Widgets) >= 5.10
+BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.10
+BuildRequires:  pkgconfig(Qt5Xml) >= 5.10
+BuildRequires:  pkgconfig(Qt5XmlPatterns) >= 5.10
 BuildRequires:  pkgconfig(bzip2)
 %if 0%{?suse_version} > 1325 || 0%{?sle_version} >= 120300
 BuildRequires:  pkgconfig(ddjvuapi)
 %endif
-%if 0%{?suse_version} > 1325
+%ifarch %ix86 x86_64 %arm ppc64le
 BuildRequires:  pkgconfig(geoip)
 %endif
 BuildRequires:  pkgconfig(gstreamer-app-1.0)
@@ -141,14 +138,18 @@ BuildRequires:  pkgconfig(libpcre)
 %if %{with ffmpeg}
 BuildRequires:  pkgconfig(libpostproc)
 %endif
+%if 0%{?sle_version} > 150100
+%ifarch %ix86 x86_64 ppc64 ppc64le
 BuildRequires:  pkgconfig(libprojectM) >= 3
+%endif
+%endif
 BuildRequires:  pkgconfig(libqrencode)
 %if %{with ffmpeg}
 BuildRequires:  pkgconfig(libswresample)
 BuildRequires:  pkgconfig(libswscale)
 %endif
 BuildRequires:  pkgconfig(libtcmalloc)
-%if 0%{?suse_version} > 1325
+%ifarch %ix86 x86_64 %arm ppc64le
 BuildRequires:  pkgconfig(libtorrent-rasterbar)
 %endif
 BuildRequires:  pkgconfig(libudev)
@@ -193,7 +194,7 @@ Recommends:     %{name}-secman-simplestorage
 Recommends:     %{name}-visualnotifications
 Suggests:       %{name}-lastfmscrobble
 
-%if 0%{?suse_version} < 1325
+%ifarch ppc64
 Obsoletes:      %{name}-bittorrent
 %endif
 Obsoletes:      %{name}-choroid
@@ -205,6 +206,7 @@ Obsoletes:      %{name}-nacheku
 Obsoletes:      %{name}-popishu
 Obsoletes:      %{name}-qrosp
 Obsoletes:      %{name}-syncer
+Obsoletes:      %{name}-vgrabber
 Obsoletes:      %{name}-vtyulc
 
 %description
@@ -712,7 +714,7 @@ This package provides an Azoth plugin which allows to publish
 the current user tune.
 
 
-%if 0%{?suse_version} > 1325
+%ifarch %ix86 x86_64 %arm ppc64le
 %package bittorrent
 Summary:        LeechCraft BitTorrent client Module
 License:        BSL-1.0
@@ -857,8 +859,8 @@ Provides:       %{name}-http
 
 %description cstp
 This package provides a HTTP implementation plugin for LeechCraft
-which will mainly used by many other plugins like Aggregator,
-SeekThru or vGrabber.
+which will mainly used by many other plugins like Aggregator or
+SeekThru.
 
 Features:
  * Support for redirects.
@@ -897,7 +899,7 @@ Summary:        LeechCraft Development Files
 License:        BSL-1.0
 Group:          Development/Libraries/Other
 Requires:       %{name} = %{version}
-Requires:       cmake
+Requires:       cmake >= 3.8
 Requires:       libQt5Gui-private-headers-devel
 Requires:       libleechcraft-util-db%{db_postfix}               = %{version}
 Requires:       libleechcraft-util-gui%{gui_postfix}             = %{version}
@@ -913,16 +915,16 @@ Requires:       libleechcraft-util-x11%{x11_postfix}             = %{version}
 Requires:       libleechcraft-util-xdg%{xdg_postfix}             = %{version}
 Requires:       libleechcraft-util-xpc%{xpc_postfix}             = %{version}
 Requires:       libleechcraft-util-xsd%{xsd_postfix}             = %{version}
-Requires:       libqt5-linguist-devel
-Requires:       pkgconfig(Qt5Concurrent)
-Requires:       pkgconfig(Qt5DBus)
-Requires:       pkgconfig(Qt5OpenGL)
-Requires:       pkgconfig(Qt5PrintSupport)
-Requires:       pkgconfig(Qt5Script)
-Requires:       pkgconfig(Qt5Svg)
-Requires:       pkgconfig(Qt5WebKitWidgets)
-Requires:       pkgconfig(Qt5X11Extras)
-Requires:       pkgconfig(Qt5XmlPatterns)
+Requires:       libqt5-linguist-devel >= 5.10
+Requires:       pkgconfig(Qt5Concurrent) >= 5.10
+Requires:       pkgconfig(Qt5DBus) >= 5.10
+Requires:       pkgconfig(Qt5OpenGL) >= 5.10
+Requires:       pkgconfig(Qt5PrintSupport) >= 5.10
+Requires:       pkgconfig(Qt5Script) >= 5.10
+Requires:       pkgconfig(Qt5Svg) >= 5.10
+Requires:       pkgconfig(Qt5WebKitWidgets) >= 5.10
+Requires:       pkgconfig(Qt5X11Extras) >= 5.10
+Requires:       pkgconfig(Qt5XmlPatterns) >= 5.10
 Recommends:     leechcraft-azoth-doc
 Recommends:     leechcraft-doc
 Recommends:     leechcraft-monocle-doc
@@ -1321,8 +1323,8 @@ Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
 Requires:       gstreamer-plugins-base >= 1.0
 Requires:       gstreamer-plugins-good >= 1.0
-Requires:       libqt5-qtgraphicaleffects >= 5.6
-Requires:       libqt5-qtquickcontrols >= 5.6
+Requires:       libqt5-qtgraphicaleffects >= 5.10
+Requires:       libqt5-qtquickcontrols >= 5.10
 Recommends:     gstreamer-plugins-bad
 Recommends:     gstreamer-plugins-libav
 Provides:       %{name}-audioplayer
@@ -1423,6 +1425,8 @@ Requires:       %{name}-lmp = %{version}
 This package allows to synchronize with MTP devices via LeechCraft.
 
 
+%if 0%{?sle_version} > 150100
+%ifarch %ix86 x86_64 ppc64 ppc64le
 %package lmp-potorchu
 Summary:        LeechCraft Visualization Effects Module
 License:        BSL-1.0
@@ -1431,7 +1435,8 @@ Requires:       %{name}-lmp = %{version}
 
 %description lmp-potorchu
 This package provides visualization effects for the LeechCraft audio player.
-
+%endif
+%endif
 
 %package lmp-ppl
 Summary:        LeechCraft Portable Player Logging Module
@@ -1881,7 +1886,7 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-sb = %{version}
-Requires:       libqt5-qtquickcontrols >= 5.6
+Requires:       libqt5-qtquickcontrols >= 5.10
 
 %description sb2
 This package provides another side bar plugin for Leechcraft.
@@ -1971,7 +1976,7 @@ context-dependent actions and views. It also can collect status
 information from other plugins like unread channels.
 
 Summary also allows to perform searches via the installed plugins
-like SeekThru, HistoryHolder or vGrabber.
+like SeekThru or HistoryHolder.
 
 Features:
  * List of current tasks and events with context-dependent actions
@@ -2054,19 +2059,6 @@ Requires:       %{name}-sb2 = %{version}
 
 %description tpi
 This package provides a Task Progress Indicator quark plugin for Leechcraft.
-
-
-%package vgrabber
-Summary:        LeechCraft Vkontakte grabber Module
-License:        BSL-1.0
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-Requires:       %{name}-summaryrepresentation = %{version}
-
-%description vgrabber
-This package provides a Vkontakte.ru plugin for LeechCraft
-which can search for, download, and play audio and video from the Russian
-social network Vkontakte.
 
 
 %package vrooby
@@ -2159,7 +2151,7 @@ network classes and functions.
 Summary:        QML utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
-Requires:       libQtQuick5 >= 5.6
+Requires:       libQtQuick5 >= 5.10
 
 %description -n libleechcraft-util-qml%{qml_postfix}
 A library providing some commonly used QML items as well as
@@ -2293,26 +2285,18 @@ cmake ../src \
 %if "%{_lib}" == "lib64"
         -DLIB_SUFFIX=64 \
 %endif
-%if 0%{?suse_version} > 1325
-        -DLC_CXX_STANDARD=17 \
-%endif
         -DCMAKE_CXX_FLAGS="${tmpflags} -Doverride=" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-%if 0%{?suse_version} <= 1320
-%if 0%{?sle_version} == 120200
-        -DCMAKE_C_COMPILER=/usr/bin/gcc-6 \
-        -DCMAKE_CXX_COMPILER=/usr/bin/g++-6 \
-%else
-        -DCMAKE_C_COMPILER=/usr/bin/gcc-7 \
-        -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 \
-%endif
+%if 0%{?sle_version} <= 150100
+        -DCMAKE_C_COMPILER=/usr/bin/gcc-8 \
+        -DCMAKE_CXX_COMPILER=/usr/bin/g++-8 \
 %endif
         -DSTRICT_LICENSING=True \
         -DWITH_DBUS_LOADERS=True \
         -DWITH_PCRE=True \
         -DWITH_QWT=True \
-        -DENABLE_UTIL_TESTS=False \
+        -DENABLE_UTIL_TESTS=True \
         -DENABLE_ADVANCEDNOTIFICATIONS=True \
         -DENABLE_AGGREGATOR=True \
 %if 0%{?suse_version} > 1325
@@ -2389,7 +2373,15 @@ cmake ../src \
                 -DENABLE_LMP_LIBGUESS=True \
                 -DENABLE_LMP_MPRIS=True \
                 -DENABLE_LMP_MTPSYNC=True \
+%if 0%{?sle_version} > 150100
+%ifarch %ix86 x86_64 ppc64 ppc64le
                 -DENABLE_LMP_POTORCHU=True \
+%else
+                -DENABLE_LMP_POTORCHU=False \
+%endif
+%else
+                -DENABLE_LMP_POTORCHU=False \
+%endif
                 -DENABLE_LMP_PPL=True \
                 -DENABLE_LMP_PPL_TESTS=True \
         -DENABLE_MELLONETRAY=True \
@@ -2443,7 +2435,7 @@ cmake ../src \
         -DENABLE_TABSESSMANAGER=True \
         -DENABLE_TABSLIST=True \
         -DENABLE_TEXTOGROOSE=True \
-%if 0%{?suse_version} > 1325
+%ifarch %ix86 x86_64 %arm ppc64le
         -DENABLE_TORRENT=True \
                 -DENABLE_BITTORRENT_GEOIP=True \
 %else
@@ -2754,7 +2746,7 @@ ctest --output-on-failure
 %{plugin_dir}/*craft_azoth_xtazy.so
 %{translations_dir}/*craft_azoth_xtazy*
 
-%if 0%{?suse_version} > 1325
+%ifarch %ix86 x86_64 %arm ppc64le
 %files bittorrent
 %defattr(-,root,root)
 %{settings_dir}/torrentsettings.xml
@@ -3066,11 +3058,15 @@ ctest --output-on-failure
 %defattr(-,root,root)
 %{plugin_dir}/*craft_lmp_mtpsync.so
 
+%if 0%{?sle_version} > 150100
+%ifarch %ix86 x86_64 ppc64 ppc64le
 %files lmp-potorchu
 %defattr(-,root,root)
 %{plugin_dir}/*craft_lmp_potorchu.so
 %{translations_dir}/*craft_lmp_potorchu_??.qm
 %{translations_dir}/*craft_lmp_potorchu_??_??.qm
+%endif
+%endif
 
 %files lmp-ppl
 %defattr(-,root,root)
@@ -3341,12 +3337,6 @@ ctest --output-on-failure
 %defattr(-,root,root)
 %{plugin_dir}/lib%{name}_tpi.so
 %{qml_dir}/tpi/
-
-%files vgrabber
-%defattr(-,root,root)
-%{settings_dir}/vgrabbersettings.xml
-%{translations_dir}/*craft_vgrabber*.qm
-%{plugin_dir}/*craft_vgrabber.so
 
 %files vrooby
 %defattr(-,root,root)

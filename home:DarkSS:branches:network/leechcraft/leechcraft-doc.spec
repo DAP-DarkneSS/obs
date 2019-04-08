@@ -12,14 +12,14 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via https://bugs.opensuse.org/
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
 
-%define LEECHCRAFT_VERSION 0.6.70-11552-gf61ee51c3d
+%define LEECHCRAFT_VERSION 0.6.70-13143-gd05082db2d
 
 Name:           leechcraft-doc
-Version:        0.6.70+git.11552.gf61ee51c3d
+Version:        0.6.70+git.13143.gd05082db2d
 Release:        0
 Summary:        Modular Internet Client Documentation
 License:        BSL-1.0
@@ -107,22 +107,13 @@ cp -r * %{buildroot}%{_docdir}/leechcraft-monocle-doc
 %files
 %defattr(-,root,root)
 %doc %{_docdir}/leechcraft-doc
-%if 0%{?suse_version} <= 1210
-%exclude %{_docdir}/leechcraft-doc/installdox
-%endif
 
 %files -n leechcraft-azoth-doc
 %defattr(-,root,root)
 %doc %{_docdir}/leechcraft-azoth-doc
-%if 0%{?suse_version} <= 1210
-%exclude %{_docdir}/leechcraft-azoth-doc/installdox
-%endif
 
 %files -n leechcraft-monocle-doc
 %defattr(-,root,root)
 %doc %{_docdir}/leechcraft-monocle-doc
-%if 0%{?suse_version} <= 1210
-%exclude %{_docdir}/leechcraft-monocle-doc/installdox
-%endif
 
 %changelog
