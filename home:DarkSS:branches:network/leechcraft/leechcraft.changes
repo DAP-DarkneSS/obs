@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sun Apr 14 12:43:33 UTC 2019 - Dmitriy Perlow <dap.darkness@gmail.com>
+
+- Updated to 0.6.70-13163-g100049e6a6 snapshot:
+  * Fixed Leap compiller errors;
+  * Added leechcraft-Qt59.diff to get Leap build;
+  * Fixed mode of sha1 _service.
+
+-------------------------------------------------------------------
 Sat Apr  6 14:46:33 UTC 2019 - Dmitriy Perlow <dap.darkness@gmail.com>
 
 - Updated to 0.6.70-13143-gd05082db2d snapshot:

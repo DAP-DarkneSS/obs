@@ -16,16 +16,16 @@
 #
 
 
-%define LEECHCRAFT_VERSION 0.6.70-13143-gd05082db2d
+%define LEECHCRAFT_VERSION 0.6.70-13163-g100049e6a6
 
 Name:           leechcraft-doc
-Version:        0.6.70+git.13143.gd05082db2d
+Version:        0.6.70+git.13163.g100049e6a6
 Release:        0
 Summary:        Modular Internet Client Documentation
 License:        BSL-1.0
 Group:          Development/Libraries/Other
 Url:            http://leechcraft.org
-Source0:        leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
+Source0:        https://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECHCRAFT_VERSION}.tar.xz
 
 BuildRequires:  doxygen >= 1.8.3.1
 BuildRequires:  fdupes

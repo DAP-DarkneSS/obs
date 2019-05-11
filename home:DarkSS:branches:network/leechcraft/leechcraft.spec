@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-13143-gd05082db2d
+%define LEECHCRAFT_VERSION 0.6.70-13163-g100049e6a6
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -43,7 +43,7 @@
 %define xsd_postfix %{so_ver}
 
 Name:           leechcraft
-Version:        0.6.70+git.13143.gd05082db2d
+Version:        0.6.70+git.13163.g100049e6a6
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
@@ -54,19 +54,9 @@ Source0:        https://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECH
 Source4:        %{name}-rpmlintrc
 Source8:        leechcraft-session.1
 Source9:        lc_plugin_wrapper-qt5.1
+# PATCH-FEATURE-UPSTREAM for Qt 5.9 support.
+Patch0:         leechcraft-Qt59.diff
 
-%if 0%{?suse_version} > 1325
-BuildRequires:  libboost_atomic-devel
-BuildRequires:  libboost_chrono-devel
-BuildRequires:  libboost_date_time-devel
-BuildRequires:  libboost_filesystem-devel
-BuildRequires:  libboost_locale-devel
-BuildRequires:  libboost_program_options-devel
-BuildRequires:  libboost_system-devel
-BuildRequires:  libboost_thread-devel
-%else
-BuildRequires:  boost-devel >= 1.60
-%endif
 BuildRequires:  cmake >= 3.8
 BuildRequires:  fdupes
 BuildRequires:  file-devel
@@ -76,42 +66,50 @@ BuildRequires:  gcc-c++ >= 8
 BuildRequires:  gcc8-c++
 %endif
 BuildRequires:  hicolor-icon-theme
-BuildRequires:  libQt5Gui-private-headers-devel >= 5.10
-BuildRequires:  libQt5Sql5-sqlite >= 5.10
+BuildRequires:  libQt5Gui-private-headers-devel >= 5.9
+BuildRequires:  libQt5Sql5-sqlite >= 5.9
+BuildRequires:  libboost_atomic-devel
+BuildRequires:  libboost_chrono-devel
+BuildRequires:  libboost_date_time-devel
+BuildRequires:  libboost_filesystem-devel
+BuildRequires:  libboost_locale-devel
+BuildRequires:  libboost_program_options-devel
+BuildRequires:  libboost_system-devel
+BuildRequires:  libboost_thread-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  liblastfm-qt5-devel
-BuildRequires:  libqt5-qtbase-common-devel >= 5.10
+BuildRequires:  libqt5-qtbase-common-devel >= 5.9
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
 BuildRequires:  pkgconfig
 %if 0%{?suse_version} > 1325
 BuildRequires:  wt-devel
 %endif
-BuildRequires:  cmake(Qt5LinguistTools) >= 5.10
-BuildRequires:  pkgconfig(Qt5Concurrent) >= 5.10
-BuildRequires:  pkgconfig(Qt5Core) >= 5.10
-BuildRequires:  pkgconfig(Qt5DBus) >= 5.10
-BuildRequires:  pkgconfig(Qt5Gui) >= 5.10
-BuildRequires:  pkgconfig(Qt5Multimedia) >= 5.10
-BuildRequires:  pkgconfig(Qt5Network) >= 5.10
-BuildRequires:  pkgconfig(Qt5OpenGL) >= 5.10
-BuildRequires:  pkgconfig(Qt5Positioning) >= 5.10
-BuildRequires:  pkgconfig(Qt5PrintSupport) >= 5.10
-BuildRequires:  pkgconfig(Qt5Qml) >= 5.10
-BuildRequires:  pkgconfig(Qt5Quick) >= 5.10
-BuildRequires:  pkgconfig(Qt5QuickWidgets) >= 5.10
-BuildRequires:  pkgconfig(Qt5Qwt6) >= 5.10
-BuildRequires:  pkgconfig(Qt5Script) >= 5.10
-BuildRequires:  pkgconfig(Qt5Sensors) >= 5.10
-BuildRequires:  pkgconfig(Qt5Sql) >= 5.10
-BuildRequires:  pkgconfig(Qt5Svg) >= 5.10
-BuildRequires:  pkgconfig(Qt5WebChannel) >= 5.10
-BuildRequires:  pkgconfig(Qt5WebKit) >= 5.10
-BuildRequires:  pkgconfig(Qt5WebKitWidgets) >= 5.10
-BuildRequires:  pkgconfig(Qt5Widgets) >= 5.10
-BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.10
-BuildRequires:  pkgconfig(Qt5Xml) >= 5.10
-BuildRequires:  pkgconfig(Qt5XmlPatterns) >= 5.10
+BuildRequires:  cmake(Qt5LinguistTools) >= 5.9
+BuildRequires:  pkgconfig(Qt5Concurrent) >= 5.9
+BuildRequires:  pkgconfig(Qt5Core) >= 5.9
+BuildRequires:  pkgconfig(Qt5DBus) >= 5.9
+BuildRequires:  pkgconfig(Qt5Gui) >= 5.9
+BuildRequires:  pkgconfig(Qt5Multimedia) >= 5.9
+BuildRequires:  pkgconfig(Qt5Network) >= 5.9
+BuildRequires:  pkgconfig(Qt5OpenGL) >= 5.9
+BuildRequires:  pkgconfig(Qt5Positioning) >= 5.9
+BuildRequires:  pkgconfig(Qt5PrintSupport) >= 5.9
+BuildRequires:  pkgconfig(Qt5Qml) >= 5.9
+BuildRequires:  pkgconfig(Qt5Quick) >= 5.9
+BuildRequires:  pkgconfig(Qt5QuickWidgets) >= 5.9
+BuildRequires:  pkgconfig(Qt5Qwt6) >= 5.9
+BuildRequires:  pkgconfig(Qt5Script) >= 5.9
+BuildRequires:  pkgconfig(Qt5Sensors) >= 5.9
+BuildRequires:  pkgconfig(Qt5Sql) >= 5.9
+BuildRequires:  pkgconfig(Qt5Svg) >= 5.9
+BuildRequires:  pkgconfig(Qt5WebChannel) >= 5.9
+BuildRequires:  pkgconfig(Qt5WebKit) >= 5.9
+BuildRequires:  pkgconfig(Qt5WebKitWidgets) >= 5.9
+BuildRequires:  pkgconfig(Qt5Widgets) >= 5.9
+BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.9
+BuildRequires:  pkgconfig(Qt5Xml) >= 5.9
+BuildRequires:  pkgconfig(Qt5XmlPatterns) >= 5.9
 BuildRequires:  pkgconfig(bzip2)
 %if 0%{?suse_version} > 1325 || 0%{?sle_version} >= 120300
 BuildRequires:  pkgconfig(ddjvuapi)
@@ -915,16 +913,16 @@ Requires:       libleechcraft-util-x11%{x11_postfix}             = %{version}
 Requires:       libleechcraft-util-xdg%{xdg_postfix}             = %{version}
 Requires:       libleechcraft-util-xpc%{xpc_postfix}             = %{version}
 Requires:       libleechcraft-util-xsd%{xsd_postfix}             = %{version}
-Requires:       libqt5-linguist-devel >= 5.10
-Requires:       pkgconfig(Qt5Concurrent) >= 5.10
-Requires:       pkgconfig(Qt5DBus) >= 5.10
-Requires:       pkgconfig(Qt5OpenGL) >= 5.10
-Requires:       pkgconfig(Qt5PrintSupport) >= 5.10
-Requires:       pkgconfig(Qt5Script) >= 5.10
-Requires:       pkgconfig(Qt5Svg) >= 5.10
-Requires:       pkgconfig(Qt5WebKitWidgets) >= 5.10
-Requires:       pkgconfig(Qt5X11Extras) >= 5.10
-Requires:       pkgconfig(Qt5XmlPatterns) >= 5.10
+Requires:       libqt5-linguist-devel >= 5.9
+Requires:       pkgconfig(Qt5Concurrent) >= 5.9
+Requires:       pkgconfig(Qt5DBus) >= 5.9
+Requires:       pkgconfig(Qt5OpenGL) >= 5.9
+Requires:       pkgconfig(Qt5PrintSupport) >= 5.9
+Requires:       pkgconfig(Qt5Script) >= 5.9
+Requires:       pkgconfig(Qt5Svg) >= 5.9
+Requires:       pkgconfig(Qt5WebKitWidgets) >= 5.9
+Requires:       pkgconfig(Qt5X11Extras) >= 5.9
+Requires:       pkgconfig(Qt5XmlPatterns) >= 5.9
 Recommends:     leechcraft-azoth-doc
 Recommends:     leechcraft-doc
 Recommends:     leechcraft-monocle-doc
@@ -1323,8 +1321,8 @@ Recommends:     %{name}-musiczombie = %{version}
 Recommends:     ffmpeg
 Requires:       gstreamer-plugins-base >= 1.0
 Requires:       gstreamer-plugins-good >= 1.0
-Requires:       libqt5-qtgraphicaleffects >= 5.10
-Requires:       libqt5-qtquickcontrols >= 5.10
+Requires:       libqt5-qtgraphicaleffects >= 5.9
+Requires:       libqt5-qtquickcontrols >= 5.9
 Recommends:     gstreamer-plugins-bad
 Recommends:     gstreamer-plugins-libav
 Provides:       %{name}-audioplayer
@@ -1886,7 +1884,7 @@ License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name} = %{version}
 Provides:       %{name}-sb = %{version}
-Requires:       libqt5-qtquickcontrols >= 5.10
+Requires:       libqt5-qtquickcontrols >= 5.9
 
 %description sb2
 This package provides another side bar plugin for Leechcraft.
@@ -2151,7 +2149,7 @@ network classes and functions.
 Summary:        QML utility library for LeechCraft
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
-Requires:       libQtQuick5 >= 5.10
+Requires:       libQtQuick5 >= 5.9
 
 %description -n libleechcraft-util-qml%{qml_postfix}
 A library providing some commonly used QML items as well as
@@ -2259,6 +2257,9 @@ XmlSettingsDialog LeechCraft subsystem.
 
 %prep
 %setup -q -n leechcraft-%{LEECHCRAFT_VERSION}
+%if 0%{?sle_version} <= 150100
+%patch0 -p1
+%endif
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
