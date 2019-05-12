@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-13142-gc531fc741b
+%define LEECHCRAFT_VERSION 0.6.70-13186-g2c3ee31903
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -66,7 +66,7 @@ BuildRequires:  cmake >= 3.8
 BuildRequires:  fdupes
 %if 0%{?suse_version} <= 1320 || 0%{?sle_version} <= 150000
 BuildRequires:  gcc8-c++
-%else 
+%else
 BuildRequires:  gcc-c++ >= 8
 %endif
 BuildRequires:  hicolor-icon-theme
@@ -178,6 +178,7 @@ Obsoletes:      %{name}-nacheku
 Obsoletes:      %{name}-popishu
 Obsoletes:      %{name}-qrosp
 Obsoletes:      %{name}-syncer
+Obsoletes:      %{name}-vgrabber
 Obsoletes:      %{name}-vtyulc
 
 %description
@@ -319,7 +320,7 @@ Requires:       %{name}-musiczombie
 Requires:       %{name}-secman
 Requires:       %{name}-secman-simplestorage
 Requires:       %{name}-touchstreams
-Requires:       %{name}-vgrabber
+
 Recommends:     %{name}-scrobbler
 Suggests:       %{name}-lastfmscrobble
 Recommends:     %{name}-meta_tools
@@ -976,8 +977,8 @@ Recommends:     %{name}-namauth = %{version}
 
 %description cstp
 This package provides a HTTP implementation plugin for LeechCraft
-which will mainly used by many other plugins like Aggregator,
-SeekThru or vGrabber.
+which will mainly used by many other plugins like Aggregator or
+SeekThru.
 
 Features:
  * Support for redirects.
@@ -2033,7 +2034,7 @@ context-dependent actions and views. It also can collect status
 information from other plugins like unread channels.
 
 Summary also allows to perform searches via the installed plugins
-like SeekThru, HistoryHolder or vGrabber.
+like SeekThru or HistoryHolder.
 
 Features:
  * List of current tasks and events with context-dependent actions
@@ -2111,18 +2112,6 @@ Requires:       %{name}-sb2 = %{version}
 
 %description tpi
 This package provides a Task Progress Indicator quark plugin for Leechcraft.
-
-
-%package vgrabber
-Summary:        LeechCraft Vkontakte grabber Module
-Group:          Productivity/Networking/Other
-Requires:       %{name} = %{version}
-Requires:       %{name}-summaryrepresentation = %{version}
-
-%description vgrabber
-This package provides a Vkontakte.ru plugin for LeechCraft
-which can search for, download, and play audio and video from the Russian
-social network Vkontakte.
 
 
 %package vrooby
@@ -2342,7 +2331,7 @@ cmake ../src \
         -DCMAKE_CXX_FLAGS="%{optflags}" \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-%if 0%{?suse_version} <= 1320
+%if 0%{?suse_version} <= 1320 || 0%{?sle_version} <= 150000
         -DCMAKE_C_COMPILER=/usr/bin/gcc-8 \
         -DCMAKE_CXX_COMPILER=/usr/bin/g++-8 \
 %endif
@@ -3379,12 +3368,6 @@ ctest --output-on-failure
 %defattr(-,root,root)
 %{plugin_dir}/*craft_tpi.so
 %{qml_dir}/tpi/
-
-%files vgrabber
-%defattr(-,root,root)
-%{settings_dir}/vgrabbersettings.xml
-%{translations_dir}/*craft_vgrabber*.qm
-%{plugin_dir}/*craft_vgrabber.so
 
 %files vrooby
 %defattr(-,root,root)
