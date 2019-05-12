@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat May 11 16:15:57 UTC 2019 - Dmitriy Perlow <dap.darkness@gmail.com>
+
+- Updated to 0.6.70-13186-g2c3ee31903 snapshot.
+- Qt4 EOL: qxmpp-qt5 was renamed into qxmpp.
+- Removed leechcraft-Qt59.diff (upstreamed).
+
+-------------------------------------------------------------------
 Sun Apr 14 12:43:33 UTC 2019 - Dmitriy Perlow <dap.darkness@gmail.com>
 
 - Updated to 0.6.70-13163-g100049e6a6 snapshot:

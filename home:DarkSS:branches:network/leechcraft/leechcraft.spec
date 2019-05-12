@@ -24,7 +24,7 @@
 %define qml_dir %{_datadir}/leechcraft/qml5
 
 %define so_ver -qt5-0_6_75
-%define LEECHCRAFT_VERSION 0.6.70-13163-g100049e6a6
+%define LEECHCRAFT_VERSION 0.6.70-13186-g2c3ee31903
 
 %define db_postfix %{so_ver}_1
 %define gui_postfix %{so_ver}_1
@@ -43,7 +43,7 @@
 %define xsd_postfix %{so_ver}
 
 Name:           leechcraft
-Version:        0.6.70+git.13163.g100049e6a6
+Version:        0.6.70+git.13186.g2c3ee31903
 Release:        0
 Summary:        Modular Internet Client
 License:        BSL-1.0
@@ -54,8 +54,6 @@ Source0:        https://dist.leechcraft.org/LeechCraft/0.6.75/leechcraft-%{LEECH
 Source4:        %{name}-rpmlintrc
 Source8:        leechcraft-session.1
 Source9:        lc_plugin_wrapper-qt5.1
-# PATCH-FEATURE-UPSTREAM for Qt 5.9 support.
-Patch0:         leechcraft-Qt59.diff
 
 BuildRequires:  cmake >= 3.8
 BuildRequires:  fdupes
@@ -79,6 +77,7 @@ BuildRequires:  libboost_thread-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  liblastfm-qt5-devel
 BuildRequires:  libqt5-qtbase-common-devel >= 5.9
+BuildRequires:  libqxmpp-qt5-devel
 BuildRequires:  libsensors4-devel
 BuildRequires:  libtidy-devel
 BuildRequires:  pkgconfig
@@ -158,7 +157,6 @@ BuildRequires:  pkgconfig(poppler-qt5)
 BuildRequires:  pkgconfig(purple)
 BuildRequires:  pkgconfig(qca2-qt5)
 BuildRequires:  pkgconfig(qtermwidget5)
-BuildRequires:  pkgconfig(qxmpp-qt5)
 BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(taglib)
 BuildRequires:  pkgconfig(xcb-renderutil)
@@ -674,8 +672,6 @@ Summary:        LeechCraft Azoth XMPP Module
 License:        BSL-1.0
 Group:          Productivity/Networking/Other
 Requires:       %{name}-azoth = %{version}
-Requires:       libqxmpp0 >= 0.8
-Recommends:     libqxmpp0 > 0.8
 Provides:       %{name}-azoth-protocolplugin
 Recommends:     %{name}-azoth-mucommands
 
@@ -2257,9 +2253,6 @@ XmlSettingsDialog LeechCraft subsystem.
 
 %prep
 %setup -q -n leechcraft-%{LEECHCRAFT_VERSION}
-%if 0%{?sle_version} <= 150100
-%patch0 -p1
-%endif
 
 #removing non-free icons
 rm -rf src/plugins/azoth/share/azoth/iconsets/clients/default
